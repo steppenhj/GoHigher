@@ -98,6 +98,44 @@
         --btn-color: #fff;
         --btn-hover-bg: var(--secondary-color);
       }
+      body.dark-mode {
+        background: #444;           /* 전체 배경 */
+        color: #cacaca;                   /* 기본 텍스트 색상 */
+      }
+      body.dark-mode header {
+        background: linear-gradient(135deg, #002b57, #004284);
+        color: #cacaca;
+      }
+      /* 다크 모드에서 nav 버튼 스타일 */
+      body.dark-mode nav ul li a {
+        color: #cacaca;           /* 텍스트 색상 */
+        border: 1px solid #cacaca; /* 테두리 색상도 동일하게 */
+        background-color: transparent; /* 배경을 투명으로 두거나 원하는 색상으로 지정 */
+      }
+      body.dark-mode .save-notice{
+        background: #555555;
+      }
+      /* hover 시 색상 변화(예시) */
+      body.dark-mode nav ul li a:hover {
+        background-color: #004284;
+        color: #cacaca; /* 배경이 밝아졌으므로 텍스트는 어두운색 */
+      }
+      body.dark-mode footer{
+        background: linear-gradient(135deg, #002b57, #004284);
+        color: #cacaca;
+      }
+      body.dark-mode .bottom-info div {
+        background: #555555 !important;
+      }
+      body.dark-mode .bottom-info div * {
+        color: #cacaca !important;
+      }
+      body.dark-mode main h2{
+        color: #cacaca;
+      }
+      body.dark-mode main table th{
+        background: #002b57;
+      }
       * {
         box-sizing: border-box;
         margin: 0;
@@ -617,70 +655,72 @@
 .news-pagination button:hover {
   background-color: #e2e2e2;
 }
-@media (max-width: 768px) {
-  /* 기본 폰트 및 레이아웃 조정 */
-  html {
-    font-size: 15px;
-  }
-  header,
-  main,
-  footer {
-    width: 100%;
-    max-width: 100%;
-    padding: 0.5rem;
-    margin: 0;
-  }
-  /* 내비게이션: 세로 스택 및 간격 축소 */
-  nav ul { flex-wrap: wrap; } 
 
-  
-  /* 테이블: 반응형 스크롤 및 폰트 크기 조정 */
-  table {
-    font-size: 0.9rem;
-    overflow-x: auto;
-    display: block;
-  }
-  th.number,
-  td.number {
-    width: 40px;
-  }
-  
-  /* 모달: 전체 너비 활용 및 내부 패딩 조정 */
-  .modal {
-    width: 90%;
-    max-width: 90%;
-    padding: 1rem;
-  }
-  .modal-header h2 {
-    font-size: 1.5rem;
-  }
-  .modal-body {
-    font-size: 0.95rem;
-    padding: 1rem;
-  }
-  /* 탭 버튼: 폰트 크기 및 간격 축소 */
-  .modal-tabs {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .tab-btn {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-  /* 닫기 버튼 크기 조정 */
-  .close-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  /* 뉴스 섹션: 뉴스 아이템 및 페이지네이션 버튼 조정 */
-  #news .news-item a {
-    font-size: 1.2rem;
-  }
-  .news-pagination button {
-    font-size: 0.8rem;
-    padding: 4px 8px;
-  }
+/* 다크모드 - 전체 배경, 기본 텍스트 */
+body.dark-mode {
+  background: #444;
+  color: #cacaca;
+}
+
+/* 다크모드 - 테이블 */
+body.dark-mode table {
+  background-color: #333; 
+  color: #cacaca;
+  border-color: #555; 
+}
+body.dark-mode table th,
+body.dark-mode table td {
+  border-color: #555;
+}
+
+/* thead나 특정 tr에 대한 배경 */
+body.dark-mode table thead {
+  background-color: #222;
+  color: #fff;
+}
+body.dark-mode table tbody tr:nth-child(odd) {
+  background-color: #2f2f2f;
+}
+body.dark-mode table tbody tr:nth-child(even) {
+  background-color: #242424;
+}
+body.dark-mode table tbody tr:hover {
+  background-color: #333;
+}
+
+/* 다크모드 - 모달 */
+body.dark-mode .modal {
+  background-color: #444 !important;
+  color: #cacaca !important;
+  border-color: #666 !important;
+}
+/* 모달 내부에서 h4 태그를 흰색으로 설정 */
+.modal-content h4 {
+  color: #fff !important;
+}
+
+body.dark-mode .modal-header {
+  background: linear-gradient(135deg, #002b57, #004284);
+  color: #cacaca;
+}
+body.dark-mode .modal-body {
+  background-color: #555;
+  color: #ddd;
+}
+/* 모달 내부 콘텐츠 */
+body.dark-mode .modal-content {
+  background-color: #555;
+  color: #ddd;
+}
+body.dark-mode .modal-header {
+  background: linear-gradient(135deg, #002b57, #004284) !important;
+  color: #cacaca !important;
+}
+
+body.dark-mode .modal-body,
+body.dark-mode .modal-content {
+  background-color: #555 !important;
+  color: #ddd !important;
 }
 
     </style>
@@ -4519,16 +4559,7 @@
         <h4>M&A 통합 리스크</h4>
         <ul>
           <li>인수합병 과정에서 예상치 못한 비용 발생 및 시너지 효과 지연 가능성</li>
-        </ul>
-
-        <h3>4. 경영 전략 및 혁신 요소</h3>
-        <ul>
-          <li><strong>디지털 전환 및 공정 혁신:</strong> 최신 IT 기술과 자동화 시스템 도입을 통해 프로젝트 관리 효율성을 극대화</li>
-          <li><strong>ESG 경영 강화:</strong> 친환경 건설 기술 및 지속 가능한 인프라 개발로 기업 이미지와 경쟁력 제고</li>
-          <li><strong>M&A 및 글로벌 확장:</strong> 전략적 인수합병과 제휴를 통해 사업 영역 확대 및 글로벌 시장 입지 강화</li>
-        </ul>
-
-        <h3>5. 밸류에이션 관점</h3>
+   <h3>5. 밸류에이션 관점</h3>
         <ul>
           <li><strong>PBR:</strong> 1.62</li>
           <li><strong>PER:</strong> EPS 12.33을 기준으로 평가 – 시장 평균 수준 또는 다소 저평가된 측면</li>
@@ -5222,6 +5253,43 @@
       // ---------------------------------------------------------------------------------------
       // (6) 모달 열기 시(=openModalByTicker) : 뉴스 부분은 renderNews(ticker, 1)로 처리
       function openModalByTicker(ticker) {
+        // 모달 보이기
+        const modalOverlay = document.getElementById("modalOverlay");
+        modalOverlay.classList.add("active");
+
+        // 탭 버튼/콘텐츠 초기화
+        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll(".modal-content").forEach((content) => content.classList.remove("active"));
+
+        // 기본 탭(개요) 활성화
+        const defaultTab = document.querySelector('.tab-btn[data-tab="overview"]');
+        const defaultContent = document.getElementById("overview");
+        if (defaultTab && defaultContent) {
+          defaultTab.classList.add("active");
+          defaultContent.classList.add("active");
+        }
+        // 해당 종목 정보(업데이트 날짜 등) 설정
+        const foundStock = stocks.find(s => s.ticker === ticker);
+        if (foundStock) {
+          document.getElementById("modalTitle").textContent = ""; // 제목 필요시 설정
+          document.getElementById("modalUpdateDate").textContent = `업데이트: ${foundStock.updateDate}`;
+        }
+    
+        // 탭별 콘텐츠 할당
+        const data = modalData[ticker];
+        if (data) {
+          document.getElementById("overview").innerHTML = data.overview || "";
+          document.getElementById("diagnosis").innerHTML = data.diagnosis || "";
+          document.getElementById("value").innerHTML = data.value || "";
+          document.getElementById("finance").innerHTML = data.finance || "";
+          // 뉴스는 페이지네이션 함수 호출
+          renderNews(ticker, 1);
+          document.getElementById("dividend").innerHTML = data.dividend || "";
+          document.getElementById("opinion").innerHTML = data.opinion || "";
+        }
+      }
+
+      function openModalByTicker(ticker) {
   // 모달 보이기
   const modalOverlay = document.getElementById("modalOverlay");
   modalOverlay.classList.add("active");
@@ -5315,6 +5383,13 @@ function closeModal() {
         return "my-secret-key";
       }
       console.log(getSecretKey());
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.body.classList.add('dark-mode');
+        }
+      });
     </script>    
   </body>
 </html>

@@ -48,6 +48,54 @@
       --light-gray: #e0e0e0;
       --text-color: #333;
     }
+    body.dark-mode {
+        background: #444;           /* 전체 배경 */
+        color: white;                   /* 기본 텍스트 색상 */
+      }
+      body.dark-mode header {
+        background: linear-gradient(135deg, #002b57, #004284);
+        color: #cacaca;
+      }
+      /* 다크 모드에서 nav 버튼 스타일 */
+      body.dark-mode nav ul li a {
+        color: #cacaca;           /* 텍스트 색상 */
+        border: 1px solid #cacaca; /* 테두리 색상도 동일하게 */
+        background-color: transparent; /* 배경을 투명으로 두거나 원하는 색상으로 지정 */
+      }
+
+      /* hover 시 색상 변화(예시) */
+      body.dark-mode nav ul li a:hover {
+        background-color: #004284;
+        color: #cacaca; /* 배경이 밝아졌으므로 텍스트는 어두운색 */
+      }
+      body.dark-mode footer{
+        background: linear-gradient(135deg, #002b57, #004284);
+        color:#cacaca;
+      }
+      body.dark-mode .save-notice{
+        background: #555555;
+        color: #cacaca;
+      }
+      body.dark-mode .section-container {
+        background: #555 !important;
+        color: #cacaca !important;
+      }
+
+      body.dark-mode .recommendation {
+        background: #666 !important;
+        color: #cacaca !important;
+      }
+
+      body.dark-mode .modal-content {
+        background: #555 !important;
+        color: #cacaca !important;
+      }
+
+      /* 'card' 스타일이 들어간 오른쪽 차트 박스 */
+      body.dark-mode .right-chart.card {
+        background: #555 !important;
+        color: #cacaca !important;
+      }
     html { font-size: 16px; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -1102,7 +1150,7 @@
         ctx.fillText("데이터가 없습니다.", 50, 150);
         return;
       }
-      
+            
       const backgroundColors = names.map(() => {
         const r = Math.floor(Math.random() * 200);
         const g = Math.floor(Math.random() * 200);
@@ -1827,6 +1875,13 @@
 
     function getSecretKey() { return "my-secret-key"; }
     console.log(getSecretKey());
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.body.classList.add('dark-mode');
+        }
+      });
   </script>
 </body>
 </html>
