@@ -91,6 +91,107 @@
         color: #cacaca !important;
       }
 
+      /* 다크모드 - 메모 모달 내 텍스트 영역 개선 */
+body.dark-mode #memoModal .modal-content textarea {
+  background: #555 !important;
+  color: #fff !important;
+  border: 1px solid #777 !important;
+}
+
+body.dark-mode #calendarModal .modal-content,
+body.dark-mode #calendarModal .modal-content * {
+  color: #fff !important;
+}
+
+body.dark-mode #calendarModal .modal-content textarea::placeholder {
+  color: #fff !important;
+}
+
+/* Chrome 등 WebKit 기반 브라우저의 autofill 스타일 강제 지정 */
+body.dark-mode #memoModal .modal-content textarea:-webkit-autofill,
+body.dark-mode #memoModal .modal-content textarea:-webkit-autofill:hover,
+body.dark-mode #memoModal .modal-content textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #555 inset !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+/* Firefox용 autofill 스타일 (존재하는 경우) */
+body.dark-mode #memoModal .modal-content textarea:-moz-autofill {
+  box-shadow: 0 0 0 1000px #555 inset !important;
+  -moz-text-fill-color: #fff !important;
+}
+
+/* 다크모드 - 가계부 모달 스타일 최적화 */
+body.dark-mode #accountBookModal .modal-content {
+  background: #333 !important;
+  color: #fff !important;
+  box-shadow: none;
+}
+
+body.dark-mode #accountBookModal .account-book-form input,
+body.dark-mode #accountBookModal .account-book-form select,
+body.dark-mode #accountBookModal .account-book-form button {
+  background: #444 !important;
+  color: #fff !important;
+  border: 1px solid #666 !important;
+}
+
+body.dark-mode #accountBookModal .account-book-entries th,
+body.dark-mode #accountBookModal .account-book-entries td {
+  border: 1px solid #666 !important;
+  color: #fff !important;
+  background: #333;
+}
+
+body.dark-mode #accountBookModal .fixed-expense-calculator {
+  background: #333 !important;
+  color: #fff !important;
+  border-top: 1px solid #666 !important;
+}
+
+/* (옵션) 가계부 모달 내 버튼 스타일 통일 */
+body.dark-mode #accountBookModal .modal-content button {
+  background: #444 !important;
+  color: #fff !important;
+  border: 1px solid #666 !important;
+}
+/* [달력 메모 모달] 다크모드 최적화: 모달 전체 및 내부 텍스트 색상을 흰색으로 설정 */
+body.dark-mode #memoModal .modal-content,
+body.dark-mode #memoModal .modal-content * {
+  color: #fff !important;
+}
+body.dark-mode #memoModal .modal-content textarea {
+  background: #555 !important;
+  color: #fff !important;
+  border: 1px solid #777 !important;
+}
+body.dark-mode #memoModal .modal-content textarea::placeholder {
+  color: #fff !important;
+}
+
+/* [To Do List 모달] 다크모드 최적화: 배경, 입력창, 버튼 및 리스트 항목의 색상 조정 */
+body.dark-mode #goalManagementModal .modal-content {
+  background: #333 !important;
+  color: #fff !important;
+}
+body.dark-mode #goalManagementModal .todo-form input[type="text"],
+body.dark-mode #goalManagementModal .todo-form button {
+  background: #444 !important;
+  color: #fff !important;
+  border: 1px solid #666 !important;
+}
+body.dark-mode #goalManagementModal .todo-list .todo-item {
+  background: #444 !important;
+  border: 1px solid #666 !important;
+  color: #fff !important;
+}
+body.dark-mode #goalManagementModal .todo-item button.delete-btn {
+  background: #444 !important;
+  color: #fff !important;
+  border: 1px solid #666 !important;
+}
+
+
       /* 'card' 스타일이 들어간 오른쪽 차트 박스 */
       body.dark-mode .right-chart.card {
         background: #555 !important;
@@ -750,7 +851,8 @@
       <h4 id="modalTitle">메모 입력</h4>
       <textarea id="modalTextarea" placeholder="메모를 입력하세요" style="width:100%; height: 100px;"></textarea>
       <div style="text-align: right; margin-top: 10px;">
-        <button id="saveModalBtn">저장</button>
+        <button id="saveModalBtn" class="primary-btn">저장</button>
+
         <button id="cancelModalBtn" class="cancel-btn" style="background:#b30000; color:#fff; border:none; border-radius:4px; padding: 0.4rem 0.8rem;">취소</button>
       </div>
     </div>
