@@ -464,26 +464,25 @@
       </p>
     </section>
 
-    <!-- 목표 관리 (기존 나의 자산 목표를 대체) -->
     <!-- 메인 페이지 내 '목표 관리 열기' 버튼 추가 -->
     <section class="section-container" id="goal-management-btn">
       <div class="section-header">
-        <h3>목표 관리</h3>
+        <h3>To Do List</h3>
         <button class="primary-btn" onclick="openModal('goalManagementModal')">열기</button>
       </div>
       <p style="font-size:0.9rem; margin-top: 10px;">
-        자산 목표와 To Do List를 관리하세요.
+        일정을 관리하세요.
       </p>
     </section>
 
     <!-- 투자 일지 -->
     <section class="section-container" id="investment-diary">
       <div class="section-header">
-        <h3>투자 일지</h3>
+        <h3>기록</h3>
         <button class="primary-btn" onclick="openModal('investmentDiaryModal')">열기</button>
       </div>
       <p style="font-size:0.9rem; margin-top: 10px;">
-        날마다 투자하면서 느낀 점을 기록하세요.
+        오늘의 투자, 감정, 사건 등을 기록하세요.
       </p>
     </section>
 
@@ -605,8 +604,8 @@
   <div id="investmentDiaryModal" class="modal">
     <div class="modal-content investment-diary">
       <button class="modal-close-btn" onclick="closeModal('investmentDiaryModal')">닫기</button>
-      <h3>투자 일지</h3>
-      <textarea id="investmentDiary" placeholder="오늘의 투자 일지를 작성하세요..." style="width: 100%; height: 150px; margin-top: 1rem;"></textarea>
+      <h3>기록</h3>
+      <textarea id="investmentDiary" placeholder="오늘의 투자, 감정, 사건 등을 기록하세요..." style="width: 100%; height: 150px; margin-top: 1rem;"></textarea>
       <button id="saveDiaryBtn" style="margin-top: 0.5rem;">저장</button>
       <div id="diaryEntries" style="margin-top: 1rem;"></div>
     </div>
@@ -616,7 +615,7 @@
   <div id="goalManagementModal" class="modal">
     <div class="modal-content">
       <button class="modal-close-btn" onclick="closeModal('goalManagementModal')">닫기</button>
-      <h3>목표 관리 - To Do List</h3>
+      <h3>To Do List</h3>
       <div class="todo-form">
         <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
         <button id="addTodoBtn">추가</button>
