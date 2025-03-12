@@ -193,6 +193,62 @@ body.dark-mode #goalManagementModal .todo-item button.delete-btn {
 body.dark-mode main h2{
         color: #002b57;
       }
+/* 공통 다크모드 모달 스타일 */
+body.dark-mode .modal-content {
+  background-color: #333 !important;  /* 다크 모드 모달 배경: 기존 #555보다 더 어두운 색 */
+  color: #fff !important;             /* 텍스트는 흰색으로 대비 강화 */
+  border: 1px solid #444 !important;  /* 모달 테두리: 깔끔한 구분 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* 약간의 그림자로 모달 강조 */
+  transition: background 0.3s, color 0.3s;
+}
+
+/* 모달 내 폼 요소(입력창, textarea, select, 버튼) 개선 */
+body.dark-mode .modal-content input,
+body.dark-mode .modal-content textarea,
+body.dark-mode .modal-content select,
+body.dark-mode .modal-content button {
+  background-color: #444 !important; /* 입력창 등 배경을 어둡게 */
+  color: #fff !important;            /* 텍스트 대비 강화 */
+  border: 1px solid #555 !important; /* 경계선 색상 조정 */
+  transition: background 0.3s, color 0.3s;
+}
+
+/* 모달 닫기 버튼 개별 스타일 */
+body.dark-mode .modal-close-btn {
+  background: #800000 !important; /* 다크 모드에서도 눈에 띄는 닫기 버튼 색상 */
+  color: #fff !important;
+}
+
+/* 투자 일지 모달의 textarea 개선 */
+body.dark-mode #investmentDiaryModal .modal-content textarea {
+  background: #444 !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+
+/* To Do List (목표 관리) 모달 개선 */
+body.dark-mode #goalManagementModal .modal-content {
+  background-color: #2e2e2e !important;
+  color: #fff !important;
+}
+body.dark-mode #goalManagementModal .todo-form input[type="text"],
+body.dark-mode #goalManagementModal .todo-form button {
+  background-color: #3a3a3a !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+
+/* 투자 체크리스트 모달 개선 */
+body.dark-mode #investmentChecklistModal .modal-content {
+  background-color: #2e2e2e !important;
+  color: #fff !important;
+}
+body.dark-mode #investmentChecklistModal .modal-content button,
+body.dark-mode #investmentChecklistModal .modal-content input {
+  background-color: #3a3a3a !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
 
       /* 'card' 스타일이 들어간 오른쪽 차트 박스 */
       body.dark-mode .right-chart.card {
@@ -1010,7 +1066,7 @@ body.dark-mode main h2{
       if(assetChart) {
         assetChart.destroy();
       }
-      const dataLabelColor = (assetChartType === 'bar') ? '#000' : '#fff';
+      const dataLabelColor = '#fff';
 
       assetChart = new Chart(ctx, {
         type: assetChartType,
@@ -1265,7 +1321,8 @@ body.dark-mode main h2{
       if(stockChart) {
         stockChart.destroy();
       }
-      const dataLabelColor = (stockChartType === 'bar') ? '#000' : '#fff';
+      const dataLabelColor = '#fff';
+
 
       stockChart = new Chart(ctx, {
         type: stockChartType,
