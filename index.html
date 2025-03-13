@@ -1082,15 +1082,26 @@ var naver_id_login = new naver_id_login("L6zLacbhxxtrt7F39xKt", "https://gohighe
 naver_id_login.get_naver_userprofile(naverSignInCallback);
 
 function naverSignInCallback() {
-    const email = naver_id_login.getProfileData('email');
-    const nickname = naver_id_login.getProfileData('nickname');
-    const age = naver_id_login.getProfileData('age');
+  const email = naver_id_login.getProfileData('email');
+  const nickname = naver_id_login.getProfileData('nickname');
+  const age = naver_id_login.getProfileData('age');
 
-    console.log("네이버 로그인 성공!");
-    console.log("이메일:", email);
-    console.log("닉네임:", nickname);
-    console.log("나이:", age);
+  console.log("네이버 로그인 성공!");
+  console.log("이메일:", email);
+  console.log("닉네임:", nickname);
+  console.log("나이:", age);
+
+  // [중요!] localStorage에 저장
+  localStorage.setItem('naverEmail', email);
+  localStorage.setItem('naverNickname', nickname);
+  localStorage.setItem('naverAge', age);
+
+  alert(nickname + "님, 네이버 로그인이 완료되었습니다!");
+
+  // index.html로 이동
+  window.location.href = "index.html";
 }
+
 
       // PWA 설치 관련
       let deferredPrompt;
