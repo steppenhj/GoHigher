@@ -6,7 +6,6 @@
   <!-- 네이버 로그인 SDK -->
   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
   <style>
-    /* 기존 CSS 그대로 유지 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: sans-serif; text-align: center; color: #333; margin: 20px; }
     h1 { font-size: 1.5rem; margin-bottom: 1rem; }
@@ -67,6 +66,7 @@
 <body>
   <h1>회원로그인</h1>
 
+  <!-- 네이버 로그인 버튼 렌더링 영역 -->
   <div class="login-container" id="naver_id_login"></div>
 
   <!-- 카카오 로그인 커스텀 버튼 (예시) -->
@@ -92,13 +92,62 @@
   </div>
 
   <script type="text/javascript">
-    var naver_id_login = new naver_id_login("L6zLacbhxxtrt7F39xKt", "https://gohigher.kr/");
+    // ---------------------------------------
+    // (1) 네이버 로그인 객체 생성
+    // ---------------------------------------
+    var naver_id_login = new naver_id_login(
+      "L6zLacbhxxtrt7F39xKt",     // 본인의 client_id
+      "https://gohigher.kr/"     // 콜백 URL (네이버 개발자센터에 등록한 것과 동일)
+    );
+
+    // (2) 상태 토큰 생성 (CSRF 방지용)
     var state = naver_id_login.getUniqState();
-    naver_id_login.setButton("white", 2, 40);
-    naver_id_login.setDomain("https://gohigher.kr/login");
     naver_id_login.setState(state);
-    naver_id_login.setPopup();
+
+    // (3) 버튼 스타일 설정
+    // - setButton("버튼색상", "글자크기", "가로길이" ...)
+    // - "green", 3, 50 등등
+    // - 단, 최신 스펙에서는 color/size 지정 없이도 사용 가능
+    naver_id_login.setButton("white", 2, 40);
+
+    // (4) 로그인 유지 및 도메인 설정
+    naver_id_login.setDomain("gohigher.kr");
+
+    // (5) 팝업 여부 설정 (팝업으로 열고 싶을 때)
+    naver_id_login.setPopup(); 
+
+    // (6) 초기화
     naver_id_login.init_naver_id_login();
+
+    // (7) 로그인이 완료된 뒤, 프로필 정보를 가져오는 콜백
+    function naverSignInCallback() {
+      // 프로필 정보 가져오기
+      const email = naver_id_login.getProfileData('email');
+      const nickname = naver_id_login.getProfileData('nickname');
+      const age = naver_id_login.getProfileData('age');
+
+      console.log("네이버 로그인 성공!");
+      console.log("이메일:", email);
+      console.log("닉네임:", nickname);
+      console.log("나이:", age);
+
+      // -- 여기서 받은 정보로 회원 DB 등록, 세션 생성 등 후속 작업을 진행하면 됩니다. --
+      // 예: 쿠키 혹은 로컬스토리지에 저장 후 메인 페이지로 이동:
+      alert(nickname + "님, 네이버 로그인이 완료되었습니다!");
+
+      // 로그인 후 메인 페이지로 이동
+      window.location.href = "index.html";
+    }
+
+    // (8) 실제로 사용자 프로필 정보를 가져오기 위한 함수 호출
+    // 로그인 완료 후(페이지가 콜백 URL로 돌아온 뒤) 자동 실행됨
+    naver_id_login.get_naver_userprofile("naverSignInCallback");
+
+    // (9) 카카오 로그인 버튼 (예시)
+    function onKakaoLogin() {
+      alert("카카오 로그인 연동 예정입니다.");
+      // 실제 카카오 개발자 센터 REST API 연동 필요
+    }
   </script>
 </body>
 </html>
