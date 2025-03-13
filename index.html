@@ -147,7 +147,6 @@
     </script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
      <!-- Naver Login SDK (Implicit) -->
      <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 
@@ -583,38 +582,65 @@
       .section-divider, .footer-divider svg path {
         fill: #fff;
       }
-      .login-container {
-        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
-        margin-left: auto;
-      }
+/* 원래 login-btn 스타일 복원 (예시) */
+.login-btn {
+  display: inline-block;
+  background-color: #fff;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px; /* pill 형태로 둥글게 */
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+  cursor: pointer; /* 버튼 마우스 커서 */
+}
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  background-color: var(--secondary-color);
+  color: #fff;
+}
 
-      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
-      .login-container {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-      }
+/* 로그아웃 버튼도 비슷하게 하고 싶다면 (원하시는 대로 수정하세요) */
+.logout-btn {
+  display: none; /* 처음에 감춤 */
+  background-color: #fff;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  background-color: var(--secondary-color);
+  color: #fff;
+}
 
-      /* 로그인 버튼 스타일 (조금 더 세련되게) */
-      .login-btn {
-        display: inline-block;
-        background-color: #fff;
-        color: var(--primary-color);
-        border: none;
-        padding: 0.6rem 1.2rem;
-        border-radius: 20px; /* pill 형태로 둥글게 */
-        font-weight: bold;
-        text-decoration: none;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-      }
+/* 로그인/로그아웃 컨테이너 – flex 배치 */
+.login-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center; /* 닉네임, 버튼 수직정렬 */
+}
 
-      .login-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        background-color: var(--secondary-color);
-        color: #fff;
-      }
+/* 닉네임 표시 영역 */
+.user-info {
+  font-weight: bold;
+  margin-right: 0.5rem;
+  display: none; /* 처음엔 숨기고 JS로 토글 */
+  color: var(--primary-color); /* 닉네임 색상 (원하는 대로) */
+}
+
       @media (max-width: 768px) {
         body {
           font-size: 18px;
@@ -647,11 +673,17 @@
           <li><a href="중소형주식.html"><i class="fas fa-star"></i> 중소형주식 추천</a></li>
         </ul>
       </nav>
-      <div class="login-container">
-        <a href="login.html" class="login-btn">
-          <i class="fas fa-sign-in-alt"></i> 로그인
-        </a>
-      </div>
+    <!-- 로그인/로그아웃 영역 -->
+    <div class="login-container">
+      <!-- 1) 로그인 버튼 (기본 표시) -->
+      <a href="login.html" class="login-btn" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> 로그인
+      </a>
+      <!-- 2) 로그인된 사용자 닉네임 (JS로 동적 표시) -->
+      <div class="user-info" id="userInfo"></div>
+      <!-- 3) 로그아웃 버튼 -->
+      <button class="logout-btn" id="logoutBtn">로그아웃</button>
+    </div>
     </header>
 
     <!-- [추가] 파도형 섹션 구분 - header와 메인 사이에 배치 -->
@@ -1012,6 +1044,40 @@
     </button>
 
     <script>
+    // --------------- [A] 로그인 여부 확인 & UI 업데이트 ---------------
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginBtn = document.getElementById('loginBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const userInfo = document.getElementById('userInfo');
+
+      // localStorage에서 nickname 가져오기
+      const nickname = localStorage.getItem('naverNickname');
+      
+      if (nickname) {
+        // 이미 로그인된 상태
+        loginBtn.style.display = 'none';  // 로그인 버튼 숨기기
+        userInfo.textContent = nickname + ' 님 환영합니다!';
+        userInfo.style.display = 'inline-block';  // 닉네임 표시
+        logoutBtn.style.display = 'inline-block'; // 로그아웃 버튼 보이기
+      } else {
+        // 로그아웃 상태
+        loginBtn.style.display = 'inline-block';
+        userInfo.style.display = 'none';
+        logoutBtn.style.display = 'none';
+      }
+
+      // --------------- [B] 로그아웃 동작 ---------------
+      logoutBtn.addEventListener('click', function() {
+        // localStorage에서 값 제거
+        localStorage.removeItem('naverEmail');
+        localStorage.removeItem('naverNickname');
+        localStorage.removeItem('naverAge');
+        
+        // 페이지 새로고침 (또는 index.html로 이동)
+        window.location.reload(); 
+      });
+    });
+
 var naver_id_login = new naver_id_login("L6zLacbhxxtrt7F39xKt", "https://gohigher.kr/");
 naver_id_login.get_naver_userprofile(naverSignInCallback);
 
