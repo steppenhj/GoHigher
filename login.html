@@ -67,12 +67,7 @@
 <body>
   <h1>회원로그인</h1>
 
-  <!-- 커스텀 네이버 로그인 버튼 -->
-  <div class="login-container">
-    <a class="btn naver-btn" onclick="onNaverLogin()">
-      네이버 로그인
-    </a>
-  </div>
+  <div class="login-container" id="naver_id_login"></div>
 
   <!-- 카카오 로그인 커스텀 버튼 (예시) -->
   <div class="login-container">
@@ -96,35 +91,14 @@
     </ol>
   </div>
 
-  <!-- 네이버 SDK 전용 영역 (필수, 하나만 존재) -->
-  <div id="naver_id_login" style="display: none;"></div>
-
   <script type="text/javascript">
-    // (1) 네이버 로그인 객체 생성
-    var naver_id_login = new naver_id_login(
-      "L6zLacbhxxtrt7F39xKt", // 발급받은 Client ID
-      "http://127.0.0.1:5500/index.html" // 콜백 URL
-    );
-
-    // (2) 상태 토큰 생성 & 설정
+    var naver_id_login = new naver_id_login("L6zLacbhxxtrt7F39xKt", "https://gohigher.kr/");
     var state = naver_id_login.getUniqState();
+    naver_id_login.setButton("white", 2, 40);
+    naver_id_login.setDomain("https://gohigher.kr/login");
     naver_id_login.setState(state);
-
-    // (3) 기본 버튼 그리기 (사용하지 않을 경우 setButton, init 함수는 제거)
-    //     커스텀만 사용할 것이므로 주석처리하거나 제거
-    // naver_id_login.setButton("white", 2, 40);
-    // naver_id_login.init_naver_id_login();
-
-    // (4) 커스텀 네이버 로그인 버튼 동작
-    function onNaverLogin() {
-      // 리다이렉트(콜백) 방식 → 콜백 URL로 이동하면서 로그인
-      naver_id_login.authorize();
-    }
-
-    // 카카오 로그인 예시 함수
-    function onKakaoLogin() {
-      alert("카카오 로그인 준비중...");
-    }
+    naver_id_login.setPopup();
+    naver_id_login.init_naver_id_login();
   </script>
 </body>
 </html>
