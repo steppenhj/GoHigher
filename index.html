@@ -65,6 +65,7 @@
     <link rel="icon" href="/logo.jpg" type="image/jpeg" />
 
     <script src="path/to/settings.js"></script>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 
     <!-- 구조화된 데이터: WebSite -->
     <script type="application/ld+json">
@@ -178,11 +179,23 @@
         border: 1px solid #cacaca; /* 테두리 색상도 동일하게 */
         background-color: transparent; /* 배경을 투명으로 두거나 원하는 색상으로 지정 */
       }
-
+      body.dark-mode .save-notice{
+        background: #555555;
+      }
       /* hover 시 색상 변화(예시) */
       body.dark-mode nav ul li a:hover {
         background-color: #004284;
         color: #cacaca; /* 배경이 밝아졌으므로 텍스트는 어두운색 */
+      }
+      body.dark-mode .login-btn {
+        background-color: transparent;   /* 투명 배경 */
+        color: #cacaca;                  /* nav 링크와 동일한 텍스트 색상 */
+        border: 1px solid #cacaca;       /* 테두리 */
+      }
+
+      body.dark-mode .login-btn:hover {
+        background-color: #004284;       /* 호버 시 배경색 */
+        color: #cacaca;                  /* 텍스트 색상 */
       }
       body.dark-mode .section-divider svg path {
         fill:#EAEAEA;
@@ -208,6 +221,9 @@
       }
       body.dark-mode .main-content .news-card{
         background: #333;
+      }
+      body.dark-mode .main-content .news-card h2{
+        background: #cacaca;
       }
       body.dark-mode .main-content #magnificent-seven {
         background: #333;
@@ -240,10 +256,6 @@
       body.dark-mode aside.sidebar h2 {
         color: #cacaca;      /* 원하는 텍스트 색상 */
       }
-      body.dark-mode .blue {
-  color: #81d4fa !important; /* 밝은 파란색으로 변경 */
-}
-
       * {
         box-sizing: border-box;
         margin: 0;
@@ -266,6 +278,7 @@
         text-align: center;
         box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         width: 100%;
+        position: relative;
       }
       header h1 {
         font-family: 'Roboto', sans-serif;
@@ -567,6 +580,38 @@
       .section-divider, .footer-divider svg path {
         fill: #fff;
       }
+      .login-container {
+        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
+        margin-left: auto;
+      }
+
+      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      /* 로그인 버튼 스타일 (조금 더 세련되게) */
+      .login-btn {
+        display: inline-block;
+        background-color: #fff;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px; /* pill 형태로 둥글게 */
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        background-color: var(--secondary-color);
+        color: #fff;
+      }
       @media (max-width: 768px) {
         body {
           font-size: 18px;
@@ -599,6 +644,11 @@
           <li><a href="중소형주식.html"><i class="fas fa-star"></i> 중소형주식 추천</a></li>
         </ul>
       </nav>
+      <div class="login-container">
+        <a href="login.html" class="login-btn">
+          <i class="fas fa-sign-in-alt"></i> 로그인
+        </a>
+      </div>
     </header>
 
     <!-- [추가] 파도형 섹션 구분 - header와 메인 사이에 배치 -->
@@ -636,7 +686,7 @@
           <br>3️⃣ <strong>대가들의 포트폴리오 분석</strong> – 유명 투자자 및 기업의 투자 전략 확인
           <br>4️⃣ <strong>미국 중소형주 추천</strong> – 유망한 미국 중소형 주식 소개
           <br><br>
-          지금 바로 최신 뉴스를 확인하고, 투자 전략을 세워보세요!
+          지금 바로 최신 뉴스를 확인하고, 투자 전략을 세워보세요! 🚀
         </div>
 
         <!-- 주식 시세 및 환율 정보 섹션 -->
@@ -653,63 +703,63 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                      <td>
-                          <img src="AMZN logo.png" alt="Amazon Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                          <strong>AMZN 아마존</strong>
-                      </td>
-                      <td>198.89 USD</td>
-                      <td><span class="red">1.16% 상승</span></td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <img src="TSLA logo.png" alt="Tesla Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                          <strong>TSLA 테슬라</strong>
-                      </td>
-                      <td>248.09 USD</td>
-                      <td><span class="red">7.68% 상승</span></td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <img src="NVDA logo.png" alt="NVIDIA Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                          <strong>NVDA 엔비디아</strong>
-                      </td>
-                      <td>115.74 USD</td>
-                      <td><span class="red">6.39% 상승</span></td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <img src="GOOGL logo.png" alt="Google Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                          <strong>GOOGL 구글</strong>
-                      </td>
-                      <td>167.11 USD</td>
-                      <td><span class="red">1.83% 상승</span></td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <img src="MSFT logo.png" alt="Microsoft Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                          <strong>MSFT 마이크로소프트</strong>
-                      </td>
-                      <td>383.27 USD</td>
-                      <td><span class="red">0.75% 상승</span></td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <img src="AAPL logo.png" alt="Apple Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                          <strong>AAPL 애플</strong>
-                      </td>
-                      <td>216.98 USD</td>
-                      <td><span class="blue">1.77% 하락</span></td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <img src="META logo.png" alt="Meta Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                          <strong>META 메타</strong>
-                      </td>
-                      <td>619.56 USD</td>
-                      <td><span class="red">2.26% 상승</span></td>
-                  </tr>
-              </tbody>
+                    <tr>
+                        <td>
+                            <img src="AMZN logo.png" alt="Amazon Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                            <strong>AMZN 아마존</strong>
+                        </td>
+                        <td>198.89 USD</td>
+                        <td><span class="red">1.16% 상승</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="TSLA logo.png" alt="Tesla Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                            <strong>TSLA 테슬라</strong>
+                        </td>
+                        <td>248.09 USD</td>
+                        <td><span class="red">7.68% 상승</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="NVDA logo.png" alt="NVIDIA Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                            <strong>NVDA 엔비디아</strong>
+                        </td>
+                        <td>115.74 USD</td>
+                        <td><span class="red">6.39% 상승</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="GOOGL logo.png" alt="Google Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                            <strong>GOOGL 구글</strong>
+                        </td>
+                        <td>167.11 USD</td>
+                        <td><span class="red">1.83% 상승</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="MSFT logo.png" alt="Microsoft Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                            <strong>MSFT 마이크로소프트</strong>
+                        </td>
+                        <td>383.27 USD</td>
+                        <td><span class="red">0.75% 상승</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="AAPL logo.png" alt="Apple Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                            <strong>AAPL 애플</strong>
+                        </td>
+                        <td>216.98 USD</td>
+                        <td><span class="blue">1.77% 하락</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="META logo.png" alt="Meta Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                            <strong>META 메타</strong>
+                        </td>
+                        <td>619.56 USD</td>
+                        <td><span class="red">2.26% 상승</span></td>
+                    </tr>
+                </tbody>
               </table>
             </div>
             <div class="half-section" id="schedule">
@@ -781,27 +831,23 @@
             <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
               <h3 itemprop="headline">미국 증시 급락</h3>
               <p itemprop="articleBody">
-                2025년 3월 12일(현지 시간) 뉴욕증시는 혼조세로 마감했습니다. 다우존스 산업평균지수는 82.67포인트(0.20%) 하락한 41,350.81포인트를 기록했으나, S&P 500 지수는 27.23포인트(0.49%) 상승한 5,599.30포인트로 마감했습니다. 나스닥 종합지수는 212.35포인트(1.22%) 상승한 17,648.45포인트를 기록했습니다.
-<br>
-이날 시장은 미국의 2월 소비자물가지수(CPI)가 예상보다 낮은 상승률을 기록하며 인플레이션 둔화 기대감이 반영되었으나, 트럼프 전 대통령의 무역 정책 관련 불확실성이 지속되면서 변동성이 확대되었습니다.
-<br>
-특히, AI 관련 기술주들이 강세를 보이며 나스닥 지수를 견인했습니다. 테슬라는 6.6% 상승하며 248.09달러로 마감했고, 엔비디아 역시 6.39% 급등하며 시장 상승을 주도했습니다.
-<br>
-이러한 시장 변동성에 대응하기 위해 투자자들은 지속적인 경제 지표와 글로벌 정세 변화를 면밀히 모니터링하는 것이 중요합니다.
-
+                ​3월 10일(현지 시간) 뉴욕증시의 3대 지수는 모두 큰 폭의 하락세로 마감했습니다. 다우존스 산업평균지수는 2.1% 하락한 41,911.71포인트, S&P 500 지수는 2.7% 하락한 5,614.56포인트, 나스닥 지수는 4.0% 하락한 17,468.32포인트를 기록했습니다. ​
+                <br><br>이러한 하락은 미국 경기 침체 우려와 관세 전쟁으로 인한 투자 심리 위축 등이 주요 원인으로 지목되고 있습니다. 
+                <br><br>특히, 테슬라는 15.4%의 급락을 기록하며, 지난해 10월 이후 가장 낮은 수준인 222.15달러로 마감했습니다. ​
+                <br><br>이러한 시장 변동성에 대응하기 위해 투자자들은 신중한 투자 전략을 고려해야 할 시점입니다.
               </p>
-              <span class="news-date" itemprop="datePublished" content="2025-03-13">
-                2025년 3월 12일
+              <span class="news-date" itemprop="datePublished" content="2025-03-07">
+                2025년 3월 11일
               </span>
             </article>
 
             <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
                 <h3 itemprop="headline">아시아 증시 하락세</h3>
                 <p itemprop="articleBody">
-                  아시아 주요 증시는 전반적인 하락세를 보였습니다. 일본 닛케이225 지수는 0.88% 하락한 36,990.00포인트로 마감했습니다. 중국 상하이종합지수는 0.25% 하락한 3,372.55포인트로 마감했습니다.
+                  ​3월 11일 아시아 주요 증시는 전반적인 하락세를 보였습니다. 일본 닛케이225 지수는 0.88% 하락한 36,990.00포인트로 마감했습니다. 중국 상하이종합지수는 0.25% 하락한 3,372.55포인트로 마감했습니다.
                 </p>
                 <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                  2025년 3월 12일
+                  2025년 3월 11일
                 </span>
               </article>
             </section>
@@ -822,31 +868,27 @@
                 </span>
               </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">트럼프, 캐나다 철강 및 알루미늄 제품에 대한 관세 50%로 인상 발표</h3>
+                <h3 itemprop="headline">북한 해킹조직, 애플 OS 취약점 악용해 암호화폐 탈취 시도</h3>
                 <p itemprop="articleBody">
-트럼프 대통령은 "미국 내 철강 산업과 일자리를 보호해야 한다"면서 관세 인상 배경을 설명했다. 그는 캐나다의 철강 및 알루미늄 제품이 미국 시장에서 불공정한 경쟁을 초래하고 있으며, 이에 따라 추가 조치가 필요하다고 주장했다.
-<br><br>
-이번 발표는 미국 내 철강 업계의 요청과 보호무역주의 기조를 반영한 것으로 보인다. 또한, 트럼프 대통령은 2018년 재임 당시에도 철강과 알루미늄 제품에 대해 25%의 관세를 부과한 바 있다.
-<br><br>
-<strong>캐나다 및 국제사회의 반응</strong><br>
-캐나다 정부는 즉각 반발하며 "불합리한 무역 장벽"이라고 비판했다. 크리스티아 프리랜드 캐나다 부총리는 "이러한 결정은 양국 경제 협력에 심각한 영향을 미칠 것"이라며 WTO(세계무역기구)에 제소할 가능성을 시사했다.
-<br><br>
-국제사회 또한 이번 관세 인상이 글로벌 무역 긴장을 고조시킬 수 있다고 우려를 표명했다. 특히, 유럽연합(EU)과 중국은 미국이 무역 장벽을 지속적으로 강화하는 것에 대해 비판적인 입장을 밝혔다.
-<br><br>
-<strong>경제적 영향과 전망</strong><br>
-경제 전문가들은 이번 조치가 미국 내 철강업체에는 긍정적일 수 있지만, 자동차 및 건설업계에는 부정적인 영향을 미칠 것이라고 분석했다. 철강과 알루미늄 가격 상승으로 인해 자동차, 항공, 인프라 산업에서 생산 비용 증가가 불가피할 전망이다.
-<br><br>
-한편, 이번 관세 인상이 미국-캐나다 간 무역 관계에 미치는 영향도 주목할 필요가 있다. 캐나다는 미국의 주요 철강 및 알루미늄 공급국이며, 양국의 무역 마찰이 지속될 경우 경제적 충격이 예상된다.
-<br><br>
-<strong>향후 전망</strong><br>
-트럼프 대통령은 이번 관세 인상 조치가 단기적인 보호무역 정책의 일환이라고 강조했으나, 캐나다 및 기타 무역 파트너들과의 협상이 불가피할 것으로 보인다. 향후 미국 정부와 캐나다 정부 간 협상 과정에서 관세 조정 여부가 주요 이슈로 부각될 전망이다.
-
-
+                  북한의 해킹조직이 애플 컴퓨터 운영체제의 취약점을 이용해 암호화폐 해킹 공격을 시도한
+                  정황이 포착되었습니다. 구글 산하 사이버 보안업체 맨디언트는 북한 해킹조직이 애플의
+                  로제타2 기술의 취약점을 악용해 악성코드를 설치하고, 이를 통해 암호화폐를 탈취하려
+                  했다고 밝혔습니다.
+                </p>
                 <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                  2025년 3월 12일
+                  2025년 3월 8일
                 </span>
               </article>
-
+              <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+                <h3 itemprop="headline">미국, 멕시코·캐나다 관세 한 달 유예</h3>
+                <p itemprop="articleBody">
+                  트럼프 대통령은 멕시코와 캐나다산 철강 및 알루미늄 제품에 부과 예정이던 25% 관세를
+                  한 달간 유예하기로 결정했습니다.
+                </p>
+                <span class="news-date" itemprop="datePublished" content="2025-03-07">
+                  2025년 3월 7일
+                </span>
+              </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
                 <h3 itemprop="headline">국민연금 개혁안 논의 본격화</h3>
                 <p itemprop="articleBody">
@@ -941,12 +983,11 @@
             </section>
           </main>
         </div>
-
-    <div class="footer-divider">
-      <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-        <path
-           d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"
-          ></path>
+        <div class="footer-divider">
+          <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+            <path
+              d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"
+            ></path>
           </svg>
         </div>
     <footer>
@@ -968,6 +1009,42 @@
     </button>
 
     <script>
+      // (1) 네이버 로그인 객체 생성
+      var naver_id_login = new naver_id_login(
+        "L6zLacbhxxtrt7F39xKt",            // 발급받은 Client ID
+        "http://127.0.0.1:5500/index.html" // 콜백 URL (현재 페이지)
+      );
+
+      // (2) 페이지 로드 시 토큰이 있는지 확인
+      window.onload = function() {
+        if (naver_id_login.oauthParams && naver_id_login.oauthParams.access_token) {
+          // 디버깅용 : 토큰 표시
+          alert("access_token : " + naver_id_login.oauthParams.access_token);
+
+          // 네이버 프로필 정보 조회
+          naver_id_login.get_naver_userprofile(naverSignInCallback);
+        }
+      };
+
+      // (3) 프로필 조회 후 콜백
+      function naverSignInCallback() {
+        // naver_id_login 객체로부터 정보 가져오기
+        var nickname    = naver_id_login.getProfileData('nickname');  // 별명
+        var email       = naver_id_login.getProfileData('email');     // 이메일
+        var gender      = naver_id_login.getProfileData('gender');    // 성별 (M/F)
+        var birthday    = naver_id_login.getProfileData('birthday');  // MM-DD
+        var birthyear   = naver_id_login.getProfileData('birthyear'); // 생년
+        var phonenumber = naver_id_login.getProfileData('mobile');    // 휴대전화번호 (mobile_e164 등)
+
+        alert("네이버 로그인 성공!\n"
+          + "닉네임: " + nickname + "\n"
+          + "이메일: " + email + "\n"
+          + "성별: " + gender + "\n"
+          + "생일: " + birthday + "\n"
+          + "생년: " + birthyear + "\n"
+          + "휴대폰번호: " + phonenumber
+        );
+      }
       // PWA 설치 관련
       let deferredPrompt;
       window.addEventListener("beforeinstallprompt", (event) => {

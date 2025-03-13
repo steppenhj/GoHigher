@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>회원로그인</title>
+  <!-- 네이버 로그인 SDK -->
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <style>
+    /* 기존 CSS 그대로 유지 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; text-align: center; color: #333; margin: 20px; }
+    h1 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .login-container { margin-bottom: 1rem; }
+    .btn {
+      display: inline-block;
+      width: 280px;
+      margin: 0.5rem auto;
+      padding: 0.8rem 0;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .naver-btn {
+      background-color: #03C75A;
+      color: #fff;
+    }
+    .kakao-btn {
+      background-color: #FEE500;
+      color: #000;
+    }
+    .notice {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    .info-box {
+      max-width: 600px;
+      margin: 1rem auto;
+      background-color: #efefff;
+      border-radius: 5px;
+      padding: 1rem;
+      text-align: left;
+      color: #333;
+    }
+    .info-box h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .info-box ol {
+      list-style-type: decimal;
+      padding-left: 1.2rem;
+    }
+    .info-box li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>회원로그인</h1>
+
+  <!-- 커스텀 네이버 로그인 버튼 -->
+  <div class="login-container">
+    <a class="btn naver-btn" onclick="onNaverLogin()">
+      네이버 로그인
+    </a>
+  </div>
+
+  <!-- 카카오 로그인 커스텀 버튼 (예시) -->
+  <div class="login-container">
+    <a href="#" class="btn kakao-btn" onclick="onKakaoLogin()">
+      카카오 로그인
+    </a>
+  </div>
+
+  <div class="notice">* 네이버, 카카오 개인정보 걱정없이 로그인이 가능합니다.</div>
+
+  <div class="info-box">
+    <h2>GoHigher가 제공하는 서비스</h2>
+    <ol>
+      <li>직접 분석하여 성장형 종목추천</li>
+      <li>간편한 자산관리 시스템 제공</li>
+      <li>경제지표 분석을 통해 시장흐름포착</li>
+      <li>섹터별 유망종목 안내</li>
+      <li>이벤트, 뉴스 실시간 분석</li>
+      <li>유명인의 포트폴리오 관람</li>
+      <li>매주 경제 일정 안내</li>
+    </ol>
+  </div>
+
+  <!-- 네이버 SDK 전용 영역 (필수, 하나만 존재) -->
+  <div id="naver_id_login" style="display: none;"></div>
+
+  <script type="text/javascript">
+    // (1) 네이버 로그인 객체 생성
+    var naver_id_login = new naver_id_login(
+      "L6zLacbhxxtrt7F39xKt", // 발급받은 Client ID
+      "http://127.0.0.1:5500/index.html" // 콜백 URL
+    );
+
+    // (2) 상태 토큰 생성 & 설정
+    var state = naver_id_login.getUniqState();
+    naver_id_login.setState(state);
+
+    // (3) 기본 버튼 그리기 (사용하지 않을 경우 setButton, init 함수는 제거)
+    //     커스텀만 사용할 것이므로 주석처리하거나 제거
+    // naver_id_login.setButton("white", 2, 40);
+    // naver_id_login.init_naver_id_login();
+
+    // (4) 커스텀 네이버 로그인 버튼 동작
+    function onNaverLogin() {
+      // 리다이렉트(콜백) 방식 → 콜백 URL로 이동하면서 로그인
+      naver_id_login.authorize();
+    }
+
+    // 카카오 로그인 예시 함수
+    function onKakaoLogin() {
+      alert("카카오 로그인 준비중...");
+    }
+  </script>
+</body>
+</html>
