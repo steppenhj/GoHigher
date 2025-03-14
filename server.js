@@ -79,7 +79,7 @@ app.get('/auth/logout', (req, res) => {
 
 // 정적 파일 제공 (예: public 폴더에 index.html, login.html 등이 있다면)
 const path = require('path');
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(__dirname));
 
 app.listen(3000, () => {
   console.log('서버가 포트 3000에서 실행 중입니다.');
