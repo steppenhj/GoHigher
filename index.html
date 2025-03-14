@@ -150,79 +150,78 @@
 
 
     <script type="module">
-      //파이어베이스
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-      import { getAuth, signInWithPopup, OAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+     import { getAuth, signInWithPopup, OAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+// Firebase 앱 초기화
+const firebaseConfig = {
+  apiKey: "AIzaSyCAmTilWmUvXYsaiEB_4YBbAbpQrC_ncKw",
+  authDomain: "gohigher-71407.firebaseapp.com",
+  projectId: "gohigher-71407",
+  storageBucket: "gohigher-71407.appspot.com",
+  messagingSenderId: "60380442113",
+  appId: "1:60380442113:web:dc1db984edc31394099a00",
+  measurementId: "G-RNCDEGBYQ7"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = getAuth();
+const provider = new OAuthProvider("oidc.Kakao");
+
+// 로그인 버튼 이벤트
+document.getElementById("kakao-login").addEventListener("click", async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    console.log("✅ 로그인 성공!", result.user);
     
-      const firebaseConfig = {
-        apiKey: "AIzaSyCAmTilWmUvXYsaiEB_4YBbAbpQrC_ncKw",
-        authDomain: "gohigher-71407.firebaseapp.com",
-        projectId: "gohigher-71407",
-        storageBucket: "gohigher-71407.firebasestorage.app",
-        messagingSenderId: "60380442113",
-        appId: "1:60380442113:web:dc1db984edc31394099a00",
-        measurementId: "G-RNCDEGBYQ7"
-      };
+    // localStorage에 사용자 정보 저장
+    localStorage.setItem("user", JSON.stringify(result.user));
+
+    alert(`환영합니다, ${result.user.displayName || "사용자"}!`);
+    updateUI(result.user);
+  } catch (error) {
+    console.error("❌ 로그인 실패:", error);
+    alert("로그인에 실패했습니다. 다시 시도해주세요.");
+  }
+});
+
+// 로그아웃
+document.getElementById("logout").addEventListener("click", () => {
+  auth.signOut().then(() => {
+    console.log("🚀 로그아웃 완료");
+    alert("로그아웃 되었습니다.");
     
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const provider = new OAuthProvider("oidc.Kakao");
-    
-      // 로그인 버튼 클릭 시 실행
-      document.getElementById("kakao-login").addEventListener("click", async () => {
-        try {
-          const result = await signInWithPopup(auth, provider);
-          console.log("✅ 로그인 성공!", result.user);
-    
-          // localStorage에 사용자 정보 저장 (페이지 새로고침 후에도 유지)
-          localStorage.setItem("user", JSON.stringify(result.user));
-    
-          alert(`환영합니다, ${result.user.displayName || "사용자"}!`);
-          updateUI(result.user); // UI 업데이트
-        } catch (error) {
-          console.error("❌ 로그인 실패:", error);
-          alert("로그인에 실패했습니다. 다시 시도해주세요.");
-        }
-      });
-    
-      // 로그아웃 버튼 클릭 시 실행
-      document.getElementById("logout").addEventListener("click", () => {
-        auth.signOut().then(() => {
-          console.log("🚀 로그아웃 완료");
-          alert("로그아웃 되었습니다.");
-    
-          // localStorage에서 사용자 정보 삭제
-          localStorage.removeItem("user");
-          updateUI(null);
-        });
-      });
-    
-      // 로그인 상태 확인
-      auth.onAuthStateChanged((user) => {
-        updateUI(user);
-      });
-    
-      // UI 업데이트 함수
-      function updateUI(user) {
-        const loginContainer = document.querySelector(".login-container");
-        if (user) {
-          loginContainer.innerHTML = `
-            <span>환영합니다, ${user.displayName || "사용자"}!</span>
-            <a href="#" class="login-btn" id="logout">
-              <i class="fas fa-sign-out-alt"></i> 로그아웃
-            </a>
-          `;
-          document.getElementById("logout").addEventListener("click", () => {
-            auth.signOut();
-          });
-        } else {
-          loginContainer.innerHTML = `
-            <a href="login.html" class="login-btn">
-              <i class="fas fa-sign-in-alt"></i> 로그인
-            </a>
-          `;
-        }
-      }
+    localStorage.removeItem("user");
+    updateUI(null);
+  });
+});
+
+// 로그인 상태 확인
+auth.onAuthStateChanged((user) => {
+  updateUI(user);
+});
+
+// UI 업데이트 함수
+function updateUI(user) {
+  const loginContainer = document.querySelector(".login-container");
+  if (user) {
+    loginContainer.innerHTML = `
+      <span>환영합니다, ${user.displayName || "사용자"}!</span>
+      <a href="#" class="login-btn" id="logout">
+        <i class="fas fa-sign-out-alt"></i> 로그아웃
+      </a>
+    `;
+    document.getElementById("logout").addEventListener("click", () => {
+      auth.signOut();
+    });
+  } else {
+    loginContainer.innerHTML = `
+      <a href="login.html" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> 로그인
+      </a>
+    `;
+  }
+}
+
     </script>
     
     
