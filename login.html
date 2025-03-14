@@ -6,21 +6,34 @@
   <!-- 네이버 로그인 SDK -->
   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
   <style>
-    /* 기존 CSS 일부 유지 및 기본 버튼 스타일로 간소화 */
+    /* 기존 CSS 그대로 유지 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: sans-serif; text-align: center; color: #333; margin: 20px; }
     h1 { font-size: 1.5rem; margin-bottom: 1rem; }
     .login-container { margin-bottom: 1rem; }
-    a.default-btn {
+    .btn {
       display: inline-block;
-      padding: 0.8rem 1rem;
+      width: 280px;
+      margin: 0.5rem auto;
+      padding: 0.8rem 0;
       font-size: 1rem;
-      text-decoration: none;
-      border: 1px solid #ccc;
+      font-weight: bold;
       border-radius: 5px;
-      margin: 0.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .naver-btn {
+      background-color: #03C75A;
+      color: #fff;
+    }
+    .kakao-btn {
+      background-color: #FEE500;
       color: #000;
-      background-color: #f5f5f5;
     }
     .notice {
       margin-top: 0.5rem;
@@ -57,9 +70,9 @@
   <!-- 네이버 로그인 영역 -->
   <div class="login-container" id="naver_id_login"></div>
 
-  <!-- 카카오 로그인 영역 (커스텀 버튼 대신 기본 링크 제공) -->
+  <!-- 카카오 로그인 커스텀 버튼 -->
   <div class="login-container">
-    <a href="https://kauth.kakao.com/oauth/authorize?client_id=38ace66b21a1efae075caae0f778eb4c&redirect_uri=https%3A%2F%2Fgohigher.kr%2Fauth%2Fkakao%2Fcallback&response_type=code" class="default-btn">
+    <a href="#" class="btn kakao-btn" onclick="onKakaoLogin()">
       카카오 로그인
     </a>
   </div>
@@ -85,11 +98,27 @@
     var naver_id_login = new naver_id_login("L6zLacbhxxtrt7F39xKt", "https://gohigher.kr/");
     var state = naver_id_login.getUniqState();
     naver_id_login.setButton("white", 2, 40);
-    // setDomain은 현재 설정과 일치하도록 관리하세요.
+    // setDomain에 꼭 "https://gohigher.kr" 형태로만 넣어야 하는 것은 아니지만,
+    // 현재 설정과 일치하도록 관리하세요.
     naver_id_login.setDomain("https://gohigher.kr/login");
     naver_id_login.setState(state);
     naver_id_login.setPopup();
     naver_id_login.init_naver_id_login();
+  </script>
+
+  <!-- 카카오 로그인 스크립트 -->
+  <script>
+    function onKakaoLogin() {
+      // 여기에 실제 카카오 REST API 키를 넣어 주세요.
+      const REST_API_KEY = '38ace66b21a1efae075caae0f778eb4c';
+      // 카카오 개발자 콘솔에 등록된 리다이렉트 URI와 동일하게 설정해야 합니다.
+      const redirectUri = 'https://gohigher.kr/auth/kakao/callback';
+
+      const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`;
+
+      // 카카오 인증 페이지로 이동
+      window.location.href = kakaoAuthUrl;
+    }
   </script>
 </body>
 </html>
