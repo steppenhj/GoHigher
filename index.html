@@ -148,85 +148,6 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-
-    <script type="module">
-     import { getAuth, signInWithPopup, OAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-
-// Firebase 앱 초기화
-const firebaseConfig = {
-  apiKey: "AIzaSyCAmTilWmUvXYsaiEB_4YBbAbpQrC_ncKw",
-  authDomain: "gohigher-71407.firebaseapp.com",
-  projectId: "gohigher-71407",
-  storageBucket: "gohigher-71407.appspot.com",
-  messagingSenderId: "60380442113",
-  appId: "1:60380442113:web:dc1db984edc31394099a00",
-  measurementId: "G-RNCDEGBYQ7"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = getAuth();
-const provider = new OAuthProvider("oidc.Kakao");
-
-// 로그인 버튼 이벤트
-document.getElementById("kakao-login").addEventListener("click", async () => {
-  try {
-    const result = await signInWithPopup(auth, provider);
-    console.log("✅ 로그인 성공!", result.user);
-    
-    // localStorage에 사용자 정보 저장
-    localStorage.setItem("user", JSON.stringify(result.user));
-
-    alert(`환영합니다, ${result.user.displayName || "사용자"}!`);
-    updateUI(result.user);
-  } catch (error) {
-    console.error("❌ 로그인 실패:", error);
-    alert("로그인에 실패했습니다. 다시 시도해주세요.");
-  }
-});
-
-// 로그아웃
-document.getElementById("logout").addEventListener("click", () => {
-  auth.signOut().then(() => {
-    console.log("🚀 로그아웃 완료");
-    alert("로그아웃 되었습니다.");
-    
-    localStorage.removeItem("user");
-    updateUI(null);
-  });
-});
-
-// 로그인 상태 확인
-auth.onAuthStateChanged((user) => {
-  updateUI(user);
-});
-
-// UI 업데이트 함수
-function updateUI(user) {
-  const loginContainer = document.querySelector(".login-container");
-  if (user) {
-    loginContainer.innerHTML = `
-      <span>환영합니다, ${user.displayName || "사용자"}!</span>
-      <a href="#" class="login-btn" id="logout">
-        <i class="fas fa-sign-out-alt"></i> 로그아웃
-      </a>
-    `;
-    document.getElementById("logout").addEventListener("click", () => {
-      auth.signOut();
-    });
-  } else {
-    loginContainer.innerHTML = `
-      <a href="login.html" class="login-btn">
-        <i class="fas fa-sign-in-alt"></i> 로그인
-      </a>
-    `;
-  }
-}
-
-    </script>
-    
-    
-
-
     <!-- 기본 스타일 -->
     <style>
       html {
@@ -659,38 +580,7 @@ function updateUI(user) {
       .section-divider, .footer-divider svg path {
         fill: #fff;
       }
-      .login-container {
-        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
-        margin-left: auto;
-      }
 
-      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
-      .login-container {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-      }
-
-      /* 로그인 버튼 스타일 (조금 더 세련되게) */
-      .login-btn {
-        display: inline-block;
-        background-color: #fff;
-        color: var(--primary-color);
-        border: none;
-        padding: 0.6rem 1.2rem;
-        border-radius: 20px; /* pill 형태로 둥글게 */
-        font-weight: bold;
-        text-decoration: none;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-      }
-
-      .login-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        background-color: var(--secondary-color);
-        color: #fff;
-      }
       @media (max-width: 768px) {
         body {
           font-size: 18px;
@@ -723,11 +613,6 @@ function updateUI(user) {
           <li><a href="중소형주식.html"><i class="fas fa-star"></i> 중소형주식 추천</a></li>
         </ul>
       </nav>
-      <div class="login-container">
-        <a href="login.html" class="login-btn">
-          <i class="fas fa-sign-in-alt"></i> 로그인
-        </a>
-      </div>
     </header>
 
     <!-- [추가] 파도형 섹션 구분 - header와 메인 사이에 배치 -->
@@ -1087,42 +972,6 @@ function updateUI(user) {
     </button>
 
     <script>
-      // (1) 네이버 로그인 객체 생성
-      var naver_id_login = new naver_id_login(
-        "L6zLacbhxxtrt7F39xKt",            // 발급받은 Client ID
-        "http://127.0.0.1:5500/index.html" // 콜백 URL (현재 페이지)
-      );
-
-      // (2) 페이지 로드 시 토큰이 있는지 확인
-      window.onload = function() {
-        if (naver_id_login.oauthParams && naver_id_login.oauthParams.access_token) {
-          // 디버깅용 : 토큰 표시
-          alert("access_token : " + naver_id_login.oauthParams.access_token);
-
-          // 네이버 프로필 정보 조회
-          naver_id_login.get_naver_userprofile(naverSignInCallback);
-        }
-      };
-
-      // (3) 프로필 조회 후 콜백
-      function naverSignInCallback() {
-        // naver_id_login 객체로부터 정보 가져오기
-        var nickname    = naver_id_login.getProfileData('nickname');  // 별명
-        var email       = naver_id_login.getProfileData('email');     // 이메일
-        var gender      = naver_id_login.getProfileData('gender');    // 성별 (M/F)
-        var birthday    = naver_id_login.getProfileData('birthday');  // MM-DD
-        var birthyear   = naver_id_login.getProfileData('birthyear'); // 생년
-        var phonenumber = naver_id_login.getProfileData('mobile');    // 휴대전화번호 (mobile_e164 등)
-
-        alert("네이버 로그인 성공!\n"
-          + "닉네임: " + nickname + "\n"
-          + "이메일: " + email + "\n"
-          + "성별: " + gender + "\n"
-          + "생일: " + birthday + "\n"
-          + "생년: " + birthyear + "\n"
-          + "휴대폰번호: " + phonenumber
-        );
-      }
       // PWA 설치 관련
       let deferredPrompt;
       window.addEventListener("beforeinstallprompt", (event) => {
@@ -1230,41 +1079,7 @@ function updateUI(user) {
         }
       });
 
-   // 페이지 로드 시 로그인 상태 확인
-   window.addEventListener('DOMContentLoaded', () => {
-    fetch('/api/auth/me')
-      .then(response => response.json())
-      .then(data => {
-        const loginContainer = document.querySelector('.login-container');
-        if (data.loggedIn) {
-          // 로그인 상태인 경우: 사용자 이름 표시, 로그아웃 버튼 생성
-          loginContainer.innerHTML = `
-            <span>환영합니다, ${data.user.nickname || '사용자'}!</span>
-            <a href="#" class="login-btn" id="logoutBtn">
-              <i class="fas fa-sign-out-alt"></i> 로그아웃
-            </a>
-          `;
-          document.getElementById('logoutBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            fetch('/auth/logout')
-              .then(() => {
-                window.location.reload();
-              })
-              .catch(err => console.error('로그아웃 오류', err));
-          });
-        } else {
-          // 로그인되지 않은 경우: 기본 로그인 버튼 표시 (login.html로 이동)
-          loginContainer.innerHTML = `
-            <a href="login.html" class="login-btn">
-              <i class="fas fa-sign-in-alt"></i> 로그인
-            </a>
-          `;
-        }
-      })
-      .catch(error => {
-        console.error('로그인 상태 확인 오류:', error);
-      });
-  });
+
     </script>
 
   </body>
