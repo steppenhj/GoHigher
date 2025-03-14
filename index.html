@@ -1151,30 +1151,8 @@
         }
       });
 
-      // 예시: 로그인 상태 확인 API
-app.get('/api/auth/me', (req, res) => {
-  // 로그인된 사용자 정보가 세션이나 토큰에 저장되어 있다고 가정합니다.
-  // 예: req.session.user 또는 JWT를 확인하여 사용자 정보를 가져옴.
-  if (req.session && req.session.user) {
-    res.json({ loggedIn: true, user: req.session.user });
-  } else {
-    res.json({ loggedIn: false });
-  }
-});
-app.get('/auth/logout', (req, res) => {
-  // 예: 세션 파기
-  req.session.destroy(err => {
-    if (err) {
-      return res.status(500).send('로그아웃 실패');
-    }
-    res.redirect('/index.html');
-  });
-});
-
-
-
-  // 페이지 로드 시 로그인 상태 확인
-  window.addEventListener('DOMContentLoaded', () => {
+   // 페이지 로드 시 로그인 상태 확인
+   window.addEventListener('DOMContentLoaded', () => {
     fetch('/api/auth/me')
       .then(response => response.json())
       .then(data => {
@@ -1187,12 +1165,10 @@ app.get('/auth/logout', (req, res) => {
               <i class="fas fa-sign-out-alt"></i> 로그아웃
             </a>
           `;
-          // 로그아웃 버튼 클릭 시 처리
           document.getElementById('logoutBtn').addEventListener('click', (e) => {
             e.preventDefault();
             fetch('/auth/logout')
               .then(() => {
-                // 로그아웃 후 페이지 새로고침 또는 로그인 페이지로 리다이렉트
                 window.location.reload();
               })
               .catch(err => console.error('로그아웃 오류', err));
