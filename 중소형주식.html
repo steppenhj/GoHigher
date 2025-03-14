@@ -131,10 +131,14 @@
         color: #cacaca !important;
       }
       body.dark-mode main h2{
-        color: #cacaca;
+        color: #002b57;
       }
       body.dark-mode main table th{
-        background: #002b57;
+        background: #004284;
+      }
+      body.dark-mode .sector-heading td {
+        background-color: #002b57;  
+        color: #cacaca;             
       }
       * {
         box-sizing: border-box;
@@ -687,16 +691,14 @@ body.dark-mode table tbody tr:nth-child(even) {
 body.dark-mode table tbody tr:hover {
   background-color: #333;
 }
-body.dark-mode .sector-heading td {
-        background-color: #002b57;  
-        color: #cacaca;             
-      }
+
 /* 다크모드 - 모달 */
 body.dark-mode .modal {
   background-color: #444 !important;
   color: #cacaca !important;
   border-color: #666 !important;
 }
+/* 모달 내부에서 h4 태그를 흰색으로 설정 */
 body.dark-mode .modal-content h4 {
   color: #fff !important;
 }
@@ -724,6 +726,49 @@ body.dark-mode .modal-content {
   background-color: #555 !important;
   color: #ddd !important;
 }
+body.dark-mode .login-btn {
+        background-color: transparent;   /* 투명 배경 */
+        color: #cacaca;                  /* nav 링크와 동일한 텍스트 색상 */
+        border: 1px solid #cacaca;       /* 테두리 */
+      }
+
+      body.dark-mode .login-btn:hover {
+        background-color: #004284;       /* 호버 시 배경색 */
+        color: #cacaca;                  /* 텍스트 색상 */
+      }
+
+      .login-container {
+        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
+        margin-left: auto;
+      }
+
+      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      /* 로그인 버튼 스타일 (조금 더 세련되게) */
+      .login-btn {
+        display: inline-block;
+        background-color: #fff;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px; /* pill 형태로 둥글게 */
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        background-color: var(--secondary-color);
+        color: #fff;
+      }
 
     </style>
   </head>
@@ -737,6 +782,11 @@ body.dark-mode .modal-content {
           <li><a href="주식포트폴리오.html">다이어리</a></li>
           <li><a href="버크셔해서웨이.html">인기 포트폴리오</a></li>
           <li><a href="중소형주식.html">중소형주식 추천</a></li>
+          <div class="login-container">
+            <a id="authButton" href="login.html" class="login-btn">
+              <i class="fas fa-sign-in-alt"></i> 로그인
+            </a>
+          </div>
         </ul>
       </nav>
     </header>
@@ -815,6 +865,7 @@ body.dark-mode .modal-content {
         아이디어가 있으시면 언제든지 메일로 제안해 주세요!
       </p>
     </footer>
+    <script src="auth.js"></script>
     <script>
       // ---------------------------------------------------------------------------------------
       // (1) 종목 배열 (stocks)
@@ -1500,7 +1551,7 @@ body.dark-mode .modal-content {
               Sprouts는 특화된 건강 및 유기농 식품 라인과 오랜 고객 신뢰를 바탕으로 틈새 시장에서 지속적인 우위를 확보하고 있습니다.
             </p>
             <p>
-              마지막으로, 현재 Sprouts Farmers Market의 주가는 내재가치 대비 매력적인 수준으로 평가되며, 향후 신규 매장 확장과 디지털 전략의 효과가 실현될 경우 주가 상승 여력이 충분할 것으로 분석됩니다.
+                  마지막으로, 현재 Sprouts Farmers Market의 주가는 내재가치 대비 매력적인 수준으로 평가되며, 향후 신규 매장 확장과 디지털 전략의 효과가 실현될 경우 주가 상승 여력이 충분할 것으로 분석됩니다.
                이러한 요인들을 종합하면, Sprouts Farmers Market은 안정성과 성장성을 동시에 갖춘 투자 매력도가 높은 종목으로, 중장기 투자 관점에서 주목할 만한 대상이라고 할 수 있습니다.
             </p>`
         },
@@ -3000,7 +3051,7 @@ body.dark-mode .modal-content {
           </li>
         </ul>
         <p>
-          높은 유동비율과 무부채 구조는 크레도 테크놀로지가 단기적인 재무 위험을 효과적으로 관리하고 있음을 보여줍니다.
+                    높은 유동비율과 무부채 구조는 크레도 테크놀로지가 단기적인 재무 위험을 효과적으로 관리하고 있음을 보여줍니다.
         </p>
 
         <!-- 성장성 지표 -->
@@ -4266,7 +4317,7 @@ body.dark-mode .modal-content {
         <p>
           안정성 측면에서 ACI Worldwide는 견고한 영업활동 현금흐름을 유지하고 있으나, 높은 장기부채비율은 재무 구조 개선을 위한 과제로 남아 있습니다.
         </p>
-
+        
         <!-- 성장성 지표 -->
         <h4>성장성 지표</h4>
         <ul>

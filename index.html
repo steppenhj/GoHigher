@@ -147,7 +147,6 @@
     </script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
     <!-- 기본 스타일 -->
     <style>
       html {
@@ -580,6 +579,49 @@
       .section-divider, .footer-divider svg path {
         fill: #fff;
       }
+      body.dark-mode .login-btn {
+        background-color: transparent;   /* 투명 배경 */
+        color: #cacaca;                  /* nav 링크와 동일한 텍스트 색상 */
+        border: 1px solid #cacaca;       /* 테두리 */
+      }
+
+      body.dark-mode .login-btn:hover {
+        background-color: #004284;       /* 호버 시 배경색 */
+        color: #cacaca;                  /* 텍스트 색상 */
+      }
+
+      .login-container {
+        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
+        margin-left: auto;
+      }
+
+      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      /* 로그인 버튼 스타일 (조금 더 세련되게) */
+      .login-btn {
+        display: inline-block;
+        background-color: #fff;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px; /* pill 형태로 둥글게 */
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        background-color: var(--secondary-color);
+        color: #fff;
+      }
 
       @media (max-width: 768px) {
         body {
@@ -611,6 +653,11 @@
           <li><a href="주식포트폴리오.html"><i class="fas fa-book"></i> 다이어리</a></li>
           <li><a href="버크셔해서웨이.html"><i class="fas fa-chart-line"></i> 인기 포트폴리오</a></li>
           <li><a href="중소형주식.html"><i class="fas fa-star"></i> 중소형주식 추천</a></li>
+          <div class="login-container">
+            <a href="login.html" id="authButton" class="login-btn">
+              <i class="fas fa-sign-in-alt"></i> 로그인
+            </a>
+          </div>
         </ul>
       </nav>
     </header>
@@ -672,56 +719,56 @@
                             <img src="AMZN logo.png" alt="Amazon Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                             <strong>AMZN 아마존</strong>
                         </td>
-                        <td>198.89 USD</td>
-                        <td><span class="red">1.16% 상승</span></td>
+                        <td>193.89 USD</td>
+                        <td><span class="blue">2.50% 하락</span></td>
                     </tr>
                     <tr>
                         <td>
                             <img src="TSLA logo.png" alt="Tesla Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                             <strong>TSLA 테슬라</strong>
                         </td>
-                        <td>248.09 USD</td>
-                        <td><span class="red">7.68% 상승</span></td>
+                        <td>240.68 USD</td>
+                        <td><span class="blue">2.97% 하락</span></td>
                     </tr>
                     <tr>
                         <td>
                             <img src="NVDA logo.png" alt="NVIDIA Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                             <strong>NVDA 엔비디아</strong>
                         </td>
-                        <td>115.74 USD</td>
-                        <td><span class="red">6.39% 상승</span></td>
+                        <td>115.58 USD</td>
+                        <td><span class="blue">0.02% 하락</span></td>
                     </tr>
                     <tr>
                         <td>
                             <img src="GOOGL logo.png" alt="Google Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                             <strong>GOOGL 구글</strong>
                         </td>
-                        <td>167.11 USD</td>
-                        <td><span class="red">1.83% 상승</span></td>
+                        <td>162.76 USD</td>
+                        <td><span class="blue">2.60% 하락</span></td>
                     </tr>
                     <tr>
                         <td>
                             <img src="MSFT logo.png" alt="Microsoft Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                             <strong>MSFT 마이크로소프트</strong>
                         </td>
-                        <td>383.27 USD</td>
-                        <td><span class="red">0.75% 상승</span></td>
+                        <td>378.77 USD</td>
+                        <td><span class="blue">1.16% 하락</span></td>
                     </tr>
                     <tr>
                         <td>
                             <img src="AAPL logo.png" alt="Apple Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                             <strong>AAPL 애플</strong>
                         </td>
-                        <td>216.98 USD</td>
-                        <td><span class="blue">1.77% 하락</span></td>
+                        <td>209.68 USD</td>
+                        <td><span class="blue">3.35% 하락</span></td>
                     </tr>
                     <tr>
                         <td>
                             <img src="META logo.png" alt="Meta Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                             <strong>META 메타</strong>
                         </td>
-                        <td>619.56 USD</td>
-                        <td><span class="red">2.26% 상승</span></td>
+                        <td>590.64 USD</td>
+                        <td><span class="blue">4.65% 하락</span></td>
                     </tr>
                 </tbody>
               </table>
@@ -730,14 +777,14 @@
                 <h2>주요 기업 실적 발표 일정</h2>
                 <ul class="earnings-list">
                   <li>
-                    <strong>3월 10일 (월)</strong>
+                    <strong>3월 17일 (월)</strong>
                     <ul>
                       <li>🔹 프랑코 네바다(FNV) - 장 시작 전</li>
                       <li>🔹 오라클(ORCL) - 장 마감 후</li>
                     </ul>
                   </li>
                   <li>
-                    <strong>3월 11일 (화)</strong>
+                    <strong>3월 18일 (화)</strong>
                     <ul>
                       <li>🔹 퍼거슨(FERG) - 장 시작 전</li>
                       <li>🔹 시에나(CIEN) - 장 시작 전</li>
@@ -745,7 +792,7 @@
                     </ul>
                   </li>
                   <li>
-                    <strong>3월 12일 (수)</strong>
+                    <strong>3월 19일 (수)</strong>
                     <ul>
                       <li>🔹 어도비(ADBE) - 장 마감 후</li>
                       <li>🔹 크라운 캐슬(CCI) - 장 마감 후</li>
@@ -753,7 +800,7 @@
                     </ul>
                   </li>
                   <li>
-                    <strong>3월 13일 (목)</strong>
+                    <strong>3월 20일 (목)</strong>
                     <ul>
                       <li>🔹 푸투 홀딩스(FUTU) - 장 시작 전</li>
                       <li>🔹 웨이보(WB) - 장 시작 전</li>
@@ -762,7 +809,7 @@
                     </ul>
                   </li>
                   <li>
-                    <strong>3월 14일 (금)</strong>
+                    <strong>3월 21일 (금)</strong>
                     <ul>
                       <li>🔹 리 오토(LI) - 장 시작 전</li>
                     </ul>
@@ -778,12 +825,12 @@
                   일본의 인플레이션으로 인해 금리 상승이 예상되며, 이에 따라 원/엔 환율이 추가적으로 상승할 가능성이 있습니다.
                 </p>
                 <p itemprop="articleBody">
-                  - 원/달러 환율: 1,452.60원<br />
-                  - 원/엔 환율(100엔): 978.22원<br />
-                  - 달러인덱스(DXY): 103.751
+                  - 원/달러 환율: 1,453.8원<br />
+                  - 원/엔 환율(100엔): 983.33원<br />
+                  - 달러인덱스(DXY): 104.0
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-13">
-                  2025년 3월 13일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
           </div>
         </section>
@@ -794,23 +841,24 @@
             <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
               <h3 itemprop="headline">미국 증시 급락</h3>
               <p itemprop="articleBody">
-                ​3월 10일(현지 시간) 뉴욕증시의 3대 지수는 모두 큰 폭의 하락세로 마감했습니다. 다우존스 산업평균지수는 2.1% 하락한 41,911.71포인트, S&P 500 지수는 2.7% 하락한 5,614.56포인트, 나스닥 지수는 4.0% 하락한 17,468.32포인트를 기록했습니다. ​
-                <br><br>이러한 하락은 미국 경기 침체 우려와 관세 전쟁으로 인한 투자 심리 위축 등이 주요 원인으로 지목되고 있습니다. 
-                <br><br>특히, 테슬라는 15.4%의 급락을 기록하며, 지난해 10월 이후 가장 낮은 수준인 222.15달러로 마감했습니다. ​
-                <br><br>이러한 시장 변동성에 대응하기 위해 투자자들은 신중한 투자 전략을 고려해야 할 시점입니다.
+                3월 14일(현지 시간) 뉴욕증시의 3대 지수는 혼조세로 마감했습니다. 다우존스 산업평균지수는 0.5% 상승한 42,120.35포인트를 기록했으며, S&P 500 지수는 0.2% 상승한 5,630.12포인트를 기록했습니다. 반면, 나스닥 지수는 0.3% 하락한 17,420.50포인트로 마감했습니다.
+                <br><br>이러한 혼조세는 투자자들이 미국 연방준비제도(Fed)의 향후 금리 정책과 경제 지표에 대한 불확실성으로 인해 신중한 태도를 유지한 결과로 분석됩니다. 
+                <br><br>특히, 기술주 중심의 나스닥 지수는 주요 기술 기업들의 주가 하락으로 인해 약세를 보였습니다.
               </p>
-              <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                2025년 3월 11일
+              <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                2025년 3월 14일
               </span>
             </article>
 
             <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">아시아 증시 하락세</h3>
+                <h3 itemprop="headline">아시아 증시 상승세</h3>
                 <p itemprop="articleBody">
-                  ​3월 11일 아시아 주요 증시는 전반적인 하락세를 보였습니다. 일본 닛케이225 지수는 0.88% 하락한 36,990.00포인트로 마감했습니다. 중국 상하이종합지수는 0.25% 하락한 3,372.55포인트로 마감했습니다.
+                  ​3월 14일 아시아 주요 증시는 전반적인 상승세를 보였습니다.
+                  <br>일본 닛케이225 지수는 1.2% 상승한 37,500.00포인트로 마감했으며, 중국 상하이종합지수는 0.5% 상승한 3,400.00포인트로 마감했습니다.
+                  <br> 이러한 상승세는 중국의 경기 부양책 발표와 일본 기업들의 긍정적인 실적 발표가 투자 심리를 개선시킨 결과로 보입니다.
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                  2025년 3월 11일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
             </section>
@@ -819,48 +867,43 @@
             <section class="news-section" id="major-announcements">
               <h2>주요 발표</h2>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">**트럼프 발언으로 인한 경기침체 우려와 뉴욕 증시 급락**</h3>
-                <p itemprop="articleBody">
-                  도널드 트럼프 미국 대통령은 3월 9일 폭스뉴스와의 인터뷰에서 미국 경제에 대해 언급하며, 현재의 정책 변화로 인해 '과도기적 시기'가 있을 수 있음을 시사했습니다. 그는 "우리가 추진하는 변화는 매우 크다. 미국으로 부를 되돌려 오고 있다"며 "항상 그런 (힘든) 기간이 있다. 시간이 좀 걸린다. 하지만 우리에게 굉장히 좋은 일이 될 거라고 생각한다. 결국에는 엄청나게 좋은 일이 될 것이다"라고 밝혔습니다. 
-                <br><br>이러한 발언은 단기적인 경기 둔화 가능성을 인정한 것으로 해석되며, 투자자들의 우려를 증폭시켜 뉴욕 증시의 급락을 초래했습니다. 특히, 기술주 중심의 나스닥 지수는 4% 하락하며 2년 반 만에 최대 낙폭을 기록했습니다. 
-              <br><br>트럼프 대통령은 또한 관세 정책에 대해 언급하며, 4월 2일부터 상호 관세 부과 방침을 재확인했습니다. 그는 캐나다와 멕시코에 대한 25% 관세를 시행한 뒤 자동차 업체에 한 달간 면제를 적용한 것과 관련해 "미국 자동차 업체들을 4월 2일까지 돕고 싶었다"라면서 "4월 2일부터 모든 것은 상호적이 될 것"이라고 밝혔습니다. ​
-              <br><br>이러한 발언들은 미국 경제의 단기적인 불확실성을 증가시키며, 투자자들의 신중한 대응이 요구되는 시점입니다.  
+                <h3 itemprop="headline">관세 전쟁 우려</h3>
+                <p itemprop="articleBody">트럼프 대통령의 관세 정책으로 인해 미국과 유럽연합 간 무역 긴장이 고조되고 있습니다. 
+                  <br>트럼프 대통령은 유럽산 와인과 샴페인 등에 200%의 관세 부과를 경고했으며, 이에 대한 보복 관세로 국내 기업들의 가격 경쟁력 약화 우려가 제기되고 있습니다. ​
+                  <br>트럼프 대통령과 미할 마틴 아일랜드 총리는 백악관에서 정상회담을 갖고 양국 협력 방안과 무역, 가자지구 등 주요 국제 현안을 논의했습니다. 
               </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-06">
-                  2025년 3월 11일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">북한 해킹조직, 애플 OS 취약점 악용해 암호화폐 탈취 시도</h3>
+                <h3 itemprop="headline">한국 2월 수출입물가지수 발표</h3>
                 <p itemprop="articleBody">
-                  북한의 해킹조직이 애플 컴퓨터 운영체제의 취약점을 이용해 암호화폐 해킹 공격을 시도한
-                  정황이 포착되었습니다. 구글 산하 사이버 보안업체 맨디언트는 북한 해킹조직이 애플의
-                  로제타2 기술의 취약점을 악용해 악성코드를 설치하고, 이를 통해 암호화폐를 탈취하려
-                  했다고 밝혔습니다.
+                  한국은행은 2025년 3월 14일, 2월 수출입물가지수를 발표했습니다. 
+                  <br>수출물가지수는 전년 동월 대비 3.5% 상승했으며, 수입물가지수는 2.9% 상승했습니다. 
+                  <br>이는 글로벌 원자재 가격 상승과 환율 변동의 영향을 받은 결과로 분석됩니다.
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                  2025년 3월 8일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">미국, 멕시코·캐나다 관세 한 달 유예</h3>
+                <h3 itemprop="headline">미국 법원, 해고된 연방기관 수습 직원 복직 명령</h3>
                 <p itemprop="articleBody">
-                  트럼프 대통령은 멕시코와 캐나다산 철강 및 알루미늄 제품에 부과 예정이던 25% 관세를
-                  한 달간 유예하기로 결정했습니다.
+                  미국 법원은 트럼프 행정부에 의해 해고된 연방기관 수습 직원들의 복직을 명령했습니다.
+                  <br> 이번 판결은 행정부의 해고 결정이 부당하다고 판단한 결과로, 공무원 인사 정책에 영향을 미칠 것으로 보입니다. 
                 </p>
                 <span class="news-date" itemprop="datePublished" content="2025-03-07">
                   2025년 3월 7일
                 </span>
               </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">국민연금 개혁안 논의 본격화</h3>
+                <h3 itemprop="headline">금 가격 상승</h3>
                 <p itemprop="articleBody">
-                  국민연금 개혁안에 대한 논의가 본격화되고 있습니다. 
-                  <br>정부와 정치권은 재정 안정성과 수급자 혜택을 균형 있게 고려한 개혁안을 마련하기 위해 노력 중입니다. 
-                  <br>그러나 이해관계자들의 의견 차이로 인해 합의 도출에 어려움을 겪고 있습니다.
+                  경제적 불확실성으로 인해 안전자산 선호 현상이 강화되면서 금 가격이 온스당 3,000달러를 돌파하며 사상 최고치를 기록했습니다.
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                  2025년 3월 11일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
             </section>
@@ -870,25 +913,24 @@
               <h2>기업 및 산업 동향</h2>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
                 <h3 itemprop="headline">
-                  오픈AI, 코어위브와 17조 원 규모 클라우드 계약 체결
+                  테슬라, 중국 시장 공략
                 </h3>
                 <p itemprop="articleBody">
-                  챗GPT 개발사인 오픈AI가 엔비디아가 투자한 클라우드 서비스 제공업체 코어위브(CoreWeave)와 약 17조 원 규모의 클라우드 계약을 체결했습니다. 
-                  <br>오픈AI는 코어위브의 일부 지분도 확보한 것으로 알려졌으며, 이는 올해 미국 증시 기업공개(IPO) '최대어'로 주목받고 있습니다. ​
+                  테슬라는 중국 시장을 겨냥한 저가형 모델 Y를 출시할 계획입니다. 
+                  <br>이 모델은 상하이 공장에서 생산되며, 생산 비용을 20% 절감할 것으로 예상됩니다. ​
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-02">
-                  2025년 3월 11일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">삼성전자, 갤럭시 S25 공개 예정</h3>
+                <h3 itemprop="headline"> 울타 뷰티(Ulta Beauty) 실적 호조</h3>
                 <p itemprop="articleBody">
-                  삼성전자는 오는 3월 22일 미국 새너제이에서 '갤럭시 언팩 2025' 행사를 개최할 예정입니다.
-                  이번 행사에서는 갤럭시 S25 시리즈가 공개될 것으로 예상되며, 특히 슬림 모델 출시
-                  가능성이 높아 소비자들의 기대를 모으고 있습니다.
+                  화장품 소매업체인 울타 뷰티는 예상치를 상회하는 4분기 실적을 발표하며 주가가 상승했습니다. 
+                  <br>주당 순이익은 8.46달러, 매출은 34억 9천만 달러로 시장 예상치를 웃돌았습니다. ​
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-02">
-                  2025년 3월 8일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
@@ -915,32 +957,32 @@
             <section class="news-section" id="coin-news">
               <h2>코인 뉴스</h2>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">암호화폐 하락세</h3>
+                <h3 itemprop="headline"> 트럼프 관세 위협으로 인한 암호화폐 시장 하락</h3>
                 <p itemprop="articleBody">
-                  미국 연방준비제도(연준, Fed)가 당분간 금리를 인하하지 않겠다는 기조를 유지하면서, 암호화폐 시장의 하락세를 더욱 부추기고 있습니다. 이는 위험 자산에 대한 선호 심리를 약화시키는 요인으로 작용하고 있습니다. ​
+                  도널드 트럼프 미국 대통령이 유럽산 와인에 200%의 관세를 부과하겠다고 위협하자, 미국 증시뿐만 아니라 주요 암호화폐도 일제히 하락했습니다.
+                  <br>비트코인은 24시간 전보다 2.76% 하락한 80,648달러를 기록했습니다. ​
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                  2025년 3월 11일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">밈코인 시장 붕괴</h3>
+                <h3 itemprop="headline">파이코인, '파이데이' 앞두고 기대감 상승</h3>
                 <p itemprop="articleBody">
-                  최근 일부 밈코인의 급락으로 인해 시장 전반의 신뢰가 크게 흔들리고 있습니다. 
-                  <br>이는 투자 심리가 급격히 위축되는 요인으로 작용하고 있습니다. ​
+                  파이코인(Pi)은 3월 14일 '파이데이'를 앞두고 바이낸스 상장 루머, KYC 마감, 대형 이벤트 발표 등 여러 이슈로 주목받고 있습니다. 
+                  <br>이러한 기대감으로 가격 변동성이 커질 수 있다는 전망이 있습니다. 
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                  2025년 3월 11일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
               <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
-                <h3 itemprop="headline">카르다노 창립자, 백악관 정상회담 초청 불발</h3>
+                <h3 itemprop="headline">아크 인베스트, 암호화폐 관련 주식 저가 매수</h3>
                 <p itemprop="articleBody">
-                  카르다노(ADA) 창립자 찰스 호스킨슨은 백악관 디지털 자산 정상회의 초청을 받지 못했다고
-                  밝혔으며, 정상회담에서 실질적인 정책 논의 가능성은 낮다고 언급했습니다.
+                  캐시 우드의 아크 인베스트는 비트코인 가격 하락 속에서도 로빈후드, 코인베이스 등의 암호화폐 관련 주식을 매입하며 저가 매수 전략을 펼치고 있습니다.
                 </p>
-                <span class="news-date" itemprop="datePublished" content="2025-03-07">
-                  2025년 3월 7일
+                <span class="news-date" itemprop="datePublished" content="2025-03-14">
+                  2025년 3월 14일
                 </span>
               </article>
             </section>
@@ -970,7 +1012,7 @@
     <button class="theme-toggle-btn" id="themeToggleBtn">
       <i class="fas fa-adjust"></i> 다크모드 전환
     </button>
-
+    <script src="auth.js"></script>
     <script>
       // PWA 설치 관련
       let deferredPrompt;
