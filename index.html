@@ -1187,5 +1187,37 @@
       });
   });
     </script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    fetch('/api/auth/me')
+      .then(response => response.json())
+      .then(data => {
+        const loginContainer = document.querySelector('.login-container');
+        if (data.loggedIn) {
+          loginContainer.innerHTML = `
+            <span>환영합니다, ${data.user.nickname || '사용자'}!</span>
+            <a href="#" class="login-btn" id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i> 로그아웃
+            </a>
+          `;
+          document.getElementById('logoutBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('/auth/logout')
+              .then(() => window.location.reload())
+              .catch(err => console.error('로그아웃 오류', err));
+          });
+        } else {
+          loginContainer.innerHTML = `
+            <a href="login.html" class="login-btn">
+              <i class="fas fa-sign-in-alt"></i> 로그인
+            </a>
+          `;
+        }
+      })
+      .catch(error => console.error('로그인 상태 확인 오류:', error));
+  });
+</script>
+
   </body>
 </html>

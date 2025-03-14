@@ -1,19 +1,19 @@
 const express = require('express');
 const axios = require('axios');
-const session = require('express-session'); // 세션 미들웨어 require
+const session = require('express-session');
 const app = express();
 
-// 세션 미들웨어 설정 (라우트 정의 전에 적용)
+const REST_API_KEY = '38ace66b21a1efae075caae0f778eb4c'; // 카카오 REST API 키
+const REDIRECT_URI = 'https://gohigher.kr/auth/kakao/callback'; // 등록된 리다이렉트 URI
+
+// 세션 미들웨어를 최상단에 등록
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true
 }));
 
-const REST_API_KEY = '38ace66b21a1efae075caae0f778eb4c'; // 실제 REST API 키
-const REDIRECT_URI = 'https://gohigher.kr/auth/kakao/callback';
-
-// 카카오 로그인 후 리다이렉트 엔드포인트
+// 카카오 로그인 후 리다이렉트될 엔드포인트
 app.get('/auth/kakao/callback', async (req, res) => {
   const { code } = req.query;
   if (!code) {
@@ -43,12 +43,11 @@ app.get('/auth/kakao/callback', async (req, res) => {
       },
     });
 
-    // 예시로 세션에 사용자 정보를 저장
+    // 사용자 정보를 세션에 저장 (예시)
     req.session.user = userResponse.data;
 
-    // 클라이언트에 사용자 정보 JSON 응답 (혹은 리다이렉트)
-    res.json(userResponse.data);
-    // 또는 res.redirect('/index.html'); 처럼 클라이언트 페이지로 이동시킬 수 있음
+    // 클라이언트에 JSON 응답 대신 리다이렉트 등 원하는 동작을 수행할 수 있음
+    res.redirect('/index.html');
   } catch (error) {
     console.error('토큰 요청 에러:', error.response ? error.response.data : error.message);
     res.status(500).send('로그인 처리 중 문제가 발생했습니다.');
@@ -73,6 +72,10 @@ app.get('/auth/logout', (req, res) => {
     res.redirect('/index.html');
   });
 });
+
+// 정적 파일 제공 (예: public 폴더에 index.html, login.html 등이 있다면)
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(3000, () => {
   console.log('서버가 포트 3000에서 실행 중입니다.');
