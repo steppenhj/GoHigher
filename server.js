@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const session = require('express-session');
+const qs = require('qs'); // URL 인코딩을 위한 qs 모듈 추가
 const app = express();
 
 const REST_API_KEY = '38ace66b21a1efae075caae0f778eb4c'; // 카카오 REST API 키
@@ -21,18 +22,21 @@ app.get('/auth/kakao/callback', async (req, res) => {
   }
 
   try {
-    // 액세스 토큰 요청
-    const tokenResponse = await axios.post('https://kauth.kakao.com/oauth/token', null, {
-      params: {
+    // 액세스 토큰 요청: qs.stringify를 이용해 폼 데이터 형식으로 변환하여 전송
+    const tokenResponse = await axios.post(
+      'https://kauth.kakao.com/oauth/token',
+      qs.stringify({
         grant_type: 'authorization_code',
         client_id: REST_API_KEY,
         redirect_uri: REDIRECT_URI,
         code: code,
-      },
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
 
     const accessToken = tokenResponse.data.access_token;
 
