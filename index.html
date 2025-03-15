@@ -672,7 +672,7 @@
         width: 100%;
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        padding: 0.5rem 0;
+        padding: 0.3rem 0;
         z-index: 1000;
       }
 
@@ -693,19 +693,20 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         color: var(--primary-color);
-        text-decoration: none;
-        font-size: 0.8rem;
-        padding: 0.5rem 0;
+        font-size: 0.75rem; /* 🔹 버튼 내부 텍스트 크기를 줄임 */
+        padding: 0.4rem 0; /* 🔹 버튼 높이를 줄이기 위해 패딩 조절 */
+        min-width: 60px; /* 🔹 버튼이 너무 작아지지 않도록 최소 너비 설정 */
+        height: 50px;
       }
-
+      /* 아이콘과 텍스트 정렬 */
       .bottom-nav ul li a i {
-        font-size: 1.2rem;
-        margin-bottom: 3px;
-      }
-
-      .bottom-nav ul li a:hover {
-        color: var(--secondary-color);
+          font-size: 1rem; /* 🔹 아이콘 크기 */
+          margin-bottom: 3px; /* 🔹 아이콘과 텍스트 간격 조절 */
+          display: flex;
+          align-items: center;
+          justify-content: center;
       }
       @media (max-width: 768px) {
         body {
@@ -724,39 +725,36 @@
         .half-section {
           width: 100% !important;
         }
-
-
-  /* 콘텐츠가 하단 네비게이션에 가리지 않도록 바닥 여백 추가 */
-  body {
-    padding-bottom: 70px; /* 네비게이션 높이에 맞춰 조정 */
-  }
-  .layout-container {
-    padding: 0;
-  }
-  .main-content,
-  .news-section,
-  .half-section,
-  .full-section {
-    padding: 0.5rem; /* 기존 1rem이나 2rem보다 줄여서 내부 여백 감소 */
-  }
-  .news-section {
-    margin: 1rem 0; /* 위아래 마진도 줄여서 전체적으로 꽉 차게 */
-  }
-
-
-  .desktop-nav {
+    /* 콘텐츠가 하단 네비게이션에 가리지 않도록 바닥 여백 추가 */
+    body {
+      padding-bottom: 70px; /* 네비게이션 높이에 맞춰 조정 */
+    }
+    .layout-container {
+      padding: 0;
+    }
+    .main-content,
+    .news-section,
+    .half-section,
+    .full-section {
+      padding: 0.5rem; /* 기존 1rem이나 2rem보다 줄여서 내부 여백 감소 */
+    }
+    .news-section {
+      margin: 1rem 0; /* 위아래 마진도 줄여서 전체적으로 꽉 차게 */
+    }
+    .login-btn {
+        padding: 0.4rem 0.8rem; /* 패딩 축소 */
+        font-size: 0.85rem; /* 폰트 크기 축소 */
+        border-radius: 15px; /* 더 작은 크기에 맞게 둥글게 */
+    }
+    .desktop-nav {
+      .desktop-nav {
           display: none;
         }
         .bottom-nav {
           display: block; /* 하단 네비게이션 표시 */
         }
-        .login-btn {
-        padding: 0.4rem 0.8rem; /* 패딩 축소 */
-        font-size: 0.85rem; /* 폰트 크기 축소 */
-        border-radius: 15px; /* 더 작은 크기에 맞게 둥글게 */
     }
-        
-      }
+  }
     </style>
   </head>
   <body>

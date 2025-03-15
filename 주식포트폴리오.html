@@ -455,13 +455,6 @@ body.dark-mode #goalManagementModal .todo-item button.delete-btn {
       #accountBookModal .account-book-form input,
       #accountBookModal .account-book-form select,
       #accountBookModal .account-book-form button { width: 100%; }
-
-      .desktop-nav {
-          display: none;
-        }
-        .bottom-nav {
-          display: block; /* 하단 네비게이션 표시 */
-        }
     }
     
     /* 기존 푸터 디자인 복원 */
@@ -584,6 +577,19 @@ body.dark-mode #goalManagementModal .todo-item button.delete-btn {
         color: #cacaca;                  /* 텍스트 색상 */
       }
 
+      body.dark-mode .modal-content input,
+body.dark-mode .modal-content textarea,
+body.dark-mode .modal-content select {
+  background-color: #555 !important; /* 어두운 배경 */
+  color: #fff !important;            /* 흰색 텍스트 */
+  border: 1px solid #777 !important;  /* 어두운 테두리 */
+}
+
+/* placeholder 색상 조정 */
+body.dark-mode .modal-content input::placeholder,
+body.dark-mode .modal-content textarea::placeholder {
+  color: #ccc !important;
+}
       .login-container {
         /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
         margin-left: auto;
@@ -622,113 +628,26 @@ body.dark-mode #goalManagementModal .todo-item button.delete-btn {
   min-height: 30rem; /* 1rem이 기본 폰트 크기(보통 16px)라면 약 480px 정도 */
 }
 
-.login-container {
-        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
-        margin-left: auto;
-      }
-
-      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
-      .login-container {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-      }
-
-      /* 로그인 버튼 스타일 (조금 더 세련되게) */
-      .login-btn {
-        display: inline-block;
-        background-color: #fff;
-        color: var(--primary-color);
-        border: none;
-        padding: 0.6rem 1.2rem;
-        border-radius: 20px; /* pill 형태로 둥글게 */
-        font-weight: bold;
-        text-decoration: none;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-      }
-
-      .login-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        background-color: var(--secondary-color);
-        color: #fff;
-      }
-      /* 데스크탑 네비게이션: 기본적으로 표시 */
-      .desktop-nav {
-        display: block;
-      }
-      /* 하단 네비게이션 바 (모바일 전용) */
-      .bottom-nav {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        padding: 0.3rem 0;
-        z-index: 1000;
-      }
-
-      .bottom-nav ul {
-        display: flex;
-        justify-content: space-around;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .bottom-nav ul li {
-        flex: 1;
-        text-align: center;
-      }
-
-      .bottom-nav ul li a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary-color);
-        font-size: 0.75rem; /* 🔹 버튼 내부 텍스트 크기를 줄임 */
-        padding: 0.4rem 0; /* 🔹 버튼 높이를 줄이기 위해 패딩 조절 */
-        min-width: 60px; /* 🔹 버튼이 너무 작아지지 않도록 최소 너비 설정 */
-      }
-      /* 아이콘과 텍스트 정렬 */
-      .bottom-nav ul li a i {
-          font-size: 1rem; /* 🔹 아이콘 크기를 조정 (기존보다 작게) */
-          margin-bottom: 2px; /* 🔹 아이콘과 텍스트 간의 간격을 조절 */
-      }
   </style>
 </head>
 <body>
   <header>
     <h1>Go Higher</h1>
     <p>나의 자산을 잘 이해하는 것이 부자가 되는 지름길!</p>
-    <div class="login-container">
-      <a id="authButton" href="login.html" class="login-btn">
-        <i class="fas fa-sign-in-alt"></i> 로그인
-      </a>
-    </div>
-    <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
-    <nav class="desktop-nav">
+    <nav>
       <ul>
         <li><a href="index.html">투데이 뉴스</a></li>
         <li><a href="주식포트폴리오.html">다이어리</a></li>
         <li><a href="버크셔해서웨이.html">인기 포트폴리오</a></li>
         <li><a href="중소형주식.html">중소형주식 추천</a></li>
+        <div class="login-container">
+          <a id="authButton" href="login.html" class="login-btn">
+            <i class="fas fa-sign-in-alt"></i> 로그인
+          </a>
+        </div>
       </ul>
     </nav>
   </header>
-  <!-- 모바일 전용 하단 네비게이션 바 -->
-  <nav class="bottom-nav">
-    <ul>
-      <li><a href="index.html"><i class="fas fa-newspaper"></i><br>투데이 뉴스</a></li>
-      <li><a href="주식포트폴리오.html"><i class="fas fa-book"></i><br>다이어리</a></li>
-      <li><a href="버크셔해서웨이.html"><i class="fas fa-chart-line"></i><br>인기 포트폴리오</a></li>
-      <li><a href="중소형주식.html"><i class="fas fa-coins"></i><br>중소형주식 추천</a></li>
-    </ul>
-  </nav>
   
   <main>
     <div class="save-notice">
