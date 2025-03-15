@@ -627,11 +627,6 @@
         color: #fff;
       }
 
-      /* 기본적으로 모바일 네비게이션은 숨김 (데스크탑용만 보이도록) */
-.mobile-nav {
-  display: none;
-}
-
       @media (max-width: 768px) {
         body {
           font-size: 18px;
@@ -651,35 +646,44 @@
         }
 
 
-          /* 데스크탑 네비게이션 숨김 */
-  .desktop-nav {
-    display: none;
-  }
-  /* 모바일 네비게이션 보이기 및 하단 고정 */
-  .mobile-nav {
-    display: block;
+          /* 네비게이션 바를 하단에 고정 */
+  nav {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: var(--primary-color); /* 원하시는 색상 적용 */
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+    background: var(--primary-color); /* 원하시는 배경색 적용 */
+    padding: 0.5rem 0;
     z-index: 1000;
   }
-  .mobile-nav ul {
+  
+  nav ul {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     margin: 0;
-    padding: 0.5rem 0;
-    list-style: none;
+    padding: 0;
   }
-  .mobile-nav ul li a {
-    color: #fff;
-    text-decoration: none;
+  nav ul li a {
+    font-size: 14px; /* 텍스트 크기 조정 */
+    padding: 0.5rem; /* 필요에 따라 패딩 조절 */
+    margin: 0;
+    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 */
   }
+  
+  /* 로그인 버튼은 nav 내부에 있지만 별도로 고정하여 상단 우측에 배치 */
+  nav .login-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1100; /* 네비게이션보다 위에 표시 */
+    /* 이미 기존에 스타일이 적용되어 있으므로 추가 수정 가능 */
+  }
+  
   /* 콘텐츠가 하단 네비게이션에 가리지 않도록 바닥 여백 추가 */
   body {
-    padding-bottom: 60px; /* 하단 네비게이션 높이에 맞춰 조정 */
+    padding-bottom: 70px; /* 네비게이션 높이에 맞춰 조정 */
   }
       }
     </style>
@@ -688,34 +692,20 @@
     <header>
       <h1>Go Higher</h1>
       <p>매일매일 업데이트되는 최신 미국 주식 뉴스를 만나보세요!</p>
-      <!-- 로그인 버튼은 그대로 헤더 안에 둡니다 -->
-      <div class="login-container">
-        <a href="login.html" id="authButton" class="login-btn">
-          <i class="fas fa-sign-in-alt"></i> 로그인
-        </a>
-      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-newspaper"></i> 투데이 뉴스</a></li>
+          <li><a href="주식포트폴리오.html"><i class="fas fa-book"></i> 다이어리</a></li>
+          <li><a href="버크셔해서웨이.html"><i class="fas fa-chart-line"></i> 인기 포트폴리오</a></li>
+          <li><a href="중소형주식.html"><i class="fas fa-star"></i> 중소형주식 추천</a></li>
+          <div class="login-container">
+            <a href="login.html" id="authButton" class="login-btn">
+              <i class="fas fa-sign-in-alt"></i> 로그인
+            </a>
+          </div>
+        </ul>
+      </nav>
     </header>
-    
-    <!-- 데스크탑 네비게이션 (큰 화면에서 사용) -->
-    <nav class="desktop-nav">
-      <ul>
-        <li><a href="index.html"><i class="fas fa-newspaper"></i> 투데이 뉴스</a></li>
-        <li><a href="주식포트폴리오.html"><i class="fas fa-book"></i> 다이어리</a></li>
-        <li><a href="버크셔해서웨이.html"><i class="fas fa-chart-line"></i> 인기 포트폴리오</a></li>
-        <li><a href="중소형주식.html"><i class="fas fa-star"></i> 중소형주 추천</a></li>
-      </ul>
-    </nav>
-    
-    <!-- 모바일 네비게이션 (하단에 고정) -->
-    <nav class="mobile-nav">
-      <ul>
-        <li><a href="index.html"><i class="fas fa-newspaper"></i> 투데이 뉴스</a></li>
-        <li><a href="주식포트폴리오.html"><i class="fas fa-book"></i> 다이어리</a></li>
-        <li><a href="버크셔해서웨이.html"><i class="fas fa-chart-line"></i> 인기 포트폴리오</a></li>
-        <li><a href="중소형주식.html"><i class="fas fa-star"></i> 중소형주 추천</a></li>
-      </ul>
-    </nav>
-    
 
     <!-- [추가] 파도형 섹션 구분 - header와 메인 사이에 배치 -->
     <div class="section-divider">

@@ -446,13 +446,13 @@
       .bottom-nav ul li a:hover {
         color: var(--secondary-color);
       }
-      /* 모바일에서는 네비게이션을 숨김 */
+      /* 모바일에서는 헤더 내비게이션을 숨김 */
       @media (max-width: 768px) {
         .desktop-nav {
           display: none;
         }
         .bottom-nav {
-          display: block; /* 하단 네비게이션 활성화 */
+          display: block; /* 하단 네비게이션 표시 */
         }
       }
     </style>
@@ -461,7 +461,13 @@
   <header>
     <h1>Go Higher</h1>
     <p>매일매일 업데이트되는 최신 미국 주식 뉴스를 만나보세요!</p>
-    <nav>
+    <div class="login-container">
+      <a id="authButton" href="login.html" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> 로그인
+      </a>
+    </div>
+    <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
+    <nav class="desktop-nav">
       <ul>
         <li><a href="index.html">투데이 뉴스</a></li>
         <li><a href="주식포트폴리오.html">다이어리</a></li>
@@ -469,11 +475,6 @@
         <li><a href="중소형주식.html">중소형주식 추천</a></li>
       </ul>
     </nav>
-    <div class="login-container">
-      <a id="authButton" href="login.html" class="login-btn">
-        <i class="fas fa-sign-in-alt"></i> 로그인
-      </a>
-    </div>
   </header>
   <!-- 모바일 전용 하단 네비게이션 바 -->
   <nav class="bottom-nav">
