@@ -415,6 +415,10 @@ footer {
 .container .section ul li {
   color: black;
 }
+body.modal-description {
+  color: #000;
+}
+
 /* 다크 모드 스타일 */
 body.dark-mode {
   background: #444;
@@ -566,6 +570,11 @@ body.dark-mode .login-btn:hover {
   background-color: #004284;
   color: #cacaca;
 }
+body:not(.dark-mode) .modal-description,
+body:not(.dark-mode) .modal-description * {
+  color: #000 !important;
+}
+
 
     </style>
 </head>
