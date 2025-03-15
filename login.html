@@ -6,13 +6,29 @@
   <style>
     /* 기본 스타일 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Arial', sans-serif; text-align: center; color: #333; margin: 50px; }
+    
+    /* ✅ 여백을 줄여 화면을 더 꽉 채움 */
+    body { 
+      font-family: 'Arial', sans-serif; 
+      text-align: center; 
+      color: #333; 
+      margin: 30px 15px; 
+    }
 
-    h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
-    .notice { margin-top: 0.5rem; margin-bottom: 1rem; font-size: 0.9rem; color: #666; }
+    h1 { 
+      font-size: 2rem; /* ✅ 텍스트 크기 확대 */
+      margin-bottom: 1rem; 
+    }
+
+    .notice { 
+      margin-top: 0.5rem; 
+      margin-bottom: 1rem; 
+      font-size: 1rem; /* ✅ 가독성을 위해 폰트 크기 키움 */
+      color: #666; 
+    }
 
     .info-box {
-      max-width: 600px;
+      max-width: 90%; /* ✅ 모바일 화면에서 더 가득 차게 */
       margin: 1.5rem auto;
       background-color: #f8f9ff;
       border-radius: 8px;
@@ -21,16 +37,28 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .info-box h2 { margin-bottom: 0.8rem; font-size: 1.2rem; font-weight: bold; }
-    .info-box ol { list-style-type: decimal; padding-left: 1.2rem; }
-    .info-box li { margin-bottom: 0.5rem; font-size: 1rem; }
+    .info-box h2 { 
+      margin-bottom: 1rem; 
+      font-size: 1.3rem; /* ✅ 제목 크기 확대 */
+      font-weight: bold; 
+    }
+
+    .info-box ol { 
+      list-style-type: decimal; 
+      padding-left: 1.5rem; 
+    }
+
+    .info-box li { 
+      margin-bottom: 0.8rem; 
+      font-size: 1.1rem; /* ✅ 리스트 항목 크기 확대 */
+    }
 
     /* 로그인 버튼 스타일 */
     .login-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: auto;
+      margin-top: 1rem; /* ✅ 로그인 버튼과 제목 간격 조정 */
     }
 
     .google-btn {
@@ -41,20 +69,20 @@
       color: #FFFFFF;
       border: none;
       border-radius: 30px;
-      padding: 15px 20px;
-      font-size: 18px;
+      padding: 18px 22px; /* ✅ 버튼 크기 키움 */
+      font-size: 1.2rem; /* ✅ 폰트 크기 증가 */
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
       width: 100%;
-      max-width: 320px; /* 모바일에서도 적절한 크기 유지 */
+      max-width: 350px; /* ✅ 버튼 크기 확대 */
     }
 
     .google-btn img {
-      width: 24px; /* 모바일에서 아이콘 크기 줄임 */
-      height: 24px;
-      margin-right: 8px;
+      width: 28px; /* ✅ 아이콘 크기 키움 */
+      height: 28px;
+      margin-right: 10px;
     }
 
     .google-btn:hover {
@@ -62,46 +90,41 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
 
-    /* 반응형 스타일 */
+    /* ✅ 반응형 스타일 */
     @media (max-width: 768px) {
       body {
-        margin: 20px; /* 모바일에서 여백 축소 */
+        margin: 20px; /* ✅ 모바일에서 여백 축소 */
       }
 
       h1 {
-        font-size: 1.6rem; /* 헤더 크기 조정 */
+        font-size: 1.8rem; /* ✅ 모바일에서도 크게 보이도록 설정 */
       }
 
       .notice {
-        font-size: 0.85rem;
+        font-size: 1rem;
       }
 
       .info-box {
-        max-width: 90%; /* 모바일에서 더 넓게 차지하도록 설정 */
-        padding: 1.2rem;
+        max-width: 95%; /* ✅ 더 가득 차게 */
+        padding: 1.5rem;
       }
 
       .info-box h2 {
-        font-size: 1.1rem;
-      }
-
-      .info-box ol {
-        padding-left: 1rem;
+        font-size: 1.2rem;
       }
 
       .info-box li {
-        font-size: 0.95rem;
+        font-size: 1.05rem; /* ✅ 가독성을 위해 리스트 글자 크기 조정 */
       }
 
       .google-btn {
-        padding: 12px 16px; /* 버튼 패딩 축소 */
-        font-size: 16px; /* 모바일에서 텍스트 크기 조정 */
+        padding: 15px 20px; /* ✅ 모바일에서도 적절한 버튼 크기 유지 */
+        font-size: 1.1rem;
       }
 
       .google-btn img {
-        width: 20px;
-        height: 20px;
-        margin-right: 6px;
+        width: 24px;
+        height: 24px;
       }
     }
   </style>

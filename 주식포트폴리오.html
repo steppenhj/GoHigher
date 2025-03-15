@@ -41,75 +41,69 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
   <style>
     /* 기본 CSS 변수 */
-    :root {
-      --primary-color: #004080;
-      --secondary-color: #0059b3;
-      --accent-color: #f4f7fa;
-      --light-gray: #e0e0e0;
-      --text-color: #333;
-    }
-    body.dark-mode {
-        background: #444;           /* 전체 배경 */
-        color: white;                   /* 기본 텍스트 색상 */
-      }
-      body.dark-mode header {
-        background: linear-gradient(135deg, #002b57, #004284);
-        color: #cacaca;
-      }
-      /* 다크 모드에서 nav 버튼 스타일 */
-      body.dark-mode nav ul li a {
-        color: #cacaca;           /* 텍스트 색상 */
-        border: 1px solid #cacaca; /* 테두리 색상도 동일하게 */
-        background-color: transparent; /* 배경을 투명으로 두거나 원하는 색상으로 지정 */
-      }
+/* 기본 CSS 변수 */
+:root {
+  --primary-color: #004080;
+  --secondary-color: #0059b3;
+  --accent-color: #f4f7fa;
+  --light-gray: #e0e0e0;
+  --text-color: #333;
+}
 
-      /* hover 시 색상 변화(예시) */
-      body.dark-mode nav ul li a:hover {
-        background-color: #004284;
-        color: #cacaca; /* 배경이 밝아졌으므로 텍스트는 어두운색 */
-      }
-      body.dark-mode footer{
-        background: linear-gradient(135deg, #002b57, #004284);
-        color:#cacaca;
-      }
-      body.dark-mode .save-notice{
-        background: #555555;
-        color: #cacaca;
-      }
-      body.dark-mode main h2{
-        color: #002b57;
-      }
-      body.dark-mode .section-container {
-        background: #555 !important;
-        color: #cacaca !important;
-      }
-
-      body.dark-mode .recommendation {
-        background: #666 !important;
-        color: #cacaca !important;
-      }
-
-      body.dark-mode .modal-content {
-        background: #555 !important;
-        color: #cacaca !important;
-      }
-
-      /* 다크모드 - 메모 모달 내 텍스트 영역 개선 */
+/* 다크 모드 스타일 */
+body.dark-mode {
+  background: #444;
+  color: white;
+}
+body.dark-mode header {
+  background: linear-gradient(135deg, #002b57, #004284);
+  color: #cacaca;
+}
+body.dark-mode nav ul li a {
+  color: #cacaca;
+  border: 1px solid #cacaca;
+  background-color: transparent;
+}
+body.dark-mode nav ul li a:hover {
+  background-color: #004284;
+  color: #cacaca;
+}
+body.dark-mode footer {
+  background: linear-gradient(135deg, #002b57, #004284);
+  color: #cacaca;
+}
+body.dark-mode .save-notice {
+  background: #555555;
+  color: #cacaca;
+}
+body.dark-mode main h2 {
+  color: #002b57;
+}
+body.dark-mode .section-container {
+  background: #555 !important;
+  color: #cacaca !important;
+}
+body.dark-mode .recommendation {
+  background: #666 !important;
+  color: #cacaca !important;
+}
+body.dark-mode .modal-content {
+  background: #555 !important;
+  color: #cacaca !important;
+}
+/* 다크모드 - 메모 모달 내 텍스트 영역 개선 */
 body.dark-mode #memoModal .modal-content textarea {
   background: #555 !important;
   color: #fff !important;
   border: 1px solid #777 !important;
 }
-
 body.dark-mode #calendarModal .modal-content,
 body.dark-mode #calendarModal .modal-content * {
   color: #fff !important;
 }
-
 body.dark-mode #calendarModal .modal-content textarea::placeholder {
   color: #fff !important;
 }
-
 /* Chrome 등 WebKit 기반 브라우저의 autofill 스타일 강제 지정 */
 body.dark-mode #memoModal .modal-content textarea:-webkit-autofill,
 body.dark-mode #memoModal .modal-content textarea:-webkit-autofill:hover,
@@ -117,20 +111,17 @@ body.dark-mode #memoModal .modal-content textarea:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px #555 inset !important;
   -webkit-text-fill-color: #fff !important;
 }
-
-/* Firefox용 autofill 스타일 (존재하는 경우) */
+/* Firefox용 autofill 스타일 */
 body.dark-mode #memoModal .modal-content textarea:-moz-autofill {
   box-shadow: 0 0 0 1000px #555 inset !important;
   -moz-text-fill-color: #fff !important;
 }
-
 /* 다크모드 - 가계부 모달 스타일 최적화 */
 body.dark-mode #accountBookModal .modal-content {
   background: #333 !important;
   color: #fff !important;
   box-shadow: none;
 }
-
 body.dark-mode #accountBookModal .account-book-form input,
 body.dark-mode #accountBookModal .account-book-form select,
 body.dark-mode #accountBookModal .account-book-form button {
@@ -138,27 +129,24 @@ body.dark-mode #accountBookModal .account-book-form button {
   color: #fff !important;
   border: 1px solid #666 !important;
 }
-
 body.dark-mode #accountBookModal .account-book-entries th,
 body.dark-mode #accountBookModal .account-book-entries td {
   border: 1px solid #666 !important;
   color: #fff !important;
   background: #333;
 }
-
 body.dark-mode #accountBookModal .fixed-expense-calculator {
   background: #333 !important;
   color: #fff !important;
   border-top: 1px solid #666 !important;
 }
-
 /* (옵션) 가계부 모달 내 버튼 스타일 통일 */
 body.dark-mode #accountBookModal .modal-content button {
   background: #444 !important;
   color: #fff !important;
   border: 1px solid #666 !important;
 }
-/* [달력 메모 모달] 다크모드 최적화: 모달 전체 및 내부 텍스트 색상을 흰색으로 설정 */
+/* [달력 메모 모달] 다크모드 최적화 */
 body.dark-mode #memoModal .modal-content,
 body.dark-mode #memoModal .modal-content * {
   color: #fff !important;
@@ -171,8 +159,7 @@ body.dark-mode #memoModal .modal-content textarea {
 body.dark-mode #memoModal .modal-content textarea::placeholder {
   color: #fff !important;
 }
-
-/* [To Do List 모달] 다크모드 최적화: 배경, 입력창, 버튼 및 리스트 항목의 색상 조정 */
+/* [To Do List 모달] 다크모드 최적화 */
 body.dark-mode #goalManagementModal .modal-content {
   background: #333 !important;
   color: #fff !important;
@@ -193,491 +180,809 @@ body.dark-mode #goalManagementModal .todo-item button.delete-btn {
   color: #fff !important;
   border: 1px solid #666 !important;
 }
-
-
-      /* 'card' 스타일이 들어간 오른쪽 차트 박스 */
-      body.dark-mode .right-chart.card {
-        background: #555 !important;
-        color: #cacaca !important;
-      }
-    html { font-size: 16px; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Open Sans', sans-serif;
-      background: linear-gradient(135deg, var(--accent-color), #cbd7e3);
-      color: var(--text-color);
-      padding-bottom: 60px;
-      transition: background 0.3s, color 0.3s;
-      position: relative;
-    }
-    header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      position: relative;
-    }
-    header h1 { font-family: 'Roboto', sans-serif; font-size: 2rem; margin-bottom: 0.5rem; }
-    header p { font-size: 1rem; }
-    nav { margin-top: 0.5rem; }
-    nav ul { list-style: none; display: flex; justify-content: center; gap: 1rem; }
-    nav ul li a {
-      display: inline-block; padding: 0.5rem 1rem; background-color: #fff;
-      color: var(--primary-color); border: 1px solid var(--primary-color); border-radius: 4px;
-      text-decoration: none; transition: background-color 0.3s, color 0.3s;
-    }
-    nav ul li a:hover { background-color: var(--primary-color); color: #fff; }
-
-    /* (설정 관련 버튼 제거) */
-
-    main { max-width: 960px; margin: 1rem auto; padding: 0 1rem; }
-    .save-notice {
-      background: #fff; color: #444; font-size: 0.9rem; padding: 0.6rem 1rem; margin-bottom: 0.5rem;
-      border-left: 4px solid var(--primary-color); box-shadow: 0 1px 4px rgba(0,0,0,0.1); line-height: 1.4;
-    }
-    h2 { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem; text-align: center; }
-    .recommendation {
-      background: var(--light-gray); padding: 1rem; border-radius: 8px; margin-top: 1rem;
-      text-align: center; font-size: 0.8rem;
-    }
-    /* 섹션-container */
-    .section-container {
-      background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-      padding: 1rem; width: 100%; margin-bottom: 1rem;
-    }
-    .section-header {
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .modal {
-      display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-      overflow: auto; background-color: rgba(0,0,0,0.4);
-    }
-    .modal.active { display: block; }
-    .modal-content {
-      background-color: #fff; margin: 5% auto; padding: 20px; border-radius: 8px;
-      width: 90%; max-width: 900px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    .modal-content h3 { margin-top: 0; }
-    .modal-close-btn {
-      background: #b30000; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
-      padding: 0.3rem 0.6rem; float: right; margin-top: -10px;
-    }
-    .modal-close-btn:hover { background: #800000; }
-
-    /* 공통 버튼 */
-    .primary-btn, .secondary-btn {
-      padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;
-      transition: background 0.3s;
-    }
-    .primary-btn { background: var(--primary-color); color: #fff; }
-    .primary-btn:hover { background: #003060; }
-    .secondary-btn { background: var(--secondary-color); color: #fff; }
-    .secondary-btn:hover { background: #004080; }
-
-    /* 자산 포트폴리오 스타일 (.asset-item) */
-    .asset-item {
-      display: flex; align-items: left; gap: 0.5rem; margin-bottom: 0.5rem;
-    }
-    .asset-item input[type="text"],
-    .asset-item input[type="number"] {
-      padding: 0.3rem; border: 1px solid #ccc; border-radius: 4px; text-align: center;
-      font-size: 0.9rem; width: 100px;
-    }
-    .asset-item button {
-      padding: 0.3rem 0.6rem; background: #b30000; color: #fff; border: none; border-radius: 4px;
-      cursor: pointer; font-size: 0.8rem;
-    }
-    .asset-item button:hover { background: #800000; }
-
-    /* 투자 포트폴리오 스타일 (.stock-item) */
-    .stock-item {
-      display: flex; align-items: left; gap: 0.5rem; margin-bottom: 0.5rem;
-    }
-    .stock-item input[type="text"],
-    .stock-item input[type="number"] {
-      padding: 0.3rem; border: 1px solid #ccc; border-radius: 4px; text-align: center;
-      font-size: 0.9rem; width: 100px;
-    }
-    .stock-item button {
-      padding: 0.3rem 0.6rem; background: #b30000; color: #fff; border: none; border-radius: 4px;
-      cursor: pointer; font-size: 0.8rem;
-    }
-    .stock-item button:hover { background: #800000; }
-
-    .portfolio-form {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
-    }
-    .portfolio-form button {
-      padding: 0.3rem 0.6rem; background: var(--primary-color); color: #fff;
-      border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background 0.3s;
-    }
-    .portfolio-form button:hover { background: #003060; }
-
-    .chart-container { margin: 0; }
-    canvas { width: 100%; height: 300px; }
-    .chart-btn-group { text-align: center; margin-top: 15px; }
-    .chart-btn-group button { margin: 0 5px; }
-
-    .portfolio-section-content {
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-top: 1rem;
-    }
-    .left-content { flex: 1; }
-    .right-chart { flex: 1; display: flex; flex-direction: column; align-items: center; }
-    .right-chart.card {
-      background: #f9f9f9; border-radius: 8px; padding: 1rem;
-      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05); width: 100%;
-    }
-
-    /* 자산 목표 */
-    .asset-goal-form { margin-top: 1rem; margin-bottom: 1rem; display: flex; gap: 10px; }
-    #assetGoalDisplay { margin-top: 10px; }
-    .progress-bar {
-      width: 100%; background-color: #e0e0e0; border-radius: 4px;
-      overflow: hidden; margin-top: 0.5rem;
-    }
-    .progress {
-      height: 20px; background-color: var(--primary-color);
-      width: 0%; transition: width 0.5s; text-align: center; color: #fff;
-      line-height: 20px; font-size: 0.9rem;
-    }
-
-    /* 투자 일지 */
-    .diary-entry {
-      border-top: 1px solid #ddd; padding: 0.5rem 0; font-size: 0.9rem;
-      display: flex; align-items: center;
-    }
-    .diary-entry time { font-weight: bold; margin-right: 0.5rem; }
-    .diary-entry .diary-text { flex: 1; margin: 0 8px; }
-    .investment-diary button.edit-btn,
-    .investment-diary button.delete-btn {
-      padding: 0.3rem 0.6rem; background: #b30000; color: #fff;
-      border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
-      margin-left: 0.5rem;
-    }
-    .investment-diary button.edit-btn:hover,
-    .investment-diary button.delete-btn:hover { background: #800000; }
-
-    /* 달력 */
-    .calendar-navigation { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-    #calendar {
-      display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 0.5rem;
-    }
-    .calendar-day {
-      padding: 8px; border: 1px solid #ccc; cursor: pointer; min-height: 70px; position: relative;
-    }
-    .calendar-day:hover { background-color: #f4f7fa; }
-    .calendar-day .day-number { font-weight: bold; }
-    .calendar-day .memo-text {
-      display: block; margin-top: 4px; font-size: 0.75rem; color: var(--secondary-color);
-      word-break: break-word;
-    }
-    .calendar-day.has-memo { border: 2px solid var(--secondary-color); }
-
-    /* 가계부 */
-    .account-book-form {
-      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; margin-bottom: 1rem;
-    }
-    .account-book-form input,
-    .account-book-form select,
-    .account-book-form button {
-      padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px; font-size: 0.9rem;
-    }
-    .account-book-form button {
-      background: var(--primary-color); color: #fff; border: none; cursor: pointer;
-      transition: background 0.3s;
-    }
-    .account-book-form button:hover { background: #003060; }
-    .account-book-entries table {
-      width: 100%; border-collapse: collapse; font-size: 0.9rem;
-    }
-    .account-book-entries th,
-    .account-book-entries td {
-      padding: 0.6rem; border: 1px solid #ddd; text-align: left;
-    }
-    .account-book-entries tr:nth-child(odd) { background: #f9f9f9; }
-    .account-book-entries button.delete-entry {
-      padding: 0.2rem 0.5rem; background: #b30000; color: #fff;
-      border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
-    }
-    .account-book-entries button.delete-entry:hover { background: #800000; }
-
-    /* 체크리스트 */
-    .investment-checklist ul { list-style: none; padding-left: 0; }
-    .investment-checklist li {
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid #eee; padding: 0.8rem 0;
-    }
-    .investment-checklist li:last-child { border-bottom: none; }
-    .investment-checklist input[type="checkbox"] {
-      width: 1.5em; height: 1.5em; transform: scale(1.2); margin-left: 1px;
-    }
-    .checklist-add { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-    .checklist-add input { flex: 1; padding: 0.5rem; border: 1px solid #ccc;
-                           border-radius: 4px; font-size: 1rem; }
-    .checklist-add button {
-      padding: 0.1rem 1rem; background: var(--primary-color); color: #fff;
-      border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;
-    }
-    .checklist-add button:hover { background: #003060; }
-    .check-controls {
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .check-controls .delete-checklist-btn {
-      padding: 0.3rem 0.6rem; background: #b30000; color: #fff;
-      border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
-    }
-    .check-controls .delete-checklist-btn:hover { background: #800000; }
-
-    /* 반응형/모바일 최적화 */
-    @media (max-width: 768px) {
-      body { font-size: 18px; }
-      .section-container { width: 100%; }
-      .portfolio-section-content { flex-wrap: wrap; }
-      header h1 { font-size: 1.6rem; }
-      main { padding: 0 0.5rem; }
-      .portfolio-section-content { flex-direction: column; align-items: center; }
-      .chart-container canvas { width: 100% !important; height: auto !important; }
-      .calendar-navigation { flex-direction: column; gap: 0.5rem; text-align: center; }
-      .account-book-form,
-      .investment-checklist { font-size: 0.9rem; }
-      .modal-content { width: 90% !important; margin: 10% auto !important; padding: 1rem !important; }
-      #assetPortfolioModal .portfolio-section-content,
-      #stockPortfolioModal .portfolio-section-content { flex-direction: column !important; }
-      #assetPortfolioModal .left-content,
-      #assetPortfolioModal .right-chart,
-      #stockPortfolioModal .left-content,
-      #stockPortfolioModal .right-chart { width: 100%; margin-bottom: 1rem; }
-      #assetPortfolioModal .chart-container canvas,
-      #stockPortfolioModal .chart-container canvas { width: 100% !important; height: auto !important; }
-      #investmentDiaryModal textarea { min-height: 200px; font-size: 1rem; }
-      #accountBookModal .account-book-form { flex-direction: column !important; align-items: stretch; }
-      #accountBookModal .account-book-form input,
-      #accountBookModal .account-book-form select,
-      #accountBookModal .account-book-form button { width: 100%; }
-      .login-btn {
-    padding: 0.3rem 0.6rem; /* 패딩을 더 줄임 */
-    font-size: 0.75rem;    /* 폰트 크기를 더 축소 */
-    border-radius: 12px;   /* 둥근 정도도 조금 줄임 */
-  }
-    }
-    
-    /* 기존 푸터 디자인 복원 */
-    footer {
-      background-color: var(--primary-color);
-      color: #fff;
-      text-align: center;
-      padding: 0.8rem;
-      bottom: 0;
-      width: 100%;
-      font-size: 1rem;
-      box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
-    }
-    footer p {
-      margin: 0;
-      padding: 0;
-    }
-    
-    /* 탭 스타일 추가 */
-    .tab-container { margin-top: 1rem; }
-    .tab-links { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-    .tab-link {
-      padding: 0.5rem 1rem; border: 1px solid var(--primary-color);
-      background-color: #fff; color: var(--primary-color);
-      border-radius: 4px; cursor: pointer;
-    }
-    .tab-link.active { background-color: var(--primary-color); color: #fff; }
-    .tab-content { border: 1px solid var(--light-gray); padding: 1rem; border-radius: 4px; }
-    
-    /* To Do List 및 자산 목표 입력창 개선 */
-    .todo-form {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 1rem;
-    }
-    .todo-form input[type="text"] {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    .todo-form button {
-      padding: 10px 15px;
-      background-color: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .todo-form button:hover {
-      background-color: #003060;
-    }
-    .asset-goal-form input[type="text"] {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    .asset-goal-form button {
-      padding: 10px 15px;
-      background-color: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .asset-goal-form button:hover {
-      background-color: #003060;
-    }
-    
-    /* To Do List 디자인 개선 */
-    .todo-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .todo-item {
-      display: flex;
-      align-items: center;
-      padding: 8px;
-      margin-bottom: 5px;
-      border: 1px solid var(--light-gray);
-      border-radius: 4px;
-      background-color: #fff;
-    }
-    .todo-item input[type="checkbox"] {
-      margin-right: 10px;
-      transform: scale(1.2);
-    }
-    .todo-text {
-      flex: 1;
-      font-size: 1rem;
-    }
-    .todo-item button.delete-btn {
-      background: #b30000;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-    .todo-item button.delete-btn:hover {
-      background: #800000;
-    }
-    body.dark-mode .login-btn {
-        background-color: transparent;   /* 투명 배경 */
-        color: #cacaca;                  /* nav 링크와 동일한 텍스트 색상 */
-        border: 1px solid #cacaca;       /* 테두리 */
-      }
-
-      body.dark-mode .login-btn:hover {
-        background-color: #004284;       /* 호버 시 배경색 */
-        color: #cacaca;                  /* 텍스트 색상 */
-      }
-
-      .login-container {
-        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
-        margin-left: auto;
-      }
-
-      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
-      .login-container {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-      }
-
-      /* 로그인 버튼 스타일 (조금 더 세련되게) */
-      .login-btn {
-        display: inline-block;
-        background-color: #fff;
-        color: var(--primary-color);
-        border: none;
-        padding: 0.6rem 1.2rem;
-        border-radius: 20px; /* pill 형태로 둥글게 */
-        font-weight: bold;
-        text-decoration: none;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-      }
-
-      .login-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        background-color: var(--secondary-color);
-        color: #fff;
-      }
-
-    #goalManagementModal .modal-content,
-#calendarModal .modal-content {
-  min-height: 30rem; /* 1rem이 기본 폰트 크기(보통 16px)라면 약 480px 정도 */
+/* 'card' 스타일이 들어간 오른쪽 차트 박스 */
+body.dark-mode .right-chart.card {
+  background: #555 !important;
+  color: #cacaca !important;
 }
-/* 데스크탑 네비게이션: 기본적으로 표시 */
+
+/* 기본 폰트 사이즈 및 리셋 */
+html {
+  font-size: 16px;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 본문 기본 스타일 */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, var(--accent-color), #cbd7e3);
+  color: var(--text-color);
+  padding-bottom: 60px;
+  transition: background 0.3s, color 0.3s;
+  position: relative;
+}
+
+/* 헤더 스타일 */
+header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  position: relative;
+}
+header h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+header p {
+  font-size: 1rem;
+}
+
+/* 로그인 버튼 컨테이너 및 버튼 – index.html과 동일하게 수정 */
+.login-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  margin-left: auto;
+}
+.login-btn {
+  display: inline-block;
+  background-color: #fff;
+  color: var(--primary-color);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
+/* 네비게이션 스타일 */
+nav {
+  margin-top: 0.5rem;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+nav ul li a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+nav ul li a:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* 메인 콘텐츠 스타일 */
+main {
+  max-width: 960px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+.save-notice {
+  background: #fff;
+  color: #444;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid var(--primary-color);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  line-height: 1.4;
+}
+h2 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.recommendation {
+  background: var(--light-gray);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+/* 섹션 컨테이너 스타일 */
+.section-container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  padding: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 모달 스타일 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+.modal.active {
+  display: block;
+}
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 900px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.modal-content h3 {
+  margin-top: 0;
+}
+.modal-close-btn {
+  background: #b30000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  float: right;
+  margin-top: -10px;
+}
+.modal-close-btn:hover {
+  background: #800000;
+}
+
+/* 공통 버튼 */
+.primary-btn,
+.secondary-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+.primary-btn {
+  background: var(--primary-color);
+  color: #fff;
+}
+.primary-btn:hover {
+  background: #003060;
+}
+.secondary-btn {
+  background: var(--secondary-color);
+  color: #fff;
+}
+.secondary-btn:hover {
+  background: #004080;
+}
+
+/* 자산 포트폴리오 스타일 (.asset-item) */
+.asset-item {
+  display: flex;
+  align-items: left;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.asset-item input[type="text"],
+.asset-item input[type="number"] {
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.9rem;
+  width: 100px;
+}
+.asset-item button {
+  padding: 0.3rem 0.6rem;
+  background: #b30000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.asset-item button:hover {
+  background: #800000;
+}
+
+/* 투자 포트폴리오 스타일 (.stock-item) */
+.stock-item {
+  display: flex;
+  align-items: left;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.stock-item input[type="text"],
+.stock-item input[type="number"] {
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.9rem;
+  width: 100px;
+}
+.stock-item button {
+  padding: 0.3rem 0.6rem;
+  background: #b30000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.stock-item button:hover {
+  background: #800000;
+}
+
+.portfolio-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.portfolio-form button {
+  padding: 0.3rem 0.6rem;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+.portfolio-form button:hover {
+  background: #003060;
+}
+
+.chart-container {
+  margin: 0;
+}
+canvas {
+  width: 100%;
+  height: 300px;
+}
+.chart-btn-group {
+  text-align: center;
+  margin-top: 15px;
+}
+.chart-btn-group button {
+  margin: 0 5px;
+}
+
+.portfolio-section-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.left-content {
+  flex: 1;
+}
+.right-chart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.right-chart.card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
+
+/* 자산 목표 */
+.asset-goal-form {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 10px;
+}
+#assetGoalDisplay {
+  margin-top: 10px;
+}
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+.progress {
+  height: 20px;
+  background-color: var(--primary-color);
+  width: 0%;
+  transition: width 0.5s;
+  text-align: center;
+  color: #fff;
+  line-height: 20px;
+  font-size: 0.9rem;
+}
+
+/* 투자 일지 */
+.diary-entry {
+  border-top: 1px solid #ddd;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+.diary-entry time {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+.diary-entry .diary-text {
+  flex: 1;
+  margin: 0 8px;
+}
+.investment-diary button.edit-btn,
+.investment-diary button.delete-btn {
+  padding: 0.3rem 0.6rem;
+  background: #b30000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+.investment-diary button.edit-btn:hover,
+.investment-diary button.delete-btn:hover {
+  background: #800000;
+}
+
+/* 달력 */
+.calendar-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-top: 0.5rem;
+}
+.calendar-day {
+  padding: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  min-height: 70px;
+  position: relative;
+}
+.calendar-day:hover {
+  background-color: #f4f7fa;
+}
+.calendar-day .day-number {
+  font-weight: bold;
+}
+.calendar-day .memo-text {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  word-break: break-word;
+}
+.calendar-day.has-memo {
+  border: 2px solid var(--secondary-color);
+}
+
+/* 가계부 */
+.account-book-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+.account-book-form input,
+.account-book-form select,
+.account-book-form button {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.account-book-form button {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.account-book-form button:hover {
+  background: #003060;
+}
+.account-book-entries table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.account-book-entries th,
+.account-book-entries td {
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.account-book-entries tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+.account-book-entries button.delete-entry {
+  padding: 0.2rem 0.5rem;
+  background: #b30000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.account-book-entries button.delete-entry:hover {
+  background: #800000;
+}
+
+/* 체크리스트 */
+.investment-checklist ul {
+  list-style: none;
+  padding-left: 0;
+}
+.investment-checklist li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 0.8rem 0;
+}
+.investment-checklist li:last-child {
+  border-bottom: none;
+}
+.investment-checklist input[type="checkbox"] {
+  width: 1.5em;
+  height: 1.5em;
+  transform: scale(1.2);
+  margin-left: 1px;
+}
+.checklist-add {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.checklist-add input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.checklist-add button {
+  padding: 0.1rem 1rem;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.checklist-add button:hover {
+  background: #003060;
+}
+.check-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.check-controls .delete-checklist-btn {
+  padding: 0.3rem 0.6rem;
+  background: #b30000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.check-controls .delete-checklist-btn:hover {
+  background: #800000;
+}
+
+/* 반응형/모바일 최적화 */
+@media (max-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+  .section-container {
+    width: 100%;
+  }
+  .portfolio-section-content {
+    flex-wrap: wrap;
+  }
+  header h1 {
+    font-size: 1.6rem;
+  }
+  main {
+    padding: 0 0.5rem;
+  }
+  .portfolio-section-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .chart-container canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+  .calendar-navigation {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .account-book-form,
+  .investment-checklist {
+    font-size: 0.9rem;
+  }
+  .modal-content {
+    width: 90% !important;
+    margin: 10% auto !important;
+    padding: 1rem !important;
+  }
+  #assetPortfolioModal .portfolio-section-content,
+  #stockPortfolioModal .portfolio-section-content {
+    flex-direction: column !important;
+  }
+  #assetPortfolioModal .left-content,
+  #assetPortfolioModal .right-chart,
+  #stockPortfolioModal .left-content,
+  #stockPortfolioModal .right-chart {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  #assetPortfolioModal .chart-container canvas,
+  #stockPortfolioModal .chart-container canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+  #investmentDiaryModal textarea {
+    min-height: 200px;
+    font-size: 1rem;
+  }
+  #accountBookModal .account-book-form {
+    flex-direction: column !important;
+    align-items: stretch;
+  }
+  #accountBookModal .account-book-form input,
+  #accountBookModal .account-book-form select,
+  #accountBookModal .account-book-form button {
+    width: 100%;
+  }
+  .login-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    border-radius: 12px;
+  }
+}
+
+/* 기존 푸터 디자인 복원 */
+footer {
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  padding: 0.8rem;
+  bottom: 0;
+  width: 100%;
+  font-size: 1rem;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
+}
+footer p {
+  margin: 0;
+  padding: 0;
+}
+
+/* 탭 스타일 추가 */
+.tab-container {
+  margin-top: 1rem;
+}
+.tab-links {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.tab-link {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--primary-color);
+  background-color: #fff;
+  color: var(--primary-color);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.tab-link.active {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.tab-content {
+  border: 1px solid var(--light-gray);
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/* To Do List 및 자산 목표 입력창 개선 */
+.todo-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.todo-form input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.todo-form button {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.todo-form button:hover {
+  background-color: #003060;
+}
+.asset-goal-form input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.asset-goal-form button {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.asset-goal-form button:hover {
+  background-color: #003060;
+}
+
+/* To Do List 디자인 개선 */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 5px;
+  border: 1px solid var(--light-gray);
+  border-radius: 4px;
+  background-color: #fff;
+}
+.todo-item input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+.todo-text {
+  flex: 1;
+  font-size: 1rem;
+}
+.todo-item button.delete-btn {
+  background: #b30000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.todo-item button.delete-btn:hover {
+  background: #800000;
+}
+
+/* 모바일 하단 네비게이션 */
 .desktop-nav {
-        display: block;
-      }
-      /* 하단 네비게이션 바 (모바일 전용) */
-      .bottom-nav {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        padding: 0.3rem 0;
-        z-index: 1000;
-      }
+  display: block;
+}
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  padding: 0.3rem 0;
+  z-index: 1000;
+}
+.bottom-nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.bottom-nav ul li {
+  flex: 1;
+  text-align: center;
+}
+.bottom-nav ul li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  padding: 0.4rem 0;
+  min-width: 60px;
+  height: 50px;
+}
+.bottom-nav ul li a i {
+  font-size: 1rem;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+  .bottom-nav {
+    display: block;
+  }
+}
+body.dark-mode .login-btn {
+  background-color: transparent;
+  color: #cacaca;
+  border: 1px solid #cacaca;
+}
 
-      .bottom-nav ul {
-        display: flex;
-        justify-content: space-around;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .bottom-nav ul li {
-        flex: 1;
-        text-align: center;
-      }
-
-      .bottom-nav ul li a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary-color);
-        font-size: 0.75rem; /* 🔹 버튼 내부 텍스트 크기를 줄임 */
-        padding: 0.4rem 0; /* 🔹 버튼 높이를 줄이기 위해 패딩 조절 */
-        min-width: 60px; /* 🔹 버튼이 너무 작아지지 않도록 최소 너비 설정 */
-        height: 50px;
-      }
-      /* 아이콘과 텍스트 정렬 */
-      .bottom-nav ul li a i {
-          font-size: 1rem; /* 🔹 아이콘 크기 */
-          margin-bottom: 3px; /* 🔹 아이콘과 텍스트 간격 조절 */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-      /* 모바일에서는 헤더 내비게이션을 숨김 */
-      @media (max-width: 768px) {
-        .desktop-nav {
-          display: none;
-        }
-        .bottom-nav {
-          display: block; /* 하단 네비게이션 표시 */
-        }
-      }
-
+body.dark-mode .login-btn:hover {
+  background-color: #004284;
+  color: #cacaca;
+}
   </style>
 </head>
 <body>
