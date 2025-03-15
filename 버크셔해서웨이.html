@@ -298,19 +298,32 @@ footer {
   max-width: 1000px;
   position: relative;
 }
-.close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  cursor: pointer;
-}
-.close:hover,
-.close:focus {
-  color: black;
-}
+.modal-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border: 2px solid #333;
+      border-radius: 50%;
+      background: transparent;
+      color: #333;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+      z-index: 9999; /* 다른 요소에 가리지 않도록 충분히 높은 값 지정 */
+    }
+    .modal-close-btn::before {
+      content: "×";
+    }
+    .modal-close-btn:hover {
+      background: #333;
+      color: #fff;
+    }
 /* 모달 내부 카드 스타일 */
 .modal-description {
   background-color: #ffffff;       /* 흰색 배경 */
@@ -455,7 +468,15 @@ body.dark-mode .section.about h1,
 body.dark-mode .section.about h2 {
   color: #ffffff !important; /* 흰색으로 통일 */
 }
-
+/* 다크 모드에서 닫기 버튼 색상 보정 */
+body.dark-mode .modal-close-btn {
+  border-color: #cacaca;  /* 테두리를 밝은 회색(또는 흰색)으로 */
+  color: #cacaca;         /* X 아이콘 색상도 밝게 */
+}
+body.dark-mode .modal-close-btn:hover {
+  background: #cacaca;    /* 호버 시 버튼 배경은 밝은 색으로 */
+  color: #333;            /* X 아이콘은 짙은 색으로 */
+}
 /* hr(구분선) 색상 조정 */
 body.dark-mode .section.about hr {
   border-color: #666;
@@ -486,14 +507,6 @@ body.dark-mode .modal-description {
   border-left: 4px solid #002b57 !important; /* 왼쪽 파란 막대 (유지) */
   color: #cacaca !important;
 }
-
-body.dark-mode .modal .close {
-  color: #cacaca !important; /* 닫기 버튼 색상 */
-}
-body.dark-mode .modal .close:hover {
-  color: #fff !important;    /* 닫기 버튼 호버 시 */
-}
-
 /* 미디어 쿼리 (모바일) */
 @media (max-width: 768px) {
   body {
@@ -877,7 +890,7 @@ body:not(.dark-mode) .modal-description * {
     <!-- 모달 구조 -->
     <div id="chartModal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <button class="modal-close-btn close" onclick="closeModal('chartModal')"></button>
         <div class="modal-description"></div>
         <canvas id="modalChart"></canvas>
       </div>
