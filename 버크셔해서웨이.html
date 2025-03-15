@@ -359,8 +359,64 @@ footer {
 .close:focus {
   color: black;
 }
+/* 모달 내부 카드 스타일 */
 .modal-description {
-  margin-bottom: 20px;
+  background-color: #ffffff;       /* 흰색 배경 */
+  border: 1px solid #e0e0e0;      /* 옅은 회색 테두리 */
+  border-radius: 8px;             /* 살짝 둥근 모서리 */
+  padding: 1.5rem;                /* 카드 안 여백 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+  text-align: left;               /* 왼쪽 정렬로 가독성 ↑ */
+  color: #444;                    /* 본문 글자색 */
+  font-size: 1rem;                /* 기본 폰트 크기 */
+  margin: 1rem 0;                 /* 모달 상하 간격 */
+  line-height: 1.6;               /* 줄 간격 */
+  /* ★ 파란 막대기 (왼쪽 테두리) 추가 */
+  border-left: 4px solid #004080;  /* 막대 두께 & 색상 */
+  padding-left: 8px;              /* 텍스트와 막대 사이 여백 */
+}
+
+/* 모달 내부 최상위 제목 (예: h3) */
+.modal-description h3 {
+  font-size: 1.3rem;        /* 적당히 큰 제목 크기 */
+  font-weight: bold;        /* 굵게 */
+  color: #004080;           /* 진한 파랑 */
+  margin-bottom: 1rem;      /* 제목 아래 여백 */
+  border-bottom: 1px solid #ccc; /* 옅은 구분선 */
+  padding-bottom: 0.5rem;   /* 구분선과 텍스트 사이 여백 */
+}
+
+/* 소제목(h4)이나 그 이하 제목에 적용할 때 */
+.modal-description h4 {
+  font-size: 1.1rem;        /* 조금 더 작은 제목 */
+  font-weight: bold;
+  color: #004080;           /* 동일한 파랑 톤 */
+  margin: 1rem 0 0.5rem;
+}
+
+/* 일반 문단(p) 스타일 */
+.modal-description p {
+  margin-bottom: 1rem;      /* 문단 간격 */
+  color: #444;              /* 본문 색상 */
+}
+
+/* 리스트(ul, ol) 스타일 */
+.modal-description ul,
+.modal-description ol {
+  margin-bottom: 1rem;      /* 리스트 아래 간격 */
+  padding-left: 1.5rem;     /* 글머리 들여쓰기 */
+}
+
+.modal-description li {
+  margin-bottom: 0.6rem;    /* 항목 간격 */
+  line-height: 1.5;         /* 줄 간격 */
+  color: #444;
+}
+
+/* 강조 텍스트(예: strong) */
+.modal-description strong {
+  font-weight: bold;
+  color: #000;              /* 본문보다 좀 더 진하게 */
 }
 #modalChart {
   width: 500px !important;
@@ -519,7 +575,6 @@ body.dark-mode .login-btn:hover {
             <br>해당 데이터는 매 분기마다 업데이트되며, 투자 트렌드 및 종목 변화를 신속하게 반영합니다.
         </div>
     </main>
-
     <!-- 차트 목록 (3행*3열) - 원본 그대로 유지 -->
     <div class="chart-container">
       <div class="chart-row">
@@ -823,134 +878,281 @@ body.dark-mode .login-btn:hover {
 
         // 모달 내 "자세한 내용"
         const chartDetails = [
-          // 0
-          `
-            <h3>BERKSHIRE HATHAWAY INC</h3>
-            <p>
-              버크셔 해서웨이는 워렌 버핏(Warren Buffett)이 이끄는 투자 지주회사로,
-              보험, 철도, 에너지, 유통, 금융 등 다양한 사업 분야를 포괄하고 있습니다.
-              가치 투자 철학에 기반해 장기적으로 우량 기업을 보유하며,
-              주주총회는 전 세계 투자자들의 이목을 집중시키는 행사로 자리 잡았습니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> AAPL 28.12%, AXP 16.84%, BAC 11.19%, KO 9.32%, CVX 6.43%, OXY 5%, 기타 23.1%<br>
-              <strong>투자 성향:</strong> 가치투자, 장기투자<br>
-              <strong>특징:</strong> 시장 변동성을 매수 기회로 활용하고,
-              기업의 내재가치를 중시합니다.
-            </p>
-          `,
-          // 1
-          `
-            <h3>DUQUESNE FAMILY OFFICE</h3>
-            <p>
-              스탠리 드라켄밀러(Stanley Druckenmiller)가 운영하는 패밀리 오피스로,
-              거시경제 분석과 유연한 포트폴리오 조정을 통해 장기 수익을 추구합니다.
-              드라켄밀러는 과거 조지 소로스와 함께 영란은행(영국 파운드화)에 대한
-              공매도로 큰 수익을 거둔 이력이 있습니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> NTRA 15.17%, COHR 7.18%, WWD 5.48%, TEVA 5.33%, CPNG 5.26%, PM 4.37%, 기타 57.21%<br>
-              <strong>투자 성향:</strong> 매크로 중심, 다각화<br>
-              <strong>특징:</strong> 단일 자산군이나 지역에 과도하게 집중하기보다,
-              시장 상황에 따라 탄력적으로 자산 비중을 조절합니다.
-            </p>
-          `,
-          // 2
-          `
-            <h3>Bridgewater Associates</h3>
-            <p>
-              레이 달리오(Ray Dalio)가 설립한 세계 최대 규모의 헤지펀드 중 하나로,
-              ‘올웨더(All Weather)’ 전략을 통해 경기 사이클에 관계없이 안정적인 수익을 추구합니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> SPY 22.12%, IVV 5.5%, IEMG 4.23%, GOOGL 3.14%, NVDA 2.15%, META 2.15%, 기타 60.71%<br>
-              <strong>투자 성향:</strong> 거시경제 분석, 분산 투자<br>
-              <strong>특징:</strong> 방대한 데이터와 알고리즘을 활용해 의사결정을 내리며,
-              원칙(Principles)에 기반한 조직 문화를 운영합니다.
-            </p>
-          `,
-          // 3
-          `
-            <h3>Pershing Square Capital Management</h3>
-            <p>
-              빌 애크먼(Bill Ackman)이 이끄는 액티비스트 헤지펀드로,
-              기업 지분을 확보한 뒤 경영진과 적극적으로 협의해 기업 가치를 높이는 전략을 취합니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> BN 15.89%, QSR 11.88%, CMG 11.78%, HHH 11.5%, GOOG 11.39%, NKE 11.23%, 기타 26.33%<br>
-              <strong>투자 성향:</strong> 장기 가치투자, 액티비즘<br>
-              <strong>특징:</strong> 기업의 지배구조 개선, 비용 구조 조정, 합병·인수 등을 통해
-              기업의 주주가치를 극대화하려 합니다.
-            </p>
-          `,
-          // 4
-          `
-            <h3>SoftBank Group</h3>
-            <p>
-              손정의(Masayoshi Son)가 주도하는 대규모 투자 그룹으로,
-              비전펀드(Vision Fund)를 통해 전 세계 기술 스타트업에 공격적으로 투자해 왔습니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> TMUS 80.64%, NVDA 6.04%, SYM 4.04%, WBTN 1.83%, LMND 1.68%, INTR 1.17%, 기타 4.6%<br>
-              <strong>투자 성향:</strong> 혁신기술 중심, 높은 위험 대비 높은 보상<br>
-              <strong>특징:</strong> 우버, 위워크, 쿠팡 등 성장 가능성이 높은 회사에 초기 또는 대규모 투자로 참여해 왔습니다.
-            </p>
-          `,
-          // 5
-          `
-            <h3>PAULSON & COMPANY INC</h3>
-            <p>
-              존 폴슨(John Paulson)이 설립한 헤지펀드로,
-              2008년 서브프라임 모기지 위기를 예견하고 공매도를 통해 막대한 이익을 거둔 것으로 유명합니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> MDGL 38.14%, PPTA 16%, AAMI 14.27%, BHC 12.9%, NG 5.49%, THRY 3.83%, 기타 9.87%<br>
-              <strong>투자 성향:</strong> 이벤트 드리븐, 가치투자<br>
-              <strong>특징:</strong> 시장 왜곡이나 기업 구조조정 등 특수 상황을 기회로 삼는 이벤트 드리븐 전략에 강점이 있습니다.
-            </p>
-          `,
-          // 6
-          `
-            <h3>SAUDI CENTRAL BANK</h3>
-            <p>
-              사우디아라비아 중앙은행으로, 금융 안정성과 경제 발전을 위한 자금 운용을 수행합니다.
-              원유 수출국으로서 확보한 자금을 토대로 안전한 투자 대상에 자본을 분배합니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> XLE 19.19%, META 18.25%, SMH 14.01, QQQ 12.69%, VTV 12.66%, SPY 11.79%, 기타 11.41%<br>
-              <strong>투자 성향:</strong> 비교적 보수적, 안정 추구<br>
-              <strong>특징:</strong> 국부펀드의 성격을 갖고 있어, 장기적이고 안정적인 성장과 수익 확보를 중요시합니다.
-            </p>
-          `,
-          // 7
-          `
-            <h3>KNIGHTHEAD CAPITAL MANAGEMENT, LLC</h3>
-            <p>
-              부실 채권(Distressed Debt)과 구조조정 대상 기업에 집중 투자하는 헤지펀드로,
-              기업의 부채 상황과 회생 가능성을 평가하여 높은 수익을 노립니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> HTZ 31.59%, UP 20.26%, IWM 15.77%, HYG 14.96%, SPY 13.94%, GB 3.06%, 기타 0.42%<br>
-              <strong>투자 성향:</strong> 특수 상황, 밸류 투자<br>
-              <strong>특징:</strong> 파산 보호나 구조조정 과정에서 기업 가치가 저평가되는 시점을 포착해
-              지분과 채권을 매수하는 전략이 대표적입니다.
-            </p>
-          `,
-          // 8
-          `
-            <h3>FIDELITY NATIONAL FINANCIAL, INC.</h3>
-            <p>
-              미국 내 부동산 거래와 보험 서비스 분야에서 두각을 나타내는 기업으로,
-              타이틀 보험, 부동산 결제 서비스 등을 주력으로 합니다.
-            </p>
-            <p>
-              <strong>투자 비중:</strong> FG 89.08%, ALIT 3.12%, CCAP 1.63%, PSFE 1.30%, PM 0.68%, UPS 0.56%, 기타 3.63%<br>
-              <strong>투자 성향:</strong> 장기적 안정추구, 금융 분야 집중<br>
-              <strong>특징:</strong> 부동산 경기와 밀접한 관련이 있으며, 금융 서비스 사업 확장을 통한
-              중장기적 성장 전략을 이어갑니다.
-            </p>
-          `
-        ];
+        // 0
+        `
+          <h3>BERKSHIRE HATHAWAY INC</h3>
+          <p>
+            버크셔 해서웨이는 워렌 버핏(Warren Buffett)이 이끄는 투자 지주회사로,
+            보험, 철도, 에너지, 유통, 금융 등 다양한 사업 분야를 포괄하고 있습니다.
+            가치 투자 철학에 기반해 장기적으로 우량 기업을 보유하며,
+            주주총회는 전 세계 투자자들의 이목을 집중시키는 행사로 자리 잡았습니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>AAPL 28.12%</li>
+            <li>AXP 16.84%</li>
+            <li>BAC 11.19%</li>
+            <li>KO 9.32%</li>
+            <li>CVX 6.43%</li>
+            <li>OXY 5%</li>
+            <li>기타 23.1%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>가치투자, 장기투자</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>시장 변동성을 매수 기회로 활용하고, 기업의 내재가치를 중시합니다.</li>
+          </ul>
+        `,
+
+        // 1
+        `
+          <h3>DUQUESNE FAMILY OFFICE</h3>
+          <p>
+            스탠리 드라켄밀러(Stanley Druckenmiller)가 운영하는 패밀리 오피스로,
+            거시경제 분석과 유연한 포트폴리오 조정을 통해 장기 수익을 추구합니다.
+            드라켄밀러는 과거 조지 소로스와 함께 영란은행(영국 파운드화)에 대한
+            공매도로 큰 수익을 거둔 이력이 있습니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>NTRA 15.17%</li>
+            <li>COHR 7.18%</li>
+            <li>WWD 5.48%</li>
+            <li>TEVA 5.33%</li>
+            <li>CPNG 5.26%</li>
+            <li>PM 4.37%</li>
+            <li>기타 57.21%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>매크로 중심, 다각화</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>단일 자산군이나 지역에 과도하게 집중하기보다, 시장 상황에 따라 탄력적으로 자산 비중을 조절합니다.</li>
+          </ul>
+        `,
+
+        // 2
+        `
+          <h3>Bridgewater Associates</h3>
+          <p>
+            레이 달리오(Ray Dalio)가 설립한 세계 최대 규모의 헤지펀드 중 하나로,
+            ‘올웨더(All Weather)’ 전략을 통해 경기 사이클에 관계없이 안정적인 수익을 추구합니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>SPY 22.12%</li>
+            <li>IVV 5.5%</li>
+            <li>IEMG 4.23%</li>
+            <li>GOOGL 3.14%</li>
+            <li>NVDA 2.15%</li>
+            <li>META 2.15%</li>
+            <li>기타 60.71%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>거시경제 분석, 분산 투자</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>방대한 데이터와 알고리즘을 활용해 의사결정을 내리며, 원칙(Principles)에 기반한 조직 문화를 운영합니다.</li>
+          </ul>
+        `,
+
+        // 3
+        `
+          <h3>Pershing Square Capital Management</h3>
+          <p>
+            빌 애크먼(Bill Ackman)이 이끄는 액티비스트 헤지펀드로,
+            기업 지분을 확보한 뒤 경영진과 적극적으로 협의해 기업 가치를 높이는 전략을 취합니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>BN 15.89%</li>
+            <li>QSR 11.88%</li>
+            <li>CMG 11.78%</li>
+            <li>HHH 11.5%</li>
+            <li>GOOG 11.39%</li>
+            <li>NKE 11.23%</li>
+            <li>기타 26.33%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>장기 가치투자, 액티비즘</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>기업의 지배구조 개선, 비용 구조 조정, 합병·인수 등을 통해 기업의 주주가치를 극대화하려 합니다.</li>
+          </ul>
+        `,
+
+        // 4
+        `
+          <h3>SoftBank Group</h3>
+          <p>
+            손정의(Masayoshi Son)가 주도하는 대규모 투자 그룹으로,
+            비전펀드(Vision Fund)를 통해 전 세계 기술 스타트업에 공격적으로 투자해 왔습니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>TMUS 80.64%</li>
+            <li>NVDA 6.04%</li>
+            <li>SYM 4.04%</li>
+            <li>WBTN 1.83%</li>
+            <li>LMND 1.68%</li>
+            <li>INTR 1.17%</li>
+            <li>기타 4.6%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>혁신기술 중심, 높은 위험 대비 높은 보상</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>우버, 위워크, 쿠팡 등 성장 가능성이 높은 회사에 초기 또는 대규모 투자로 참여해 왔습니다.</li>
+          </ul>
+        `,
+
+        // 5
+        `
+          <h3>PAULSON & COMPANY INC</h3>
+          <p>
+            존 폴슨(John Paulson)이 설립한 헤지펀드로,
+            2008년 서브프라임 모기지 위기를 예견하고 공매도를 통해 막대한 이익을 거둔 것으로 유명합니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>MDGL 38.14%</li>
+            <li>PPTA 16%</li>
+            <li>AAMI 14.27%</li>
+            <li>BHC 12.9%</li>
+            <li>NG 5.49%</li>
+            <li>THRY 3.83%</li>
+            <li>기타 9.87%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>이벤트 드리븐, 가치투자</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>시장 왜곡이나 기업 구조조정 등 특수 상황을 기회로 삼는 이벤트 드리븐 전략에 강점이 있습니다.</li>
+          </ul>
+        `,
+
+        // 6
+        `
+          <h3>SAUDI CENTRAL BANK</h3>
+          <p>
+            사우디아라비아 중앙은행으로, 금융 안정성과 경제 발전을 위한 자금 운용을 수행합니다.
+            원유 수출국으로서 확보한 자금을 토대로 안전한 투자 대상에 자본을 분배합니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>XLE 19.19%</li>
+            <li>META 18.25%</li>
+            <li>SMH 14.01</li>
+            <li>QQQ 12.69%</li>
+            <li>VTV 12.66%</li>
+            <li>SPY 11.79%</li>
+            <li>기타 11.41%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>비교적 보수적, 안정 추구</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>국부펀드의 성격을 갖고 있어, 장기적이고 안정적인 성장과 수익 확보를 중요시합니다.</li>
+          </ul>
+        `,
+
+        // 7
+        `
+          <h3>KNIGHTHEAD CAPITAL MANAGEMENT, LLC</h3>
+          <p>
+            부실 채권(Distressed Debt)과 구조조정 대상 기업에 집중 투자하는 헤지펀드로,
+            기업의 부채 상황과 회생 가능성을 평가하여 높은 수익을 노립니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>HTZ 31.59%</li>
+            <li>UP 20.26%</li>
+            <li>IWM 15.77%</li>
+            <li>HYG 14.96%</li>
+            <li>SPY 13.94%</li>
+            <li>GB 3.06%</li>
+            <li>기타 0.42%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>특수 상황, 밸류 투자</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>파산 보호나 구조조정 과정에서 기업 가치가 저평가되는 시점을 포착해 지분과 채권을 매수하는 전략이 대표적입니다.</li>
+          </ul>
+        `,
+
+        // 8
+        `
+          <h3>FIDELITY NATIONAL FINANCIAL, INC.</h3>
+          <p>
+            미국 내 부동산 거래와 보험 서비스 분야에서 두각을 나타내는 기업으로,
+            타이틀 보험, 부동산 결제 서비스 등을 주력으로 합니다.
+          </p>
+
+          <h4>투자 비중</h4>
+          <ol>
+            <li>FG 89.08%</li>
+            <li>ALIT 3.12%</li>
+            <li>CCAP 1.63%</li>
+            <li>PSFE 1.30%</li>
+            <li>PM 0.68%</li>
+            <li>UPS 0.56%</li>
+            <li>기타 3.63%</li>
+          </ol>
+
+          <h4>투자 성향</h4>
+          <ul>
+            <li>장기적 안정추구, 금융 분야 집중</li>
+          </ul>
+
+          <h4>특징</h4>
+          <ul>
+            <li>부동산 경기와 밀접한 관련이 있으며, 금융 서비스 사업 확장을 통한 중장기적 성장 전략을 이어갑니다.</li>
+          </ul>
+        `
+      ];
+
 
         // (1) 차트 생성
         chartData.forEach((data, index) => {

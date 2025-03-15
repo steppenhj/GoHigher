@@ -862,7 +862,16 @@ body.dark-mode .login-btn {
 }
 
       }
-    </style>
+/* 탭 영역을 상단에 고정 (sticky) */
+.modal-tabs {
+  position: sticky;
+  top: 0;                 /* 스크롤 시 상단 기준으로 고정 */
+  background: #fff;       /* 탭 영역 배경 (모달 배경과 동일 또는 원하는 색상) */
+  z-index: 10;            /* 스크롤 시 콘텐츠 위로 오도록 z-index 설정 */
+  border-bottom: 2px solid #ddd;
+  /* 필요에 따라 padding이나 box-shadow를 줄 수도 있음 */
+}
+</style>
   </head>
   <body>
     <header>
