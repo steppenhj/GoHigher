@@ -79,54 +79,6 @@ html {
   padding: 0;
 }
 
-/* 다크 모드 스타일 */
-body.dark-mode {
-  background: #444;
-  color: #cacaca;
-}
-body.dark-mode header {
-  background: linear-gradient(135deg, #002b57, #004284);
-  color: #cacaca;
-}
-body.dark-mode nav ul li a {
-  color: #cacaca;
-  border: 1px solid #cacaca;
-  background-color: transparent;
-}
-body.dark-mode nav ul li a:hover {
-  background-color: #004284;
-  color: #cacaca;
-}
-body.dark-mode footer {
-  background: linear-gradient(135deg, #002b57, #004284);
-  color: #cacaca;
-}
-body.dark-mode .save-notice {
-  background: #555555;
-  color: #cacaca;
-}
-body.dark-mode .container .section,
-body.dark-mode .container .section h1,
-body.dark-mode .container .section h2 {
-  background: #555555;
-  color: #002b57;
-}
-body.dark-mode .chart-container .chart-wrapper {
-  background: #555555;
-}
-body.dark-mode .modal-content {
-  background-color: #333 !important;
-  color: #cacaca !important;
-}
-body.dark-mode .modal .close {
-  color: #cacaca !important;
-}
-body.dark-mode .modal .close:hover {
-  color: #fff !important;
-}
-body.dark-mode .modal-description {
-  color: #cacaca !important;
-}
 
 /* 기본 스타일 */
 body {
@@ -460,6 +412,83 @@ footer {
 .section p {
   text-align: center;
 }
+.container .section ul li {
+  color: black;
+}
+/* 다크 모드 스타일 */
+body.dark-mode {
+  background: #444;
+  color: #cacaca;
+}
+body.dark-mode header {
+  background: linear-gradient(135deg, #002b57, #004284);
+  color: #cacaca;
+}
+body.dark-mode nav ul li a {
+  color: #cacaca;
+  border: 1px solid #cacaca;
+  background-color: transparent;
+}
+body.dark-mode nav ul li a:hover {
+  background-color: #004284;
+  color: #cacaca;
+}
+body.dark-mode footer {
+  background: linear-gradient(135deg, #002b57, #004284);
+  color: #cacaca;
+}
+body.dark-mode .save-notice {
+  background: #555555;
+  color: #cacaca;
+}
+/* 다크모드 - 상세 섹션 텍스트 색상 수정 */
+body.dark-mode .section.about,
+body.dark-mode .section.about p,
+body.dark-mode .section.about li,
+body.dark-mode .section.about strong,
+body.dark-mode .section.about em,
+body.dark-mode .section.about h1,
+body.dark-mode .section.about h2 {
+  color: #ffffff !important; /* 흰색으로 통일 */
+}
+
+/* hr(구분선) 색상 조정 */
+body.dark-mode .section.about hr {
+  border-color: #666;
+}
+
+/* 섹션 배경색, 카드처럼 부드럽게 처리 */
+body.dark-mode .section.about {
+  background-color: #555555;
+}
+
+body.dark-mode .chart-container .chart-wrapper {
+  background: #555555;
+}
+/* 다크 모드일 때 모달 배경, 텍스트, 닫기 버튼 색상 등 */
+body.dark-mode .modal-content{
+  background-color: #333 !important; /* 모달 전체 배경 */
+  color: #cacaca !important;         /* 기본 글자 색상 */
+}
+body.dark-mode .modal-content ol li, .modal-content ul li, .modal-content p{
+  color: #cacaca !important;         /* 기본 글자 색상 */
+}
+body.dark-mode .modal-content h3, .modal-content h4{
+  color: white !important;         /* 기본 글자 색상 */
+}
+body.dark-mode .modal-description {
+  background-color: #444 !important; /* 내용 영역 배경 */
+  border: 1px solid #666 !important; /* 옅은 회색 테두리 */
+  border-left: 4px solid #002b57 !important; /* 왼쪽 파란 막대 (유지) */
+  color: #cacaca !important;
+}
+
+body.dark-mode .modal .close {
+  color: #cacaca !important; /* 닫기 버튼 색상 */
+}
+body.dark-mode .modal .close:hover {
+  color: #fff !important;    /* 닫기 버튼 호버 시 */
+}
 
 /* 미디어 쿼리 (모바일) */
 @media (max-width: 768px) {
@@ -581,27 +610,27 @@ body.dark-mode .login-btn:hover {
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>BERKSHIRE HATHAWAY INC</h2>
-            <p>CEO: 워런 버핏 (Warren Buffett)</p>
-            <p>투자 성향: 장기 투자</p>
-            <p>사업 분야: 보험, 철도, 에너지, 가구, 화학제품 등</p>
+            <p><strong>CEO</strong>: 워런 버핏 (Warren Buffett)</p>
+            <p><strong>투자 성향</strong>: 장기 투자</p>
+            <p><strong>사업 분야</strong>: 보험, 철도, 에너지, 가구, 화학제품 등</p>
             <canvas id="chart1"></canvas>
           </div>
         </div>
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>DUQUESNE FAMILY OFFICE</h2>
-            <p>CEO: 스탠리 드라켄밀러(Stanley Druckenmiller)</p>
-            <p>투자 성향: 장기 투자, 다각화된 포트폴리오</p>
-            <p>사업 분야: 헤지펀드 운영, 투자 관리, 금융서비스 제공 등</p>
+            <p><strong>CEO</strong>: 스탠리 드라켄밀러(Stanley Druckenmiller)</p>
+            <p><strong>투자 성향</strong>: 장기 투자, 다각화된 포트폴리오</p>
+            <p><strong>사업 분야</strong>: 헤지펀드 운영, 투자 관리, 금융서비스 제공 등</p>
             <canvas id="chart2"></canvas>
           </div>
         </div>
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>Bridgewater Associates</h2>
-            <p>CEO: 레이 달리오(Ray Dalio)</p>
-            <p>투자 성향: 장기 투자, 다각화된 포트폴리오, 위험 배분</p>
-            <p>사업 분야: 헤지펀드 운영, 자산운용, 경제적 자문 등</p>
+            <p><strong>CEO</strong>: 레이 달리오(Ray Dalio)</p>
+            <p><strong>투자 성향</strong>: 장기 투자, 다각화된 포트폴리오, 위험 배분</p>
+            <p><strong>사업 분야</strong>: 헤지펀드 운영, 자산운용, 경제적 자문 등</p>
             <canvas id="chart3"></canvas>
           </div>
         </div>
@@ -610,27 +639,27 @@ body.dark-mode .login-btn:hover {
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>Pershing Square Capital Management</h2>
-            <p>CEO: 빌 애크먼(Bill Ackman)</p>
-            <p>투자 성향: 장기 투자</p>
-            <p>사업 분야: 주식, 채권, 부동산, 토대 계약 등</p>
+            <p><strong>CEO</strong>: 빌 애크먼(Bill Ackman)</p>
+            <p><strong>투자 성향</strong>: 장기 투자</p>
+            <p><strong>사업 분야</strong>: 주식, 채권, 부동산, 토대 계약 등</p>
             <canvas id="chart4"></canvas>
           </div>
         </div>
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>SoftBank Group</h2>
-            <p>CEO: 손정의(Masayoshi Son)</p>
-            <p>투자 성향: 높은 리스크, 높은 보상</p>
-            <p>사업 분야: 인공지능, 운송 서비스, 로봇, 자동화 등</p>
+            <p><strong>CEO</strong>: 손정의(Masayoshi Son)</p>
+            <p><strong>투자 성향</strong>: 높은 리스크, 높은 보상</p>
+            <p><strong>사업 분야</strong>: 인공지능, 운송 서비스, 로봇, 자동화 등</p>
             <canvas id="chart5"></canvas>
           </div>
         </div>
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>PAULSON & COMPANY INC</h2>
-            <p>CEO: 존 폴슨(John Paulson)</p>
-            <p>투자 성향: 장기 투자</p>
-            <p>사업 분야: 의료, 금융서비스, 통신서비스, 에너지 등</p>
+            <p><strong>CEO</strong>: 존 폴슨(John Paulson)</p>
+            <p><strong>투자 성향</strong>: 장기 투자</p>
+            <p><strong>사업 분야</strong>: 의료, 금융서비스, 통신서비스, 에너지 등</p>
             <canvas id="chart6"></canvas>
           </div>
         </div>
@@ -639,27 +668,27 @@ body.dark-mode .login-btn:hover {
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>SAUDI CENTRAL BANK</h2>
-            <p>CEO: 아이만 알사이리(Ayman Al-Sayari)</p>
-            <p>투자 성향: 안전한 투자</p>
-            <p>사업 분야: 금융 기술, 중소기업 지원 등</p>
+            <p><strong>CEO</strong>: 아이만 알사이리(Ayman Al-Sayari)</p>
+            <p><strong>투자 성향</strong>: 안전한 투자</p>
+            <p><strong>사업 분야</strong>: 금융 기술, 중소기업 지원 등</p>
             <canvas id="chart7"></canvas>
           </div>
         </div>
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>KNIGHTHEAD CAPITAL MANAGEMENT, LLC</h2>
-            <p>CEO: 아라 D. 코헨(Ara D. Cohen)</p>
-            <p>투자 성향: 장기 투자</p>
-            <p>사업 분야: 금융 서비스, 통신 서비스, 에너지 등</p>
+            <p><strong>CEO</strong>: 아라 D. 코헨(Ara D. Cohen)</p>
+            <p><strong>투자 성향</strong>: 장기 투자</p>
+            <p><strong>사업 분야</strong>: 금융 서비스, 통신 서비스, 에너지 등</p>
             <canvas id="chart8"></canvas>
           </div>
         </div>
         <div class="chart-wrapper">
           <div class="chart-box">
             <h2>FIDELITY NATIONAL FINANCIAL, INC.</h2>
-            <p>CEO: 아비게일 피에르폰트 존슨 (Abigail Pierrepont Johnson)</p>
-            <p>투자 성향: 장기 투자</p>
-            <p>사업 분야: 금융 서비스 등</p>
+            <p><strong>CEO</strong>: 아비게일 피에르폰트 존슨 (Abigail Pierrepont Johnson)</p>
+            <p><strong>투자 성향</strong>: 장기 투자</p>
+            <p><strong>사업 분야</strong>: 금융 서비스 등</p>
             <canvas id="chart9"></canvas>
           </div>
         </div>
