@@ -686,9 +686,16 @@
     padding-bottom: 70px; /* 네비게이션 높이에 맞춰 조정 */
   }
   .layout-container {
-    flex-direction: column;
-    padding: 0; /* 좌우 패딩을 제거하여 전체 너비 사용 */
-    margin: 0;  /* 필요에 따라 마진도 조정 */
+    padding: 0;
+  }
+  .main-content,
+  .news-section,
+  .half-section,
+  .full-section {
+    padding: 0.5rem; /* 기존 1rem이나 2rem보다 줄여서 내부 여백 감소 */
+  }
+  .news-section {
+    margin: 1rem 0; /* 위아래 마진도 줄여서 전체적으로 꽉 차게 */
   }
       }
     </style>
