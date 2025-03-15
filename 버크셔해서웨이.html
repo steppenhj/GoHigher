@@ -398,6 +398,65 @@
         background-color: var(--secondary-color);
         color: #fff;
       }
+      /* 기존 네비게이션: PC에서만 표시 */
+      .desktop-nav {
+        display: block;
+      }
+
+      /* 하단 네비게이션 바 (모바일 전용) */
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 0;
+        z-index: 1000;
+      }
+
+      .bottom-nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .bottom-nav ul li {
+        flex: 1;
+        text-align: center;
+      }
+
+      .bottom-nav ul li a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.8rem;
+        padding: 0.5rem 0;
+      }
+
+      .bottom-nav ul li a i {
+        font-size: 1.2rem;
+        margin-bottom: 3px;
+      }
+
+      .bottom-nav ul li a:hover {
+        color: var(--secondary-color);
+      }
+
+      /* 모바일 환경에서만 적용 */
+      @media (max-width: 768px) {
+        .desktop-nav {
+          display: none; /* 모바일에서는 기존 네비게이션 숨김 */
+        }
+        .bottom-nav {
+          display: block; /* 하단 네비게이션 표시 */
+        }
+      }
     </style>
 </head>
 <body>
@@ -418,6 +477,15 @@
       </ul>
     </nav>
   </header>
+  <!-- 모바일 전용 하단 네비게이션 바 -->
+  <nav class="bottom-nav">
+    <ul>
+      <li><a href="index.html"><i class="fas fa-newspaper"></i><br>투데이 뉴스</a></li>
+      <li><a href="주식포트폴리오.html"><i class="fas fa-book"></i><br>다이어리</a></li>
+      <li><a href="버크셔해서웨이.html"><i class="fas fa-chart-line"></i><br>인기 포트폴리오</a></li>
+      <li><a href="중소형주식.html"><i class="fas fa-coins"></i><br>중소형주식 추천</a></li>
+    </ul>
+  </nav>
     <main>
         <!-- 로그인 없이 브라우저에 영구 저장 안내 -->
         <div class="save-notice">
