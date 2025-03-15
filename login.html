@@ -7,38 +7,38 @@
     /* 기본 스타일 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Arial', sans-serif; text-align: center; color: #333; margin: 50px; }
-    
+
     h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
     .notice { margin-top: 0.5rem; margin-bottom: 1rem; font-size: 0.9rem; color: #666; }
 
-    .info-box { 
-      max-width: 600px; 
-      margin: 1.5rem auto; 
-      background-color: #f8f9ff; 
-      border-radius: 8px; 
-      padding: 1.5rem; 
-      text-align: left; 
+    .info-box {
+      max-width: 600px;
+      margin: 1.5rem auto;
+      background-color: #f8f9ff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: left;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .info-box h2 { margin-bottom: 0.8rem; font-size: 1.2rem; font-weight: bold; }
     .info-box ol { list-style-type: decimal; padding-left: 1.2rem; }
-    .info-box li { margin-bottom: 0.5rem; }
+    .info-box li { margin-bottom: 0.5rem; font-size: 1rem; }
 
-    /* 구글 로그인 버튼 스타일 */
+    /* 로그인 버튼 스타일 */
     .login-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100px;
+      height: auto;
     }
 
     .google-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #4285F4; /* Google 공식 블루 */
-      color: #FFFFFF; /* 흰색 텍스트 */
+      background-color: #4285F4;
+      color: #FFFFFF;
       border: none;
       border-radius: 30px;
       padding: 15px 20px;
@@ -47,25 +47,61 @@
       cursor: pointer;
       transition: all 0.3s ease-in-out;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-      min-width: 280px; /* 버튼 너비 확장 */
+      width: 100%;
+      max-width: 320px; /* 모바일에서도 적절한 크기 유지 */
     }
 
     .google-btn img {
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
+      width: 24px; /* 모바일에서 아이콘 크기 줄임 */
+      height: 24px;
+      margin-right: 8px;
     }
 
     .google-btn:hover {
-      background-color: #357ae8; /* 더 어두운 블루 */
+      background-color: #357ae8;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
 
-    /* 반응형 디자인 */
-    @media (max-width: 600px) {
+    /* 반응형 스타일 */
+    @media (max-width: 768px) {
+      body {
+        margin: 20px; /* 모바일에서 여백 축소 */
+      }
+
+      h1 {
+        font-size: 1.6rem; /* 헤더 크기 조정 */
+      }
+
+      .notice {
+        font-size: 0.85rem;
+      }
+
+      .info-box {
+        max-width: 90%; /* 모바일에서 더 넓게 차지하도록 설정 */
+        padding: 1.2rem;
+      }
+
+      .info-box h2 {
+        font-size: 1.1rem;
+      }
+
+      .info-box ol {
+        padding-left: 1rem;
+      }
+
+      .info-box li {
+        font-size: 0.95rem;
+      }
+
       .google-btn {
-        width: 90%;
-        justify-content: center;
+        padding: 12px 16px; /* 버튼 패딩 축소 */
+        font-size: 16px; /* 모바일에서 텍스트 크기 조정 */
+      }
+
+      .google-btn img {
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
       }
     }
   </style>
