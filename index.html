@@ -628,7 +628,8 @@
       }
 
       @media (max-width: 768px) {
-        nav {
+  /* 모바일에서 네비게이션을 하단에 고정 */
+  nav.bottom-nav {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -637,6 +638,20 @@
     text-align: center;
     padding: 0.5rem 0;
     z-index: 1000;
+  }
+  
+  /* 네비게이션 ul을 flex 컨테이너로 변경하고 한 줄로 배열 */
+  nav.bottom-nav ul {
+    display: flex;
+    justify-content: space-around;  /* 균등하게 배치 */
+    flex-wrap: nowrap;               /* 한 줄로 유지 */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* li 기본 스타일 제거 */
+  nav.bottom-nav li {
+    list-style: none;
   }
         body {
           font-size: 18px;
