@@ -597,6 +597,39 @@ body.dark-mode .modal-content textarea::placeholder {
   color: #ccc !important;
 }
 
+.login-container {
+        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
+        margin-left: auto;
+      }
+
+      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+      }
+
+      /* 로그인 버튼 스타일 (조금 더 세련되게) */
+      .login-btn {
+        display: inline-block;
+        background-color: #fff;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px; /* pill 형태로 둥글게 */
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        background-color: var(--secondary-color);
+        color: #fff;
+      }
+
       .login-container {
         /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
         margin-left: auto;
