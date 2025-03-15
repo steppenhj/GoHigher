@@ -398,11 +398,10 @@
         background-color: var(--secondary-color);
         color: #fff;
       }
-      /* 기존 네비게이션: PC에서만 표시 */
+      /* 데스크탑 네비게이션: 기본적으로 표시 */
       .desktop-nav {
         display: block;
       }
-
       /* 하단 네비게이션 바 (모바일 전용) */
       .bottom-nav {
         display: none;
@@ -447,14 +446,13 @@
       .bottom-nav ul li a:hover {
         color: var(--secondary-color);
       }
-
-      /* 모바일 환경에서만 적용 */
+      /* 모바일에서는 네비게이션을 숨김 */
       @media (max-width: 768px) {
         .desktop-nav {
-          display: none; /* 모바일에서는 기존 네비게이션 숨김 */
+          display: none;
         }
         .bottom-nav {
-          display: block; /* 하단 네비게이션 표시 */
+          display: block; /* 하단 네비게이션 활성화 */
         }
       }
     </style>
@@ -469,13 +467,13 @@
         <li><a href="주식포트폴리오.html">다이어리</a></li>
         <li><a href="버크셔해서웨이.html">인기 포트폴리오</a></li>
         <li><a href="중소형주식.html">중소형주식 추천</a></li>
-        <div class="login-container">
-          <a id="authButton" href="login.html" class="login-btn">
-            <i class="fas fa-sign-in-alt"></i> 로그인
-          </a>
-        </div>
       </ul>
     </nav>
+    <div class="login-container">
+      <a id="authButton" href="login.html" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> 로그인
+      </a>
+    </div>
   </header>
   <!-- 모바일 전용 하단 네비게이션 바 -->
   <nav class="bottom-nav">
