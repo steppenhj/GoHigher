@@ -442,11 +442,15 @@
         font-size: 0.75rem; /* 🔹 버튼 내부 텍스트 크기를 줄임 */
         padding: 0.4rem 0; /* 🔹 버튼 높이를 줄이기 위해 패딩 조절 */
         min-width: 60px; /* 🔹 버튼이 너무 작아지지 않도록 최소 너비 설정 */
+        height: 50px;
       }
       /* 아이콘과 텍스트 정렬 */
       .bottom-nav ul li a i {
-          font-size: 1rem; /* 🔹 아이콘 크기를 조정 (기존보다 작게) */
-          margin-bottom: 2px; /* 🔹 아이콘과 텍스트 간의 간격을 조절 */
+          font-size: 1rem; /* 🔹 아이콘 크기 */
+          margin-bottom: 3px; /* 🔹 아이콘과 텍스트 간격 조절 */
+          display: flex;
+          align-items: center;
+          justify-content: center;
       }
       /* 모바일에서는 헤더 내비게이션을 숨김 */
       @media (max-width: 768px) {
