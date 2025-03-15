@@ -842,12 +842,6 @@ body.dark-mode .login-btn {
         font-size: 0.85rem;
         border-radius: 15px;
     }
-    .modal {
-    width: 90%;         /* 모바일에서 모달 너비를 크게 */
-    max-height: 95vh;   /* 최대 높이를 뷰포트 높이의 95%로 설정하여 스크롤 가능하게 */
-    padding: 20px;      /* 내부 여백 추가 */
-    overflow-y: auto;   /* 내용이 많을 경우 스크롤 활성화 */
-  }
 
   .modal img {
     max-width: 100%;
@@ -862,15 +856,39 @@ body.dark-mode .login-btn {
 }
 
       }
-/* 탭 영역을 상단에 고정 (sticky) */
+
+      .modal {
+  position: relative; /* 컨테이너 내에서 sticky가 동작하도록 함 */
+  overflow-y: auto;
+  padding: 0; /* 컨테이너에 상단 여백이 없도록 */
+}
+
+.modal-header {
+  position: sticky;
+  top: 0;       /* 모달 상단에 붙게 함 */
+  left: 0;      /* 좌측 끝에 붙게 함 */
+  right: 0;     /* 우측 끝에 붙게 함 */
+  margin: 0;    /* 불필요한 외부 여백 제거 */
+  padding: 10px;/* 필요에 따라 내부 여백 조정 */
+  background: var(--primary-color);
+  z-index: 1000;
+  /* 모서리 둥근 효과를 원한다면 필요에 따라 유지 */
+  /* border-top-left-radius: 8px;
+     border-top-right-radius: 8px; */
+}
+
 .modal-tabs {
   position: sticky;
-  top: 0;                 /* 스크롤 시 상단 기준으로 고정 */
-  background: #fff;       /* 탭 영역 배경 (모달 배경과 동일 또는 원하는 색상) */
-  z-index: 10;            /* 스크롤 시 콘텐츠 위로 오도록 z-index 설정 */
+  top: 40px;    /* 헤더 높이(예: 50px)에 맞춰서 설정 - 헤더 바로 아래에 붙게 됨 */
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 10px; /* 내부 여백 조정 */
+  background: #fff;
+  z-index: 900;
   border-bottom: 2px solid #ddd;
-  /* 필요에 따라 padding이나 box-shadow를 줄 수도 있음 */
 }
+
 </style>
   </head>
   <body>
