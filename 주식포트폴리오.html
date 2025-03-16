@@ -2160,6 +2160,14 @@ body.dark-mode .modal-content textarea::placeholder {
           document.body.classList.add('dark-mode');
         }
       });
+
+      //모바일에서 모달 상황에 바깥 스크롤 막는 코드
+      document.addEventListener('touchmove', function(e) {
+  if (document.body.classList.contains("modal-open")) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
   </script>
 </body>
 </html>
