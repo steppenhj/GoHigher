@@ -243,7 +243,7 @@ nav ul li a:hover {
         transform: scale(1.05);
       }
       .nav-link.pressed {
-        background-color: rgba(0, 0, 255, 0.1);
+        background-color: transparent !important; /* 오버레이 제거 */
         transition: background-color 0.1s;
       }
 /* 활성(선택) 상태 */
@@ -593,11 +593,6 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
 }
 body.dark-mode .nav-link:hover {
   transform: scale(1.05);
-}
-
-.nav-link.pressed {
-  background-color: rgba(0, 0, 255, 0.1);
-  transition: background-color 0.1s;
 }
 
 /* 미디어 쿼리 (모바일) */

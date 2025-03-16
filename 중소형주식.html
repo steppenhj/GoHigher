@@ -852,7 +852,7 @@ body.dark-mode .nav-link:hover {
   transform: scale(1.05);
 }
 .nav-link.pressed {
-  background-color: rgba(0, 0, 255, 0.1);
+  background-color: transparent !important;
   transition: background-color 0.1s;
 }
 /* 활성(선택) 상태 */
@@ -879,10 +879,6 @@ body.dark-mode .nav-link:hover {
   box-shadow: none !important;
   border: none !important;
   background: transparent !important; /* 필요 시 배경도 투명화 */
-}
-.nav-link.pressed {
-  background-color: rgba(0, 0, 255, 0.1);
-  transition: background-color 0.1s;
 }
 
       /* 모바일에서는 헤더 내비게이션을 숨김 */
