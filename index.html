@@ -635,13 +635,15 @@
       .desktop-nav {
         display: block;
       }
-      .bottom-nav {
-  display: none; /* 데스크탑에서는 숨기고, @media로 모바일에서만 block */
+/* 공통 바 스타일 */
+.bottom-nav {
+  display: none; /* 데스크탑에서 숨기고 모바일에서만 보이게 */
   position: fixed;
-  bottom: 0; left: 0;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  padding: 0.3rem 0;
-  background: #fff; /* 투명이나 연한 색을 주거나, 필요하다면 배경을 없애도 좋음 */
+  padding: 0.5rem 0; /* 세로 패딩 살짝 키움 */
+  background: #fff;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
@@ -650,38 +652,57 @@
   display: flex;
   justify-content: space-around;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
 }
 
 .bottom-nav li {
-  flex: 1;
   text-align: center;
+  flex: 1;
 }
 
-/* 실제 링크 스타일 */
+/* nav-link 내부를 세로 배치 (column), 가운데 정렬 */
 .bottom-nav li a.nav-link {
-  display: inline-flex;
-  justify-content: center;
+  display: flex;
+  flex-direction: column; /* 이모티콘 + 텍스트 = 세로 배열 */
   align-items: center;
-  width: 50px;       /* 원형에 가까운 크기 */
-  height: 50px;      /* 터치 영역도 여유 있게 확보 */
-  font-size: 1.2rem; /* 이모티콘이 작아보이면 1.4rem 정도로 키워도 OK */
-  color: #888;       /* 비활성(미선택) 상태는 살짝 흐린 색 */
+  justify-content: center;
   text-decoration: none;
-  border-radius: 50%; /* hover 시 볼 수 있도록 둥글게 */
+  color: #888;           /* 기본(비활성) 텍스트 컬러 */
+  transition: transform 0.2s, color 0.2s;
+}
+
+/* 아이콘(원형) */
+.bottom-nav .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f0f0; /* 비활성 시 연한 배경 (원하는 색으로 조절) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem; /* 이모티콘 크기 */
+  margin-bottom: 4px; /* 아이콘과 텍스트 사이 간격 */
   transition: background-color 0.3s, color 0.3s;
-  /* 배경 투명 (색 비움) */
-  background-color: transparent;
 }
 
-/* 선택된(Active) 상태 -> 배경색 꽉 차게 */
-.bottom-nav li a.nav-link.active {
-  background-color: var(--primary-color); /* 혹은 원하는 브랜드 컬러 */
-  color: #fff;
+/* 텍스트 */
+.bottom-nav .nav-text {
+  font-size: 0.85rem; /* 아래에 작은 텍스트 */
+  color: #888;
 }
 
-/* hover 시(모바일에서는 터치 시 느낌) 살짝 효과 */
+/* 활성(선택) 상태 */
+.bottom-nav li a.nav-link.active .icon {
+  background-color: var(--primary-color); /* 브랜드 컬러로 꽉 찬 원 */
+  color: #fff; /* 이모티콘 색상을 흰색으로 */
+}
+
+/* 활성 상태의 텍스트 색상 차별화 */
+.bottom-nav li a.nav-link.active .nav-text {
+  color: var(--primary-color);
+}
+
+/* 호버 & 터치 */
 .bottom-nav li a.nav-link:hover {
   transform: scale(1.05);
 }
@@ -756,23 +777,36 @@
         </ul>
       </nav>
     </header>
-    <!-- 모바일 전용 하단 네비게이션 바 -->
-    <nav class="bottom-nav">
-      <ul>
-        <li><a href="index.html" class="nav-link active" aria-label="투데이 뉴스">
-          📰
-        </a></li>
-        <li><a href="주식포트폴리오.html" class="nav-link">
-          📔
-        </a></li>
-        <li><a href="버크셔해서웨이.html" class="nav-link">
-          📈
-        </a></li>
-        <li><a href="중소형주식.html" class="nav-link">
-          🌟
-        </a></li>
-      </ul>
-    </nav>
+<!-- 모바일 하단 네비게이션 -->
+<nav class="bottom-nav">
+  <ul>
+    <li>
+      <a href="index.html" class="nav-link active" aria-label="뉴스">
+        <span class="icon">📰</span>
+        <span class="nav-text">뉴스</span>
+      </a>
+    </li>
+    <li>
+      <a href="주식포트폴리오.html" class="nav-link" aria-label="다이어리">
+        <span class="icon">📔</span>
+        <span class="nav-text">다이어리</span>
+      </a>
+    </li>
+    <li>
+      <a href="버크셔해서웨이.html" class="nav-link" aria-label="대가들">
+        <span class="icon">📈</span>
+        <span class="nav-text">대가들</span>
+      </a>
+    </li>
+    <li>
+      <a href="중소형주식.html" class="nav-link" aria-label="중소형주">
+        <span class="icon">🌟</span>
+        <span class="nav-text">중소형주</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
     
 
     <!-- [추가] 파도형 섹션 구분 - header와 메인 사이에 배치 -->
