@@ -784,51 +784,76 @@ body.dark-mode .login-btn {
       .desktop-nav {
         display: block;
       }
-      /* 하단 네비게이션 바 (모바일 전용) */
       .bottom-nav {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        padding: 0.3rem 0;
-        z-index: 1000;
-      }
+  display: none;
+  position: fixed;
+  bottom: 0; 
+  left: 0;
+  width: 100%;
+  /* 세로 패딩 줄이기 (기존 0.5rem → 0.3rem) */
+  padding: 0.3rem 0;
+  background: #fff;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
 
-      .bottom-nav ul {
-        display: flex;
-        justify-content: space-around;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
+.bottom-nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0; padding: 0;
+}
 
-      .bottom-nav ul li {
-        flex: 1;
-        text-align: center;
-      }
+.bottom-nav li {
+  text-align: center;
+  flex: 1;
+}
 
-      .bottom-nav ul li a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary-color);
-        font-size: 0.75rem; /* 🔹 버튼 내부 텍스트 크기를 줄임 */
-        padding: 0.4rem 0; /* 🔹 버튼 높이를 줄이기 위해 패딩 조절 */
-        min-width: 60px; /* 🔹 버튼이 너무 작아지지 않도록 최소 너비 설정 */
-        height: 50px;
-      }
-      /* 아이콘과 텍스트 정렬 */
-      .bottom-nav ul li a i {
-          font-size: 1rem; /* 🔹 아이콘 크기 */
-          margin-bottom: 3px; /* 🔹 아이콘과 텍스트 간격 조절 */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
+/* nav-link 내부를 세로 배치 */
+.bottom-nav li a.nav-link {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #888; 
+  transition: transform 0.2s, color 0.2s;
+}
+
+/* 아이콘 (기존 40x40 → 약 2/3 크기인 28x28) */
+.bottom-nav .icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 이모티콘 폰트 사이즈도 살짝 축소 (기존 1.2rem → 1.1rem) */
+  font-size: 1.1rem;
+  margin-bottom: 3px; /* 아이콘과 텍스트 사이 간격도 줄이기 */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* 텍스트 (기존 0.85rem → 0.75rem) */
+.bottom-nav .nav-text {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* 활성(선택) 상태 */
+.bottom-nav li a.nav-link.active .icon {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.bottom-nav li a.nav-link.active .nav-text {
+  color: var(--primary-color);
+}
+
+/* 호버 & 터치 */
+.bottom-nav li a.nav-link:hover {
+  transform: scale(1.05);
+}
       /* 모바일에서는 헤더 내비게이션을 숨김 */
       @media (max-width: 768px) {
         .desktop-nav {
@@ -930,15 +955,36 @@ body.dark-mode .login-btn {
         </ul>
       </nav>
     </header>
-    <!-- 모바일 전용 하단 네비게이션 바 -->
-    <nav class="bottom-nav">
-      <ul>
-        <li><a href="index.html"><i class="fas fa-newspaper"></i><br>투데이 뉴스</a></li>
-        <li><a href="주식포트폴리오.html"><i class="fas fa-book"></i><br>다이어리</a></li>
-        <li><a href="버크셔해서웨이.html"><i class="fas fa-chart-line"></i><br>인기 포트폴리오</a></li>
-        <li><a href="중소형주식.html"><i class="fas fa-coins"></i><br>중소형주식 추천</a></li>
-      </ul>
-    </nav>
+<!-- 모바일 하단 네비게이션 -->
+<nav class="bottom-nav">
+  <ul>
+    <li>
+      <a href="index.html" class="nav-link active" aria-label="뉴스">
+        <span class="icon">📰</span>
+        <span class="nav-text">뉴스</span>
+      </a>
+    </li>
+    <li>
+      <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
+        <span class="icon">📔</span>
+        <span class="nav-text">다이어리</span>
+      </a>
+    </li>
+    <li>
+      <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
+        <span class="icon">📈</span>
+        <span class="nav-text">대가들</span>
+      </a>
+    </li>
+    <li>
+      <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
+        <span class="icon">🌟</span>
+        <span class="nav-text">중소형주</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
     <main>
       <div class="save-notice">
         이 페이지는 <strong>미국 중소형주식</strong>을 소개합니다.<br />
