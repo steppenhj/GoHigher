@@ -635,51 +635,56 @@
       .desktop-nav {
         display: block;
       }
-      /* 하단 네비게이션 바 (모바일 전용) */
       .bottom-nav {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        padding: 0.3rem 0;
-        z-index: 1000;
-      }
+  display: none; /* 데스크탑에서는 숨기고, @media로 모바일에서만 block */
+  position: fixed;
+  bottom: 0; left: 0;
+  width: 100%;
+  padding: 0.3rem 0;
+  background: #fff; /* 투명이나 연한 색을 주거나, 필요하다면 배경을 없애도 좋음 */
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
 
-      .bottom-nav ul {
-        display: flex;
-        justify-content: space-around;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
+.bottom-nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-      .bottom-nav ul li {
-        flex: 1;
-        text-align: center;
-      }
+.bottom-nav li {
+  flex: 1;
+  text-align: center;
+}
 
-      .bottom-nav ul li a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary-color);
-        font-size: 0.75rem; /* 🔹 버튼 내부 텍스트 크기를 줄임 */
-        padding: 0.4rem 0; /* 🔹 버튼 높이를 줄이기 위해 패딩 조절 */
-        min-width: 60px; /* 🔹 버튼이 너무 작아지지 않도록 최소 너비 설정 */
-        height: 50px;
-      }
-      /* 아이콘과 텍스트 정렬 */
-      .bottom-nav ul li a i {
-          font-size: 1rem; /* 🔹 아이콘 크기 */
-          margin-bottom: 3px; /* 🔹 아이콘과 텍스트 간격 조절 */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
+/* 실제 링크 스타일 */
+.bottom-nav li a.nav-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;       /* 원형에 가까운 크기 */
+  height: 50px;      /* 터치 영역도 여유 있게 확보 */
+  font-size: 1.2rem; /* 이모티콘이 작아보이면 1.4rem 정도로 키워도 OK */
+  color: #888;       /* 비활성(미선택) 상태는 살짝 흐린 색 */
+  text-decoration: none;
+  border-radius: 50%; /* hover 시 볼 수 있도록 둥글게 */
+  transition: background-color 0.3s, color 0.3s;
+  /* 배경 투명 (색 비움) */
+  background-color: transparent;
+}
+
+/* 선택된(Active) 상태 -> 배경색 꽉 차게 */
+.bottom-nav li a.nav-link.active {
+  background-color: var(--primary-color); /* 혹은 원하는 브랜드 컬러 */
+  color: #fff;
+}
+
+/* hover 시(모바일에서는 터치 시 느낌) 살짝 효과 */
+.bottom-nav li a.nav-link:hover {
+  transform: scale(1.05);
+}
       @media (max-width: 768px) {
         body {
           font-size: 18px;
@@ -754,12 +759,21 @@
     <!-- 모바일 전용 하단 네비게이션 바 -->
     <nav class="bottom-nav">
       <ul>
-        <li><a href="index.html"><i class="fas fa-newspaper"></i><br>투데이 뉴스</a></li>
-        <li><a href="주식포트폴리오.html"><i class="fas fa-book"></i><br>다이어리</a></li>
-        <li><a href="버크셔해서웨이.html"><i class="fas fa-chart-line"></i><br>인기 포트폴리오</a></li>
-        <li><a href="중소형주식.html"><i class="fas fa-coins"></i><br>중소형주식 추천</a></li>
+        <li><a href="index.html" class="nav-link active" aria-label="투데이 뉴스">
+          📰
+        </a></li>
+        <li><a href="주식포트폴리오.html" class="nav-link">
+          📔
+        </a></li>
+        <li><a href="버크셔해서웨이.html" class="nav-link">
+          📈
+        </a></li>
+        <li><a href="중소형주식.html" class="nav-link">
+          🌟
+        </a></li>
       </ul>
     </nav>
+    
 
     <!-- [추가] 파도형 섹션 구분 - header와 메인 사이에 배치 -->
     <div class="section-divider">
