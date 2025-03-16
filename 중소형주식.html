@@ -748,6 +748,32 @@ body.dark-mode .login-btn {
       body.dark-mode .modal-content textarea::placeholder {
         color: #ccc !important;
       }
+      /* 다크 모드 시, 모바일 하단 네비게이션 배경 */
+body.dark-mode .bottom-nav {
+  background: #333; /* 예: 어두운 배경 */
+}
+
+/* 다크 모드 시, 기본 아이콘 배경/텍스트 색 */
+body.dark-mode .bottom-nav .icon {
+  background-color: #555; /* 기존 #f0f0f0 대신 어두운 톤 */
+  color: #cacaca;         /* 글자색을 밝게 */
+}
+
+/* 다크 모드 시, .nav-link 텍스트 색 */
+body.dark-mode .bottom-nav .nav-text {
+  color: #cacaca; /* 기존 #888 대신 조금 더 밝은 회색 */
+}
+
+/* 다크 모드 시, 활성 상태(Active)인 아이콘/텍스트 */
+body.dark-mode .bottom-nav li a.nav-link.active .icon {
+  /* 브랜드 컬러 유지 or 다른 컬러로 조정 가능 */
+  background-color: var(--primary-color);
+  color: #fff;
+}
+body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
+  color: #fff;
+}
+
       .login-container {
         /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
         margin-left: auto;
