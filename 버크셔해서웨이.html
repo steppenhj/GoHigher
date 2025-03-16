@@ -536,9 +536,9 @@ body.dark-mode .modal-description {
   border-left: 4px solid #002b57 !important; /* 왼쪽 파란 막대 (유지) */
   color: #cacaca !important;
 }
-/* 예) 모든 a 태그에 대해 터치 하이라이트 제거 */
-a {
-  -webkit-tap-highlight-color: transparent;
+.nav-link.pressed {
+  background-color: rgba(0, 0, 255, 0.1);
+  transition: background-color 0.1s;
 }
 
 /* 미디어 쿼리 (모바일) */
@@ -1395,6 +1395,29 @@ body:not(.dark-mode) .modal-description * {
             document.body.classList.add('dark-mode');
           }
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+  // (1) tap highlight 제거
+  document.querySelectorAll('a.nav-link').forEach(a => {
+    a.style.webkitTapHighlightColor = 'transparent';
+  });
+
+  // (2) 클릭 이벤트 걸기
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault(); // 기본 이동 막기
+      
+      // pressed 클래스 추가
+      link.classList.add('pressed');
+
+      // 100ms 후 페이지 이동
+      setTimeout(() => {
+        window.location.href = link.getAttribute('href');
+      }, 100);
+    });
+  });
+});
+
     </script>
 </body>
 </html>
