@@ -767,6 +767,36 @@ body.dark-mode .nav-link:hover {
       .desktop-nav {
         display: block;
       }
+
+            /* ----- 아이콘별 기본/활성 이미지 지정 ----- */
+      /* (1) 뉴스 아이콘 */
+      .news-icon {
+        background-image: url("images/newsImage.png");
+      }
+      .nav-link.active .news-icon {
+        background-image: url("images/newsOn.png");
+      }
+      /* (2) 다이어리 아이콘 */
+      .diary-icon {
+        background-image: url("images/diaryImage.png");
+      }
+      .nav-link.active .diary-icon {
+        background-image: url("images/diaryOn.png");
+      }
+      /* (3) 대가들(차트) 아이콘 */
+      .chart-icon {
+        background-image: url("images/chartImage.png");
+      }
+      .nav-link.active .chart-icon {
+        background-image: url("images/chartOn.png");
+      }
+      /* (4) 중소형주(회사) 아이콘 */
+      .company-icon {
+        background-image: url("images/companyImage.png");
+      }
+      .nav-link.active .company-icon {
+        background-image: url("images/companyOn.png");
+      }
 /* ---------- 모바일 하단 네비게이션 ---------- */
 .bottom-nav {
   display: none;
