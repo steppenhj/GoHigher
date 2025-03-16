@@ -149,67 +149,73 @@ nav ul li a:hover {
   color: #fff;
 }
 
-/* 데스크탑 네비게이션 */
-.desktop-nav {
-  display: block;
-}
-/* ---------- 모바일 하단 네비게이션 ---------- */
-.bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 0.3rem 0;
-  background: #fff;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-.bottom-nav ul {
-  display: flex;
-  justify-content: space-around;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.bottom-nav li {
-  text-align: center;
-  flex: 1;
-}
-.bottom-nav li a.nav-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #888;
-  transition: transform 0.2s, color 0.2s;
-}
-/* 아이콘 (이미지) */
-.bottom-nav .icon {
-  width: 28px;
-  height: 28px;
-  display: inline-block;
-  background-color: transparent;
-  border-radius: 0;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  margin-bottom: 3px;
-  transition: background-color 0.3s, color 0.3s;
-}
-/* 텍스트 */
-.bottom-nav .nav-text {
-  font-size: 0.75rem;
-  color: #888;
-}
-.bottom-nav li a.nav-link:hover {
-  transform: scale(1.05);
-}
-.nav-link.pressed {
-  background-color: rgba(0, 0, 255, 0.1);
-  transition: background-color 0.1s;
-}
+      /* 데스크탑 네비게이션: 기본적으로 표시 */
+      .desktop-nav {
+        display: block;
+      }
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.3rem 0;
+        background: #fff;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      .bottom-nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .bottom-nav li {
+        text-align: center;
+        flex: 1;
+      }
+      .bottom-nav li a.nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #888;
+        transition: transform 0.2s, color 0.2s;
+      }
+
+      /* 모바일 하단 아이콘 */
+      .bottom-nav .icon {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        /* 이미지 배경을 위해 설정 */
+        background-color: transparent; /* 둥근 배경 제거 */
+        border-radius: 0;             /* 둥근 테두리 제거 */
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-bottom: 3px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      /* 기본 텍스트 크기 */
+      .bottom-nav .nav-text {
+        font-size: 0.75rem;
+        color: #888;
+      }
+      /* 활성(선택) 상태 */
+      .bottom-nav li a.nav-link.active .nav-text {
+        color: var(--primary-color);
+      }
+
+      .bottom-nav li a.nav-link:hover {
+        transform: scale(1.05);
+      }
+      .nav-link.pressed {
+        background-color: rgba(0, 0, 255, 0.1);
+        transition: background-color 0.1s;
+      }
 /* 활성(선택) 상태 */
 .bottom-nav li a.nav-link.active .nav-text {
   color: var(--primary-color);
