@@ -16,7 +16,6 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-
   <meta property="og:title" content="다이어리·포트폴리오 설계·가계부·투자일지·달력·리밸런싱도구 무료 제공" />
   <meta property="og:description" content="주식 포트폴리오·투자 일지·달력·가계부 기능 등을 제공하는 자산 다이어리 페이지입니다. Go Higher에서 간편하게 포트폴리오·일정을 관리해보세요." />
   <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
@@ -42,6 +41,7 @@
     }
   }
   </script>
+
 
   <style>
           html {
@@ -636,27 +636,32 @@ body.dark-mode .modal-content input::placeholder,
 body.dark-mode .modal-content textarea::placeholder {
   color: #ccc !important;
 }
-/* 하단 nav */
+/* 다크 모드 시, 모바일 하단 네비게이션 배경 */
 body.dark-mode .bottom-nav {
-  background: #333;
+  background: #333; /* 예: 어두운 배경 */
 }
+
+/* 다크 모드 시, 기본 아이콘 배경/텍스트 색 */
 body.dark-mode .bottom-nav .icon {
-  background-color: #555 !important;
-  color: #cacaca;
+  background-color: #555; /* 기존 #f0f0f0 대신 어두운 톤 */
+  color: #cacaca;         /* 글자색을 밝게 */
 }
+
+/* 다크 모드 시, .nav-link 텍스트 색 */
 body.dark-mode .bottom-nav .nav-text {
-  color: #cacaca;
+  color: #cacaca; /* 기존 #888 대신 조금 더 밝은 회색 */
 }
+
+/* 다크 모드 시, 활성 상태(Active)인 아이콘/텍스트 */
 body.dark-mode .bottom-nav li a.nav-link.active .icon {
-  background-color: var(--primary-color) !important;
+  /* 브랜드 컬러 유지 or 다른 컬러로 조정 가능 */
+  background-color: var(--primary-color);
   color: #fff;
 }
 body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
   color: #fff;
 }
-body.dark-mode .nav-link:hover {
-  transform: scale(1.05);
-}
+
 .login-container {
         /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
         margin-left: auto;
@@ -694,71 +699,103 @@ body.dark-mode .nav-link:hover {
 #calendarModal .modal-content {
   min-height: 30rem; /* 1rem이 기본 폰트 크기(보통 16px)라면 약 480px 정도 */
 }
-/* ---------- 모바일 하단 네비게이션 ---------- */
-.bottom-nav {
+/* 데스크탑 네비게이션: 기본적으로 표시 */
+.desktop-nav {
+        display: block;
+      }
+      .bottom-nav {
   display: none;
   position: fixed;
-  bottom: 0;
+  bottom: 0; 
   left: 0;
   width: 100%;
+  /* 세로 패딩 줄이기 (기존 0.5rem → 0.3rem) */
   padding: 0.3rem 0;
   background: #fff;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
-.bottom-nav ul {
-  display: flex;
-  justify-content: space-around;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.bottom-nav li {
-  text-align: center;
-  flex: 1;
-}
-.bottom-nav li a.nav-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #888;
-  transition: transform 0.2s, color 0.2s;
-}
-/* 아이콘 (이미지) */
-.bottom-nav .icon {
-  width: 28px;
-  height: 28px;
-  display: inline-block;
-  background-color: transparent;
-  border-radius: 0;
-  background-repeat: no-repeat;
+
+      /* 데스크탑 네비게이션: 기본적으로 표시 */
+      .desktop-nav {
+        display: block;
+      }
+
+
+      .news-icon {
+  background-image: url("images/newsImage.png");
   background-size: contain;
   background-position: center;
-  margin-bottom: 3px;
-  transition: background-color 0.3s, color 0.3s;
+  background-repeat: no-repeat;
 }
-/* 텍스트 */
-.bottom-nav .nav-text {
-  font-size: 0.75rem;
-  color: #888;
+.nav-link.active .news-icon {
+  background-image: url("images/newsOn.png");
 }
-.bottom-nav li a.nav-link:hover {
-  transform: scale(1.05);
-}
-.nav-link.pressed {
-  background-color: rgba(0, 0, 255, 0.1);
-  transition: background-color 0.1s;
-}
-/* 활성(선택) 상태 */
-.bottom-nav li a.nav-link.active .nav-text {
-  color: var(--primary-color);
-}
-.bottom-nav li a.nav-link.active .icon {
-  background-color: var(--primary-color);
-  color: #fff;
-}
+/* 이하 diary-icon, chart-icon, company-icon 같은 구조 */
+
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.3rem 0;
+        background: #fff;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      .bottom-nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .bottom-nav li {
+        text-align: center;
+        flex: 1;
+      }
+      .bottom-nav li a.nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #888;
+        transition: transform 0.2s, color 0.2s;
+      }
+
+      /* 모바일 하단 아이콘 */
+      .bottom-nav .icon {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        /* 이미지 배경을 위해 설정 */
+        background-color: transparent; /* 둥근 배경 제거 */
+        border-radius: 0;             /* 둥근 테두리 제거 */
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-bottom: 3px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      /* 기본 텍스트 크기 */
+      .bottom-nav .nav-text {
+        font-size: 0.75rem;
+        color: #888;
+      }
+      /* 활성(선택) 상태 */
+      .bottom-nav li a.nav-link.active .nav-text {
+        color: var(--primary-color);
+      }
+
+      .bottom-nav li a.nav-link:hover {
+        transform: scale(1.05);
+      }
+      .nav-link.pressed {
+        background-color: rgba(0, 0, 255, 0.1);
+        transition: background-color 0.1s;
+      }
       /* 모바일에서는 헤더 내비게이션을 숨김 */
       @media (max-width: 768px) {
         .desktop-nav {
@@ -799,29 +836,29 @@ body.dark-mode .nav-link:hover {
     <nav class="bottom-nav">
       <ul>
         <li>
-          <a href="index.html" class="nav-link" aria-label="뉴스">
-            <!-- 뉴스 아이콘 -->
+          <!-- 뉴스 (기본: newsImage, 활성: newsOn) -->
+          <a href="index.html" class="nav-link active" aria-label="뉴스">
             <span class="icon news-icon"></span>
             <span class="nav-text">뉴스</span>
           </a>
         </li>
         <li>
-          <a href="주식포트폴리오.html" class="nav-link active" aria-label="투자다이어리">
-            <!-- 다이어리 아이콘 -->
+          <!-- 다이어리 (기본: diaryImage, 활성: diaryOn) -->
+          <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
             <span class="icon diary-icon"></span>
             <span class="nav-text">다이어리</span>
           </a>
         </li>
         <li>
+          <!-- 대가들 (chartImage → chartOn) -->
           <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
-            <!-- 차트 아이콘 -->
             <span class="icon chart-icon"></span>
             <span class="nav-text">대가들</span>
           </a>
         </li>
         <li>
+          <!-- 중소형주 (companyImage → companyOn) -->
           <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
-            <!-- 회사 아이콘 -->
             <span class="icon company-icon"></span>
             <span class="nav-text">중소형주</span>
           </a>
