@@ -254,6 +254,23 @@ nav ul li a:hover {
   background-color: var(--primary-color);
   color: #fff;
 }
+/* (1) 터치 하이라이트 제거 */
+.bottom-nav li a.nav-link {
+  -webkit-tap-highlight-color: transparent; /* 이미 JS에서도 처리했지만, CSS로도 보조 */
+  outline: none;
+  border: none;
+  box-shadow: none; /* 혹시 모를 그림자 제거 */
+}
+
+/* (2) 포커스/액티브 시 outline 제거 */
+.bottom-nav li a.nav-link:focus,
+.bottom-nav li a.nav-link:active,
+.bottom-nav li a.nav-link:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important; /* 필요 시 배경도 투명화 */
+}
 /* Main 콘텐츠 */
 main {
   max-width: 960px;

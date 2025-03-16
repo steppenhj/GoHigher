@@ -813,6 +813,23 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       .bottom-nav li a.nav-link:hover {
         transform: scale(1.05);
       }
+      /* (1) 터치 하이라이트 제거 */
+.bottom-nav li a.nav-link {
+  -webkit-tap-highlight-color: transparent; /* 이미 JS에서도 처리했지만, CSS로도 보조 */
+  outline: none;
+  border: none;
+  box-shadow: none; /* 혹시 모를 그림자 제거 */
+}
+
+/* (2) 포커스/액티브 시 outline 제거 */
+.bottom-nav li a.nav-link:focus,
+.bottom-nav li a.nav-link:active,
+.bottom-nav li a.nav-link:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important; /* 필요 시 배경도 투명화 */
+}
       .nav-link.pressed {
         background-color: rgba(0, 0, 255, 0.1);
         transition: background-color 0.1s;
