@@ -791,8 +791,9 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
         height: 28px;
         display: inline-block;
         /* 이미지 배경을 위해 설정 */
-        background-color: transparent; /* 둥근 배경 제거 */
-        border-radius: 0;             /* 둥근 테두리 제거 */
+        background-color: transparent; /* 배경 제거 */
+  border: none;                 /* 혹시 모를 테두리 제거 */
+  border-radius: 0;            /* 둥근 모서리 제거 */
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
@@ -857,14 +858,14 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       <ul>
         <li>
           <!-- 뉴스 (기본: newsImage, 활성: newsOn) -->
-          <a href="index.html" class="nav-link active" aria-label="뉴스">
+          <a href="index.html" class="nav-link" aria-label="뉴스">
             <span class="icon news-icon"></span>
             <span class="nav-text">뉴스</span>
           </a>
         </li>
         <li>
           <!-- 다이어리 (기본: diaryImage, 활성: diaryOn) -->
-          <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
+          <a href="주식포트폴리오.html" class="nav-link active" aria-label="투자다이어리">
             <span class="icon diary-icon"></span>
             <span class="nav-text">다이어리</span>
           </a>
