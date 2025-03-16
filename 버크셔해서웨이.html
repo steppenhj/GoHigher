@@ -536,6 +536,11 @@ body.dark-mode .modal-description {
   border-left: 4px solid #002b57 !important; /* 왼쪽 파란 막대 (유지) */
   color: #cacaca !important;
 }
+/* 예) 모든 a 태그에 대해 터치 하이라이트 제거 */
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* 미디어 쿼리 (모바일) */
 @media (max-width: 768px) {
   body {
