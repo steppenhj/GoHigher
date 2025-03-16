@@ -635,14 +635,14 @@
       .desktop-nav {
         display: block;
       }
-/* 공통 바 스타일 */
-.bottom-nav {
-  display: none; /* 데스크탑에서 숨기고 모바일에서만 보이게 */
+  .bottom-nav {
+  display: none;
   position: fixed;
-  bottom: 0;
+  bottom: 0; 
   left: 0;
   width: 100%;
-  padding: 0.5rem 0; /* 세로 패딩 살짝 키움 */
+  /* 세로 패딩 줄이기 (기존 0.5rem → 0.3rem) */
+  padding: 0.3rem 0;
   background: #fff;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -660,44 +660,43 @@
   flex: 1;
 }
 
-/* nav-link 내부를 세로 배치 (column), 가운데 정렬 */
+/* nav-link 내부를 세로 배치 */
 .bottom-nav li a.nav-link {
   display: flex;
-  flex-direction: column; /* 이모티콘 + 텍스트 = 세로 배열 */
+  flex-direction: column; 
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: #888;           /* 기본(비활성) 텍스트 컬러 */
+  color: #888; 
   transition: transform 0.2s, color 0.2s;
 }
 
-/* 아이콘(원형) */
+/* 아이콘 (기존 40x40 → 약 2/3 크기인 28x28) */
 .bottom-nav .icon {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background-color: #f0f0f0; /* 비활성 시 연한 배경 (원하는 색으로 조절) */
+  background-color: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem; /* 이모티콘 크기 */
-  margin-bottom: 4px; /* 아이콘과 텍스트 사이 간격 */
+  /* 이모티콘 폰트 사이즈도 살짝 축소 (기존 1.2rem → 1.1rem) */
+  font-size: 1.1rem;
+  margin-bottom: 3px; /* 아이콘과 텍스트 사이 간격도 줄이기 */
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* 텍스트 */
+/* 텍스트 (기존 0.85rem → 0.75rem) */
 .bottom-nav .nav-text {
-  font-size: 0.85rem; /* 아래에 작은 텍스트 */
+  font-size: 0.75rem;
   color: #888;
 }
 
 /* 활성(선택) 상태 */
 .bottom-nav li a.nav-link.active .icon {
-  background-color: var(--primary-color); /* 브랜드 컬러로 꽉 찬 원 */
-  color: #fff; /* 이모티콘 색상을 흰색으로 */
+  background-color: var(--primary-color);
+  color: #fff;
 }
-
-/* 활성 상태의 텍스트 색상 차별화 */
 .bottom-nav li a.nav-link.active .nav-text {
   color: var(--primary-color);
 }
