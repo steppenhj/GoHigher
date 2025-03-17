@@ -1,0 +1,13 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "kr.gohigher.twa",
+        "sha256_cert_fingerprints": [
+          "88:F1:62:82:1B:AA:62:1E:87:14:9C:E5:51:CF:76:E1:53:DB:EF:83:CA:23:80:62:0A:72:94:E9:6F:74:16:39"
+        ]
+      }
+    }
+  ]
+  
