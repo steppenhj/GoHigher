@@ -46,7 +46,6 @@
     <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
     <link rel="icon" href="/logo.jpg" type="image/jpeg" />
 
-    <script src="path/to/settings.js"></script>
     <script
       type="text/javascript"
       src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
@@ -128,6 +127,8 @@
     </script>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    
     <!-- 기본 스타일 -->
     <style>
       html {
@@ -242,6 +243,8 @@
         padding: 0;
       }
       body {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
         font-family: "Open Sans", sans-serif;
         background: var(--bg-gradient);
         color: var(--text-color);
@@ -251,6 +254,9 @@
         transition: background 0.3s, color 0.3s;
       }
 
+      body.loaded {
+  opacity: 1;
+}
       header {
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         color: #fff;
@@ -782,6 +788,48 @@
           border-radius: 15px;
         }
       }
+
+      .instagram-btn {
+  /* pill 형태 기본 스타일 */
+  display: inline-block;
+  margin-left: 10px;             /* 로그인 버튼과 간격 확보 */
+  padding: 0.5rem 1.2rem;
+  border-radius: 9999px;        /* 동그란 버튼 형태 */
+  border: 1px solid #333;       /* 테두리 */
+  background-color: #fff;       /* 흰 배경 */
+  color: #333;                  /* 글자색 */
+  font-weight: bold;            /* 두껍게 */
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.instagram-btn:hover {
+  /* 호버 시 색 변화 & 약간 확대 */
+  background-color: #333;
+  color: #fff;
+  transform: scale(1.05);
+}
+.instagram-container {
+  text-align: center;      /* 가운데 정렬 */
+  margin-top: -30px;       /* 파도형 아래에서 버튼을 끌어올리는 효과 */
+  margin-bottom: 30px;     /* 아래 공간 확보 */
+  position: relative;      /* 필요 시 위치 조정 */
+  z-index: 1;              /* 파도형과 겹칠 경우 우선순위 부여 */
+}
+/* 다크 모드에서 인스타그램 버튼 기본 상태 */
+body.dark-mode .instagram-btn {
+  background-color: transparent;   /* 다크 모드에선 투명 or 어두운색으로 조정 가능 */
+  color: #cacaca;                  /* 다크 모드 텍스트 색상 */
+  border: 1px solid #cacaca;       /* 테두리색도 같이 조정 */
+}
+
+/* 다크 모드에서 인스타그램 버튼 호버 시 */
+body.dark-mode .instagram-btn:hover {
+  background-color: #333;          /* 호버 시 어두운 배경 */
+  color: #fff;                     /* 글자색 흰색 */
+  transform: scale(1.05);          /* 살짝 확대 */
+}
+
     </style>
   </head>
   <body>
@@ -789,9 +837,11 @@
       <h1>Go Higher</h1>
       <p>매일 업데이트되는 최신 미국 주식 뉴스를 만나보세요!</p>
       <div class="login-container">
-        <a id="authButton" href="login.html" class="login-btn">
+<a id="authButton" href="login.html" class="login-btn">
           <i class="fas fa-sign-in-alt"></i> 로그인
         </a>
+
+
       </div>
       <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
       <nav class="desktop-nav">
@@ -1245,6 +1295,19 @@
         <path d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"></path>
       </svg>
     </div>
+    
+                  <!-- 인스타그램 버튼 추가 -->
+<!-- 인스타그램 버튼 컨테이너 (가운데 정렬, 위로 끌어올림) -->
+<div class="instagram-container">
+  <a
+    href="https://www.instagram.com/gohigher2025/"
+    class="instagram-btn"
+    target="_blank"
+  >
+    INSTAGRAM
+  </a>
+</div>
+        
     <footer>
       <p>
         © 2025 Go Higher, 고하이어. All rights reserved.<br />
@@ -1317,7 +1380,6 @@
           event.preventDefault();
         }
         if (
-          event.key === "F12" ||
           (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))
         ) {
           event.preventDefault();
@@ -1393,6 +1455,15 @@
           });
         });
       });
+
+      // 페이지 로드 후 'loaded' 클래스를 추가
+window.addEventListener('load', function() {
+  document.body.classList.add('loaded');
+});
+
     </script>
+
+
+
   </body>
 </html>

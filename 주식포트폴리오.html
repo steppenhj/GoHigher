@@ -42,11 +42,10 @@
   }
   </script>
 
-
   <style>
-          html {
-        font-size: 16px;
-      }
+    html {
+      font-size: 16px;
+    }
     /* 기본 CSS 변수 */
     :root {
       --primary-color: #004080;
@@ -56,169 +55,134 @@
       --text-color: #333;
     }
     body.dark-mode {
-        background: #444;           /* 전체 배경 */
-        color: white;                   /* 기본 텍스트 색상 */
-      }
-      body.dark-mode header {
+        background: #444;
+        color: white;
+    }
+    body.dark-mode header {
         background: linear-gradient(135deg, #002b57, #004284);
         color: #cacaca;
-      }
-      /* 다크 모드에서 nav 버튼 스타일 */
-      body.dark-mode nav ul li a {
-        color: #cacaca;           /* 텍스트 색상 */
-        border: 1px solid #cacaca; /* 테두리 색상도 동일하게 */
-        background-color: transparent; /* 배경을 투명으로 두거나 원하는 색상으로 지정 */
-      }
-
-      /* hover 시 색상 변화(예시) */
-      body.dark-mode nav ul li a:hover {
+    }
+    body.dark-mode nav ul li a {
+        color: #cacaca;
+        border: 1px solid #cacaca;
+        background-color: transparent;
+    }
+    body.dark-mode nav ul li a:hover {
         background-color: #004284;
-        color: #cacaca; /* 배경이 밝아졌으므로 텍스트는 어두운색 */
-      }
-      body.dark-mode footer{
+        color: #cacaca;
+    }
+    body.dark-mode footer{
         background: linear-gradient(135deg, #002b57, #004284);
         color:#cacaca;
-      }
-      body.dark-mode .save-notice{
+    }
+    body.dark-mode .save-notice{
         background: #555555;
         color: #cacaca;
-      }
-      body.dark-mode main h2{
+    }
+    body.dark-mode main h2{
         color: #002b57;
-      }
-      body.dark-mode .section-container {
+    }
+    body.dark-mode .section-container {
         background: #555 !important;
         color: #cacaca !important;
-      }
-
-      body.dark-mode .recommendation {
+    }
+    body.dark-mode .recommendation {
         background: #666 !important;
         color: #cacaca !important;
-      }
-
-      body.dark-mode .modal-content {
+    }
+    body.dark-mode .modal-content {
         background: #555 !important;
         color: #cacaca !important;
-      }
-
-      /* 다크모드 - 메모 모달 내 텍스트 영역 개선 */
-body.dark-mode #memoModal .modal-content textarea {
-  background: #555 !important;
-  color: #fff !important;
-  border: 1px solid #777 !important;
-}
-
-body.dark-mode #calendarModal .modal-content,
-body.dark-mode #calendarModal .modal-content * {
-  color: #fff !important;
-}
-
-body.dark-mode #calendarModal .modal-content textarea::placeholder {
-  color: #fff !important;
-}
-
-/* Chrome 등 WebKit 기반 브라우저의 autofill 스타일 강제 지정 */
-body.dark-mode #memoModal .modal-content textarea:-webkit-autofill,
-body.dark-mode #memoModal .modal-content textarea:-webkit-autofill:hover,
-body.dark-mode #memoModal .modal-content textarea:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px #555 inset !important;
-  -webkit-text-fill-color: #fff !important;
-}
-
-/* Firefox용 autofill 스타일 (존재하는 경우) */
-body.dark-mode #memoModal .modal-content textarea:-moz-autofill {
-  box-shadow: 0 0 0 1000px #555 inset !important;
-  -moz-text-fill-color: #fff !important;
-}
-
-/* 다크모드 - 가계부 모달 스타일 최적화 */
-body.dark-mode #accountBookModal .modal-content {
-  background: #333 !important;
-  color: #fff !important;
-  box-shadow: none;
-}
-
-body.dark-mode #accountBookModal .account-book-form input,
-body.dark-mode #accountBookModal .account-book-form select,
-body.dark-mode #accountBookModal .account-book-form button {
-  background: #444 !important;
-  color: #fff !important;
-  border: 1px solid #666 !important;
-}
-
-body.dark-mode #accountBookModal .account-book-entries th,
-body.dark-mode #accountBookModal .account-book-entries td {
-  border: 1px solid #666 !important;
-  color: #fff !important;
-  background: #333;
-}
-
-body.dark-mode #accountBookModal .fixed-expense-calculator {
-  background: #333 !important;
-  color: #fff !important;
-  border-top: 1px solid #666 !important;
-}
-
-/* (옵션) 가계부 모달 내 버튼 스타일 통일 */
-body.dark-mode #accountBookModal .modal-content button {
-  background: #444 !important;
-  color: #fff !important;
-  border: 1px solid #666 !important;
-}
-/* [달력 메모 모달] 다크모드 최적화: 모달 전체 및 내부 텍스트 색상을 흰색으로 설정 */
-body.dark-mode #memoModal .modal-content,
-body.dark-mode #memoModal .modal-content * {
-  color: #fff !important;
-}
-body.dark-mode #memoModal .modal-content textarea {
-  background: #555 !important;
-  color: #fff !important;
-  border: 1px solid #777 !important;
-}
-body.dark-mode #memoModal .modal-content textarea::placeholder {
-  color: #fff !important;
-}
-
-/* [To Do List 모달] 다크모드 최적화: 배경, 입력창, 버튼 및 리스트 항목의 색상 조정 */
-body.dark-mode #goalManagementModal .modal-content {
-  background: #333 !important;
-  color: #fff !important;
-}
-body.dark-mode #goalManagementModal .todo-form input[type="text"],
-body.dark-mode #goalManagementModal .todo-form button {
-  background: #444 !important;
-  color: #fff !important;
-  border: 1px solid #666 !important;
-}
-body.dark-mode #goalManagementModal .todo-list .todo-item {
-  background: #444 !important;
-  border: 1px solid #666 !important;
-  color: #fff !important;
-}
-body.dark-mode #goalManagementModal .todo-item button.delete-btn {
-  background: #444 !important;
-  color: #fff !important;
-  border: 1px solid #666 !important;
-}
-/* 다크 모드에서 닫기 버튼 색상 보정 */
-body.dark-mode .modal-close-btn {
-  border-color: #cacaca;  /* 테두리를 밝은 회색(또는 흰색)으로 */
-  color: #cacaca;         /* X 아이콘 색상도 밝게 */
-}
-body.dark-mode .modal-close-btn:hover {
-  background: #cacaca;    /* 호버 시 버튼 배경은 밝은 색으로 */
-  color: #333;            /* X 아이콘은 짙은 색으로 */
-}
-
-
-      /* 'card' 스타일이 들어간 오른쪽 차트 박스 */
-      body.dark-mode .right-chart.card {
-        background: #555 !important;
-        color: #cacaca !important;
-      }
+    }
+    body.dark-mode #memoModal .modal-content textarea {
+      background: #555 !important;
+      color: #fff !important;
+      border: 1px solid #777 !important;
+    }
+    body.dark-mode #calendarModal .modal-content,
+    body.dark-mode #calendarModal .modal-content * {
+      color: #fff !important;
+    }
+    body.dark-mode #calendarModal .modal-content textarea::placeholder {
+      color: #fff !important;
+    }
+    body.dark-mode #accountBookModal .modal-content {
+      background: #333 !important;
+      color: #fff !important;
+      box-shadow: none;
+    }
+    body.dark-mode #accountBookModal .account-book-form input,
+    body.dark-mode #accountBookModal .account-book-form select,
+    body.dark-mode #accountBookModal .account-book-form button {
+      background: #444 !important;
+      color: #fff !important;
+      border: 1px solid #666 !important;
+    }
+    body.dark-mode #accountBookModal .account-book-entries th,
+    body.dark-mode #accountBookModal .account-book-entries td {
+      border: 1px solid #666 !important;
+      color: #fff !important;
+      background: #333;
+    }
+    body.dark-mode #accountBookModal .fixed-expense-calculator {
+      background: #333 !important;
+      color: #fff !important;
+      border-top: 1px solid #666 !important;
+    }
+    body.dark-mode #accountBookModal .modal-content button {
+      background: #444 !important;
+      color: #fff !important;
+      border: 1px solid #666 !important;
+    }
+    body.dark-mode #memoModal .modal-content,
+    body.dark-mode #memoModal .modal-content * {
+      color: #fff !important;
+    }
+    body.dark-mode #memoModal .modal-content textarea {
+      background: #555 !important;
+      color: #fff !important;
+      border: 1px solid #777 !important;
+    }
+    body.dark-mode #memoModal .modal-content textarea::placeholder {
+      color: #fff !important;
+    }
+    body.dark-mode #goalManagementModal .modal-content {
+      background: #333 !important;
+      color: #fff !important;
+    }
+    body.dark-mode #goalManagementModal .todo-form input[type="text"],
+    body.dark-mode #goalManagementModal .todo-form button {
+      background: #444 !important;
+      color: #fff !important;
+      border: 1px solid #666 !important;
+    }
+    body.dark-mode #goalManagementModal .todo-list .todo-item {
+      background: #444 !important;
+      border: 1px solid #666 !important;
+      color: #fff !important;
+    }
+    body.dark-mode #goalManagementModal .todo-item button.delete-btn {
+      background: #444 !important;
+      color: #fff !important;
+      border: 1px solid #666 !important;
+    }
+    body.dark-mode .modal-close-btn {
+      border-color: #cacaca;
+      color: #cacaca;
+    }
+    body.dark-mode .modal-close-btn:hover {
+      background: #cacaca;
+      color: #333;
+    }
+    body.dark-mode .right-chart.card {
+      background: #555 !important;
+      color: #cacaca !important;
+    }
     html { font-size: 16px; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
       font-family: 'Open Sans', sans-serif;
       background: linear-gradient(135deg, var(--accent-color), #cbd7e3);
       color: var(--text-color);
@@ -226,6 +190,9 @@ body.dark-mode .modal-close-btn:hover {
       transition: background 0.3s, color 0.3s;
       position: relative;
     }
+    body.loaded {
+  opacity: 1;
+}
     header {
       background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: #fff;
@@ -244,9 +211,6 @@ body.dark-mode .modal-close-btn:hover {
       text-decoration: none; transition: background-color 0.3s, color 0.3s;
     }
     nav ul li a:hover { background-color: var(--primary-color); color: #fff; }
-
-    /* (설정 관련 버튼 제거) */
-
     main { max-width: 960px; margin: 1rem auto; padding: 0 1rem; }
     .save-notice {
       background: #fff; color: #444; font-size: 0.9rem; padding: 0.6rem 1rem; margin-bottom: 0.5rem;
@@ -257,7 +221,6 @@ body.dark-mode .modal-close-btn:hover {
       background: var(--light-gray); padding: 1rem; border-radius: 8px; margin-top: 1rem;
       text-align: center; font-size: 0.8rem;
     }
-    /* 섹션-container */
     .section-container {
       background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);
       padding: 1rem; width: 100%; margin-bottom: 1rem;
@@ -271,7 +234,7 @@ body.dark-mode .modal-close-btn:hover {
     }
     .modal.active { display: block; }
     .modal-content {
-      position: relative; /* 추가: 자식의 position: absolute 기준을 이 요소로 함 */
+      position: relative;
       background-color: #fff;
       margin: 5% auto;
       padding: 20px;
@@ -281,7 +244,6 @@ body.dark-mode .modal-close-btn:hover {
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     .modal-content h3 { margin-top: 0; }
-    /* 여기서 '닫기' 대신 '×' 로 변경 */
     .modal-close-btn {
       position: absolute;
       top: 10px;
@@ -299,7 +261,7 @@ body.dark-mode .modal-close-btn:hover {
       align-items: center;
       justify-content: center;
       transition: background 0.2s, color 0.2s;
-      z-index: 9999; /* 다른 요소에 가리지 않도록 충분히 높은 값 지정 */
+      z-index: 9999;
     }
     .modal-close-btn::before {
       content: "×";
@@ -308,8 +270,6 @@ body.dark-mode .modal-close-btn:hover {
       background: #333;
       color: #fff;
     }
-
-    /* 공통 버튼 */
     .primary-btn, .secondary-btn {
       padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;
       transition: background 0.3s;
@@ -318,8 +278,6 @@ body.dark-mode .modal-close-btn:hover {
     .primary-btn:hover { background: #003060; }
     .secondary-btn { background: var(--secondary-color); color: #fff; }
     .secondary-btn:hover { background: #004080; }
-
-    /* 자산 포트폴리오 스타일 (.asset-item) */
     .asset-item {
       display: flex; align-items: left; gap: 0.5rem; margin-bottom: 0.5rem;
     }
@@ -333,8 +291,6 @@ body.dark-mode .modal-close-btn:hover {
       border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
     }
     .asset-item button:hover { background: #800000; }
-
-    /* 투자 포트폴리오 스타일 (.stock-item) */
     .stock-item {
       display: flex; align-items: left; gap: 0.5rem; margin-bottom: 0.5rem;
     }
@@ -348,7 +304,6 @@ body.dark-mode .modal-close-btn:hover {
       cursor: pointer; font-size: 0.8rem;
     }
     .stock-item button:hover { background: #800000; }
-
     .portfolio-form {
       display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
     }
@@ -357,12 +312,10 @@ body.dark-mode .modal-close-btn:hover {
       border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background 0.3s;
     }
     .portfolio-form button:hover { background: #003060; }
-
     .chart-container { margin: 0; }
     canvas { width: 100%; height: 300px; }
     .chart-btn-group { text-align: center; margin-top: 15px; }
     .chart-btn-group button { margin: 0 5px; }
-
     .portfolio-section-content {
       display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-top: 1rem;
     }
@@ -372,8 +325,6 @@ body.dark-mode .modal-close-btn:hover {
       background: #f9f9f9; border-radius: 8px; padding: 1rem;
       box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05); width: 100%;
     }
-
-    /* 자산 목표 */
     .asset-goal-form { margin-top: 1rem; margin-bottom: 1rem; display: flex; gap: 10px; }
     #assetGoalDisplay { margin-top: 10px; }
     .progress-bar {
@@ -385,8 +336,6 @@ body.dark-mode .modal-close-btn:hover {
       width: 0%; transition: width 0.5s; text-align: center; color: #fff;
       line-height: 20px; font-size: 0.9rem;
     }
-
-    /* 투자 일지 */
     .diary-entry {
       border-top: 1px solid #ddd; padding: 0.5rem 0; font-size: 0.9rem;
       display: flex; align-items: center;
@@ -401,8 +350,6 @@ body.dark-mode .modal-close-btn:hover {
     }
     .investment-diary button.edit-btn:hover,
     .investment-diary button.delete-btn:hover { background: #800000; }
-
-    /* 달력 */
     .calendar-navigation { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1rem; }
     #calendar {
       display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 0.5rem;
@@ -417,8 +364,6 @@ body.dark-mode .modal-close-btn:hover {
       word-break: break-word;
     }
     .calendar-day.has-memo { border: 2px solid var(--secondary-color); }
-
-    /* 가계부 */
     .account-book-form {
       display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; margin-bottom: 1rem;
     }
@@ -445,8 +390,6 @@ body.dark-mode .modal-close-btn:hover {
       border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
     }
     .account-book-entries button.delete-entry:hover { background: #800000; }
-
-    /* 체크리스트 */
     .investment-checklist ul { list-style: none; padding-left: 0; }
     .investment-checklist li {
       display: flex; justify-content: space-between; align-items: center;
@@ -472,62 +415,6 @@ body.dark-mode .modal-close-btn:hover {
       border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
     }
     .check-controls .delete-checklist-btn:hover { background: #800000; }
-
-    /* 반응형/모바일 최적화 */
-    @media (max-width: 768px) {
-      body { font-size: 18px; }
-      .section-container { width: 100%; }
-      .portfolio-section-content { flex-wrap: wrap; }
-      main { padding: 0 0.5rem; }
-      .portfolio-section-content { flex-direction: column; align-items: center; }
-      .chart-container canvas { width: 100% !important; height: auto !important; }
-      .calendar-navigation { flex-direction: column; gap: 0.5rem; text-align: center; }
-      .account-book-form,
-      .investment-checklist { font-size: 0.9rem; }
-      .modal-content { width: 90% !important; margin: 10% auto !important; padding: 1rem !important; }
-      #assetPortfolioModal .portfolio-section-content,
-      #stockPortfolioModal .portfolio-section-content { flex-direction: column !important; }
-      #assetPortfolioModal .left-content,
-      #assetPortfolioModal .right-chart,
-      #stockPortfolioModal .left-content,
-      #stockPortfolioModal .right-chart { width: 100%; margin-bottom: 1rem; }
-      #assetPortfolioModal .chart-container canvas,
-      #stockPortfolioModal .chart-container canvas { width: 100% !important; height: auto !important; }
-      #investmentDiaryModal textarea { min-height: 200px; font-size: 1rem; }
-      #accountBookModal .account-book-form { flex-direction: column !important; align-items: stretch; }
-      #accountBookModal .account-book-form input,
-      #accountBookModal .account-book-form select,
-      #accountBookModal .account-book-form button { width: 100%; }
-    }
-    
-    /* 기존 푸터 디자인 복원 */
-    footer {
-      background-color: var(--primary-color);
-      color: #fff;
-      text-align: center;
-      padding: 0.8rem;
-      bottom: 0;
-      width: 100%;
-      font-size: 1rem;
-      box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
-    }
-    footer p {
-      margin: 0;
-      padding: 0;
-    }
-    
-    /* 탭 스타일 추가 */
-    .tab-container { margin-top: 1rem; }
-    .tab-links { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-    .tab-link {
-      padding: 0.5rem 1rem; border: 1px solid var(--primary-color);
-      background-color: #fff; color: var(--primary-color);
-      border-radius: 4px; cursor: pointer;
-    }
-    .tab-link.active { background-color: var(--primary-color); color: #fff; }
-    .tab-content { border: 1px solid var(--light-gray); padding: 1rem; border-radius: 4px; }
-    
-    /* To Do List 및 자산 목표 입력창 개선 */
     .todo-form {
       display: flex;
       align-items: center;
@@ -574,277 +461,248 @@ body.dark-mode .modal-close-btn:hover {
     .asset-goal-form button:hover {
       background-color: #003060;
     }
-    
-    /* To Do List 디자인 개선 */
-    .todo-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .todo-item {
-      display: flex;
-      align-items: center;
-      padding: 8px;
-      margin-bottom: 5px;
-      border: 1px solid var(--light-gray);
-      border-radius: 4px;
-      background-color: #fff;
-    }
-    .todo-item input[type="checkbox"] {
-      margin-right: 10px;
-      transform: scale(1.2);
-    }
-    .todo-text {
-      flex: 1;
-      font-size: 1rem;
-    }
-    .todo-item button.delete-btn {
-      background: #b30000;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-    .todo-item button.delete-btn:hover {
-      background: #800000;
-    }
     body.dark-mode .login-btn {
-        background-color: transparent;   /* 투명 배경 */
-        color: #cacaca;                  /* nav 링크와 동일한 텍스트 색상 */
-        border: 1px solid #cacaca;       /* 테두리 */
-      }
-
-      body.dark-mode .login-btn:hover {
-        background-color: #004284;       /* 호버 시 배경색 */
-        color: #cacaca;                  /* 텍스트 색상 */
-      }
-      body.dark-mode .modal-content input,
-body.dark-mode .modal-content textarea,
-body.dark-mode .modal-content select {
-  background-color: #555 !important; /* 어두운 배경 */
-  color: #fff !important;            /* 흰색 텍스트 */
-  border: 1px solid #777 !important;  /* 어두운 테두리 */
-}
-
-/* placeholder 색상 조정 */
-body.dark-mode .modal-content input::placeholder,
-body.dark-mode .modal-content textarea::placeholder {
-  color: #ccc !important;
-}
-/* 다크 모드 시, 모바일 하단 네비게이션 배경 */
-body.dark-mode .bottom-nav {
-  background: #333; /* 예: 어두운 배경 */
-}
-
-/* 다크 모드 시, 기본 아이콘 배경/텍스트 색 */
-body.dark-mode .bottom-nav .icon {
-  background-color: #555; /* 기존 #f0f0f0 대신 어두운 톤 */
-  color: #cacaca;         /* 글자색을 밝게 */
-}
-
-/* 다크 모드 시, .nav-link 텍스트 색 */
-body.dark-mode .bottom-nav .nav-text {
-  color: #cacaca; /* 기존 #888 대신 조금 더 밝은 회색 */
-}
-
-/* 다크 모드 시, 활성 상태(Active)인 아이콘/텍스트 */
-body.dark-mode .bottom-nav li a.nav-link.active .icon {
-  /* 브랜드 컬러 유지 or 다른 컬러로 조정 가능 */
-  background-color: var(--primary-color);
-  color: #fff;
-}
-body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
-  color: #fff;
-}
-
-.login-container {
-        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
+        background-color: transparent;
+        color: #cacaca;
+        border: 1px solid #cacaca;
+    }
+    body.dark-mode .login-btn:hover {
+        background-color: #004284;
+        color: #cacaca;
+    }
+    body.dark-mode .modal-content input,
+    body.dark-mode .modal-content textarea,
+    body.dark-mode .modal-content select {
+      background-color: #555 !important;
+      color: #fff !important;
+      border: 1px solid #777 !important;
+    }
+    body.dark-mode .modal-content input::placeholder,
+    body.dark-mode .modal-content textarea::placeholder {
+      color: #ccc !important;
+    }
+    body.dark-mode .bottom-nav {
+      background: #333;
+    }
+    body.dark-mode .bottom-nav .icon {
+      background-color: #555;
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav .nav-text {
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .icon {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
+      color: #fff;
+    }
+    .login-container {
         margin-left: auto;
-      }
-
-      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
-      .login-container {
+    }
+    .login-container {
         position: absolute;
         top: 1rem;
         right: 1rem;
-      }
-
-      /* 로그인 버튼 스타일 (조금 더 세련되게) */
-      .login-btn {
+    }
+    .login-btn {
         display: inline-block;
         background-color: #fff;
         color: var(--primary-color);
         border: none;
         padding: 0.6rem 1.2rem;
-        border-radius: 20px; /* pill 형태로 둥글게 */
+        border-radius: 20px;
         font-weight: bold;
         text-decoration: none;
         box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-      }
-
-      .login-btn:hover {
+    }
+    .login-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         background-color: var(--secondary-color);
         color: #fff;
-      }
-
-    #goalManagementModal .modal-content,
-#calendarModal .modal-content {
-  min-height: 30rem; /* 1rem이 기본 폰트 크기(보통 16px)라면 약 480px 정도 */
-}
-/* 데스크탑 네비게이션: 기본적으로 표시 */
-.desktop-nav {
-        display: block;
-      }
-      .bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0; 
-  left: 0;
-  width: 100%;
-  /* 세로 패딩 줄이기 (기존 0.5rem → 0.3rem) */
-  padding: 0.3rem 0;
-  background: #fff;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-      /* 데스크탑 네비게이션: 기본적으로 표시 */
-      .desktop-nav {
-        display: block;
-      }
-
-
-      /* ----- 아이콘별 기본/활성 이미지 지정 ----- */
-      /* (1) 뉴스 아이콘 */
-      .news-icon {
-        background-image: url("images/newsImage.png");
-      }
-      .nav-link.active .news-icon {
-        background-image: url("images/newsOn.png");
-      }
-      /* (2) 다이어리 아이콘 */
-      .diary-icon {
-        background-image: url("images/diaryImage.png");
-      }
-      .nav-link.active .diary-icon {
-        background-image: url("images/diaryOn.png");
-      }
-      /* (3) 대가들(차트) 아이콘 */
-      .chart-icon {
-        background-image: url("images/chartImage.png");
-      }
-      .nav-link.active .chart-icon {
-        background-image: url("images/chartOn.png");
-      }
-      /* (4) 중소형주(회사) 아이콘 */
-      .company-icon {
-        background-image: url("images/companyImage.png");
-      }
-      .nav-link.active .company-icon {
-        background-image: url("images/companyOn.png");
-      }
-/* 이하 diary-icon, chart-icon, company-icon 같은 구조 */
-
-      .bottom-nav {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 0.3rem 0;
-        background: #fff;
-        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-      }
-      .bottom-nav ul {
-        display: flex;
-        justify-content: space-around;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      .bottom-nav li {
-        text-align: center;
-        flex: 1;
-      }
-      .bottom-nav li a.nav-link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: #888;
-        transition: transform 0.2s, color 0.2s;
-      }
-
-      /* 모바일 하단 아이콘 */
-      .bottom-nav .icon {
-        width: 28px;
-        height: 28px;
-        display: inline-block;
-        /* 이미지 배경을 위해 설정 */
-        background-color: transparent; /* 배경 제거 */
-  border: none;                 /* 혹시 모를 테두리 제거 */
-  border-radius: 0;            /* 둥근 모서리 제거 */
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        margin-bottom: 3px;
-        transition: background-color 0.3s, color 0.3s;
-      }
-      /* 기본 텍스트 크기 */
-      .bottom-nav .nav-text {
-        font-size: 0.75rem;
-        color: #888;
-      }
-      /* 활성(선택) 상태 */
-      .bottom-nav li a.nav-link.active .nav-text {
-        color: var(--primary-color);
-      }
-
-      .bottom-nav li a.nav-link:hover {
-        transform: scale(1.05);
-      }
-      /* (1) 터치 하이라이트 제거 */
-.bottom-nav li a.nav-link {
-  -webkit-tap-highlight-color: transparent; /* 이미 JS에서도 처리했지만, CSS로도 보조 */
-  outline: none;
-  border: none;
-  box-shadow: none; /* 혹시 모를 그림자 제거 */
-}
-
-/* (2) 포커스/액티브 시 outline 제거 */
-.bottom-nav li a.nav-link:focus,
-.bottom-nav li a.nav-link:active,
-.bottom-nav li a.nav-link:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  background: transparent !important; /* 필요 시 배경도 투명화 */
-}
-      .nav-link.pressed {
-        background-color: rgba(0, 0, 255, 0.1);
-        transition: background-color 0.1s;
-      }
-      /* 모바일에서는 헤더 내비게이션을 숨김 */
-      @media (max-width: 768px) {
-        .desktop-nav {
-          display: none;
-        }
-        .bottom-nav {
-          display: block; /* 하단 네비게이션 표시 */
-        }
-        .login-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
-        border-radius: 15px;
     }
-      }
+    .desktop-nav {
+        display: block;
+    }
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0; 
+      left: 0;
+      width: 100%;
+      padding: 0.3rem 0;
+      background: #fff;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .desktop-nav {
+      display: block;
+    }
+    .news-icon {
+      background-image: url("images/newsImage.png");
+    }
+    .nav-link.active .news-icon {
+      background-image: url("images/newsOn.png");
+    }
+    .diary-icon {
+      background-image: url("images/diaryImage.png");
+    }
+    .nav-link.active .diary-icon {
+      background-image: url("images/diaryOn.png");
+    }
+    .chart-icon {
+      background-image: url("images/chartImage.png");
+    }
+    .nav-link.active .chart-icon {
+      background-image: url("images/chartOn.png");
+    }
+    .company-icon {
+      background-image: url("images/companyImage.png");
+    }
+    .nav-link.active .company-icon {
+      background-image: url("images/companyOn.png");
+    }
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.3rem 0;
+      background: #fff;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .bottom-nav ul {
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .bottom-nav li {
+      text-align: center;
+      flex: 1;
+    }
+    .bottom-nav li a.nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #888;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .bottom-nav .icon {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      margin-bottom: 3px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .bottom-nav .nav-text {
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .bottom-nav li a.nav-link.active .nav-text {
+      color: var(--primary-color);
+    }
+    .bottom-nav li a.nav-link:hover {
+      transform: scale(1.05);
+    }
+    .bottom-nav li a.nav-link {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+    .bottom-nav li a.nav-link:focus,
+    .bottom-nav li a.nav-link:active,
+    .bottom-nav li a.nav-link:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      background: transparent !important;
+    }
+    .nav-link.pressed {
+      background-color: rgba(0, 0, 255, 0.1);
+      transition: background-color 0.1s;
+    }
+    @media (max-width: 768px) {
+      body { font-size: 18px; }
+      .section-container { width: 100%; }
+      .portfolio-section-content { flex-wrap: wrap; }
+      main { padding: 0 0.5rem; }
+      .portfolio-section-content { flex-direction: column; align-items: center; }
+      .chart-container canvas { width: 100% !important; height: auto !important; }
+      .calendar-navigation { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .account-book-form,
+      .investment-checklist { font-size: 0.9rem; }
+      .modal-content { width: 90% !important; margin: 10% auto !important; padding: 1rem !important; }
+      #assetPortfolioModal .portfolio-section-content,
+      #stockPortfolioModal .portfolio-section-content { flex-direction: column !important; }
+      #assetPortfolioModal .left-content,
+      #assetPortfolioModal .right-chart,
+      #stockPortfolioModal .left-content,
+      #stockPortfolioModal .right-chart { width: 100%; margin-bottom: 1rem; }
+      #assetPortfolioModal .chart-container canvas,
+      #stockPortfolioModal .chart-container canvas { width: 100% !important; height: auto !important; }
+      #investmentDiaryModal textarea { min-height: 200px; font-size: 1rem; }
+      #accountBookModal .account-book-form { flex-direction: column !important; align-items: stretch; }
+      #accountBookModal .account-book-form input,
+      #accountBookModal .account-book-form select,
+      #accountBookModal .account-book-form button { width: 100%; }
+    }
+    footer {
+      background-color: var(--primary-color);
+      color: #fff;
+      text-align: center;
+      padding: 0.8rem;
+      bottom: 0;
+      width: 100%;
+      font-size: 1rem;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
+    }
+    footer p {
+      margin: 0;
+      padding: 0;
+    }
+    .tab-container { margin-top: 1rem; }
+    .tab-links { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .tab-link {
+      padding: 0.5rem 1rem; border: 1px solid var(--primary-color);
+      background-color: #fff; color: var(--primary-color);
+      border-radius: 4px; cursor: pointer;
+    }
+    .tab-link.active { background-color: var(--primary-color); color: #fff; }
+    .tab-content { border: 1px solid var(--light-gray); padding: 1rem; border-radius: 4px; }
+    /* 리밸런싱 결과 카드 스타일 */
+    .rebalance-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      background-color: #f9f9f9;
+    }
+    .rebalance-card.buy {
+      border-left: 5px solid green;
+      background-color: #e6ffe6;
+    }
+    .rebalance-card.sell {
+      border-left: 5px solid red;
+      background-color: #ffe6e6;
+    }
 
+    
   </style>
 </head>
 <body>
@@ -870,28 +728,24 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
     <nav class="bottom-nav">
       <ul>
         <li>
-          <!-- 뉴스 (기본: newsImage, 활성: newsOn) -->
           <a href="index.html" class="nav-link" aria-label="뉴스">
             <span class="icon news-icon"></span>
             <span class="nav-text">뉴스</span>
           </a>
         </li>
         <li>
-          <!-- 다이어리 (기본: diaryImage, 활성: diaryOn) -->
           <a href="주식포트폴리오.html" class="nav-link active" aria-label="투자다이어리">
             <span class="icon diary-icon"></span>
             <span class="nav-text">다이어리</span>
           </a>
         </li>
         <li>
-          <!-- 대가들 (chartImage → chartOn) -->
           <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
             <span class="icon chart-icon"></span>
             <span class="nav-text">대가들</span>
           </a>
         </li>
         <li>
-          <!-- 중소형주 (companyImage → companyOn) -->
           <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
             <span class="icon company-icon"></span>
             <span class="nav-text">중소형주</span>
@@ -1006,25 +860,27 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
           <div id="targetRatioSection" style="margin-top:1rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
             <h4 style="margin-bottom:0.5rem;">리밸런싱 도구 (단위: %)</h4>
             <div id="targetRatioContainer"></div>
+            <!-- 목표 비율 상태 영역 -->
+            <div id="targetRatioStatus" style="margin-top: 0.5rem; font-size: 0.9rem; color: #d9534f;"></div>
             <div class="portfolio-form" style="margin-top:0.5rem;">
               <button id="saveTargetRatiosBtn" class="primary-btn">목표 비율 저장</button>
               <button id="calcRebalancingBtn" class="secondary-btn">리밸런싱 계산</button>
             </div>
-            <div id="rebalancingSuggestions" style="margin-top:1rem; font-size:0.9rem;"></div>
+            <!-- 리밸런싱 결과 카드 영역 -->
+            <div id="rebalancingSuggestions" style="margin-top:1rem;"></div>
           </div>
         </div>
         <div class="right-chart">
           <div class="chart-container">
             <canvas id="assetChart"></canvas>
           </div>
-          <!-- 자산 포트폴리오: 원형/막대 그래프 전환 버튼 -->
           <div class="chart-btn-group">
             <button id="assetPieChartBtn" class="secondary-btn">원형 그래프</button>
             <button id="assetBarChartBtn" class="secondary-btn">막대 그래프</button>
           </div>
         </div>
       </div>
-      <!-- 자산 목표 기능을 모달의 가장 하단에 추가 -->
+      <!-- 자산 목표 기능 -->
       <hr style="margin: 1rem 0;">
       <div id="assetGoalSection">
         <h3>나의 자산 목표</h3>
@@ -1079,7 +935,7 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
     </div>
   </div>
 
-  <!-- [모달] 목표 관리 (To Do List 기능만 포함, 디자인 개선) -->
+  <!-- [모달] 목표 관리 (To Do List) -->
   <div id="goalManagementModal" class="modal">
     <div class="modal-content">
       <button class="modal-close-btn" onclick="closeModal('goalManagementModal')"></button>
@@ -1106,7 +962,7 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
     </div>
   </div>
 
-  <!-- [모달] 가계부 (월별 보고서 기능 통합) -->
+  <!-- [모달] 가계부 (월별 보고서) -->
   <div id="accountBookModal" class="modal">
     <div class="modal-content">
       <button class="modal-close-btn" onclick="closeModal('accountBookModal')"></button>
@@ -1161,7 +1017,6 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
   <!-- 달력 메모 모달 (기존) -->
   <div id="memoModal" class="modal">
     <div class="modal-content">
-      <!-- X 버튼 적용 -->
       <button class="modal-close-btn" onclick="closeMemoModal()"></button>
       <h4 id="modalTitle">메모 입력</h4>
       <textarea id="modalTextarea" placeholder="메모를 입력하세요" style="width:100%; height: 100px;"></textarea>
@@ -1177,16 +1032,37 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
     Chart.register(ChartDataLabels);
 
     let assetChart, stockChart, incomeExpenseChart;
-    let stockChartType = 'pie';   // 투자 포트폴리오 차트 기본값(원형)
-    let assetChartType = 'pie';   // 자산 포트폴리오 차트 기본값(원형)
+    let stockChartType = 'pie';   // 기본 차트 타입
+    let assetChartType = 'pie';
+
+    // 헬퍼 함수: 다크모드 여부에 따른 글자 색상 반환
+    function getTextColor(defaultLight, defaultDark) {
+      return document.body.classList.contains("dark-mode") ? defaultDark : defaultLight;
+    }
+
+    // ===== 목표 비율 상태 업데이트 함수 =====
+    function updateTargetRatioStatus() {
+      const ratioInputs = document.querySelectorAll('.target-ratio-input');
+      let sum = 0;
+      ratioInputs.forEach(input => {
+         sum += Number(input.value) || 0;
+      });
+      const statusEl = document.getElementById('targetRatioStatus');
+      if (sum < 100) {
+         statusEl.textContent = "현재 입력된 목표 비율이 " + sum + "%입니다. 100%에 도달하려면 " + (100 - sum) + "%가 부족합니다.";
+      } else if (sum > 100) {
+         statusEl.textContent = "현재 입력된 목표 비율이 " + sum + "%입니다. 100%를 초과했습니다. 초과분: " + (sum - 100) + "%.";
+      } else {
+         statusEl.textContent = "목표 비율이 정확히 100%입니다.";
+      }
+    }
 
     // ===== 모달 열고 닫기 함수 =====
     function openModal(modalId) {
       const modal = document.getElementById(modalId);
       if (modal) {
         modal.classList.add("active");
-        document.body.style.overflow = "hidden";  // 모달 오픈 시 스크롤 막기
-        // 가계부 모달 열 때 로컬스토리지에 저장된 데이터 다시 렌더링
+        document.body.style.overflow = "hidden";
         if(modalId === "accountBookModal"){
           renderAccountBook();
         }
@@ -1196,7 +1072,7 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       const modal = document.getElementById(modalId);
       if (modal) {
         modal.classList.remove("active");
-        document.body.style.overflow = "";        // 모달 닫기 시 스크롤 복원
+        document.body.style.overflow = "";
       }
     }
 
@@ -1224,13 +1100,13 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       nameInput.value = asset.name || "";
       nameInput.addEventListener("input", () => {
         updateAssetChart();
-        updateTargetRatioFields(); 
+        updateTargetRatioFields();
       });
 
       const amountInput = document.createElement("input");
       amountInput.type = "text";
       amountInput.placeholder = "금액";
-      amountInput.value = (asset.amount || 0).toLocaleString(); 
+      amountInput.value = (asset.amount || 0).toLocaleString();
       amountInput.addEventListener("input", updateAssetChart);
       addCommaFormatting(amountInput);
 
@@ -1320,10 +1196,17 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
         return `rgb(${r}, ${g}, ${b})`;
       });
       
+      // 불러온 목표 비율
+      const storedRatios = localStorage.getItem('targetRatios');
+      const targetRatios = storedRatios ? JSON.parse(storedRatios) : {};
+
       if(assetChart) {
         assetChart.destroy();
       }
-      const dataLabelColor = (assetChartType === 'bar') ? '#000' : '#fff';
+      
+      // 다크모드에 따른 데이터 라벨 및 축 글자 색상
+      const dataLabelColor = (assetChartType === 'bar') ? getTextColor("#000", "#fff") : getTextColor("#fff", "#fff");
+      const tickColor = getTextColor("#000", "#fff");
 
       assetChart = new Chart(ctx, {
         type: assetChartType,
@@ -1340,10 +1223,26 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
           responsive: true,
           layout: { padding: 20 },
           plugins: {
-            legend: { position: 'bottom' },
+            legend: { position: 'bottom', labels: { color: tickColor } },
             title: { 
               display: true, 
-              text: assetChartType === 'pie' ? '자산 포트폴리오 (원형)' : '자산 포트폴리오 (막대)' 
+              text: assetChartType === 'pie' ? '자산 포트폴리오 (원형)' : '자산 포트폴리오 (막대)',
+              color: tickColor
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const index = context.dataIndex;
+                  const currentAmount = amounts[index] || 0;
+                  const assetName = names[index];
+                  const targetRatio = targetRatios[assetName] || 0;
+                  const targetAmount = total * (targetRatio/100);
+                  const difference = targetAmount - currentAmount;
+                  return "현재: " + currentAmount.toLocaleString() + " 원 / 목표: " + targetAmount.toLocaleString() + " 원 / 차이: " + difference.toLocaleString() + " 원";
+                }
+              },
+              titleColor: tickColor,
+              bodyColor: tickColor
             },
             datalabels: {
               display: true,
@@ -1363,7 +1262,8 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
               ticks: {
                 callback: function(value) {
                   return value.toLocaleString() + " 원";
-                }
+                },
+                color: tickColor
               }
             }
           } : {}
@@ -1400,8 +1300,9 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       const container = document.getElementById("assetItemsContainer");
       container.appendChild(createAssetItem());
       updateTargetRatioFields();
-    });
-
+    }); 
+    
+    // 목표 비율 입력 필드를 생성할 때 input 이벤트 추가 (실시간 업데이트)
     function updateTargetRatioFields() {
       const targetContainer = document.getElementById("targetRatioContainer");
       targetContainer.innerHTML = "";
@@ -1417,8 +1318,11 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
         div.style.marginBottom = "0.3rem";
         div.innerHTML = `<label style="font-size:0.9rem;">${assetName} 목표비율: </label>
                          <input type="number" class="target-ratio-input" data-asset-name="${assetName}" placeholder="%" style="width:60px; padding:2px; margin-left:5px;" value="${savedValue}">`;
+        // 실시간 업데이트를 위해 input 이벤트 리스너 추가
+        div.querySelector(".target-ratio-input").addEventListener("input", updateTargetRatioStatus);
         targetContainer.appendChild(div);
       });
+      updateTargetRatioStatus();
     }
     function saveTargetRatios() {
       const ratioInputs = document.querySelectorAll('.target-ratio-input');
@@ -1429,11 +1333,13 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       });
       localStorage.setItem('targetRatios', JSON.stringify(targetRatios));
       alert("목표 비율이 저장되었습니다.");
+      updateTargetRatioStatus();
     }
     function loadTargetRatios() {
       const stored = localStorage.getItem('targetRatios');
       return stored ? JSON.parse(stored) : {};
     }
+
     function calculateRebalancingSuggestions() {
       const container = document.getElementById("assetItemsContainer");
       const assetItems = container.querySelectorAll(".asset-item");
@@ -1467,9 +1373,16 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       suggestionsContainer.innerHTML = "";
       suggestions.forEach(suggestion => {
         const div = document.createElement("div");
-        div.style.marginBottom = "0.3rem";
-        div.innerHTML = `<strong>${suggestion.name}</strong>: 현재 ${suggestion.current.toLocaleString()} 원, 목표 ${suggestion.target.toLocaleString()} 원,
-                         ${suggestion.difference >= 0 ? "매수" : "매도"} ${Math.abs(suggestion.difference).toLocaleString()} 원 필요`;
+        div.classList.add("rebalance-card");
+        if(suggestion.difference >= 0) {
+          div.classList.add("buy");
+        } else {
+          div.classList.add("sell");
+        }
+        div.innerHTML = `<strong>${suggestion.name}</strong><br>
+                         현재: ${suggestion.current.toLocaleString()} 원<br>
+                         목표: ${suggestion.target.toLocaleString()} 원<br>
+                         ${suggestion.difference >= 0 ? "매수" : "매도"} 필요: ${Math.abs(suggestion.difference).toLocaleString()} 원`;
         suggestionsContainer.appendChild(div);
       });
     }
@@ -1578,7 +1491,9 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       if(stockChart) {
         stockChart.destroy();
       }
-      const dataLabelColor = (stockChartType === 'bar') ? '#000' : '#fff';
+      
+      const dataLabelColor = (stockChartType === 'bar') ? getTextColor("#000", "#fff") : getTextColor("#fff", "#fff");
+      const tickColor = getTextColor("#000", "#fff");
 
       stockChart = new Chart(ctx, {
         type: stockChartType,
@@ -1595,10 +1510,11 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
           responsive: true,
           layout: { padding: 20 },
           plugins: {
-            legend: { position: 'bottom' },
+            legend: { position: 'bottom', labels: { color: tickColor } },
             title: { 
               display: true, 
-              text: stockChartType === 'pie' ? '주식 포트폴리오 (원형)' : '주식 포트폴리오 (막대)' 
+              text: stockChartType === 'pie' ? '주식 포트폴리오 (원형)' : '주식 포트폴리오 (막대)',
+              color: tickColor
             },
             datalabels: {
               display: true,
@@ -1618,7 +1534,8 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
               ticks: {
                 callback: function(value) {
                   return value.toLocaleString() + " 원";
-                }
+                },
+                color: tickColor
               }
             }
           } : {}
@@ -1704,7 +1621,7 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       }
     });
 
-    // ===== To Do List (디자인 개선 및 로컬 스토리지 연동) =====
+    // ===== To Do List =====
     function createTodoListItem(text) {
       const li = document.createElement("li");
       li.className = "todo-item";
@@ -1753,7 +1670,6 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       }
     }
 
-    // 엔터키로 추가하기 위해 입력 필드에 keydown 이벤트 추가
     document.getElementById("todoInput").addEventListener("keydown", (e) => {
       if(e.key === "Enter"){
         e.preventDefault();
@@ -2185,8 +2101,8 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
         options: {
           responsive: true,
           plugins: {
-            legend: { position: 'bottom' },
-            title: { display: true, text: '월별 수입/지출 보고서' }
+            legend: { position: 'bottom', labels: { color: getTextColor("#000", "#fff") } },
+            title: { display: true, text: '월별 수입/지출 보고서', color: getTextColor("#000", "#fff") }
           },
           scales: {
             y: {
@@ -2194,7 +2110,8 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
               ticks: {
                 callback: function(value) {
                   return value.toLocaleString() + " 원";
-                }
+                },
+                color: getTextColor("#000", "#fff")
               }
             }
           }
@@ -2227,11 +2144,11 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
     // ===== 개발자 도구 및 우클릭 차단 =====
     document.addEventListener("keydown", function(event) {
       if (event.ctrlKey && (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")) { event.preventDefault(); }
-      if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I") || (event.ctrlKey && event.shiftKey && event.key === "J")) { event.preventDefault(); }
+      if ((event.ctrlKey && event.shiftKey && event.key === "I") || (event.ctrlKey && event.shiftKey && event.key === "J")) { event.preventDefault(); }
     });
     document.addEventListener("contextmenu", function(event) { event.preventDefault(); });
 
-    // ===== 탭 전환 및 To Do List 기능 (목표 관리 섹션) =====
+    // ===== 탭 전환 및 To Do List 기능 =====
     const tabLinks = document.querySelectorAll('.tab-link');
     tabLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -2245,7 +2162,6 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       });
     });
 
-    // ===== 초기화 =====
     document.addEventListener("DOMContentLoaded", () => {
       loadAssetPortfolio();
       loadStockPortfolio();
@@ -2255,7 +2171,7 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       loadAssetGoal();
       addCommaFormatting(document.getElementById("assetGoalInput"));
       loadDiaryEntries();
-      loadTodoList(); // To Do List 로컬 스토리지 항목 불러오기
+      loadTodoList();
       const dateInput = document.getElementById("ab-date");
       const today = new Date().toISOString().split("T")[0];
       dateInput.value = today;
@@ -2272,7 +2188,6 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
       updateTargetRatioFields();
     });
 
-    // ESC키 및 모달 배경 클릭 시 모달 닫기
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         const openModal = document.querySelector(".modal.active");
@@ -2300,34 +2215,30 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
         }
       });
 
-      //모바일에서 모달 상황에 바깥 스크롤 막는 코드
       document.addEventListener('touchmove', function(e) {
-  if (document.body.classList.contains("modal-open")) {
-    e.preventDefault();
-  }
-}, { passive: false });
+        if (document.body.classList.contains("modal-open")) {
+          e.preventDefault();
+        }
+      }, { passive: false });
 
-
-document.addEventListener('DOMContentLoaded', () => {
-  // (1) tap highlight 제거
-  document.querySelectorAll('a.nav-link').forEach(a => {
-    a.style.webkitTapHighlightColor = 'transparent';
-  });
-
-  // (2) 클릭 이벤트 걸기
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault(); // 기본 이동 막기
-      
-      // pressed 클래스 추가
-      link.classList.add('pressed');
-
-      // 100ms 후 페이지 이동
-      setTimeout(() => {
-        window.location.href = link.getAttribute('href');
-      }, 100);
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('a.nav-link').forEach(a => {
+        a.style.webkitTapHighlightColor = 'transparent';
+      });
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          link.classList.add('pressed');
+          setTimeout(() => {
+            window.location.href = link.getAttribute('href');
+          }, 100);
+        });
+      });
     });
-  });
+
+    // 페이지 로드 후 'loaded' 클래스를 추가
+window.addEventListener('load', function() {
+  document.body.classList.add('loaded');
 });
 
   </script>
