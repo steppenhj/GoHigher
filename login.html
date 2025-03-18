@@ -160,9 +160,11 @@
   </div>
 
   <script type="module">
+    // Firebase SDK 가져오기
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
+    // Firebase 설정
     const firebaseConfig = {
       apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
       authDomain: "gohigher-55e51.firebaseapp.com",
@@ -173,28 +175,24 @@
       measurementId: "G-KQ02L8DXG0"
     };
 
+    // Firebase 앱 초기화
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
+    // Google 로그인 버튼 클릭 이벤트
     document.getElementById("googleLogin").addEventListener('click', () => {
       signInWithPopup(auth, provider)
         .then((result) => {
           const user = result.user;
-          // 신규 사용자인지 확인
-          if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
-            console.log("신규 사용자입니다. 회원가입 축하 메시지를 저장합니다.");
-            localStorage.setItem("signupMessage", "회원 가입을 축하합니다!");
-          } else {
-            console.log("기존 사용자입니다. 축하 메시지 저장하지 않음.");
-          }
+          console.log("로그인 성공:", user);
 
-          // 로그인 상태 저장
+          // 로그인 상태를 localStorage에 저장
           localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("userEmail", user.email);
           localStorage.setItem("userPhoto", user.photoURL);
 
-          // 메인 페이지로 이동
+          // 현재 페이지를 새로고침하여 로그인 상태 반영
           window.location.href = "index.html";  
         })
         .catch((error) => {
