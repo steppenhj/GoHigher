@@ -702,7 +702,50 @@
       background-color: #ffe6e6;
     }
 
-    
+    @media (max-width: 768px) {
+  body {
+    font-size: 18px;
+    /* 콘텐츠가 하단 네비게이션에 가리지 않도록 바닥 여백 추가 */
+    padding-bottom: 70px;
+  }
+  aside.sidebar {
+    display: none;
+  }
+  .layout-container {
+    flex-direction: column;
+    padding: 0 0.5rem;
+  }
+  .flex-container {
+    flex-direction: column;
+  }
+  .half-section {
+    width: 100% !important;
+  }
+  .layout-container {
+    padding: 0;
+  }
+  .main-content,
+  .news-section,
+  .half-section,
+  .full-section {
+    padding: 0.5rem;
+  }
+  .news-section {
+    margin: 1rem 0;
+  }
+  .desktop-nav {
+    display: none;
+  }
+  .bottom-nav {
+    display: block; /* 하단 네비게이션 표시 */
+  }
+  .login-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border-radius: 15px;
+  }
+}
+
   </style>
 </head>
 <body>
