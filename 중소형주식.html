@@ -890,12 +890,54 @@ body.dark-mode .nav-link:hover {
         .bottom-nav {
           display: block; /* 하단 네비게이션 표시 */
         }
-        .login-btn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
-        border-radius: 15px;
+        .login-container {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem; /* 프로필과 버튼 사이 간격 */
+        }
 
-    }
+        #profileBox {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          background: transparent !important;  /* 배경 투명화 */
+          border: none !important;             /* 테두리 제거 */
+          box-shadow: none !important;         /* 그림자 제거 */
+          padding: 0 !important;               /* 내부 여백 제거 */
+        }
+
+        #profileAvatar {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid white;
+          transition: transform 0.2s;
+        }
+
+        /* 프로필 사진 클릭 시 확대 효과 */
+        #profileAvatar:hover {
+          transform: scale(1.1);
+        }
+
+        #welcomeText {
+          display: none; /* 환영 문구 숨김 */
+        }
+
+        .login-btn {
+          display: none; /* 기본적으로 로그아웃 버튼 숨김 */
+          padding: 0.3rem 0.8rem;
+          font-size: 0.75rem;
+          white-space: nowrap;
+        }
+
+        /* 프로필 사진 클릭 시 로그아웃 버튼 나타나기 */
+        .login-container.active .login-btn {
+          display: inline-block;
+        }
 
     .close-btn {
     margin-bottom: 70px; /* 모바일에서 닫기 버튼이 보이지 않는 버그 개선용 */
@@ -927,6 +969,21 @@ body.dark-mode .nav-link:hover {
   line-height: 1.6; /* 텍스트 가독성 향상 */
   overflow-wrap: break-word; /* 또는 word-break: break-all; */
 }
+/* 모바일에서 로그인하지 않은 상태면 프로필 박스를 숨기고 로그인 버튼 표시 */
+.login-container:not(.logged-in) #profileBox {
+    display: none;
+  }
+  .login-container:not(.logged-in) .login-btn {
+    display: inline-block;
+  }
+
+  /* 모바일에서 로그인한 상태면 로그인 버튼을 숨기고 프로필 박스를 표시 */
+  .login-container.logged-in .login-btn {
+    display: none;
+  }
+  .login-container.logged-in #profileBox {
+    display: flex;
+  }
 
       }
 
@@ -992,6 +1049,29 @@ body.dark-mode .nav-link:hover {
   color: #fff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
+
+    /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1001;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
 </style>
   </head>
   <body>
@@ -1001,7 +1081,7 @@ body.dark-mode .nav-link:hover {
       <div class="login-container">
         <!-- 프로필 박스: 아바타와 환영 문구 -->
         <div id="profileBox">
-          <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="미국 중소형 주식 로고 사진" />
+          <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
           <span id="welcomeText">환영합니다, 사용자님!</span>
         </div>
         <!-- 로그인/로그아웃 버튼 -->
@@ -1129,6 +1209,10 @@ body.dark-mode .nav-link:hover {
         아이디어가 있으시면 언제든지 메일로 제안해 주세요!
       </p>
     </footer>
+
+        <!-- Back to Top 버튼 -->
+        <button class="back-to-top" id="backToTop">Top</button>
+
     <script src="auth.js"></script>
     <script>
       // ---------------------------------------------------------------------------------------
@@ -6005,6 +6089,55 @@ function closeModal() {
 window.addEventListener('load', function() {
   document.body.classList.add('loaded');
 });
+document.addEventListener("DOMContentLoaded", function () {
+  const loginContainer = document.querySelector(".login-container");
+  const profileBox = document.getElementById("profileBox");
+  const authButton = document.getElementById("authButton");
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // 로그인 여부 확인
+
+  if (isLoggedIn) {
+    loginContainer.classList.add("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+    authButton.href = "#"; // 로그아웃 기능을 위해 링크 제거
+    authButton.style.display = "none"; // 기본적으로 숨김 (프로필 클릭 시 보이도록 설정)
+  } else {
+    loginContainer.classList.remove("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
+    authButton.href = "login.html";
+    authButton.style.display = "inline-block";
+  }
+
+  // 프로필 박스를 클릭하면 로그아웃 버튼 표시/숨김
+  profileBox.addEventListener("click", function () {
+    if (isLoggedIn) {
+      loginContainer.classList.toggle("active"); // active 클래스 토글
+      authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
+    }
+  });
+
+  // 로그아웃 버튼을 클릭하면 로그아웃 실행
+  authButton.addEventListener("click", function (event) {
+    if (isLoggedIn) {
+      event.preventDefault();
+      localStorage.setItem("isLoggedIn", "false");
+      window.location.reload(); // 새로고침으로 UI 변경 반영
+    }
+  });
+});
+
+    // Back to Top 버튼 기능
+    const backToTopBtn = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    });
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
     </script>    
   </body>
 </html>
