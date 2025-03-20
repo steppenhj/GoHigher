@@ -115,8 +115,8 @@
         padding-bottom: 60px;
       }
       body.loaded {
-  opacity: 1;
-}
+        opacity: 1;
+      }
       header {
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         color: #fff;
@@ -736,35 +736,31 @@ body.dark-mode .nav-link:hover {
   transform: scale(1.05);
 }
 
-      .login-container {
-        /* 로그인 버튼을 오른쪽에 배치하기 위해 margin-left:auto 사용 */
-        margin-left: auto;
-      }
-
-      /* 로그인 버튼 컨테이너를 오른쪽 상단에 절대 배치 */
-      .login-container {
+.login-container {
         position: absolute;
         top: 1rem;
         right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
       }
-
-      /* 로그인 버튼 스타일 (조금 더 세련되게) */
       .login-btn {
-        display: inline-block;
         background-color: #fff;
         color: var(--primary-color);
         border: none;
         padding: 0.6rem 1.2rem;
-        border-radius: 20px; /* pill 형태로 둥글게 */
+        border-radius: 20px;
         font-weight: bold;
         text-decoration: none;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        /* margin-left: auto; 를 사용하면 환영 메시지 다음에 버튼이 오른쪽 끝에 위치합니다. */
+        margin-left: auto;
       }
 
       .login-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         background-color: var(--secondary-color);
         color: #fff;
       }
@@ -965,8 +961,37 @@ body.dark-mode .nav-link:hover {
   z-index: 900;
   border-bottom: 2px solid #ddd;
 }
+#profileBox {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2); /* 약간 투명한 흰색 배경 */
+  backdrop-filter: blur(6px);          /* 배경 블러 효과 (글라스모피즘) */
+  transition: background 0.3s ease;
+}
 
+#profileBox:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
 
+/* 아바타 이미지: 원형, 테두리 효과 */
+#profileAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  margin-right: 0.5rem;
+}
+
+/* 환영 문구 텍스트 */
+#welcomeText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
 </style>
   </head>
   <body>
@@ -974,6 +999,12 @@ body.dark-mode .nav-link:hover {
       <h1>Go Higher</h1>
       <p>성장 가능성이 높은 미국 중소형 주식, 지금 만나보세요!</p>
       <div class="login-container">
+        <!-- 프로필 박스: 아바타와 환영 문구 -->
+        <div id="profileBox">
+          <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="미국 중소형 주식 로고 사진" />
+          <span id="welcomeText">환영합니다, 사용자님!</span>
+        </div>
+        <!-- 로그인/로그아웃 버튼 -->
         <a id="authButton" href="login.html" class="login-btn">
           <i class="fas fa-sign-in-alt"></i> 로그인
         </a>
@@ -1203,8 +1234,7 @@ body.dark-mode .nav-link:hover {
           sector: "산업재"
         }
       ];
-    
-      // ---------------------------------------------------------------------------------------
+            // ---------------------------------------------------------------------------------------
       // (2) 모달 탭별 콘텐츠 데이터를 저장하는 객체 (modalData)
       // 각 종목의 티커를 키로 하여 개요, 진단, 밸류, 재무, 뉴스, 배당, 경쟁사 탭별 콘텐츠를 저장합니다.
       // ---------------------------------------------------------------------------------------
@@ -2424,7 +2454,7 @@ body.dark-mode .nav-link:hover {
             </p>
             <img src="COHRMAX.png" width="100%" height="auto" loading="lazy" alt="중소형주식 코히런트 주가 그래프">`,
           diagnosis: `<h3>1. 재무 구조 및 지표 분석</h3>
-        <!-- 수익성 지표 -->
+                  <!-- 수익성 지표 -->
         <h4>수익성 지표</h4>
         <ul>
           <li><strong>매출액:</strong> 20,938.94억 원</li>
@@ -3620,7 +3650,7 @@ body.dark-mode .nav-link:hover {
           <li>영업이익, EPS, ROA, ROE 등 수익성 지표가 부정적으로 나타나 단기적인 구조조정과 비용 절감이 필요합니다.</li>
           <li>투자활동 현금흐름의 큰 유입이 일시적인 자산 매각에 기인한 것인지 면밀한 분석이 요구됩니다.</li>
         </ul>
-
+        
         <h3>4. 경영 전략 및 혁신 요소</h3>
         <ul>
           <li>
@@ -4823,7 +4853,7 @@ body.dark-mode .nav-link:hover {
         <p>
           안정성 측면에서 ACI Worldwide는 견고한 영업활동 현금흐름을 유지하고 있으나, 높은 장기부채비율은 재무 구조 개선을 위한 과제로 남아 있습니다.
         </p>
-        
+                
         <!-- 성장성 지표 -->
         <h4>성장성 지표</h4>
         <ul>
@@ -5921,6 +5951,7 @@ function closeModal() {
           event.preventDefault();
         }
         if (
+          event.key === "F12" ||
           (event.ctrlKey && event.shiftKey && event.key === "I") ||
           (event.ctrlKey && event.shiftKey && event.key === "J")
         ) {
@@ -5970,16 +6001,11 @@ function closeModal() {
     });
   });
 });
-
-
 // 페이지 로드 후 'loaded' 클래스를 추가
 window.addEventListener('load', function() {
   document.body.classList.add('loaded');
 });
-
     </script>    
-
-
-
   </body>
 </html>
+    

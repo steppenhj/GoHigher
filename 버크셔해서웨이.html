@@ -73,17 +73,13 @@ html {
 
 /* 기본 스타일 */
 body {
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
   font-family: 'Open Sans', sans-serif;
   background: linear-gradient(135deg, var(--accent-color), #cbd7e3);
   color: var(--text-color);
   padding-bottom: 70px; /* 모바일 하단 네비게이션 공간 확보 */
   overflow-x: hidden;
 }
-body.loaded {
-  opacity: 1;
-}
+
 header {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: #fff;
@@ -129,29 +125,33 @@ nav ul li a:hover {
 
 /* 로그인 버튼 */
 .login-container {
-  margin-left: auto;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-.login-btn {
-  display: inline-block;
-  background-color: #fff;
-  color: var(--primary-color);
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px; /* pill 형태 */
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-}
-.login-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  background-color: var(--secondary-color);
-  color: #fff;
-}
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .login-btn {
+        background-color: #fff;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        /* margin-left: auto; 를 사용하면 환영 메시지 다음에 버튼이 오른쪽 끝에 위치합니다. */
+        margin-left: auto;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        background-color: var(--secondary-color);
+        color: #fff;
+      }
 
       /* ----- 아이콘별 기본/활성 이미지 지정 ----- */
       /* (1) 뉴스 아이콘 */
@@ -679,16 +679,50 @@ body:not(.dark-mode) .modal-description,
 body:not(.dark-mode) .modal-description * {
   color: #000 !important;
 }
+#profileBox {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2); /* 약간 투명한 흰색 배경 */
+  backdrop-filter: blur(6px);          /* 배경 블러 효과 (글라스모피즘) */
+  transition: background 0.3s ease;
+}
 
+#profileBox:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
 
+/* 아바타 이미지: 원형, 테두리 효과 */
+#profileAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  margin-right: 0.5rem;
+}
+
+/* 환영 문구 텍스트 */
+#welcomeText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
     </style>
 </head>
 <body>
-
   <header>
     <h1>Go Higher</h1>
     <p>매 분기 업데이트되는 13F 공시로, 투자 트렌드를 한눈에!</p>
     <div class="login-container">
+      <!-- 프로필 박스: 아바타와 환영 문구 -->
+      <div id="profileBox">
+        <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="13F 공시 워렌버핏 정보" />
+        <span id="welcomeText">환영합니다, 사용자님!</span>
+      </div>
+      <!-- 로그인/로그아웃 버튼 -->
       <a id="authButton" href="login.html" class="login-btn">
         <i class="fas fa-sign-in-alt"></i> 로그인
       </a>
@@ -1438,7 +1472,7 @@ body:not(.dark-mode) .modal-description * {
             if (event.ctrlKey && (event.key === "u" || event.key === "U" || event.key === "s"|| event.key === "S")) {
                 event.preventDefault();
             }
-            if ((event.ctrlKey && event.shiftKey && event.key === "I") || (event.ctrlKey && event.shiftKey && event.key === "J")) {
+            if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I") || (event.ctrlKey && event.shiftKey && event.key === "J")) {
                 event.preventDefault();
             }
         });
@@ -1482,13 +1516,6 @@ body:not(.dark-mode) .modal-description * {
   });
 });
 
-
-// 페이지 로드 후 'loaded' 클래스를 추가
-window.addEventListener('load', function() {
-  document.body.classList.add('loaded');
-});
     </script>
-
-
 </body>
 </html>
