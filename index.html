@@ -908,6 +908,72 @@ body.dark-mode .btn-instagram:hover {
       opacity: 1;
       visibility: visible;
     }
+
+          /* 챗봇 인터페이스 스타일 */
+          #chatbot-container {
+        position: fixed;
+        bottom: 140px;
+        right: 20px;
+        width: 300px;
+        max-height: 400px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1002;
+      }
+      #chatbot-header {
+        background: var(--primary-color);
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        position: relative;
+      }
+      #chatbot-close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+      }
+      #chatbot-messages {
+        padding: 10px;
+        height: 300px;
+        overflow-y: auto;
+        background-color: #f9f9f9;
+      }
+      #chatbot-input {
+        display: flex;
+        border-top: 1px solid #ddd;
+      }
+      #chatbot-user-input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        outline: none;
+      }
+      #chatbot-send-btn {
+        background: var(--primary-color);
+        border: none;
+        color: #fff;
+        padding: 10px 15px;
+        cursor: pointer;
+      }
+      .chat-message {
+        margin: 5px 0;
+        padding: 8px;
+        border-radius: 4px;
+      }
+      .chat-message.user {
+        background-color: #d1e7fd;
+        text-align: right;
+      }
+      .chat-message.bot {
+        background-color: #f1f1f1;
+        text-align: left;
+      }
     </style>
   </head>
   <body>
@@ -1314,6 +1380,23 @@ body.dark-mode .btn-instagram:hover {
         <!-- Back to Top 버튼 -->
         <button class="back-to-top" id="backToTop">Top</button>
 
+        <!-- 챗봇 인터페이스 (다크모드 전환 버튼 위에 위치) -->
+        <div id="chatbot-container">
+          <div id="chatbot-header">
+            챗봇
+            <span id="chatbot-close">&times;</span>
+          </div>
+          <div id="chatbot-messages"></div>
+          <div id="chatbot-input">
+            <input type="text" id="chatbot-user-input" placeholder="메시지를 입력하세요" />
+            <button id="chatbot-send-btn">전송</button>
+          </div>
+        </div>
+        <!-- 챗봇 토글 버튼 (화면 오른쪽 하단) -->
+        <button id="chatbot-toggle" style="position: fixed; bottom: 200px; right: 20px; background: var(--primary-color); color: #fff; border: none; border-radius: 50%; width: 50px; height: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer; z-index:1002;">
+          챗봇
+        </button>
+
     <!-- 컬러모드 토글 버튼 -->
     <button class="theme-toggle-btn" id="themeToggleBtn">
       <i class="fas fa-adjust"></i> 다크모드 전환
@@ -1479,6 +1562,58 @@ body.dark-mode .btn-instagram:hover {
     backToTopBtn.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+
+    
+      /* 챗봇 인터페이스 스크립트 */
+      // 챗봇 토글 버튼 클릭 시 챗봇 창 표시/숨김
+      document.getElementById("chatbot-toggle").addEventListener("click", () => {
+        const chatContainer = document.getElementById("chatbot-container");
+        chatContainer.style.display = chatContainer.style.display === "none" || chatContainer.style.display === "" ? "block" : "none";
+      });
+      // 챗봇 닫기 버튼 클릭 시 챗봇 창 숨김
+      document.getElementById("chatbot-close").addEventListener("click", () => {
+        document.getElementById("chatbot-container").style.display = "none";
+      });
+
+      async function sendChatMessage() {
+        const userInput = document.getElementById("chatbot-user-input");
+        const message = userInput.value.trim();
+        if (!message) return;
+        appendChatMessage(message, "user");
+        userInput.value = "";
+        try {
+          const response = await fetch("/chat", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ message: message })
+          });
+          if (!response.ok) {
+            throw new Error("네트워크 오류");
+          }
+          const data = await response.json();
+          appendChatMessage(data.message, "bot");
+        } catch (error) {
+          appendChatMessage("죄송합니다. 오류가 발생했습니다.", "bot");
+          console.error("Chat error:", error);
+        }
+      }
+
+      function appendChatMessage(message, sender) {
+        const messagesDiv = document.getElementById("chatbot-messages");
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chat-message", sender);
+        messageDiv.textContent = message;
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      }
+
+      document.getElementById("chatbot-send-btn").addEventListener("click", sendChatMessage);
+      document.getElementById("chatbot-user-input").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+          sendChatMessage();
+        }
+      });
     </script>
   </body>
 </html>
