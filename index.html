@@ -1594,7 +1594,7 @@ body.dark-mode .btn-instagram:hover {
           const data = await response.json();
           appendChatMessage(data.message, "bot");
         } catch (error) {
-          appendChatMessage("죄송합니다. 오류가 발생했습니다.", "bot");
+          appendChatMessage("서비스 준비 중입니다.", "bot");
           console.error("Chat error:", error);
         }
       }

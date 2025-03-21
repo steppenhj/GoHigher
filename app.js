@@ -5,12 +5,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = 5502; // ← 여기만 바꿔주면 됨!
-
-app.listen(PORT, () => {
-  console.log(`✅ 서버 실행 중: http://localhost:${PORT}`);
-});
-
+const PORT = 5512; // ← 여기만 바꿔주면 됨!
 
 const LUXIA_API_KEY = process.env.LUXIA_API_KEY;
 
