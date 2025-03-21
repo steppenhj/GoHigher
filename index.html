@@ -1641,7 +1641,7 @@ body.dark-mode .btn-instagram:hover {
         appendChatMessage(message, "user");
         userInput.value = "";
         try {
-          const response = await fetch("https://api.gohigher.kr/chat", {
+          const response = await fetch("https://gohigher.kr/chat", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ message: message })
