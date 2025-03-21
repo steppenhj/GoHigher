@@ -5,25 +5,33 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = 5512;
-
+const PORT = process.env.PORT || 8080; // ✅ Railway 포트 설정 최적화
 const LUXIA_API_KEY = process.env.LUXIA_API_KEY;
 
 app.use(express.static(path.join(__dirname)));
-app.use(cors());
+app.use(cors({
+  origin: "https://gohigher.kr", // ✅ Netlify에서만 요청 허용
+  methods: "GET,POST",
+  allowedHeaders: "Content-Type"
+}));
 app.use(express.json());
 
-// 챗 API 엔드포인트
+// ✅ 서버 정상 작동 확인용 엔드포인트
+app.get('/health', (req, res) => {
+  res.json({ status: "✅ 서버 정상 작동 중!" });
+});
+
+// ✅ 챗봇 API 엔드포인트
 app.post('/chat', async (req, res) => {
   const userMessage = req.body.message;
 
   try {
     const response = await axios.post(
-      'https://bridge.luxiacloud.com/llm/saltlux/hanson/v1/chat', // ✅ 올바른 Luxia API 엔드포인트
+      'https://bridge.luxiacloud.com/llm/saltlux/hanson/v1/chat',
       {
-        model: 'luxia2.5-8b-instruct-preview', // ✅ 모델 변경
+        model: 'luxia2-32b-instruct',
         messages: [{ role: 'user', content: userMessage }],
-        stream: false, // ✅ 추가 옵션
+        stream: false,
         temperature: 0.7,
         max_token: 2048,
         top_p: 1,
@@ -33,13 +41,14 @@ app.post('/chat', async (req, res) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          api_key: LUXIA_API_KEY, // ✅ `apikey` → `api_key`로 변경
+          apikey: LUXIA_API_KEY,
         },
       }
     );
 
     console.log("✅ LUXIA 응답:", response.data);
-    res.json({ message: response.data.result.output });
+    const botResponse = response.data?.result?.output || "응답을 가져올 수 없습니다.";
+    res.json({ message: botResponse });
 
   } catch (error) {
     console.error('❌ LUXIA API 요청 오류:', error.response?.data || error.message);
@@ -47,11 +56,12 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-// index.html 기본 라우팅
+// 기본 페이지 라우팅
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// ✅ 서버 실행
 app.listen(PORT, () => {
-  console.log(`✅ http://localhost:${PORT} 에서 웹사이트가 실행 중입니다.`);
+  console.log(`✅ 서버 실행 중: http://localhost:${PORT}`);
 });
