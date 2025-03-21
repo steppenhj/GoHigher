@@ -1033,6 +1033,46 @@ body.dark-mode .btn-instagram:hover {
 #chatbot-toggle:hover {
   transform: scale(1.05);
 }
+/* 챗봇 모달 다크모드 스타일 */
+body.dark-mode #chatbot-container {
+  background-color: #333;  /* 모달 배경 어둡게 */
+  color: #ccc;             /* 기본 텍스트 색상 */
+}
+
+body.dark-mode #chatbot-header {
+  background: linear-gradient(135deg, #002b57, #004284);
+  color: #ccc;
+}
+
+body.dark-mode #chatbot-messages {
+  background-color: #444;  /* 메시지 영역 어둡게 */
+  color: #ccc;
+}
+
+body.dark-mode #chatbot-input {
+  border-top: 1px solid #555;
+}
+
+body.dark-mode #chatbot-user-input {
+  background-color: #555;
+  color: #fff;
+  border: none;
+}
+
+body.dark-mode #chatbot-send-btn {
+  background: #004080;
+  color: #fff;
+}
+
+
+@media (max-width: 768px) {
+  .theme-toggle-btn {
+    bottom: 120px; /* 기존 80px에서 위로 올림 */
+  }
+  .back-to-top {
+    bottom: 70px; /* 기존 20px에서 위로 올림 */
+  }
+}
 
     </style>
   </head>
@@ -1653,7 +1693,7 @@ body.dark-mode .btn-instagram:hover {
           const data = await response.json();
           appendChatMessage(data.message, "bot");
         } catch (error) {
-          appendChatMessage("서비스 준비 중입니다.", "bot");
+          appendChatMessage("서비스 준비 중입니다. 빠른 시일 내에 완료하겠습니다.", "bot");
           console.error("Chat error:", error);
         }
       }
