@@ -21,21 +21,22 @@ app.post('/chat', async (req, res) => {
 
   try {
     const response = await axios.post(
-      'https://platform.luxiacloud.com/api/chat',
+      'https://bridge.luxiacloud.com/llm/saltlux/hanson/v1/chat', // ✅ Luxia 공식 API 엔드포인트
       {
+        model: 'luxia2-32b-instruct', // ✅ 모델명 수정
         messages: [{ role: 'user', content: userMessage }],
-        model: 'chat',
-        temperature: 0.7,
       },
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${LUXIA_API_KEY}`,
+          apikey: LUXIA_API_KEY, // ✅ apikey 헤더 사용
         },
       }
     );
-    console.log("✅ LUXIA 응답:", response.data); // 이거도 중요
-    res.json({ message: response.data.choices[0].message.content });
+    console.log("✅ LUXIA 응답:", response.data); // 응답 구조 확인
+    
+    // 응답 구조에 맞게 수정 (Luxia의 실제 응답을 확인 필요)
+    res.json({ message: response.data.result.output });
   } catch (error) {
     console.error('❌ LUXIA API 요청 오류:', error.response?.data || error.message);
     res.status(500).json({ message: '죄송합니다. 오류가 발생했습니다.' });
