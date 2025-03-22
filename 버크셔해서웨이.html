@@ -92,7 +92,7 @@ header {
 header h1 {
   font-family: 'Roboto', sans-serif;
   font-size: 2rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 header p {
   font-size: 1rem;
@@ -182,6 +182,12 @@ nav ul li a:hover {
       .nav-link.active .company-icon {
         background-image: url("images/companyOn.png");
       }
+      .coinTree-icon {
+        background-image: url("images/coinTree.png");
+      }
+      .nav-link.active .coinTree-icon {
+        background-image: url("images/treeOn.png");
+      }
       /* 데스크탑 네비게이션: 기본적으로 표시 */
       .desktop-nav {
         display: block;
@@ -255,9 +261,10 @@ nav ul li a:hover {
   color: var(--primary-color);
 }
 .bottom-nav li a.nav-link.active .icon {
-  background-color: var(--primary-color);
+  background-color: transparent;;
   color: #fff;
 }
+
 /* (1) 터치 하이라이트 제거 */
 .bottom-nav li a.nav-link {
   -webkit-tap-highlight-color: transparent; /* 이미 JS에서도 처리했지만, CSS로도 보조 */
@@ -267,14 +274,15 @@ nav ul li a:hover {
 }
 
 /* (2) 포커스/액티브 시 outline 제거 */
-.bottom-nav li a.nav-link:focus,
-.bottom-nav li a.nav-link:active,
-.bottom-nav li a.nav-link:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-  background: transparent !important; /* 필요 시 배경도 투명화 */
-}
+    .bottom-nav li a.nav-link:hover,
+    .bottom-nav li a.nav-link:active,
+    .bottom-nav li a.nav-link:focus,
+    .bottom-nav li a.nav-link:focus-visible {
+      background: transparent !important;
+      color: inherit !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
 /* Main 콘텐츠 */
 main {
   max-width: 960px;
@@ -346,7 +354,9 @@ footer {
   font-size: 1rem;
   box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
 }
-
+html, body {
+        height: 100%;
+      }
 /* 모달 */
 .modal {
   display: none;
@@ -610,7 +620,6 @@ body.dark-mode .nav-link:hover {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
-    padding: 0.5rem !important;
     box-sizing: border-box;
   }
   .chart-container {
@@ -631,7 +640,6 @@ body.dark-mode .nav-link:hover {
     padding: 0.5rem;
   }
   footer {
-    font-size: 0.9rem;
     padding: 0.8rem !important;
   }
   .modal-content {
@@ -791,9 +799,70 @@ body:not(.dark-mode) .modal-description * {
       opacity: 1;
       visibility: visible;
     }
-    @media (max-width: 768px) {
+.bottom-nav .icon,
+.bottom-nav .nav-link .icon,
+.bottom-nav .nav-link:active .icon,
+.bottom-nav .nav-link:focus .icon,
+.bottom-nav .nav-link:hover .icon,
+.bottom-nav .nav-link.pressed .icon {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+body.dark-mode .bottom-nav .icon,
+body.dark-mode .bottom-nav li a.nav-link.active .icon {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  color: #fff !important; /* 텍스트 컬러 유지 */
+}
+.top-tab-nav .tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.top-tab-nav .tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: yellow;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.top-tab-nav .tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.top-tab-nav .tab-item:hover::after {
+  width: 60%;
+}
+
+.top-tab-nav .tab-item.active {
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.top-tab-nav .tab-item.active::after {
+  width: 60%;
+}
+@media (max-width: 768px) {
   .back-to-top {
-    bottom: 70px; /* 기존 20px에서 위로 올림 */
+    bottom: 80px; /* 기존 20px에서 위로 올림 */
+  }
+  footer {
+    padding-bottom: 80px !important; /* 하단 nav 높이만큼 여백 추가 */
   }
 }
     </style>
@@ -801,7 +870,6 @@ body:not(.dark-mode) .modal-description * {
 <body>
   <header>
     <h1>Go Higher</h1>
-    <p>매 분기 업데이트되는 13F 공시로, 투자 트렌드를 한눈에!</p>
     <div class="login-container">
       <!-- 프로필 박스: 아바타와 환영 문구 -->
       <div id="profileBox">
@@ -814,13 +882,12 @@ body:not(.dark-mode) .modal-description * {
       </a>
     </div>
     <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
-    <nav class="desktop-nav">
-      <ul>
-        <li><a href="index.html">투데이 뉴스</a></li>
-        <li><a href="주식포트폴리오.html">다이어리</a></li>
-        <li><a href="버크셔해서웨이.html">인기 포트폴리오</a></li>
-        <li><a href="중소형주식.html">중소형주식 추천</a></li>
-      </ul>
+    <nav class="desktop-nav top-tab-nav">
+      <a href="index.html" class="tab-item">투데이 뉴스</a>
+      <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
+      <a href="버크셔해서웨이.html" class="tab-item active">인기 포트폴리오</a>
+      <a href="중소형주식.html" class="tab-item">중소형주식 추천</a>
+      <a href="배당주.html" class="tab-item">배당주 분석</a>
     </nav>
   </header>
     <!-- 모바일 하단 네비게이션 -->
@@ -852,6 +919,12 @@ body:not(.dark-mode) .modal-description * {
             <!-- 회사 아이콘 -->
             <span class="icon company-icon"></span>
             <span class="nav-text">중소형주</span>
+          </a>
+        </li>
+        <li>
+          <a href="배당주.html" class="nav-link" arial-label="배당주분석">
+            <span class="icon coinTree-icon"></span>
+            <span class="nav-text">배당주</span>
           </a>
         </li>
       </ul>

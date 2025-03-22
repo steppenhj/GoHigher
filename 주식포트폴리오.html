@@ -201,7 +201,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.3);
       position: relative;
     }
-    header h1 { font-family: 'Roboto', sans-serif; font-size: 2rem; margin-bottom: 0.5rem; }
+    header h1 { font-family: 'Roboto', sans-serif; font-size: 2rem; margin-bottom: 1.5rem; }
     header p { font-size: 1rem; }
     nav { margin-top: 0.5rem; }
     nav ul { list-style: none; display: flex; justify-content: center; gap: 1rem; }
@@ -567,6 +567,12 @@
     .nav-link.active .company-icon {
       background-image: url("images/companyOn.png");
     }
+    .coinTree-icon {
+        background-image: url("images/coinTree.png");
+      }
+      .nav-link.active .coinTree-icon {
+        background-image: url("images/treeOn.png");
+      }
     .bottom-nav {
       display: none;
       position: fixed;
@@ -798,6 +804,9 @@
   color: #fff;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
+html, body {
+        height: 100%;
+      }
 @media (max-width: 768px) {
   body {
     font-size: 18px;
@@ -899,15 +908,73 @@
     }
     @media (max-width: 768px) {
   .back-to-top {
-    bottom: 70px; /* 기존 20px에서 위로 올림 */
+    bottom: 80px ; /* 기존 20px에서 위로 올림 */
   }
+  footer {
+    padding-bottom: 80px !important; /* 하단 nav 높이만큼 여백 추가 */
+  }
+}
+    .bottom-nav li a.nav-link:hover,
+    .bottom-nav li a.nav-link:active,
+    .bottom-nav li a.nav-link:focus,
+    .bottom-nav li a.nav-link:focus-visible {
+      background: transparent !important;
+      color: inherit !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+body.dark-mode .bottom-nav .icon,
+body.dark-mode .bottom-nav li a.nav-link.active .icon {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  color: #fff !important; /* 텍스트 컬러 유지 */
+}
+.top-tab-nav .tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.top-tab-nav .tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: yellow;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.top-tab-nav .tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.top-tab-nav .tab-item:hover::after {
+  width: 60%;
+}
+
+.top-tab-nav .tab-item.active {
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.top-tab-nav .tab-item.active::after {
+  width: 60%;
 }
   </style>
 </head>
 <body>
   <header>
     <h1>Go Higher</h1>
-    <p>나의 자산을 잘 이해하는 것이 부자가 되는 지름길!</p>
     <div class="login-container">
       <!-- 프로필 박스: 아바타와 환영 문구 -->
       <div id="profileBox">
@@ -920,13 +987,12 @@
       </a>
     </div>
     <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
-    <nav class="desktop-nav">
-      <ul>
-        <li><a href="index.html">투데이 뉴스</a></li>
-        <li><a href="주식포트폴리오.html">다이어리</a></li>
-        <li><a href="버크셔해서웨이.html">인기 포트폴리오</a></li>
-        <li><a href="중소형주식.html">중소형주식 추천</a></li>
-      </ul>
+    <nav class="desktop-nav top-tab-nav">
+      <a href="index.html" class="tab-item">투데이 뉴스</a>
+      <a href="주식포트폴리오.html" class="tab-item active">다이어리</a>
+      <a href="버크셔해서웨이.html" class="tab-item">인기 포트폴리오</a>
+      <a href="중소형주식.html" class="tab-item">중소형주식 추천</a>
+      <a href="배당주.html" class="tab-item">배당주 분석</a>
     </nav>
   </header>
     <!-- 모바일 하단 네비게이션 -->
@@ -954,6 +1020,12 @@
           <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
             <span class="icon company-icon"></span>
             <span class="nav-text">중소형주</span>
+          </a>
+        </li>
+        <li>
+          <a href="배당주.html" class="nav-link" arial-label="배당주분석">
+            <span class="icon coinTree-icon"></span>
+            <span class="nav-text">배당주</span>
           </a>
         </li>
       </ul>

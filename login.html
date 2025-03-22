@@ -89,7 +89,21 @@
       background-color: #357ae8;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
-
+    /* 다크모드 스타일 */
+    body.dark-mode {
+      background: #444;
+      color: #cacaca;
+    }
+    body.dark-mode header {
+      background: linear-gradient(135deg, #002b57, #004284);
+      color: #cacaca;
+    }
+    body.dark-mode .notice{
+      color: #cacaca;
+    }
+    body.dark-mode .info-box{
+      background-color: #333 !important;
+    }
     /* 반응형 스타일 (모바일) */
     @media (max-width: 768px) {
       body {
@@ -199,6 +213,13 @@
         .catch((error) => {
           console.error("로그인 실패:", error.message);
         });
+    });
+    // 다크모드 스크립트
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
     });
   </script>
 </body>
