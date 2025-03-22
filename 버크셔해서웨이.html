@@ -153,106 +153,104 @@ nav ul li a:hover {
         color: #fff;
       }
 
-      .desktop-nav {
-      display: block;
-    }
-    .bottom-nav {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 0.3rem 0;
-      background: #fff;
-      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
-    .bottom-nav ul {
-      display: flex;
-      justify-content: space-around;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .bottom-nav li {
-      text-align: center;
-      flex: 1;
-    }
-    .bottom-nav li a.nav-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #888;
-      transition: transform 0.2s, color 0.2s;
-    }
-    .bottom-nav .icon {
-      width: 28px;
-      height: 28px;
-      display: inline-block;
-      background-color: transparent;
-      border: none;
-      border-radius: 0;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
-      margin-bottom: 3px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .bottom-nav .nav-text {
-      font-size: 0.75rem;
-      color: #888;
-    }
-    .bottom-nav li a.nav-link.active .nav-text {
-      color: var(--primary-color);
-    }
-    .bottom-nav li a.nav-link:hover {
-      transform: scale(1.05);
-    }
-    .bottom-nav li a.nav-link {
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-      border: none;
-      box-shadow: none;
-    }
-    .bottom-nav li a.nav-link:focus,
-    .bottom-nav li a.nav-link:active,
-    .bottom-nav li a.nav-link:focus-visible {
-      outline: none !important;
-      box-shadow: none !important;
-      border: none !important;
-      background: transparent !important;
-    }
-    .news-icon {
-      background-image: url("images/newsImage.png");
-    }
-    .nav-link.active .news-icon {
-      background-image: url("images/newsOn.png");
-    }
-    .diary-icon {
-      background-image: url("images/diaryImage.png");
-    }
-    .nav-link.active .diary-icon {
-      background-image: url("images/diaryOn.png");
-    }
-    .chart-icon {
-      background-image: url("images/chartImage.png");
-    }
-    .nav-link.active .chart-icon {
-      background-image: url("images/chartOn.png");
-    }
-    .company-icon {
-      background-image: url("images/companyImage.png");
-    }
-    .nav-link.active .company-icon {
-      background-image: url("images/companyOn.png");
-    }
-    .coinTree-icon {
+      /* ----- 아이콘별 기본/활성 이미지 지정 ----- */
+      /* (1) 뉴스 아이콘 */
+      .news-icon {
+        background-image: url("images/newsImage.png");
+      }
+      .nav-link.active .news-icon {
+        background-image: url("images/newsOn.png");
+      }
+      /* (2) 다이어리 아이콘 */
+      .diary-icon {
+        background-image: url("images/diaryImage.png");
+      }
+      .nav-link.active .diary-icon {
+        background-image: url("images/diaryOn.png");
+      }
+      /* (3) 대가들(차트) 아이콘 */
+      .chart-icon {
+        background-image: url("images/chartImage.png");
+      }
+      .nav-link.active .chart-icon {
+        background-image: url("images/chartOn.png");
+      }
+      /* (4) 중소형주(회사) 아이콘 */
+      .company-icon {
+        background-image: url("images/companyImage.png");
+      }
+      .nav-link.active .company-icon {
+        background-image: url("images/companyOn.png");
+      }
+      .coinTree-icon {
         background-image: url("images/coinTree.png");
       }
       .nav-link.active .coinTree-icon {
         background-image: url("images/treeOn.png");
+      }
+      /* 데스크탑 네비게이션: 기본적으로 표시 */
+      .desktop-nav {
+        display: block;
+      }
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.3rem 0;
+        background: #fff;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      .bottom-nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .bottom-nav li {
+        text-align: center;
+        flex: 1;
+      }
+      .bottom-nav li a.nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #888;
+        transition: transform 0.2s, color 0.2s;
+      }
+
+      /* 모바일 하단 아이콘 */
+      .bottom-nav .icon {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        /* 이미지 배경을 위해 설정 */
+        background-color: transparent; /* 배경 제거 */
+  border: none;                 /* 혹시 모를 테두리 제거 */
+  border-radius: 0;            /* 둥근 모서리 제거 */
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-bottom: 3px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      /* 기본 텍스트 크기 */
+      .bottom-nav .nav-text {
+        font-size: 0.75rem;
+        color: #888;
+      }
+      /* 활성(선택) 상태 */
+      .bottom-nav li a.nav-link.active .nav-text {
+        color: var(--primary-color);
+      }
+
+      .bottom-nav li a.nav-link:hover {
+        transform: scale(1.05);
       }
       .nav-link.pressed {
         background-color: transparent !important; /* 오버레이 제거 */
@@ -474,44 +472,88 @@ html, body {
 
 /* Container, About, Section */
 .container {
-  max-width: 1225px;
-  margin: 40px auto;
+  max-width: 1200px;           /* 콘텐츠 폭 제한 */
+  margin: 50px auto;          /* 상하 여백 및 중앙 정렬 */
   padding: 0 20px;
 }
+
 .about {
-  text-align: left;
-  background: white;
-  padding: 40px 20px;
+  background: #fff;
+  padding: 40px;
   border-radius: 8px;
-  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
 }
-.section ul {
-  width: 100%;
-  list-style: none;
-  padding-left: 20px;
-  margin: 0 auto 20px auto;
-}
-.section li {
-  margin: 10px 0;
-  text-align: left;
-}
-.section h1 {
+
+/* 제목 스타일 */
+.about h1 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
   text-align: center;
   margin-bottom: 30px;
+  letter-spacing: 1px;
 }
-.section h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  margin-top: 15px;
+
+.about h2 {
+  font-size: 1.8rem;
+  color: var(--secondary-color);
+  margin-top: 40px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--light-gray);
+  padding-bottom: 10px;
 }
-.section p {
-  text-align: center;
+
+/* 본문 및 리스트 스타일 */
+.about p {
+  margin-bottom: 20px;
+  text-align: justify;
 }
-.container .section ul li {
-  color: black;
+
+.about ul,
+.about ol {
+  margin-left: 25px;
+  margin-bottom: 20px;
 }
-body.modal-description {
+
+.about li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+/* 구분선 */
+.about hr {
+  border: none;
+  border-top: 1px solid var(--light-gray);
+  margin: 40px 0;
+}
+
+/* 링크 및 강조 텍스트 */
+.about a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.about a:hover {
+  color: var(--secondary-color);
+}
+
+.about strong {
+  font-weight: bold;
   color: #000;
+}
+
+/* 선택 사항: 인용문 스타일 (필요 시 추가) */
+.about blockquote {
+  margin: 20px 40px;
+  padding: 15px 20px;
+  background: #f8f8f8;
+  border-left: 4px solid var(--primary-color);
+  font-style: italic;
+  color: #555;
 }
 
 /* 다크 모드 스타일 */
@@ -651,8 +693,9 @@ body.dark-mode .nav-link:hover {
     width: 90% !important;
     height: auto !important;
   }
-  .bottom-nav ul {
-    flex-wrap: nowrap;  /* 한 줄 유지 */
+  nav ul {
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   nav ul li a {
     white-space: nowrap;
@@ -866,6 +909,56 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
     padding-bottom: 80px !important; /* 하단 nav 높이만큼 여백 추가 */
   }
 }
+
+        /* ***** Overlapping Book Cards Gallery Styles ***** */
+        .book-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          height: 250px;
+          margin-top: 20px;
+        }
+        .book-item {
+          position: relative;
+          width: 120px;
+          margin-left: -40px;
+          transition: transform 0.5s ease;
+          cursor: pointer;
+          transform: rotate(-5deg);
+        }
+        .book-item:first-child {
+          margin-left: 0;
+        }
+        .book-item img {
+          width: 100%;
+          display: block;
+          border-radius: 4px;
+        }
+        /* 호버 시 왼쪽으로 20px 이동하면서 확대 */
+        .book-item:hover {
+          transform: translateX(-60px) rotate(0deg) scale(1.8);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+          z-index: 10;
+        }
+        .book-item .overlay {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.6);
+          color: #fff;
+          font-size: 14px;
+          padding: 5px;
+          text-align: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          border-bottom-left-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+        .book-item:hover .overlay {
+          opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -1037,30 +1130,29 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
           <h2>1. 가치투자와 벤저민 그레이엄 · 워렌 버핏</h2>
           <ul>
             <li>
-              <strong>벤저민 그레이엄(Benjamin Graham):</strong>  
-              “증권분석(Security Analysis)”과 “현명한 투자자(The Intelligent Investor)”의 저자로 유명하며,  
-              기업의 내재가치보다 충분히 낮은 가격에 매수하는 <em>안전마진(Margin of Safety)</em> 개념을 강조했습니다.
+              <strong>벤저민 그레이엄:</strong>  
+              “증권분석”과 “현명한 투자자”의 저자로 유명하며,  
+              기업의 내재가치보다 충분히 낮은 가격에 매수하는 안전마진 개념을 강조했습니다.
               그의 철학은 금융 위기와 같은 시장 혼란기에도 흔들리지 않는 투자 원칙을 마련하는 데 도움을 줬습니다.
             </li>
             <li>
-              <strong>워렌 버핏(Warren Buffett):</strong>  
-              벤저민 그레이엄의 제자로서, ‘이해하는 범위(Circle of Competence)’ 내에서 우량 기업을 찾고,  
+              <strong>워렌 버핏:</strong>  
+              벤저민 그레이엄의 제자로서, ‘이해하는 범위’ 내에서 우량 기업을 찾고,  
               시장이 과도하게 하락할 때 적극적으로 매수합니다.  
-              “장기 보유(Long-Term Holding)”와 “안전마진”을 실천하는 대표적인 투자자로,  
+              “장기 보유”와 “안전마진”을 실천하는 대표적인 투자자로,  
               대형 우량주와 소비재(코카콜라 등)에 집중 투자하는 경향이 있습니다.
               <br><br>“투자 세계에서는 스트라이크 낙장(판정)이라는 것이 없다.
               우리는 스트라이크가 들어오지 않는 한 그대로 기다릴 수 있다.
               정말 마음에 드는 공이 들어올 때만 스윙하면 된다.”
             </li>
           </ul>
-          <hr>
 
-          <h2>2. 피터 린치(Peter Lynch)의 성장투자</h2>
+          <h2>2. 피터 린치의 성장투자</h2>
           <ul>
             <li>
               <strong>실생활에서 아이디어 발굴:</strong>  
-              피터 린치는 “자신이 아는 기업(In what you know)에 투자하라”는 조언으로 유명합니다.  
-              그의 저서 “전설로 떠나는 월가의 영웅(One Up on Wall Street)”에서 강조했듯,  
+              피터 린치는 “자신이 아는 기업에 투자하라”는 조언으로 유명합니다.  
+              그의 저서 “전설로 떠나는 월가의 영웅”에서 강조했듯,  
               일상 소비를 통해 접한 브랜드·제품 등을 토대로 성장 가능성이 있는 기업을 선별하는 방식을 취했습니다.
             </li>
             <li>
@@ -1070,12 +1162,11 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
               그는 빠른 매매보다는 유망주에 장기 투자하며 꾸준히 기업 실적을 점검하는 접근을 강조했습니다.
             </li>
           </ul>
-          <hr>
 
-          <h2>3. 찰리 멍거(Charlie Munger)의 멀티디시플리너리 사고</h2>
+          <h2>3. 찰리 멍거의 멀티디시플리너리 사고</h2>
           <ul>
             <li>
-              <strong>복합 학문적 접근(Multidisciplinary Thinking):</strong>  
+              <strong>복합 학문적 접근:</strong>  
               찰리 멍거는 법학, 심리학, 경제학, 수학 등 다양한 분야의 지식을 폭넓게 학습해  
               투자 의사결정에 활용해야 한다고 강조했습니다.  
               실제로 그는 “나는 평생 독서하지 않는 현명한 사람을 본 적이 없다”고 말할 만큼,  
@@ -1088,14 +1179,13 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
               동시에 인간이 빠지기 쉬운 심리적 함정(확증편향, 감정적 매매 등)을 철저히 경계합니다.
             </li>
           </ul>
-          <hr>
 
-          <h2>4. 조지 소로스(George Soros)의 반사성 이론</h2>
+          <h2>4. 조지 소로스의 반사성 이론</h2>
           <ul>
             <li>
-              <strong>반사성(Reflexivity) 개념:</strong>  
-              조지 소로스는 시장 참여자들의 <em>인식</em>이 시장 가격에 영향을 주고,  
-              그 가격 변화가 다시 투자자들의 인식을 바꾸는 일종의 <em>피드백 고리</em>가 존재한다고 분석했습니다.  
+              <strong>반사성 개념:</strong>  
+              조지 소로스는 시장 참여자들의 인식이 시장 가격에 영향을 주고,  
+              그 가격 변화가 다시 투자자들의 인식을 바꾸는 일종의 피드백 고리가 존재한다고 분석했습니다.  
               즉, 시장은 합리적이고 효율적이라기보다는 심리에 의해 크게 왜곡될 수 있다는 것입니다.
             </li>
             <li>
@@ -1107,30 +1197,28 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
               <br>조지 소로스는 투자에서 본인의 확신도가 높다고 판단될 때, 과감히 투자 규모를 키워 큰 수익을 노린다고 알려져 있습니다.
             </li>
           </ul>
-          <hr>
 
-          <h2>5. 레이 달리오(Ray Dalio)와 올웨더(All Weather) 포트폴리오</h2>
+          <h2>5. 레이 달리오와 올웨더 포트폴리오</h2>
           <ul>
             <li>
-              <strong>브리지워터 어소시에이츠(Bridgewater Associates) 창업자:</strong>  
+              <strong>브리지워터 어소시에이츠 창업자:</strong>  
               레이 달리오는 거시경제 지표(금리, 물가, GDP 등)를 정교하게 분석하여,  
-              경기 침체든 호황이든 일정 수준의 수익을 내도록 설계된 <em>올웨더 포트폴리오</em>를 창안했습니다.
+              경기 침체든 호황이든 일정 수준의 수익을 내도록 설계된 올웨더 포트폴리오를 창안했습니다.
             </li>
             <li>
-              <strong>데이터 기반의 원칙(Principles):</strong>  
+              <strong>데이터 기반의 원칙:</strong>  
               그는 《Principles/원칙》라는 저서를 통해, 의사결정 과정을 투명화하고 모든 판단을 데이터로 검증하는  
               기업 문화를 제시했습니다. 브리지워터의 투자 방식은 알고리즘과 빅데이터 분석을 활용하는 것이 특징입니다.
             </li>
           </ul>
-          <hr>
 
-          <h2>6. 존 템플턴(John Templeton)의 역발상 투자</h2>
+          <h2>6. 존 템플턴의 역발상 투자</h2>
           <ul>
             <li>
               <strong>Templeton Growth Fund:</strong>  
               존 템플턴은 저평가된 해외 시장을 발굴해 투자함으로써,  
-              <em>글로벌 가치투자</em>의 선구자로 불립니다.  
-              투자자들이 과도하게 낙관적일 때는 매도하고, 과도하게 비관적일 때 매수하는 ‘역발상(Contrarian) 투자’를 실천했습니다.
+              글로벌 가치투자의 선구자로 불립니다.  
+              투자자들이 과도하게 낙관적일 때는 매도하고, 과도하게 비관적일 때 매수하는 ‘역발상 투자’를 실천했습니다.
             </li>
             <li>
               <strong>“최대 비관 구간에서 매수하라”:</strong>  
@@ -1138,12 +1226,11 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
               실제로 전쟁 직후나 세계 경제 위기 시기에 적극적으로 매수하여 장기 이익을 남긴 사례가 있습니다.
             </li>
           </ul>
-          <hr>
 
-          <h2>7. 짐 로저스(Jim Rogers)의 원자재 투자 및 세계 여행</h2>
+          <h2>7. 짐 로저스의 원자재 투자 및 세계 여행</h2>
           <ul>
             <li>
-              <strong>퀀텀 펀드(Quantum Fund) 공동 설립:</strong>  
+              <strong>퀀텀 펀드 공동 설립:</strong>  
               짐 로저스는 조지 소로스와 함께 퀀텀 펀드를 세워 큰 성공을 거둔 뒤,  
               세계 일주를 통해 각국의 경제·원자재 시장을 직접 체험하며 투자 기회를 찾았습니다.
             </li>
@@ -1153,40 +1240,16 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
               또한 신흥국(특히 아시아)의 경제 성장이 전 세계에 새로운 투자 기회를 가져올 것이라 주장합니다.
             </li>
           </ul>
-          <p>이처럼 투자 대가들은 서로 다른 철학과 기법을 강조하지만,  
-          <strong>장기적 관점, 심리적 함정 경계, 철저한 분석</strong>이란 공통분모를 갖고 있습니다.  
-          <br>각자의 투자 성향과 목표에 따라, 이들의 원칙을 참고하여 자신만의 전략을 세울 수 있습니다.</p>
-          <br><br>
-          워렌 버핏의 《버핏의 주주 서한 (The Essays of Warren Buffett: Lessons for Corporate America)》<br>
-→ 버핏이 직접 쓴 주주 서한을 모아놓은 책으로, 그의 투자 철학과 기업 경영 원칙을 배울 수 있는 최고의 자료입니다.
-<br>
-<br>
-벤저민 그레이엄의 《현명한 투자자 (The Intelligent Investor)》<br>
-→ 가치투자의 바이블이라 불리는 책으로, 워렌 버핏도 "내가 읽은 최고의 투자서"라고 극찬한 필독서입니다.
-<br>
-<br>
-피터 린치의 《전설로 떠나는 월가의 영웅 (One Up on Wall Street)》<br>
-→ 실생활에서 투자 아이디어를 발견하는 방법과 성장주 투자 전략을 설명한 책으로, 초보 투자자부터 전문가까지 모두에게 유용합니다.
-<br>
-<br>
-조지 소로스의 《금융의 연금술 (The Alchemy of Finance)》<br>
-→ 소로스의 ‘반사성 이론(Reflexivity Theory)’을 담은 책으로, 시장의 흐름을 이해하고 큰 수익을 낼 수 있는 전략을 배울 수 있습니다.
-<br>
-<br>
-찰리 멍거의 《가난한 찰리의 영감 (Poor Charlie’s Almanack)》<br>
-→ 찰리 멍거의 투자 원칙, 연설, 심리적 편향을 극복하는 방법을 정리한 책으로, 투자뿐만 아니라 인생 철학까지 배울 수 있는 필독서입니다.
-<br><br>
-레이 달리오의 《원칙 (Principles: Life and Work)》<br>
-→ 브리지워터 어소시에이츠를 세계 최대 헤지펀드로 성장시킨 레이 달리오의 투자 및 인생 원칙을 담은 책으로, 조직 경영과 투자 전략을 함께 배울 수 있습니다.
-<br><br>
-존 템플턴의 《Templeton Way: The Philosophy of Value Investing》<br>
-→ 템플턴의 글로벌 가치투자 철학과 실제 사례를 담은 책으로, 장기적인 성공을 위한 투자 전략을 배울 수 있습니다.
-<br><br>
-짐 로저스의 《어드벤처 캐피탈리스트 (Adventure Capitalist)》<br>
-→ 직접 세계를 여행하며 신흥 시장과 투자 기회를 탐색한 경험을 바탕으로, 글로벌 경제 흐름과 투자 전략을 설명한 책입니다.
-
-
         </section>
+
+
+                <!-- ***** 여기서부터 책 갤러리 섹션 추가 ***** -->
+                <section class="section about">
+                  <h2>추천 도서 갤러리</h2>
+                  <!-- 갤러리 컨테이너: CSS에서 겹치는 카드 형태로 스타일링 -->
+                  <div class="book-container" id="bookContainer"></div>
+              </section>
+
     </div>
     <!-- ***** 수정된 섹션 끝 ***** -->
 
@@ -1728,5 +1791,34 @@ document.addEventListener("DOMContentLoaded", function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     </script>
+
+        <!-- ***** 책 갤러리 생성 스크립트 (DOM 로딩 후 실행) ***** -->
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              const container = document.getElementById('bookContainer');
+              for (let i = 1; i <= 8; i++) {
+                  const bookItem = document.createElement('div');
+                  bookItem.className = 'book-item';
+                  bookItem.style.zIndex = i;
+                  
+                  const img = document.createElement('img');
+                  img.src = `images/book${i}.jpg`;  // 파일 확장자에 주의하세요.
+                  img.alt = `Book ${i}`;
+                  
+                  const overlay = document.createElement('div');
+                  overlay.className = 'overlay';
+                  overlay.innerText = `Book ${i} Details`;
+                  
+                  bookItem.appendChild(img);
+                  bookItem.appendChild(overlay);
+                  container.appendChild(bookItem);
+                  
+                  bookItem.addEventListener('mouseover', () => {
+                      console.log(`Hovered over Book ${i}`);
+                  });
+              }
+          });
+      </script>
+
 </body>
 </html>
