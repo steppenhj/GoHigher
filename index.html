@@ -1869,16 +1869,17 @@
       }
     }, 1000);
 
-    // 3초 후 답변
-    setTimeout(() => {
-      thinkingDiv.remove();
-      const answer = predefinedQA[message];
-      if (answer) {
-        appendChatMessage(answer, "bot");
-      } else {
-        appendChatMessage("시스템을 준비 중입니다. 빠른 시일 내로 찾아뵙겠습니다.", "bot");
-      }
-    }, 4000);
+    //3~5초 생각하는 척
+    const randomDelay = Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
+setTimeout(() => {
+  thinkingDiv.remove();
+  const answer = predefinedQA[message];
+  if (answer) {
+    appendChatMessage(answer, "bot");
+  } else {
+    appendChatMessage("시스템을 준비 중입니다. 빠른 시일 내로 찾아뵙겠습니다.", "bot");
+  }
+}, randomDelay);
   }
 
   // (6) 유도 질문 초기화 (동일)
