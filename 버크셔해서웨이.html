@@ -153,104 +153,106 @@ nav ul li a:hover {
         color: #fff;
       }
 
-      /* ----- 아이콘별 기본/활성 이미지 지정 ----- */
-      /* (1) 뉴스 아이콘 */
-      .news-icon {
-        background-image: url("images/newsImage.png");
-      }
-      .nav-link.active .news-icon {
-        background-image: url("images/newsOn.png");
-      }
-      /* (2) 다이어리 아이콘 */
-      .diary-icon {
-        background-image: url("images/diaryImage.png");
-      }
-      .nav-link.active .diary-icon {
-        background-image: url("images/diaryOn.png");
-      }
-      /* (3) 대가들(차트) 아이콘 */
-      .chart-icon {
-        background-image: url("images/chartImage.png");
-      }
-      .nav-link.active .chart-icon {
-        background-image: url("images/chartOn.png");
-      }
-      /* (4) 중소형주(회사) 아이콘 */
-      .company-icon {
-        background-image: url("images/companyImage.png");
-      }
-      .nav-link.active .company-icon {
-        background-image: url("images/companyOn.png");
-      }
-      .coinTree-icon {
+      .desktop-nav {
+      display: block;
+    }
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.3rem 0;
+      background: #fff;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .bottom-nav ul {
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .bottom-nav li {
+      text-align: center;
+      flex: 1;
+    }
+    .bottom-nav li a.nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #888;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .bottom-nav .icon {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      margin-bottom: 3px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .bottom-nav .nav-text {
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .bottom-nav li a.nav-link.active .nav-text {
+      color: var(--primary-color);
+    }
+    .bottom-nav li a.nav-link:hover {
+      transform: scale(1.05);
+    }
+    .bottom-nav li a.nav-link {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+    .bottom-nav li a.nav-link:focus,
+    .bottom-nav li a.nav-link:active,
+    .bottom-nav li a.nav-link:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      background: transparent !important;
+    }
+    .news-icon {
+      background-image: url("images/newsImage.png");
+    }
+    .nav-link.active .news-icon {
+      background-image: url("images/newsOn.png");
+    }
+    .diary-icon {
+      background-image: url("images/diaryImage.png");
+    }
+    .nav-link.active .diary-icon {
+      background-image: url("images/diaryOn.png");
+    }
+    .chart-icon {
+      background-image: url("images/chartImage.png");
+    }
+    .nav-link.active .chart-icon {
+      background-image: url("images/chartOn.png");
+    }
+    .company-icon {
+      background-image: url("images/companyImage.png");
+    }
+    .nav-link.active .company-icon {
+      background-image: url("images/companyOn.png");
+    }
+    .coinTree-icon {
         background-image: url("images/coinTree.png");
       }
       .nav-link.active .coinTree-icon {
         background-image: url("images/treeOn.png");
-      }
-      /* 데스크탑 네비게이션: 기본적으로 표시 */
-      .desktop-nav {
-        display: block;
-      }
-      .bottom-nav {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 0.3rem 0;
-        background: #fff;
-        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-      }
-      .bottom-nav ul {
-        display: flex;
-        justify-content: space-around;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      .bottom-nav li {
-        text-align: center;
-        flex: 1;
-      }
-      .bottom-nav li a.nav-link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: #888;
-        transition: transform 0.2s, color 0.2s;
-      }
-
-      /* 모바일 하단 아이콘 */
-      .bottom-nav .icon {
-        width: 28px;
-        height: 28px;
-        display: inline-block;
-        /* 이미지 배경을 위해 설정 */
-        background-color: transparent; /* 배경 제거 */
-  border: none;                 /* 혹시 모를 테두리 제거 */
-  border-radius: 0;            /* 둥근 모서리 제거 */
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        margin-bottom: 3px;
-        transition: background-color 0.3s, color 0.3s;
-      }
-      /* 기본 텍스트 크기 */
-      .bottom-nav .nav-text {
-        font-size: 0.75rem;
-        color: #888;
-      }
-      /* 활성(선택) 상태 */
-      .bottom-nav li a.nav-link.active .nav-text {
-        color: var(--primary-color);
-      }
-
-      .bottom-nav li a.nav-link:hover {
-        transform: scale(1.05);
       }
       .nav-link.pressed {
         background-color: transparent !important; /* 오버레이 제거 */
