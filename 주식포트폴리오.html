@@ -527,52 +527,8 @@
         color: #fff;
       }
     .desktop-nav {
-        display: block;
-    }
-    .bottom-nav {
-      display: none;
-      position: fixed;
-      bottom: 0; 
-      left: 0;
-      width: 100%;
-      padding: 0.3rem 0;
-      background: #fff;
-      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
-    .desktop-nav {
       display: block;
     }
-    .news-icon {
-      background-image: url("images/newsImage.png");
-    }
-    .nav-link.active .news-icon {
-      background-image: url("images/newsOn.png");
-    }
-    .diary-icon {
-      background-image: url("images/diaryImage.png");
-    }
-    .nav-link.active .diary-icon {
-      background-image: url("images/diaryOn.png");
-    }
-    .chart-icon {
-      background-image: url("images/chartImage.png");
-    }
-    .nav-link.active .chart-icon {
-      background-image: url("images/chartOn.png");
-    }
-    .company-icon {
-      background-image: url("images/companyImage.png");
-    }
-    .nav-link.active .company-icon {
-      background-image: url("images/companyOn.png");
-    }
-    .coinTree-icon {
-        background-image: url("images/coinTree.png");
-      }
-      .nav-link.active .coinTree-icon {
-        background-image: url("images/treeOn.png");
-      }
     .bottom-nav {
       display: none;
       position: fixed;
@@ -641,6 +597,36 @@
       border: none !important;
       background: transparent !important;
     }
+    .news-icon {
+      background-image: url("images/newsImage.png");
+    }
+    .nav-link.active .news-icon {
+      background-image: url("images/newsOn.png");
+    }
+    .diary-icon {
+      background-image: url("images/diaryImage.png");
+    }
+    .nav-link.active .diary-icon {
+      background-image: url("images/diaryOn.png");
+    }
+    .chart-icon {
+      background-image: url("images/chartImage.png");
+    }
+    .nav-link.active .chart-icon {
+      background-image: url("images/chartOn.png");
+    }
+    .company-icon {
+      background-image: url("images/companyImage.png");
+    }
+    .nav-link.active .company-icon {
+      background-image: url("images/companyOn.png");
+    }
+    .coinTree-icon {
+        background-image: url("images/coinTree.png");
+      }
+      .nav-link.active .coinTree-icon {
+        background-image: url("images/treeOn.png");
+      }
     .nav-link.pressed {
       background-color: rgba(0, 0, 255, 0.1);
       transition: background-color 0.1s;
@@ -732,7 +718,12 @@
   .login-container.logged-in #profileBox {
     display: flex;
   }
-
+  .bottom-nav ul {
+    flex-wrap: nowrap;  /* 한 줄 유지 */
+  }
+  nav ul li a {
+    white-space: nowrap;
+  }
     }
     footer {
       background-color: var(--primary-color);
