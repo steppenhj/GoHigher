@@ -61,7 +61,7 @@
   
     // (4) "생각 중..." 문구를 만들어주는 함수 (모두 동일한 문구)
     function thinkingText(remainingSeconds) {
-      return `AI가 생각 중입니다. 잠시만 기다려주세요. (${remainingSeconds}초 남음)`;
+      return `고하가 생각 중입니다. 잠시만 기다려주세요. (${remainingSeconds}초 남음)`;
     }
   
     // (5) 메시지 전송 함수
@@ -141,15 +141,7 @@
     }
     document.addEventListener("DOMContentLoaded", updateGuidingQuestions);
   
-    // (7) 전송 버튼/엔터키 이벤트
-    document.getElementById("chatbot-send-btn").addEventListener("click", () => {
-      sendChatMessage();
-    });
-    document.getElementById("chatbot-user-input").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        sendChatMessage();
-      }
-    });
+
 
     // 여기서부터 아래는 챗봇이 5초 뒤에 다시 말하도록 
     let isProcessing = false;
@@ -196,3 +188,12 @@ function sendChatMessage() {
     }, 5000);
   }, randomDelay);
 }
+    // (7) 전송 버튼/엔터키 이벤트
+    document.getElementById("chatbot-send-btn").addEventListener("click", () => {
+      sendChatMessage();
+    });
+    document.getElementById("chatbot-user-input").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendChatMessage();
+      }
+    });

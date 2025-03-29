@@ -1076,14 +1076,13 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
   
   <main>
     <div class="save-notice">
-      이 페이지는 <strong>로그인 없이도</strong> 현재 사용하는 <strong>브라우저에 영구 저장</strong>됩니다.<br>
-      다시 방문하더라도 입력했던 내역이 유지됩니다.
+      이 페이지는 <strong>모바일 앱과 연동</strong>되며, 입력한 내용은 <strong>언제 어디서나 편리하게 확인</strong>할 수 있습니다.
+      <br> 다양한 기기에서 정보를 실시간으로 관리하세요.
     </div>
 
     <h2>포트폴리오 다이어리</h2>
     <div class="recommendation">
       <strong>Tip:</strong> 입력한 금액의 비중이 자동으로 계산됩니다.<br>
-      모두 입력한 후 새로고침을 한 번 하세요.
     </div>
 
     <!-- 자산 포트폴리오 -->
@@ -3174,7 +3173,13 @@ document.getElementById("saveModalBtn").addEventListener("click", () => {
     }
   });
 
-  
+  // 로그인페이지로 넘어가도록
+  (function() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+      window.location.href = "https://gohigher.kr/login.html";
+    }
+  })();
 </script>
 
 </body>
