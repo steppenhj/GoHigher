@@ -1904,6 +1904,13 @@ body.dark-mode .wave-text {
       type();
     });
 
+      // 로그인페이지로 넘어가도록
+  // (function() {
+  //   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  //   if (!isLoggedIn) {
+  //     window.location.href = "https://gohigher.kr/login.html";
+  //   }
+  // })();
       </script>
 
 <script src="챗봇.js"></script>
@@ -1921,7 +1928,7 @@ body.dark-mode .wave-text {
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
-            title: 'Go Higher – 미국 주식, 환율, ETF 매일 뉴스',
+            title: 'Go Higher – 미국주식 뉴스, 다이어리, 배당금 계산기',
             description: '데이터로 투자하라. 미국 주식 시장 정보를 매일 확인하세요!',
             imageUrl: 'https://gohigher.kr/logo.jpg',
             link: {
