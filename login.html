@@ -13,18 +13,24 @@
       text-align: center; 
       color: #333; 
       margin: 30px 15px; 
+      background: url(images/background.png);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 140vh;
     }
 
-    h1 { 
+    h1 {
+      color:#fff;
       font-size: 2rem;
-      margin-bottom: 1rem; 
+      margin-bottom: 4rem; 
     }
 
     .notice { 
       margin-top: 0.5rem; 
       margin-bottom: 1rem; 
       font-size: 1rem;
-      color: #666; 
+      color: #fff;
     }
 
     .info-box {
@@ -35,6 +41,7 @@
       padding: 1.5rem;
       text-align: left;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background-color: rgba(255, 255, 255, 0.5); /* 검정 배경의 30% 투명도 */
     }
 
     .info-box h2 { 
@@ -69,14 +76,14 @@
       color: #FFFFFF;
       border: none;
       border-radius: 30px;
-      padding: 15px 18px;
+      padding: 13px 10px;
       font-size: 1.2rem;
       font-weight: bold;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
       width: 100%;
-      max-width: 320px;
+      max-width: 290px;
     }
 
     .google-btn img {
@@ -145,6 +152,45 @@
         margin-right: 10px;
       }
     }
+    .intro-message {
+  text-align: center;
+  margin-top: 30px;
+  font-family: Arial, sans-serif;
+  font-size: 1.6rem;
+  line-height: 2;
+  color: #4285F4;
+  padding: 15px;
+}
+
+.wave-text {
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ffd700; /* 금색 계열로 강조 */
+  position: relative;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.8); /* 강조된 그림자 */
+}
+
+.wave-text span {
+  position: relative;
+  display: inline-block;
+  animation: wave 1.5s infinite;
+  animation-delay: calc(0.1s * var(--i));
+  margin: 0 -6px; /* 더 자연스러운 간격 조정 */
+}
+.highlight-text {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+@keyframes wave {
+  0%, 40%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-15px); }
+}
+.intro-message h2 {
+  font-weight: normal;
+}
   </style>
 </head>
 <body>
@@ -153,7 +199,7 @@
   <!-- Google 로그인 버튼 -->
   <div class="login-container">
     <button id="googleLogin" class="google-btn">
-      <img src="images/googleLogin.png" alt="Google Logo">
+      <img src="googleLogin.png" alt="Google Logo">
       Google 로그인
     </button>
   </div>
@@ -171,6 +217,25 @@
       <li>유명인의 포트폴리오 관람</li>
       <li>매주 경제 일정 안내</li>
     </ol>
+  </div>
+
+  <div class="intro-message">
+    <h2><span class="highlight-text" style="font-weight:bold;">성공 투자로 가는 첫걸음,</span></h2><br>   
+    <h2>
+      <span class="highlight-text" style="display: inline-flex; align-items: center;">
+        <div class="wave-text" style="margin-right: 15px;">
+          <span style="--i:1">G</span>
+          <span style="--i:2">o</span>
+          <span style="--i:3">H</span>
+          <span style="--i:4">i</span>
+          <span style="--i:5">g</span>
+          <span style="--i:6">h</span>
+          <span style="--i:7">e</span>
+          <span style="--i:8">r</span>
+        </div>
+        <span style="font-weight:bold;">와 함께 시작해 보세요.</span>
+      </span>
+    </h2>
   </div>
 
   <script type="module">
