@@ -62,11 +62,8 @@
     <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
     <link rel="icon" href="/logo.jpg" type="image/jpeg" />
 
-    <script
-      type="text/javascript"
-      src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-      charset="utf-8"
-    ></script>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js" integrity="sha384-vd6D+4AJ+0BL+PaMtElbgGvItjAK4FO7ksM9Al2UwvAflU4U14EqYzFZ5e7MiU1c" crossorigin="anonymous"></script>
+    <script>  Kakao.init("82dcba58b1c114fc82a3f25a9cffa58d"); // 본인 키 입력 </script>
 
     <!-- 구조화된 데이터: WebSite -->
     <script type="application/ld+json">
@@ -1687,6 +1684,12 @@ body.dark-mode .wave-text {
     <a href="https://www.instagram.com/gohigher2025/" class="common-btn btn-instagram" target="_blank">INSTAGRAM</a>
   </div>
   
+  <div style="text-align: center; margin-top: 30px;">
+    <button id="kakao-share-btn" class="common-btn btn-about">
+      <i class="fas fa-share-alt"></i> 카카오톡 공유하기
+    </button>
+  </div>
+  
       <footer>
         <p>
           © 2025 Go Higher, 고하이어. All rights reserved.<br />
@@ -1903,6 +1906,32 @@ body.dark-mode .wave-text {
       </script>
 
 <script src="챗봇.js"></script>
+
+<script>
+  document.getElementById('kakao-share-btn').addEventListener('click', function () {
+    Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: 'Go Higher – 미국 주식, 환율, ETF 매일 뉴스',
+        description: '데이터로 투자하라. 미국 주식 시장 정보를 매일 확인하세요!',
+        imageUrl: 'https://gohigher.kr/logo.jpg', // 대표 이미지 URL
+        link: {
+          mobileWebUrl: 'https://gohigher.kr',
+          webUrl: 'https://gohigher.kr'
+        }
+      },
+      buttons: [
+        {
+          title: 'Go Higher 바로가기',
+          link: {
+            mobileWebUrl: 'https://gohigher.kr',
+            webUrl: 'https://gohigher.kr'
+          }
+        }
+      ]
+    });
+  });
+</script>
 
     </body>
   </html>
