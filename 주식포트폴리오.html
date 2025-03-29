@@ -1,0 +1,3181 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+  <script>
+    document.documentElement.classList.remove("no-js");
+    document.documentElement.classList.add("js");
+  </script>
+  
+  <meta charset="UTF-8">
+  <!-- 🔄 외부 서버 연결 미리 하기 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+<!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
+
+  <!-- 페이지 제목(Title)에 사이트명 + 페이지 명시 -->
+  <title>다이어리·포트폴리오 설계·가계부·투자일지·달력·리밸런싱도구 무료 제공</title>
+  <meta name="description" content="주식 포트폴리오·투자 일지·달력·가계부 기능 등을 제공하는 자산 다이어리 페이지입니다. Go Higher에서 간편하게 포트폴리오·일정을 관리해보세요.">
+  <link rel="canonical" href="https://gohigher.kr/주식포트폴리오.html">
+  <link rel="icon" href="https://gohigher.kr/logo.jpg" type="image/jpeg">
+  <meta name="keywords" content="포트폴리오, 다이어리, 자산관리, 투자일지, 가계부, gohigher">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+  <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+  <meta property="og:title" content="다이어리·포트폴리오 설계·가계부·투자일지·달력·리밸런싱도구 무료 제공" />
+  <meta property="og:description" content="주식 포트폴리오·투자 일지·달력·가계부 기능 등을 제공하는 자산 다이어리 페이지입니다. Go Higher에서 간편하게 포트폴리오·일정을 관리해보세요." />
+  <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+  <meta property="og:url" content="https://gohigher.kr/주식포트폴리오.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="다이어리·포트폴리오 설계·가계부·투자일지·달력·리밸런싱도구 무료 제공">
+  <meta name="twitter:description" content="주식 포트폴리오·투자 일지·달력·가계부 기능 등을 제공하는 자산 다이어리 페이지입니다. Go Higher에서 간편하게 포트폴리오·일정을 관리해보세요.">
+  <meta name="twitter:image" content="https://gohigher.kr/logo.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "다이어리·포트폴리오 설계·가계부·투자일지·달력·리밸런싱도구 무료 제공",
+    "url": "https://gohigher.kr/주식포트폴리오.html",
+    "description": "주식 포트폴리오·투자 일지·달력·가계부 기능 등을 제공하는 자산 다이어리 페이지입니다. Go Higher에서 간편하게 포트폴리오·일정을 관리해보세요.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Go Higher",
+      "url": "https://gohigher.kr"
+    }
+  }
+  </script>
+
+  <style>
+    html.no-js body {
+  opacity: 1; /* JS 안 되더라도 바로 보여줌 */
+}
+
+html.js body {
+  opacity: 0;
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+    html {
+      font-size: 16px;
+    }
+    /* 기본 CSS 변수 */
+    :root {
+      --primary-color: #004080;
+      --secondary-color: #0059b3;
+      --accent-color: #f4f7fa;
+      --light-gray: #e0e0e0;
+      --text-color: #333;
+    }
+    body.dark-mode {
+        background: #444;
+        color: white;
+    }
+    body.dark-mode header {
+        background: linear-gradient(135deg, #002b57, #004284);
+        color: #cacaca;
+    }
+    body.dark-mode nav ul li a {
+        color: #cacaca;
+        border: 1px solid #cacaca;
+        background-color: transparent;
+    }
+    body.dark-mode nav ul li a:hover {
+        background-color: #004284;
+        color: #cacaca;
+    }
+    body.dark-mode footer{
+        background: linear-gradient(135deg, #002b57, #004284);
+        color:#cacaca;
+    }
+    body.dark-mode .save-notice{
+        background: #555555;
+        color: #cacaca;
+    }
+    body.dark-mode main h2{
+        color: #002b57;
+    }
+    body.dark-mode .section-container {
+        background: #555 !important;
+        color: #cacaca !important;
+    }
+    body.dark-mode .recommendation {
+        background: #666 !important;
+        color: #cacaca !important;
+    }
+    body.dark-mode .modal-content {
+        background: #555 !important;
+        color: #cacaca !important;
+    }
+    body.dark-mode #memoModal .modal-content textarea {
+      background: #555 !important;
+      color: #fff !important;
+      border: 1px solid #777 !important;
+    }
+    body.dark-mode #calendarModal .modal-content,
+    body.dark-mode #calendarModal .modal-content * {
+      color: #fff !important;
+    }
+    body.dark-mode #calendarModal .modal-content textarea::placeholder {
+      color: #fff !important;
+    }
+    body.dark-mode #accountBookModal .modal-content {
+      background: #333 !important;
+      color: #fff !important;
+      box-shadow: none;
+    }
+    body.dark-mode #accountBookModal .account-book-form input,
+    body.dark-mode #accountBookModal .account-book-form select,
+    body.dark-mode #accountBookModal .account-book-form button {
+      background: #444 !important;
+      color: #fff !important;
+      border: 1px solid #666 !important;
+    }
+    body.dark-mode #accountBookModal .account-book-entries th,
+    body.dark-mode #accountBookModal .account-book-entries td {
+      border: 1px solid #666 !important;
+      color: #fff !important;
+      background: #333;
+    }
+    body.dark-mode #accountBookModal .fixed-expense-calculator {
+      background: #333 !important;
+      color: #fff !important;
+      border-top: 1px solid #666 !important;
+    }
+    body.dark-mode #accountBookModal .modal-content button {
+      background: #444 !important;
+      color: #fff !important;
+      border: 1px solid #666 !important;
+    }
+    body.dark-mode #memoModal .modal-content,
+    body.dark-mode #memoModal .modal-content * {
+      color: #fff !important;
+    }
+    body.dark-mode #memoModal .modal-content textarea {
+      background: #555 !important;
+      color: #fff !important;
+      border: 1px solid #777 !important;
+    }
+    body.dark-mode #memoModal .modal-content textarea::placeholder {
+      color: #fff !important;
+    }
+    body.dark-mode #goalManagementModal .modal-content {
+      background: #333 !important;
+      color: #fff !important;
+    }
+    body.dark-mode #goalManagementModal .todo-form input[type="text"],
+    body.dark-mode #goalManagementModal .todo-form button {
+      background: #444 !important;
+      color: #fff !important;
+      border: 1px solid #666 !important;
+    }
+    body.dark-mode #goalManagementModal .todo-list .todo-item {
+      background: #444 !important;
+      border: 1px solid #666 !important;
+      color: #fff !important;
+    }
+    body.dark-mode #goalManagementModal .todo-item button.delete-btn {
+      background: #444 !important;
+      color: #fff !important;
+      border: 1px solid #666 !important;
+    }
+    body.dark-mode .modal-close-btn {
+      border-color: #cacaca;
+      color: #cacaca;
+    }
+    body.dark-mode .modal-close-btn:hover {
+      background: #cacaca;
+      color: #333;
+    }
+    body.dark-mode .right-chart.card {
+      background: #555 !important;
+      color: #cacaca !important;
+    }
+    html { font-size: 16px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, var(--accent-color), #cbd7e3);
+      color: var(--text-color);
+      padding-bottom: 60px;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    header h1 { font-family: 'Roboto', sans-serif; font-size: 2rem; margin-bottom: 1.5rem; }
+    header p { font-size: 1rem; }
+    nav { margin-top: 0.5rem; }
+    nav ul { list-style: none; display: flex; justify-content: center; gap: 1rem; }
+    nav ul li a {
+      display: inline-block; padding: 0.5rem 1rem; background-color: #fff;
+      color: var(--primary-color); border: 1px solid var(--primary-color); border-radius: 4px;
+      text-decoration: none; transition: background-color 0.3s, color 0.3s;
+    }
+    nav ul li a:hover { background-color: var(--primary-color); color: #fff; }
+    main { max-width: 960px; margin: 1rem auto; padding: 0 1rem; }
+    .save-notice {
+      background: #fff; color: #444; font-size: 0.9rem; padding: 0.6rem 1rem; margin-bottom: 0.5rem;
+      border-left: 4px solid var(--primary-color); box-shadow: 0 1px 4px rgba(0,0,0,0.1); line-height: 1.4;
+    }
+    h2 { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem; text-align: center; }
+    .recommendation {
+      background: var(--light-gray); padding: 1rem; border-radius: 8px; margin-top: 1rem;
+      text-align: center; font-size: 0.8rem;
+    }
+    .section-container {
+      background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+      padding: 1rem; width: 100%; margin-bottom: 1rem;
+    }
+    .section-header {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .modal {
+      display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto; background-color: rgba(0,0,0,0.4);
+    }
+    .modal.active { display: block; }
+    .modal-content {
+      position: relative;
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .modal-content h3 { margin-top: 0; }
+    .modal-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border: 2px solid #333;
+      border-radius: 50%;
+      background: transparent;
+      color: #333;
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+      z-index: 9999;
+    }
+    .modal-close-btn::before {
+      content: "×";
+    }
+    .modal-close-btn:hover {
+      background: #333;
+      color: #fff;
+    }
+    .primary-btn, .secondary-btn {
+      padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    .primary-btn { background: var(--primary-color); color: #fff; }
+    .primary-btn:hover { background: #003060; }
+    .secondary-btn { background: var(--secondary-color); color: #fff; }
+    .secondary-btn:hover { background: #004080; }
+    .asset-item {
+      display: flex; align-items: left; gap: 0.5rem; margin-bottom: 0.5rem;
+    }
+    .asset-item input[type="text"],
+    .asset-item input[type="number"] {
+      padding: 0.3rem; border: 1px solid #ccc; border-radius: 4px; text-align: center;
+      font-size: 0.9rem; width: 100px;
+    }
+    .asset-item button {
+      padding: 0.3rem 0.6rem; background: #b30000; color: #fff;
+      border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+    }
+    .asset-item button:hover { background: #800000; }
+    .stock-item {
+      display: flex; align-items: left; gap: 0.5rem; margin-bottom: 0.5rem;
+    }
+    .stock-item input[type="text"],
+    .stock-item input[type="number"] {
+      padding: 0.3rem; border: 1px solid #ccc; border-radius: 4px; text-align: center;
+      font-size: 0.9rem; width: 100px;
+    }
+    .stock-item button {
+      padding: 0.3rem 0.6rem; background: #b30000; color: #fff; border: none; border-radius: 4px;
+      cursor: pointer; font-size: 0.8rem;
+    }
+    .stock-item button:hover { background: #800000; }
+    .portfolio-form {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .portfolio-form button {
+      padding: 0.3rem 0.6rem; background: var(--primary-color); color: #fff;
+      border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: background 0.3s;
+    }
+    .portfolio-form button:hover { background: #003060; }
+    .chart-container { margin: 0; }
+    canvas { width: 100%; height: 300px; }
+    .chart-btn-group { text-align: center; margin-top: 15px; }
+    .chart-btn-group button { margin: 0 5px; }
+    .portfolio-section-content {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-top: 1rem;
+    }
+    .left-content { flex: 1; }
+    .right-chart { flex: 1; display: flex; flex-direction: column; align-items: center; }
+    .right-chart.card {
+      background: #f9f9f9; border-radius: 8px; padding: 1rem;
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05); width: 100%;
+    }
+    .asset-goal-form { margin-top: 1rem; margin-bottom: 1rem; display: flex; gap: 10px; }
+    #assetGoalDisplay { margin-top: 10px; }
+    .progress-bar {
+      width: 100%; background-color: #e0e0e0; border-radius: 4px;
+      overflow: hidden; margin-top: 0.5rem;
+    }
+    .progress {
+      height: 20px; background-color: var(--primary-color);
+      width: 0%; transition: width 0.5s; text-align: center; color: #fff;
+      line-height: 20px; font-size: 0.9rem;
+    }
+    .diary-entry {
+      border-top: 1px solid #ddd; padding: 0.5rem 0; font-size: 0.9rem;
+      display: flex; align-items: center;
+    }
+    .diary-entry time { font-weight: bold; margin-right: 0.5rem; }
+    .diary-entry .diary-text { flex: 1; margin: 0 8px; }
+    .investment-diary button.edit-btn,
+    .investment-diary button.delete-btn {
+      padding: 0.3rem 0.6rem; background: #b30000; color: #fff;
+      border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+      margin-left: 0.5rem;
+    }
+    .investment-diary button.edit-btn:hover,
+    .investment-diary button.delete-btn:hover { background: #800000; }
+    .calendar-navigation { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    #calendar {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 0.5rem;
+    }
+    .calendar-day {
+      padding: 8px; border: 1px solid #ccc; cursor: pointer; height: 70px; overflow: hidden;position: relative;
+    }
+    .calendar-day:hover { background-color: #f4f7fa; }
+    .calendar-day .day-number { font-weight: bold; }
+    .calendar-day .memo-text {
+      display: block; margin-top: 4px; font-size: 0.75rem; color: var(--secondary-color);
+      word-break: break-word;
+    }
+    .calendar-day.has-memo { border: 2px solid var(--secondary-color); }
+    .account-book-form {
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; margin-bottom: 1rem;
+    }
+    .account-book-form input,
+    .account-book-form select,
+    .account-book-form button {
+      padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px; font-size: 0.9rem;
+    }
+    .account-book-form button {
+      background: var(--primary-color); color: #fff; border: none; cursor: pointer;
+      transition: background 0.3s;
+    }
+    .account-book-form button:hover { background: #003060; }
+    .account-book-entries table {
+      width: 100%; border-collapse: collapse; font-size: 0.9rem;
+    }
+    .account-book-entries th,
+    .account-book-entries td {
+      padding: 0.6rem; border: 1px solid #ddd; text-align: left;
+    }
+    .account-book-entries tr:nth-child(odd) { background: #f9f9f9; }
+    .account-book-entries button.delete-entry {
+      padding: 0.2rem 0.5rem; background: #b30000; color: #fff;
+      border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+    }
+    .account-book-entries button.delete-entry:hover { background: #800000; }
+    .investment-checklist ul { list-style: none; padding-left: 0; }
+    .investment-checklist li {
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid #eee; padding: 0.8rem 0;
+    }
+    .investment-checklist li:last-child { border-bottom: none; }
+    .investment-checklist input[type="checkbox"] {
+      width: 1.5em; height: 1.5em; transform: scale(1.2); margin-left: 1px;
+    }
+    .checklist-add { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .checklist-add input { flex: 1; padding: 0.5rem; border: 1px solid #ccc;
+                           border-radius: 4px; font-size: 1rem; }
+    .checklist-add button {
+      padding: 0.1rem 1rem; background: var(--primary-color); color: #fff;
+      border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;
+    }
+    .checklist-add button:hover { background: #003060; }
+    .check-controls {
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .check-controls .delete-checklist-btn {
+      padding: 0.3rem 0.6rem; background: #b30000; color: #fff;
+      border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+    }
+    .check-controls .delete-checklist-btn:hover { background: #800000; }
+    .todo-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+    .todo-form input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .todo-form button {
+      padding: 10px 15px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .todo-form button:hover {
+      background-color: #003060;
+    }
+    .asset-goal-form input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .asset-goal-form button {
+      padding: 10px 15px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .asset-goal-form button:hover {
+      background-color: #003060;
+    }
+    body.dark-mode .login-btn {
+        background-color: transparent;
+        color: #cacaca;
+        border: 1px solid #cacaca;
+    }
+    body.dark-mode .login-btn:hover {
+        background-color: #004284;
+        color: #cacaca;
+    }
+    body.dark-mode .modal-content input,
+    body.dark-mode .modal-content textarea,
+    body.dark-mode .modal-content select {
+      background-color: #555 !important;
+      color: #fff !important;
+      border: 1px solid #777 !important;
+    }
+    body.dark-mode .modal-content input::placeholder,
+    body.dark-mode .modal-content textarea::placeholder {
+      color: #ccc !important;
+    }
+    body.dark-mode .bottom-nav {
+      background: #333;
+    }
+    body.dark-mode .bottom-nav .icon {
+      background-color: #555;
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav .nav-text {
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .icon {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
+      color: #fff;
+    }
+    .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .login-btn {
+        background-color: #fff;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        /* margin-left: auto; 를 사용하면 환영 메시지 다음에 버튼이 오른쪽 끝에 위치합니다. */
+        margin-left: auto;
+      }
+
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        background-color: var(--secondary-color);
+        color: #fff;
+      }
+    .desktop-nav {
+      display: block;
+    }
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.3rem 0;
+      background: #fff;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .bottom-nav ul {
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .bottom-nav li {
+      text-align: center;
+      flex: 1;
+    }
+    .bottom-nav li a.nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #888;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .bottom-nav .icon {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      margin-bottom: 3px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .bottom-nav .nav-text {
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .bottom-nav li a.nav-link.active .nav-text {
+      color: var(--primary-color);
+    }
+    .bottom-nav li a.nav-link:hover {
+      transform: scale(1.05);
+    }
+    .bottom-nav li a.nav-link {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+    .bottom-nav li a.nav-link:focus,
+    .bottom-nav li a.nav-link:active,
+    .bottom-nav li a.nav-link:focus-visible {
+      outline: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      background: transparent !important;
+    }
+    .news-icon {
+      background-image: url("images/newsImage.png");
+    }
+    .nav-link.active .news-icon {
+      background-image: url("images/newsOn.png");
+    }
+    .diary-icon {
+      background-image: url("images/diaryImage.png");
+    }
+    .nav-link.active .diary-icon {
+      background-image: url("images/diaryOn.png");
+    }
+    .chart-icon {
+      background-image: url("images/chartImage.png");
+    }
+    .nav-link.active .chart-icon {
+      background-image: url("images/chartOn.png");
+    }
+    .company-icon {
+      background-image: url("images/companyImage.png");
+    }
+    .nav-link.active .company-icon {
+      background-image: url("images/companyOn.png");
+    }
+    .coinTree-icon {
+        background-image: url("images/coinTree.png");
+      }
+      .nav-link.active .coinTree-icon {
+        background-image: url("images/treeOn.png");
+      }
+    .nav-link.pressed {
+      background-color: rgba(0, 0, 255, 0.1);
+      transition: background-color 0.1s;
+    }
+    @media (max-width: 768px) {
+      body { font-size: 18px; }
+      .section-container { width: 100%; }
+      .portfolio-section-content { flex-wrap: wrap; }
+      main { padding: 0 0.5rem; }
+      .portfolio-section-content { flex-direction: column; align-items: center; }
+      .chart-container canvas { width: 100% !important; height: auto !important; }
+      .calendar-navigation { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .account-book-form,
+      .investment-checklist { font-size: 0.9rem; }
+      .modal-content { width: 90% !important; margin: 10% auto !important; padding: 1rem !important; }
+      #assetPortfolioModal .portfolio-section-content,
+      #stockPortfolioModal .portfolio-section-content { flex-direction: column !important; }
+      #assetPortfolioModal .left-content,
+      #assetPortfolioModal .right-chart,
+      #stockPortfolioModal .left-content,
+      #stockPortfolioModal .right-chart { width: 100%; margin-bottom: 1rem; }
+      #assetPortfolioModal .chart-container canvas,
+      #stockPortfolioModal .chart-container canvas { width: 100% !important; height: auto !important; }
+      #investmentDiaryModal textarea { min-height: 200px; font-size: 1rem; }
+      #accountBookModal .account-book-form { flex-direction: column !important; align-items: stretch; }
+      #accountBookModal .account-book-form input,
+      #accountBookModal .account-book-form select,
+      #accountBookModal .account-book-form button { width: 100%; }
+      .login-container {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem; /* 프로필과 버튼 사이 간격 */
+        }
+
+        #profileBox {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          background: transparent !important;  /* 배경 투명화 */
+          border: none !important;             /* 테두리 제거 */
+          box-shadow: none !important;         /* 그림자 제거 */
+          padding: 0 !important;               /* 내부 여백 제거 */
+        }
+
+        #profileAvatar {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid white;
+          transition: transform 0.2s;
+        }
+
+        /* 프로필 사진 클릭 시 확대 효과 */
+        #profileAvatar:hover {
+          transform: scale(1.1);
+        }
+
+        #welcomeText {
+          display: none; /* 환영 문구 숨김 */
+        }
+
+        .login-btn {
+          display: none; /* 기본적으로 로그아웃 버튼 숨김 */
+          padding: 0.3rem 0.8rem;
+          font-size: 0.75rem;
+          white-space: nowrap;
+        }
+
+        /* 프로필 사진 클릭 시 로그아웃 버튼 나타나기 */
+        .login-container.active .login-btn {
+          display: inline-block;
+        }
+        /* 모바일에서 로그인하지 않은 상태면 프로필 박스를 숨기고 로그인 버튼 표시 */
+  .login-container:not(.logged-in) #profileBox {
+    display: none;
+  }
+  .login-container:not(.logged-in) .login-btn {
+    display: inline-block;
+  }
+
+  /* 모바일에서 로그인한 상태면 로그인 버튼을 숨기고 프로필 박스를 표시 */
+  .login-container.logged-in .login-btn {
+    display: none;
+  }
+  .login-container.logged-in #profileBox {
+    display: flex;
+  }
+  .bottom-nav ul {
+    flex-wrap: nowrap;  /* 한 줄 유지 */
+  }
+  nav ul li a {
+    white-space: nowrap;
+  }
+    }
+    footer {
+      background-color: var(--primary-color);
+      color: #fff;
+      text-align: center;
+      padding: 0.8rem;
+      bottom: 0;
+      width: 100%;
+      font-size: 1rem;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
+    }
+    footer p {
+      margin: 0;
+      padding: 0;
+    }
+    .tab-container { margin-top: 1rem; }
+    .tab-links { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .tab-link {
+      padding: 0.5rem 1rem; border: 1px solid var(--primary-color);
+      background-color: #fff; color: var(--primary-color);
+      border-radius: 4px; cursor: pointer;
+    }
+    .tab-link.active { background-color: var(--primary-color); color: #fff; }
+    .tab-content { border: 1px solid var(--light-gray); padding: 1rem; border-radius: 4px; }
+    /* 리밸런싱 결과 카드 스타일 */
+    .rebalance-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      background-color: #f9f9f9;
+    }
+    .rebalance-card.buy {
+      border-left: 5px solid green;
+      background-color: #e6ffe6;
+    }
+    .rebalance-card.sell {
+      border-left: 5px solid red;
+      background-color: #ffe6e6;
+    }
+    #profileBox {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2); /* 약간 투명한 흰색 배경 */
+  backdrop-filter: blur(6px);          /* 배경 블러 효과 (글라스모피즘) */
+  transition: background 0.3s ease;
+}
+
+#profileBox:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 아바타 이미지: 원형, 테두리 효과 */
+#profileAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  margin-right: 0.5rem;
+}
+
+/* 환영 문구 텍스트 */
+#welcomeText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+html, body {
+        height: 100%;
+      }
+@media (max-width: 768px) {
+  body {
+    font-size: 18px;
+    /* 콘텐츠가 하단 네비게이션에 가리지 않도록 바닥 여백 추가 */
+    padding-bottom: 70px;
+  }
+  aside.sidebar {
+    display: none;
+  }
+  .layout-container {
+    flex-direction: column;
+    padding: 0 0.5rem;
+  }
+  .flex-container {
+    flex-direction: column;
+  }
+  .half-section {
+    width: 100% !important;
+  }
+  .layout-container {
+    padding: 0;
+  }
+  .main-content,
+  .news-section,
+  .half-section,
+  .full-section {
+    padding: 0.5rem;
+  }
+  .news-section {
+    margin: 1rem 0;
+  }
+  .desktop-nav {
+    display: none;
+  }
+  .bottom-nav {
+    display: block; /* 하단 네비게이션 표시 */
+  }
+  .bottom-nav {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.bottom-nav li {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.bottom-nav li a.nav-link {
+  width: 100%;
+  font-size: 3.2vw;
+}
+.bottom-nav .icon {
+  width: 6.5vw;
+  height: 6.5vw;
+}
+.bottom-nav .nav-text {
+  font-size: 2.8vw;
+}
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+}
+/* To Do List Modal Styles */
+#goalManagementModal .todo-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+#goalManagementModal .todo-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+#goalManagementModal .todo-item:hover {
+  background-color: #e0e0e0;
+}
+#goalManagementModal .todo-checkbox {
+  margin-right: 0.5rem;
+}
+#goalManagementModal .todo-text {
+  flex-grow: 1;
+  cursor: pointer;
+  outline: none;
+}
+#goalManagementModal .delete-btn {
+  background-color: #b30000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#goalManagementModal .delete-btn:hover {
+  background-color: #800000;
+}
+
+          /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
+          .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1001;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    @media (max-width: 768px) {
+  .back-to-top {
+    bottom: 80px ; /* 기존 20px에서 위로 올림 */
+  }
+  footer {
+    padding-bottom: 25px !important; /* 하단 nav 높이만큼 여백 추가 */
+    padding: 0.8rem !important;
+  }
+}
+    .bottom-nav li a.nav-link:hover,
+    .bottom-nav li a.nav-link:active,
+    .bottom-nav li a.nav-link:focus,
+    .bottom-nav li a.nav-link:focus-visible {
+      background: transparent !important;
+      color: inherit !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+body.dark-mode .bottom-nav .icon,
+body.dark-mode .bottom-nav li a.nav-link.active .icon {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  color: #fff !important; /* 텍스트 컬러 유지 */
+}
+.top-tab-nav .tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.top-tab-nav .tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fbd314;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.top-tab-nav .tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.top-tab-nav .tab-item:hover::after {
+  width: 60%;
+}
+
+.top-tab-nav .tab-item.active {
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.top-tab-nav .tab-item.active::after {
+  width: 60%;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Go Higher</h1>
+    <div class="login-container">
+      <!-- 프로필 박스: 아바타와 환영 문구 -->
+      <div id="profileBox">
+        <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
+        <span id="welcomeText">환영합니다, 사용자님!</span>
+      </div>
+      <!-- 로그인/로그아웃 버튼 -->
+      <a id="authButton" href="login.html" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> 로그인
+      </a>
+    </div>
+    <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
+    <nav class="desktop-nav top-tab-nav">
+      <a href="index.html" class="tab-item">투데이 뉴스</a>
+      <a href="주식포트폴리오.html" class="tab-item active">다이어리</a>
+      <a href="버크셔해서웨이.html" class="tab-item">인기 포트폴리오</a>
+      <a href="중소형주식.html" class="tab-item">중소형주식 추천</a>
+      <a href="배당주.html" class="tab-item">배당주 분석</a>
+    </nav>
+  </header>
+    <!-- 모바일 하단 네비게이션 -->
+    <nav class="bottom-nav">
+      <ul>
+        <li>
+          <a href="index.html" class="nav-link" aria-label="뉴스">
+            <span class="icon news-icon"></span>
+            <span class="nav-text">뉴스</span>
+          </a>
+        </li>
+        <li>
+          <a href="주식포트폴리오.html" class="nav-link active" aria-label="투자다이어리">
+            <span class="icon diary-icon"></span>
+            <span class="nav-text">다이어리</span>
+          </a>
+        </li>
+        <li>
+          <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
+            <span class="icon chart-icon"></span>
+            <span class="nav-text">대가들</span>
+          </a>
+        </li>
+        <li>
+          <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
+            <span class="icon company-icon"></span>
+            <span class="nav-text">중소형주</span>
+          </a>
+        </li>
+        <li>
+          <a href="배당주.html" class="nav-link" arial-label="배당주분석">
+            <span class="icon coinTree-icon"></span>
+            <span class="nav-text">배당주</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  
+  <main>
+    <div class="save-notice">
+      이 페이지는 <strong>로그인 없이도</strong> 현재 사용하는 <strong>브라우저에 영구 저장</strong>됩니다.<br>
+      다시 방문하더라도 입력했던 내역이 유지됩니다.
+    </div>
+
+    <h2>포트폴리오 다이어리</h2>
+    <div class="recommendation">
+      <strong>Tip:</strong> 입력한 금액의 비중이 자동으로 계산됩니다.<br>
+      모두 입력한 후 새로고침을 한 번 하세요.
+    </div>
+
+    <!-- 자산 포트폴리오 -->
+    <section class="section-container" id="asset-portfolio">
+      <div class="section-header">
+        <h3>자산 포트폴리오</h3>
+        <button class="primary-btn" onclick="openModal('assetPortfolioModal')">열기</button>
+      </div>
+      <p style="font-size:0.9rem; margin-top: 10px;">
+        다양한 자산 항목(현금, 채권, 부동산, 주식 등)을 추가하고 금액을 입력하는 기능입니다.
+      </p>
+    </section>
+
+    <!-- 투자 포트폴리오 -->
+    <section class="section-container" id="stock-portfolio">
+      <div class="section-header">
+        <h3>투자 포트폴리오</h3>
+        <button class="primary-btn" onclick="openModal('stockPortfolioModal')">열기</button>
+      </div>
+      <p style="font-size:0.9rem; margin-top: 10px;">
+        투자 종목과 투자 금액(원)을 입력하면, 자동으로 비중이 표시됩니다.
+      </p>
+    </section>
+
+    <!-- 메인 페이지 내 '목표 관리 열기' 버튼 추가 -->
+    <section class="section-container" id="goal-management-btn">
+      <div class="section-header">
+        <h3>To Do List</h3>
+        <button class="primary-btn" onclick="openModal('goalManagementModal')">열기</button>
+      </div>
+      <p style="font-size:0.9rem; margin-top: 10px;">
+        일정을 관리하세요.
+      </p>
+    </section>
+
+    <!-- 투자 일지 -->
+    <section class="section-container" id="investment-diary">
+      <div class="section-header">
+        <h3>메모장</h3>
+        <button class="primary-btn" onclick="openModal('investmentDiaryModal')">열기</button>
+      </div>
+      <p style="font-size:0.9rem; margin-top: 10px;">
+        오늘의 투자, 감정, 사건 등을 기록하세요.
+      </p>
+    </section>
+
+    <!-- 달력 메모 -->
+    <section class="section-container" id="calendar-section">
+      <div class="section-header">
+        <h3>달력 메모</h3>
+        <button class="primary-btn" onclick="openModal('calendarModal')">열기</button>
+      </div>
+      <p style="font-size:0.9rem; margin-top: 10px;">
+        특정 날짜에 메모를 남길 수 있습니다.
+      </p>
+    </section>
+
+    <!-- 가계부 (월별 보고서 기능은 여기로 통합됨) -->
+    <section class="section-container" id="account-book">
+      <div class="section-header">
+        <h3>가계부</h3>
+        <button class="primary-btn" onclick="openModal('accountBookModal')">열기</button>
+      </div>
+      <p style="font-size:0.9rem; margin-top: 10px;">
+        수입과 지출을 기록해보세요.
+      </p>
+    </section>
+  </main>
+  <footer>
+    <p>
+      © 2025 Go Higher, 고하이어. All rights reserved.<br>
+      운영 지역: 대한민국 대구<br>
+      문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a><br>
+      아이디어가 있으시면 언제든지 메일로 제안해 주세요!
+    </p>
+  </footer>
+
+          <!-- Back to Top 버튼 -->
+          <button class="back-to-top" id="backToTop">Top</button>
+
+  <!-- [모달] 자산 포트폴리오 -->
+  <div id="assetPortfolioModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeModal('assetPortfolioModal')"></button>
+      <h3>자산 포트폴리오</h3>
+      <p style="font-size:0.9rem; line-height: 1.4;">
+        다양한 자산(예: 현금, 채권, 부동산, 주식, 기타)의 투자 금액을 입력하세요.<br>
+        입력한 금액을 바탕으로 자동으로 각 항목의 비율이 계산되어 차트로 표시됩니다.<br>
+        <strong>안정적인 자산 포트폴리오</strong>를 통해 변동성을 줄이고 장기적인 성장을 기대할 수 있습니다.
+      </p>
+      <div class="portfolio-section-content">
+        <div class="left-content">
+          <div id="assetItemsContainer"></div>
+          <div class="portfolio-form">
+            <button id="addAssetItemBtn">자산 항목 추가</button>
+          </div>
+          <!-- 목표 비율 설정 및 리밸런싱 섹션 -->
+          <div id="targetRatioSection" style="margin-top:1rem; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+            <h4 style="margin-bottom:0.5rem;">리밸런싱 도구 (단위: %)</h4>
+            <div id="targetRatioContainer"></div>
+            <!-- 목표 비율 상태 영역 -->
+            <div id="targetRatioStatus" style="margin-top: 0.5rem; font-size: 0.9rem; color: #d9534f;"></div>
+            <div class="portfolio-form" style="margin-top:0.5rem;">
+              <button id="saveTargetRatiosBtn" class="primary-btn">목표 비율 저장</button>
+              <button id="calcRebalancingBtn" class="secondary-btn">리밸런싱 계산</button>
+            </div>
+            <!-- 리밸런싱 결과 카드 영역 -->
+            <div id="rebalancingSuggestions" style="margin-top:1rem;"></div>
+          </div>
+        </div>
+        <div class="right-chart">
+          <div class="chart-container">
+            <canvas id="assetChart"></canvas>
+          </div>
+          <div class="chart-btn-group">
+            <button id="assetPieChartBtn" class="secondary-btn">원형 그래프</button>
+            <button id="assetBarChartBtn" class="secondary-btn">막대 그래프</button>
+          </div>
+        </div>
+      </div>
+      <!-- 자산 목표 기능 -->
+      <hr style="margin: 1rem 0;">
+      <div id="assetGoalSection">
+        <h3>나의 자산 목표</h3>
+        <p>목표 자산 금액을 입력하세요:</p>
+        <div class="asset-goal-form">
+          <input type="text" id="assetGoalInput" placeholder="예: 10000000">
+          <button id="saveAssetGoalBtn">저장</button>
+        </div>
+        <div id="assetGoalDisplay"></div>
+        <div id="assetGoalProgress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [모달] 투자 포트폴리오 (주식) -->
+  <div id="stockPortfolioModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeModal('stockPortfolioModal')"></button>
+      <h3>투자 포트폴리오</h3>
+      <p class="section-description">
+        투자 종목(예: AAPL)과 투자 금액(원)을 입력하세요.<br>
+        입력한 금액의 총합을 기준으로 각 종목의 비율이 자동으로 계산되어 차트로 표시됩니다.
+      </p>
+      <div class="portfolio-section-content">
+        <div class="left-content">
+          <div class="portfolio-form" style="flex-direction: column; align-items: flex-start;">
+            <div id="stockList"></div>
+            <button id="addStockBtn" class="primary-btn">종목 추가</button>
+          </div>
+        </div>
+        <div class="right-chart card">
+          <div class="chart-container">
+            <canvas id="stockChart"></canvas>
+          </div>
+          <div class="chart-btn-group">
+            <button id="pieChartBtn" class="secondary-btn">원형 그래프</button>
+            <button id="barChartBtn" class="secondary-btn">막대 그래프</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- [모달] 투자 일지 -->
+  <div id="investmentDiaryModal" class="modal">
+    <div class="modal-content investment-diary">
+      <button class="modal-close-btn" onclick="closeModal('investmentDiaryModal')"></button>
+      <h3>메모장</h3>
+      <textarea id="investmentDiary" placeholder="오늘의 투자, 감정, 사건 등을 기록하세요..." style="width: 100%; height: 150px; margin-top: 1rem;"></textarea>
+      <button id="saveDiaryBtn" style="margin-top: 0.5rem;">저장</button>
+      <div id="diaryEntries" style="margin-top: 1rem;"></div>
+    </div>
+  </div>
+
+  <!-- [모달] 목표 관리 (To Do List) -->
+  <div id="goalManagementModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeModal('goalManagementModal')"></button>
+      <h3>To Do List</h3>
+      <div class="todo-form">
+        <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+        <button id="addTodoBtn">추가</button>
+      </div>
+      <ul id="todoList" class="todo-list"></ul>
+    </div>
+  </div>
+
+  <!-- [모달] 달력 메모 -->
+  <div id="calendarModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeModal('calendarModal')"></button>
+      <h3>달력 메모</h3>
+      <div class="calendar-navigation">
+        <button id="prevMonthBtn" style="padding: 0.5rem 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 4px; cursor: pointer;">이전 달</button>
+        <span id="currentMonthDisplay" style="font-size: 1.2rem; font-weight: bold;"></span>
+        <button id="nextMonthBtn" style="padding: 0.5rem 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 4px; cursor: pointer;">다음 달</button>
+      </div>
+      <div id="calendar"></div>
+    </div>
+  </div>
+
+  <!-- [모달] 가계부 (월별 보고서) -->
+  <div id="accountBookModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeModal('accountBookModal')"></button>
+      <h3>가계부</h3>
+      <div class="account-book-form">
+        <input type="date" id="ab-date">
+        <select id="ab-type">
+          <option value="income">수입</option>
+          <option value="expense">지출</option>
+        </select>
+        <input type="text" id="ab-category" placeholder="카테고리">
+        <input type="text" id="ab-amount" placeholder="금액">
+        <input type="text" id="ab-description" placeholder="설명 (선택)">
+        <button id="ab-addBtn">추가</button>
+      </div>
+      <div class="account-book-summary" id="ab-summary" style="margin-bottom: 1rem;"></div>
+      <div class="account-book-entries" id="ab-entries"></div>
+      <div class="fixed-expense-calculator" style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
+        <h3>월간 고정 지출 계산기</h3>
+        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
+          <input type="text" id="fixedExpenseDescription" placeholder="지출 항목" style="flex: 1; padding: 5px;">
+          <input type="text" id="fixedExpenseAmount" placeholder="금액" style="width: 100px; padding: 5px;">
+          <button id="addFixedExpenseBtn" style="padding: 5px 10px;">추가</button>
+        </div>
+        <div id="fixedExpenseList"></div>
+        <div id="fixedExpenseTotal" style="margin-top: 10px; font-weight: bold;"></div>
+      </div>
+      <hr style="margin: 1.5rem 0;">
+      <h3>월별 가계부 보고서</h3>
+      <button id="generateReportBtn" style="margin-bottom: 10px;">보고서 생성</button>
+      <div id="reportSummary" style="margin-bottom: 20px;"></div>
+      <canvas id="incomeExpenseChart" style="margin-bottom: 20px;"></canvas>
+    </div>
+  </div>
+  
+  <!-- [모달] 체크리스트 -->
+  <div id="investmentChecklistModal" class="modal">
+    <div class="modal-content investment-checklist">
+      <button class="modal-close-btn" onclick="closeModal('investmentChecklistModal')"></button>
+      <h3>나만의 투자 원칙 체크리스트</h3>
+      <p style="font-size:0.9rem; line-height: 1.4; margin-top: 0.5rem;">
+        새로운 종목을 구매할 때 고려해야 할 중요한 원칙을 체크하세요.
+      </p>
+      <ul id="checklist" style="margin-top: 1rem;"></ul>
+      <div class="checklist-add">
+        <input type="text" id="newChecklistItem" placeholder="원칙을 입력하세요">
+        <button id="addChecklistItemBtn">추가</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 달력 메모 모달 (기존) -->
+  <div id="memoModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeMemoModal()"></button>
+      <h4 id="modalTitle">메모 입력</h4>
+      <textarea id="modalTextarea" placeholder="메모를 입력하세요" style="width:100%; height: 100px;"></textarea>
+      <div style="text-align: right; margin-top: 10px;">
+        <button id="saveModalBtn" class="primary-btn">저장</button>
+        <button id="cancelModalBtn" class="cancel-btn" style="background:#b30000; color:#fff; border:none; border-radius:4px; padding: 0.4rem 0.8rem;">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  
+  <script>
+    Chart.register(ChartDataLabels);
+
+    let assetChart, stockChart, incomeExpenseChart;
+    let stockChartType = 'pie';   // 기본 차트 타입
+    let assetChartType = 'pie';
+
+    // 헬퍼 함수: 다크모드 여부에 따른 글자 색상 반환
+    function getTextColor(defaultLight, defaultDark) {
+      return document.body.classList.contains("dark-mode") ? defaultDark : defaultLight;
+    }
+
+    // ===== 목표 비율 상태 업데이트 함수 =====
+    function updateTargetRatioStatus() {
+      const ratioInputs = document.querySelectorAll('.target-ratio-input');
+      let sum = 0;
+      ratioInputs.forEach(input => {
+         sum += Number(input.value) || 0;
+      });
+      const statusEl = document.getElementById('targetRatioStatus');
+      if (sum < 100) {
+         statusEl.textContent = "현재 입력된 목표 비율이 " + sum + "%입니다. 100%에 도달하려면 " + (100 - sum) + "%가 부족합니다.";
+      } else if (sum > 100) {
+         statusEl.textContent = "현재 입력된 목표 비율이 " + sum + "%입니다. 100%를 초과했습니다. 초과분: " + (sum - 100) + "%.";
+      } else {
+         statusEl.textContent = "목표 비율이 정확히 100%입니다.";
+      }
+    }
+
+    // ===== 모달 열고 닫기 함수 =====
+    function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+    
+    // 모달 종류에 따라 Firestore 데이터를 불러오는 함수 호출
+    if (modalId === "assetPortfolioModal") {
+      loadAssetPortfolioFirestore();
+    } else if (modalId === "stockPortfolioModal") {
+      loadStockPortfolioFirestore();
+    } else if (modalId === "investmentDiaryModal") {
+      loadDiaryEntriesFirestore();
+    } else if (modalId === "goalManagementModal") {
+      loadTodoListFirestore();
+    } else if (modalId === "calendarModal") {
+      updateCalendarHeader();
+      loadCalendarMemosFirestore();
+    } else if (modalId === "accountBookModal") {
+      loadAccountBookEntriesFirestore();
+      loadFixedExpensesFirestore(); // 추가: 고정 지출 데이터도 불러오기
+    } else if (modalId === "investmentChecklistModal") {
+      loadChecklistFirestore();
+    }
+  }
+}
+
+
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+}
+
+
+    // ===== 쉼표 입력 처리(금액) =====
+    function addCommaFormatting(inputElement) {
+      inputElement.addEventListener('input', function() {
+        let numericValue = inputElement.value.replace(/,/g, '');
+        if(numericValue === '') { inputElement.value = ''; return; }
+        let num = parseFloat(numericValue);
+        if(isNaN(num)) return;
+        let formattedValue = num.toLocaleString('en-US');
+        inputElement.value = formattedValue;
+        inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length;
+      });
+    }
+
+    // ===== 자산 포트폴리(Asset) =====
+    function createAssetItem(asset = {name: "", amount: 0}) {
+      const div = document.createElement("div");
+      div.classList.add("asset-item");
+
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.placeholder = "자산명";
+      nameInput.value = asset.name || "";
+      nameInput.addEventListener("input", () => {
+        updateAssetChart();
+        updateTargetRatioFields();
+      });
+
+      const amountInput = document.createElement("input");
+      amountInput.type = "text";
+      amountInput.placeholder = "금액";
+      amountInput.value = (asset.amount || 0).toLocaleString();
+      amountInput.addEventListener("input", updateAssetChart);
+      addCommaFormatting(amountInput);
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "삭제";
+      removeBtn.addEventListener("click", () => {
+        if (confirm("정말 삭제하시겠습니까?")) {
+          div.remove();
+          saveAssetPortfolio();
+          updateAssetChart();
+          updateTargetRatioFields();
+        }
+      });
+
+      div.appendChild(nameInput);
+      div.appendChild(amountInput);
+      div.appendChild(removeBtn);
+
+      return div;
+    }
+    function loadAssetPortfolio() {
+      const container = document.getElementById("assetItemsContainer");
+      container.innerHTML = "";
+      const stored = localStorage.getItem("assetPortfolio");
+      let assets = [];
+      if(stored) {
+        assets = JSON.parse(stored);
+      } else {
+        assets = [
+          {name: "현금", amount: 0},
+          {name: "채권", amount: 0},
+          {name: "부동산", amount: 0},
+          {name: "주식", amount: 0},
+          {name: "기타", amount: 0}
+        ];
+        localStorage.setItem("assetPortfolio", JSON.stringify(assets));
+      }
+      assets.forEach(asset => container.appendChild(createAssetItem(asset)));
+    }
+    function saveAssetPortfolio() {
+      const container = document.getElementById("assetItemsContainer");
+      const assetItems = container.querySelectorAll(".asset-item");
+      const assets = [];
+      assetItems.forEach(item => {
+        const inputs = item.querySelectorAll("input");
+        const name = inputs[0].value.trim();
+        const amount = Number(inputs[1].value.replace(/,/g, "")) || 0;
+        assets.push({ name, amount });
+      });
+      localStorage.setItem("assetPortfolio", JSON.stringify(assets));
+    }
+
+    function updateAssetChart() {
+      const container = document.getElementById("assetItemsContainer");
+      const assetItems = container.querySelectorAll(".asset-item");
+      const names = [];
+      const amounts = [];
+      assetItems.forEach(item => {
+        const inputs = item.querySelectorAll("input");
+        const name = inputs[0].value.trim() || "미입력";
+        const amount = Number(inputs[1].value.replace(/,/g, "")) || 0;
+        names.push(name);
+        amounts.push(amount);
+      });
+      saveAssetPortfolio();
+      
+      const total = amounts.reduce((a,b) => a+b, 0);
+      const ctx = document.getElementById("assetChart").getContext("2d");
+      
+      adjustChartSize("assetChart", names.length);
+      
+      let labelFontSize = names.length > 5 ? Math.max(10, 14 - (names.length - 5)) : 14;
+      
+      if(total === 0){
+        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
+        ctx.font = "16px sans-serif";
+        ctx.fillStyle = "#333";
+        ctx.fillText("데이터가 없습니다.", 50, 150);
+        updateAssetGoalProgress();
+        return;
+      }
+      
+      const backgroundColors = names.map(() => {
+        const r = Math.floor(Math.random() * 200);
+        const g = Math.floor(Math.random() * 200);
+        const b = Math.floor(Math.random() * 200);
+        return `rgb(${r}, ${g}, ${b})`;
+      });
+      
+      // 불러온 목표 비율
+      const storedRatios = localStorage.getItem('targetRatios');
+      const targetRatios = storedRatios ? JSON.parse(storedRatios) : {};
+
+      if(assetChart) {
+        assetChart.destroy();
+      }
+      
+      // 다크모드에 따른 데이터 라벨 및 축 글자 색상
+      const dataLabelColor = (assetChartType === 'bar') ? getTextColor("#000", "#fff") : getTextColor("#fff", "#fff");
+      const tickColor = getTextColor("#000", "#fff");
+
+      assetChart = new Chart(ctx, {
+        type: assetChartType,
+        data: {
+          labels: names,
+          datasets: [{
+            data: amounts,
+            backgroundColor: backgroundColors,
+            borderColor: "#fff",
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          layout: { padding: 20 },
+          plugins: {
+            legend: { position: 'bottom', labels: { color: tickColor } },
+            title: { 
+              display: true, 
+              text: assetChartType === 'pie' ? '자산 포트폴리오 (원형)' : '자산 포트폴리오 (막대)',
+              color: tickColor
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const index = context.dataIndex;
+                  const currentAmount = amounts[index] || 0;
+                  const assetName = names[index];
+                  const targetRatio = targetRatios[assetName] || 0;
+                  const targetAmount = total * (targetRatio/100);
+                  const difference = targetAmount - currentAmount;
+                  return "현재: " + currentAmount.toLocaleString() + " 원 / 목표: " + targetAmount.toLocaleString() + " 원 / 차이: " + difference.toLocaleString() + " 원";
+                }
+              },
+              titleColor: tickColor,
+              bodyColor: tickColor
+            },
+            datalabels: {
+              display: true,
+              color: dataLabelColor,
+              font: { size: labelFontSize, weight: 'bold' },
+              formatter: (value, ctx) => {
+                const total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                const percentage = total > 0 ? ((value / total) * 100).toFixed(2) : 0;
+                const label = ctx.chart.data.labels[ctx.dataIndex];
+                return label + ': ' + percentage + '%';
+              }
+            }
+          },
+          scales: assetChartType === 'bar' ? {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return value.toLocaleString() + " 원";
+                },
+                color: tickColor
+              }
+            }
+          } : {}
+        }
+      });
+      updateAssetGoalProgress();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const assetPieBtn = document.getElementById("assetPieChartBtn");
+      const assetBarBtn = document.getElementById("assetBarChartBtn");
+      assetPieBtn.addEventListener("click", () => {
+        assetChartType = 'pie';
+        updateAssetChart();
+      });
+      assetBarBtn.addEventListener("click", () => {
+        assetChartType = 'bar';
+        updateAssetChart();
+      });
+    });
+
+    function adjustChartSize(canvasId, itemCount) {
+      const canvas = document.getElementById(canvasId);
+      const baseSize = 300;
+      const extraPerItem = 30;
+      const newSize = baseSize + itemCount * extraPerItem;
+      canvas.height = newSize;
+      canvas.width = newSize;
+      canvas.style.height = newSize + "px";
+      canvas.style.width = newSize + "px";
+    }
+
+    document.getElementById("addAssetItemBtn").addEventListener("click", () => {
+      const container = document.getElementById("assetItemsContainer");
+      container.appendChild(createAssetItem());
+      updateTargetRatioFields();
+    }); 
+    
+    // 목표 비율 입력 필드를 생성할 때 input 이벤트 추가 (실시간 업데이트)
+    function updateTargetRatioFields() {
+      const targetContainer = document.getElementById("targetRatioContainer");
+      targetContainer.innerHTML = "";
+      const storedRatios = localStorage.getItem('targetRatios');
+      const targetRatios = storedRatios ? JSON.parse(storedRatios) : {};
+      
+      const assetItems = document.querySelectorAll("#assetItemsContainer .asset-item");
+      assetItems.forEach(item => {
+        const nameInput = item.querySelector("input[type='text']");
+        const assetName = nameInput.value.trim() || "미입력";
+        const savedValue = targetRatios[assetName] || "";
+        const div = document.createElement("div");
+        div.style.marginBottom = "0.3rem";
+        div.innerHTML = `<label style="font-size:0.9rem;">${assetName} 목표비율: </label>
+                         <input type="number" class="target-ratio-input" data-asset-name="${assetName}" placeholder="%" style="width:60px; padding:2px; margin-left:5px;" value="${savedValue}">`;
+        // 실시간 업데이트를 위해 input 이벤트 리스너 추가
+        div.querySelector(".target-ratio-input").addEventListener("input", updateTargetRatioStatus);
+        targetContainer.appendChild(div);
+      });
+      updateTargetRatioStatus();
+    }
+    function saveTargetRatios() {
+      const ratioInputs = document.querySelectorAll('.target-ratio-input');
+      let targetRatios = {};
+      ratioInputs.forEach((input) => {
+        const assetName = input.getAttribute('data-asset-name');
+        targetRatios[assetName] = Number(input.value) || 0;
+      });
+      localStorage.setItem('targetRatios', JSON.stringify(targetRatios));
+      alert("목표 비율이 저장되었습니다.");
+      updateTargetRatioStatus();
+    }
+    function loadTargetRatios() {
+      const stored = localStorage.getItem('targetRatios');
+      return stored ? JSON.parse(stored) : {};
+    }
+
+    function calculateRebalancingSuggestions() {
+      const container = document.getElementById("assetItemsContainer");
+      const assetItems = container.querySelectorAll(".asset-item");
+      const targetRatios = loadTargetRatios();
+      let totalAsset = 0;
+      let currentAssets = [];
+    
+      assetItems.forEach(item => {
+        const inputs = item.querySelectorAll("input");
+        const name = inputs[0].value.trim() || "미입력";
+        const amount = Number(inputs[1].value.replace(/,/g, "")) || 0;
+        totalAsset += amount;
+        currentAssets.push({ name, amount });
+      });
+    
+      let suggestions = currentAssets.map(asset => {
+        const targetRatio = targetRatios[asset.name] || 0;
+        const targetAmount = totalAsset * (targetRatio / 100);
+        return {
+          name: asset.name,
+          current: asset.amount,
+          target: targetAmount,
+          difference: targetAmount - asset.amount
+        };
+      });
+      return suggestions;
+    }
+    function displayRebalancingSuggestions() {
+      const suggestions = calculateRebalancingSuggestions();
+      const suggestionsContainer = document.getElementById("rebalancingSuggestions");
+      suggestionsContainer.innerHTML = "";
+      suggestions.forEach(suggestion => {
+        const div = document.createElement("div");
+        div.classList.add("rebalance-card");
+        if(suggestion.difference >= 0) {
+          div.classList.add("buy");
+        } else {
+          div.classList.add("sell");
+        }
+        div.innerHTML = `<strong>${suggestion.name}</strong><br>
+                         현재: ${suggestion.current.toLocaleString()} 원<br>
+                         목표: ${suggestion.target.toLocaleString()} 원<br>
+                         ${suggestion.difference >= 0 ? "매수" : "매도"} 필요: ${Math.abs(suggestion.difference).toLocaleString()} 원`;
+        suggestionsContainer.appendChild(div);
+      });
+    }
+    document.getElementById("saveTargetRatiosBtn").addEventListener("click", saveTargetRatios);
+    document.getElementById("calcRebalancingBtn").addEventListener("click", displayRebalancingSuggestions);
+
+    // ===== 투자 포트폴리오(Stock) =====
+    function createStockItem(stock = {name: "", amount: 0}) {
+      const stockDiv = document.createElement("div");
+      stockDiv.classList.add("stock-item");
+
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.placeholder = "종목명 (예: AAPL)";
+      nameInput.value = stock.name || "";
+      nameInput.addEventListener("input", updateStockChart);
+
+      const amountInput = document.createElement("input");
+      amountInput.type = "text";
+      amountInput.placeholder = "투자금액(원)";
+      amountInput.value = (stock.amount || 0).toLocaleString();
+      amountInput.addEventListener("input", updateStockChart);
+      addCommaFormatting(amountInput);
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "삭제";
+      removeBtn.addEventListener("click", () => {
+        if(confirm("정말 삭제하시겠습니까?")) {
+          stockDiv.remove();
+          saveStockPortfolio();
+          updateStockChart();
+        }
+      });
+
+      stockDiv.appendChild(nameInput);
+      stockDiv.appendChild(amountInput);
+      stockDiv.appendChild(removeBtn);
+
+      return stockDiv;
+    }
+
+    function loadStockPortfolio() {
+      const stockList = document.getElementById("stockList");
+      stockList.innerHTML = "";
+      const stored = localStorage.getItem("stockPortfolio");
+      let stocks = [];
+      if (stored) {
+        stocks = JSON.parse(stored);
+      } else {
+        stocks = [{ name: "", amount: 0 }, { name: "", amount: 0 }];
+        localStorage.setItem("stockPortfolio", JSON.stringify(stocks));
+      }
+      stocks.forEach(stock => {
+        stockList.appendChild(createStockItem(stock));
+      });
+    }
+
+    function saveStockPortfolio() {
+      const stockList = document.getElementById("stockList");
+      const stockItems = stockList.querySelectorAll(".stock-item");
+      const stocks = [];
+      stockItems.forEach(item => {
+        const inputs = item.querySelectorAll("input");
+        const name = inputs[0].value.trim();
+        const amount = Number(inputs[1].value.replace(/,/g, "")) || 0;
+        stocks.push({ name, amount });
+      });
+      localStorage.setItem("stockPortfolio", JSON.stringify(stocks));
+    }
+    function updateStockChart() {
+      const stockList = document.getElementById("stockList");
+      const stockItems = stockList.querySelectorAll(".stock-item");
+      const names = [];
+      const amounts = [];
+      stockItems.forEach(item => {
+        const inputs = item.querySelectorAll("input");
+        const stockName = inputs[0].value.trim() || "미입력";
+        const stockAmount = Number(inputs[1].value.replace(/,/g, "")) || 0;
+        names.push(stockName);
+        amounts.push(stockAmount);
+      });
+      saveStockPortfolio();
+      
+      const total = amounts.reduce((a, b) => a + b, 0);
+      const ctx = document.getElementById("stockChart").getContext("2d");
+      
+      adjustChartSize("stockChart", names.length);
+      
+      let labelFontSize = names.length > 5 ? Math.max(10, 14 - (names.length - 5)) : 14;
+      
+      if(total === 0) {
+        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
+        ctx.font = "16px sans-serif";
+        ctx.fillStyle = "#333";
+        ctx.fillText("데이터가 없습니다.", 50, 150);
+        return;
+      }
+            
+      const backgroundColors = names.map(() => {
+        const r = Math.floor(Math.random() * 200);
+        const g = Math.floor(Math.random() * 200);
+        const b = Math.floor(Math.random() * 200);
+        return `rgb(${r}, ${g}, ${b})`;
+      });
+      
+      if(stockChart) {
+        stockChart.destroy();
+      }
+      
+      const dataLabelColor = (stockChartType === 'bar') ? getTextColor("#000", "#fff") : getTextColor("#fff", "#fff");
+      const tickColor = getTextColor("#000", "#fff");
+
+      stockChart = new Chart(ctx, {
+        type: stockChartType,
+        data: {
+          labels: names,
+          datasets: [{
+            data: amounts,
+            backgroundColor: backgroundColors,
+            borderColor: "#fff",
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          layout: { padding: 20 },
+          plugins: {
+            legend: { position: 'bottom', labels: { color: tickColor } },
+            title: { 
+              display: true, 
+              text: stockChartType === 'pie' ? '주식 포트폴리오 (원형)' : '주식 포트폴리오 (막대)',
+              color: tickColor
+            },
+            datalabels: {
+              display: true,
+              color: dataLabelColor,
+              font: { size: labelFontSize, weight: 'bold' },
+              formatter: (value, ctx) => {
+                const total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                const percentage = total > 0 ? ((value / total) * 100).toFixed(2) : 0;
+                const label = ctx.chart.data.labels[ctx.dataIndex];
+                return label + ': ' + percentage + '%';
+              }
+            }
+          },
+          scales: stockChartType === 'bar' ? {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return value.toLocaleString() + " 원";
+                },
+                color: tickColor
+              }
+            }
+          } : {}
+        }
+      });
+    }
+    document.getElementById("pieChartBtn").addEventListener("click", () => {
+      stockChartType = 'pie';
+      updateStockChart();
+    });
+    document.getElementById("barChartBtn").addEventListener("click", () => {
+      stockChartType = 'bar';
+      updateStockChart();
+    });
+    document.getElementById("addStockBtn").addEventListener("click", () => {
+      const stockList = document.getElementById("stockList");
+      stockList.appendChild(createStockItem());
+    });
+
+
+    // ===== To Do List =====
+    function createTodoListItem(text) {
+      const li = document.createElement("li");
+      li.className = "todo-item";
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "todo-checkbox";
+      checkbox.addEventListener("change", saveTodoList);
+      li.appendChild(checkbox);
+      const span = document.createElement("span");
+      span.classList.add("todo-text");
+      span.textContent = text;
+      li.appendChild(span);
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "삭제";
+      delBtn.className = "delete-btn";
+      delBtn.addEventListener("click", () => { 
+        li.remove(); 
+        saveTodoList();
+      });
+      li.appendChild(delBtn);
+      return li;
+    }
+
+   // 예시: To Do List 관련 함수 (기존 localStorage 기반 함수)
+   function createTodoListItem(text) {
+      const li = document.createElement("li");
+      li.className = "todo-item";
+      
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "todo-checkbox";
+      checkbox.addEventListener("change", saveTodoList);
+      li.appendChild(checkbox);
+      
+      const span = document.createElement("span");
+      span.classList.add("todo-text");
+      span.textContent = text;
+      span.contentEditable = "true";
+      span.spellcheck = false;
+      span.addEventListener("blur", () => {
+          saveTodoList();
+      });
+      li.appendChild(span);
+      
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "삭제";
+      delBtn.className = "delete-btn";
+      delBtn.addEventListener("click", () => { 
+        li.remove(); 
+        saveTodoList();
+      });
+      li.appendChild(delBtn);
+      return li;
+    }
+
+
+    document.getElementById("todoInput").addEventListener("keydown", (e) => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        document.getElementById("addTodoBtn").click();
+      }
+    });
+
+    document.getElementById("addTodoBtn").addEventListener("click", () => {
+      const input = document.getElementById("todoInput");
+      const todoText = input.value.trim();
+      if(todoText === ""){
+        alert("할 일을 입력하세요.");
+        return;
+      }
+      const li = createTodoListItem(todoText);
+      document.getElementById("todoList").appendChild(li);
+      input.value = "";
+      saveTodoList();
+    });
+
+    // ===== 자산 목표 =====
+    function loadAssetGoal() {
+      const savedGoal = localStorage.getItem("assetGoal");
+      const display = document.getElementById("assetGoalDisplay");
+      if (savedGoal) {
+        display.textContent = "현재 목표: " + Number(savedGoal).toLocaleString() + " 원";
+      } else {
+        display.textContent = "자산 목표가 설정되지 않았습니다.";
+      }
+      updateAssetGoalProgress();
+    }
+    document.getElementById("saveAssetGoalBtn").addEventListener("click", () => {
+      const input = document.getElementById("assetGoalInput");
+      const goal = input.value.replace(/,/g, "").trim();
+      if (goal === "" || isNaN(goal)) {
+        alert("유효한 금액을 입력하세요.");
+        return;
+      }
+      localStorage.setItem("assetGoal", goal);
+      loadAssetGoal();
+      alert("자산 목표가 저장되었습니다.");
+    });
+    function updateAssetGoalProgress() {
+      const savedGoal = localStorage.getItem("assetGoal");
+      const progressContainer = document.getElementById("assetGoalProgress");
+      progressContainer.innerHTML = "";
+      if (!savedGoal) { return; }
+      const goal = Number(savedGoal);
+      const storedAssets = localStorage.getItem("assetPortfolio");
+      let totalAsset = 0;
+      if (storedAssets) {
+        const assets = JSON.parse(storedAssets);
+        assets.forEach(asset => { totalAsset += Number(asset.amount) || 0; });
+      }
+      const percentage = Math.min(100, ((totalAsset / goal) * 100).toFixed(2));
+      const info = document.createElement("p");
+      info.textContent = `현재 자산: ${totalAsset.toLocaleString()} 원 / 목표: ${goal.toLocaleString()} 원`;
+      progressContainer.appendChild(info);
+      const progressBar = document.createElement("div");
+      progressBar.classList.add("progress-bar");
+      const progress = document.createElement("div");
+      progress.classList.add("progress");
+      progress.style.width = percentage + "%";
+      progress.textContent = percentage + "%";
+      progressBar.appendChild(progress);
+      progressContainer.appendChild(progressBar);
+    }
+
+    // ===== 투자 일지 =====
+// Firestore에 투자 일지 항목을 추가하는 함수
+function appendDiaryEntryFirestore(newEntry) {
+  loadUserData("diaryEntries").then(doc => {
+    let entries = [];
+    if (doc.exists) {
+      entries = doc.data().entries || [];
+    }
+    entries.push(newEntry);
+    return saveUserData("diaryEntries", { entries: entries });
+  }).then(() => {
+    console.log("투자 일지 저장 완료");
+    loadDiaryEntriesFirestore(); // 최신 데이터를 불러와 UI에 반영
+  }).catch(err => console.error("투자 일지 저장 실패:", err));
+}
+
+// Firestore에서 메모장 데이터를 불러와 화면에 표시하는 함수
+function loadDiaryEntriesFirestore() {
+  loadUserData("diaryEntries").then(doc => {
+    const diaryEntriesContainer = document.getElementById("diaryEntries");
+    diaryEntriesContainer.innerHTML = "";
+    let entries = [];
+    if (doc.exists) {
+      entries = doc.data().entries || [];
+    }
+    entries.forEach((entry, index) => {
+      const div = document.createElement("div");
+      div.className = "diary-entry";
+      
+      const timeElem = document.createElement("time");
+      timeElem.textContent = entry.date;
+      div.appendChild(timeElem);
+      
+      const textElem = document.createElement("span");
+      textElem.className = "diary-text";
+      textElem.textContent = entry.text;
+      div.appendChild(textElem);
+      
+      // 수정 버튼
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "수정";
+      editBtn.classList.add("edit-btn");
+      editBtn.addEventListener("click", () => {
+        const newText = prompt("수정할 내용을 입력하세요", entry.text);
+        if(newText !== null && newText.trim() !== ""){
+          entry.text = newText.trim();
+          saveDiaryEntriesFirestore(entries);
+        }
+      });
+      div.appendChild(editBtn);
+      
+      // 삭제 버튼: DOM 요소를 즉시 제거하도록 수정
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "삭제";
+      deleteBtn.classList.add("delete-btn");
+      deleteBtn.addEventListener("click", () => {
+        if(confirm("정말 삭제하시겠습니까?")){
+          // DOM에서 해당 요소 즉시 제거
+          div.remove();
+          // 배열에서도 해당 항목 제거 후 Firestore 업데이트
+          entries.splice(index, 1);
+          saveDiaryEntriesFirestore(entries);
+        }
+      });
+      div.appendChild(deleteBtn);
+      
+      diaryEntriesContainer.appendChild(div);
+    });
+  }).catch(err => console.error("투자 일지 불러오기 실패:", err));
+}
+
+
+// Firestore에 전체 투자 일지 항목을 저장하는 함수
+function saveDiaryEntriesFirestore(entries) {
+  saveUserData("diaryEntries", { entries: entries })
+    .then(() => {
+      console.log("메모장 저장 완료");
+      loadDiaryEntriesFirestore();
+    })
+    .catch(err => console.error("투자 일지 저장 실패:", err));
+}
+
+// 저장 버튼 이벤트 수정 (localStorage 대신 Firestore 함수 호출)
+document.getElementById("saveDiaryBtn").addEventListener("click", () => {
+  const diaryTextarea = document.getElementById("investmentDiary");
+  const diaryText = diaryTextarea.value.trim();
+  if (diaryText === "") {
+    alert("메모장을 저장했습니다!");
+    return;
+  }
+  const now = new Date();
+  const entry = { date: now.toLocaleString(), text: diaryText };
+  appendDiaryEntryFirestore(entry);
+  diaryTextarea.value = "";
+});
+
+  //달력 메모 * 이전달 다음달 버튼 동작*
+  document.getElementById("prevMonthBtn").addEventListener("click", () => {
+  currentMonth--;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+  updateCalendarHeader();
+  // 구버전 renderCalendar() 대신에 파이어스토어 불러오기
+  loadCalendarMemosFirestore();
+});
+
+document.getElementById("nextMonthBtn").addEventListener("click", () => {
+  currentMonth++;
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  updateCalendarHeader();
+  // 구버전 renderCalendar() 대신에 파이어스토어 불러오기
+  loadCalendarMemosFirestore();
+});
+
+    // ===== 달력 메모 =====
+    const today = new Date();
+    let currentYear = today.getFullYear();
+    let currentMonth = today.getMonth();
+    
+    function updateCalendarHeader() {
+      const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+      document.getElementById("currentMonthDisplay").textContent = currentYear + "년 " + monthNames[currentMonth];
+    }
+    function renderCalendar() {
+      const calendarEl = document.getElementById("calendar");
+      if (!calendarEl) return;
+      calendarEl.innerHTML = "";
+    
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const startDay = firstDay.getDay();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    
+      let memos = localStorage.getItem("calendarMemos");
+      memos = memos ? JSON.parse(memos) : {};
+    
+      const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+      weekdays.forEach(dayName => {
+        const headerCell = document.createElement("div");
+        headerCell.textContent = dayName;
+        headerCell.style.fontWeight = "bold";
+        calendarEl.appendChild(headerCell);
+      });
+    
+      for (let i = 0; i < startDay; i++) {
+        const blankCell = document.createElement("div");
+        calendarEl.appendChild(blankCell);
+      }
+    
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = currentYear + "-" + String(currentMonth + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+        const dayCell = document.createElement("div");
+        dayCell.classList.add("calendar-day");
+        dayCell.dataset.date = dateStr;
+    
+        const dayNumber = document.createElement("span");
+        dayNumber.classList.add("day-number");
+        dayNumber.textContent = d;
+        dayCell.appendChild(dayNumber);
+    
+        if (memos[dateStr] && memos[dateStr].trim() !== "") {
+          const memoSpan = document.createElement("span");
+          memoSpan.classList.add("memo-text");
+          let text = memos[dateStr];
+          if (text.length > 10) text = text.substring(0, 10) + "...";
+          memoSpan.textContent = text;
+          dayCell.appendChild(memoSpan);
+          dayCell.classList.add("has-memo");
+        }
+        dayCell.addEventListener("click", () => { openMemoModal(dateStr, memos[dateStr] || ""); });
+        calendarEl.appendChild(dayCell);
+      }
+    }
+    function openMemoModal(dateStr, memoText) {
+      selectedCalendarDate = dateStr;
+      document.getElementById("modalTitle").textContent = "메모 입력 (" + dateStr + ")";
+      document.getElementById("modalTextarea").value = memoText;
+      document.getElementById("memoModal").classList.add("active");
+    }
+    function closeMemoModal() {
+  const modal = document.getElementById("memoModal");
+  if (modal) {
+    modal.classList.remove("active");
+    // 열 때 body의 스크롤 막았다면, 여기서 해제
+    document.body.style.overflow = "";
+  }
+}
+
+    //메모장
+    function appendDiaryEntryFirestore(newEntry) {
+  loadUserData("diaryEntries").then(doc => {
+    let entries = [];
+    if (doc.exists) {
+      entries = doc.data().entries || [];
+    }
+    entries.push(newEntry);
+    return saveUserData("diaryEntries", { entries: entries });
+  }).then(() => {
+    console.log("메모장 저장 완료");
+    loadDiaryEntriesFirestore(); // Firestore에서 최신 데이터를 불러와서 UI에 반영
+  }).catch(err => console.error("투자 일지 저장 실패:", err));
+}
+document.getElementById("saveDiaryBtn").addEventListener("click", () => {
+  const diaryTextarea = document.getElementById("investmentDiary");
+  const diaryText = diaryTextarea.value.trim();
+  if (diaryText === "") {
+    alert("메모장 작성 완료!");
+    return;
+  }
+  const now = new Date();
+  const entry = { date: now.toLocaleString(), text: diaryText };
+  appendDiaryEntryFirestore(entry);
+  diaryTextarea.value = "";
+});
+
+// --- Firestore 기반 가계부 저장/불러오기 ---
+// Firestore 유틸리티 함수(loadUserData, saveUserData)는 이미 정의되어 있다고 가정합니다.
+
+// 1. 새로운 가계부 항목을 Firestore에 추가하는 함수
+function appendAccountBookEntryFirestore(newEntry) {
+  loadUserData("accountBookEntries")
+    .then(doc => {
+      let entries = [];
+      if (doc && doc.exists) {
+        entries = doc.data().entries || [];
+      }
+      entries.push(newEntry);
+      return saveUserData("accountBookEntries", { entries: entries });
+    })
+    .then(() => {
+      console.log("가계부 항목이 Firestore에 저장되었습니다.");
+      loadAccountBookEntriesFirestore(); // 저장 후 최신 데이터로 UI 갱신
+    })
+    .catch(err => console.error("가계부 저장 실패:", err));
+}
+
+// 2. Firestore에서 가계부 항목들을 불러와 화면에 렌더링하는 함수
+function loadAccountBookEntriesFirestore() {
+  loadUserData("accountBookEntries")
+    .then(doc => {
+      let entries = [];
+      if (doc && doc.exists) {
+        entries = doc.data().entries || [];
+      }
+      renderAccountBookEntries(entries);
+      updateAccountBookSummary(entries);
+    })
+    .catch(err => console.error("가계부 불러오기 실패:", err));
+}
+
+// 3. 불러온 항목들을 테이블 형식으로 렌더링하는 함수
+function renderAccountBookEntries(entries) {
+  const tableContainer = document.getElementById("ab-entries");
+  tableContainer.innerHTML = "";
+  if (entries.length === 0) {
+    tableContainer.innerHTML = "<p>등록된 가계부 항목이 없습니다.</p>";
+    return;
+  }
+  const table = document.createElement("table");
+  const thead = document.createElement("thead");
+  thead.innerHTML = "<tr><th>날짜</th><th>구분</th><th>카테고리</th><th>금액</th><th>설명</th><th>삭제</th></tr>";
+  table.appendChild(thead);
+  const tbody = document.createElement("tbody");
+  entries.forEach((entry, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${entry.date}</td>
+      <td>${entry.type === "income" ? "수입" : "지출"}</td>
+      <td>${entry.category}</td>
+      <td>${Number(entry.amount).toLocaleString()} 원</td>
+      <td>${entry.description}</td>
+      <td><button class="delete-entry">삭제</button></td>
+    `;
+    // 삭제 버튼 이벤트 핸들러 수정:
+    tr.querySelector(".delete-entry").addEventListener("click", () => {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        // 1. DOM에서 해당 행 즉시 제거
+        tr.remove();
+        // 2. 배열에서도 해당 항목 제거
+        entries.splice(index, 1);
+        // 3. Firestore에 업데이트 (Promise 반환)
+        saveAccountBookEntriesFirestore(entries)
+          .then(() => console.log("가계부 항목 삭제 및 업데이트 완료"))
+          .catch(err => console.error("가계부 삭제 업데이트 실패:", err));
+      }
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  tableContainer.appendChild(table);
+}
+
+
+// 4. 가계부 항목 전체 배열을 Firestore에 저장하고 UI 갱신하는 함수
+function saveAccountBookEntriesFirestore(entries) {
+  saveUserData("accountBookEntries", { entries: entries })
+    .then(() => {
+      console.log("가계부 항목이 업데이트되었습니다.");
+      loadAccountBookEntriesFirestore();
+    })
+    .catch(err => console.error("가계부 업데이트 실패:", err));
+}
+
+// 5. 가계부 요약(총 수입, 총 지출, 잔액)을 업데이트하는 함수
+function updateAccountBookSummary(entries) {
+  let totalIncome = 0;
+  let totalExpense = 0;
+  entries.forEach(entry => {
+    const amt = Number(entry.amount);
+    if (entry.type === "income") {
+      totalIncome += amt;
+    } else {
+      totalExpense += amt;
+    }
+  });
+  const net = totalIncome - totalExpense;
+
+  const summaryDiv = document.getElementById("ab-summary");
+  summaryDiv.innerHTML = `
+    <p>총 수입: ${totalIncome.toLocaleString()} 원</p>
+    <p>총 지출: ${totalExpense.toLocaleString()} 원</p>
+    <p><strong>잔액: ${net.toLocaleString()} 원</strong></p>
+  `;
+}
+
+
+// 6. 가계부 모달의 저장 버튼(예: "ab-addBtn")에 이벤트 리스너를 연결하여
+//    입력된 항목을 Firestore에 저장하도록 함
+document.getElementById("ab-addBtn").addEventListener("click", () => {
+  const dateInput = document.getElementById("ab-date");
+  const typeSelect = document.getElementById("ab-type");
+  const categoryInput = document.getElementById("ab-category");
+  const amountInput = document.getElementById("ab-amount");
+  const descriptionInput = document.getElementById("ab-description");
+  
+  const date = dateInput.value;
+  const type = typeSelect.value;
+  const category = categoryInput.value.trim();
+  const amount = amountInput.value.replace(/,/g, "").trim();
+  const description = descriptionInput.value.trim();
+  
+  if (!date || !category || !amount || isNaN(amount)) {
+    alert("날짜, 카테고리, 금액은 필수 항목입니다. 금액은 숫자여야 합니다.");
+    return;
+  }
+  
+  const newEntry = { date, type, category, amount, description };
+  appendAccountBookEntryFirestore(newEntry);
+  
+  // 입력 후 모달의 입력 필드를 초기화하거나 모달을 닫을 수 있음
+  // 예: dateInput.value = ""; categoryInput.value = ""; ...
+});
+
+// 7. 모달이 열릴 때 Firestore에서 최신 가계부 데이터를 불러와 화면에 반영
+// (모달이 열리는 이벤트에 맞춰 loadAccountBookEntriesFirestore() 호출)
+document.getElementById("accountBookModal").addEventListener("show", () => {
+  loadAccountBookEntriesFirestore();
+});
+// Firestore에 고정지출 배열을 저장하는 함수
+function saveFixedExpensesFirestore(fixedExpenses) {
+  saveUserData("fixedExpenses", { fixedExpenses: fixedExpenses })
+    .then(() => {
+      console.log("고정 지출 저장 완료");
+      loadFixedExpensesFirestore();
+    })
+    .catch(err => console.error("고정 지출 저장 실패:", err));
+}
+
+// Firestore에서 고정지출 데이터를 불러와 화면에 렌더링하는 함수
+function loadFixedExpensesFirestore() {
+  loadUserData("fixedExpenses")
+    .then(doc => {
+      let fixedExpenses = [];
+      if (doc && doc.exists) {
+        fixedExpenses = doc.data().fixedExpenses || [];
+      }
+      renderFixedExpenses(fixedExpenses);
+    })
+    .catch(err => console.error(err));
+}
+
+// 불러온 고정지출 데이터를 화면에 출력하고 총합 계산
+function renderFixedExpenses(fixedExpenses) {
+  const fixedExpenseList = document.getElementById("fixedExpenseList");
+  const fixedExpenseTotalEl = document.getElementById("fixedExpenseTotal");
+  fixedExpenseList.innerHTML = "";
+  let total = 0;
+  fixedExpenses.forEach((expense, index) => {
+    total += Number(expense.amount);
+    const div = document.createElement("div");
+    div.style.display = "flex";
+    div.style.justifyContent = "space-between";
+    div.style.alignItems = "center";
+    div.style.marginBottom = "5px";
+    div.innerHTML = `<span>${expense.description}: ${Number(expense.amount).toLocaleString()} 원</span>`;
+    
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "삭제";
+    delBtn.addEventListener("click", () => {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        // DOM에서 바로 삭제하여 즉시 UI 반영
+        div.remove();
+        // 배열에서도 해당 항목 제거
+        fixedExpenses.splice(index, 1);
+        // Firestore 업데이트 후, 전체 리스트 재렌더링하여 총합 업데이트
+        saveFixedExpensesFirestore(fixedExpenses)
+          .then(() => {
+            renderFixedExpenses(fixedExpenses);
+          })
+          .catch(err => console.error("고정 지출 삭제 업데이트 실패:", err));
+      }
+    });
+    div.appendChild(delBtn);
+    fixedExpenseList.appendChild(div);
+  });
+  fixedExpenseTotalEl.textContent = "총 고정 지출: " + total.toLocaleString() + " 원";
+}
+
+
+document.getElementById("addFixedExpenseBtn").addEventListener("click", () => {
+  const fixedExpenseDescription = document.getElementById("fixedExpenseDescription");
+  const fixedExpenseAmount = document.getElementById("fixedExpenseAmount");
+  const description = fixedExpenseDescription.value.trim();
+  const amountStr = fixedExpenseAmount.value.replace(/,/g, "").trim();
+
+  if (description === "" || amountStr === "" || isNaN(amountStr)) {
+    alert("유효한 지출 항목과 금액을 입력하세요.");
+    return;
+  }
+
+  // 먼저 현재 저장된 고정지출 데이터를 불러옵니다.
+  loadUserData("fixedExpenses")
+    .then(doc => {
+      let fixedExpenses = [];
+      if (doc && doc.exists) {
+        fixedExpenses = doc.data().fixedExpenses || [];
+      }
+      const newExpense = { description: description, amount: Number(amountStr) };
+      fixedExpenses.push(newExpense);
+
+      // 1) 새 항목이 추가된 fixedExpenses 배열로 UI 즉시 갱신
+      renderFixedExpenses(fixedExpenses);
+
+      // 2) Firestore에 저장
+      return saveFixedExpensesFirestore(fixedExpenses);
+    })
+    .then(() => {
+      // 입력 폼 초기화
+      fixedExpenseDescription.value = "";
+      fixedExpenseAmount.value = "";
+      // 선택사항: 저장 후 Firestore에서 다시 불러와 UI를 동기화할 수 있습니다.
+      // loadFixedExpensesFirestore();
+    })
+    .catch(err => console.error(err));
+});
+
+// Firestore에서 가계부 데이터를 불러와 월별 보고서를 생성하는 함수
+function generateMonthlyReportFirestore() {
+  loadUserData("accountBookEntries")
+    .then(doc => {
+      let entries = [];
+      if (doc && doc.exists) {
+        entries = doc.data().entries || [];
+      }
+      const monthlyData = {};
+      // 각 항목의 날짜에서 "YYYY-MM" 부분을 추출하여 월별 집계
+      entries.forEach(entry => {
+        const monthKey = entry.date.slice(0, 7);
+        if (!monthlyData[monthKey]) {
+          monthlyData[monthKey] = { income: 0, expense: 0 };
+        }
+        const amount = Number(entry.amount);
+        if (entry.type === "income") {
+          monthlyData[monthKey].income += amount;
+        } else {
+          monthlyData[monthKey].expense += amount;
+        }
+      });
+      const months = Object.keys(monthlyData).sort();
+      const incomes = months.map(month => monthlyData[month].income);
+      const expenses = months.map(month => monthlyData[month].expense);
+      renderMonthlyReportSummary(monthlyData, months);
+      renderMonthlyReportChart(months, incomes, expenses);
+    })
+    .catch(err => console.error(err));
+}
+
+// 월별 보고서 요약 정보를 렌더링하는 함수
+function renderMonthlyReportSummary(monthlyData, months) {
+  if (months.length === 0) {
+    document.getElementById("reportSummary").innerHTML = "<p>데이터가 없습니다.</p>";
+    return;
+  }
+  const latestMonth = months[months.length - 1];
+  const data = monthlyData[latestMonth];
+  const net = data.income - data.expense;
+  const reportSummary = document.getElementById("reportSummary");
+  reportSummary.innerHTML = `
+    <h4>${latestMonth} 보고서</h4>
+    <p>총 수입: ${data.income.toLocaleString()} 원</p>
+    <p>총 지출: ${data.expense.toLocaleString()} 원</p>
+    <p><strong>순이익: ${net.toLocaleString()} 원</strong></p>
+  `;
+}
+
+// Chart.js를 사용하여 월별 보고서 차트를 렌더링하는 함수
+function renderMonthlyReportChart(months, incomes, expenses) {
+  const ctx = document.getElementById("incomeExpenseChart").getContext("2d");
+  // 기존 차트가 있으면 파괴
+  if (incomeExpenseChart) {
+    incomeExpenseChart.destroy();
+  }
+  incomeExpenseChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: months,
+      datasets: [
+        {
+          label: '수입',
+          data: incomes,
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        },
+        {
+          label: '지출',
+          data: expenses,
+          backgroundColor: 'rgba(255, 99, 132, 0.6)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { color: getTextColor("#000", "#fff") } },
+        title: { display: true, text: '월별 수입/지출 보고서', color: getTextColor("#000", "#fff") }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function(value) {
+              return value.toLocaleString() + " 원";
+            },
+            color: getTextColor("#000", "#fff")
+          }
+        }
+      }
+    }
+  });
+}
+
+// 월별 보고서 생성 버튼 이벤트 (예: "generateReportBtn")
+document.getElementById("generateReportBtn").addEventListener("click", generateMonthlyReportFirestore);
+
+
+    // ===== 개발자 도구 및 우클릭 차단 =====
+    document.addEventListener("keydown", function(event) {
+      if (event.ctrlKey && (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")) { event.preventDefault(); }
+      if ((event.ctrlKey && event.shiftKey && event.key === "I") || (event.ctrlKey && event.shiftKey && event.key === "J")) { event.preventDefault(); }
+    });
+    document.addEventListener("contextmenu", function(event) { event.preventDefault(); });
+
+    // ===== 탭 전환 및 To Do List 기능 =====
+    const tabLinks = document.querySelectorAll('.tab-link');
+    tabLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        tabLinks.forEach(item => item.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.style.display = 'none';
+        });
+        link.classList.add('active');
+        const tabId = link.getAttribute('data-tab');
+        document.getElementById(tabId).style.display = 'block';
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadAssetPortfolio();
+      loadStockPortfolio();
+      updateAssetChart();
+      updateStockChart();
+      loadChecklist();
+      loadAssetGoal();
+      loadFixedExpensesFirestore(); // 고정 지출 데이터 즉시 불러오기
+      addCommaFormatting(document.getElementById("assetGoalInput"));
+      loadDiaryEntries();
+      const dateInput = document.getElementById("ab-date");
+      const today = new Date().toISOString().split("T")[0];
+      dateInput.value = today;
+      addCommaFormatting(document.getElementById("ab-amount"));
+      const storedYear = localStorage.getItem("calendarCurrentYear");
+      const storedMonth = localStorage.getItem("calendarCurrentMonth");
+      if (storedYear !== null && storedMonth !== null) {
+        currentYear = Number(storedYear);
+        currentMonth = Number(storedMonth);
+      }
+      updateCalendarHeader();
+      renderCalendar();
+      updateTargetRatioFields();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        const openModal = document.querySelector(".modal.active");
+        if (openModal) {
+          openModal.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+      }
+    });
+
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("modal") && e.target.classList.contains("active")) {
+        e.target.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+    });
+
+    function getSecretKey() { return "my-secret-key"; }
+    console.log(getSecretKey());
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.body.classList.add('dark-mode');
+        }
+      });
+
+      document.addEventListener('touchmove', function(e) {
+        if (document.body.classList.contains("modal-open")) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('a.nav-link').forEach(a => {
+        a.style.webkitTapHighlightColor = 'transparent';
+      });
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          link.classList.add('pressed');
+          setTimeout(() => {
+            window.location.href = link.getAttribute('href');
+          }, 100);
+        });
+      });
+    });
+
+    // 페이지 로드 후 'loaded' 클래스를 추가
+window.addEventListener('load', function() {
+  document.body.classList.add('loaded');
+});
+function createTodoListItem(text) {
+  const li = document.createElement("li");
+  li.className = "todo-item";
+  
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "todo-checkbox";
+  checkbox.addEventListener("change", saveTodoList);
+  li.appendChild(checkbox);
+  
+  const span = document.createElement("span");
+  span.classList.add("todo-text");
+  span.textContent = text;
+  // 할 일 텍스트를 클릭하면 바로 수정할 수 있도록 contentEditable 설정
+  span.contentEditable = "true";
+  span.spellcheck = false;
+  // 수정 후 포커스가 벗어나면 저장 처리
+  span.addEventListener("blur", () => {
+      saveTodoList();
+  });
+  li.appendChild(span);
+  
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "삭제";
+  delBtn.className = "delete-btn";
+  delBtn.addEventListener("click", () => { 
+    li.remove(); 
+    saveTodoList();
+  });
+  li.appendChild(delBtn);
+  
+  return li;
+}
+document.addEventListener("DOMContentLoaded", function () {
+  const loginContainer = document.querySelector(".login-container");
+  const profileBox = document.getElementById("profileBox");
+  const authButton = document.getElementById("authButton");
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // 로그인 여부 확인
+
+  if (isLoggedIn) {
+    loginContainer.classList.add("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+    authButton.href = "#"; // 로그아웃 기능을 위해 링크 제거
+    authButton.style.display = "none"; // 기본적으로 숨김 (프로필 클릭 시 보이도록 설정)
+  } else {
+    loginContainer.classList.remove("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
+    authButton.href = "login.html";
+    authButton.style.display = "inline-block";
+  }
+
+  // 프로필 박스를 클릭하면 로그아웃 버튼 표시/숨김
+  profileBox.addEventListener("click", function () {
+    if (isLoggedIn) {
+      loginContainer.classList.toggle("active"); // active 클래스 토글
+      authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
+    }
+  });
+
+  // 로그아웃 버튼을 클릭하면 로그아웃 실행
+  authButton.addEventListener("click", function (event) {
+    if (isLoggedIn) {
+      event.preventDefault();
+      localStorage.setItem("isLoggedIn", "false");
+      window.location.reload(); // 새로고침으로 UI 변경 반영
+    }
+  });
+});
+
+    // Back to Top 버튼 기능
+    const backToTopBtn = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    });
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+  </script>
+    <!-- ========== Firebase Firestore 기반 To Do List 수정 부분 (생략 없이 전체 코드) ========== -->
+  <!-- Firebase SDK (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script>
+    // ★ Firebase 설정 (본인의 값으로 수정) ★
+    var firebaseConfig = {
+      apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+      authDomain: "gohigher-55e51.firebaseapp.com",
+      projectId: "gohigher-55e51",
+      storageBucket: "gohigher-55e51.firebasestorage.app",
+      messagingSenderId: "487435343721",
+      appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+      measurementId: "G-KQ02L8DXG0"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+    var auth = firebase.auth();
+
+    // Firestore에서 To Do List 실시간 불러오기
+    function loadTodoListFirestore() {
+      var user = auth.currentUser;
+      if (!user) return;
+      var todoListEl = document.getElementById("todoList");
+      db.collection("users").doc(user.uid).collection("todoListItems")
+        .onSnapshot(function(snapshot){
+          todoListEl.innerHTML = "";
+          snapshot.forEach(function(doc){
+            var item = doc.data();
+            var li = createTodoListItem(item.text);
+            li.querySelector("input[type='checkbox']").checked = item.checked;
+            // 문서 ID 저장이 필요하면 li.dataset.docId = doc.id;
+            todoListEl.appendChild(li);
+          });
+        }, function(error){
+          console.error("Firestore에서 To Do List 불러오기 실패:", error);
+        });
+    }
+
+    // Firestore에 To Do List 전체 저장 (전체 덮어쓰기 방식)
+    function saveTodoListFirestore() {
+      var user = auth.currentUser;
+      if (!user) return;
+      var todoListEl = document.getElementById("todoList");
+      var items = [];
+      todoListEl.querySelectorAll("li").forEach(function(li){
+        var text = li.querySelector(".todo-text").textContent;
+        var checked = li.querySelector("input[type='checkbox']").checked;
+        items.push({ text: text, checked: checked });
+      });
+      var colRef = db.collection("users").doc(user.uid).collection("todoListItems");
+      colRef.get().then(function(querySnapshot){
+        var batch = db.batch();
+        querySnapshot.forEach(function(doc){
+          batch.delete(doc.ref);
+        });
+        items.forEach(function(item){
+          var newDocRef = colRef.doc();
+          batch.set(newDocRef, item);
+        });
+        return batch.commit();
+      }).then(function(){
+        console.log("Firestore에 To Do List 저장 완료");
+      }).catch(function(error){
+        console.error("Firestore에 To Do List 저장 실패:", error);
+      });
+    }
+
+    // 로그인 상태 변화에 따라 Firestore 기반 함수로 오버라이드
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        window.loadTodoList = loadTodoListFirestore;
+        window.saveTodoList = saveTodoListFirestore;
+        loadTodoListFirestore();
+      }
+    });
+    </script>
+    <!-- Firebase 설정 및 SDK는 이미 포함되어 있다고 가정 -->
+<script>
+  // --- Firestore 유틸리티 함수 ---
+  function saveUserData(docName, data) {
+    const user = auth.currentUser;
+    if (!user) return Promise.reject("사용자가 로그인되어 있지 않습니다.");
+    return db.collection("users").doc(user.uid)
+             .collection("data").doc(docName).set(data);
+  }
+  
+  function loadUserData(docName) {
+    const user = auth.currentUser;
+    if (!user) return Promise.resolve(null);
+    return db.collection("users").doc(user.uid)
+             .collection("data").doc(docName).get();
+  }
+  
+  // --- 자산 포트폴리오 ---
+  function loadAssetPortfolioFirestore() {
+    loadUserData("assetPortfolio").then(doc => {
+      let assets = [];
+      if (doc.exists) {
+        assets = doc.data().assets || [];
+      } else {
+        // 기본 데이터 설정 (없을 경우)
+        assets = [
+          { name: "현금", amount: 0 },
+          { name: "채권", amount: 0 },
+          { name: "부동산", amount: 0 },
+          { name: "주식", amount: 0 },
+          { name: "기타", amount: 0 }
+        ];
+        saveAssetPortfolioFirestore(assets);
+      }
+      // UI에 데이터 반영
+      const container = document.getElementById("assetItemsContainer");
+      container.innerHTML = "";
+      assets.forEach(asset => container.appendChild(createAssetItem(asset)));
+      updateTargetRatioFields();
+      updateAssetChart();
+    }).catch(err => console.error(err));
+  }
+  
+  function saveAssetPortfolioFirestore(assets) {
+    saveUserData("assetPortfolio", { assets: assets })
+      .then(() => { console.log("자산 포트폴리오 저장 완료"); })
+      .catch(err => console.error("저장 실패:", err));
+  }
+
+  
+  // 자산 포트폴리오 업데이트(현재 UI 입력값을 모아서 Firestore에 저장)
+  function updateAssetPortfolioFirestore() {
+    const container = document.getElementById("assetItemsContainer");
+    const assetItems = container.querySelectorAll(".asset-item");
+    let assets = [];
+    assetItems.forEach(item => {
+      const inputs = item.querySelectorAll("input");
+      const name = inputs[0].value.trim();
+      const amount = Number(inputs[1].value.replace(/,/g, "")) || 0;
+      assets.push({ name, amount });
+    });
+    saveAssetPortfolioFirestore(assets);
+  }
+  
+  // --- 주식 포트폴리오 ---
+  function loadStockPortfolioFirestore() {
+    loadUserData("stockPortfolio").then(doc => {
+      let stocks = [];
+      if (doc.exists) {
+        stocks = doc.data().stocks || [];
+      } else {
+        stocks = [{ name: "", amount: 0 }, { name: "", amount: 0 }];
+        saveStockPortfolioFirestore(stocks);
+      }
+      const stockList = document.getElementById("stockList");
+      stockList.innerHTML = "";
+      stocks.forEach(stock => stockList.appendChild(createStockItem(stock)));
+      updateStockChart();
+    }).catch(err => console.error(err));
+  }
+  
+  function saveStockPortfolioFirestore(stocks) {
+    saveUserData("stockPortfolio", { stocks: stocks })
+      .then(() => { console.log("주식 포트폴리오 저장 완료"); })
+      .catch(err => console.error("저장 실패:", err));
+  }
+  
+  function updateStockPortfolioFirestore() {
+    const stockList = document.getElementById("stockList");
+    const stockItems = stockList.querySelectorAll(".stock-item");
+    let stocks = [];
+    stockItems.forEach(item => {
+      const inputs = item.querySelectorAll("input");
+      const name = inputs[0].value.trim();
+      const amount = Number(inputs[1].value.replace(/,/g, "")) || 0;
+      stocks.push({ name, amount });
+    });
+    saveStockPortfolioFirestore(stocks);
+  }
+  
+  // --- 자산 목표 ---
+  function loadAssetGoalFirestore() {
+    loadUserData("assetGoal").then(doc => {
+      const display = document.getElementById("assetGoalDisplay");
+      if (doc.exists && doc.data().goal) {
+        display.textContent = "현재 목표: " + Number(doc.data().goal).toLocaleString() + " 원";
+      } else {
+        display.textContent = "자산 목표가 설정되지 않았습니다.";
+      }
+      updateAssetGoalProgress();
+    });
+  }
+  
+  function saveAssetGoalFirestore(goal) {
+    saveUserData("assetGoal", { goal: goal })
+      .then(() => { console.log("자산 목표 저장 완료"); })
+      .catch(err => console.error(err));
+  }
+  
+  
+  function saveDiaryEntriesFirestore(entries) {
+    saveUserData("diaryEntries", { entries: entries })
+      .then(() => { console.log("투자 일지 저장 완료"); })
+      .catch(err => console.error(err));
+  }
+  
+  // --- 달력 메모 ---
+// Firestore에서 캘린더 메모 데이터를 불러와 렌더링하는 함수
+function loadCalendarMemosFirestore() {
+  loadUserData("calendarMemos").then(doc => {
+    let memos = {};
+    if (doc && doc.exists) {
+      memos = doc.data().memos || {};
+    }
+    renderCalendarWithMemos(memos);
+  }).catch(err => {
+    console.error("캘린더 메모 불러오기 실패:", err);
+    renderCalendarWithMemos({}); // 실패 시 빈 객체로 렌더링
+  });
+}
+
+
+// Firestore에 캘린더 메모 저장 (기존과 동일)
+function saveCalendarMemoFirestore(dateStr, memoText) {
+  // loadUserData(...)의 Promise를 return해야 합니다.
+  return loadUserData("calendarMemos")
+    .then(doc => {
+      let memos = {};
+      if (doc && doc.exists) {
+        memos = doc.data().memos || {};
+      }
+      memos[dateStr] = memoText;
+      // saveUserData(...)도 return해서 체이닝
+      return saveUserData("calendarMemos", { memos: memos });
+    })
+    .then(() => {
+      console.log("캘린더 메모 저장 완료");
+    })
+    .catch(err => console.error("캘린더 메모 저장 실패:", err));
+}
+
+
+// 기존 renderCalendar 함수 대신, Firestore에서 불러온 memos를 인자로 받아 캘린더를 렌더링하는 함수
+function renderCalendarWithMemos(memos) {
+  const calendarEl = document.getElementById("calendar");
+  if (!calendarEl) return;
+  calendarEl.innerHTML = "";
+  
+  const firstDay = new Date(currentYear, currentMonth, 1);
+  const startDay = firstDay.getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  
+  const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+  weekdays.forEach(dayName => {
+    const headerCell = document.createElement("div");
+    headerCell.textContent = dayName;
+    headerCell.style.fontWeight = "bold";
+    calendarEl.appendChild(headerCell);
+  });
+  
+  for (let i = 0; i < startDay; i++) {
+    const blankCell = document.createElement("div");
+    calendarEl.appendChild(blankCell);
+  }
+  
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = currentYear + "-" + String(currentMonth + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+    const dayCell = document.createElement("div");
+    dayCell.classList.add("calendar-day");
+    dayCell.dataset.date = dateStr;
+  
+    const dayNumber = document.createElement("span");
+    dayNumber.classList.add("day-number");
+    dayNumber.textContent = d;
+    dayCell.appendChild(dayNumber);
+  
+   // Firestore에서 받아온 memos 객체를 사용
+   if (memos[dateStr] && memos[dateStr].trim() !== "") {
+      const memoSpan = document.createElement("span");
+      memoSpan.classList.add("memo-text");
+      let text = memos[dateStr];
+      if (text.length > 10) text = text.substring(0, 10) + "...";
+      memoSpan.textContent = text;
+      dayCell.appendChild(memoSpan);
+      dayCell.classList.add("has-memo");
+    }
+    dayCell.addEventListener("click", () => { openMemoModal(dateStr, memos[dateStr] || ""); });
+    calendarEl.appendChild(dayCell);
+  }
+}
+
+// 수정된 저장 버튼 이벤트 (캘린더 메모)
+document.getElementById("saveModalBtn").addEventListener("click", () => {
+  if (!selectedCalendarDate) return;
+
+  const memoText = document.getElementById("modalTextarea").value;
+  saveCalendarMemoFirestore(selectedCalendarDate, memoText)
+    .then(() => {
+      // 1) 모달 닫기
+      closeMemoModal(); // 혹은 closeModal('memoModal');
+
+      // 2) 최신 메모 다시 불러오기
+      loadCalendarMemosFirestore();
+
+      // 3) 선택 날짜 초기화
+      selectedCalendarDate = null;
+    })
+    .catch(err => console.error("캘린더 메모 저장 실패:", err));
+});
+
+
+  
+  // --- 가계부 ---
+  function loadAccountBookEntriesFirestore() {
+    loadUserData("accountBookEntries").then(doc => {
+      let entries = [];
+      if (doc.exists) { entries = doc.data().entries || []; }
+      renderAccountBookEntries(entries);
+      updateAccountBookSummary(entries);
+    });
+  }
+  
+  function saveAccountBookEntriesFirestore(entries) {
+    saveUserData("accountBookEntries", { entries: entries })
+      .then(() => { console.log("가계부 저장 완료"); })
+      .catch(err => console.error(err));
+  }
+  
+  // --- 고정 지출 ---
+  function loadFixedExpensesFirestore() {
+    loadUserData("fixedExpenses").then(doc => {
+      let fixedExpenses = [];
+      if (doc.exists) { fixedExpenses = doc.data().fixedExpenses || []; }
+      renderFixedExpenses(fixedExpenses);
+    });
+  }
+  
+  function saveFixedExpensesFirestore(fixedExpenses) {
+    saveUserData("fixedExpenses", { fixedExpenses: fixedExpenses })
+      .then(() => { console.log("고정 지출 저장 완료"); })
+      .catch(err => console.error(err));
+  }
+  
+  // --- 로그인 상태에 따른 함수 오버라이드 ---
+  auth.onAuthStateChanged(function(user) {
+    if (user) {
+      // 각 기능을 Firestore 기반 함수로 덮어씁니다.
+      window.loadAssetPortfolio = loadAssetPortfolioFirestore;
+      window.saveAssetPortfolio = updateAssetPortfolioFirestore;
+      
+      window.loadStockPortfolio = loadStockPortfolioFirestore;
+      window.saveStockPortfolio = updateStockPortfolioFirestore;
+      
+      window.loadChecklist = loadChecklistFirestore;
+      window.saveChecklist = updateChecklistFirestore;
+      
+      window.loadAssetGoal = loadAssetGoalFirestore;
+      window.saveAssetGoal = function() {
+        const input = document.getElementById("assetGoalInput");
+        const goal = input.value.replace(/,/g, "").trim();
+        if (goal === "" || isNaN(goal)) {
+          alert("유효한 금액을 입력하세요.");
+          return;
+        }
+        saveAssetGoalFirestore(goal);
+        loadAssetGoalFirestore();
+        alert("자산 목표가 저장되었습니다.");
+      };
+      
+      window.loadDiaryEntries = loadDiaryEntriesFirestore;
+      // 투자 일지 저장은 saveDiaryEntriesFirestore를 호출하는 방식으로 변경
+      
+      window.loadCalendarMemos = loadCalendarMemosFirestore;
+      window.saveCalendarMemo = function() {
+        if (!selectedCalendarDate) return;
+        const memoText = document.getElementById("modalTextarea").value;
+        saveCalendarMemoFirestore(selectedCalendarDate, memoText);
+        closeMemoModal();
+        loadCalendarMemosFirestore();
+      };
+      
+      window.loadAccountBookEntries = loadAccountBookEntriesFirestore;
+      window.saveAccountBookEntries = function() {
+        // 기존 로직으로 entries 배열을 모아서 저장 후 Firestore에 업데이트
+        let entries = []; // entries 수집
+        // 예: 기존 함수에서 수집한 entries를 사용
+        saveAccountBookEntriesFirestore(entries);
+      };
+      
+      window.loadFixedExpenses = loadFixedExpensesFirestore;
+      window.saveFixedExpenses = function() {
+        let fixedExpenses = []; // UI에서 고정 지출 항목들을 수집
+        saveFixedExpensesFirestore(fixedExpenses);
+      };
+      
+      // 초기 로드
+      loadAssetPortfolioFirestore();
+      loadStockPortfolioFirestore();
+      loadChecklistFirestore();
+      loadAssetGoalFirestore();
+      loadDiaryEntriesFirestore();
+      loadCalendarMemosFirestore();
+      loadAccountBookEntriesFirestore();
+      loadFixedExpensesFirestore();
+    }
+  });
+
+  
+</script>
+
+</body>
+</html>

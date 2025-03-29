@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+  <head>
+    <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
+    </script>
+    
+    <meta charset="UTF-8" />
+    <!-- 🔄 외부 서버 연결 미리 하기 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
+    <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
+    <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
+
+    <title>미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트</title>
+    <meta name="description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <link rel="canonical" href="https://gohigher.kr/" />
+    <!-- 매니페스트 -->
+    <link rel="manifest" href="/manifest.json" />
+    <!-- 키워드 -->
+    <meta name="keywords" content="미국 주식, 증시뉴스, 테크뉴스, 글로벌 경제, Go Higher" />
+    <!-- 검색 엔진 크롤링 -->
+    <meta name="robots" content="index,follow" />
+    <!-- **확대/축소 불가 설정** -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+
+    <!-- [추가] Font Awesome 아이콘 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- 구글 폰트 -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 사이트 검증 메타 -->
+    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
+    <meta property="og:description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+    <meta property="og:url" content="https://gohigher.kr/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Higher" />
+    <meta property="og:locale" content="ko_KR" />
+    <!-- Twitter Card 태그 -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
+    <meta name="twitter:description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!" />
+    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+
+    <script
+      type="text/javascript"
+      src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+      charset="utf-8"
+    ></script>
+
+    <!-- 구조화된 데이터: WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "미국 주식·환율·ETF 최신 뉴스 – 매일 업데이트",
+        "url": "https://gohigher.kr",
+        "description": "미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 최신 뉴스! 매일 아침 빠르게 업데이트됩니다.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Go Higher",
+          "url": "https://gohigher.kr",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://gohigher.kr/logo.jpg"
+          }
+        }
+      }
+    </script>
+    <!-- 구조화된 데이터: BreadcrumbList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "미국 주식 & 환율",
+            "item": "https://gohigher.kr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "투자 다이어리",
+            "item": "https://gohigher.kr/주식포트폴리오"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "투자 대가들의 분석",
+            "item": "https://gohigher.kr/버크셔해서웨이"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "미국 중소형 주식 추천",
+            "item": "https://gohigher.kr/중소형주식"
+          }
+        ]
+      }
+    </script>
+
+    <!-- 서비스 워커 등록 -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              console.log("Service Worker registered with scope:", registration.scope);
+              navigator.serviceWorker.addEventListener("message", (event) => {
+                if (event.data && event.data.type === "NEW_VERSION_AVAILABLE") {
+                  alert("새로운 업데이트가 있습니다! 페이지를 새로고침하세요.");
+                }
+              });
+            })
+            .catch((error) => {
+              console.log("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- 폰트 ㅇㅇㅇ-->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+
+
+    <!-- 기본 스타일 및 공통 버튼 -->
+    <style>
+      html.no-js body {
+  opacity: 1; /* JS 안 되더라도 바로 보여줌 */
+}
+
+html.js body {
+  opacity: 0;
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+      html {
+        font-size: 16px;
+      }
+      :root {
+        --primary-color: #004080;
+        --secondary-color: #0059b3;
+        --accent-color: #f4f7fa;
+        --light-gray: #e0e0e0;
+        --text-color: #333;
+        --bg-gradient: linear-gradient(135deg, var(--accent-color), #cbd7e3);
+        --bg-section: #fff;
+        --card-bg: #f9f9f9;
+        --card-shadow: rgba(0, 0, 0, 0.08);
+      }
+      html, body {
+        height: 100%;
+      }
+      .common-btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;    
+        font-size: 0.95rem;      
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        border: 2px solid transparent;
+        border-radius: 30px;      
+        transition: all 0.3s ease;
+        margin: 0.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-position: center;
+      }
+
+      .btn-about {
+        background: transparent;
+        color: #1874d0;
+        border: 2px solid var(--primary-color);
+      }
+
+      .btn-about:hover {
+        background: var(--primary-color);
+        color: #fff;
+      }
+
+      .btn-instagram {
+        background: transparent;
+        color: #E1306C;
+        border: 2px solid #E1306C;
+      }
+
+      .btn-instagram:hover {
+        background: #E1306C;
+        color: #fff;
+      }
+
+      body.dark-mode {
+        background: #444;
+        color: white;
+      }
+      body.dark-mode header {
+        background: linear-gradient(135deg, #002b57, #004284);
+        color: #cacaca;
+      }
+      body.dark-mode nav ul li a {
+        color: #cacaca;
+        border: 1px solid #cacaca;
+        background-color: transparent;
+      }
+      body.dark-mode .save-notice {
+        background: #555555;
+      }
+      body.dark-mode nav ul li a:hover {
+        background-color: #004284;
+        color: #cacaca;
+      }
+      body.dark-mode .login-btn {
+        background-color: transparent;
+        color: #cacaca;
+        border: 1px solid #cacaca;
+      }
+      body.dark-mode .login-btn:hover {
+        background-color: #004284;
+        color: #cacaca;
+      }
+      body.dark-mode .section-divider svg path,
+      body.dark-mode .footer-divider svg path {
+        fill: #eaeaea;
+      }
+      body.dark-mode footer {
+        background: linear-gradient(135deg, #002b57, #004284);
+        color: #cacaca;
+      }
+      body.dark-mode .main-content .save-notice {
+        background: #333;
+        color: #cacaca;
+      }
+      body.dark-mode .main-content .news-section {
+        background: #555555;
+        color: #cacaca;
+      }
+      body.dark-mode .stock-table thead th {
+        background-color: #002b57;
+        color: #cacaca;
+      }
+      body.dark-mode .main-content .news-card {
+        background: #333;
+      }
+      body.dark-mode .main-content .news-card h2 {
+        background: #cacaca;
+      }
+      body.dark-mode .main-content #magnificent-seven,
+      body.dark-mode .main-content #schedule {
+        background: #333;
+      }
+      body.dark-mode .main-content #magnificent-seven h2,
+      body.dark-mode .main-content #schedule h2 {
+        color: #cacaca;
+      }
+      body.dark-mode .main-content #moneyrate {
+        background: #444;
+      }
+      body.dark-mode section .full-section h2,
+      body.dark-mode .news-section h2 {
+        color: #cacaca;
+      }
+      body.dark-mode aside.sidebar a {
+        color: #cacaca;
+        border-color: #cacaca;
+        background-color: #002b57;
+      }
+      body.dark-mode aside.sidebar h2 {
+        color: #cacaca;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* [추가] body 스크롤 막기용 클래스 */
+      .no-scroll {
+        overflow: hidden; /* 스크롤 막기 */
+      }
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        background: var(--bg-gradient);
+        color: var(--text-color);
+        padding-bottom: 60px;
+        width: 100%;
+        margin: 0;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: #fff;
+        padding: 1rem;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        position: relative;
+      }
+      header h1 {
+        font-family: "Roboto", sans-serif;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      header p {
+        font-size: 1rem;
+      }
+      nav {
+        margin-top: 0.5rem;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      nav ul li a {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #fff;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s, transform 0.3s;
+      }
+      nav ul li a:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+        transform: scale(1.05);
+      }
+      .section-divider {
+        position: relative;
+        width: 100%;
+        height: 80px;
+        overflow: hidden;
+        margin-bottom: -1px;
+      }
+      .section-divider svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+      }
+      .layout-container {
+        display: flex;
+        width: 100%;
+        margin: 1rem 0;
+        padding: 0 1rem;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      .red {
+        color: red;
+      }
+      .blue {
+        color: blue;
+      }
+      aside.sidebar {
+        width: 200px;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 1rem;
+        height: fit-content;
+      }
+      aside.sidebar h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+        color: var(--primary-color);
+        font-family: "Roboto", sans-serif;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 0.4rem;
+      }
+      aside.sidebar ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      aside.sidebar li {
+        margin-bottom: 0.5rem;
+      }
+      aside.sidebar a {
+        display: block;
+        text-decoration: none;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        border-radius: 4px;
+        padding: 0.4rem 0.8rem;
+        transition: background-color 0.3s, color 0.3s, transform 0.3s;
+      }
+      aside.sidebar a i {
+        margin-right: 6px;
+      }
+      aside.sidebar a:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+        transform: translateX(4px);
+      }
+      .main-content {
+        flex: 1;
+      }
+      .save-notice {
+        background: #fff;
+        color: #444;
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid var(--primary-color);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        line-height: 1.4;
+      }
+      .news-section {
+        background-color: var(--bg-section);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        width: 100%;
+      }
+      .news-section h2 {
+        font-family: "Roboto", sans-serif;
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-bottom: 1.2rem;
+        border-bottom: 2px solid var(--primary-color);
+        display: inline-block;
+        padding-bottom: 0.4rem;
+      }
+      .news-card {
+        background: var(--card-bg);
+        border-radius: 6px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 1px 4px var(--card-shadow);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .news-card:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 4px 12px var(--card-shadow);
+      }
+      .news-card h3 {
+        font-size: 1.4rem;
+        color: var(--secondary-color);
+        margin-bottom: 0.6rem;
+      }
+      .news-card p {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 0.8rem;
+      }
+      .news-card .news-date {
+        font-size: 0.85rem;
+        color: #777;
+      }
+      footer {
+        background-color: var(--primary-color);
+        color: #fff;
+        text-align: center;
+        padding: 1rem;
+        width: 100%;
+        font-size: 1rem;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+      }
+      footer a {
+        color: #fff;
+        text-decoration: underline;
+      }
+      #installContainer {
+        text-align: center;
+        margin-top: 20px;
+        display: none;
+      }
+      #installBtn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+      #installBtn:hover {
+        transform: scale(1.05);
+      }
+      .theme-toggle-btn {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background: var(--primary-color);
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        padding: 0.6rem 1rem;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s;
+        z-index: 999;
+      }
+      .theme-toggle-btn:hover {
+        transform: scale(1.05);
+      }
+      .footer-divider {
+        position: relative;
+        width: 100%;
+        height: 80px;
+        overflow: hidden;
+        margin-top: -1px;
+        transform: rotate(180deg);
+      }
+      .footer-divider svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+      }
+      .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .half-section {
+        width: 48%;
+        background: #fff;
+        padding: 0.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-bottom: 1rem;
+      }
+      .half-section:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+      .full-section {
+        width: 100%;
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        margin-top: 1rem;
+      }
+      .full-section:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+      .stock-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        table-layout: auto;
+      }
+      .stock-table th,
+      .stock-table td {
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        white-space: normal;
+      }
+      .stock-table th {
+        background-color: #f8f8f8;
+        font-weight: bold;
+      }
+      .earnings-list {
+        list-style-type: none;
+        padding: 0;
+      }
+      .earnings-list li {
+        margin-bottom: 1rem;
+      }
+      .earnings-list ul {
+        padding-left: 0;
+        list-style-type: none;
+      }
+      .earnings-list ul li {
+        padding-left: 10px;
+        position: relative;
+      }
+      .section-divider,
+      .footer-divider svg path {
+        fill: #fff;
+      }
+      body.dark-mode .login-btn {
+        background-color: transparent;
+        color: #cacaca;
+        border: 1px solid #cacaca;
+      }
+      body.dark-mode .login-btn:hover {
+        background-color: #004284;
+        color: #cacaca;
+      }
+      body.dark-mode .blue {
+        color: #66b3ff;
+      }
+      body.dark-mode .bottom-nav {
+        background: #333;
+      }
+      body.dark-mode .bottom-nav .icon {
+        background-color: #555 !important;
+        color: #cacaca;
+      }
+      body.dark-mode .bottom-nav .nav-text {
+        color: #cacaca;
+      }
+      body.dark-mode .bottom-nav li a.nav-link.active .icon {
+        background-color: var(--primary-color) !important;
+        color: #fff;
+      }
+      body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
+        color: #fff;
+      }
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .login-btn {
+        background-color: #fff;
+        color: var(--primary-color);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        margin-left: auto;
+      }
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        background-color: var(--secondary-color);
+        color: #fff;
+      }
+      .desktop-nav {
+        display: block;
+      }
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.3rem 0;
+        background: #fff;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      .bottom-nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .bottom-nav li {
+        text-align: center;
+        flex: 1;
+      }
+      .bottom-nav li a.nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #888;
+        transition: transform 0.2s, color 0.2s;
+      }
+      .bottom-nav .icon {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-bottom: 3px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .bottom-nav .nav-text {
+        font-size: 0.75rem;
+        color: #888;
+      }
+      .bottom-nav li a.nav-link.active .nav-text {
+        color: var(--primary-color);
+      }
+      .bottom-nav li a.nav-link:hover {
+        transform: scale(1.05);
+      }
+      .nav-link.pressed {
+        background-color: rgba(0, 0, 255, 0.1);
+        transition: background-color 0.1s;
+      }
+      .bottom-nav li a.nav-link {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+      .news-icon {
+        background-image: url("images/newsImage.png");
+      }
+      .nav-link.active .news-icon {
+        background-image: url("images/newsOn.png");
+      }
+      .diary-icon {
+        background-image: url("images/diaryImage.png");
+      }
+      .nav-link.active .diary-icon {
+        background-image: url("images/diaryOn.png");
+      }
+      .chart-icon {
+        background-image: url("images/chartImage.png");
+      }
+      .nav-link.active .chart-icon {
+        background-image: url("images/chartOn.png");
+      }
+      .company-icon {
+        background-image: url("images/companyImage.png");
+      }
+      .nav-link.active .company-icon {
+        background-image: url("images/companyOn.png");
+      }
+      .coinTree-icon {
+        background-image: url("images/coinTree.png");
+      }
+      .nav-link.active .coinTree-icon {
+        background-image: url("images/treeOn.png");
+      }
+
+      @media (max-width: 768px) {
+        body {
+          font-size: 18px;
+        }
+        aside.sidebar {
+          display: none;
+        }
+        .layout-container {
+          flex-direction: column;
+          padding: 0 0.5rem;
+        }
+        .flex-container {
+          flex-direction: column;
+        }
+        .half-section {
+          width: 100% !important;
+        }
+        body {
+          padding-bottom: 70px;
+        }
+        .layout-container {
+          padding: 0;
+        }
+        .main-content,
+        .news-section,
+        .half-section,
+        .full-section {
+          padding: 0.5rem;
+        }
+        .news-section {
+          margin: 1rem 0;
+        }
+        .desktop-nav {
+          display: none;
+        }
+        .bottom-nav {
+          display: block;
+        }
+        .login-container {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        #profileBox {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
+          padding: 0 !important;
+        }
+        #profileAvatar {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid white;
+          transition: transform 0.2s;
+        }
+        #profileAvatar:hover {
+          transform: scale(1.1);
+        }
+        #welcomeText {
+          display: none;
+        }
+        .login-btn {
+          display: none;
+          padding: 0.3rem 0.8rem;
+          font-size: 0.75rem;
+          white-space: nowrap;
+        }
+        .bottom-nav ul {
+    flex-wrap: nowrap;  /* 한 줄 유지 */
+  }
+  nav ul li a {
+    white-space: nowrap;
+  }
+    /* 챗봇 토글 버튼 위치 조금 위로 조정 */
+    #chatbot-toggle {
+    bottom: 120px;  /* 기존 185px에서 조금 올림 */
+    right: 20px;
+    width: 50px;    /* 버튼 크기도 적절히 조절 */
+    height: 50px;
+  }
+
+  /* 챗봇 컨테이너 최적화 */
+  #chatbot-container {
+    width: 100% !important;    /* 화면 너비 가득 사용 */
+    max-width: 100% !important;
+    bottom: 0;
+    right: 0;
+    left: 0;                  /* 왼쪽도 0으로 */
+    border-radius: 0;         /* 둥근 모서리 제거로 전체 폭 */
+    max-height: 100vh;        /* 세로 최대 100vh. 필요하면 90vh 등 조절 */
+    margin: 0;
+    box-shadow: none;         /* 가장자리 그림자 제거(선택사항) */
+  }
+
+  /* 챗봇 헤더 폰트 크기, padding 등 조정 */
+  #chatbot-header {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  /* 채팅 메시지 영역도 높이 확보 */
+  #chatbot-messages {
+    padding: 8px;
+    max-height: calc(100vh - 160px); 
+    /* 헤더(약 40~50px) + 입력창(약 50px) + 여유분(60px) 정도를 뺀 높이로 설정 */
+  }
+
+  /* 질문 버튼 영역도 좁히거나 없애고 싶다면 정리 가능 */
+  .question-container {
+    padding: 5px;
+  }
+
+  /* 입력창 높이, 버튼 크기 조정 */
+  #chatbot-input {
+    flex-shrink: 0;
+  }
+  #chatbot-user-input {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+  #chatbot-send-btn {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+}
+        .login-container.active .login-btn {
+          display: inline-block;
+        }
+        .login-container:not(.logged-in) #profileBox {
+          display: none;
+        }
+        .login-container:not(.logged-in) .login-btn {
+          display: inline-block;
+        }
+        .login-container.logged-in .login-btn {
+          display: none;
+        }
+        .login-container.logged-in #profileBox {
+          display: flex;
+        }
+
+      #profileBox {
+        display: flex;
+        align-items: center;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(6px);
+        transition: background 0.3s ease;
+      }
+      #profileBox:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      #profileAvatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff;
+        margin-right: 0.5rem;
+      }
+      #welcomeText {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      }
+      .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 1001;
+      }
+      .back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* 챗봇 컨테이너 */
+      #chatbot-container {
+        position: fixed;
+        bottom: 140px;
+        right: 20px;
+        width: 500px;
+        max-height: 75vh; 
+        background-color: #fff;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        z-index: 1002;
+
+        display: flex;
+        flex-direction: column;
+      }
+      #chatbot-container.visible {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+      #chatbot-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: #fff;
+        padding: 12px 16px;
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      #chatbot-close {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 1.9rem;
+        cursor: pointer;
+      }
+
+      #chatbot-messages {
+        flex: 1; 
+        overflow-y: auto;
+        background-color: #f7f7f7;
+        padding: 12px;
+      }
+      body.dark-mode #chatbot-messages {
+        background-color: #444;
+        color: #ccc;
+      }
+
+      .question-container {
+        padding: 10px;
+        text-align: center;
+        background-color: #f0f0f0;
+        border-top: 1px solid #ddd;
+        flex-shrink: 0; 
+      }
+      body.dark-mode .question-container {
+        background-color: #555;
+      }
+      .question-btn {
+        margin: 5px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: var(--primary-color);
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .question-btn:hover {
+        background-color: var(--secondary-color);
+      }
+
+      #chatbot-input {
+        display: flex;
+        border-top: 1px solid #ddd;
+        flex-shrink: 0;
+      }
+      #chatbot-user-input {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+      }
+      #chatbot-send-btn {
+        background: var(--primary-color);
+        border: none;
+        color: #fff;
+        padding: 12px 16px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.2s;
+      }
+      #chatbot-send-btn:hover {
+        background: var(--secondary-color);
+      }
+
+      .chat-message {
+        margin-bottom: 8px;
+        padding: 10px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        max-width: 80%;
+        word-wrap: break-word;
+      }
+      .chat-message.user {
+        background-color: #e1f5fe;
+        text-align: right;
+        align-self: flex-end;
+      }
+      .chat-message.bot {
+        background-color: #f1f1f1;
+        text-align: left;
+        align-self: flex-start;
+      }
+      body.dark-mode .chat-message.user {
+        background-color: #333;
+        color: #fff;
+      }
+      body.dark-mode .chat-message.bot {
+        background-color: #3a3a3a;
+        color: #f3f3f3;
+      }
+
+      #chatbot-toggle {
+        position: fixed;
+        bottom: 185px;
+        right: 20px;
+        background: var(--primary-color);
+        border: none;
+        color: #fff;
+        border-radius: 50%;
+        width: 47px;
+        height: 47px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: transform 0.2s;
+        z-index: 1002;
+      }
+      #chatbot-toggle:hover {
+        transform: scale(1.05);
+      }
+      body.dark-mode #chatbot-container {
+        background-color: #333;
+        color: #fff;
+      }
+      body.dark-mode #chatbot-header {
+        background: linear-gradient(135deg, #002b57, #004284);
+        color: #fff;
+      }
+      body.dark-mode #chatbot-input {
+        border-top: 1px solid #555;
+      }
+      body.dark-mode #chatbot-user-input::placeholder {
+        color: white; /* 원하는 색상으로 변경 */
+      }
+      body.dark-mode #chatbot-user-input {
+        background-color: #444;
+        color: #fff;
+        border: none;
+      }
+      body.dark-mode #chatbot-send-btn {
+        background: #004080;
+        color: #fff;
+      }
+
+      #chatbot-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.4);
+        z-index: 1001; 
+      }
+
+      .thinking-message {
+        font-style: italic;
+        color: #777;
+      }
+
+      .bottom-nav li a.nav-link:hover,
+      .bottom-nav li a.nav-link:active,
+      .bottom-nav li a.nav-link:focus,
+      .bottom-nav li a.nav-link:focus-visible {
+        background: transparent !important;
+        color: inherit !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+      body.dark-mode .bottom-nav .icon,
+      body.dark-mode .bottom-nav li a.nav-link.active .icon {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+        border: none !important;
+        color: #fff !important; 
+      }
+      @media (max-width: 768px) {
+        .theme-toggle-btn {
+          bottom: 120px; 
+        }
+        .back-to-top {
+        display: none;
+      }
+        footer {
+          padding: 0.8rem !important; /* 내부 여백 */
+          padding-bottom: 20px;
+        }
+        .bottom-nav {
+      width: 100vw;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    .bottom-nav li {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    .bottom-nav li a.nav-link {
+      width: 100%;
+      font-size: 3.2vw;
+    }
+    .bottom-nav .icon {
+      width: 6.5vw;
+      height: 6.5vw;
+    }
+    .bottom-nav .nav-text {
+      font-size: 2.8vw;
+    }
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    .wave-text {
+      font-size: 1rem !important;
+      white-space: nowrap !important;
+      padding: 0 10px !important;
+      max-width: 100% !important;
+      top: 45% !important;
+      text-align: center !important;
+    }
+    #chatbot-user-input::placeholder {
+    font-size: 0.8rem !important; /* 원하는 크기로 변경 */
+  }
+      }
+      .top-tab-nav .tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.top-tab-nav .tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fbd314;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.top-tab-nav .tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.top-tab-nav .tab-item:hover::after {
+  width: 60%;
+}
+
+.top-tab-nav .tab-item.active {
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.top-tab-nav .tab-item.active::after {
+  width: 60%;
+}
+.wave-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: bold;
+  color: #004080;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 1;
+  pointer-events: none;
+  /* CSS 변수로 커서 색상 지정 (라이트 모드 기본값) */
+  --cursor-color: #004080;
+  /* 타이핑 커서 효과 */
+  border-right: 4px solid var(--cursor-color);
+  /* 커서 깜빡임 */
+  animation: blinkCursor 0.7s steps(44) infinite normal;
+}
+
+body.dark-mode .wave-text {
+  color: #fbd314;
+  /* 다크 모드일 때 커서 색상 변경 */
+  --cursor-color: #fbd314;
+}
+
+@keyframes blinkCursor {
+  from { border-right-color: var(--cursor-color); }
+  to { border-right-color: transparent; }
+}
+
+    </style>
+    
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <header>
+      <h1>Go Higher</h1>
+      <div class="login-container">
+        <div id="profileBox">
+          <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
+          <span id="welcomeText">환영합니다, 사용자님!</span>
+        </div>
+        <a id="authButton" href="login.html" class="login-btn">
+          <i class="fas fa-sign-in-alt"></i> 로그인
+        </a>
+      </div>
+      <nav class="desktop-nav top-tab-nav">
+        <a href="index.html" class="tab-item active">투데이 뉴스</a>
+        <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
+        <a href="버크셔해서웨이.html" class="tab-item">인기 포트폴리오</a>
+        <a href="중소형주식.html" class="tab-item">중소형주식 추천</a>
+        <a href="배당주.html" class="tab-item">배당주 분석</a>
+      </nav>
+    </header>
+
+    <!-- 모바일 하단 네비게이션 -->
+    <nav class="bottom-nav">
+      <ul>
+        <li>
+          <a href="index.html" class="nav-link active" aria-label="뉴스">
+            <span class="icon news-icon"></span>
+            <span class="nav-text">뉴스</span>
+          </a>
+        </li>
+        <li>
+          <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
+            <span class="icon diary-icon"></span>
+            <span class="nav-text">다이어리</span>
+          </a>
+        </li>
+        <li>
+          <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
+            <span class="icon chart-icon"></span>
+            <span class="nav-text">대가들</span>
+          </a>
+        </li>
+        <li>
+          <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
+            <span class="icon company-icon"></span>
+            <span class="nav-text">중소형주</span>
+          </a>
+        </li>
+        <li>
+          <a href="배당주.html" class="nav-link" aria-label="배당주분석">
+            <span class="icon coinTree-icon"></span>
+            <span class="nav-text">배당주</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+ <!-- 파도형 섹션 구분 -->
+<div class="section-divider">
+  <div class="wave-text">데이터로 투자하라, 미국 주식의 전략적 인사이트 플랫폼</div>
+  <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+    <path d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"></path>
+  </svg>
+</div>
+
+
+    <!-- PWA 설치 버튼 영역 -->
+    <div id="installContainer">
+      <button id="installBtn">GoHigher 설치</button>
+    </div>
+
+    <div class="layout-container">
+      <!-- 사이드바 -->
+      <aside class="sidebar">
+        <h2><i class="fas fa-bullhorn"></i> 뉴스 바로가기</h2>
+        <ul>
+          <li>
+            <a href="#stocks-exchange"><i class="fas fa-chart-bar"></i> 주식 시세, 환율 정보</a>
+          </li>
+          <li>
+            <a href="#global-market"><i class="fas fa-globe"></i> 글로벌 증시 동향</a>
+          </li>
+          <li>
+            <a href="#major-announcements"><i class="fas fa-bullhorn"></i> 주요 발표</a>
+          </li>
+          <li>
+            <a href="#industry-news"><i class="fas fa-industry"></i> 기업/산업 동향</a>
+          </li>
+          <li>
+            <a href="#coin-news"><i class="fas fa-coins"></i> 코인 뉴스</a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- 메인 내용 -->
+      <main class="main-content">
+        <div class="save-notice">
+          이 페이지는 <strong>매일</strong> 업데이트되는 <strong>미국 및 세계 증시 현황</strong>을 제공합니다.<br />
+          웹사이트에서 다음과 같은 주요 기능을 이용할 수 있습니다:
+          <br />1️⃣ <strong>최신 증시 뉴스</strong> – 매일 오전 업데이트
+          <br />2️⃣ <strong>자산 관리 및 투자 다이어리</strong> – 포트폴리오, 목표 설정, 체크리스트, 가계부 등
+          <br />3️⃣ <strong>대가들의 포트폴리오 분석</strong> – 유명 투자자 및 기업의 투자 전략 확인
+          <br />4️⃣ <strong>미국 중소형주 추천</strong> – 유망한 미국 중소형 주식 소개
+          <br /><br />
+          지금 바로 최신 뉴스를 확인하고, 투자 전략을 세워보세요!
+        </div>
+
+        <!-- 주식 시세 및 환율 정보 섹션 -->
+        <section class="news-section" id="stocks-exchange">
+          <div class="flex-container">
+            <div class="half-section" id="magnificent-seven">
+              <h2>매그니피센트 7 주식 시세</h2>
+              <table class="stock-table">
+                <thead>
+                  <tr>
+                    <th>종목</th>
+                    <th>가격</th>
+                    <th>등락률</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <img src="images/AMZN logo.png" loading="lazy" alt="Amazon Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <strong>AMZN 아마존</strong>
+                    </td>
+                    <td>195.74 USD</td>
+                    <td><span class="blue">0.01094% 하락</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="images/TSLA logo.png" loading="lazy" alt="Tesla Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <strong>TSLA 테슬라</strong>
+                    </td>
+                    <td>238.01 USD</td>
+                    <td><span class="blue">4.792% 하락</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="images/NVDA logo.png" loading="lazy" alt="NVIDIA Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <strong>NVDA 엔비디아</strong>
+                    </td>
+                    <td>119.53 USD</td>
+                    <td><span class="blue">1.825% 하락</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="images/GOOGL logo.png" alt="Google Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <strong>GOOGL 구글</strong>
+                    </td>
+                    <td>164.29 USD</td>
+                    <td><span class="blue">0.743% 하락</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="images/MSFT logo.png" alt="Microsoft Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <strong>MSFT 마이크로소프트</strong>
+                    </td>
+                    <td>388.7 USD</td>
+                    <td><span class="red">0.057% 상승</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="images/AAPL logo.png" loading="lazy" alt="Apple Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <strong>AAPL 애플</strong>
+                    </td>
+                    <td>214.0 USD</td>
+                    <td><span class="red">0.267% 상승</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img src="images/META logo.png" loading="lazy" alt="Meta Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <strong>META 메타</strong>
+                    </td>
+                    <td>604.9 USD</td>
+                    <td><span class="blue">0.402% 하락</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="half-section" id="schedule">
+              <h2>주요 기업 실적 발표 일정</h2>
+              <ul class="earnings-list">
+                <li>
+                  <strong>3월 17일 (월)</strong>
+                  <ul>
+                    <li>🔹 미국 2월 소매판매 발표</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>3월 18일 (화)</strong>
+                  <ul></ul>
+                </li>
+                <li>
+                  <strong>3월 19일 (수)</strong>
+                  <ul>
+                    <li>🔹 GTC 2025, 오전 2시 젠슨 황 연설</li>
+                    <li>🔹 FedEx Corporation (FDX)</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>3월 20일 (목)</strong>
+                  <ul>
+                    <li>🔹 Nike, Inc. (NKE)</li>
+                    <li>🔹 Accenture plc (ACN)</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>3월 21일 (금)</strong>
+                  <ul>
+                    <li>🔹 Darden Restaurants, Inc. (DRI)</li>
+                    <li>🔹 General Mills Inc. (GIS)</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="full-section" id="moneyrate">
+            <h2>환율·달러인덱스</h2>
+            <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+              <h3 itemprop="headline">금일 환율 및 달러인덱스</h3>
+              <p>
+                일본의 인플레이션으로 인해 금리 상승이 예상되며, 이에 따라 원/엔 환율이 추가적으로 상승할 가능성이 있습니다.
+              </p>
+              <p itemprop="articleBody">
+                - 원/달러 환율: 1,443.2원<br />
+                - 원/엔 환율(100엔): 981.26원<br />
+                - 달러인덱스(DXY): 103.385
+              </p>
+              <span class="news-date" itemprop="datePublished" content="2025-03-18">2025년 3월 18일</span>
+            </article>
+          </div>
+        </section>
+
+        <!-- 글로벌 증시 동향 섹션 -->
+        <section class="news-section" id="global-market">
+          <h2>글로벌 증시 동향</h2>
+          <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+            <h3 itemprop="headline">미국 증시 상승</h3>
+            <p itemprop="articleBody">
+              뉴욕증시는 주요 지수들이 상승하며 마감했습니다. 다우존스 산업평균지수는 674.62포인트(1.7%) 상승한 41,488.19포인트를 기록했으며,
+              S&P 500 지수는 117.42포인트(2.1%) 올라 5,638.94포인트를 기록했습니다. 나스닥 지수는 451.07포인트(2.6%) 상승하여 17,754.09포인트로 마감했습니다.
+              <br /><br />
+              이러한 상승세는 투자자들이 미국 연방준비제도(Fed)의 향후 금리 정책과 경제 지표에 대한 불확실성 속에서도 긍정적인 소비자 지표와 기업 실적 발표에 주목하며 매수세를 보인 결과로 분석됩니다. 특히, 저희가 미리 공지한
+              <strong>울타 뷰티(Ulta Beauty)</strong>는 예상보다 우수한 분기 실적을 발표하며 주가 상승을 견인했습니다.
+              <br /><br />
+              그러나 이번 주 전체적으로는 주요 지수들이 하락세를 보였습니다. S&P 500 지수는 주간 기준으로 2.3% 하락했으며, 다우 지수는 3.1%, 나스닥 지수는 2.4% 하락했습니다.
+            </p>
+            <span class="news-date" itemprop="datePublished" content="2025-03-15">2025년 3월 15일</span>
+          </article>
+
+          <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+            <h3 itemprop="headline">아시아 증시 상승세</h3>
+            <p itemprop="articleBody">
+              아시아 주요 증시는 전반적인 상승세를 보였습니다. 중국 상하이종합지수는 1.81% 상승하여 3,419.56포인트로 마감했습니다.
+              이러한 상승세는 중국 정부의 추가적인 경기 부양책 발표에 대한 기대감이 투자 심리를 개선시킨 결과로 보입니다.
+              <br />한편, 일본 닛케이225 지수는 1.2% 상승한 37,500.00포인트로 마감했습니다. 이러한 상승은 일본 기업들의 긍정적인 실적 발표가 투자 심리를 개선시킨 결과로 분석됩니다.
+              <br />
+              전반적으로, 아시아 주요 증시는 각국의 경제 정책과 기업 실적 발표에 대한 긍정적인 기대감으로 인해 상승세를 보였습니다.
+            </p>
+            <span class="news-date" itemprop="datePublished" content="2025-03-15">2025년 3월 15일</span>
+          </article>
+        </section>
+
+        <!-- 주요 발표 섹션 -->
+        <section class="news-section" id="major-announcements">
+          <h2>주요 발표</h2>
+          <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+            <h3 itemprop="headline">소비자 신뢰도 급락 및 인플레이션 기대치 상승</h3>
+            <p itemprop="articleBody">
+              3월 초, 미국 소비자 신뢰도가 크게 하락했습니다. 이는 도널드 트럼프 대통령의 관세 정책, 연방 정부 감축, 유럽과의 관계 긴장 등이 경제 불확실성을 증가시킨 결과로 분석됩니다.
+              <br />미시간 대학교의 소비자 신뢰 지수는 2월의 64.7에서 3월에 57.9로 떨어져 2022년 11월 이후 최저치를 기록했습니다.
+              <br />또한, 장기 인플레이션 기대치는 3.5%에서 3.9%로 상승하여 연준의 정책 결정에 영향을 미칠 수 있습니다. -출처: 월스트리저널-
+            </p>
+            <span class="news-date" itemprop="datePublished" content="2025-03-15">2025년 3월 15일</span>
+          </article>
+
+          <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+            <h3 itemprop="headline">JP모건: 주가 하락은 헤지펀드 영향, 경기 침체와 무관</h3>
+            <p itemprop="articleBody">
+              JP모건은 최근 미국 증시 급락이 경기 침체 우려 때문이 아니라, 헤지펀드들의 기술적 매도세가 주요 원인일 가능성이 높다고 분석했습니다.
+              <br />은행 측은 대규모 매도 포지션이 주도한 시장 조정으로 보이며, 이는 단기적인 현상일 수 있다고 설명했습니다. -출처: JP모건-
+            </p>
+            <span class="news-date" itemprop="datePublished" content="2025-03-14">2025년 3월 14일</span>
+          </article>
+
+          <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+            <h3 itemprop="headline">연준의 금리 정책에 대한 불확실성 증가</h3>
+            <p itemprop="articleBody">
+              트럼프 행정부의 관세 정책으로 인해 경제 성장 둔화와 인플레이션 상승 우려가 커지면서, 연방준비제도(Fed)의 금리 정책에 대한 불확실성이 증가하고 있습니다.
+              <br />연준은 3월 18일부터 19일까지 예정된 회의에서 금리를 동결할 것으로 예상되지만, 시장은 올해 후반에 금리 인하 가능성을 주시하고 있습니다.
+              <br />최근의 인플레이션 데이터와 소비자 신뢰도 하락은 이러한 예측에 영향을 주고 있습니다.
+            </p>
+            <span class="news-date" itemprop="datePublished" content="2025-03-15">2025년 3월 15일</span>
+          </article>
+
+          <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+            <h3 itemprop="headline">금 가격 상승</h3>
+            <p itemprop="articleBody">
+              경제적 불확실성으로 인해 안전자산 선호 현상이 강화되면서 금 가격이 온스당 3,000달러를 돌파하며 사상 최고치를 기록했습니다.
+            </p>
+            <span class="news-date" itemprop="datePublished" content="2025-03-14">2025년 3월 14일</span>
+          </article>
+        </section>
+        <!-- 기업 및 산업 동향 섹션 -->
+        <section class="news-section" id="industry-news">
+            <h2>기업 및 산업 동향</h2>
+            <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+              <h3 itemprop="headline">테슬라, 중국 시장 공략</h3>
+              <p itemprop="articleBody">
+                테슬라는 중국 시장을 겨냥한 저가형 모델 Y를 출시할 계획입니다.
+                <br />이 모델은 상하이 공장에서 생산되며, 생산 비용을 20% 절감할 것으로 예상됩니다.
+              </p>
+              <span class="news-date" itemprop="datePublished" content="2025-03-14">2025년 3월 14일</span>
+            </article>
+  
+            <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+              <h3 itemprop="headline">울타 뷰티(Ulta Beauty) 실적 호조</h3>
+              <p itemprop="articleBody">
+                화장품 소매업체인 울타 뷰티는 예상치를 상회하는 4분기 실적을 발표하며 주가가 상승했습니다.
+                <br />주당 순이익은 8.46달러, 매출은 34억 9천만 달러로 시장 예상치를 웃돌았습니다.
+              </p>
+              <span class="news-date" itemprop="datePublished" content="2025-03-14">2025년 3월 14일</span>
+            </article>
+  
+            <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+              <h3 itemprop="headline">마이크로소프트, 클라우드 게임 서비스 확대</h3>
+              <p itemprop="articleBody">
+                마이크로소프트는 최근 Xbox Cloud Gaming 서비스를 통해 기존 Xbox 게임 라이브러리를 클라우드 스트리밍으로 확장하였으며,
+                Xbox Game Pass Ultimate 구독자들은 자신이 소유한 50여 개의 게임을 다양한 기기에서 스트리밍할 수 있게 되었습니다. 또한,
+                마이크로소프트는 Azure를 활용하여 게임 개발자들에게 클라우드 기반의 게임 개발 솔루션을 제공하고 있습니다.
+              </p>
+              <span class="news-date" itemprop="datePublished" content="2025-03-02">2025년 3월 8일</span>
+            </article>
+  
+            <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+              <h3 itemprop="headline">애플 시리(Siri)의 인공지능(AI) 기능 업그레이드 출시를 2026년으로 연기</h3>
+              <p itemprop="articleBody">
+                이러한 지연으로 인해 애플이 음성 비서 경쟁에서 뒤처질 가능성이 제기되고 있습니다. 한편, 아마존과 구글도 AI 음성 비서를
+                개발 중이지만, 정확성 문제로 아직 출시되지 않았습니다. 오픈AI의 챗GPT 등장 이후 생성형 AI 시장이 급변하면서, 애플 역시
+                기술적 한계를 극복해야 하는 과제를 안고 있습니다.
+              </p>
+              <span class="news-date" itemprop="datePublished" content="2025-03-02">2025년 3월 8일</span>
+            </article>
+          </section>
+  
+          <!-- 코인 뉴스 섹션 -->
+          <section class="news-section" id="coin-news">
+            <h2>코인 뉴스</h2>
+            <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+              <h3 itemprop="headline">트럼프의 AI·암호화폐 고문, 디지털 자산 2억 달러 이상 매각</h3>
+              <p itemprop="articleBody">
+                ​도널드 트럼프 대통령의 인공지능 및 암호화폐 고문인 데이비드 삭스와 그의 벤처캐피털 회사인 크래프트 벤처스는 트럼프 취임 전에
+                비트코인, 이더리움, 솔라나를 포함한 모든 암호화폐 자산을 청산했습니다.
+                <br />이 매각은 약 2억 달러 규모로, 이 중 최소 8,500만 달러가 삭스 개인에게 귀속되었습니다. -출처: 인베스팅닷컴-
+              </p>
+              <span class="news-date" itemprop="datePublished" content="2025-03-15">2025년 3월 15일</span>
+            </article>
+  
+            <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+              <h3 itemprop="headline">북한의 이더리움 해킹 그 후</h3>
+              <p itemprop="articleBody">
+                북한 해커 조직인 '라자루스 그룹'은 최근 암호화폐 거래소 바이비트를 해킹하여 약 15억 달러 상당의 이더리움을 탈취했습니다.
+                <br />이후, 탈취한 이더리움을 비트코인으로 전환하는 데 성공했지만, 아직 현금화에는 어려움을 겪고 있습니다.
+              </p>
+              <span class="news-date" itemprop="datePublished" content="2025-03-15">2025년 3월 15일</span>
+            </article>
+  
+            <article class="news-card" itemscope itemtype="https://schema.org/NewsArticle">
+              <h3 itemprop="headline">아크 인베스트, 암호화폐 관련 주식 저가 매수</h3>
+              <p itemprop="articleBody">
+                캐시 우드의 아크 인베스트는 비트코인 가격 하락 속에서도 로빈후드, 코인베이스 등의 암호화폐 관련 주식을 매입하며 저가 매수 전략을 펼치고 있습니다.
+              </p>
+              <span class="news-date" itemprop="datePublished" content="2025-03-14">2025년 3월 14일</span>
+            </article>
+          </section>
+        </main>
+      </div>
+  
+      <div class="footer-divider">
+        <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+          <path d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"></path>
+        </svg>
+        
+      </div>
+      
+  <!-- 소셜 버튼 컨테이너 (중앙 정렬) -->
+  <div class="social-container" style="text-align: center; margin: 30px 0;">
+    <a href="about.html" class="common-btn btn-about">ABOUT GH</a>
+    <a href="https://www.instagram.com/gohigher2025/" class="common-btn btn-instagram" target="_blank">INSTAGRAM</a>
+  </div>
+  
+      <footer>
+        <p>
+          © 2025 Go Higher, 고하이어. All rights reserved.<br />
+          운영 지역: 대한민국 대구<br />
+          문의:
+          <a href="mailto:hermann8hesse@gmail.com" style="color: #fff; text-decoration: underline;">hermann8hesse@gmail.com</a><br />
+          <a href="privacy-policy.html" style="color: #fff; text-decoration: underline;">개인정보 보호정책<br></a>
+          아이디어가 있으시면 언제든지 메일로 제안해 주세요!
+        </p>
+      </footer>
+  
+      <!-- Back to Top 버튼 -->
+      <button class="back-to-top" id="backToTop">Top</button>
+  
+      <!-- 챗봇 오버레이(바깥 클릭 영역) -->
+      <div id="chatbot-overlay"></div>
+  
+      <!-- 챗봇 UI -->
+      <div id="chatbot-container" class="hidden">
+        <div id="chatbot-header">
+          <span class="chatbot-title">챗봇</span>
+          <button id="chatbot-close" aria-label="챗봇 닫기">&times;</button>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="predefined-questions" class="question-container"></div>
+        <div id="chatbot-input">
+          <input type="text" id="chatbot-user-input" placeholder="메시지를 입력하세요. 5초에 한 번 질문이 가능합니다." />
+          <button id="chatbot-send-btn">전송</button>
+        </div>
+      </div>
+  
+      <!-- 하나의 챗봇 열기 버튼만 존재 -->
+      <button id="chatbot-toggle" aria-label="챗봇 열기">
+        <img src="images/chatbot.png" loading="lazy" alt="챗봇" style="width: 100%; height: 100%; border-radius: 50%;">
+      </button>
+  
+      <!-- 컬러모드 토글 버튼 -->
+      <button class="theme-toggle-btn" id="themeToggleBtn">
+        <i class="fas fa-adjust"></i> 다크모드 전환
+      </button>
+  
+      <script src="auth.js"></script>
+      <script>
+        // PWA 설치 관련
+        let deferredPrompt;
+        window.addEventListener("beforeinstallprompt", (event) => {
+          event.preventDefault();
+          deferredPrompt = event;
+          document.getElementById("installContainer").style.display = "block";
+          console.log("beforeinstallprompt 이벤트 발생!");
+        });
+        document.getElementById("installBtn").addEventListener("click", async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === "accepted") {
+              console.log("사용자가 PWA 설치를 수락했습니다.");
+            } else {
+              console.log("사용자가 설치를 거부했습니다.");
+            }
+            deferredPrompt = null;
+            document.getElementById("installContainer").style.display = "none";
+          }
+        });
+  
+        // 자동새로고침 (ServiceWorker 업데이트)
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/service-worker.js").then((registration) => {
+            console.log("서비스 워커 등록 완료:", registration);
+            navigator.serviceWorker.addEventListener("message", (event) => {
+              if (event.data && event.data.type === "NEW_VERSION_AVAILABLE") {
+                console.log("새로운 버전 감지됨! 페이지를 새로고침합니다.");
+                window.location.reload();
+              }
+            });
+          });
+        }
+  
+        // 개발자 도구 및 소스 보기 차단
+        document.addEventListener("keydown", function (event) {
+          if (
+            event.ctrlKey &&
+            (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")
+          ) {
+            event.preventDefault();
+          }
+          if ((event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))) {
+            event.preventDefault();
+          }
+        });
+        document.addEventListener("contextmenu", function (event) {
+          event.preventDefault();
+        });
+  
+        // AOS 초기화
+        document.addEventListener("DOMContentLoaded", () => {
+          AOS.init({ duration: 800, once: true });
+        });
+        window.addEventListener('load', function() {
+          document.body.classList.add('loaded');
+        });
+  
+        // 테마(다크모드) 저장/불러오기
+        function getSecretKey() {
+          return "my-secret-key";
+        }
+        console.log(getSecretKey());
+  
+        document.addEventListener("DOMContentLoaded", () => {
+          const savedTheme = localStorage.getItem("theme");
+          const themeToggleBtn = document.getElementById("themeToggleBtn");
+          if (savedTheme === "dark") {
+            document.body.classList.add("dark-mode");
+            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드 전환';
+          } else {
+            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드 전환';
+          }
+        });
+        const themeToggleBtn = document.getElementById("themeToggleBtn");
+        themeToggleBtn.addEventListener("click", () => {
+          document.body.classList.toggle("dark-mode");
+          if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드 전환';
+          } else {
+            localStorage.setItem("theme", "light");
+            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드 전환';
+          }
+        });
+  
+        // 모바일 nav 탭 효과
+        document.addEventListener("DOMContentLoaded", () => {
+          document.querySelectorAll("a.nav-link").forEach((a) => {
+            a.style.webkitTapHighlightColor = "transparent";
+          });
+          document.querySelectorAll(".nav-link").forEach((link) => {
+            link.addEventListener("click", (e) => {
+              e.preventDefault();
+              link.classList.add("pressed");
+              setTimeout(() => {
+                window.location.href = link.getAttribute("href");
+              }, 100);
+            });
+          });
+        });
+  
+        // 로그인 상태 관리
+        document.addEventListener("DOMContentLoaded", function () {
+          const loginContainer = document.querySelector(".login-container");
+          const profileBox = document.getElementById("profileBox");
+          const authButton = document.getElementById("authButton");
+          const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+          if (isLoggedIn) {
+            loginContainer.classList.add("logged-in");
+            authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+            authButton.href = "#";
+            authButton.style.display = "none";
+          } else {
+            loginContainer.classList.remove("logged-in");
+            authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
+            authButton.href = "login.html";
+            authButton.style.display = "inline-block";
+          }
+  
+          profileBox.addEventListener("click", function () {
+            if (isLoggedIn) {
+              loginContainer.classList.toggle("active");
+              authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
+            }
+          });
+  
+          authButton.addEventListener("click", function (event) {
+            if (isLoggedIn) {
+              event.preventDefault();
+              localStorage.setItem("isLoggedIn", "false");
+              window.location.reload();
+            }
+          });
+        });
+  
+        // Back to Top 버튼
+        const backToTopBtn = document.getElementById("backToTop");
+        window.addEventListener("scroll", () => {
+          if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add("show");
+          } else {
+            backToTopBtn.classList.remove("show");
+          }
+        });
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+  
+        document.addEventListener('DOMContentLoaded', () => {
+      const waveText = document.querySelector('.wave-text');
+      const fullText = "데이터로 투자하라, 미국 주식의 전략적 인사이트 플랫폼";
+      let index = 0;
+      waveText.textContent = ""; // 기존 텍스트 제거
+  
+      function type() {
+        if(index < fullText.length) {
+          waveText.textContent += fullText[index];
+          index++;
+          setTimeout(type, 100); // 100ms 간격으로 타이핑 (원하는 속도로 조절 가능)
+        } else {
+          // 타이핑 완료 후 커서 제거
+          waveText.style.borderRight = "none";
+        }
+      }
+      type();
+    });
+    (function() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+      window.location.href = "https://gohigher.kr/login.html";
+    }
+  })();
+
+      </script>
+
+<script src="챗봇.js"></script>
+
+    </body>
+  </html>

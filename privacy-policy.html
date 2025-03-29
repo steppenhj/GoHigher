@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개인정보 보호정책 | Go Higher</title>
+  <link rel="icon" href="/logo.jpg" type="image/jpeg">
+  <style>
+    :root {
+      --primary-color: #004080;
+      --secondary-color: #0059b3;
+      --accent-color: #f4f7fa;
+      --bg-light: #f9f9f9;
+      --text-color: #333;
+      --heading-color: #222;
+      --subheading-color: #555;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    /* 기본 리셋 및 타이포그래피 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Arial", sans-serif;
+      line-height: 1.7;
+      background: var(--accent-color);
+      color: var(--text-color);
+      padding: 40px 20px;
+      text-align: center;
+    }
+    /* 컨테이너: 프리미엄 카드 느낌 */
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 40px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      text-align: left;
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1, h2 {
+      color: var(--heading-color);
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.5rem;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+    p, li {
+      color: var(--subheading-color);
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    ul {
+      margin-left: 20px;
+      list-style: disc;
+    }
+    /* HOME 버튼: 상단 고정 버튼, 팔란티어 스타일의 깔끔한 모던 버튼 */
+    .home-button {
+      display: inline-block;
+      padding: 8px 20px;
+      margin-bottom: 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+    }
+    .home-button:hover {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      transform: translateY(-2px);
+    }
+    /* 푸터 스타일 */
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #777;
+      text-align: center;
+    }
+    /* 다크 모드 */
+    body.dark-mode {
+      background: #222;
+      color: #eee;
+    }
+    body.dark-mode .container {
+      background: #333;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    body.dark-mode h1, 
+    body.dark-mode h2 {
+      color: #fff;
+    }
+    body.dark-mode p,
+    body.dark-mode li {
+      color: #ccc;
+    }
+    body.dark-mode .home-button {
+      background: linear-gradient(135deg, #003366, #002244);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+    }
+    body.dark-mode .home-button:hover {
+      background: linear-gradient(135deg, #002244, #001122);
+    }
+  </style>
+</head>
+<body>
+  <!-- HOME 버튼 -->
+  <a href="index.html" class="home-button">HOME</a>
+  
+  <div class="container">
+    <h1>개인정보 보호정책</h1>
+    <p style="text-align: center;"><strong>최종 업데이트 날짜: 2025년 3월 17일</strong></p>
+
+    <h2>1. 개인정보 수집 항목 및 목적</h2>
+    <p>Go Higher 웹사이트(gohigher.kr)는 다음과 같은 정보를 수집할 수 있습니다.</p>
+    <ul>
+      <li><strong>사용자 제공 정보:</strong> 이메일, 이름 (로그인 및 고객 지원을 위해 사용)</li>
+      <li><strong>자동 수집 정보:</strong> 기기 정보, IP 주소 (앱 기능 개선 및 보안 목적)</li>
+    </ul>
+
+    <h2>2. 데이터 사용 목적</h2>
+    <p>수집된 정보는 다음과 같은 목적으로 사용됩니다.</p>
+    <ul>
+      <li>웹사이트 기능 제공 및 유지</li>
+      <li>사용자 경험 개선</li>
+      <li>법적 요구 준수</li>
+    </ul>
+
+    <h2>3. 데이터 공유 및 제3자 제공 여부</h2>
+    <p>우리는 사용자의 개인정보를 제3자와 공유하지 않습니다. 단, 다음과 같은 경우 예외가 적용될 수 있습니다.</p>
+    <ul>
+      <li>법적 요구가 있을 경우</li>
+      <li>Google Analytics 또는 Firebase와 같은 서비스 이용</li>
+    </ul>
+
+    <h2>4. 사용자 데이터 보호 조치</h2>
+    <p>우리는 사용자 데이터를 보호하기 위해 다음과 같은 조치를 취하고 있습니다.</p>
+    <ul>
+      <li>SSL 암호화를 통한 데이터 전송</li>
+      <li>개인정보 접근 제한</li>
+    </ul>
+
+    <h2>5. 쿠키 및 추적 기술 사용</h2>
+    <p>당사는 사용자 경험을 개선하기 위해 쿠키 및 유사한 기술을 사용할 수 있습니다.</p>
+    <p>사용자는 브라우저 설정을 통해 쿠키 사용을 제한할 수 있습니다.</p>
+    <p>우리는 서비스 개선을 위해 필수 쿠키 및 분석 쿠키를 사용할 수 있습니다.</p>
+    <p>사용자는 브라우저 설정을 통해 쿠키 저장을 거부할 수 있습니다. 거부할 경우 일부 기능이 제한될 수 있습니다.</p>
+
+    <h2>6. 사용자 권리 및 데이터 삭제 요청 방법</h2>
+    <p>사용자는 자신의 데이터를 요청하거나 삭제할 권리가 있습니다.</p>
+    <p>데이터 삭제 요청은 <strong>아래의 이메일</strong>로 연락해 주세요.</p>
+
+    <h2>7. 앱 사용 시 수집되는 정보</h2>
+<p>Go Higher 앱(Android 버전)은 다음과 같은 정보를 수집하거나 접근할 수 있습니다.</p>
+<ul>
+  <li><strong>기기 정보:</strong> 앱 오류 해결 및 서비스 개선을 위한 기기 모델명, OS 버전</li>
+  <li><strong>앱 사용 로그:</strong> 앱 기능 사용 빈도 및 패턴 등 (분석 및 통계 목적, 익명 처리됨)</li>
+</ul>
+<p>본 앱은 로그인 기능을 제공하지 않으며, 사용자의 이름, 이메일 등 직접 입력 정보는 수집하지 않습니다.</p>
+
+
+    <h2>8. 문의처</h2>
+    <p>개인정보 보호 관련 문의는 다음 이메일로 보내주세요.</p>
+    <p>이메일: <strong><a href="mailto:hermann8hesse@gmail.com" style="color: var(--primary-color); text-decoration: underline;">hermann8hesse@gmail.com</a></strong></p>
+    <p>Go Higher는 14세 미만의 사용자로부터 의도적으로 개인정보를 수집하지 않습니다. 만약 부모님이나 보호자가 자녀의 개인정보가 수집되었다고 판단될 경우, 위의 이메일로 연락해 주시기 바랍니다.</p>
+  </div>
+
+  <div class="footer">
+    <p>© 2025 Go Higher, 고하이어. All rights reserved.</p>
+  </div>
+  
+  <script>
+    // 다크 모드 토글 기능 예시 (추가 가능)
+    // 아래 스크립트는 사용자가 원하는 경우 localStorage를 통해 다크 모드를 유지할 수 있도록 합니다.
+    document.addEventListener("DOMContentLoaded", () => {
+      const isDark = localStorage.getItem("theme") === "dark";
+      if(isDark) {
+        document.body.classList.add("dark-mode");
+      }
+    });
+    // 예시로 다크 모드 토글을 위해 키보드 단축키 (D 키)를 사용할 수 있습니다.
+    document.addEventListener("keydown", (e) => {
+      if(e.key.toLowerCase() === "d") {
+        document.body.classList.toggle("dark-mode");
+        if(document.body.classList.contains("dark-mode")) {
+          localStorage.setItem("theme", "dark");
+        } else {
+          localStorage.setItem("theme", "light");
+        }
+      }
+    });
+  </script>
+</body>
+</html>

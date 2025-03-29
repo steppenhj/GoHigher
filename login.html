@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원로그인</title>
+  <style>
+    /* 기본 스타일 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: 'Arial', sans-serif; 
+      text-align: center; 
+      color: #333; 
+      margin: 30px 15px; 
+    }
+
+    h1 { 
+      font-size: 2rem;
+      margin-bottom: 1rem; 
+    }
+
+    .notice { 
+      margin-top: 0.5rem; 
+      margin-bottom: 1rem; 
+      font-size: 1rem;
+      color: #666; 
+    }
+
+    .info-box {
+      max-width: 50%;
+      margin: 1.5rem auto;
+      background-color: #f8f9ff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: left;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-box h2 { 
+      margin-bottom: 1rem; 
+      font-size: 1.3rem;
+      font-weight: bold; 
+    }
+
+    .info-box ol { 
+      list-style-type: decimal; 
+      padding-left: 1.5rem; 
+    }
+
+    .info-box li { 
+      margin-bottom: 0.8rem; 
+      font-size: 1.1rem;
+    }
+
+    /* 로그인 버튼 스타일 */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #4285F4;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 30px;
+      padding: 15px 18px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .google-btn img {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+    }
+
+    .google-btn:hover {
+      background-color: #357ae8;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    }
+    /* 다크모드 스타일 */
+    body.dark-mode {
+      background: #444;
+      color: #cacaca;
+    }
+    body.dark-mode header {
+      background: linear-gradient(135deg, #002b57, #004284);
+      color: #cacaca;
+    }
+    body.dark-mode .notice{
+      color: #cacaca;
+    }
+    body.dark-mode .info-box{
+      background-color: #333 !important;
+    }
+    /* 반응형 스타일 (모바일) */
+    @media (max-width: 768px) {
+      body {
+        margin: 15px;
+      }
+
+      h1 {
+        font-size: 2.5rem; /* 모바일에서 제목 크기 증가 */
+        margin-bottom: 1rem;
+      }
+
+      .notice {
+        font-size: 1rem; /* 공지사항 폰트 크기 증가 */
+      }
+
+      .info-box {
+        max-width: 95%;
+        padding: 1.5rem; /* 패딩 조정 */
+      }
+
+      .info-box h2 {
+        font-size: 1.5rem; /* 제목 크기 증가 */
+      }
+
+      .info-box li {
+        font-size: 1.2rem; /* 리스트 항목 폰트 크기 증가 */
+      }
+
+      .google-btn {
+        padding: 16px 22px; /* 버튼 패딩 증가 */
+        font-size: 1.3rem;  /* 버튼 폰트 크기 증가 */
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .google-btn img {
+        width: 30px; /* 아이콘 크기 증가 */
+        height: 30px;
+        margin-right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>회원로그인</h1>
+
+  <!-- Google 로그인 버튼 -->
+  <div class="login-container">
+    <button id="googleLogin" class="google-btn">
+      <img src="images/googleLogin.png" alt="Google Logo">
+      Google 로그인
+    </button>
+  </div>
+
+  <div class="notice">* 구글 개인정보 걱정 없이 로그인이 가능합니다.</div>
+
+  <div class="info-box">
+    <h2>GoHigher가 제공하는 서비스</h2>
+    <ol>
+      <li>직접 분석하여 성장형 종목 추천</li>
+      <li>간편한 자산 관리 시스템 제공</li>
+      <li>경제지표 분석을 통해 시장 흐름 포착</li>
+      <li>섹터별 유망 종목 안내</li>
+      <li>이벤트, 뉴스 실시간 분석</li>
+      <li>유명인의 포트폴리오 관람</li>
+      <li>매주 경제 일정 안내</li>
+    </ol>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+      authDomain: "gohigher-55e51.firebaseapp.com",
+      projectId: "gohigher-55e51",
+      storageBucket: "gohigher-55e51.firebasestorage.app",
+      messagingSenderId: "487435343721",
+      appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+      measurementId: "G-KQ02L8DXG0"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("googleLogin").addEventListener('click', () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          // 신규 사용자인지 확인하고 로컬 스토리지에 축하 메시지 저장
+          if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
+            console.log("신규 사용자입니다. 축하 메시지를 저장합니다.");
+            localStorage.setItem("signupMessage", "회원 가입을 축하합니다!");
+          } else {
+            console.log("기존 사용자입니다.");
+          }
+
+          // 로그인 상태 저장
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userEmail", user.email);
+          localStorage.setItem("userPhoto", user.photoURL);
+          localStorage.setItem("userName", user.displayName);
+          // 메인 페이지로 이동
+          window.location.href = "index.html";  
+        })
+        .catch((error) => {
+          console.error("로그인 실패:", error.message);
+        });
+    });
+    // 다크모드 스크립트
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+  </script>
+</body>
+</html>

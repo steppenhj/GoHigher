@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+  <script>
+    document.documentElement.classList.remove("no-js");
+    document.documentElement.classList.add("js");
+  </script>
+  
+  <meta charset="UTF-8">
+  <!-- 🔄 외부 서버 연결 미리 하기 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+<!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
+
+  <!-- 페이지 제목 -->
+  <title>배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석</title>
+  <meta name="description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+  <link rel="canonical" href="https://gohigher.kr/배당주.html">
+  <link rel="icon" href="https://gohigher.kr/logo.jpg" type="image/jpeg">
+  <!-- 키워드 (네이버에서 일부 활용) -->
+  <meta name="keywords" content="유명인포폴, 투자기관, 헤지펀드, 포트폴리오, gohigher">
+  <!-- 검색엔진 크롤링 허용 -->
+  <meta name="robots" content="index,follow">
+  <!-- **확대/축소 불가 설정** -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 구글 폰트 & 차트.js 및 플러그인 -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <!-- Font Awesome 아이콘 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+        integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- 네이버 / 구글 사이트 검증 메타 -->
+  <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+  <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
+  <!-- Open Graph (OG) 메타 태그: SNS 공유용 -->
+  <meta property="og:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석" />
+  <meta property="og:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자" />
+  <meta property="og:url" content="https://gohigher.kr/버크셔해서웨이.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석">
+  <meta name="twitter:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+  <meta name="twitter:image" content="https://gohigher.kr/logo.jpg">
+  <!-- JSON-LD 구조화 데이터(WebPage) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "미국 고배당주 TOP 분석 및 배당금 계산기 제공",
+      "author": {
+        "@type": "Organization",
+        "name": "Go Higher"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Go Higher",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://gohigher.kr/logo.jpg"
+        }
+      },
+      "description": "미국 고배당주에 투자하고 싶은 분들을 위한 종목 추천과 배당금 계산기 제공",
+      "url": "https://gohigher.kr/배당주.html",
+      "datePublished": "2025-03-23",
+      "inLanguage": "ko"
+    }
+  </script>
+
+  <style>
+    html.no-js body {
+  opacity: 1; /* JS 안 되더라도 바로 보여줌 */
+}
+
+html.js body {
+  opacity: 0;
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+    html {
+      font-size: 16px;
+    }
+    :root {
+      --primary-color: #004080;
+      --secondary-color: #0059b3;
+      --accent-color: #f4f7fa;
+      --light-gray: #e0e0e0;
+      --text-color: #333;
+      /* 카드 배경색 등 필요한 변수 추가 */
+      --card-bg: #f9f9f9;
+      --bg-section: #fff;
+    }
+    body.dark-mode {
+      --primary-color: #e0e0e0;
+      --secondary-color: #cccccc;
+      --card-bg: #333;
+      --bg-section: #444;
+      --text-color: #cacaca;
+    }
+    /* 기본 리셋 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      width: 100%;
+      position: relative;
+    }
+    header h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    header p {
+      font-size: 1rem;
+    }
+    
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    nav ul li a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #fff;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+      transform: scale(1.05);
+    }
+    
+    /* 로그인 버튼 및 프로필 */
+    .login-container {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .login-btn {
+      background-color: #fff;
+      color: var(--primary-color);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+      margin-left: auto;
+    }
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      background-color: var(--secondary-color);
+      color: #fff;
+    }
+    #profileBox {
+      display: flex;
+      align-items: center;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      transition: background 0.3s ease;
+    }
+    #profileBox:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    #profileAvatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      margin-right: 0.5rem;
+    }
+    #welcomeText {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+    
+    .desktop-nav {
+        display: block;
+      }
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.3rem 0;
+        background: #fff;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      .bottom-nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .bottom-nav li {
+        text-align: center;
+        flex: 1;
+      }
+      .bottom-nav li a.nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #888;
+        transition: transform 0.2s, color 0.2s;
+      }
+      .bottom-nav .icon {
+        width: 32px;
+        height: 33px;
+        display: inline-block;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-bottom: 3px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .bottom-nav .nav-text {
+        font-size: 0.75rem;
+        color: #888;
+      }
+      .bottom-nav li a.nav-link.active .nav-text {
+        color: var(--primary-color);
+      }
+      .bottom-nav li a.nav-link:hover {
+        transform: scale(1.05);
+      }
+      .nav-link.pressed {
+        background-color: rgba(0, 0, 255, 0.1);
+        transition: background-color 0.1s;
+      }
+      .bottom-nav li a.nav-link {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+      .news-icon {
+        background-image: url("images/newsImage.png");
+      }
+      .nav-link.active .news-icon {
+        background-image: url("images/newsOn.png");
+      }
+      .diary-icon {
+        background-image: url("images/diaryImage.png");
+      }
+      .nav-link.active .diary-icon {
+        background-image: url("images/diaryOn.png");
+      }
+      .chart-icon {
+        background-image: url("images/chartImage.png");
+      }
+      .nav-link.active .chart-icon {
+        background-image: url("images/chartOn.png");
+      }
+      .company-icon {
+        background-image: url("images/companyImage.png");
+      }
+      .nav-link.active .company-icon {
+        background-image: url("images/companyOn.png");
+      }
+      .coinTree-icon {
+        background-image: url("images/coinTree.png");
+      }
+      .nav-link.active .coinTree-icon {
+        background-image: url("images/treeOn.png");
+      }
+    /* 하단 nav */
+    body.dark-mode .bottom-nav {
+      background: #333;
+    }
+    body.dark-mode .bottom-nav .icon {
+      background-color: #555 !important;
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav .nav-text {
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .icon {
+      background-color: var(--primary-color) !important;
+      color: #fff;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
+      color: #fff;
+    }
+    body.dark-mode .nav-link:hover {
+      transform: scale(1.05);
+    }
+    
+    /* 뉴스 섹션 */
+    .news-section {
+      background-color: var(--bg-section);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 3rem 2rem;
+      border-radius: 8px;
+      margin-bottom: 3rem;
+      width: 100%;
+    }
+    .news-section h2 {
+      font-family: "Roboto", sans-serif;
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 0.6rem;
+      font-weight: bold;
+      text-align: center;
+    }
+    .news-section h3 {
+      font-size: 1.4rem;
+      color: var(--secondary-color);
+      margin-bottom: 0.8rem;
+      border-left: 4px solid var(--secondary-color);
+      padding-left: 8px;
+    }
+    .news-section p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--text-color);
+    }
+    
+    /* Flex container for layout */
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%;
+      gap: 2rem;
+    }
+    .half-section {
+      width: 48%;
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 2rem;
+    }
+    .half-section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    .full-section {
+      width: 100%;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: 3rem;
+    }
+    .full-section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    .earnings-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .earnings-list li {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      padding-left: 12px;
+      position: relative;
+      line-height: 1.6;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+    .earnings-list li::before {
+      content: "•";
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;;
+      padding: 30px 25px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+      font-family: 'Roboto', sans-serif;
+    }
+    .container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+    }
+    .container h1 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .container p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+    label {
+      font-size: 1rem;
+      font-weight: 600;
+      display: block;
+      margin-top: 1rem;
+      color: var(--text-color);
+      text-align: left;
+    }
+    select, input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    select:focus, input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 6px rgba(0, 64, 128, 0.2);
+      outline: none;
+    }
+    button {
+      background: linear-gradient(135deg, #004080, #002855);
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 14px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 86, 179, 0.4);
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    }
+    #result {
+      margin-top: 25px;
+      padding-bottom: 0 !important;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-color);
+      background: #f4f7fa;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: 1rem;
+    }
+    .checkbox-container input {
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+    }
+    footer {
+        background-color: var(--primary-color);
+        color: #fff;
+        text-align: center;
+        padding: 1rem;
+        width: 100%;
+        font-size: 1rem;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+      }
+      footer a {
+        color: #fff;
+        text-decoration: underline;
+      }    
+    /* 다크모드 스타일 */
+    body.dark-mode {
+      background: #444;
+      color: white;
+    }
+    body.dark-mode header {
+      background: linear-gradient(135deg, #002b57, #004284);
+      color: #cacaca;
+    }
+    body.dark-mode nav ul li a {
+      color: #cacaca;
+      border: 1px solid #cacaca;
+      background-color: transparent;
+    }
+    body.dark-mode nav ul li a:hover {
+      background-color: #004284;
+      color: #cacaca;
+    }
+    body.dark-mode .login-btn {
+      background-color: transparent;
+      color: #cacaca;
+      border: 1px solid #cacaca;
+    }
+    body.dark-mode .login-btn:hover {
+      background-color: #004284;
+      color: #cacaca;
+    }
+    body.dark-mode footer {
+      background: linear-gradient(135deg, #002b57, #004284);
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav .icon,
+    body.dark-mode .bottom-nav li a.nav-link.active .icon {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      outline: none !important;
+      border: none !important;
+      color: #fff !important;
+    }
+    body.dark-mode .full-section{
+      background: #333;
+    }
+    body.dark-mode .back-to-top{
+      background: linear-gradient(135deg, #004080, #002855);
+    }
+    body.dark-mode select, input {
+      background-color: #333;         /* 🔁 원하는 색으로 변경 */
+      color: #cacaca;                    /* 🔁 글자색 변경 */
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    body.dark-mode .container p{
+      color: #cacaca;
+    }
+    body.dark-mode #result {
+      background-color: #333;   /* 어두운 배경색 */
+      color: #cacaca;              /* 밝은 글자색 */
+      border: 1px solid #cacaca;      /* (선택) 테두리 추가 */
+    }
+    /* 미디어 쿼리 (모바일) */
+    @media (max-width: 768px) {
+      body {
+        font-size: 18px;
+        padding-bottom: 0;
+      }
+      header, main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0.5rem !important;
+        box-sizing: border-box;
+      }
+      footer {
+        padding: 0.8rem !important; /* 내부 여백 */
+        /* padding‑bottom 대신 margin‑bottom으로 외부 간격 조절 */
+        margin-bottom: 78px;
+      }
+      
+      .desktop-nav {
+        display: none;
+        
+      }
+      .bottom-nav {
+        display: block;
+      }
+      .bottom-nav ul {
+    flex-wrap: nowrap;  /* 한 줄 유지 */
+  }
+  .bottom-nav {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.bottom-nav li {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.bottom-nav li a.nav-link {
+  width: 100%;
+  font-size: 3.2vw;
+}
+.bottom-nav .icon {
+  width: 6.5vw;
+  height: 6.5vw;
+}
+.bottom-nav .nav-text {
+  font-size: 2.8vw;
+}
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+  nav ul li a {
+    white-space: nowrap;
+  }
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      #profileBox {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      #profileAvatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+        transition: transform 0.2s;
+      }
+      #profileAvatar:hover {
+        transform: scale(1.1);
+      }
+      #welcomeText {
+        display: none;
+      }
+      .login-btn {
+        display: none;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+    }
+      .login-container.active .login-btn {
+        display: inline-block;
+      }
+      .login-container:not(.logged-in) #profileBox {
+        display: none;
+      }
+      .login-container:not(.logged-in) .login-btn {
+        display: inline-block;
+      }
+      .login-container.logged-in .login-btn {
+        display: none;
+      }
+      .login-container.logged-in #profileBox {
+        display: flex;
+      }
+/* 라이트 모드(기본) */
+select, input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff; /* 라이트 모드에서 흰 배경 */
+  color: #333;           /* 라이트 모드에서 어두운 글자 */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+body.dark-mode select,
+body.dark-mode input {
+  background-color: #333;  /* 다크 모드에서 어두운 배경 */
+  color: #cacaca;          /* 다크 모드에서 밝은 글자색 */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+      /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
+      .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1001;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    @media (max-width: 768px) {
+      .news-section {
+        padding: 2rem 1rem;
+      }
+      .half-section {
+        width: 100% !important;
+      }
+      .container {
+        padding: 20px 15px;
+      }
+      .flex-container {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      select, input {
+        font-size: 1rem;
+        padding: 12px;
+      }
+      button {
+        font-size: 1rem;
+        padding: 12px;
+      }
+      .back-to-top {
+        display: none;
+      }
+    }
+    .top-tab-nav .tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.top-tab-nav .tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fbd314;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.top-tab-nav .tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.top-tab-nav .tab-item:hover::after {
+  width: 60%;
+}
+
+.top-tab-nav .tab-item.active {
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.top-tab-nav .tab-item.active::after {
+  width: 60%;
+}
+body.dark-mode table, 
+body.dark-mode th, 
+body.dark-mode td {
+  background-color: #333;
+  color: #cacaca;
+  border-color: #777;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Go Higher</h1>
+    <div class="login-container">
+      <!-- 프로필 박스: 아바타와 환영 문구 -->
+      <div id="profileBox">
+        <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
+        <span id="welcomeText">환영합니다, 사용자님!</span>
+      </div>
+      <!-- 로그인/로그아웃 버튼 -->
+      <a id="authButton" href="login.html" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> 로그인
+      </a>
+    </div>
+    <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
+    <nav class="desktop-nav top-tab-nav">
+      <a href="index.html" class="tab-item">투데이 뉴스</a>
+      <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
+      <a href="버크셔해서웨이.html" class="tab-item">인기 포트폴리오</a>
+      <a href="중소형주식.html" class="tab-item">중소형주식 추천</a>
+      <a href="배당주.html" class="tab-item active">배당주 분석</a>
+    </nav>
+  </header>
+  
+  <!-- 모바일 하단 네비게이션 -->
+  <nav class="bottom-nav">
+    <ul>
+      <li>
+        <a href="index.html" class="nav-link" aria-label="뉴스">
+          <span class="icon news-icon"></span>
+          <span class="nav-text">뉴스</span>
+        </a>
+      </li>
+      <li>
+        <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
+          <span class="icon diary-icon"></span>
+          <span class="nav-text">다이어리</span>
+        </a>
+      </li>
+      <li>
+        <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
+          <span class="icon chart-icon"></span>
+          <span class="nav-text">대가들</span>
+        </a>
+      </li>
+      <li>
+        <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
+          <span class="icon company-icon"></span>
+          <span class="nav-text">중소형주</span>
+        </a>
+      </li>
+      <li>
+        <a href="배당주.html" class="nav-link active" aria-label="배당주분석">
+          <span class="icon coinTree-icon"></span>
+          <span class="nav-text">배당주</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <section class="news-section" id="dividend-stocks">
+    <h2>배당주 TOP 리스트</h2>
+    <div class="flex-container">
+      <div class="half-section">
+        <h3>필수 소비재 &amp; 음료</h3>
+        <ul class="earnings-list">
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/KO logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>코카콜라 (KO)</strong> - 61년 연속 배당 증가, 글로벌 음료 시장 강자
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/PEP logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>펩시코 (PEP)</strong> - 51년 연속 배당 증가, 식품 &amp; 음료 시장 점유율 높음
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/PG logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>P&amp;G (PG)</strong> - 67년 연속 배당 증가, 타이드/팬틴/다우니 등 필수 소비재
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/KMB logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>킴벌리클라크 (KMB)</strong> - 51년 연속 배당 증가, Kleenex, Huggies 브랜드 보유
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/MCD logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>맥도날드 (MCD)</strong> - 46년 연속 배당 증가, 글로벌 패스트푸드 1위
+          </li>
+        </ul>
+      </div>
+      <div class="half-section">
+        <h3>헬스케어 &amp; 제약</h3>
+        <ul class="earnings-list">
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/JNJ logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>존슨앤드존슨 (JNJ)</strong> - 61년 연속 배당 증가, 글로벌 헬스케어 기업
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/ABBV logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>애브비 (ABBV)</strong> - 52년 연속 배당 증가, 항암제/면역질환 치료제 강자
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/MRK logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>머크 (MRK)</strong> - 10년 이상 배당 증가, 신약 개발 강점
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/UNH logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>유나이티드헬스그룹 (UNH)</strong> - 배당 성장률 높고, 미국 최대 의료보험사
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="half-section">
+        <h3>금융 &amp; 보험</h3>
+        <ul class="earnings-list">
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/JPM logo.jpg" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>JP모건체이스 (JPM)</strong> - 13년 연속 배당 증가, 미국 최대 은행
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/BAC logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>뱅크오브아메리카 (BAC)</strong> - 금융 위기 이후 배당 회복, 안정적인 대형은행
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/TFC logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>트루이스트 파이낸셜 (TFC)</strong> - 배당률 높고, 지속적인 성장
+          </li>
+        </ul>
+      </div>
+      <div class="half-section">
+        <h3>에너지 &amp; 인프라</h3>
+        <ul class="earnings-list">
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/XOM logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>엑슨모빌 (XOM)</strong> - 40년 연속 배당 증가, 세계 최대 석유회사 중 하나
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/CVX logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>셰브론 (CVX)</strong> - 36년 연속 배당 증가, 고배당 안정성 보유
+          </li>
+          <li style="display: flex; align-items: center; gap: 8px;">
+            <img src="images/NEE logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
+            <strong>넥스테라 에너지 (NEE)</strong> - 친환경 에너지 성장 기업, 배당 지속 성장
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="full-section">
+      <h3>배당 투자 포인트</h3>
+      <p>
+        ✅ 경제 침체기에도 안정적인 현금 흐름을 제공하는 종목<br>
+        ✅ 장기적으로 기업 성장과 함께 배당금이 지속적으로 증가하는 종목<br>
+        ✅ 단순히 배당 수익률이 높은 종목보다, 배당 성장률(연평균 배당 증가율)이 높은 종목<br>
+        ✅ 순이익(Net Income)뿐만 아니라, FCF(Free Cash Flow, 자유현금흐름)가 안정적인 종목<br>
+        <br>
+      </p>
+    </div>
+
+    <div class="full-section">
+      <h3>배당금 세금 안내</h3>
+      <p>
+        📌 미국 주식 배당금에는 <strong>두 가지 세금</strong>이 적용됩니다:<br><br>
+    
+        ✅ <strong>1. 미국 원천징수세</strong> (Withholding Tax)<br>
+        - 미국에서 자동 공제되는 세금<br>
+        - <strong>15%</strong> 고정 적용, 환급 불가<br><br>
+    
+        ✅ <strong>2. 한국 종합소득세</strong> (누진세율)<br>
+        - <strong>배당소득 2,000만 원 초과</strong> 시 신고 대상<br>
+        - 아래 표처럼 구간별 누진세율 적용<br><br>
+      </p>
+    
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem; margin-top: 1rem;">
+          <thead>
+            <tr style="background-color: var(--accent-color); color: var(--text-color);">
+              <th style="padding: 10px; border: 1px solid #ccc;">과세표준 (연간)</th>
+              <th style="padding: 10px; border: 1px solid #ccc;">세율</th>
+              <th style="padding: 10px; border: 1px solid #ccc;">누진공제액</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">1,200만 원 이하</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">6%</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">-</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">1,200만 ~ 4,600만 원</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">15%</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">108만 원</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">4,600만 ~ 8,800만 원</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">24%</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">522만 원</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">8,800만 ~ 1억 5천만 원</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">35%</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">1,490만 원</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">1억 5천만 ~ 3억 원</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">38%</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">1,940만 원</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">3억 ~ 5억 원</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">40%</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">2,540만 원</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">5억 ~ 10억 원</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">42%</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">3,540만 원</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #ccc;">10억 원 초과</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">45%</td>
+              <td style="padding: 10px; border: 1px solid #ccc;">6,690만 원</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+      <p style="margin-top: 1.2rem;">
+        💡 <strong>※ 2,000만 원 이하 배당 소득</strong>은 분리과세 대상(15.4%)이며 종합소득세 신고가 필요하지 않습니다.<br>
+        배당금이 커질수록 종합과세 여부와 세금 절감 전략이 중요해집니다.
+      </p>
+    </div>
+    
+  </section>
+
+  
+  
+  <div class="container">
+    <h1>배당금 계산기</h1>
+    <p>현재 제공된 연평균 배당 성장률을 반영하고 있지만 공시된 배당 이력과 AI 기반 추정 분석을 종합하여 계산된 참고용 수치입니다.<br>
+      향후 실제 배당금은 기업의 재무 상황, 시장 환경, 이사회 결정 등 다양한 변수에 따라 달라질 수 있습니다.</p>
+    <!-- 종목 선택 -->
+    <label for="stock">종목 선택:</label>
+    <select id="stock">
+      <option value="KO">코카콜라 (KO)</option>
+      <option value="PEP">펩시코 (PEP)</option>
+      <option value="KMB">킴벌리클라크 (KMB)</option>
+      <option value="PG">P&amp;G (PG)</option>
+      <option value="MCD">맥도날드 (MCD)</option>
+      <option value="JNJ">존슨앤드존슨 (JNJ)</option>
+      <option value="ABBV">애브비 (ABBV)</option>
+      <option value="MRK">머크 (MRK)</option>
+      <option value="UNH">유나이티드헬스그룹 (UNH)</option>
+      <option value="JPM">JP모건체이스 (JPM)</option>
+      <option value="BAC">뱅크오브아메리카 (BAC)</option>
+      <option value="TFC">트루이스트 파이낸셜 (TFC)</option>
+      <option value="XOM">엑슨모빌 (XOM)</option>
+      <option value="CVX">셰브론 (CVX)</option>
+      <option value="NEE">넥스테라 에너지 (NEE)</option>
+    </select>
+    
+    <!-- 보유 평균 단가 입력 -->
+    <label for="avgPrice">보유 평균 단가 (원):</label>
+    <input type="text" id="avgPrice" placeholder="평균 단가 입력 (원)" />
+
+        <!-- 주식 평균 단가 상승률 선택 (클릭으로 조정) -->
+        <label for="priceGrowthRate">주식 평균 단가 상승률 (%)</label>
+        <div id="priceGrowthRateContainer">
+          <button type="button" onclick="decrementGrowthRate()">-</button>
+          <span id="priceGrowthRateDisplay">0%</span>
+          <button type="button" onclick="incrementGrowthRate()">+</button>
+        </div>
+
+    <!-- 투자 금액 입력 -->
+    <label for="amount">투자 금액 (원):</label>
+    <input type="text" id="amount" placeholder="투자 금액 입력 (원)" />
+      
+    <!-- 보유 기간 입력 (년) -->
+    <label for="years">보유 기간 (년/ 최대 100년):</label>
+    <input type="number" id="years" placeholder="보유 기간 입력" min="1" max="100" />    
+    
+    <!-- 환율 입력 -->
+    <label for="exchangeRate">환율 (1달러 = 원):</label>
+    <input type="text" id="exchangeRate" placeholder="뉴스 페이지에서 오늘의 환율을 확인할 수 있습니다." />
+
+    <!-- 배당금 재투자 여부 체크 -->
+    <div style="margin-top: 10px;">
+      <input type="checkbox" id="reinvest">
+      <label for="reinvest" style="display: inline;">배당금 재투자</label>
+    </div>
+    <!-- 세금 고려 체크박스시발-->
+    <div style="margin-top: 5px;">
+      <input type="checkbox" id="applyTax">
+      <label for="applyTax" style="display: inline;">세금 고려 재투자</label>
+    </div>
+    
+    <!-- 계산 버튼 -->
+    <button onclick="calculateDividends()">배당금 계산</button>
+
+    <!-- 결과 표시 영역 -->
+    <div id="result">결과: -</div>
+    <canvas id="dividendChart" style="max-width: 100%; margin-top: 5px;"></canvas>
+
+  </div>
+  
+  <footer>
+    <p>
+      © 2025 Go Higher, 고하이어. All rights reserved.<br>
+      운영 지역: 대한민국 대구<br>
+      문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a><br>
+      아이디어가 있으시면 언제든지 메일로 제안해 주세요!
+    </p>
+  </footer>
+  
+          <!-- Back to Top 버튼 -->
+          <button class="back-to-top" id="backToTop">Top</button>
+
+  <script src="auth.js"></script>
+  <script>
+// 전역 변수(차트 인스턴스 보관용)
+let dividendChart = null;
+
+/**
+ * 한국 종합소득세 누진세율 계산 함수
+ * @param {number} grossIncome 과세 대상 금액(원)
+ * @returns {number} 세액(원)
+ */
+function calculateKRTax(grossIncome) {
+  const brackets = [
+    { limit: 12000000, rate: 0.06, deduction: 0 },
+    { limit: 46000000, rate: 0.15, deduction: 1080000 },
+    { limit: 88000000, rate: 0.24, deduction: 5220000 },
+    { limit: 150000000, rate: 0.35, deduction: 14900000 },
+    { limit: 300000000, rate: 0.38, deduction: 19400000 },
+    { limit: 500000000, rate: 0.40, deduction: 25400000 },
+    { limit: 1000000000, rate: 0.42, deduction: 35400000 },
+    { limit: Infinity, rate: 0.45, deduction: 66900000 }
+  ];
+
+  for (let i = 0; i < brackets.length; i++) {
+    if (grossIncome <= brackets[i].limit) {
+      const tax = grossIncome * brackets[i].rate - brackets[i].deduction;
+      return Math.max(tax, 0);
+    }
+  }
+  return 0;
+}
+
+/**
+ * 주식 평균 단가 상승률 조정 함수들
+ */
+function incrementGrowthRate() {
+  let display = document.getElementById('priceGrowthRateDisplay');
+  let value = parseFloat(display.innerText.replace('%', ''));
+  value = value + 1;
+  display.innerText = value + '%';
+  localStorage.setItem('priceGrowthRate', value);
+}
+
+function decrementGrowthRate() {
+  let display = document.getElementById('priceGrowthRateDisplay');
+  let value = parseFloat(display.innerText.replace('%', ''));
+  value = Math.max(0, value - 1);
+  display.innerText = value + '%';
+  localStorage.setItem('priceGrowthRate', value);
+}
+
+/**
+ * 배당금 계산 및 차트 생성 함수
+ */
+function calculateDividends() {
+  // 입력값 가져오기
+  const stock = document.getElementById('stock').value;
+  const avgPrice = parseFloat(document.getElementById('avgPrice').value.replace(/,/g, ''));
+  const amount = parseFloat(document.getElementById('amount').value.replace(/,/g, ''));
+  const conversionRate = parseFloat(document.getElementById('exchangeRate').value.replace(/,/g, ''));
+  const years = parseInt(document.getElementById('years').value);
+  const reinvest = document.getElementById('reinvest').checked;
+  const applyTax = document.getElementById('applyTax').checked;
+  // 주가 상승률 UI에서 값 읽기 (입력값 % → 소수)
+  const priceGrowthRate = parseFloat(document.getElementById('priceGrowthRateDisplay').innerText.replace('%', '')) / 100;
+
+  // 기본 검증
+  if (isNaN(avgPrice) || avgPrice <= 0) {
+    alert('올바른 평균 단가를 입력하세요.');
+    return;
+  }
+  if (isNaN(amount) || amount <= 0) {
+    alert('올바른 투자 금액을 입력하세요.');
+    return;
+  }
+  if (isNaN(conversionRate) || conversionRate <= 0) {
+    alert('올바른 환율을 입력하세요.');
+    return;
+  }
+  if (isNaN(years) || years <= 0 || years > 100) {
+    alert('보유 기간은 1년 이상 100년 이하로 입력하세요.');
+    return;
+  }
+
+  // 종목별 배당 데이터
+  const dividendData = {
+    "KO":  { dps: 2.04, growth: 0.032 },
+    "PEP": { dps: 5.42, growth: 0.045 },
+    "KMB": { dps: 5.04, growth: 0.028 },
+    "PG":  { dps: 4.03, growth: 0.042 },
+    "MCD": { dps: 7.08, growth: 0.061 },
+    "JNJ": { dps: 4.96, growth: 0.043 },
+    "ABBV":{ dps: 6.56, growth: 0.125 },
+    "MRK": { dps: 2.52, growth: 0.051 },
+    "UNH": { dps: 8.4,  growth: 0.15  },
+    "JPM": { dps: 5.6,  growth: 0.101 },
+    "BAC": { dps: 1.04, growth: 0.168 },
+    "TFC": { dps: 2.08, growth: 0.056 },
+    "XOM": { dps: 3.96, growth: 0.03  },
+    "CVX": { dps: 6.84, growth: 0.054 },
+    "NEE": { dps: 2.27, growth: 0.112 }
+  };
+
+  // 선택한 종목의 배당 정보
+  const stockData = dividendData[stock];
+  if (!stockData) {
+    document.getElementById('result').innerHTML = "선택한 종목의 배당금 정보가 없습니다.";
+    return;
+  }
+
+  // 배당 계산 로직
+  let dps = stockData.dps;
+  const growthRate = stockData.growth;
+  const shares = amount / avgPrice;
+  let currentShares = shares;
+  let currentPrice = avgPrice; // 재투자 시 매년 갱신되는 주가
+
+  let totalGrossDividends = 0;     // 세전 배당 누적
+  let totalAfterTaxDividends = 0;    // 세후 배당 누적
+  let firstYearDividendWon = 0;      // 첫 해 배당금(세전)
+  const yearlyData = [];             // 연도별 그래프 데이터
+
+  for (let i = 0; i < years; i++) {
+    const yearlyDividendUSD = currentShares * dps; // 한 해 배당금(USD)
+    const yearlyDividendWon = yearlyDividendUSD * conversionRate; // 환율 적용(원화)
+
+    let afterTaxDividendWon = yearlyDividendWon;
+    if (applyTax) {
+      const usTax = yearlyDividendWon * 0.15;
+      const krTax = calculateKRTax(yearlyDividendWon * 0.85);
+      afterTaxDividendWon = yearlyDividendWon - usTax - krTax;
+    }
+
+    if (i === 0) {
+      firstYearDividendWon = yearlyDividendWon;
+    }
+
+    totalGrossDividends += yearlyDividendWon;
+    totalAfterTaxDividends += afterTaxDividendWon;
+
+    if (reinvest) {
+      // 재투자 시, 현재 주가(currentPrice)를 기준으로 추가 매입
+      const additionalShares = afterTaxDividendWon / currentPrice;
+      currentShares += additionalShares;
+    }
+
+    dps *= (1 + growthRate);
+    // 매년 주가 상승률 반영
+    currentPrice *= (1 + priceGrowthRate);
+    yearlyData.push(Math.round(applyTax ? afterTaxDividendWon : yearlyDividendWon));
+  }
+
+  let resultHTML = `<strong>📊 배당금 계산 결과</strong><br>`;
+  if (applyTax) {
+    resultHTML +=
+      `총 누적 배당금 (세후): ${Math.round(totalAfterTaxDividends).toLocaleString()}원<br>` +
+      `연간 배당금 (첫 해 기준, 세전): ${Math.round(firstYearDividendWon).toLocaleString()}원`;
+  } else {
+    resultHTML +=
+      `총 누적 배당금 (세전): ${Math.round(totalGrossDividends).toLocaleString()}원<br>` +
+      `연간 배당금 (첫 해 기준, 세전): ${Math.round(firstYearDividendWon).toLocaleString()}원`;
+  }
+  document.getElementById('result').innerHTML = resultHTML;
+  localStorage.setItem('dividendResult', resultHTML);
+
+  console.log("yearlyData:", yearlyData);
+
+  // 기존 차트 제거 후 새 차트 생성
+  if (dividendChart) {
+    dividendChart.destroy();
+  }
+  const ctx = document.getElementById('dividendChart').getContext('2d');
+  dividendChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: yearlyData.map((_, i) => `${i + 1}년차`),
+      datasets: [{
+        label: applyTax ? '연도별 세후 배당금 (원)' : '연도별 세전 배당금 (원)',
+        data: yearlyData,
+        backgroundColor: '#4e73df',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.parsed.y.toLocaleString()}원`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: value => `${value.toLocaleString()}원`
+          }
+        }
+      }
+    }
+  });
+}
+
+// 숫자 입력 자동 쉼표 처리 함수
+function formatNumberInput(input) {
+  input.value = input.value.replace(/[^0-9.]/g, '');
+  const parts = input.value.split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  input.value = parts.join('.');
+}
+
+// 페이지 로드시 로컬 스토리지에서 저장된 값 불러오기 및 이벤트 연결
+document.addEventListener('DOMContentLoaded', function() {
+  // 텍스트 입력 필드: avgPrice, amount, exchangeRate, years
+  const fields = ['avgPrice', 'amount', 'exchangeRate', 'years'];
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    const savedValue = localStorage.getItem(id);
+    if (savedValue !== null) {
+      el.value = savedValue;
+    }
+    el.addEventListener('input', function() {
+      formatNumberInput(this);
+      localStorage.setItem(id, this.value);
+    });
+  });
+
+  // 체크박스: reinvest, applyTax
+  const checkboxes = ['reinvest', 'applyTax'];
+  checkboxes.forEach(id => {
+    const el = document.getElementById(id);
+    const savedChecked = localStorage.getItem(id);
+    if (savedChecked !== null) {
+      el.checked = (savedChecked === 'true');
+    }
+    el.addEventListener('change', function() {
+      localStorage.setItem(id, this.checked);
+    });
+  });
+
+  // 종목 선택
+  const stockEl = document.getElementById('stock');
+  const savedStock = localStorage.getItem('stock');
+  if (savedStock !== null) {
+    stockEl.value = savedStock;
+  }
+  stockEl.addEventListener('change', function() {
+    localStorage.setItem('stock', this.value);
+  });
+
+  // 주식 평균 단가 상승률 불러오기
+  const savedPriceGrowthRate = localStorage.getItem('priceGrowthRate');
+  if (savedPriceGrowthRate !== null) {
+    document.getElementById('priceGrowthRateDisplay').innerText = savedPriceGrowthRate + '%';
+  }
+
+  // 저장된 결과 불러오기
+  const savedResult = localStorage.getItem('dividendResult');
+  if (savedResult !== null) {
+    document.getElementById('result').innerHTML = savedResult;
+  }
+});
+
+// 다크모드 스크립트
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+});
+
+// Back to Top 버튼 기능
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.getElementById("backToTop");
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.classList.add("show");
+    } else {
+      backToTopBtn.classList.remove("show");
+    }
+  });
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// 로그인 상태 관리
+document.addEventListener("DOMContentLoaded", function () {
+  const loginContainer = document.querySelector(".login-container");
+  const profileBox = document.getElementById("profileBox");
+  const authButton = document.getElementById("authButton");
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  if (isLoggedIn) {
+    loginContainer.classList.add("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+    authButton.href = "#";
+    authButton.style.display = "none";
+  } else {
+    loginContainer.classList.remove("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
+    authButton.href = "login.html";
+    authButton.style.display = "inline-block";
+  }
+  profileBox.addEventListener("click", function () {
+    if (isLoggedIn) {
+      loginContainer.classList.toggle("active");
+      authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
+    }
+  });
+  authButton.addEventListener("click", function (event) {
+    if (isLoggedIn) {
+      event.preventDefault();
+      localStorage.setItem("isLoggedIn", "false");
+      window.location.reload();
+    }
+  });
+});
+
+
+
+
+// 여기 위에까지가 배당금 계산기 함수 중요 ******************
+    // 다크모드 스크립트
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+
+              // Back to Top 버튼 기능
+              document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.getElementById("backToTop");
+
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.classList.add("show");
+    } else {
+      backToTopBtn.classList.remove("show");
+    }
+  });
+
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+// 로그인 상태 관리
+document.addEventListener("DOMContentLoaded", function () {
+        const loginContainer = document.querySelector(".login-container");
+        const profileBox = document.getElementById("profileBox");
+        const authButton = document.getElementById("authButton");
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+        if (isLoggedIn) {
+          loginContainer.classList.add("logged-in");
+          authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+          authButton.href = "#";
+          authButton.style.display = "none";
+        } else {
+          loginContainer.classList.remove("logged-in");
+          authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
+          authButton.href = "login.html";
+          authButton.style.display = "inline-block";
+        }
+
+        profileBox.addEventListener("click", function () {
+          if (isLoggedIn) {
+            loginContainer.classList.toggle("active");
+            authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
+          }
+        });
+
+        authButton.addEventListener("click", function (event) {
+          if (isLoggedIn) {
+            event.preventDefault();
+            localStorage.setItem("isLoggedIn", "false");
+            window.location.reload();
+          }
+        });
+      });
+      (function() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+      window.location.href = "https://gohigher.kr/login.html";
+    }
+  })();
+  </script>
+  
+</body>
+</html>

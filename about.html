@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Go Higher</title>
+  <meta name="description" content="Go Higher의 비전과 미션을 알아보세요." />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"
+    rel="stylesheet"
+  />
+  <!-- AOS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <!-- Custom CSS -->
+  <style>
+    /* 기본 리셋 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      font-size: 16px;
+    }
+    :root {
+      --primary-color: #004080;
+      --secondary-color: #0059b3;
+      --accent-color: #f4f7fa;
+      --bg-gradient: linear-gradient(135deg, var(--accent-color), #cbd7e3);
+      --text-color: #333;
+    }
+    /* 다크 모드 색상 */
+    body.dark-mode {
+      background: #444;
+      color: #fff;
+    }
+    body {
+      font-family: "Open Sans", sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      padding-bottom: 60px;
+      transition: background 0.3s, color 0.3s;
+      opacity: 0;
+    }
+    body.loaded {
+      opacity: 1;
+    }
+    /* 헤더 */
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      font-family: "Roboto", sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1rem;
+    }
+    /* 파도형 섹션 divider (검정색 부분을 흰색으로 변경) */
+    .section-divider {
+      position: relative;
+      width: 100%;
+      height: 80px;
+      overflow: hidden;
+      margin-bottom: -1px;
+    }
+    .section-divider svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+    }
+    .section-divider svg path {
+      fill: #fff;
+    }
+    /* 메인 컨텐츠 */
+    .main-content {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .about-section {
+      margin-bottom: 2rem;
+    }
+    .about-section h2 {
+      font-family: "Roboto", sans-serif;
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--primary-color);
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+    .about-section p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    /* 돌아가는 버튼: Home, Diary */
+    .back-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .back-buttons a {
+      padding: 0.5rem 1rem;
+      background-color: #fff;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .back-buttons a:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+    /* 푸터 */
+    footer {
+      background-color: var(--primary-color);
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1rem;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+    }
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+    /* 다크모드 전환 버튼 */
+    .theme-toggle-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+      z-index: 999;
+    }
+    .theme-toggle-btn:hover {
+      transform: scale(1.05);
+    }
+
+    
+          /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
+          .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1001;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
+</head>
+<body>
+  <!-- 헤더 영역 -->
+  <header>
+    <h1>About Go Higher</h1>
+    <p>우리는 혁신과 도전으로 미래를 선도합니다.</p>
+  </header>
+
+  <!-- 파도형 섹션 divider -->
+  <div class="section-divider">
+    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+      <path d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"></path>
+    </svg>
+  </div>
+
+  <!-- 메인 컨텐츠 -->
+  <main class="main-content" data-aos="fade-up">
+    <div class="about-section">
+      <h2>우리의 이야기</h2>
+      <p>
+        Go Higher는 미국 주식 및 글로벌 경제 동향을 기반으로 한 투자 정보 플랫폼입니다.
+        혁신적인 기술과 심층 분석을 통해 사용자가 더 나은 투자 결정을 내릴 수 있도록 지원합니다.
+      </p>
+      <p>
+        우리는 최신 데이터를 바탕으로 시장의 변동성을 예측하고, 새로운 투자 기회를 발견하며,
+        지속 가능한 성장을 목표로 합니다.
+      </p>
+    </div>
+    <div class="about-section" data-aos="fade-up" data-aos-delay="200">
+      <h2>비전 및 미션</h2>
+      <p>
+        우리의 비전은 투자 정보의 민주화를 실현하여 누구나 금융 시장에 쉽게 접근할 수 있도록 하는 것입니다.
+        이를 위해 끊임없는 연구와 혁신을 통해 정확한 데이터를 제공하며, 고객과 함께 성장하는 미래를 만들어갑니다.
+      </p>
+    </div>
+    <!-- 추가 섹션 1: 팀 소개 -->
+    <div class="about-section" data-aos="fade-up" data-aos-delay="400">
+      <h2>팀 소개</h2>
+      <p>
+        Go Higher의 핵심 팀은 다양한 분야의 전문가들로 구성되어 있으며, 각자의 전문성을 바탕으로 혁신적인 솔루션을 제시합니다.
+      </p>
+      <p>
+        팀원들은 협업과 소통을 통해 고객에게 최고의 서비스를 제공하기 위해 항상 노력하고 있습니다.
+      </p>
+    </div>
+    <!-- 추가 섹션 2: 기술력 -->
+    <div class="about-section" data-aos="fade-up" data-aos-delay="600">
+      <h2>최첨단 기술력</h2>
+      <p>
+        당사는 빅데이터 분석과 인공지능을 활용하여 실시간으로 시장 동향을 파악하고, 사용자 맞춤형 정보를 제공합니다.
+      </p>
+      <p>
+        안정성과 정확성을 보장하는 기술력을 바탕으로 투자자들에게 신뢰할 수 있는 데이터를 전달합니다.
+      </p>
+    </div>
+    <!-- 추가 섹션 3: 미래 계획 -->
+    <div class="about-section" data-aos="fade-up" data-aos-delay="800">
+      <h2>미래 계획</h2>
+      <p>
+        Go Higher는 지속적인 혁신과 글로벌 네트워크 확장을 통해 투자 정보의 새로운 기준을 마련할 것입니다.
+      </p>
+      <p>
+        앞으로 더 많은 투자자들이 금융 시장에서 성공할 수 있도록 다양한 서비스를 제공할 예정입니다.
+      </p>
+    </div>
+    <!-- 돌아가는 버튼: Home과 Diary -->
+    <div class="back-buttons" data-aos="fade-up" data-aos-delay="1000">
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="주식포트폴리오.html"><i class="fas fa-book"></i> Diary</a>
+    </div>
+  </main>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>
+      © 2025 Go Higher, 고하이어. All rights reserved.<br />
+      운영 지역: 대한민국 대구<br />
+      문의: <a href="mailto:hermann8hesse@gmail.com">hermann8hesse@gmail.com</a>
+    </p>
+  </footer>
+
+          <!-- Back to Top 버튼 -->
+          <button class="back-to-top" id="backToTop">Top</button>
+
+  <!-- PWA 설치 버튼 영역 -->
+  <div id="installContainer" style="text-align: center; margin-top: 20px; display: none;">
+    <button id="installBtn" style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      GoHigher 설치
+    </button>
+  </div>
+
+  <!-- 다크모드 전환 버튼 -->
+  <button class="theme-toggle-btn" id="themeToggleBtn">
+    <i class="fas fa-adjust"></i> 다크모드 전환
+  </button>
+
+  <!-- 스크립트 영역 -->
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // 서비스 워커 등록 (PWA 지원)
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then(registration => {
+            console.log("Service Worker registered with scope:", registration.scope);
+            navigator.serviceWorker.addEventListener("message", event => {
+              if (event.data && event.data.type === "NEW_VERSION_AVAILABLE") {
+                alert("새로운 업데이트가 있습니다! 페이지를 새로고침하세요.");
+              }
+            });
+          })
+          .catch(error => {
+            console.log("Service Worker registration failed:", error);
+          });
+      });
+    }
+
+    // PWA 설치 프롬프트
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", event => {
+      event.preventDefault();
+      deferredPrompt = event;
+      document.getElementById("installContainer").style.display = "block";
+      console.log("beforeinstallprompt 이벤트 발생!");
+    });
+    document.getElementById("installBtn").addEventListener("click", async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(outcome === "accepted" ? "사용자가 PWA 설치를 수락했습니다." : "사용자가 설치를 거부했습니다.");
+        deferredPrompt = null;
+        document.getElementById("installContainer").style.display = "none";
+      }
+    });
+
+    // AOS 초기화
+    document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({ duration: 800, once: true });
+    });
+
+    // 페이지 로드 시 저장된 테마 적용 및 버튼 텍스트 업데이트
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme");
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드 전환';
+      } else {
+        themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드 전환';
+      }
+    });
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+    themeToggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+        themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드 전환';
+      } else {
+        localStorage.setItem("theme", "light");
+        themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드 전환';
+      }
+    });
+
+    // 개발자 도구, 소스보기 및 우클릭 차단
+    document.addEventListener("keydown", event => {
+      if (
+        (event.ctrlKey && (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")) ||
+        (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))
+      ) {
+        event.preventDefault();
+      }
+    });
+    document.addEventListener("contextmenu", event => {
+      event.preventDefault();
+    });
+
+    // 페이지 로드 후 'loaded' 클래스 추가 (페이드 인 효과)
+    window.addEventListener("load", () => {
+      document.body.classList.add("loaded");
+    });
+
+              // Back to Top 버튼 기능
+              const backToTopBtn = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    });
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
