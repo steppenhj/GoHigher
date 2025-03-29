@@ -96,21 +96,6 @@
       background-color: #357ae8;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
-    /* 다크모드 스타일 */
-    body.dark-mode {
-      background: #444;
-      color: #cacaca;
-    }
-    body.dark-mode header {
-      background: linear-gradient(135deg, #002b57, #004284);
-      color: #cacaca;
-    }
-    body.dark-mode .notice{
-      color: #cacaca;
-    }
-    body.dark-mode .info-box{
-      background-color: #333 !important;
-    }
     /* 반응형 스타일 (모바일) */
     @media (max-width: 768px) {
       body {
@@ -151,6 +136,48 @@
         height: 30px;
         margin-right: 10px;
       }
+      .intro-message h2 {
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .wave-text {
+    font-size: 1.5rem !important;
+    white-space: nowrap;
+  }
+
+  .wave-text span {
+    margin: 0 -3px !important;
+  }
+
+  .highlight-text {
+    padding: 4px 6px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+  }
+
+  .login-container {
+    margin-top: 1.5rem;
+  }
+
+  .google-btn {
+    max-width: 60%;
+    padding: 12px;
+    font-size: 1.1rem;
+  }
+
+  .info-box {
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .info-box h2 {
+    font-size: 1.2rem;
+  }
+
+  .info-box li {
+    font-size: 1rem;
+  }
     }
     .intro-message {
   text-align: center;
@@ -278,13 +305,6 @@
         .catch((error) => {
           console.error("로그인 실패:", error.message);
         });
-    });
-    // 다크모드 스크립트
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-      }
     });
   </script>
 </body>
