@@ -1909,30 +1909,43 @@ body.dark-mode .wave-text {
 <script src="챗봇.js"></script>
 
 <script>
-  document.getElementById('kakao-share-btn').addEventListener('click', function () {
-    Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: 'Go Higher – 미국 주식, 환율, ETF 매일 뉴스',
-        description: '데이터로 투자하라. 미국 주식 시장 정보를 매일 확인하세요!',
-        imageUrl: 'https://gohigher.kr/logo.jpg', // 대표 이미지 URL
-        link: {
-          mobileWebUrl: 'https://gohigher.kr',
-          webUrl: 'https://gohigher.kr'
-        }
-      },
-      buttons: [
-        {
-          title: 'Go Higher 바로가기',
-          link: {
-            mobileWebUrl: 'https://gohigher.kr',
-            webUrl: 'https://gohigher.kr'
-          }
-        }
-      ]
-    });
+  window.addEventListener("DOMContentLoaded", function () {
+    // 카카오가 로드되고 초기화되었는지 확인
+    if (window.Kakao && !Kakao.isInitialized()) {
+      Kakao.init("82dcba58b1c114fc82a3f25a9cffa58d");
+    }
+
+    const shareBtn = document.getElementById("kakao-share-btn");
+    if (shareBtn && window.Kakao && Kakao.Share) {
+      shareBtn.addEventListener("click", function () {
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: 'Go Higher – 미국 주식, 환율, ETF 매일 뉴스',
+            description: '데이터로 투자하라. 미국 주식 시장 정보를 매일 확인하세요!',
+            imageUrl: 'https://gohigher.kr/logo.jpg',
+            link: {
+              mobileWebUrl: 'https://gohigher.kr',
+              webUrl: 'https://gohigher.kr'
+            }
+          },
+          buttons: [
+            {
+              title: 'Go Higher 바로가기',
+              link: {
+                mobileWebUrl: 'https://gohigher.kr',
+                webUrl: 'https://gohigher.kr'
+              }
+            }
+          ]
+        });
+      });
+    } else {
+      console.warn("Kakao SDK가 아직 로드되지 않았거나 Kakao.Share가 정의되지 않았습니다.");
+    }
   });
 </script>
+
 
     </body>
   </html>
