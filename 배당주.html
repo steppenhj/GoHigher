@@ -381,12 +381,15 @@ html.js body {
     }
     .half-section {
       width: 48%;
-      background: #555555;
+      background: #fff;
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       margin-bottom: 2rem;
+    }
+    body.dark-mode .half-section{
+      background: #555555;
     }
     .half-section:hover {
       transform: translateY(-3px);
