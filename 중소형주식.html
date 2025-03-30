@@ -94,7 +94,7 @@ html.js body {
         --btn-hover-bg: var(--secondary-color);
       }
       body.dark-mode {
-        background: url(backgroundD.png);           /* 전체 배경 */
+        background: #444;           /* 전체 배경 */
         color: #cacaca;                   /* 기본 텍스트 색상 */
       }
       body.dark-mode header {
@@ -142,7 +142,7 @@ html.js body {
       }
       body {
         font-family: "Open Sans", sans-serif;
-        background: url(backgroundL.png);
+        background: url(backgroundLL.png);
         color: var(--text-color);
         padding-bottom: 60px;
       }
@@ -640,7 +640,7 @@ html.js body {
 
 /* 페이지네이션 버튼 */
 .news-pagination button {
-  background-color: #f1f1;
+  background-color: #f1f1f1;
   border: none;
   padding: 6px 14px;
   border-radius: 20px;
@@ -653,6 +653,12 @@ html.js body {
 /* 버튼 호버 효과 */
 .news-pagination button:hover {
   background-color: #e2e2e2;
+}
+
+/* 다크모드 - 전체 배경, 기본 텍스트 */
+body.dark-mode {
+  background: url(backgroundDD.png);
+  color: #cacaca;
 }
 
 /* 다크모드 - 테이블 */

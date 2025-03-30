@@ -97,7 +97,7 @@ html.js body {
       font-size: 16px;
     }
     body {
-      background: url(backgroundL.png);
+      background: url(backgroundLL.png);
     }
     :root {
       --primary-color: #004080;
@@ -340,32 +340,25 @@ html.js body {
     }
     
     /* 뉴스 섹션 */
-    .news-section {
-      background-color: url(backgroundL.png);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      padding: 3rem 2rem;
-      border-radius: 8px;
-      margin-bottom: 3rem;
-      width: 100%;
-    }
-    .news-section h2 {
+    h2 {
       font-family: "Roboto", sans-serif;
       font-size: 2.2rem;
       color: var(--primary-color);
       margin-bottom: 2rem;
+      margin-top: 3rem;
       border-bottom: 2px solid var(--primary-color);
       padding-bottom: 0.6rem;
       font-weight: bold;
       text-align: center;
     }
-    .news-section h3 {
+    h3 {
       font-size: 1.4rem;
       color: var(--secondary-color);
       margin-bottom: 0.8rem;
       border-left: 4px solid var(--secondary-color);
       padding-left: 8px;
     }
-    .news-section p {
+    p {
       font-size: 1rem;
       line-height: 1.5;
       color: var(--text-color);
@@ -377,16 +370,16 @@ html.js body {
       flex-wrap: wrap;
       justify-content: space-between;
       width: 100%;
-      gap: 2rem;
+      gap: auto;
     }
     .half-section {
-      width: 48%;
+      width: 43%;
       background: #fff;
       padding: 1.5rem;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      margin-bottom: 2rem;
+      margin: 2.5rem auto 2.5rem;
     }
     body.dark-mode .half-section{
       background: #555555;
@@ -396,13 +389,13 @@ html.js body {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
     .full-section {
-      width: 100%;
+      width: 80%;
       background: #fff;
       padding: 2rem;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      margin-top: 3rem;
+      margin: 3rem auto 0; /* 상단 여백 3rem, 좌우 auto, 하단 0 */
     }
     .full-section:hover {
       transform: translateY(-3px);
@@ -521,7 +514,6 @@ html.js body {
     }
     footer {
         background-color: var(--primary-color);
-        color: #fff;
         text-align: center;
         padding: 1rem;
         width: 100%;
@@ -534,7 +526,7 @@ html.js body {
       }    
     /* 다크모드 스타일 */
     body.dark-mode {
-      background: url(backgroundD.png);
+      background: url(backgroundDD.png);
       color: white;
     }
     body.dark-mode header {
@@ -561,7 +553,7 @@ html.js body {
     }
     body.dark-mode footer {
       background: linear-gradient(135deg, #002b57, #004284);
-      color: #cacaca;
+      color: #cacaca !important;
     }
     body.dark-mode .bottom-nav .icon,
     body.dark-mode .bottom-nav li a.nav-link.active .icon {
@@ -752,9 +744,6 @@ body.dark-mode input {
       visibility: visible;
     }
     @media (max-width: 768px) {
-      .news-section {
-        padding: 2rem 1rem;
-      }
       .half-section {
         width: 100% !important;
       }
@@ -826,6 +815,9 @@ body.dark-mode td {
 body.dark-mode .container{
   background: #555555;
 }
+footer p{
+  color: white;
+}
   </style>
 </head>
 <body>
@@ -888,7 +880,6 @@ body.dark-mode .container{
     </ul>
   </nav>
   
-  <section class="news-section" id="dividend-stocks">
     <h2>배당주 TOP 리스트</h2>
     <div class="flex-container">
       <div class="half-section">
@@ -1059,7 +1050,6 @@ body.dark-mode .container{
       </p>
     </div>
     
-  </section>
 
   
   

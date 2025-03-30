@@ -101,10 +101,11 @@ html.js body {
       padding: 0;
     }
 
+    
     /* 기본 스타일 */
     body {
       font-family: 'Open Sans', sans-serif;
-      background: url(backgroundL.png);
+      background: url(backgroundLL.png);
       color: var(--text-color);
       padding-bottom: 70px; /* 모바일 하단 네비게이션 공간 확보 */
       overflow-x: hidden;
@@ -324,6 +325,7 @@ html.js body {
       gap: 1rem;
       justify-content: space-around;
       flex-wrap: wrap;
+      margin-bottom: 2rem; 
     }
     .chart-wrapper {
       flex: 1 1 280px;
@@ -555,7 +557,7 @@ html.js body {
     }
     /* 다크 모드 스타일 */
     body.dark-mode {
-      background: url(backgroundD.png);
+      background: url(backgroundDD.png);
       color: #cacaca;
     }
     body.dark-mode header {
@@ -653,8 +655,42 @@ body.dark-mode #chartModal .chart-description li {
     }
     @media (max-width: 768px) {
       body {
-        font-size: 18px;
-      }
+    font-size: 16px !important;   /* 기존 18px에서 줄임 */
+    line-height: 1.5 !important;  /* 가독성을 위해 여유를 둠 */
+  }
+
+  /* 헤딩 크기 조정 (필요에 따라 조절) */
+  h1 {
+    font-size: 1.6rem !important;
+    line-height: 1.4 !important;
+  }
+  h2 {
+    font-size: 1.3rem !important;
+    line-height: 1.4 !important;
+  }
+  h3 {
+    font-size: 1.1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* 본문 텍스트 크기 및 줄 간격 */
+  p, li, blockquote {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* about 섹션 내 폰트 크기 재지정 (중복 선언 시 !important로 우선순위 확보) */
+  .about,
+  .about p,
+  .about li,
+  .about blockquote {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .about {
+    padding: 1rem !important;
+  }
       header,
       main,
       footer {
@@ -943,7 +979,63 @@ body.dark-mode #chartModal .chart-description li {
   border-left: 4px solid var(--secondary-color);
   padding-left: 8px;
   margin: 10px;
+} 
+
+.hero-section {
+  height: 80vh;
+  background: url('images/hero.jpg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 2rem;
 }
+.hero-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  animation: fadeInUp 1s ease forwards;
+}
+.cta-btn {
+  background-color: #fbd314;
+  color: #000;
+  padding: 0.8rem 1.6rem;
+  font-weight: bold;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.cta-btn:hover {
+  background-color: #ffe600;
+}
+
+#portfolioSection {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+#portfolioSection.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-section.fade-in {
+  opacity: 0;
+  transform: translateY(50px); /* 더 크게 */
+  animation: fadeUp 2.5s ease forwards; /* 더 천천히 */
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+#viewPortfolioBtn {
+  margin-top: 1.5rem;
+}
+
   </style>
 </head>
 <body>
@@ -1012,8 +1104,21 @@ body.dark-mode #chartModal .chart-description li {
       <br>해당 데이터는 매 분기마다 업데이트되며, 투자 트렌드 및 종목 변화를 신속하게 반영합니다.
     </div>
   </main>
+
+  <section class="hero-section fade-in" id="heroSection">
+    <h1>가치 있는 투자는 깊이 있는 통찰에서 시작됩니다.</h1>
+    <p>버핏, 멍거, 소로스… 대가들의 전략을 지금 만나보세요.</p>
+    <a href="#chart1" class="cta-btn" id="viewPortfolioBtn">포트폴리오 보기</a>
+  </section>
+  
+  <!-- 차트 위쪽에 위치하면 자연스러움 -->
+  <div id="loadingMessage" style="display: none; text-align:center; font-size:1.2rem; margin: 2rem 0;">
+    차트를 불러오는 중입니다... ⏳
+  </div>
+  
+
   <!-- 차트 목록 (3행*3열) -->
-  <div class="chart-container">
+  <div class="chart-container"  id="portfolioSection" style="display: none;">
     <div class="chart-row">
       <div class="chart-wrapper">
         <div class="chart-box">
@@ -1484,43 +1589,50 @@ body.dark-mode #chartModal .chart-description li {
     ];
 
     // (1) 차트 생성
-    chartData.forEach((data, index) => {
-      const ctx = document.getElementById(`chart${index + 1}`).getContext('2d');
-      new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: chartLabels[index],
-          datasets: [{
-            data: data,
-            backgroundColor: chartColors.slice(0, data.length),
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                font: { size: 12 },
-                boxWidth: 10
-              }
-            },
-            datalabels: {
-              color: '#fff',
-              font: { size: 12, weight: 'bold' },
-              formatter: (value, context) => {
-                let total = data.reduce((acc, v) => acc + v, 0);
-                let percentage = ((value / total) * 100).toFixed(1);
-                return `${chartLabels[index][context.dataIndex]}\n${percentage}%`;
-              }
+    function createCharts() {
+  chartData.forEach((data, index) => {
+    const ctx = document.getElementById(`chart${index + 1}`).getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: chartLabels[index],
+        datasets: [{
+          data: data,
+          backgroundColor: chartColors.slice(0, data.length),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+  position: 'bottom',
+  labels: {
+    font: {
+      size: 12,
+      weight: 'bold', // 굵게
+    },
+    color: '#333', // 👉 여기! 텍스트 색상
+    boxWidth: 12
+  }
+},
+          datalabels: {
+            color: '#fff',
+            font: { size: 12, weight: 'bold' },
+            formatter: (value, context) => {
+              let total = data.reduce((acc, v) => acc + v, 0);
+              let percentage = ((value / total) * 100).toFixed(1);
+              return `${chartLabels[index][context.dataIndex]}\n${percentage}%`;
             }
           }
-        },
-        plugins: [ChartDataLabels]
-      });
-      document.getElementById(`chart${index + 1}`).setAttribute('data-chart-index', index);
+        }
+      },
+      plugins: [ChartDataLabels]
     });
+    document.getElementById(`chart${index + 1}`).setAttribute('data-chart-index', index);
+  });
+}
+
 
     // (2) 그래프 모달 처리 (책 모달과 충돌 방지를 위해 querySelector 수정)
     const modal = document.getElementById('chartModal');
@@ -1823,6 +1935,36 @@ body.dark-mode #chartModal .chart-description li {
       window.location.href = "https://gohigher.kr/login.html";
     }
   })();
+
   </script>
+  
+  <script>
+document.getElementById('viewPortfolioBtn').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const hero = document.getElementById('heroSection');
+  const loading = document.getElementById('loadingMessage');
+  const portfolio = document.getElementById('portfolioSection');
+
+  // 1. Hero 숨기고 로딩 문구 보여줌
+  hero.style.display = 'none';
+  loading.style.display = 'block';
+
+  // 2. 차트 즉시 생성 시작
+  createCharts(); // 너가 기존에 쓰던 chart 생성 함수
+
+  // 3. 1.5초 후에 로딩 문구 숨기고 차트 섹션 보여줌
+  setTimeout(() => {
+    loading.style.display = 'none';
+    portfolio.style.display = 'block';
+    setTimeout(() => portfolio.classList.add('show'), 10); // 부드러운 페이드 인
+    portfolio.scrollIntoView({ behavior: 'smooth' });
+  }, 1500);
+});
+
+
+  </script>
+  
+  
 </body>
 </html>

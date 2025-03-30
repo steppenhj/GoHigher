@@ -86,7 +86,7 @@ html.js body {
       --text-color: #333;
     }
     body.dark-mode {
-        background: url(backgroundDD.png);
+        background: url(backgroundD.webp);
         color: white;
     }
     body.dark-mode header {
@@ -213,7 +213,7 @@ html.js body {
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Open Sans', sans-serif;
-      background: url(backgroundLL.png);
+      background: url(backgroundL.webp);
       color: var(--text-color);
       padding-bottom: 60px;
       transition: background 0.3s, color 0.3s;
@@ -1364,91 +1364,6 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
       return document.body.classList.contains("dark-mode") ? defaultDark : defaultLight;
     }
 
-    //---------------자산 포폴 파이어 베이스------------------------------------------------------------
-    function loadAssetPortfolioFirestore() {
-  loadUserData("assetPortfolio").then(doc => {
-    let assets = [];
-    if (doc.exists) {
-      assets = doc.data().assets || [];
-    } else {
-      // 기본 데이터 설정
-      assets = [
-        { name: "현금", amount: 0 },
-        { name: "채권", amount: 0 },
-        { name: "부동산", amount: 0 },
-        { name: "주식", amount: 0 },
-        { name: "기타", amount: 0 }
-      ];
-      saveAssetPortfolioFirestore(assets);
-    }
-    // UI에 데이터 반영
-    const container = document.getElementById("assetItemsContainer");
-    container.innerHTML = "";
-    assets.forEach(asset => container.appendChild(createAssetItem(asset)));
-    updateTargetRatioFields();
-    updateAssetChart();
-  }).catch(err => console.error(err));
-}
-function saveAssetPortfolioFirestore(assets) {
-  saveUserData("assetPortfolio", { assets: assets })
-    .then(() => { console.log("자산 포트폴리오 저장 완료"); })
-    .catch(err => console.error("저장 실패:", err));
-}
-function updateAssetPortfolioFirestore() {
-  const container = document.getElementById("assetItemsContainer");
-  const assetItems = container.querySelectorAll(".asset-item");
-  let assets = [];
-  assetItems.forEach(item => {
-    const inputs = item.querySelectorAll("input");
-    const name = inputs[0].value.trim();
-    const amount = Number(inputs[1].value.replace(/,/g, "")) || 0;
-    assets.push({ name, amount });
-  });
-  saveAssetPortfolioFirestore(assets);
-}
-//-------------리밸런싱---------------------
-function loadTargetRatiosFirestore() {
-  return loadUserData("targetRatios").then(doc => {
-    if (doc && doc.exists) {
-      return doc.data().ratios || {};
-    }
-    return {};
-  });
-}
-function saveTargetRatiosFirestore(ratios) {
-  return saveUserData("targetRatios", { ratios: ratios })
-    .then(() => {
-      console.log("목표 비율 저장 완료");
-    })
-    .catch(err => {
-      console.error("목표 비율 저장 실패:", err);
-    });
-}
-function updateTargetRatioFields() {
-  const targetContainer = document.getElementById("targetRatioContainer");
-  targetContainer.innerHTML = "";
-  
-  // Firestore에서 목표 비율을 불러오는 함수 사용
-  loadTargetRatiosFirestore().then(targetRatios => {
-    const assetItems = document.querySelectorAll("#assetItemsContainer .asset-item");
-    assetItems.forEach(item => {
-      const nameInput = item.querySelector("input[type='text']");
-      const assetName = nameInput.value.trim() || "미입력";
-      const savedValue = targetRatios[assetName] || "";
-      const div = document.createElement("div");
-      div.style.marginBottom = "0.3rem";
-      div.innerHTML = `<label style="font-size:0.9rem;">${assetName} 목표비율: </label>
-                       <input type="number" class="target-ratio-input" data-asset-name="${assetName}" placeholder="%" style="width:60px; padding:2px; margin-left:5px;" value="${savedValue}">`;
-      div.querySelector(".target-ratio-input").addEventListener("input", updateTargetRatioStatus);
-      targetContainer.appendChild(div);
-    });
-    updateTargetRatioStatus();
-  });
-}
-
-
-
-
     // ===== 목표 비율 상태 업데이트 함수 =====
     function updateTargetRatioStatus() {
       const ratioInputs = document.querySelectorAll('.target-ratio-input');
@@ -1543,7 +1458,7 @@ function closeModal(modalId) {
       removeBtn.addEventListener("click", () => {
         if (confirm("정말 삭제하시겠습니까?")) {
           div.remove();
-          updateAssetPortfolioFirestore();
+          saveAssetPortfolio();
           updateAssetChart();
           updateTargetRatioFields();
         }
@@ -1555,8 +1470,37 @@ function closeModal(modalId) {
 
       return div;
     }
-
-
+    function loadAssetPortfolio() {
+      const container = document.getElementById("assetItemsContainer");
+      container.innerHTML = "";
+      const stored = localStorage.getItem("assetPortfolio");
+      let assets = [];
+      if(stored) {
+        assets = JSON.parse(stored);
+      } else {
+        assets = [
+          {name: "현금", amount: 0},
+          {name: "채권", amount: 0},
+          {name: "부동산", amount: 0},
+          {name: "주식", amount: 0},
+          {name: "기타", amount: 0}
+        ];
+        localStorage.setItem("assetPortfolio", JSON.stringify(assets));
+      }
+      assets.forEach(asset => container.appendChild(createAssetItem(asset)));
+    }
+    function saveAssetPortfolio() {
+      const container = document.getElementById("assetItemsContainer");
+      const assetItems = container.querySelectorAll(".asset-item");
+      const assets = [];
+      assetItems.forEach(item => {
+        const inputs = item.querySelectorAll("input");
+        const name = inputs[0].value.trim();
+        const amount = Number(inputs[1].value.replace(/,/g, "")) || 0;
+        assets.push({ name, amount });
+      });
+      localStorage.setItem("assetPortfolio", JSON.stringify(assets));
+    }
 
     function updateAssetChart() {
       const container = document.getElementById("assetItemsContainer");
@@ -1570,7 +1514,7 @@ function closeModal(modalId) {
         names.push(name);
         amounts.push(amount);
       });
-      
+      saveAssetPortfolio();
       
       const total = amounts.reduce((a,b) => a+b, 0);
       const ctx = document.getElementById("assetChart").getContext("2d");
@@ -1594,7 +1538,10 @@ function closeModal(modalId) {
         const b = Math.floor(Math.random() * 200);
         return `rgb(${r}, ${g}, ${b})`;
       });
-    
+      
+      // 불러온 목표 비율
+      const storedRatios = localStorage.getItem('targetRatios');
+      const targetRatios = storedRatios ? JSON.parse(storedRatios) : {};
 
       if(assetChart) {
         assetChart.destroy();
@@ -1699,24 +1646,47 @@ function closeModal(modalId) {
     }); 
     
     // 목표 비율 입력 필드를 생성할 때 input 이벤트 추가 (실시간 업데이트)
-
+    function updateTargetRatioFields() {
+      const targetContainer = document.getElementById("targetRatioContainer");
+      targetContainer.innerHTML = "";
+      const storedRatios = localStorage.getItem('targetRatios');
+      const targetRatios = storedRatios ? JSON.parse(storedRatios) : {};
+      
+      const assetItems = document.querySelectorAll("#assetItemsContainer .asset-item");
+      assetItems.forEach(item => {
+        const nameInput = item.querySelector("input[type='text']");
+        const assetName = nameInput.value.trim() || "미입력";
+        const savedValue = targetRatios[assetName] || "";
+        const div = document.createElement("div");
+        div.style.marginBottom = "0.3rem";
+        div.innerHTML = `<label style="font-size:0.9rem;">${assetName} 목표비율: </label>
+                         <input type="number" class="target-ratio-input" data-asset-name="${assetName}" placeholder="%" style="width:60px; padding:2px; margin-left:5px;" value="${savedValue}">`;
+        // 실시간 업데이트를 위해 input 이벤트 리스너 추가
+        div.querySelector(".target-ratio-input").addEventListener("input", updateTargetRatioStatus);
+        targetContainer.appendChild(div);
+      });
+      updateTargetRatioStatus();
+    }
     function saveTargetRatios() {
-  const ratioInputs = document.querySelectorAll('.target-ratio-input');
-  let targetRatios = {};
-  ratioInputs.forEach((input) => {
-    const assetName = input.getAttribute('data-asset-name');
-    targetRatios[assetName] = Number(input.value) || 0;
-  });
-  saveTargetRatiosFirestore(targetRatios).then(() => {
-    alert("목표 비율이 저장되었습니다.");
-    updateTargetRatioStatus();
-  });
-}
-
+      const ratioInputs = document.querySelectorAll('.target-ratio-input');
+      let targetRatios = {};
+      ratioInputs.forEach((input) => {
+        const assetName = input.getAttribute('data-asset-name');
+        targetRatios[assetName] = Number(input.value) || 0;
+      });
+      localStorage.setItem('targetRatios', JSON.stringify(targetRatios));
+      alert("목표 비율이 저장되었습니다.");
+      updateTargetRatioStatus();
+    }
+    function loadTargetRatios() {
+      const stored = localStorage.getItem('targetRatios');
+      return stored ? JSON.parse(stored) : {};
+    }
 
     function calculateRebalancingSuggestions() {
       const container = document.getElementById("assetItemsContainer");
       const assetItems = container.querySelectorAll(".asset-item");
+      const targetRatios = loadTargetRatios();
       let totalAsset = 0;
       let currentAssets = [];
     
@@ -2638,6 +2608,7 @@ document.getElementById("generateReportBtn").addEventListener("click", generateM
     });
 
     document.addEventListener("DOMContentLoaded", () => {
+      loadAssetPortfolio();
       loadStockPortfolio();
       updateAssetChart();
       updateStockChart();
@@ -3202,13 +3173,7 @@ document.getElementById("saveModalBtn").addEventListener("click", () => {
     }
   });
 
-  // 로그인페이지로 넘어가도록
-  (function() {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    if (!isLoggedIn) {
-      window.location.href = "https://gohigher.kr/login.html";
-    }
-  })();
+
 </script>
 
 </body>
