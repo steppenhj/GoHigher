@@ -105,7 +105,7 @@ html.js body {
     /* 기본 스타일 */
     body {
       font-family: 'Open Sans', sans-serif;
-      background: url(backgroundLL.png);
+      background: url(backgroundL.png);
       color: var(--text-color);
       padding-bottom: 70px; /* 모바일 하단 네비게이션 공간 확보 */
       overflow-x: hidden;
@@ -325,7 +325,7 @@ html.js body {
       gap: 1rem;
       justify-content: space-around;
       flex-wrap: wrap;
-      margin-bottom: 2rem; 
+      margin-bottom: 2rem;
     }
     .chart-wrapper {
       flex: 1 1 280px;
@@ -557,7 +557,7 @@ html.js body {
     }
     /* 다크 모드 스타일 */
     body.dark-mode {
-      background: url(backgroundDD.png);
+      background: url(backgroundD.png);
       color: #cacaca;
     }
     body.dark-mode header {
@@ -933,6 +933,9 @@ body.dark-mode #chartModal .chart-description li {
           font-size: 0.75rem;
           white-space: nowrap;
         }
+        .save-notice{
+          margin-top: 1.5rem;
+        }
       }
         .login-container.active .login-btn {
           display: inline-block;
@@ -1000,6 +1003,7 @@ body.dark-mode #chartModal .chart-description li {
 .cta-btn {
   background-color: #fbd314;
   color: #000;
+  margin-top: 1.5rem;
   padding: 0.8rem 1.6rem;
   font-weight: bold;
   border-radius: 25px;
@@ -1032,13 +1036,14 @@ body.dark-mode #chartModal .chart-description li {
     transform: translateY(0);
   }
 }
-#viewPortfolioBtn {
-  margin-top: 1.5rem;
-}
+
+
 
   </style>
 </head>
 <body>
+
+
   <header>
     <h1>Go Higher</h1>
     <div class="login-container">

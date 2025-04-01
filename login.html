@@ -10,7 +10,6 @@
     
     body { 
       font-family: 'Arial', sans-serif; 
-      text-align: center; 
       color: #333; 
       margin: 30px 15px; 
       background: url(background.png);
@@ -23,41 +22,93 @@
     h1 {
       color:#fff;
       font-size: 2rem;
-      margin-bottom: 4rem; 
+      margin-bottom: 1rem; 
+      text-align: center;
     }
 
-    .notice { 
-      margin-top: 0.5rem; 
-      margin-bottom: 1rem; 
-      font-size: 1rem;
-      color: #fff;
+    /* 컨테이너 레이아웃 */
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .left-panel, .right-panel {
+      flex: 1;
+      padding: 20px;
+    }
+    .left-panel {
+      max-width: 45%;
+    }
+    .right-panel {
+      max-width: 45%;
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .left-panel, .right-panel {
+        max-width: 100%;
+      }
     }
 
     .info-box {
-      max-width: 50%;
-      margin: 1.5rem auto;
-      background-color: #f8f9ff;
+      background-color: rgba(255, 255, 255, 0.5);
       border-radius: 8px;
       padding: 1.5rem;
       text-align: left;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      background-color: rgba(255, 255, 255, 0.5); /* 검정 배경의 30% 투명도 */
+      margin-bottom: 2rem;
     }
-
     .info-box h2 { 
       margin-bottom: 1rem; 
       font-size: 1.3rem;
       font-weight: bold; 
     }
-
     .info-box ol { 
       list-style-type: decimal; 
       padding-left: 1.5rem; 
     }
-
     .info-box li { 
       margin-bottom: 0.8rem; 
       font-size: 1.1rem;
+    }
+
+    .intro-message {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 1.6rem;
+      line-height: 2;
+      color: #4285F4;
+      padding: 15px;
+    }
+    .intro-message h2 {
+      font-weight: normal;
+    }
+    .wave-text {
+      display: inline-block;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffd700;
+      position: relative;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+    }
+    .wave-text span {
+      position: relative;
+      display: inline-block;
+      animation: wave 1.5s infinite;
+      animation-delay: calc(0.1s * var(--i));
+      margin: 0 -6px;
+    }
+    .highlight-text {
+      background-color: rgba(255, 255, 255, 0.5);
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
+    @keyframes wave {
+      0%, 40%, 100% { transform: translateY(0); }
+      20% { transform: translateY(-15px); }
     }
 
     /* 로그인 버튼 스타일 */
@@ -67,7 +118,6 @@
       align-items: center;
       margin-top: 1rem;
     }
-
     .google-btn {
       display: flex;
       align-items: center;
@@ -85,226 +135,479 @@
       width: 100%;
       max-width: 290px;
     }
-
     .google-btn img {
       width: 35px;
       height: 35px;
       margin-right: 10px;
     }
-
     .google-btn:hover {
       background-color: #357ae8;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
     }
     /* 반응형 스타일 (모바일) */
     @media (max-width: 768px) {
-      body {
-        margin: 15px;
-      }
-
-      h1 {
-        font-size: 2.5rem; /* 모바일에서 제목 크기 증가 */
-        margin-bottom: 1rem;
-      }
-
-      .notice {
-        font-size: 1rem; /* 공지사항 폰트 크기 증가 */
-      }
-
-      .info-box {
-        max-width: 95%;
-        padding: 1.5rem; /* 패딩 조정 */
-      }
-
-      .info-box h2 {
-        font-size: 1.5rem; /* 제목 크기 증가 */
-      }
-
-      .info-box li {
-        font-size: 1.2rem; /* 리스트 항목 폰트 크기 증가 */
-      }
-
-      .google-btn {
-        padding: 16px 22px; /* 버튼 패딩 증가 */
-        font-size: 1.3rem;  /* 버튼 폰트 크기 증가 */
-        width: 100%;
-        max-width: 320px;
-      }
-
-      .google-btn img {
-        width: 30px; /* 아이콘 크기 증가 */
-        height: 30px;
-        margin-right: 10px;
-      }
-      .intro-message h2 {
-    font-size: 1.2rem;
-    line-height: 1.5;
-  }
-
-  .wave-text {
-    font-size: 1.5rem !important;
-    white-space: nowrap;
-  }
-
-  .wave-text span {
-    margin: 0 -3px !important;
-  }
-
-  .highlight-text {
-    padding: 4px 6px;
-    border-radius: 8px;
-    font-size: 1.5rem;
-  }
-
-  .login-container {
-    margin-top: 1.5rem;
-  }
-
-  .google-btn {
-    max-width: 60%;
-    padding: 12px;
-    font-size: 1.1rem;
-  }
-
-  .info-box {
-    max-width: 95%;
-    padding: 1rem;
-  }
-
-  .info-box h2 {
-    font-size: 1.2rem;
-  }
-
-  .info-box li {
-    font-size: 1rem;
-  }
+      h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+      .info-box { padding: 1.5rem; }
+      .info-box h2 { font-size: 1.5rem; }
+      .info-box li { font-size: 1.2rem; }
+      .google-btn { padding: 16px 22px; font-size: 1.3rem; max-width: 320px; }
+      .google-btn img { width: 30px; height: 30px; }
     }
-    .intro-message {
+
+    /* 탭 버튼 그룹 */
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 2rem;
+    }
+    .tab {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.6);
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .tab.active {
+      background-color: #4285F4;
+      color: white;
+    }
+    .tab-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: rgba(255, 255, 255, 0.4);
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 340px;
+      margin: 2rem auto;
+    }
+    .tab-panel h2 {
+      color: white;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    .tab-panel input,
+    .tab-panel button {
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+    }
+    .tab-panel button {
+      background-color: #4285F4;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .tab-panel button:hover {
+      background-color: #3367D6;
+    }
+    .hidden { display: none; }
+
+    /* 로봇 CSS */
+    .robot {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 40px auto 20px;
+      background: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
+      border: 5px solid #aaa;
+      border-radius: 20px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .eye {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      background: #fff;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+    .eye.left { top: 45px; left: 35px; }
+    .eye.right { top: 45px; right: 35px; }
+    .pupil {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #222;
+      border-radius: 50%;
+      top: 11px;
+      left: 11px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .hand {
+      position: absolute;
+      width: 45px;
+      height: 25px;
+      background: #90cdf4;
+      border-radius: 12px;
+      top: 25px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .hand.left {
+      left: -25px;
+      transform: rotate(-25deg);
+    }
+    .hand.right {
+      right: -25px;
+      transform: rotate(25deg);
+    }
+    .robot.cover .hand.left {
+      top: 38px;
+      left: 25px;
+      transform: rotate(0deg);
+    }
+    .robot.cover .hand.right {
+      top: 38px;
+      right: 25px;
+      transform: rotate(0deg);
+    }
+    .robot::before { left: 25px; }
+    .robot::after { right: 25px; }
+    .eye::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      animation: blink 4s infinite;
+      opacity: 0;
+    }
+    @keyframes blink {
+      0%, 95%, 100% { opacity: 0; }
+      96%, 97% { opacity: 1; }
+    }
+
+
+    /* 구분선 스타일 */
+.divider {
+  display: flex;
+  align-items: center;
   text-align: center;
-  margin-top: 30px;
-  font-family: Arial, sans-serif;
-  font-size: 1.6rem;
-  line-height: 2;
-  color: #4285F4;
-  padding: 15px;
+  margin: 30px auto 15px;
+  max-width: 290px;
+  color: #666;
+  font-size: 0.95rem;
 }
 
-.wave-text {
-  display: inline-block;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #ffd700; /* 금색 계열로 강조 */
-  position: relative;
-  text-shadow: 3px 3px 6px rgba(0,0,0,0.8); /* 강조된 그림자 */
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  height: 2px; /* 더 굵게 */
+  background-color: #888; /* 더 진하게 */
+  opacity: 0.4;
+  margin: 0 10px;
 }
 
-.wave-text span {
-  position: relative;
-  display: inline-block;
-  animation: wave 1.5s infinite;
-  animation-delay: calc(0.1s * var(--i));
-  margin: 0 -6px; /* 더 자연스러운 간격 조정 */
-}
-.highlight-text {
-  background-color: rgba(255, 255, 255, 0.5);
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 10px;
-}
-@keyframes wave {
-  0%, 40%, 100% { transform: translateY(0); }
-  20% { transform: translateY(-15px); }
-}
-.intro-message h2 {
-  font-weight: normal;
-}
   </style>
 </head>
 <body>
-  <h1>회원로그인</h1>
-
-  <!-- Google 로그인 버튼 -->
-  <div class="login-container">
-    <button id="googleLogin" class="google-btn">
-      <img src="googleLogin.png" alt="Google Logo">
-      Google 로그인
-    </button>
-  </div>
-
-  <div class="notice">* 구글 개인정보 걱정 없이 로그인이 가능합니다.</div>
-
-  <div class="info-box">
-    <h2>GoHigher가 제공하는 서비스</h2>
-    <ol>
-      <li>직접 분석하여 성장형 종목 추천</li>
-      <li>간편한 자산 관리 시스템 제공</li>
-      <li>경제지표 분석을 통해 시장 흐름 포착</li>
-      <li>섹터별 유망 종목 안내</li>
-      <li>이벤트, 뉴스 실시간 분석</li>
-      <li>유명인의 포트폴리오 관람</li>
-      <li>매주 경제 일정 안내</li>
-    </ol>
-  </div>
-
-  <div class="intro-message">
-    <h2><span class="highlight-text" style="font-weight:bold;">성공 투자로 가는 첫걸음,</span></h2><br>   
-    <h2>
-      <span class="highlight-text" style="display: inline-flex; align-items: center;">
-        <div class="wave-text" style="margin-right: 15px;">
-          <span style="--i:1">G</span>
-          <span style="--i:2">o</span>
-          <span style="--i:3">H</span>
-          <span style="--i:4">i</span>
-          <span style="--i:5">g</span>
-          <span style="--i:6">h</span>
-          <span style="--i:7">e</span>
-          <span style="--i:8">r</span>
+  <div class="container">
+    <!-- 왼쪽 패널: 서비스 소개 및 인트로 메시지 -->
+    <div class="left-panel">
+      <div class="info-box">
+        <h2>GoHigher가 제공하는 서비스</h2>
+        <ol>
+          <li>직접 분석하여 성장형 종목 추천</li>
+          <li>간편한 자산 관리 시스템 제공</li>
+          <li>경제지표 분석을 통해 시장 흐름 포착</li>
+          <li>섹터별 유망 종목 안내</li>
+          <li>이벤트, 뉴스 실시간 분석</li>
+          <li>유명인의 포트폴리오 관람</li>
+          <li>매주 경제 일정 안내</li>
+        </ol>
+      </div>
+      <div class="intro-message">
+        <h2><span class="highlight-text" style="font-weight:bold;">성공 투자로 가는 첫걸음,</span></h2><br>   
+        <h2>
+          <span class="highlight-text" style="display: inline-flex; align-items: center;">
+            <div class="wave-text" style="margin-right: 15px;">
+              <span style="--i:1">G</span>
+              <span style="--i:2">o</span>
+              <span style="--i:3">H</span>
+              <span style="--i:4">i</span>
+              <span style="--i:5">g</span>
+              <span style="--i:6">h</span>
+              <span style="--i:7">e</span>
+              <span style="--i:8">r</span>
+            </div>
+            <span style="font-weight:bold;">와 함께 시작해 보세요.</span>
+          </span>
+        </h2>
+      </div>
+    </div>
+    <!-- 오른쪽 패널: 로봇, 로그인 및 회원가입 폼 -->
+    <div class="right-panel">
+      <h1>로그인</h1>
+      <!-- 로봇 이미지 -->
+      <div class="robot" id="robot">
+        <div class="eye left"><div class="pupil" id="pupil-left"></div></div>
+        <div class="eye right"><div class="pupil" id="pupil-right"></div></div>
+        <div class="hand left"></div>
+        <div class="hand right"></div>
+      </div>
+      <!-- 탭 메뉴 -->
+      <div class="tab-buttons">
+        <button id="loginTab" class="tab active">로그인</button>
+        <button id="signupTab" class="tab">회원가입</button>
+      </div>
+      <!-- 로그인/회원가입 폼 -->
+      <div class="tab-content">
+        <div id="loginFormContainer" class="tab-panel">
+          <h2 style="color: white;">이메일로 로그인하기</h2>
+          <form id="loginForm">
+            <input type="email" id="loginEmail" placeholder="이메일을 입력하세요" required>
+            <input type="password" id="loginPassword" placeholder="비밀번호를 입력하세요" required minlength="6">
+            <button type="submit">로그인</button>
+          </form>
         </div>
-        <span style="font-weight:bold;">와 함께 시작해 보세요.</span>
-      </span>
-    </h2>
+        
+        <div id="signupFormContainer" class="tab-panel hidden">
+          <h2 style="color: white;">이메일로 가입하기</h2>
+        
+          <!-- 이메일 인증 요청 폼 -->
+          <form id="emailVerifyForm">
+            <input type="email" id="signupEmail" placeholder="이메일을 입력하세요" required>
+            <button type="button" id="sendVerifyEmail">이메일 인증 메일 보내기</button>
+          </form>
+        
+          <!-- 비밀번호 입력 후 회원가입 폼 -->
+          <form id="signupForm" class="hidden">
+            <input type="password" id="signupPassword" placeholder="비밀번호를 입력하세요" required minlength="6">
+            <button type="submit">회원가입</button>
+          </form>
+        </div>
+        
+      </div>
+
+      <!-- 소셜 로그인 구분선 -->
+<div class="divider"><span>또는 다음으로 로그인</span></div>
+      <!-- 구글 로그인 버튼 -->
+      <div class="login-container">
+        <button id="googleLogin" class="google-btn">
+          <img src="googleLogin.png" alt="Google Logo">
+          Google 로그인
+        </button>
+      </div>
+    </div>
   </div>
 
+  <!-- 기존 스크립트: Firebase, 탭 전환, 로봇 애니메이션 등 -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import {
+  getAuth,
+  sendEmailVerification,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  updatePassword
+} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
-      authDomain: "gohigher-55e51.firebaseapp.com",
-      projectId: "gohigher-55e51",
-      storageBucket: "gohigher-55e51.firebasestorage.app",
-      messagingSenderId: "487435343721",
-      appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
-      measurementId: "G-KQ02L8DXG0"
-    };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+const firebaseConfig = {
+  apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+  authDomain: "gohigher-55e51.firebaseapp.com",
+  projectId: "gohigher-55e51",
+  storageBucket: "gohigher-55e51.firebasestorage.app",
+  messagingSenderId: "487435343721",
+  appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+  measurementId: "G-KQ02L8DXG0"
+};
 
-    document.getElementById("googleLogin").addEventListener('click', () => {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          const user = result.user;
-          // 신규 사용자인지 확인하고 로컬 스토리지에 축하 메시지 저장
-          if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
-            console.log("신규 사용자입니다. 축하 메시지를 저장합니다.");
-            localStorage.setItem("signupMessage", "회원 가입을 축하합니다!");
-          } else {
-            console.log("기존 사용자입니다.");
-          }
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
-          // 로그인 상태 저장
-          localStorage.setItem("isLoggedIn", "true");
-          localStorage.setItem("userEmail", user.email);
-          localStorage.setItem("userPhoto", user.photoURL);
-          localStorage.setItem("userName", user.displayName);
-          // 메인 페이지로 이동
-          window.location.href = "index.html";  
-        })
-        .catch((error) => {
-          console.error("로그인 실패:", error.message);
-        });
+// ✅ 구글 로그인
+document.getElementById("googleLogin").addEventListener('click', () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      if (result.additionalUserInfo?.isNewUser) {
+        localStorage.setItem("signupMessage", "회원 가입을 축하합니다!");
+      }
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userEmail", user.email);
+      localStorage.setItem("userPhoto", user.photoURL);
+      localStorage.setItem("userName", user.displayName);
+      window.location.href = "index.html";
+    })
+    .catch((error) => {
+      console.error("로그인 실패:", error.message);
+      alert("Google 로그인 실패: " + error.message);
+    });
+});
+
+// ✅ 이메일 인증 메일 보내기
+document.getElementById("sendVerifyEmail").addEventListener("click", async () => {
+  const email = document.getElementById("signupEmail").value.trim();
+  if (!email) {
+    alert("이메일을 입력해 주세요.");
+    return;
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, "TempPassword@123");
+    const user = userCredential.user;
+    await sendEmailVerification(user);
+    alert("이메일 인증 메일을 보냈습니다. 메일함을 확인 후 인증해 주세요.");
+
+    document.getElementById("signupForm").classList.remove("hidden");
+  } catch (error) {
+  console.error("로그인 실패:", error.code, error.message);
+
+  if (error.code === "auth/wrong-password") {
+    alert("비밀번호가 올바르지 않습니다.");
+  } else if (error.code === "auth/user-not-found") {
+    alert("등록되지 않은 이메일입니다.");
+  } else if (error.code === "auth/invalid-email") {
+    alert("이메일 형식이 잘못되었습니다.");
+  } else {
+    alert("로그인 실패: " + error.message);
+  }
+}
+
+});
+
+// ✅ 인증된 이메일로 최종 회원가입
+document.getElementById("signupForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, "TempPassword@123");
+    const user = userCredential.user;
+
+    if (!user.emailVerified) {
+      alert("이메일 인증이 완료되지 않았습니다. 메일함을 확인해 주세요.");
+      return;
+    }
+
+    await updatePassword(user, password);
+
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      createdAt: new Date()
+    });
+
+    alert("회원가입이 완료되었습니다! 이제 로그인해 주세요.");
+
+    // 로그인 탭으로 전환
+    document.getElementById("signupFormContainer").classList.add("hidden");
+    document.getElementById("loginFormContainer").classList.remove("hidden");
+
+  } catch (error) {
+    console.error("회원가입 실패:", error.message);
+    alert("실패: " + error.message);
+  }
+});
+
+// ✅ 로그인
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    if (!user.emailVerified) {
+      alert("이메일 인증이 완료되지 않았습니다.");
+      return;
+    }
+
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (userDoc.exists()) {
+      console.log("Firestore 유저 정보:", userDoc.data());
+    }
+
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userEmail", user.email);
+    alert("로그인 성공!");
+    window.location.href = "index.html";
+  } catch (error) {
+    console.error("로그인 실패:", error.message);
+    alert("로그인 실패: " + error.message);
+  }
+});
+
+  </script>
+  <script>
+    const loginTab = document.getElementById("loginTab");
+    const signupTab = document.getElementById("signupTab");
+    const loginFormContainer = document.getElementById("loginFormContainer");
+    const signupFormContainer = document.getElementById("signupFormContainer");
+  
+    loginTab.addEventListener("click", () => {
+      loginTab.classList.add("active");
+      signupTab.classList.remove("active");
+      loginFormContainer.classList.remove("hidden");
+      signupFormContainer.classList.add("hidden");
+    });
+  
+    signupTab.addEventListener("click", () => {
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+      signupFormContainer.classList.remove("hidden");
+      loginFormContainer.classList.add("hidden");
+    });
+  </script>
+  <script>
+    const pupilLeft = document.getElementById('pupil-left');
+    const pupilRight = document.getElementById('pupil-right');
+    const robot = document.getElementById('robot');
+    const emailInputs = [
+      document.getElementById('loginEmail'),
+      document.getElementById('signupEmail')
+    ];
+    const passwordInputs = [
+      document.getElementById('loginPassword'),
+      document.getElementById('signupPassword')
+    ];
+  
+    function moveEyes(event) {
+      const length = event.target.value.length;
+      const maxOffsetX = 6;
+      const maxOffsetY = 3;
+      const offsetX = Math.min(length * 1.5, maxOffsetX);
+      const offsetY = Math.min(length * 0.5, maxOffsetY);
+      pupilLeft.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      pupilRight.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    }
+    function coverEyes() {
+      robot.classList.add('cover');
+    }
+    function uncoverEyes() {
+      robot.classList.remove('cover');
+    }
+    emailInputs.forEach(input => input.addEventListener('input', moveEyes));
+    passwordInputs.forEach(input => {
+      input.addEventListener('focus', coverEyes);
+      input.addEventListener('blur', uncoverEyes);
     });
   </script>
 </body>

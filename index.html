@@ -247,6 +247,15 @@ html.js body {
         background-color: #004284;
         color: #cacaca;
       }
+      body.dark-mode .theme-toggle-btn {
+        background-color: transparent;
+        color: #cacaca;
+        border: 1px solid #cacaca;
+      }
+      body.dark-mode .theme-toggle-btn:hover {
+        background-color: #004284;
+        color: #cacaca;
+      }
       body.dark-mode .section-divider svg path,
       body.dark-mode .footer-divider svg path {
         fill: #eaeaea;
@@ -515,21 +524,24 @@ html.js body {
         transform: scale(1.05);
       }
       .theme-toggle-btn {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        background: var(--primary-color);
-        color: #fff;
+        position:absolute;
+        font-weight: bold;
+        top: 0.2rem;
+        left: 1rem;
+        background: white;
+        color: var(--primary-color);
         border: none;
-        border-radius: 25px;
-        padding: 0.6rem 1rem;
+        border-radius: 20px;
+        padding: 0.6rem 0.8rem;
         cursor: pointer;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         transition: transform 0.2s;
-        z-index: 999;
       }
       .theme-toggle-btn:hover {
-        transform: scale(1.05);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        background-color: var(--secondary-color);
+        color: #fff;
       }
       .footer-divider {
         position: relative;
@@ -655,7 +667,7 @@ html.js body {
         background-color: #fff;
         color: var(--primary-color);
         border: none;
-        padding: 0.6rem 1.2rem;
+        padding: 0.6rem 0.8rem;
         border-radius: 20px;
         font-weight: bold;
         text-decoration: none;
@@ -1207,23 +1219,24 @@ html.js body {
     #chatbot-user-input::placeholder {
     font-size: 0.8rem !important; /* 원하는 크기로 변경 */
   }
+          
   .theme-toggle-btn {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     position: absolute;
-    top: 1rem;
-    left: 1rem;      /* 필요하면 위치 조정 */
+    top: 0.07rem;
+    left: 0.07rem;      /* 필요하면 위치 조정 */
     height: 1rem;    /* 고정 높이 제거 */
     line-height: 1.2;/* 텍스트 세로 정렬 */
-    padding: 0.4rem 0.6rem; /* 버튼 안쪽 여백 */
+    padding: 0.3rem 0.8rem;
     display: flex;   /* flex로 수직 정렬 */
     align-items: center;
     justify-content: center;
-    /* 나머지 속성은 필요한 경우 유지 또는 조절 */
+    white-space: nowrap;
   }
   #kakao-share-btn {
-    position: absolute;
-    top: 2.7rem !important;
-    left: 1rem;
+    position: relative;
+    top: 1.9rem !important;
+    left: 0.07em !important;
   }
       }
       .top-tab-nav .tab-item {
@@ -1297,6 +1310,10 @@ body.dark-mode .wave-text {
   to { border-right-color: transparent; }
 }
 #kakao-share-btn {
+  position: absolute;
+  width: 35px;
+  top: 3.3rem;
+  left: 1rem;
   transition: transform 0.3s ease;
 }
 
@@ -1309,6 +1326,10 @@ body.dark-mode .wave-text {
   <body>
     <!-- 헤더 -->
     <header>
+      <div class="button-container" style="position: relative;">
+        <button id="themeToggleBtn" class="theme-toggle-btn">다크모드 전환</button>
+        <img id="kakao-share-btn" src="kakaotalk.png" alt="카카오톡 공유하기">
+      </div>
       <h1>Go Higher</h1>
       <div class="login-container">
         <div id="profileBox">
@@ -1733,18 +1754,6 @@ body.dark-mode .wave-text {
       <button id="chatbot-toggle" aria-label="챗봇 열기">
         <img src="images/chatbot.png" loading="lazy" alt="챗봇" style="width: 100%; height: 100%; border-radius: 50%;">
       </button>
-
-      <img
-        id="kakao-share-btn"
-        src="kakaotalk.png"
-        alt="카카오톡 공유하기"
-        style="width: 35px; position: absolute; top: 72px; right: 20px; cursor: pointer;"
-      />
-  
-      <!-- 컬러모드 토글 버튼 -->
-      <button class="theme-toggle-btn" id="themeToggleBtn">
-        <i class="fas fa-adjust"></i> 다크모드 전환
-      </button>
   
       <script src="auth.js"></script>
       <script>
@@ -1968,4 +1977,4 @@ body.dark-mode .wave-text {
 
 
     </body>
-  </html>
+  </html> 

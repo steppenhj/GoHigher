@@ -97,7 +97,7 @@ html.js body {
       font-size: 16px;
     }
     body {
-      background: url(backgroundLL.png);
+      background: url(backgroundL.png);
     }
     :root {
       --primary-color: #004080;
@@ -389,7 +389,7 @@ html.js body {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
     .full-section {
-      width: 80%;
+      max-width: 1200px;
       background: #fff;
       padding: 2rem;
       border-radius: 8px;
@@ -526,7 +526,7 @@ html.js body {
       }    
     /* 다크모드 스타일 */
     body.dark-mode {
-      background: url(backgroundDD.png);
+      background: url(backgroundD.png);
       color: white;
     }
     body.dark-mode header {
@@ -653,6 +653,7 @@ html, body {
         gap: 0.5rem;
       }
       #profileBox {
+        cursor: pointer;
         display: flex;
         align-items: center;
         cursor: pointer;
@@ -1480,40 +1481,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 });
-// 로그인 상태 관리
-document.addEventListener("DOMContentLoaded", function () {
-        const loginContainer = document.querySelector(".login-container");
-        const profileBox = document.getElementById("profileBox");
-        const authButton = document.getElementById("authButton");
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-        if (isLoggedIn) {
-          loginContainer.classList.add("logged-in");
-          authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
-          authButton.href = "#";
-          authButton.style.display = "none";
-        } else {
-          loginContainer.classList.remove("logged-in");
-          authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
-          authButton.href = "login.html";
-          authButton.style.display = "inline-block";
-        }
-
-        profileBox.addEventListener("click", function () {
-          if (isLoggedIn) {
-            loginContainer.classList.toggle("active");
-            authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
-          }
-        });
-
-        authButton.addEventListener("click", function (event) {
-          if (isLoggedIn) {
-            event.preventDefault();
-            localStorage.setItem("isLoggedIn", "false");
-            window.location.reload();
-          }
-        });
-      });
       (function() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     if (!isLoggedIn) {
