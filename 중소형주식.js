@@ -4818,7 +4818,6 @@ document.addEventListener("keydown", function (event) {
     event.preventDefault();
   }
   if (
-    event.key === "F12" ||
     (event.ctrlKey && event.shiftKey && event.key === "I") ||
     (event.ctrlKey && event.shiftKey && event.key === "J")
   ) {

@@ -142,7 +142,7 @@ html.js body {
       }
       body {
         font-family: "Open Sans", sans-serif;
-        background: url(backgroundLL.png);
+        background: url(backgroundL.png);
         color: var(--text-color);
         padding-bottom: 60px;
       }
@@ -657,7 +657,7 @@ html.js body {
 
 /* 다크모드 - 전체 배경, 기본 텍스트 */
 body.dark-mode {
-  background: url(backgroundDD.png);
+  background: url(backgroundD.png);
   color: #cacaca;
 }
 
@@ -1208,6 +1208,57 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
 .top-tab-nav .tab-item.active::after {
   width: 60%;
 }
+
+/* 다크 모드에서 모달 탭 바 */
+body.dark-mode .modal-tabs {
+  background-color: #333;         /* 어두운 배경 */
+  border-bottom: 2px solid #444;   /* 어두운 하단 구분선 */
+}
+/* 다크 모드에서 탭 버튼 (기본 상태) */
+body.dark-mode .tab-btn {
+  color: #ccc;                    /* 기본 글자색 */
+  background-color: transparent;  /* 배경 투명 또는 필요시 어두운 톤 적용 */
+  border: none;
+}
+
+/* 다크 모드에서 탭 버튼 (활성 상태) */
+body.dark-mode .tab-btn.active {
+  color: #fff;                    /* 활성화된 탭은 밝은 글자색 */
+  border-bottom: 3px solid #fff;  /* 하단 강조선 */
+}
+/* 다크 모드 - 뉴스 컨테이너 */
+body.dark-mode #news .news-container {
+  background-color: #333; /* 어두운 배경 */
+  color: #ccc;            /* 기본 텍스트 색상 */
+}
+
+/* 다크 모드 - 개별 뉴스 아이템 */
+body.dark-mode #news .news-item {
+  background-color: #444; /* 좀 더 어두운 배경 */
+  border: 1px solid #555; /* 테두리도 어둡게 */
+}
+
+/* 뉴스 아이템 내 a 태그(제목) */
+body.dark-mode #news .news-item a {
+  color: #fff;            /* 뉴스 제목은 더 밝게 */
+}
+
+/* 뉴스 아이템 내 날짜(혹은 기타 strong 태그) */
+body.dark-mode #news .news-item strong {
+  color: #bbb;            /* 날짜 표시를 약간 밝은 톤으로 */
+}
+
+/* 다크 모드 - 뉴스 페이지네이션 버튼 */
+body.dark-mode .news-pagination button {
+  background-color: #444;
+  color: #ccc;
+  border: 1px solid #555;
+}
+body.dark-mode .news-pagination button:hover {
+  background-color: #555;
+  color: #fff;
+}
+
 </style>
   </head>
   <body>

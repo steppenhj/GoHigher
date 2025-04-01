@@ -52,6 +52,9 @@
       padding-bottom: 60px;
       transition: background 0.3s, color 0.3s;
       opacity: 0;
+      padding-bottom: 0;
+      transition: background 0.3s, color 0.3s;
+      opacity: 0;
     }
     body.loaded {
       opacity: 1;
@@ -138,13 +141,13 @@
       background-color: var(--primary-color);
       color: #fff;
       text-align: center;
-      padding: 1rem;
+      padding: 0.8rem;
       font-size: 1rem;
-      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
     }
-    footer a {
-      color: #fff;
-      text-decoration: underline;
+    footer p {
+      margin: 0;
+      padding: 0;
     }
     /* 다크모드 전환 버튼 */
     .theme-toggle-btn {
@@ -269,9 +272,10 @@
   <!-- 푸터 -->
   <footer>
     <p>
-      © 2025 Go Higher, 고하이어. All rights reserved.<br />
-      운영 지역: 대한민국 대구<br />
-      문의: <a href="mailto:hermann8hesse@gmail.com">hermann8hesse@gmail.com</a>
+      © 2025 Go Higher, 고하이어. All rights reserved.<br>
+      운영 지역: 대한민국 대구<br>
+      문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a><br>
+      아이디어가 있으시면 언제든지 메일로 제안해 주세요!
     </p>
   </footer>
 

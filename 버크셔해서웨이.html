@@ -1036,7 +1036,32 @@ body.dark-mode #chartModal .chart-description li {
     transform: translateY(0);
   }
 }
+.hero-section h1, .hero-section p{
+  color: #004284;
+}
+body.dark-mode .hero-section h1, body.dark-mode .hero-section p{
+  color: white;
+}
 
+.header-with-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 제목은 왼쪽, 이미지는 오른쪽에 배치 */
+  margin-bottom: 20px; /* 필요시 간격 조절 */
+}
+
+.header-with-icon h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--secondary-color);
+  /* 텍스트와 이미지 사이 간격을 추가하고 싶다면 padding 또는 margin-right 사용 */
+}
+
+.strategy-icon {
+  width: 110px;       /* 원하는 아이콘 크기로 조절 */
+  height: auto;
+  margin-left: 1px; /* 제목과 이미지 사이 여백 */
+}
 
 
   </style>
@@ -1217,7 +1242,10 @@ body.dark-mode #chartModal .chart-description li {
   <div class="container">
     <section class="section about">
       <h1>투자 대가의 투자 전략</h1>
-      <h2>1. 가치투자와 벤저민 그레이엄 · 워렌 버핏</h2>
+      <div class="header-with-icon">
+        <h2>1. 가치투자와 벤저민 그레이엄 · 워렌 버핏</h2>
+        <img src="images2/warren.png" alt="Warren Buffett" class="strategy-icon">
+        </div>
           <h3>벤저민 그레이엄</h3>  
           “증권분석”과 “현명한 투자자”의 저자로 유명하며,  
           기업의 내재가치보다 충분히 낮은 가격에 매수하는 안전마진 개념을 강조했습니다.
@@ -1230,7 +1258,10 @@ body.dark-mode #chartModal .chart-description li {
           <br><br>“투자 세계에서는 스트라이크 낙장(판정)이라는 것이 없다.
           우리는 스트라이크가 들어오지 않는 한 그대로 기다릴 수 있다.
           정말 마음에 드는 공이 들어올 때만 스윙하면 된다.”   
-      <h2>2. 피터 린치의 성장투자</h2>
+          <div class="header-with-icon">
+            <h2>2. 피터 린치의 성장투자</h2>
+            <img src="images2/peter.png" alt="Peter Lynch" class="strategy-icon">
+          </div>
           <h3>실생활에서 아이디어 발굴</h3>  
           피터 린치는 “자신이 아는 기업에 투자하라”는 조언으로 유명합니다.  
           그의 저서 “전설로 떠나는 월가의 영웅”에서 강조했듯,  
@@ -1239,7 +1270,10 @@ body.dark-mode #chartModal .chart-description li {
           피터 린치가 1977년부터 1990년까지 운용한 이 펀드는  
           연평균 29%대의 높은 수익률을 기록하며 성공 스토리를 만들었습니다.  
           그는 빠른 매매보다는 유망주에 장기 투자하며 꾸준히 기업 실적을 점검하는 접근을 강조했습니다.
-      <h2>3. 찰리 멍거의 멀티디시플리너리 사고</h2>
+          <div class="header-with-icon">
+            <h2>3. 찰리 멍거의 멀티디시플리너리 사고</h2>
+            <img src="images2/munger.png" alt="Charlie Munger" class="strategy-icon">
+          </div>
           <h3>복합 학문적 접근</h3>  
           찰리 멍거는 법학, 심리학, 경제학, 수학 등 다양한 분야의 지식을 폭넓게 학습해  
           투자 의사결정에 활용해야 한다고 강조했습니다.  
@@ -1249,7 +1283,10 @@ body.dark-mode #chartModal .chart-description li {
           버크셔 해서웨이에서 워렌 버핏과 함께하며,  
           “우리가 이해하는 한정된 기업에 집중적으로 투자하는 것이 더 효율적”이라고 말해왔습니다.  
           동시에 인간이 빠지기 쉬운 심리적 함정(확증편향, 감정적 매매 등)을 철저히 경계합니다.
-      <h2>4. 조지 소로스의 반사성 이론</h2>
+          <div class="header-with-icon">
+            <h2>4. 조지 소로스의 반사성 이론</h2>
+            <img src="images2/soros.png" alt="George Soros" class="strategy-icon">
+          </div>
           <h3>반사성 개념</h3>  
           조지 소로스는 시장 참여자들의 인식이 시장 가격에 영향을 주고,  
           그 가격 변화가 다시 투자자들의 인식에 영향을 주는 일종의 피드백 고리가 존재한다고 분석했습니다.  
@@ -1259,23 +1296,37 @@ body.dark-mode #chartModal .chart-description li {
           대규모 공매도를 통해 <strong>10억 달러 이상</strong>을 벌어들이며 “영국 은행을 무너뜨린 남자”로 불리게 되었습니다.  
           <br><br>“나는 맞았을 때 얼마나 크게 버는지, 틀렸을 때 얼마나 적게 잃는지가 중요하다고 생각한다.”
           <br>소로스는 투자에서 본인의 확신도가 높다고 판단될 때, 과감히 투자 규모를 키워 큰 수익을 노린다고 알려져 있습니다.
-      <h2>5. 레이 달리오와 올웨더 포트폴리오</h2>
+          
+          <div class="header-with-icon">
+            <h2>5. 레이 달리오와 올웨더 포트폴리오</h2>
+            <img src="images2/ray.png" alt="Ray Dalio" class="strategy-icon">
+          </div>
           <h3>브리지워터 어소시에이츠 창업자</h3>  
           레이 달리오는 거시경제 지표(금리, 물가, GDP 등)를 정교하게 분석하여,  
           경기 침체든 호황이든 일정 수준의 수익을 내도록 설계된 올웨더 포트폴리오를 창안했습니다.
           <h3>데이터 기반의 원칙</h3>  
           그는 《Principles/원칙》라는 저서를 통해, 의사결정 과정을 투명화하고 모든 판단을 데이터로 검증하는  
           기업 문화를 제시했습니다. 브리지워터의 투자 방식은 알고리즘과 빅데이터 분석을 활용하는 것이 특징입니다.
-      <h2>6. 존 템플턴의 역발상 투자</h2>
-          <h3>Templeton Growth Fund</h3>  
+
+      <div class="header-with-icon">
+        <h2>6. 존 템플턴의 역발상 투자</h2>
+        <img src="images2/templeton.png" alt="John Templeton" class="strategy-icon">
+      </div>
+      <h3>Templeton Growth Fund</h3>  
           존 템플턴은 저평가된 해외 시장을 발굴해 투자함으로써,  
           글로벌 가치투자의 선구자로 불립니다.  
           투자자들이 과도하게 낙관적일 때는 매도하고, 과도하게 비관적일 때 매수하는 ‘역발상 투자’를 실천했습니다.
           <h3>“최대 비관 구간에서 매수하라”</h3>  
           템플턴은 “불황이 깊어지는 가운데야말로 큰 수익을 낼 기회를 발견할 수 있다”고 말하며,  
           실제로 전쟁 직후나 세계 경제 위기 시기에 적극적으로 매수하여 장기 이익을 남긴 사례가 있습니다.
-      <h2>7. 짐 로저스의 원자재 투자 및 세계 여행</h2>
-          <h3>퀀텀 펀드 공동 설립</h3>  
+     
+     
+ 
+      <div class="header-with-icon">
+        <h2>7. 짐 로저스의 원자재 투자 및 세계 여행</h2>
+        <img src="images2/rogers.png" alt="Jim Rogers" class="strategy-icon">
+      </div>
+      <h3>퀀텀 펀드 공동 설립</h3>  
           짐 로저스는 조지 소로스와 함께 퀀텀 펀드를 세워 큰 성공을 거둔 뒤,  
           세계 일주를 통해 각국의 경제·원자재 시장을 직접 체험하며 투자 기회를 찾았습니다.
           <h3>원자재 시장과 신흥국</h3>  
