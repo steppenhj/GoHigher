@@ -49,7 +49,6 @@
       font-family: "Open Sans", sans-serif;
       background: url(backgroundL.png);
       color: var(--text-color);
-      padding-bottom: 60px;
       transition: background 0.3s, color 0.3s;
       opacity: 0;
       padding-bottom: 0;
@@ -196,13 +195,32 @@
   border-color: #66b2ff;
 }
 
+
+#mainTitle {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+#mainTitle::after {
+  content: "|";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
   </style>
 </head>
 <body>
   <!-- 헤더 영역 -->
   <header>
-    <h1>About Go Higher</h1>
-    <p>우리는 혁신과 도전으로 미래를 선도합니다.</p>
+    <h1 id="mainTitle"></h1> <!-- 기존 텍스트 제거 & id 추가 -->
+    <p>데이터 기반으로 금융의 미래를 다시 정의합니다.</p>
   </header>
 
   <!-- 파도형 섹션 divider -->
@@ -224,6 +242,10 @@
         우리는 최신 데이터를 바탕으로 시장의 변동성을 예측하고, 새로운 투자 기회를 발견하며,
         지속 가능한 성장을 목표로 합니다.
       </p>
+      <p>
+        우리는 데이터와 기술을 통해 누구나 공정하게 투자 기회를 누릴 수 있는 시대를 꿈꿉니다. 
+        Go Higher는 단순히 ‘정보 제공자’가 아닌, 혁신적인 투자 문화의 동반자로서 존재합니다.
+      </p>
     </div>
     <div class="about-section" data-aos="fade-up" data-aos-delay="200">
       <h2>비전 및 미션</h2>
@@ -231,19 +253,15 @@
         우리의 비전은 투자 정보의 민주화를 실현하여 누구나 금융 시장에 쉽게 접근할 수 있도록 하는 것입니다.
         이를 위해 끊임없는 연구와 혁신을 통해 정확한 데이터를 제공하며, 고객과 함께 성장하는 미래를 만들어갑니다.
       </p>
+      <p>
+        Go Higher가 지향하는 미래는 단순한 금융 시장 정보의 전달을 넘어, 
+        개인 투자자들도 전문 투자자 못지않은 인사이트와 통찰을 얻을 수 있도록 돕는 것입니다.
+        이를 통해 개인의 재정적 자유를 확대하고, 지속 가능한 금융 생태계를 이루어내는 것이 우리의 목표입니다.
+      </p>      
     </div>
-    <!-- 추가 섹션 1: 팀 소개 -->
-    <div class="about-section" data-aos="fade-up" data-aos-delay="400">
-      <h2>팀 소개</h2>
-      <p>
-        Go Higher의 핵심 팀은 다양한 분야의 전문가들로 구성되어 있으며, 각자의 전문성을 바탕으로 혁신적인 솔루션을 제시합니다.
-      </p>
-      <p>
-        팀원들은 협업과 소통을 통해 고객에게 최고의 서비스를 제공하기 위해 항상 노력하고 있습니다.
-      </p>
     </div>
     <!-- 추가 섹션 2: 기술력 -->
-    <div class="about-section" data-aos="fade-up" data-aos-delay="600">
+    <div class="about-section" data-aos="fade-up" data-aos-delay="400">
       <h2>최첨단 기술력</h2>
       <p>
         당사는 빅데이터 분석과 인공지능을 활용하여 실시간으로 시장 동향을 파악하고, 사용자 맞춤형 정보를 제공합니다.
@@ -253,7 +271,7 @@
       </p>
     </div>
     <!-- 추가 섹션 3: 미래 계획 -->
-    <div class="about-section" data-aos="fade-up" data-aos-delay="800">
+    <div class="about-section" data-aos="fade-up" data-aos-delay="600">
       <h2>미래 계획</h2>
       <p>
         Go Higher는 지속적인 혁신과 글로벌 네트워크 확장을 통해 투자 정보의 새로운 기준을 마련할 것입니다.
@@ -261,13 +279,41 @@
       <p>
         앞으로 더 많은 투자자들이 금융 시장에서 성공할 수 있도록 다양한 서비스를 제공할 예정입니다.
       </p>
+      <p>
+        1. 앱스토어, 플레이 스토어에 앱 출시
+      </p>
+      <p>
+        2. API 도입으로 실시간 주가 확인 기능 도입
+      </p>
+      <p>
+        3. 주식 투자 자동 세금 계산기 도입
+      </p>
+      <p>
+        4. 실시간 대화 챗봇 기능 도입
+      </p>  
     </div>
+    <div class="about-section" data-aos="fade-up" data-aos-delay="800">
+      <h2>Why Go Higher?</h2>
+      <p>
+        데이터 기반 투자 의사결정은 더 이상 전문가들만의 전유물이 아닙니다.
+        Go Higher는 복잡한 통계와 분석 과정을 간소화하여, 
+        누구나 빠르게 핵심 정보를 파악하고 투자 전략을 세울 수 있도록 돕습니다.
+      </p>
+    </div>
+    
     <!-- 돌아가는 버튼: Home과 Diary -->
     <div class="back-buttons" data-aos="fade-up" data-aos-delay="1000">
       <a href="index.html"><i class="fas fa-home"></i> Home</a>
       <a href="주식포트폴리오.html"><i class="fas fa-book"></i> Diary</a>
     </div>
   </main>
+
+    <!-- PWA 설치 버튼 영역 -->
+    <div id="installContainer" style="text-align: center; margin-top: 20px; display: none;">
+      <button id="installBtn" style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        GoHigher 설치
+      </button>
+    </div>
 
   <!-- 푸터 -->
   <footer>
@@ -282,12 +328,7 @@
           <!-- Back to Top 버튼 -->
           <button class="back-to-top" id="backToTop">Top</button>
 
-  <!-- PWA 설치 버튼 영역 -->
-  <div id="installContainer" style="text-align: center; margin-top: 20px; display: none;">
-    <button id="installBtn" style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
-      GoHigher 설치
-    </button>
-  </div>
+
 
   <!-- 다크모드 전환 버튼 -->
   <button class="theme-toggle-btn" id="themeToggleBtn">
@@ -394,5 +435,23 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
+
+<script>
+  // 타이핑 효과
+  const text = "We Empower Smarter Investing";
+  let i = 0;
+  const header = document.getElementById("mainTitle");
+
+  function typeEffect() {
+    if (i < text.length) {
+      header.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeEffect, 80);
+    }
+  }
+
+  window.addEventListener("load", typeEffect);
+</script>
+
 </body>
 </html>
