@@ -1320,10 +1320,43 @@ body.dark-mode .wave-text {
 #kakao-share-btn:hover {
   transform: scale(1.2);
 }
+
+/* 기본적으로 splash 숨기기 (데스크톱용) */
+#splash {
+  display: none;
+}
+
+/* 모바일 사이즈에서만 splash 보이기 */
+@media screen and (max-width: 768px) {
+  #splash {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #4285F4;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow: hidden;
+  }
+
+  #splash img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+}
     </style>
     
   </head>
   <body>
+
+    <div id="splash">
+      <img src="/images2/splashScreen.png" alt="GoHigher Splash" />
+    </div>
+
     <!-- 헤더 -->
     <header>
       <div class="button-container" style="position: relative;">
@@ -1926,14 +1959,6 @@ body.dark-mode .wave-text {
       }
       type();
     });
-
-      // 로그인페이지로 넘어가도록
-  // (function() {
-  //   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  //   if (!isLoggedIn) {
-  //     window.location.href = "https://gohigher.kr/login.html";
-  //   }
-  // })();
       </script>
 
 <script src="챗봇.js"></script>
@@ -1975,6 +2000,21 @@ body.dark-mode .wave-text {
 });
 </script>
 
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    // 모바일일 때만 splash 보여주기
+    if (window.innerWidth <= 768) {
+      setTimeout(() => {
+        document.getElementById("splash").style.display = "none";
+        document.getElementById("main").style.display = "block";
+      }, 800);
+    } else {
+      // 데스크톱이면 splash 바로 숨기고 main 바로 보여줌
+      document.getElementById("splash").style.display = "none";
+      document.getElementById("main").style.display = "block";
+    }
+  });
+</script>
 
     </body>
   </html> 
