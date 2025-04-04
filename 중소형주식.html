@@ -107,9 +107,6 @@ html.js body {
         border: 1px solid #cacaca; /* 테두리 색상도 동일하게 */
         background-color: transparent; /* 배경을 투명으로 두거나 원하는 색상으로 지정 */
       }
-      body.dark-mode .save-notice{
-        background: #555555;
-      }
       /* hover 시 색상 변화(예시) */
       body.dark-mode nav ul li a:hover {
         background-color: #004284;
@@ -190,13 +187,7 @@ html.js body {
         margin: 1rem auto;
         padding: 0 1rem;
       }
-      .save-notice {
-        background: #fff;
-        margin-bottom: 1rem;
-        padding: 1rem;
-        border-left: 4px solid var(--primary-color);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
+
       h2 {
         text-align: center;
         margin-bottom: 1rem;
@@ -1263,6 +1254,34 @@ body.dark-mode h2 {
   color: #66b3ff;
 }
 
+      /* 추가: 투자 코멘트 섹션 */
+      .investment-comment {
+        background: #f4f7fa;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-left: 4px solid var(--secondary-color);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .investment-comment h2 {
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+      }
+      .investment-comment p {
+        font-size: 1rem;
+        color: var(--text-color);
+      }
+/* 다크 모드 투자 코멘트 섹션 */
+body.dark-mode .investment-comment {
+  background: #555555;  /* 어두운 배경색 */
+  border-left: 4px solid var(--secondary-color);  /* 필요 시 다크 모드 전용 색상으로 조정 가능 */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode .investment-comment h2 {
+  color: #66b3ff;  /* 다크 모드에서의 h2 색상 (다른 다크 모드 h2와 통일) */
+}
+body.dark-mode .investment-comment p {
+  color: #ddd;  /* 다크 모드에서의 본문 텍스트 색상 */
+}
 </style>
   </head>
   <body>
@@ -1330,12 +1349,17 @@ body.dark-mode h2 {
     </nav>
 
     <main>
-      <div class="save-notice">
-        이 페이지는 <strong>미국 중소형주식</strong>을 소개합니다.<br />
-        <strong>정기적으로 새로운 종목을 추가</strong>하고, 원하는 주식에 대한 <strong>분석 요청</strong>도
-        <strong>무료</strong>로 받을 수 있습니다.<br />
-        <strong>아래 목록에서 종목을 클릭</strong>하시면 자세한 내용을 확인하실 수 있습니다.
-      </div>
+            <!-- 추가: 투자 코멘트 섹션 -->
+            <div class="investment-comment">
+              <h2>현재 중소형주 투자 현황 - 4월 4일</h2>
+              <p>최근 트럼프 대통령의 관세 발표로 인해 중소형주가 크게 하락했습니다. 
+                이러한 관세는 미국 경제 성장 둔화와 경기 침체에 대한 우려를 증폭시키고 있습니다. 
+                특히, 소형주 중심의 러셀 2000 지수는 2021년 말 고점 대비 22% 하락하여 약세장에 진입했습니다. 
+                <br>이러한 상황에서 투자자들은 신중한 접근이 필요하며, 분할 매수를 고려하는 것이 바람직해 보입니다.
+                <br>현재는 금과 엔화에 대한 수요가 증가하고 있습니다. 현재는 대형주 중심으로 포트폴리오를 구성하는 것이 좋다고 생각합니다.
+              </p>
+            </div>
+
       <h2>중소형주식 리스트</h2>
       <table id="stockTable">
         <thead>
