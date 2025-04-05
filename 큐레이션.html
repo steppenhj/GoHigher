@@ -654,7 +654,73 @@ body.dark-mode .back-to-top {
   background: linear-gradient(135deg, #004080, #002855);
   color: #fff;
 }
-
+@media (max-width: 768px) {
+      body { font-size: 18px; padding-bottom: 0; }
+      header, main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0.5rem !important;
+        box-sizing: border-box;
+      }
+      footer { padding: 0.8rem !important; margin-bottom: 78px; }
+      .desktop-nav { display: none; }
+      .bottom-nav { display: block; }
+      .bottom-nav ul { flex-wrap: nowrap; }
+      .bottom-nav { width: 100vw; max-width: 100vw; overflow-x: hidden; }
+      .bottom-nav li { flex: 1 1 0; min-width: 0; }
+      .bottom-nav li a.nav-link { width: 100%; font-size: 3.2vw; }
+      .bottom-nav .icon { width: 6.5vw; height: 6.5vw; }
+      .bottom-nav .nav-text { font-size: 2.8vw; }
+      html, body { overflow-x: hidden; max-width: 100vw; }
+      nav ul li a { white-space: nowrap; }
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      #profileBox {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      #profileAvatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+        transition: transform 0.2s;
+      }
+      #profileAvatar:hover { transform: scale(1.1); }
+      #welcomeText { display: none; }
+      .login-btn {
+        display: none;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+      #investmentSurvey {
+        max-width: 95% !important;
+        padding: 1rem !important;
+        margin: 1rem auto !important;
+      }
+      .curation-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+      }
+      .brand-icon {
+        width: 30px;
+        height: 30px;
+      }
+    }
   </style>
 </head>
 <body>

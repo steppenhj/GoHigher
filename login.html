@@ -6,58 +6,13 @@
   <title>회원로그인</title>
   <!-- Google Fonts: Roboto -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-  <title>최고의 맞춤형 투자 앱! 지금 바로 로그인하고 사용해보세요!</title>
-  <meta name="description" content="무료로 매일 미국 증시에 대한 정보를 보고 싶다? 지금 바로 GoHigher 에 가입하세요!"/>
-  <link rel="canonical" href="https://gohigher.kr/" />
-  <!-- 매니페스트 -->
-  <link rel="manifest" href="/manifest.json" />
-  <!-- 키워드 -->
-  <meta name="keywords" content="미국 주식, 증시뉴스, 테크뉴스, 글로벌 경제, Go Higher" />
-  <!-- 검색 엔진 크롤링 -->
-  <meta name="robots" content="index,follow" />
-  <!-- **확대/축소 불가 설정** -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
-
-  <!-- [추가] Font Awesome 아이콘 CDN -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-
-  <!-- 구글 폰트 -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"
-    rel="stylesheet"
-  />
-  <!-- 사이트 검증 메타 -->
-  <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
-  <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="최고의 맞춤형 투자 앱! 지금 바로 로그인하고 사용해보세요!" />
-  <meta property="og:description" content="무료로 매일 미국 증시에 대한 정보를 보고 싶다? 지금 바로 GoHigher 에 가입하세요!"/>
-  <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
-  <meta property="og:url" content="https://gohigher.kr/index.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Go Higher" />
-  <meta property="og:locale" content="ko_KR" />
-  <!-- Twitter Card 태그 -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="최고의 맞춤형 투자 앱! 지금 바로 로그인하고 사용해보세요!"/>
-  <meta name="twitter:description" content="무료로 매일 미국 증시에 대한 정보를 보고 싶다? 지금 바로 GoHigher 에 가입하세요!"/>
-  <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
-  <link rel="icon" href="/logo.jpg" type="image/jpeg" />
-
-
   <style>
     /* CSS Variables for 색상 관리 */
     :root {
       --primary-color: #4285F4;
       --secondary-color: #357ae8;
       --accent-color: #ffd700;
-      --background-overlay: rgba(255, 255, 255, 0.85);
+      --background-overlay: rgb(255, 255, 255);
       --text-color: #333;
     }
     /* 글로벌 리셋 */
@@ -82,22 +37,37 @@
       max-width: 1200px;
       margin: 40px auto;
     }
-    /* 왼쪽 패널: 넓게 + 글자 크기 조정 */
     .left-panel {
+      position: relative;
       flex: 2;
-      background: var(--background-overlay);
-      border-radius: 12px;
+      background: none;
       padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      font-size: 1.1rem; /* 기본 글자 크기 확대 */
+      font-size: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
+    .left-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+  clip-path: url(#puzzleClip);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: -1;
+  pointer-events: none;
+}
+
     /* 오른쪽 패널: 상대적으로 좁게 */
     .right-panel {
       flex: 1;
-      background: var(--background-overlay);
+      background: none;
       border-radius: 12px;
       padding: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     @media (max-width: 768px) {
       .container {
@@ -106,7 +76,7 @@
     }
     h1 {
       text-align: center;
-      color: var(--primary-color);
+      color: white;
       font-size: 2rem;
       margin-bottom: 20px;
     }
@@ -115,8 +85,8 @@
       margin-bottom: 30px;
     }
     .left-panel .info-box h2 {
-      font-size: 1.8rem; /* 글자 크기 확대 */
-      margin-bottom: 15px;
+      font-size: 2rem; /* 글자 크기 확대 */
+      margin-bottom: 4rem;
       color: var(--primary-color);
     }
     .left-panel .info-box ol {
@@ -141,6 +111,9 @@
       color: var(--accent-color);
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
       margin-right: 10px;
+    }
+    .bottom-text{
+      font-weight: bold;
     }
     @keyframes wave {
       0%, 40%, 100% { transform: translateY(0); }
@@ -212,15 +185,16 @@
       margin: 20px 0;
       position: relative;
       font-size: 0.95rem;
-      color: #666;
+      font-weight: bold;
+      color: white;
     }
     .divider::before, .divider::after {
       content: "";
       position: absolute;
       top: 50%;
-      width: 40%;
-      height: 1px;
-      background: #ccc;
+      width: 25%;
+      height: 3px;
+      background: white;
     }
     .divider::before { left: 0; }
     .divider::after { right: 0; }
@@ -254,84 +228,148 @@
     }
     /* 로봇 스타일 (필수는 아니나 개성을 더함) */
     .robot {
-      position: relative;
-      width: 160px;
-      height: 160px;
-      margin: 20px auto;
-      background: linear-gradient(to bottom, #f9f9f9, #e0e0e0);
-      border: 4px solid #ccc;
-      border-radius: 15px;
-      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
-    .eye {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: #fff;
-      border: 2px solid #bbb;
-      border-radius: 50%;
-      overflow: hidden;
-      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
-    }
-    .eye.left { top: 40px; left: 30px; }
-    .eye.right { top: 40px; right: 30px; }
-    .pupil {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: #333;
-      border-radius: 50%;
-      top: 9px;
-      left: 9px;
-      transition: transform 0.3s;
-    }
-    .hand {
-      position: absolute;
-      width: 40px;
-      height: 20px;
-      background: #90cdf4;
-      border-radius: 10px;
-      top: 20px;
-      transition: transform 0.3s;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-    .hand.left {
-      left: -20px;
-      transform: rotate(-20deg);
-    }
-    .hand.right {
-      right: -20px;
-      transform: rotate(20deg);
-    }
-    .robot.cover .hand.left {
-      top: 40px;
-      left: 20px;
-      transform: rotate(0);
-    }
-    .robot.cover .hand.right {
-      top: 40px;
-      right: 20px;
-      transform: rotate(0);
-    }
-    .eye::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #fff;
-      top: 0;
-      left: 0;
-      border-radius: 50%;
-      animation: blink 4s infinite;
-      opacity: 0;
-    }
-    @keyframes blink {
-      0%, 95%, 100% { opacity: 0; }
-      96%, 97% { opacity: 1; }
-    }
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 20px auto;
+  background: linear-gradient(to bottom, #f9f9f9, #e0e0e0);
+  border: 4px solid #ccc;
+  border-radius: 15px;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* 기존 눈, 눈동자 등은 그대로 유지 */
+.eye {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border: 2px solid #bbb;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+}
+.eye.left { top: 40px; left: 30px; }
+.eye.right { top: 40px; right: 30px; }
+.pupil {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #333;
+  border-radius: 50%;
+  top: 9px;
+  left: 9px;
+  transition: transform 0.3s;
+}
+
+/* ──────────────────────────────
+   레고 팔 스타일
+   ────────────────────────────── */
+.hand {
+  position: absolute;
+  width: 16px;            /* 팔 두께 (더 얇게) */
+  height: 60px;           /* 팔 길이 (더 길게) */
+  background: #90cdf4;    /* 팔 색상 */
+  border-radius: 8px;     /* 둥근 모양 */
+  top: 30px;              /* 로봇 몸통과 수직 위치 맞춤 */
+  transform-origin: top center;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 팔 상단(어깨) - 위쪽에 원형 디테일 추가 */
+.hand::before {
+  content: "";
+  position: absolute;
+  top: -8px;         /* 팔 상단보다 약간 위 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;       /* 어깨 원 크기 */
+  height: 20px;
+  background: #90cdf4;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* 팔 끝(손목) - 아래쪽에 원형 디테일 추가 */
+.hand::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;    /* 팔 끝보다 약간 아래 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;      /* 손목 원 크기 */
+  height: 24px;
+  background: #90cdf4;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 왼팔 / 오른팔 위치 */
+.hand.left {
+  left: -12px;       /* 몸통 왼쪽 밖으로 나오게 */
+  transform: rotate(-15deg);
+}
+.hand.right {
+  right: -12px;      /* 몸통 오른쪽 밖으로 나오게 */
+  transform: rotate(15deg);
+}
+
+/* 로봇이 눈을 가릴 때 팔이 몸통 앞으로 오도록 위치 조정 */
+.robot.cover .hand.left {
+  transform: rotate(-60deg);
+}
+.robot.cover .hand.right {
+  transform: rotate(60deg);
+}
+
+/* 눈 깜빡임 애니메이션 그대로 유지 */
+.eye::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  animation: blink 4s infinite;
+  opacity: 0;
+}
+@keyframes blink {
+  0%, 95%, 100% { opacity: 0; }
+  96%, 97% { opacity: 1; }
+}
+
   </style>
 </head>
 <body>
+  <!-- SVG clipPath 정의: 퍼즐 조각 모양 -->
+  <svg width="0" height="0" style="position:absolute;">
+    <defs>
+      <clipPath id="puzzleClip" clipPathUnits="objectBoundingBox">
+        <path d="
+          M0,0
+          L0.4,0
+          C0.4,0.2 0.6,0.2 0.6,0
+          L1,0
+          L1,0.4
+          C0.8,0.4 0.8,0.6 1,0.6
+          L1,1
+          L0.6,1
+          C0.6,0.8 0.4,0.8 0.4,1
+          L0,1
+          L0,0.6
+          C0.2,0.6 0.2,0.4 0,0.4
+          L0,0
+          Z
+        "/>
+      </clipPath>
+    </defs>
+  </svg>
+  
+  
+  
   <div class="container">
     <!-- 왼쪽 패널: 서비스 소개 및 인트로 메시지 -->
     <div class="left-panel">
@@ -358,7 +396,7 @@
           <span style="--i:7">e</span>
           <span style="--i:8">r</span>
         </div>
-        <div>성공 투자로 가는 첫걸음, GoHigher와 함께하세요!</div>
+        <div class="bottom-text">성공 투자로 가는 첫걸음, GoHigher와 함께하세요!</div>
       </div>
     </div>
     <!-- 오른쪽 패널: 로봇, 로그인 및 회원가입 폼 -->
