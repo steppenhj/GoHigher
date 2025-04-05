@@ -364,11 +364,38 @@ html.js body {
       line-height: 20px; font-size: 0.9rem;
     }
     .diary-entry {
-      border-top: 1px solid #ddd; padding: 0.5rem 0; font-size: 0.9rem;
-      display: flex; align-items: center;
-    }
+  border-top: 1px solid #ddd;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+
+  /* 기존 코드: display: flex; align-items: center; */
+  /* 아래처럼 변경해서 위아래로 쌓이도록 함 */
+  display: flex;
+  flex-direction: column; /* 세로 배치 */
+  align-items: flex-start; /* 가로 정렬 왼쪽 */
+}
+
     .diary-entry time { font-weight: bold; margin-right: 0.5rem; }
     .diary-entry .diary-text { flex: 1; margin: 0 8px; }
+    .diary-entry-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .diary-entry-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .diary-entry-header time,
+  .diary-entry-header button {
+    margin-bottom: 4px;
+  }
+}
+
     .investment-diary button.edit-btn,
     .investment-diary button.delete-btn {
       padding: 0.3rem 0.6rem; background: #b30000; color: #fff;
@@ -797,6 +824,23 @@ html.js body {
       border-left: 5px solid red;
       background-color: #ffe6e6;
     }
+    /* 다크 모드에서 리밸런싱 카드의 글자색과 배경색 */
+body.dark-mode .rebalance-card {
+  color: #fff !important; /* 흰색 글자 */
+}
+
+/* 매수(buy) 카드 */
+body.dark-mode .rebalance-card.buy {
+  background-color: #1a3321 !important; /* 어두운 초록색 */
+  border-left: 5px solid #4caf50 !important; /* 적당한 초록색 라인 */
+}
+
+/* 매도(sell) 카드 */
+body.dark-mode .rebalance-card.sell {
+  background-color: #331a1a !important; /* 어두운 빨간색 */
+  border-left: 5px solid #f44336 !important; /* 적당한 빨간색 라인 */
+}
+
     #profileBox {
   display: flex;
   align-items: center;
@@ -1019,6 +1063,28 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
 .top-tab-nav .tab-item.active::after {
   width: 60%;
 }
+body.dark-mode .asset-item button,
+body.dark-mode .stock-item button,
+body.dark-mode .investment-diary button.edit-btn,
+body.dark-mode .investment-diary button.delete-btn {
+  background: #444 !important;
+  color: #fff !important;
+  border: 1px solid #666 !important;
+}
+
+/* 필요에 따라 호버 효과도 추가 */
+body.dark-mode .asset-item button:hover,
+body.dark-mode .stock-item button:hover,
+body.dark-mode .investment-diary button.edit-btn:hover,
+body.dark-mode .investment-diary button.delete-btn:hover {
+  background: #666 !important; /* 또는 원하시는 색상으로 변경 */
+}
+body.dark-mode #memoModal .modal-content button {
+  background: #444 !important;
+  color: #fff !important;
+  border: 1px solid #666 !important;
+}
+
   </style>
 </head>
 <body>
@@ -1042,6 +1108,7 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
       <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
       <a href="중소형주식.html" class="tab-item">중소형주식</a>
       <a href="배당주.html" class="tab-item">배당주</a>
+      <a href="큐레이션.html" class="tab-item">큐레이션</a>
     </nav>
   </header>
     <!-- 모바일 하단 네비게이션 -->
@@ -1077,7 +1144,12 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
             <span class="nav-text">배당주</span>
           </a>
         </li>
-
+        <li>
+          <a href="큐레이션.html" class="nav-link" aria-label="큐레이션">
+            <span class="icon bull-icon"></span>
+            <span class="nav-text">큐레이션</span>
+          </a>
+        </li>
       </ul>
     </nav>
   
@@ -1352,7 +1424,6 @@ body.dark-mode .bottom-nav li a.nav-link.active .icon {
       <textarea id="modalTextarea" placeholder="메모를 입력하세요" style="width:100%; height: 100px;"></textarea>
       <div style="text-align: right; margin-top: 10px;">
         <button id="saveModalBtn" class="primary-btn">저장</button>
-        <button id="cancelModalBtn" class="cancel-btn" style="background:#b30000; color:#fff; border:none; border-radius:4px; padding: 0.4rem 0.8rem;">취소</button>
       </div>
     </div>
   </div>
@@ -1674,6 +1745,7 @@ function closeModal(modalId) {
       });
       updateTargetRatioStatus();
     }
+    
     function saveTargetRatios() {
       const ratioInputs = document.querySelectorAll('.target-ratio-input');
       let targetRatios = {};
@@ -2006,30 +2078,45 @@ function closeModal(modalId) {
       alert("자산 목표가 저장되었습니다.");
     });
     function updateAssetGoalProgress() {
-      const savedGoal = localStorage.getItem("assetGoal");
-      const progressContainer = document.getElementById("assetGoalProgress");
-      progressContainer.innerHTML = "";
-      if (!savedGoal) { return; }
-      const goal = Number(savedGoal);
-      const storedAssets = localStorage.getItem("assetPortfolio");
+  const savedGoal = localStorage.getItem("assetGoal");
+  const progressContainer = document.getElementById("assetGoalProgress");
+  progressContainer.innerHTML = "";
+
+  if (!savedGoal) return;
+  const goal = Number(savedGoal);
+
+  // Firestore에서 assetPortfolio 불러오기
+  loadUserData("assetPortfolio")
+    .then(doc => {
       let totalAsset = 0;
-      if (storedAssets) {
-        const assets = JSON.parse(storedAssets);
-        assets.forEach(asset => { totalAsset += Number(asset.amount) || 0; });
+      if (doc && doc.exists) {
+        // Firestore에 저장된 배열
+        const assets = doc.data().assets || [];
+        assets.forEach(asset => {
+          totalAsset += Number(asset.amount) || 0;
+        });
       }
+
+      // 계산된 totalAsset으로 진행률 표시
       const percentage = Math.min(100, ((totalAsset / goal) * 100).toFixed(2));
+      
       const info = document.createElement("p");
       info.textContent = `현재 자산: ${totalAsset.toLocaleString()} 원 / 목표: ${goal.toLocaleString()} 원`;
       progressContainer.appendChild(info);
+
       const progressBar = document.createElement("div");
       progressBar.classList.add("progress-bar");
+      
       const progress = document.createElement("div");
       progress.classList.add("progress");
       progress.style.width = percentage + "%";
       progress.textContent = percentage + "%";
+
       progressBar.appendChild(progress);
       progressContainer.appendChild(progressBar);
-    }
+    })
+    .catch(err => console.error("자산 불러오기 실패:", err));
+}
 
     // ===== 투자 일지 =====
 // Firestore에 투자 일지 항목을 추가하는 함수
@@ -2057,48 +2144,55 @@ function loadDiaryEntriesFirestore() {
       entries = doc.data().entries || [];
     }
     entries.forEach((entry, index) => {
-      const div = document.createElement("div");
-      div.className = "diary-entry";
-      
-      const timeElem = document.createElement("time");
-      timeElem.textContent = entry.date;
-      div.appendChild(timeElem);
-      
-      const textElem = document.createElement("span");
-      textElem.className = "diary-text";
-      textElem.textContent = entry.text;
-      div.appendChild(textElem);
-      
-      // 수정 버튼
-      const editBtn = document.createElement("button");
-      editBtn.textContent = "수정";
-      editBtn.classList.add("edit-btn");
-      editBtn.addEventListener("click", () => {
-        const newText = prompt("수정할 내용을 입력하세요", entry.text);
-        if(newText !== null && newText.trim() !== ""){
-          entry.text = newText.trim();
-          saveDiaryEntriesFirestore(entries);
-        }
-      });
-      div.appendChild(editBtn);
-      
-      // 삭제 버튼: DOM 요소를 즉시 제거하도록 수정
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "삭제";
-      deleteBtn.classList.add("delete-btn");
-      deleteBtn.addEventListener("click", () => {
-        if(confirm("정말 삭제하시겠습니까?")){
-          // DOM에서 해당 요소 즉시 제거
-          div.remove();
-          // 배열에서도 해당 항목 제거 후 Firestore 업데이트
-          entries.splice(index, 1);
-          saveDiaryEntriesFirestore(entries);
-        }
-      });
-      div.appendChild(deleteBtn);
-      
-      diaryEntriesContainer.appendChild(div);
-    });
+  const div = document.createElement("div");
+  div.className = "diary-entry";
+  
+  // 헤더 컨테이너: 날짜와 수정, 삭제 버튼을 묶음
+  const headerDiv = document.createElement("div");
+  headerDiv.className = "diary-entry-header";
+  
+  const timeElem = document.createElement("time");
+  timeElem.textContent = entry.date;
+  headerDiv.appendChild(timeElem);
+  
+  // 수정 버튼
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "수정";
+  editBtn.classList.add("edit-btn");
+  editBtn.addEventListener("click", () => {
+    const newText = prompt("수정할 내용을 입력하세요", entry.text);
+    if(newText !== null && newText.trim() !== ""){
+      entry.text = newText.trim();
+      saveDiaryEntriesFirestore(entries);
+    }
+  });
+  headerDiv.appendChild(editBtn);
+  
+  // 삭제 버튼
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "삭제";
+  deleteBtn.classList.add("delete-btn");
+  deleteBtn.addEventListener("click", () => {
+    if(confirm("정말 삭제하시겠습니까?")){
+      div.remove();
+      entries.splice(index, 1);
+      saveDiaryEntriesFirestore(entries);
+    }
+  });
+  headerDiv.appendChild(deleteBtn);
+  
+  // 헤더 컨테이너를 메인 div에 추가
+  div.appendChild(headerDiv);
+  
+  // 메모 내용은 헤더 아래에 추가
+  const textElem = document.createElement("span");
+  textElem.className = "diary-text";
+  textElem.textContent = entry.text;
+  div.appendChild(textElem);
+  
+  diaryEntriesContainer.appendChild(div);
+});
+
   }).catch(err => console.error("투자 일지 불러오기 실패:", err));
 }
 
