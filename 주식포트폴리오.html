@@ -387,14 +387,21 @@ html.js body {
 
 @media (max-width: 768px) {
   .diary-entry-header {
-    flex-direction: column;
-    align-items: flex-start;
+    /* 세로 배치 대신 가로(row) 배치로 변경 */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
   .diary-entry-header time,
   .diary-entry-header button {
-    margin-bottom: 4px;
+    margin-bottom: 0;
+  }
+  /* 필요에 따라 헤더와 텍스트 사이에 간격 추가 */
+  .diary-text {
+    margin-top: 8px;
   }
 }
+
 
     .investment-diary button.edit-btn,
     .investment-diary button.delete-btn {
@@ -1155,8 +1162,9 @@ body.dark-mode #memoModal .modal-content button {
   
   <main>
     <div class="save-notice">
-      이 페이지는 <strong>모바일 앱과 연동</strong>되며, 입력한 내용은 <strong>언제 어디서나 편리하게 확인</strong>할 수 있습니다.
-      <br> 다양한 기기에서 정보를 실시간으로 관리하세요.
+      당신의 <strong>투자는 잠들지 않습니다.</strong> 
+      <br><strong>모바일과 웹의 완벽한 연동으로 투자 현황을 실시간</strong> 관리하고,
+      언제 어디서든 쉽고 편리하게 <strong>자산을 늘리는 즐거움</strong>을 경험하세요.
     </div>
 
     <h2>포트폴리오 다이어리</h2>
@@ -2154,19 +2162,6 @@ function loadDiaryEntriesFirestore() {
   const timeElem = document.createElement("time");
   timeElem.textContent = entry.date;
   headerDiv.appendChild(timeElem);
-  
-  // 수정 버튼
-  const editBtn = document.createElement("button");
-  editBtn.textContent = "수정";
-  editBtn.classList.add("edit-btn");
-  editBtn.addEventListener("click", () => {
-    const newText = prompt("수정할 내용을 입력하세요", entry.text);
-    if(newText !== null && newText.trim() !== ""){
-      entry.text = newText.trim();
-      saveDiaryEntriesFirestore(entries);
-    }
-  });
-  headerDiv.appendChild(editBtn);
   
   // 삭제 버튼
   const deleteBtn = document.createElement("button");
