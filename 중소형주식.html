@@ -825,6 +825,12 @@ body.dark-mode .nav-link:hover {
       .nav-link.active .coinTree-icon {
         background-image: url("images/treeOn.png");
       }
+      .bull-icon {
+        background-image: url("images/bullImage.png");
+      }
+      .nav-link.active .bull-icon {
+        background-image: url("images/bullOn.png");
+      }
 /* ---------- 모바일 하단 네비게이션 ---------- */
 .bottom-nav {
   display: none;
@@ -1300,11 +1306,12 @@ body.dark-mode .investment-comment p {
       </div>
       <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
       <nav class="desktop-nav top-tab-nav">
-        <a href="index.html" class="tab-item">투데이 뉴스</a>
+        <a href="index.html" class="tab-item">투데이뉴스</a>
         <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
-        <a href="버크셔해서웨이.html" class="tab-item">인기 포트폴리오</a>
-        <a href="중소형주식.html" class="tab-item active">중소형주식 추천</a>
-        <a href="배당주.html" class="tab-item">배당주 분석</a>
+        <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
+        <a href="중소형주식.html" class="tab-item active">중소형주식</a>
+        <a href="배당주.html" class="tab-item">배당주</a>
+        <a href="큐레이션.html" class="tab-item">큐레이션</a>
       </nav>
     </header>
 
@@ -1343,6 +1350,12 @@ body.dark-mode .investment-comment p {
           <a href="배당주.html" class="nav-link" arial-label="배당주분석">
             <span class="icon coinTree-icon"></span>
             <span class="nav-text">배당주</span>
+          </a>
+        </li>
+        <li>
+          <a href="큐레이션.html" class="nav-link" aria-label="큐레이션">
+            <span class="icon bull-icon"></span>
+            <span class="nav-text">큐레이션</span>
           </a>
         </li>
       </ul>

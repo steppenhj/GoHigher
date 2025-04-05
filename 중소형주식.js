@@ -4920,9 +4920,3 @@ if (window.pageYOffset > 300) {
 backToTopBtn.addEventListener("click", () => {
 window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-(function() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  if (!isLoggedIn) {
-    window.location.href = "https://gohigher.kr/login.html";
-  }
-})();
