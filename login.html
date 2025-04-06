@@ -73,7 +73,49 @@
       .container {
         flex-direction: column;
       }
-    }
+      .left-panel {
+    padding: 10px;
+    overflow: hidden; /* 내용이 넘치지 않도록 */
+    text-align: center;
+  }
+
+  /* 정보 박스 내 텍스트 스타일 조정 */
+  .left-panel .info-box {
+    width: 90%;
+    margin: 0 auto;
+    font-size: 0.9rem; /* 기본 폰트 크기 축소 */
+  }
+  .left-panel .info-box h2 {
+    font-size: 1.2rem !important; /* 제목 폰트 크기 조정 */
+    margin-top: 100px !important;
+  }
+  .left-panel .info-box li {
+    font-size: 0.8rem !important; /* 리스트 항목 폰트 크기 축소 */
+    margin-top: 0.2rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* 인트로 메시지 스타일 조정 */
+  .left-panel .intro-message {
+    width: 90%;
+    font-size: 1.2rem !important; /* 폰트 크기 축소 */
+    margin-bottom: 100px !important;
+  }
+  .left-panel .info-box ol {
+  list-style: decimal inside;  /* 번호를 안쪽에 표시, 또는 decimal로 유지 가능 */
+  margin: 0 auto;              /* 가로 방향 중앙 정렬 */
+  display: inline-block;       /* 블록 폭을 내용물에 맞춤 */
+  text-align: left;            /* 항목 내부 텍스트는 왼쪽 정렬 */
+  padding: 0;                  /* 기본 padding 제거 (필요 시 조절) */
+}
+
+.left-panel .info-box ol li {
+  margin-bottom: 10px;
+  font-size: 1.3rem;  /* 기존 스타일 유지 */
+  /* 필요에 따라 추가 스타일 조정 가능 */
+}
+}
+ 
     h1 {
       text-align: center;
       color: white;
@@ -87,6 +129,7 @@
     .left-panel .info-box h2 {
       font-size: 2rem; /* 글자 크기 확대 */
       margin-bottom: 4rem;
+      margin-top: 2rem;
       color: var(--primary-color);
     }
     .left-panel .info-box ol {
@@ -102,7 +145,7 @@
       text-align: center;
       font-size: 1.8rem; /* 글자 크기 확대 */
       color: var(--primary-color);
-      margin-bottom: 20px;
+      margin-bottom: 2rem;
     }
     .wave-text {
       display: inline-block;
