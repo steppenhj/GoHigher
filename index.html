@@ -1359,6 +1359,13 @@ body.dark-mode .wave-text {
     object-fit: cover;
   }
 }
+@media only screen and (max-device-width: 768px) {
+  @supports (-webkit-touch-callout: none) {
+    .bottom-nav {
+      padding-bottom: 20px; /* 원하는 padding 값 */
+    }
+  }
+}
     </style>
     
   </head>
