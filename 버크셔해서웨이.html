@@ -1069,7 +1069,13 @@ body.dark-mode .hero-section h1, body.dark-mode .hero-section p{
   margin-left: 1px; /* 제목과 이미지 사이 여백 */
 }
 
-
+@media only screen and (max-device-width: 768px) {
+  @supports (-webkit-touch-callout: none) {
+    .bottom-nav {
+      padding-bottom: 20px; /* 원하는 padding 값 */
+    }
+  }
+}
   </style>
 </head>
 <body>

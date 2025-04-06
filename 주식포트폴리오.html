@@ -1091,7 +1091,13 @@ body.dark-mode #memoModal .modal-content button {
   color: #fff !important;
   border: 1px solid #666 !important;
 }
-
+@media only screen and (max-device-width: 768px) {
+  @supports (-webkit-touch-callout: none) {
+    .bottom-nav {
+      padding-bottom: 20px; /* 원하는 padding 값 */
+    }
+  }
+}
   </style>
 </head>
 <body>

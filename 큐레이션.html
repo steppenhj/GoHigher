@@ -721,6 +721,14 @@ body.dark-mode .back-to-top {
         height: 30px;
       }
     }
+
+    @media only screen and (max-device-width: 768px) {
+  @supports (-webkit-touch-callout: none) {
+    .bottom-nav {
+      padding-bottom: 20px; /* 원하는 padding 값 */
+    }
+  }
+}
   </style>
 </head>
 <body>

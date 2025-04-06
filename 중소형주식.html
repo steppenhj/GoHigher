@@ -1288,6 +1288,13 @@ body.dark-mode .investment-comment h2 {
 body.dark-mode .investment-comment p {
   color: #ddd;  /* 다크 모드에서의 본문 텍스트 색상 */
 }
+@media only screen and (max-device-width: 768px) {
+  @supports (-webkit-touch-callout: none) {
+    .bottom-nav {
+      padding-bottom: 20px; /* 원하는 padding 값 */
+    }
+  }
+}
 </style>
   </head>
   <body>
