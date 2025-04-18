@@ -61,6 +61,8 @@
     <meta name="twitter:description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!" />
     <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
     <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+<!-- ① <head> 안, CSS 이전에 추가 -->
+  <meta name="color-scheme" content="only light">  <!-- 기본은 라이트 모드만 지원하겠다는 선언 -->
 
 <!-- 수정: integrity 제거 -->
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
@@ -168,7 +170,16 @@ html.js body {
   to {
     opacity: 1;
   }
+}/* ② CSS 최상단에 추가 */
+:root {
+  color-scheme: only light;  /* 브라우저의 강제 다크 모드를 완전히 비활성화 */
 }
+
+/* ③ JS 토글로 다크모드 전환할 때는, :root에 dark 클래스를 붙여서 색상 스킴을 dark로 지정 */
+:root.dark-mode {
+  color-scheme: dark;        /* 이때만 다크 모드 색상 사용 */
+}
+
 
       html {
         font-size: 16px;
