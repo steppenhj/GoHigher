@@ -1,7 +1,19 @@
-<intent-filter>
-    <action android:name="android.intent.action.VIEW"/>
-    <category android:name="android.intent.category.DEFAULT"/>
-    <category android:name="android.intent.category.BROWSABLE"/>
-    <data android:scheme="https"
-          android:host="gohigher.kr" />
-</intent-filter>
+<application
+    android:label="GoHigher"
+    android:icon="@mipmap/ic_launcher"
+    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <!-- ✅ TWA 모드로 앱을 구동하기 위한 핵심 설정 -->
+    <meta-data
+        android:name="android.support.customtabs.trusted.DEFAULT_URL"
+        android:value="https://gohigher.kr" />
+
+    <activity
+        android:name="androidx.browser.trusted.TrustedWebActivityLauncherActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+</application>
