@@ -1,8 +1,0 @@
-/.well-known/assetlinks.json  /.well-known/assetlinks.json 200!
-/manifest.json  /manifest.json 200!
-/service-worker.js /service-worker.js 200!
-/index.html  /index.html 200!
-/  /index.html 200!
-
-# 나머지는 리디렉트
-/*  https://gohigher.kr/:splat 301!
