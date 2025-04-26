@@ -1,0 +1,5 @@
+# 예외 처리: assetlinks.json은 리디렉트 하지 않음
+/.well-known/assetlinks.json  /.well-known/assetlinks.json 200!
+
+# 나머지는 모두 기본 도메인으로 리디렉트
+/*  https://gohigher.kr/:splat  301!
