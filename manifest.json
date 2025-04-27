@@ -2,10 +2,10 @@
   "id": "/",
   "name": "GoHigher",
   "short_name": "GoHigher",
-  "start_url": "/index.html",
+  "start_url": "/",
   "scope": "/",
-
   "display": "standalone",
+  "display_override": ["standalone"],
   "orientation": "portrait",
   "background_color": "#f4f7fa",
   "theme_color": "#004080",
@@ -51,6 +51,26 @@
     }
   ],
   "categories": ["finance", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "자산 포트폴리오",
+      "short_name": "포트폴리오",
+      "url": "/portfolio",
+      "icons": [{ "src": "/icons/shortcut-portfolio.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "투자 다이어리",
+      "short_name": "다이어리",
+      "url": "/diary",
+      "icons": [{ "src": "/icons/shortcut-diary.png", "sizes": "96x96" }]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+gohigher",
+      "url": "/?q=%s"
+    }
+  ],
   "push_notification": {
     "enabled": true
   },
@@ -64,4 +84,13 @@
   ],
   "related_applications": [],
   "prefer_related_applications": false
+,
+  "file_handlers": [
+    {
+      "action": "The url you would like to open when the user chooses to share content to your app. This URL must have code to do something with the returned file.",
+      "accept": {
+        "text/*": [".txt"]
+      }
+    }
+  ]
 }

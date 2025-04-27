@@ -14,30 +14,27 @@ const urlsToCache = [
   // 외부 리소스는 addAll이 실패할 수 있어 캐시에 직접 추가 X
 ];
 
+// 설치 이벤트: 캐시에 주요 파일 미리 저장
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
       .catch(err => console.warn("addAll 캐시 중 일부 실패:", err))
   );
-  // 새 SW가 바로 활성화되도록
-  self.skipWaiting();
+  self.skipWaiting(); // 설치되자마자 활성화
 });
 
+// 활성화 이벤트: 오래된 캐시 삭제 및 클라이언트 제어
 self.addEventListener("activate", event => {
   event.waitUntil((async () => {
-    // 1) 이전 버전의 캐시 삭제
     const keys = await caches.keys();
     await Promise.all(
       keys
         .filter(key => key !== CACHE_NAME)
         .map(key => caches.delete(key))
     );
-
-    // 2) 활성화된 SW로 모든 클라이언트를 즉시 제어
     await self.clients.claim();
 
-    // 3) 열린 모든 클라이언트에 업데이트 알림
     const allClients = await self.clients.matchAll({ includeUncontrolled: true });
     allClients.forEach(client => {
       client.postMessage({ type: "NEW_VERSION_AVAILABLE" });
@@ -45,18 +42,17 @@ self.addEventListener("activate", event => {
   })());
 });
 
+// fetch 이벤트: 네트워크 우선, 실패 시 캐시 fallback, 그리고 최종적으로는 "/" fallback
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
-  // Firebase 등 민감한 요청은 캐싱하지 않음
   if (url.origin.includes("firebase")) return;
 
   event.respondWith(
     Promise.race([
       fetch(event.request)
         .then(response => {
-          // 성공적인 GET 응답만 캐시에 저장
           if (!response || response.status !== 200 || response.type === "opaque") {
             return response;
           }
@@ -65,14 +61,13 @@ self.addEventListener("fetch", event => {
           return response;
         })
         .catch(() => {
-          // 네트워크 실패 시 캐시에서 응답
           return caches.match(event.request);
         }),
-
-      // 2초 안에 fetch가 안 되면 무조건 캐시 fallback
       new Promise((_, reject) => setTimeout(reject, 2000))
     ]).catch(() => {
-      return caches.match(event.request);
+      // 여기 추가됨: 실패하면 "/"를 fallback으로 반환
+      return caches.match(event.request)
+        .then(response => response || caches.match("/"));
     })
   );
 });
