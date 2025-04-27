@@ -48,7 +48,14 @@
       "src": "/screenshots/screenshot4.png",
       "sizes": "1080x1920",
       "type": "image/png"
+    },
+    {
+      "src": "/screenshots/screenshot-wide-1280x720.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
     }
+    
   ],
   "categories": ["finance", "productivity", "utilities"],
   "shortcuts": [
