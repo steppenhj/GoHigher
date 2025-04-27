@@ -11,7 +11,18 @@ const urlsToCache = [
   "/logo.jpg",
   "/icon-192x192.png", 
   "/icon-512x512.png",
-  // 외부 리소스는 addAll이 실패할 수 있어 캐시에 직접 추가 X
+  "/배당주.html",
+  "/큐레이션.html",
+  "/about.html",
+  "/버크셔해서웨이.html",
+  "/중소형주식.html",
+  "/privacy-policy.html",
+  "/icons/shortcut-portfolio.png",
+  "/icons/shortcut-diary.png",
+  "/screenshots/screenshot1.png",
+  "/screenshots/screenshot2.png",
+  "/screenshots/screenshot3.png",
+  "/screenshots/screenshot4.png"
 ];
 
 // 설치 이벤트: 캐시에 주요 파일 미리 저장
@@ -21,7 +32,7 @@ self.addEventListener("install", event => {
       .then(cache => cache.addAll(urlsToCache))
       .catch(err => console.warn("addAll 캐시 중 일부 실패:", err))
   );
-  self.skipWaiting(); // 설치되자마자 활성화
+  self.skipWaiting();
 });
 
 // 활성화 이벤트: 오래된 캐시 삭제 및 클라이언트 제어
@@ -42,7 +53,7 @@ self.addEventListener("activate", event => {
   })());
 });
 
-// fetch 이벤트: 네트워크 우선, 실패 시 캐시 fallback, 그리고 최종적으로는 "/" fallback
+// fetch 이벤트: 네트워크 우선, 실패 시 캐시 fallback, 최종 fallback은 "/"
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
@@ -60,14 +71,8 @@ self.addEventListener("fetch", event => {
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
           return response;
         })
-        .catch(() => {
-          return caches.match(event.request);
-        }),
+        .catch(() => caches.match(event.request)),
       new Promise((_, reject) => setTimeout(reject, 2000))
-    ]).catch(() => {
-      // 여기 추가됨: 실패하면 "/"를 fallback으로 반환
-      return caches.match(event.request)
-        .then(response => response || caches.match("/"));
-    })
+    ]).catch(() => caches.match(event.request).then(response => response || caches.match("/")))
   );
 });
