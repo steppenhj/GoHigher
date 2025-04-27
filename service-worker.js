@@ -25,7 +25,7 @@ const urlsToCache = [
   "/screenshots/screenshot4.png"
 ];
 
-// 설치 이벤트: 캐시에 주요 파일 미리 저장
+// 설치: 캐시에 주요 파일 미리 저장
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -35,14 +35,12 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
-// 활성화 이벤트: 오래된 캐시 삭제 및 클라이언트 제어
+// 활성화: 이전 캐시 삭제 + 바로 컨트롤
 self.addEventListener("activate", event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
     await Promise.all(
-      keys
-        .filter(key => key !== CACHE_NAME)
-        .map(key => caches.delete(key))
+      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
     );
     await self.clients.claim();
 
@@ -53,26 +51,31 @@ self.addEventListener("activate", event => {
   })());
 });
 
-// fetch 이벤트: 네트워크 우선, 실패 시 캐시 fallback, 최종 fallback은 "/"
+// fetch: **캐시 우선**, 없으면 네트워크, 최악에는 "/"로 fallback
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
-  const url = new URL(event.request.url);
-  if (url.origin.includes("firebase")) return;
-
   event.respondWith(
-    Promise.race([
-      fetch(event.request)
-        .then(response => {
-          if (!response || response.status !== 200 || response.type === "opaque") {
-            return response;
-          }
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
+    caches.match(event.request)
+      .then(response => {
+        // 캐시에 있으면 바로 반환
+        if (response) {
           return response;
-        })
-        .catch(() => caches.match(event.request)),
-      new Promise((_, reject) => setTimeout(reject, 2000))
-    ]).catch(() => caches.match(event.request).then(response => response || caches.match("/")))
+        }
+        // 캐시에 없으면 네트워크로 요청
+        return fetch(event.request)
+          .then(networkResponse => {
+            // 성공한 경우 캐시에 저장
+            if (networkResponse && networkResponse.status === 200 && networkResponse.type !== "opaque") {
+              const responseClone = networkResponse.clone();
+              caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
+            }
+            return networkResponse;
+          })
+          .catch(() => {
+            // 네트워크도 실패하면 메인 페이지로 fallback
+            return caches.match("/");
+          });
+      })
   );
 });
