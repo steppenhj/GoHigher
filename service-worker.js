@@ -25,7 +25,7 @@ const urlsToCache = [
   "/screenshots/screenshot4.png"
 ];
 
-// 설치: 캐시에 주요 파일 미리 저장
+// 설치 이벤트: 캐시에 주요 파일 미리 저장
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -35,7 +35,7 @@ self.addEventListener("install", event => {
   self.skipWaiting();
 });
 
-// 활성화: 이전 캐시 삭제 + 바로 컨트롤
+// 활성화 이벤트: 오래된 캐시 삭제 + 새 서비스워커 활성화
 self.addEventListener("activate", event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
@@ -51,31 +51,28 @@ self.addEventListener("activate", event => {
   })());
 });
 
-// fetch: **캐시 우선**, 없으면 네트워크, 최악에는 "/"로 fallback
+// fetch 이벤트: 캐시 우선, 없으면 네트워크, 둘 다 실패하면 에러 반환
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        // 캐시에 있으면 바로 반환
-        if (response) {
-          return response;
+      .then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse; // 캐시에 있으면 바로 제공
         }
-        // 캐시에 없으면 네트워크로 요청
         return fetch(event.request)
           .then(networkResponse => {
-            // 성공한 경우 캐시에 저장
             if (networkResponse && networkResponse.status === 200 && networkResponse.type !== "opaque") {
               const responseClone = networkResponse.clone();
               caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
             }
             return networkResponse;
-          })
-          .catch(() => {
-            // 네트워크도 실패하면 메인 페이지로 fallback
-            return caches.match("/");
           });
+      })
+      .catch(() => {
+        // 캐시에도 없고, 네트워크에도 실패했으면 Response.error() 반환 (브라우저가 기본 에러 표시)
+        return Response.error();
       })
   );
 });
