@@ -1,9 +1,12 @@
-const CACHE_NAME = 'gohigher-v4';  // 버전 하나 올렸어
+// service-worker.js
+
+const CACHE_NAME = 'gohigher-v3';
+// ⚠️ 이 배열에 들어 있는 URL은 “실제 브라우저가 요청하는 경로”와 1:1 매칭되어야 합니다!
 const urlsToCache = [
-  '/',
-  '/index.html',
+  '/',                    // start_url
+  '/index.html',          // 직접 호출할 때
   '/manifest.json',
-  '/주식포트폴리오.html',
+  '/주식포트폴리오.html',  // 실제 파일명과 동일해야 캐시 매칭이 됩니다.
   '/main.js',
   '/styles.css',
   '/logo.jpg',
@@ -15,7 +18,6 @@ const urlsToCache = [
   '/버크셔해서웨이.html',
   '/중소형주식.html',
   '/privacy-policy.html',
-  '/offline.html',                  // ✅ 추가: offline.html
   '/icons/shortcut-portfolio.png',
   '/icons/shortcut-diary.png'
 ];
@@ -35,8 +37,9 @@ self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
     await Promise.all(
-      keys.filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+      keys
+        .filter(key => key !== CACHE_NAME)
+        .map(key => caches.delete(key))
     );
     await self.clients.claim();
   })());
@@ -44,27 +47,36 @@ self.addEventListener('activate', event => {
 
 // 3) fetch 단계: 네비게이션과 기타 리소스 분기 처리
 self.addEventListener('fetch', event => {
+  // A) 페이지 네비게이션 요청 (mode === 'navigate')
   if (event.request.mode === 'navigate') {
-    // 페이지 이동 요청
     event.respondWith(
       fetch(event.request)
         .then(networkResponse => {
+          // 온라인이면 그대로 페이지 반환
           return networkResponse;
         })
         .catch(() => {
+          // 오프라인이면 같은 URL의 캐시를 먼저 찾고,
+          // 캐시가 없으면 홈('/')으로 폴백
           return caches.match(event.request)
             .then(cachedPage => {
               if (cachedPage) {
-                return cachedPage;  // ✅ 캐시된 페이지 반환
+                return cachedPage;
               }
-              return caches.match('/offline.html');  // ✅ offline.html 보여주기
+              return caches.match('/')
+                .then(cachedHome => {
+                  return cachedHome || new Response(
+                    '<h1>오프라인</h1><p>홈 화면을 볼 수 없습니다.</p>',
+                    { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+                  );
+                });
             });
         })
     );
-    return;
+    return; // 여기서 분기 끝
   }
 
-  // CSS, JS, 이미지 등 기타 파일 요청
+  // B) 기타 리소스 요청 (CSS, JS, 이미지 등)
   event.respondWith(
     caches.match(event.request)
       .then(cachedResponse => {
@@ -73,7 +85,12 @@ self.addEventListener('fetch', event => {
         }
         return fetch(event.request)
           .then(networkResponse => {
-            if (networkResponse && networkResponse.status === 200 && networkResponse.type !== 'opaque') {
+            // 정상 응답은 캐시에 저장
+            if (
+              networkResponse &&
+              networkResponse.status === 200 &&
+              networkResponse.type !== 'opaque'
+            ) {
               const clone = networkResponse.clone();
               caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
             }
@@ -81,7 +98,7 @@ self.addEventListener('fetch', event => {
           });
       })
       .catch(() => {
-        // 네트워크, 캐시 모두 실패
+        // 캐시·네트워크 모두 실패 시
         return Response.error();
       })
   );
@@ -94,10 +111,12 @@ self.addEventListener('sync', function(event) {
   }
 });
 
-// 실제로 서버나 IndexedDB랑 동기화하는 함수
+// 실제로 서버나 IndexedDB랑 동기화하는 함수 (여기선 예시)
 async function syncData() {
   try {
     console.log('🔄 Background sync triggered!');
+    // 여기에 필요한 동기화 로직 작성 (예: 서버로 저장 요청 등)
+    // 간단하게 fetch() 예시
     const response = await fetch('/sync-endpoint', { method: 'POST' });
     console.log('✅ Sync completed:', response.status);
   } catch (error) {
@@ -112,10 +131,11 @@ self.addEventListener('periodicsync', event => {
   }
 });
 
-// 주기적 데이터 동기화 함수
+// 주기적으로 데이터 동기화하는 함수
 async function fetchLatestData() {
   try {
     console.log('🔄 Periodic background sync triggered!');
+    // 예시: 최신 뉴스 가져오기
     const response = await fetch('/sync-endpoint', { method: 'GET' });
     console.log('✅ Periodic Sync completed:', response.status);
   } catch (error) {
@@ -123,7 +143,6 @@ async function fetchLatestData() {
   }
 }
 
-// 🔥 FCM 메시지 수신 (firebase-messaging-sw.js 내용 통합)
 importScripts("https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging-compat.js");
 
@@ -131,7 +150,7 @@ firebase.initializeApp({
   apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
   authDomain: "gohigher-55e51.firebaseapp.com",
   projectId: "gohigher-55e51",
-  storageBucket: "gohigher-55e51.firebaseapp.com",
+  storageBucket: "gohigher-55e51.firebasestorage.app",
   messagingSenderId: "487435343721",
   appId: "1:487435343721:web:dc5708c3a263214fba4ff8"
 });
