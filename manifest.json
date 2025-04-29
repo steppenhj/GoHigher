@@ -56,7 +56,7 @@
   "shortcuts": [
     {
       "name": "배당주 계산기기",
-      "short_name": "배당주주",
+      "short_name": "배당주",
       "url": "/배당주.html",
       "icons": [{ "src": "/icons/shortcut-portfolio.png", "sizes": "96x96" }]
     },
