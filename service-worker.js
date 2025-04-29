@@ -103,3 +103,42 @@ self.addEventListener('fetch', event => {
       })
   );
 });
+
+// 4) Background Sync 이벤트 등록
+self.addEventListener('sync', function(event) {
+  if (event.tag === 'sync-gohigher-data') {
+    event.waitUntil(syncData());
+  }
+});
+
+// 실제로 서버나 IndexedDB랑 동기화하는 함수 (여기선 예시)
+async function syncData() {
+  try {
+    console.log('🔄 Background sync triggered!');
+    // 여기에 필요한 동기화 로직 작성 (예: 서버로 저장 요청 등)
+    // 간단하게 fetch() 예시
+    const response = await fetch('/sync-endpoint', { method: 'POST' });
+    console.log('✅ Sync completed:', response.status);
+  } catch (error) {
+    console.error('❌ Sync failed:', error);
+  }
+}
+
+// 5) Periodic Background Sync 이벤트 등록
+self.addEventListener('periodicsync', event => {
+  if (event.tag === 'periodic-gohigher-news') {
+    event.waitUntil(fetchLatestData());
+  }
+});
+
+// 주기적으로 데이터 동기화하는 함수
+async function fetchLatestData() {
+  try {
+    console.log('🔄 Periodic background sync triggered!');
+    // 예시: 최신 뉴스 가져오기
+    const response = await fetch('/sync-endpoint', { method: 'GET' });
+    console.log('✅ Periodic Sync completed:', response.status);
+  } catch (error) {
+    console.error('❌ Periodic Sync failed:', error);
+  }
+}
