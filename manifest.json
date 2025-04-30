@@ -90,10 +90,11 @@
 ,
   "file_handlers": [
     {
-      "action": "The url you would like to open when the user chooses to share content to your app. This URL must have code to do something with the returned file.",
+      "action": "/file-handler.html",
       "accept": {
         "text/*": [".txt"]
       }
     }
   ]
+
 }

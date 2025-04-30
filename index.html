@@ -17,9 +17,6 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
     <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
     <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
-
-<!-- ① <head> 안, CSS 이전에 추가 -->
-  <meta name="color-scheme" content="only light">  <!-- 기본은 라이트 모드만 지원하겠다는 선언 -->
   
     <title>미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트</title>
     <meta name="description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
@@ -30,8 +27,8 @@
     <meta name="keywords" content="미국 주식, 증시뉴스, 테크뉴스, 글로벌 경제, Go Higher" />
     <!-- 검색 엔진 크롤링 -->
     <meta name="robots" content="index,follow" />
-    <!-- **확대/축소 불가 설정** -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- [추가] Font Awesome 아이콘 CDN -->
     <link
@@ -42,11 +39,6 @@
       referrerpolicy="no-referrer"
     />
 
-    <!-- 구글 폰트 -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"
-      rel="stylesheet"
-    />
     <!-- 사이트 검증 메타 -->
     <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
     <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
@@ -1385,14 +1377,14 @@ body.dark-mode .wave-text {
   <body>
 
     <div id="splash">
-      <img src="/images2/splashScreen.png" alt="GoHigher Splash" />
+      <img src="/images2/splashScreen.png" alt="GoHigher Splash"  loading="lazy"/>
     </div>
 
     <!-- 헤더 -->
     <header>
       <div class="button-container" style="position: relative;">
-        <button id="themeToggleBtn" class="theme-toggle-btn">다크모드 전환</button>
-        <img id="kakao-share-btn" src="kakaotalk.png" alt="카카오톡 공유하기">
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="다크모드 전환 버튼">다크모드 전환</button>
+        <img id="kakao-share-btn" src="kakaotalk.png" alt="카카오톡 공유하기" aria-label="카톡공유버튼" loading="lazy">
       </div>
       <h1><a href="index.html" style="color: inherit; text-decoration: none;">Go Higher</a></h1>
 
@@ -1420,37 +1412,37 @@ body.dark-mode .wave-text {
       <ul>
         <li>
           <a href="index.html" class="nav-link active" aria-label="뉴스">
-            <span class="icon news-icon"></span>
+            <span class="icon news-icon" role="img" aria-label="뉴스 아이콘"></span>
             <span class="nav-text">뉴스</span>
           </a>
         </li>
         <li>
           <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
-            <span class="icon diary-icon"></span>
+            <span class="icon diary-icon" role="img" aria-label="다이어리리 아이콘"></span>
             <span class="nav-text">다이어리</span>
           </a>
         </li>
         <li>
           <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
-            <span class="icon chart-icon"></span>
+            <span class="icon chart-icon" role="img" aria-label="대가들들 아이콘"></span>
             <span class="nav-text">대가들</span>
           </a>
         </li>
         <li>
           <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
-            <span class="icon company-icon"></span>
+            <span class="icon company-icon" role="img" aria-label="중소형형 아이콘"></span>
             <span class="nav-text">중소형주</span>
           </a>
         </li>
         <li>
           <a href="배당주.html" class="nav-link" aria-label="배당주분석">
-            <span class="icon coinTree-icon"></span>
+            <span class="icon coinTree-icon" role="img" aria-label="배당주주 아이콘"></span>
             <span class="nav-text">배당주</span>
           </a>
         </li>
         <li>
           <a href="큐레이션.html" class="nav-link" aria-label="큐레이션">
-            <span class="icon bull-icon"></span>
+            <span class="icon bull-icon" role="img" aria-label="큐레이션 황소 아이콘"></span>
             <span class="nav-text">큐레이션</span>
           </a>
         </li>
@@ -1468,7 +1460,7 @@ body.dark-mode .wave-text {
 
     <!-- PWA 설치 버튼 영역 -->
     <div id="installContainer">
-      <button id="installBtn">GoHigher 설치</button>
+      <button id="installBtn" aria-label="설치 버튼">GoHigher 설치</button>
     </div>
 
     <div class="layout-container">
@@ -1547,7 +1539,7 @@ body.dark-mode .wave-text {
                   </tr>
                   <tr>
                     <td>
-                      <img src="images/GOOGL logo.png" alt="Google Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <img src="images/GOOGL logo.png" loading="lazy" alt="Google Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                       <strong>GOOGL 구글</strong>
                     </td>
                     <td>145.60 USD</td>
@@ -1555,7 +1547,7 @@ body.dark-mode .wave-text {
                   </tr>
                   <tr>
                     <td>
-                      <img src="images/MSFT logo.png" alt="Microsoft Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+                      <img src="images/MSFT logo.png" loading="lazy" alt="Microsoft Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
                       <strong>MSFT 마이크로소프트</strong>
                     </td>
                     <td>359.84 USD</td>
@@ -1811,7 +1803,7 @@ body.dark-mode .wave-text {
       </footer>
   
       <!-- Back to Top 버튼 -->
-      <button class="back-to-top" id="backToTop">Top</button>
+      <button class="back-to-top" id="backToTop" aria-label="TOP버튼">Top</button>
   
       <!-- 챗봇 오버레이(바깥 클릭 영역) -->
       <div id="chatbot-overlay"></div>
@@ -1826,7 +1818,7 @@ body.dark-mode .wave-text {
         <div id="predefined-questions" class="question-container"></div>
         <div id="chatbot-input">
           <input type="text" id="chatbot-user-input" placeholder="메시지를 입력하세요. 5초에 한 번 질문이 가능합니다." />
-          <button id="chatbot-send-btn">전송</button>
+          <button id="chatbot-send-btn" aria-label="챗본 전송버튼">전송</button>
         </div>
       </div>
   
