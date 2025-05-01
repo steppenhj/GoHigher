@@ -29,30 +29,29 @@
       "type": "image/png"
     }
   ],
-"screenshots": [
-  {
-    "src": "/screenshots/screenshot1.png",
-    "sizes": "1080x1920",
-    "type": "image/png"
-  },
-  {
-    "src": "/screenshots/screenshot-wide-1280x720.png",
-    "sizes": "1280x720",
-    "type": "image/png",
-    "form_factor": "wide"
-  },
-  {
-    "src": "/screenshots/screenshot3.png",
-    "sizes": "1080x1920",
-    "type": "image/png"
-  },
-  {
-    "src": "/screenshots/screenshot4.png",
-    "sizes": "1080x1920",
-    "type": "image/png"
-  }
-]
-,
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    },
+    {
+      "src": "/screenshots/screenshot-wide-1280x720.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/screenshot3.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    },
+    {
+      "src": "/screenshots/screenshot4.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    }
+  ],
   "categories": ["finance", "productivity", "utilities"],
   "shortcuts": [
     {
@@ -74,6 +73,30 @@
       "url": "/?q=%s"
     }
   ],
+  "file_handlers": [
+    {
+      "action": "/file-handler.html",
+      "accept": {
+        "text/*": [".txt"]
+      }
+    }
+  ],
+  "share_target": {
+    "action": "/share-handler.html",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": ["image/*"]
+        }
+      ]
+    }
+  },
   "push_notification": {
     "enabled": true
   },
@@ -87,14 +110,4 @@
   ],
   "related_applications": [],
   "prefer_related_applications": false
-,
-  "file_handlers": [
-    {
-      "action": "/file-handler.html",
-      "accept": {
-        "text/*": [".txt"]
-      }
-    }
-  ]
-
 }

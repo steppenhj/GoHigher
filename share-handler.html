@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>공유 받기 - Go Higher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to bottom right, #e6f0ff, #ffffff);
+      color: #004080;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 1rem;
+      max-width: 500px;
+      margin: auto;
+    }
+    .card img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>📥 공유된 콘텐츠</h1>
+  <div class="card" id="shareResult">
+    <p>불러오는 중...</p>
+  </div>
+
+  <script>
+    async function handleSharedData() {
+      if (!navigator.canShare || !navigator.canShare()) {
+        document.getElementById('shareResult').innerHTML = '<p>공유 API를 지원하지 않습니다.</p>';
+        return;
+      }
+
+      const formData = new FormData(document.forms[0] || {});
+      const title = formData.get("title");
+      const text = formData.get("text");
+      const url = formData.get("url");
+      const file = formData.get("file");
+
+      const resultHTML = `
+        <p><strong>제목:</strong> ${title || '없음'}</p>
+        <p><strong>텍스트:</strong> ${text || '없음'}</p>
+        <p><strong>URL:</strong> ${url ? `<a href="${url}">${url}</a>` : '없음'}</p>
+        ${file ? `<img src="${URL.createObjectURL(file)}" alt="공유 이미지">` : ''}
+      `;
+      document.getElementById('shareResult').innerHTML = resultHTML;
+    }
+
+    handleSharedData();
+  </script>
+</body>
+</html>
