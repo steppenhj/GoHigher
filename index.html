@@ -2069,6 +2069,28 @@ body.dark-mode .wave-text {
 });
 </script>
 
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const splash = document.getElementById("splash");
+    const main = document.getElementById("main");
+
+    if (!splash || !main) {
+      console.warn("💡 splash 또는 main 요소가 없습니다.");
+      return;
+    }
+
+    if (window.innerWidth <= 768) {
+      setTimeout(() => {
+        splash.style.display = "none";
+        main.style.display = "block";
+      }, 800);
+    } else {
+      splash.style.display = "none";
+      main.style.display = "block";
+    }
+  });
+</script>
+
 <!-- index.html의 </body> 직전 -->
 <script type="module" src="/firebase-messaging-init.js"></script>
 
