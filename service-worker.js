@@ -64,7 +64,9 @@ self.addEventListener('fetch', event => {
 
         return fetch(event.request)
           .then(networkResponse => {
+            // ✅ POST, PUT 등 비-GET 요청은 캐시하지 않도록 처리
             if (
+              event.request.method === 'GET' &&
               networkResponse &&
               networkResponse.status === 200 &&
               networkResponse.type !== 'opaque'
