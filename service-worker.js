@@ -2,7 +2,7 @@ const CACHE_NAME = 'gohigher-v3';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/offline.html', // ✅ 오프라인 fallback을 위한 필수 파일
+  '/offline.html', // ✅ fallback 페이지
   '/manifest.json',
   '/주식포트폴리오.html',
   '/main.js',
@@ -20,7 +20,7 @@ const urlsToCache = [
   '/icons/shortcut-diary.png'
 ];
 
-// 1. 설치 단계: 캐시 미리 저장
+// 1. 설치 단계
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -30,7 +30,7 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// 2. 활성화 단계: 오래된 캐시 삭제
+// 2. 활성화 단계: 이전 캐시 정리
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
@@ -41,22 +41,18 @@ self.addEventListener('activate', event => {
   })());
 });
 
-// 3. 요청 가로채기 (fetch)
+// 3. fetch 요청 가로채기
 self.addEventListener('fetch', event => {
-  // A. 페이지 이동 요청인 경우
+  // A. HTML 페이지 탐색 요청 (ex: 직접 URL 입력, SPA 라우팅 등)
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
-        .then(response => response)
-        .catch(() =>
-          caches.match(event.request)
-            .then(cached => cached || caches.match('/offline.html')) // ✅ fallback
-        )
+        .catch(() => caches.match('/offline.html')) // fallback 강제 처리
     );
     return;
   }
 
-  // B. 기타 정적 리소스 (CSS, JS, 이미지 등)
+  // B. 정적 리소스 요청 (CSS, JS, 이미지 등)
   event.respondWith(
     caches.match(event.request)
       .then(cachedResponse => {
@@ -64,7 +60,6 @@ self.addEventListener('fetch', event => {
 
         return fetch(event.request)
           .then(networkResponse => {
-            // ✅ POST, PUT 등 비-GET 요청은 캐시하지 않도록 처리
             if (
               event.request.method === 'GET' &&
               networkResponse &&
@@ -77,9 +72,7 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           });
       })
-      .catch(() => {
-        return caches.match('/offline.html'); // 만약 전부 실패하면 fallback
-      })
+      .catch(() => caches.match('/offline.html'))
   );
 });
 
@@ -113,7 +106,7 @@ async function fetchLatestData() {
   }
 }
 
-// 6. Firebase Cloud Messaging 설정
+// 6. Firebase Cloud Messaging 백그라운드 푸시
 importScripts("https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging-compat.js");
 
@@ -127,6 +120,7 @@ firebase.initializeApp({
 });
 
 const messaging = firebase.messaging();
+
 messaging.onBackgroundMessage(payload => {
   console.log("📥 백그라운드 메시지 수신:", payload);
   self.registration.showNotification(payload.notification.title, {
