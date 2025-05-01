@@ -1300,13 +1300,12 @@ body.dark-mode .security-grid li {
 
         <!-- 주식 평균 단가 상승률 선택 (클릭으로 조정) -->
         <label id="priceGrowthLabel">주식 평균 단가 상승률 (%)</label>
-        <div id="priceGrowthRateContainer" aria-labelledby="priceGrowthLabel">
+        <div id="priceGrowthRateContainer" role="group" aria-labelledby="priceGrowthLabel">
           <button type="button" onclick="decrementGrowthRate()" aria-label="감소">-</button>
           <span id="priceGrowthRateDisplay">0%</span>
           <button type="button" onclick="incrementGrowthRate()" aria-label="증가">+</button>
         </div>
         
-
     <!-- 투자 금액 입력 -->
     <label for="amount">투자 금액 (원):</label>
     <input type="text" id="amount" placeholder="투자 금액 입력 (원)" />
