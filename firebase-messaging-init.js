@@ -1,7 +1,6 @@
-// firebase-messaging-init.js
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging.js";
+import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
 
 // Firebase 설정
 const firebaseConfig = {
@@ -14,8 +13,14 @@ const firebaseConfig = {
   measurementId: "G-KQ02L8DXG0"
 };
 
-// Firebase 앱 초기화
+// 앱 초기화
 const app = initializeApp(firebaseConfig);
+
+// 🟩 Analytics 초기화
+const analytics = getAnalytics(app);
+logEvent(analytics, 'page_view', { page_path: location.pathname });  // 사용자 추적
+
+// FCM 설정
 const messaging = getMessaging(app);
 
 // 알림 권한 요청 + 토큰 관리
@@ -30,29 +35,28 @@ function requestPermissionAndGetToken() {
       }
     });
   } else if (Notification.permission === "granted") {
-    retrieveToken(); // 이미 권한이 있을 때는 바로 토큰 가져옴
+    retrieveToken();
   } else {
     console.warn("🚫 알림 권한 거부 상태");
   }
 }
 
-// FCM 토큰 가져오기
+// 토큰 가져오기
 function retrieveToken() {
   getToken(messaging, {
     vapidKey: "BMIz4RuAfnawKTvKZxexSrcjyZDz5SykvfDJJcYIKi7omKUtOzNoSfMQIb29kwjiNaIiQEJpdnOSR4oa3sYVOzM"
   }).then((token) => {
     if (token) {
       console.log("📬 FCM 토큰:", token);
-      // TODO: 서버 저장 필요시 이곳에 추가
     } else {
-      console.warn("❗ 토큰이 생성되지 않았습니다. 알림 권한을 다시 요청하세요.");
+      console.warn("❗ 토큰이 생성되지 않았습니다.");
     }
   }).catch(err => {
     console.error("❌ 토큰 요청 실패", err);
   });
 }
 
-// 포그라운드 메시지 수신 처리
+// 포그라운드 수신 처리
 onMessage(messaging, (payload) => {
   console.log("📨 포그라운드 메시지 수신:", payload);
   if (payload.notification) {
