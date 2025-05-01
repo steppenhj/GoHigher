@@ -2676,7 +2676,6 @@ document.getElementById("generateReportBtn").addEventListener("click", generateM
       loadAssetGoal();
       loadFixedExpensesFirestore(); // 고정 지출 데이터 즉시 불러오기
       addCommaFormatting(document.getElementById("assetGoalInput"));
-      loadDiaryEntries();
       const dateInput = document.getElementById("ab-date");
       const today = new Date().toISOString().split("T")[0];
       dateInput.value = today;
@@ -3156,12 +3155,20 @@ document.getElementById("saveModalBtn").addEventListener("click", () => {
   
   // --- 고정 지출 ---
   function loadFixedExpensesFirestore() {
-    loadUserData("fixedExpenses").then(doc => {
-      let fixedExpenses = [];
-      if (doc.exists) { fixedExpenses = doc.data().fixedExpenses || []; }
-      renderFixedExpenses(fixedExpenses);
-    });
-  }
+  loadUserData("fixedExpenses").then(doc => {
+    let fixedExpenses = [];
+
+    if (doc && doc.exists) {
+      fixedExpenses = doc.data().fixedExpenses || [];
+    }
+
+    renderFixedExpenses(fixedExpenses);
+  }).catch(error => {
+    console.error("🔥 loadFixedExpensesFirestore 오류:", error);
+    renderFixedExpenses([]); // 오류 상황에서도 UI 초기화
+  });
+}
+
   
   function saveFixedExpensesFirestore(fixedExpenses) {
     saveUserData("fixedExpenses", { fixedExpenses: fixedExpenses })
