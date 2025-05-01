@@ -2,7 +2,7 @@ const CACHE_NAME = 'gohigher-v3';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/offline.html', // ✅ fallback 페이지
+  '/offline.html',
   '/manifest.json',
   '/주식포트폴리오.html',
   '/main.js',
@@ -43,16 +43,21 @@ self.addEventListener('activate', event => {
 
 // 3. fetch 요청 가로채기
 self.addEventListener('fetch', event => {
-  // A. HTML 페이지 탐색 요청 (ex: 직접 URL 입력, SPA 라우팅 등)
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
-        .catch(() => caches.match('/offline.html')) // fallback 강제 처리
+        .catch(() =>
+          caches.match('/offline.html')
+            .then(response => {
+              return response || new Response('<h1>오프라인입니다.</h1>', {
+                headers: { 'Content-Type': 'text/html' }
+              });
+            })
+        )
     );
     return;
   }
 
-  // B. 정적 리소스 요청 (CSS, JS, 이미지 등)
   event.respondWith(
     caches.match(event.request)
       .then(cachedResponse => {
@@ -72,7 +77,14 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           });
       })
-      .catch(() => caches.match('/offline.html'))
+      .catch(() =>
+        caches.match('/offline.html')
+          .then(response => {
+            return response || new Response('<h1>오프라인입니다.</h1>', {
+              headers: { 'Content-Type': 'text/html' }
+            });
+          })
+      )
   );
 });
 
@@ -106,7 +118,7 @@ async function fetchLatestData() {
   }
 }
 
-// 6. Firebase Cloud Messaging 백그라운드 푸시
+// 6. Firebase Cloud Messaging
 importScripts("https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging-compat.js");
 
