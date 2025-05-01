@@ -2069,21 +2069,6 @@ body.dark-mode .wave-text {
 });
 </script>
 
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    // 모바일일 때만 splash 보여주기
-    if (window.innerWidth <= 768) {
-      setTimeout(() => {
-        document.getElementById("splash").style.display = "none";
-        document.getElementById("main").style.display = "block";
-      }, 800);
-    } else {
-      // 데스크톱이면 splash 바로 숨기고 main 바로 보여줌
-      document.getElementById("splash").style.display = "none";
-      document.getElementById("main").style.display = "block";
-    }
-  });
-</script>
 <!-- index.html의 </body> 직전 -->
 <script type="module" src="/firebase-messaging-init.js"></script>
 
