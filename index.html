@@ -1371,6 +1371,122 @@ body.dark-mode .wave-text {
     }
   }
 }
+
+/* 1) 드롭다운 기본 감싸기 */
+.tab-dropdown {
+  position: relative;
+  display: inline-block;      /* 탭아이템과 같은 라인에 */
+}
+
+/* 2) 메가 메뉴 숨기기 */
+.mega-menu {
+  display: none;
+  position: absolute;
+  top: 39px;                  /* 탭 바로 아래 */
+  left: 0;
+  width: 800px;               /* 원하는 너비 */
+  background: var(--bg-section);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  padding: 1rem;
+  border-radius: 4px;
+  z-index: 20;
+  gap: 2rem;
+}
+
+/* 3) 호버 시 보여주기 */
+.tab-dropdown:hover .mega-menu {
+  display: flex;
+}
+
+/* 4) 컬럼 스타일 */
+.mega-menu .mega-col {
+  flex: 1;
+}
+.mega-menu .mega-col h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: var(--primary-color);
+}
+.mega-menu .mega-col ul {
+  list-style: none;
+  padding: 0;
+}
+.mega-menu .mega-col ul li {
+  margin-bottom: 0.4rem;
+}
+.mega-menu .mega-col ul li a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.mega-menu .mega-col ul li a:hover {
+  color: var(--secondary-color);
+}
+.tab-dropdown > .tab-item {
+  position: relative;
+  padding-right: 1.6em;  /* 화살표 공간 확보 */
+}
+
+/* 2) 화살표 추가 */
+.tab-dropdown > .tab-item::before {
+  content: "▼";          /* 원하는 화살표 문자 */
+  position: absolute;
+  right: 0.6em;          /* padding-right 만큼 살짝 안쪽으로 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  opacity: 1;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+/* 3) 호버 시 (메가메뉴 열림) 화살표 숨기기 */
+.tab-dropdown:hover > .tab-item::before {
+  opacity: 0;
+}
+/* 5) Top Securities 그리드 */
+.mega-menu .top-securities .security-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+.mega-menu .top-securities .security-grid li {
+  background: var(--card-bg);
+  padding: 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.mega-menu .top-securities .security-grid li strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--secondary-color);
+}
+.mega-menu .mega-col {
+  flex: 1;
+  padding: 0 1rem;  /* 경계선 전후로 여유 공간 */
+}
+
+/* 첫 번째(col#2)와 두 번째(col#3) mega-col만 왼쪽에 경계선 */
+.mega-menu .mega-col + .mega-col {
+  border-left: 1px solid var(--light-gray);
+}
+/* 6) 다크모드 대응(Optional) */
+body.dark-mode .mega-menu {
+  background: #333;
+}
+body.dark-mode .mega-menu .mega-col h4,
+body.dark-mode .mega-menu .mega-col ul li a,
+body.dark-mode .mega-menu .security-grid li {
+  color: #cacaca;
+}
+body.dark-mode .mega-menu .security-grid li {
+  background: #444;
+}
     </style>
     
   </head>
@@ -1398,7 +1514,39 @@ body.dark-mode .wave-text {
         </a>
       </div>
       <nav class="desktop-nav top-tab-nav">
-        <a href="index.html" class="tab-item active">투데이뉴스</a>
+        <div class="tab-dropdown">
+          <a href="index.html" class="tab-item active">투데이뉴스</a>
+      
+          <div class="mega-menu">
+            <div class="mega-col">
+              <h4>News</h4>
+              <ul>
+                <li><a href="tech.html">정치</a></li>
+                <li><a href="#technology">기술</a></li>
+                <li><a href="#opinion">의견</a></li>
+              </ul>
+            </div>
+            <div class="mega-col">
+              <h4>Data</h4>
+              <ul>
+                <li><a href="#stocks">Stocks</a></li>
+                <li><a href="#futures">Futures</a></li>
+                <li><a href="#rates">Rates &amp; Bonds</a></li>
+                <li><a href="#currencies">Currencies</a></li>
+              </ul>
+            </div>
+            <div class="mega-col top-securities">
+              <h4>Top Securities</h4>
+              <ul class="security-grid">
+                <li><strong>S&amp;P 500</strong><br/>5,528.75 ▲0.06%</li>
+                <li><strong>Nasdaq</strong><br/>17,366.13 ▼0.10%</li>
+                <li><strong>FTSE 100</strong><br/>8,417.47 ▲0.00%</li>
+                <li><strong>Dow Jones</strong><br/>40,227.59 ▲0.28%</li>
+                <li><strong>Russell 2000</strong><br/>1,965.55 ▲0.41%</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
         <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
         <a href="중소형주식.html" class="tab-item">중소형주식</a>

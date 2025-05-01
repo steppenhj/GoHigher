@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+  <script>
+    document.documentElement.classList.remove("no-js");
+    document.documentElement.classList.add("js");
+  </script>
+  
+  <meta charset="UTF-8">
+  <!-- 🔄 외부 서버 연결 미리 하기 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+<!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
+
+  <!-- 페이지 제목 -->
+  <title>배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석</title>
+  <meta name="description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+  <link rel="canonical" href="https://gohigher.kr/배당주.html">
+  <link rel="icon" href="https://gohigher.kr/logo.jpg" type="image/jpeg">
+  <!-- 키워드 (네이버에서 일부 활용) -->
+  <meta name="keywords" content="유명인포폴, 투자기관, 헤지펀드, 포트폴리오, gohigher">
+  <!-- 검색엔진 크롤링 허용 -->
+  <meta name="robots" content="index,follow">
+  <!-- **확대/축소 불가 설정** -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 구글 폰트 & 차트.js 및 플러그인 -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <!-- Font Awesome 아이콘 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+        integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- 네이버 / 구글 사이트 검증 메타 -->
+  <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+  <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
+  <!-- Open Graph (OG) 메타 태그: SNS 공유용 -->
+  <meta property="og:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석" />
+  <meta property="og:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자" />
+  <meta property="og:url" content="https://gohigher.kr/버크셔해서웨이.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석">
+  <meta name="twitter:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+  <meta name="twitter:image" content="https://gohigher.kr/logo.jpg">
+  <!-- JSON-LD 구조화 데이터(WebPage) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "미국 고배당주 TOP 분석 및 배당금 계산기 제공",
+      "author": {
+        "@type": "Organization",
+        "name": "Go Higher"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Go Higher",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://gohigher.kr/logo.jpg"
+        }
+      },
+      "description": "미국 고배당주에 투자하고 싶은 분들을 위한 종목 추천과 배당금 계산기 제공",
+      "url": "https://gohigher.kr/배당주.html",
+      "datePublished": "2025-03-23",
+      "inLanguage": "ko"
+    }
+  </script>
+
+  <style>
+    html.no-js body {
+  opacity: 1; /* JS 안 되더라도 바로 보여줌 */
+}
+
+html.js body {
+  opacity: 0;
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+    html {
+      font-size: 16px;
+    }
+    body {
+      background: url(backgroundL.png);
+      display: flex;
+      margin: 0;
+      padding: 0;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    :root {
+      --primary-color: #004080;
+      --secondary-color: #0059b3;
+      --accent-color: #f4f7fa;
+      --light-gray: #e0e0e0;
+      --text-color: #333;
+      /* 카드 배경색 등 필요한 변수 추가 */
+      --card-bg: #f9f9f9;
+      --bg-section: #fff;
+    }
+    body.dark-mode {
+      --primary-color: #e0e0e0;
+      --secondary-color: #cccccc;
+      --card-bg: #333;
+      --bg-section: #444;
+      --text-color: #cacaca;
+    }
+    /* 기본 리셋 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      width: 100%;
+      position: relative;
+    }
+    header h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    header p {
+      font-size: 1rem;
+    }
+    
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    nav ul li a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #fff;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+      transform: scale(1.05);
+    }
+    
+    /* 로그인 버튼 및 프로필 */
+    .login-container {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .login-btn {
+      background-color: #fff;
+      color: var(--primary-color);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+      margin-left: auto;
+    }
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      background-color: var(--secondary-color);
+      color: #fff;
+    }
+    #profileBox {
+      display: flex;
+      align-items: center;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      transition: background 0.3s ease;
+    }
+    #profileBox:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    #profileAvatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      margin-right: 0.5rem;
+    }
+    #welcomeText {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+    
+    .desktop-nav {
+        display: block;
+      }
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.3rem 0;
+        background: #fff;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000 !important;
+      }
+      .bottom-nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .bottom-nav li {
+        text-align: center;
+        flex: 1;
+      }
+      .bottom-nav li a.nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #888;
+        transition: transform 0.2s, color 0.2s;
+      }
+      .bottom-nav .icon {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-bottom: 3px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .bottom-nav .nav-text {
+        font-size: 0.75rem;
+        color: #888;
+      }
+      .bottom-nav li a.nav-link.active .nav-text {
+        color: var(--primary-color);
+      }
+      .bottom-nav li a.nav-link:hover {
+        transform: scale(1.05);
+      }
+      .nav-link.pressed {
+        background-color: rgba(0, 0, 255, 0.1);
+        transition: background-color 0.1s;
+      }
+      .bottom-nav li a.nav-link {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+      .news-icon {
+        background-image: url("images/newsImage.png");
+      }
+      .nav-link.active .news-icon {
+        background-image: url("images/newsOn.png");
+      }
+      .diary-icon {
+        background-image: url("images/diaryImage.png");
+      }
+      .nav-link.active .diary-icon {
+        background-image: url("images/diaryOn.png");
+      }
+      .chart-icon {
+        background-image: url("images/chartImage.png");
+      }
+      .nav-link.active .chart-icon {
+        background-image: url("images/chartOn.png");
+      }
+      .company-icon {
+        background-image: url("images/companyImage.png");
+      }
+      .nav-link.active .company-icon {
+        background-image: url("images/companyOn.png");
+      }
+      .coinTree-icon {
+        background-image: url("images/coinTree.png");
+      }
+      .nav-link.active .coinTree-icon {
+        background-image: url("images/treeOn.png");
+      }
+      .bull-icon {
+        background-image: url("images/bullImage.png");
+      }
+      .nav-link.active .bull-icon {
+        background-image: url("images/bullOn.png");
+      }
+    /* 하단 nav */
+    body.dark-mode .bottom-nav {
+      background: #333;
+    }
+    body.dark-mode .bottom-nav .icon {
+      background-color: #555 !important;
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav .nav-text {
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .icon {
+      background-color: var(--primary-color) !important;
+      color: #fff;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
+      color: #fff;
+    }
+    body.dark-mode .nav-link:hover {
+      transform: scale(1.05);
+    }
+    
+    footer {
+        background-color: var(--primary-color);
+        text-align: center;
+        font-size: 1rem;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+        margin: 0;
+        padding: 1rem 0;
+        width: 100vw;         /* 브라우저 너비에 꽉 차게 */
+        max-width: 100vw;     /* 오버플로 방지 */
+        overflow-x: hidden;   /* 혹시 넘치는 거 방지 */
+        box-sizing: border-box;
+        margin-top: auto;
+      }
+      footer a {
+        color: #fff;
+        text-decoration: underline;
+      }    
+    /* 다크모드 스타일 */
+    body.dark-mode {
+      background: url(backgroundD.png);
+      color: white;
+    }
+    body.dark-mode header {
+      background: linear-gradient(135deg, #002b57, #004284);
+      color: #cacaca;
+    }
+    body.dark-mode nav ul li a {
+      color: #cacaca;
+      border: 1px solid #cacaca;
+      background-color: transparent;
+    }
+    body.dark-mode nav ul li a:hover {
+      background-color: #004284;
+      color: #cacaca;
+    }
+    body.dark-mode .login-btn {
+      background-color: transparent;
+      color: #cacaca;
+      border: 1px solid #cacaca;
+    }
+    body.dark-mode .login-btn:hover {
+      background-color: #004284;
+      color: #cacaca;
+    }
+    body.dark-mode footer {
+      background: linear-gradient(135deg, #002b57, #004284);
+      color: #cacaca !important;
+    }
+    body.dark-mode .bottom-nav .icon,
+    body.dark-mode .bottom-nav li a.nav-link.active .icon {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      outline: none !important;
+      border: none !important;
+      color: #fff !important;
+    }
+    body.dark-mode .back-to-top{
+      background: linear-gradient(135deg, #004080, #002855);
+    }
+    /* 미디어 쿼리 (모바일) */
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+        padding-bottom: 0;
+      }
+      header {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0.5rem !important;
+        box-sizing: border-box;
+      }
+      footer {
+        padding: 0.8rem !important; /* 내부 여백 */
+        /* padding‑bottom 대신 margin‑bottom으로 외부 간격 조절 */
+        margin-bottom: 78px;
+      }
+      
+      .desktop-nav {
+        display: none;
+        
+      }
+      .bottom-nav {
+        display: block;
+      }
+      .bottom-nav ul {
+    flex-wrap: nowrap;  /* 한 줄 유지 */
+  }
+  .bottom-nav {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.bottom-nav li {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.bottom-nav li a.nav-link {
+  width: 100%;
+  font-size: 3.2vw;
+}
+.bottom-nav .icon {
+  width: 6.5vw;
+  height: 6.5vw;
+}
+.bottom-nav .nav-text {
+  font-size: 2.8vw;
+}
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+  nav ul li a {
+    white-space: nowrap;
+  }
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      #profileBox {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      #profileAvatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+        transition: transform 0.2s;
+      }
+      #profileAvatar:hover {
+        transform: scale(1.1);
+      }
+      #welcomeText {
+        display: none;
+      }
+      .login-btn {
+        display: none;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+    }
+      .login-container.active .login-btn {
+        display: inline-block;
+      }
+      .login-container:not(.logged-in) #profileBox {
+        display: none;
+      }
+      .login-container:not(.logged-in) .login-btn {
+        display: inline-block;
+      }
+      .login-container.logged-in .login-btn {
+        display: none;
+      }
+      .login-container.logged-in #profileBox {
+        display: flex;
+      }
+
+      /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
+      .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1001;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    @media (max-width: 768px) {
+      button {
+        font-size: 1rem;
+        padding: 12px;
+      }
+      .back-to-top {
+        display: none;
+      }
+      footer {
+    display: none !important;
+  }
+  .news-section.technology h2 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .news-section.technology .tech-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5rem;
+    gap: 0.4rem;
+  }
+
+  .news-section.technology .tech-nav li {
+    flex: 1 1 auto; /* 자동 너비 조정 */
+    text-align: center;
+  }
+
+  .news-section.technology .tech-nav li a {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+    min-width: auto;
+    white-space: nowrap;
+  }
+  .top-headlines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .top-headlines .headline.wide {
+    width: 100%;
+  }
+  .top-headlines .headline h3 {
+    font-size: 1rem;
+    word-break: keep-all;
+  }
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+  .news-grid .grid-news h4 {
+    font-size: 0.95rem;
+  }
+  .tech-layout {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+
+  .tech-sidebar {
+    width: 100%;
+    padding: 0;
+  }
+    }
+    .top-tab-nav .tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.top-tab-nav .tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fbd314;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.top-tab-nav .tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.top-tab-nav .tab-item:hover::after {
+  width: 60%;
+}
+
+.top-tab-nav .tab-item.active {
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.top-tab-nav .tab-item.active::after {
+  width: 60%;
+}
+footer p{
+  color: white;
+}
+@media only screen and (max-device-width: 768px) {
+  @supports (-webkit-touch-callout: none) {
+    .bottom-nav {
+      padding-bottom: 20px; /* 원하는 padding 값 */
+    }
+  }
+}
+/* Technology News Upload Layout */
+.news-section.technology {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.news-section.technology h2{
+  font-size: 2rem;
+  margin: 2rem auto;        /* ✨ 가운데 정렬 + 여백 */
+  text-align: center;       /* ✨ 텍스트 가운데 */
+}
+.news-section.technology .tech-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;  /* ✨ 가운데 정렬! */
+  margin-bottom: 1.5rem;
+  list-style: none;
+  padding: 0 1rem;  
+}
+.news-section.technology .tech-nav li a {
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  background: var(--accent-color);
+  border-radius: 20px;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+.news-section.technology .tech-content {
+  display: flex;
+  gap: 1rem;
+}
+.news-section.technology .tech-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.news-section.technology .tech-item {
+  background: var(--card-bg);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px var(--card-shadow);
+  transition: transform .2s;
+}
+.news-section.technology .tech-item:hover {
+  transform: translateY(-3px);
+}
+.news-section.technology .tech-item img {
+  width: 100%;
+  display: block;
+}
+.news-section.technology .tech-item h3 {
+  padding: .8rem;
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+  line-height: 1.3;
+}
+.news-section.technology .wide-item {
+  grid-column: span 2;
+}
+.news-section.technology .tech-sidebar {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.tech-sidebar .subscribe-box,
+.tech-sidebar .ad-box,
+.tech-sidebar .podcast-box {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px var(--card-shadow);
+}
+.tech-sidebar .subscribe-box h4 {
+  margin-bottom: .5rem;
+  font-size: 1rem;
+}
+.tech-sidebar .subscribe-box label {
+  display: block;
+  margin: .8rem 0;
+}
+.tech-sidebar .subscribe-box .common-btn {
+  width: 100%;
+}
+.tech-sidebar .ad-box {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 0.9rem;
+}
+.tech-sidebar .podcast-box h5 {
+  margin-bottom: .3rem;
+  font-size: .95rem;
+}
+.tech-sidebar .podcast-box audio {
+  width: 100%;
+  margin-top: .5rem;
+}
+/* 1) 드롭다운 기본 감싸기 */
+.tab-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fbd314;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.tab-item:hover::after {
+  width: 60%;
+}
+
+.mega-menu {
+  display: none;
+  position: absolute;
+  top: 39px;
+  left: 0;
+  width: 800px;
+  background: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  padding: 1rem;
+  border-radius: 4px;
+  z-index: 20;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-dropdown:hover .mega-menu {
+  display: flex;
+}
+
+.mega-col {
+  flex: 1;
+  padding: 0 1rem;
+  min-width: 200px;
+}
+
+.mega-col + .mega-col {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mega-col h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #004080;
+}
+
+.mega-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mega-col ul li {
+  margin-bottom: 0.4rem;
+}
+
+.mega-col ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.mega-col ul li a:hover {
+  color: #0059b3;
+}
+.mega-col ul:not(.security-grid) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mega-col ul:not(.security-grid) li {
+  margin: 0;
+}
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.security-grid li {
+  background: #f9f9f9;
+  padding: 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.security-grid li strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: #0059b3;
+}
+
+/* ▼ 화살표 효과 */
+.tab-dropdown > .tab-item {
+  position: relative;
+  padding-right: 1.6em;
+}
+
+.tab-dropdown > .tab-item::before {
+  content: "▼";
+  position: absolute;
+  right: 0.6em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  opacity: 1;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.tab-dropdown:hover > .tab-item::before {
+  opacity: 0;
+}
+
+/* 🌙 다크모드 대응 */
+body.dark-mode .mega-menu {
+  background: #333;
+}
+body.dark-mode .mega-col h4,
+body.dark-mode .mega-col ul li a,
+body.dark-mode .security-grid li {
+  color: #cacaca;
+}
+body.dark-mode .security-grid li {
+  background: #444;
+}
+.read-more {
+  display: inline-block;
+  margin: 2rem 0;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #004080, #007acc);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 64, 128, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.read-more:hover {
+  background: linear-gradient(135deg, #007acc, #004080);
+  box-shadow: 0 6px 18px rgba(0, 64, 128, 0.4);
+  transform: translateY(-2px);
+}
+.read-more:focus {
+  outline: none;
+}
+.tech-nav a.active {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 0 12px rgba(0, 64, 128, 0.5); /* 불빛 느낌 */
+  transform: scale(1.05);                     /* 약간 커지는 효과 */
+  transition: all 0.3s ease;
+}
+body.dark-mode .tech-nav a.active {
+  box-shadow: 0 0 14px rgba(102, 170, 255, 0.6);
+}
+body.dark-mode .tech-nav a {
+  color: #f0f0ff !important; /* 밝은 회색으로 잘 보이게 */
+  background-color: #222 !important; /* 배경 살짝 어둡게, 대비 */
+  border: 1px solid #444 !important; /* 구분용 경계 */
+}
+.tech-layout {
+  display: flex;
+  flex-grow: 1;
+  gap: 2rem;
+  margin-top: 2rem;
+  max-width: 1200px;       /* 💡 전체 콘텐츠 너비 제한 */
+  margin-left: auto;       /* 💡 가운데 정렬 */
+  margin-right: auto;      /* 💡 가운데 정렬 */
+  padding: 0 1rem;         /* 💡 좌우 여백 확보 */
+}
+
+.main-news {
+  flex: 2;
+}
+.main{
+  flex: 1;
+}
+.top-headlines {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.top-headlines .headline {
+  background: var(--card-bg);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px var(--card-shadow);
+}
+.top-headlines .headline img {
+  width: 100%;
+  display: block;
+}
+.top-headlines .headline h3 {
+  padding: 0.6rem;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.news-grid .grid-news {
+  background: var(--card-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px var(--card-shadow);
+}
+.news-grid .grid-news img {
+  width: 100%;
+  display: block;
+}
+.news-grid .grid-news h4 {
+  font-size: 1rem;
+  padding: 0.5rem;
+  color: var(--text-color);
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="index.html" style="color: inherit; text-decoration: none;">Go Higher</a></h1>
+
+    <div class="login-container">
+      <!-- 프로필 박스: 아바타와 환영 문구 -->
+      <div id="profileBox">
+        <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
+        <span id="welcomeText">환영합니다, 사용자님!</span>
+      </div>
+      <!-- 로그인/로그아웃 버튼 -->
+      <a id="authButton" href="login.html" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> 로그인
+      </a>
+    </div>
+    <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
+    <nav class="desktop-nav top-tab-nav">
+        <div class="tab-dropdown">
+          <a href="index.html" class="tab-item active">투데이뉴스</a>
+      
+          <div class="mega-menu">
+            <div class="mega-col">
+              <h4>News</h4>
+              <ul>
+                <li><a href="tech.html">정치</a></li>
+                <li><a href="#technology">기술</a></li>
+                <li><a href="#opinion">의견</a></li>
+              </ul>
+            </div>
+            <div class="mega-col">
+              <h4>Data</h4>
+              <ul>
+                <li><a href="#stocks">Stocks</a></li>
+                <li><a href="#futures">Futures</a></li>
+                <li><a href="#rates">Rates &amp; Bonds</a></li>
+                <li><a href="#currencies">Currencies</a></li>
+              </ul>
+            </div>
+            <div class="mega-col top-securities">
+              <h4>Top Securities</h4>
+              <ul class="security-grid">
+                <li><strong>S&amp;P 500</strong><br/>5,528.75 ▲0.06%</li>
+                <li><strong>Nasdaq</strong><br/>17,366.13 ▼0.10%</li>
+                <li><strong>FTSE 100</strong><br/>8,417.47 ▲0.00%</li>
+                <li><strong>Dow Jones</strong><br/>40,227.59 ▲0.28%</li>
+                <li><strong>Russell 2000</strong><br/>1,965.55 ▲0.41%</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
+        <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
+        <a href="중소형주식.html" class="tab-item">중소형주식</a>
+        <a href="배당주.html" class="tab-item">배당주</a>
+        <a href="큐레이션.html" class="tab-item">큐레이션</a>
+      </nav>
+  </header>
+  <section class="news-section technology">
+    <h2>Technology</h2>
+    <ul class="tech-nav">
+      <li><a href="#" data-category="ai">AI</a></li>
+      <li><a href="#" data-category="bigtech">Big Tech</a></li>
+      <li><a href="#" data-category="cyber">Cybersecurity</a></li>
+      <li><a href="#" data-category="consumer">Consumer Tech</a></li>
+      <li><a href="#" data-category="startups">Startups</a></li>
+      <li><a href="#" data-category="screentime">Screentime</a></li>
+      <li><a href="#" data-category="depth">Tech In Depth</a></li>
+    </ul>
+    
+    <!-- 2. 기사 항목들에 data-category 속성 추가 (카테고리별로 분류) -->
+    <div class="category-group" data-category="ai" style="display: block;">
+      <div class="tech-layout">
+        <!-- 좌측 뉴스 영역 -->
+        <div class="main-news">
+          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
+          <div class="top-headlines">
+            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>ai 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+          </div>
+      
+          <!-- 그리드 뉴스 2열 -->
+          <div class="news-grid">
+            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
+            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
+            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
+            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+          </div>
+        </div>
+      
+        <!-- 우측 사이드바 -->
+        <aside class="tech-sidebar">
+          <div class="podcast-box">
+            <h5>🎧 추천 팟캐스트</h5>
+            <audio controls src="audio/tech-talk.mp3"></audio>
+          </div>
+          <div class="ad-box">📢 광고 영역</div>
+          <div class="subscribe-box">
+            <h4>뉴스레터 구독</h4>
+            <label>이메일: <input type="email" placeholder="you@example.com"></label>
+            <button class="common-btn">구독하기</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <!-- Big Tech 섹션 -->
+    <div class="category-group" data-category="bigtech" style="display: none;">
+      <div class="tech-layout">
+        <!-- 좌측 뉴스 영역 -->
+        <div class="main-news">
+          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
+          <div class="top-headlines">
+            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>bigtech 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+          </div>
+      
+          <!-- 그리드 뉴스 2열 -->
+          <div class="news-grid">
+            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
+            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
+            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
+            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+          </div>
+        </div>
+      
+        <!-- 우측 사이드바 -->
+        <aside class="tech-sidebar">
+          <div class="podcast-box">
+            <h5>🎧 추천 팟캐스트</h5>
+            <audio controls src="audio/tech-talk.mp3"></audio>
+          </div>
+          <div class="ad-box">📢 광고 영역</div>
+          <div class="subscribe-box">
+            <h4>뉴스레터 구독</h4>
+            <label>이메일: <input type="email" placeholder="you@example.com"></label>
+            <button class="common-btn">구독하기</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <!-- Cybersecurity 섹션 -->
+    <div class="category-group" data-category="cyber" style="display: none;">
+      <div class="tech-layout">
+        <!-- 좌측 뉴스 영역 -->
+        <div class="main-news">
+          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
+          <div class="top-headlines">
+            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>cyber 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+          </div>
+      
+          <!-- 그리드 뉴스 2열 -->
+          <div class="news-grid">
+            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
+            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
+            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
+            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+          </div>
+        </div>
+      
+        <!-- 우측 사이드바 -->
+        <aside class="tech-sidebar">
+          <div class="podcast-box">
+            <h5>🎧 추천 팟캐스트</h5>
+            <audio controls src="audio/tech-talk.mp3"></audio>
+          </div>
+          <div class="ad-box">📢 광고 영역</div>
+          <div class="subscribe-box">
+            <h4>뉴스레터 구독</h4>
+            <label>이메일: <input type="email" placeholder="you@example.com"></label>
+            <button class="common-btn">구독하기</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <!-- Consumer Tech 섹션 -->
+    <div class="category-group" data-category="consumer" style="display: none;">
+      <div class="tech-layout">
+        <!-- 좌측 뉴스 영역 -->
+        <div class="main-news">
+          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
+          <div class="top-headlines">
+            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>consumer 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+          </div>
+      
+          <!-- 그리드 뉴스 2열 -->
+          <div class="news-grid">
+            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
+            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
+            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
+            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+          </div>
+        </div>
+      
+        <!-- 우측 사이드바 -->
+        <aside class="tech-sidebar">
+          <div class="podcast-box">
+            <h5>🎧 추천 팟캐스트</h5>
+            <audio controls src="audio/tech-talk.mp3"></audio>
+          </div>
+          <div class="ad-box">📢 광고 영역</div>
+          <div class="subscribe-box">
+            <h4>뉴스레터 구독</h4>
+            <label>이메일: <input type="email" placeholder="you@example.com"></label>
+            <button class="common-btn">구독하기</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <!-- Startups 섹션 -->
+    <div class="category-group" data-category="startups" style="display: none;">
+      <div class="tech-layout">
+        <!-- 좌측 뉴스 영역 -->
+        <div class="main-news">
+          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
+          <div class="top-headlines">
+            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>startups 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+          </div>
+      
+          <!-- 그리드 뉴스 2열 -->
+          <div class="news-grid">
+            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
+            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
+            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
+            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+          </div>
+        </div>
+      
+        <!-- 우측 사이드바 -->
+        <aside class="tech-sidebar">
+          <div class="podcast-box">
+            <h5>🎧 추천 팟캐스트</h5>
+            <audio controls src="audio/tech-talk.mp3"></audio>
+          </div>
+          <div class="ad-box">📢 광고 영역</div>
+          <div class="subscribe-box">
+            <h4>뉴스레터 구독</h4>
+            <label>이메일: <input type="email" placeholder="you@example.com"></label>
+            <button class="common-btn">구독하기</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <!-- Screentime 섹션 -->
+    <div class="category-group" data-category="screentime" style="display: none;">
+      <div class="tech-layout">
+        <!-- 좌측 뉴스 영역 -->
+        <div class="main-news">
+          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
+          <div class="top-headlines">
+            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>screentime 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+          </div>
+      
+          <!-- 그리드 뉴스 2열 -->
+          <div class="news-grid">
+            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
+            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
+            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
+            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+          </div>
+        </div>
+      
+        <!-- 우측 사이드바 -->
+        <aside class="tech-sidebar">
+          <div class="podcast-box">
+            <h5>🎧 추천 팟캐스트</h5>
+            <audio controls src="audio/tech-talk.mp3"></audio>
+          </div>
+          <div class="ad-box">📢 광고 영역</div>
+          <div class="subscribe-box">
+            <h4>뉴스레터 구독</h4>
+            <label>이메일: <input type="email" placeholder="you@example.com"></label>
+            <button class="common-btn">구독하기</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    
+    <!-- Tech In Depth 섹션 -->
+    <div class="category-group" data-category="depth" style="display: none;">
+      <div class="tech-layout">
+        <!-- 좌측 뉴스 영역 -->
+        <div class="main-news">
+          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
+          <div class="top-headlines">
+            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>depth 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+          </div>
+      
+          <!-- 그리드 뉴스 2열 -->
+          <div class="news-grid">
+            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
+            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
+            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
+            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+          </div>
+        </div>
+      
+        <!-- 우측 사이드바 -->
+        <aside class="tech-sidebar">
+          <div class="podcast-box">
+            <h5>🎧 추천 팟캐스트</h5>
+            <audio controls src="audio/tech-talk.mp3"></audio>
+          </div>
+          <div class="ad-box">📢 광고 영역</div>
+          <div class="subscribe-box">
+            <h4>뉴스레터 구독</h4>
+            <label>이메일: <input type="email" placeholder="you@example.com"></label>
+            <button class="common-btn">구독하기</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  
+  <!-- Read More Button -->
+<div style="text-align: center;">
+  <button class="read-more" onclick="scrollToFooter()">Read More</button>
+</div>
+
+ <!-- <li><a href="#" data-category="all" class="active">전체</a></li> -->
+
+  <!-- 모바일 하단 네비게이션 -->
+  <nav class="bottom-nav">
+    <ul>
+      <li>
+        <a href="index.html" class="nav-link" aria-label="뉴스">
+          <span class="icon news-icon"></span>
+          <span class="nav-text">뉴스</span>
+        </a>
+      </li>
+      <li>
+        <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
+          <span class="icon diary-icon"></span>
+          <span class="nav-text">다이어리</span>
+        </a>
+      </li>
+      <li>
+        <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
+          <span class="icon chart-icon"></span>
+          <span class="nav-text">대가들</span>
+        </a>
+      </li>
+      <li>
+        <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
+          <span class="icon company-icon"></span>
+          <span class="nav-text">중소형주</span>
+        </a>
+      </li>
+      <li>
+        <a href="배당주.html" class="nav-link active" aria-label="배당주분석">
+          <span class="icon coinTree-icon"></span>
+          <span class="nav-text">배당주</span>
+        </a>
+      </li>
+      <li>
+        <a href="큐레이션.html" class="nav-link" aria-label="큐레이션">
+          <span class="icon bull-icon"></span>
+          <span class="nav-text">큐레이션</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <footer>
+    <p>
+      © 2025 Go Higher, 고하이어. All rights reserved.<br>
+      운영 지역: 대한민국 대구<br>
+      문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a><br>
+    </p>
+  </footer>
+  
+          <!-- Back to Top 버튼 -->
+          <button class="back-to-top" id="backToTop">Top</button>
+
+  <script src="auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const navLinks = document.querySelectorAll(".tech-nav a");
+  const groups = document.querySelectorAll(".category-group");
+
+  navLinks.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const selected = this.dataset.category;
+
+      // 탭 UI 활성화
+      navLinks.forEach(l => l.classList.remove("active"));
+      this.classList.add("active");
+
+      // 섹션 전환
+      groups.forEach(group => {
+        group.style.display = (group.dataset.category === selected) ? "block" : "none"; //group.style.display = (selected === "all" || group.dataset.category === selected) ? "block" : "none";
+      });
+    });
+  });
+  document.querySelector('.tech-nav a[data-category="ai"]').click();
+
+});
+
+function scrollToFooter() {
+    const footer = document.querySelector('footer');
+    footer.scrollIntoView({ behavior: 'smooth' });
+  }
+
+// 다크모드 스크립트
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+});
+
+// Back to Top 버튼 기능
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.getElementById("backToTop");
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.classList.add("show");
+    } else {
+      backToTopBtn.classList.remove("show");
+    }
+  });
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// 로그인 상태 관리
+document.addEventListener("DOMContentLoaded", function () {
+  const loginContainer = document.querySelector(".login-container");
+  const profileBox = document.getElementById("profileBox");
+  const authButton = document.getElementById("authButton");
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  if (isLoggedIn) {
+    loginContainer.classList.add("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+    authButton.href = "#";
+    authButton.style.display = "none";
+  } else {
+    loginContainer.classList.remove("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
+    authButton.href = "login.html";
+    authButton.style.display = "inline-block";
+  }
+  profileBox.addEventListener("click", function () {
+    if (isLoggedIn) {
+      loginContainer.classList.toggle("active");
+      authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
+    }
+  });
+  authButton.addEventListener("click", function (event) {
+    if (isLoggedIn) {
+      event.preventDefault();
+      localStorage.setItem("isLoggedIn", "false");
+      window.location.reload();
+    }
+  });
+});
+    // 다크모드 스크립트
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+
+              // Back to Top 버튼 기능
+              document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.getElementById("backToTop");
+
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.classList.add("show");
+    } else {
+      backToTopBtn.classList.remove("show");
+    }
+  });
+
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+  </script>
+  
+</body>
+</html>
