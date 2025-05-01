@@ -15,7 +15,11 @@
 
     <!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
+    <!-- 🚀 1. preload: 폰트 파일을 먼저 불러오되 스타일로 적용 안함 -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" />
+    <!-- 🚀 2. 비차단 적용: media="print" → onload 시 all 로 바꿔서 스타일 적용 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" media="print" onload="this.media='all'" />
+
   
     <title>미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트</title>
     <meta name="description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
