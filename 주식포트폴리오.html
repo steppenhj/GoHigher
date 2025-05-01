@@ -451,31 +451,6 @@ html.js body {
       border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
     }
     .account-book-entries button.delete-entry:hover { background: #800000; }
-    .investment-checklist ul { list-style: none; padding-left: 0; }
-    .investment-checklist li {
-      display: flex; justify-content: space-between; align-items: center;
-      border-bottom: 1px solid #eee; padding: 0.8rem 0;
-    }
-    .investment-checklist li:last-child { border-bottom: none; }
-    .investment-checklist input[type="checkbox"] {
-      width: 1.5em; height: 1.5em; transform: scale(1.2); margin-left: 1px;
-    }
-    .checklist-add { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-    .checklist-add input { flex: 1; padding: 0.5rem; border: 1px solid #ccc;
-                           border-radius: 4px; font-size: 1rem; }
-    .checklist-add button {
-      padding: 0.1rem 1rem; background: var(--primary-color); color: #fff;
-      border: none; border-radius: 4px; cursor: pointer; font-size: 1rem;
-    }
-    .checklist-add button:hover { background: #003060; }
-    .check-controls {
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .check-controls .delete-checklist-btn {
-      padding: 0.3rem 0.6rem; background: #b30000; color: #fff;
-      border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
-    }
-    .check-controls .delete-checklist-btn:hover { background: #800000; }
     .todo-form {
       display: flex;
       align-items: center;
@@ -707,7 +682,6 @@ html.js body {
       .chart-container canvas { width: 100% !important; height: auto !important; }
       .calendar-navigation { flex-direction: column; gap: 0.5rem; text-align: center; }
       .account-book-form,
-      .investment-checklist { font-size: 0.9rem; }
       .modal-content { width: 90% !important; margin: 10% auto !important; padding: 1rem !important; }
       #assetPortfolioModal .portfolio-section-content,
       #stockPortfolioModal .portfolio-section-content { flex-direction: column !important; }
@@ -1416,22 +1390,6 @@ body.dark-mode #memoModal .modal-content button {
       <canvas id="incomeExpenseChart" style="margin-bottom: 20px;"></canvas>
     </div>
   </div>
-  
-  <!-- [모달] 체크리스트 -->
-  <div id="investmentChecklistModal" class="modal">
-    <div class="modal-content investment-checklist">
-      <button class="modal-close-btn" onclick="closeModal('investmentChecklistModal')"></button>
-      <h3>나만의 투자 원칙 체크리스트</h3>
-      <p style="font-size:0.9rem; line-height: 1.4; margin-top: 0.5rem;">
-        새로운 종목을 구매할 때 고려해야 할 중요한 원칙을 체크하세요.
-      </p>
-      <ul id="checklist" style="margin-top: 1rem;"></ul>
-      <div class="checklist-add">
-        <input type="text" id="newChecklistItem" placeholder="원칙을 입력하세요">
-        <button id="addChecklistItemBtn">추가</button>
-      </div>
-    </div>
-  </div>
 
   <!-- 달력 메모 모달 (기존) -->
   <div id="memoModal" class="modal">
@@ -1498,9 +1456,7 @@ body.dark-mode #memoModal .modal-content button {
     } else if (modalId === "accountBookModal") {
       loadAccountBookEntriesFirestore();
       loadFixedExpensesFirestore(); // 추가: 고정 지출 데이터도 불러오기
-    } else if (modalId === "investmentChecklistModal") {
-      loadChecklistFirestore();
-    }
+    } 
   }
 }
 
@@ -2717,7 +2673,6 @@ document.getElementById("generateReportBtn").addEventListener("click", generateM
       loadStockPortfolio();
       updateAssetChart();
       updateStockChart();
-      loadChecklist();
       loadAssetGoal();
       loadFixedExpensesFirestore(); // 고정 지출 데이터 즉시 불러오기
       addCommaFormatting(document.getElementById("assetGoalInput"));
@@ -3224,9 +3179,6 @@ document.getElementById("saveModalBtn").addEventListener("click", () => {
       window.loadStockPortfolio = loadStockPortfolioFirestore;
       window.saveStockPortfolio = updateStockPortfolioFirestore;
       
-      window.loadChecklist = loadChecklistFirestore;
-      window.saveChecklist = updateChecklistFirestore;
-      
       window.loadAssetGoal = loadAssetGoalFirestore;
       window.saveAssetGoal = function() {
         const input = document.getElementById("assetGoalInput");
@@ -3269,7 +3221,6 @@ document.getElementById("saveModalBtn").addEventListener("click", () => {
       // 초기 로드
       loadAssetPortfolioFirestore();
       loadStockPortfolioFirestore();
-      loadChecklistFirestore();
       loadAssetGoalFirestore();
       loadDiaryEntriesFirestore();
       loadCalendarMemosFirestore();
