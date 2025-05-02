@@ -13,11 +13,6 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-<!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
-
   <!-- 페이지 제목 -->
   <title>배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석</title>
   <meta name="description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
@@ -35,9 +30,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <!-- Font Awesome 아이콘 CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
-        integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />  
   <!-- 네이버 / 구글 사이트 검증 메타 -->
   <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
   <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
@@ -293,40 +292,40 @@ html.js body {
         box-shadow: none;
       }
       .news-icon {
-        background-image: url("images/newsImage.png");
+        background-image: url("images/newsImage.webp");
       }
       .nav-link.active .news-icon {
-        background-image: url("images/newsOn.png");
+        background-image: url("images/newsOn.webp");
       }
       .diary-icon {
-        background-image: url("images/diaryImage.png");
+        background-image: url("images/diaryImage.webp");
       }
       .nav-link.active .diary-icon {
-        background-image: url("images/diaryOn.png");
+        background-image: url("images/diaryOn.webp");
       }
       .chart-icon {
-        background-image: url("images/chartImage.png");
+        background-image: url("images/chartImage.webp");
       }
       .nav-link.active .chart-icon {
-        background-image: url("images/chartOn.png");
+        background-image: url("images/chartOn.webp");
       }
       .company-icon {
-        background-image: url("images/companyImage.png");
+        background-image: url("images/companyImage.webp");
       }
       .nav-link.active .company-icon {
-        background-image: url("images/companyOn.png");
+        background-image: url("images/companyOn.webp");
       }
       .coinTree-icon {
-        background-image: url("images/coinTree.png");
+        background-image: url("images/coinTree.webp");
       }
       .nav-link.active .coinTree-icon {
-        background-image: url("images/treeOn.png");
+        background-image: url("images/treeOn.webp");
       }
       .bull-icon {
-        background-image: url("images/bullImage.png");
+        background-image: url("images/bullImage.webp");
       }
       .nav-link.active .bull-icon {
-        background-image: url("images/bullOn.png");
+        background-image: url("images/bullOn.webp");
       }
     /* 하단 nav */
     body.dark-mode .bottom-nav {
@@ -1021,6 +1020,56 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+.news-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.news-card {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: var(--card-bg);
+  transition: transform 0.2s;
+}
+.news-card:hover {
+  transform: translateY(-4px);
+}
+.news-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* 1행 - 와이드 뉴스 */
+.big-row .news-card img {
+  aspect-ratio: 12 / 9;
+}
+.big-row {
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* 2행 - 기본 비율 뉴스 */
+.mid-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.mid-row .news-card img {
+  aspect-ratio: 4 / 5;
+}
+
+/* 3행 - 정사각형 뉴스 */
+.small-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.small-row .news-card img {
+  aspect-ratio: 3 / 2;
+}
   </style>
 </head>
 <body>
@@ -1097,19 +1146,22 @@ html, body {
       <div class="tech-layout">
         <!-- 좌측 뉴스 영역 -->
         <div class="main-news">
-          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
-          <div class="top-headlines">
-            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>ai 큰 뉴스 제목 1</h3></article>
-            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
-            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+          <div class="news-row big-row">
+            <article class="news-card"><img src="images2/ai1.webp" alt=""><h3>"도요타와 웨이모, 자율주행 기술 공동 개발 추진"</h3></article>
+            <article class="news-card"><img src="images2/ai2.webp" alt=""><h3>"AI 전력 수요 급증에 대응하는 구글, 미국 전기 기술자 양성에 1,000만 달러 지원"</h3></article>
+            <article class="news-card"><img src="images2/ai3.webp" alt=""><h3>"메타, AI 개발자 유치를 위해 Llama API 출시"</h3></article>
           </div>
-      
-          <!-- 그리드 뉴스 2열 -->
-          <div class="news-grid">
-            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
-            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
-            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
-            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+          
+          <!-- 2행: 중간 뉴스 -->
+          <div class="news-row mid-row">
+            <article class="news-card"><img src="images2/ai4.webp" alt=""><h4>"마이크로소프트, AI 투자 효과로 1분기 실적 호조…클라우드 수요 급증"</h4></article>
+            <article class="news-card"><img src="images2/ai5.webp" alt=""><h4>"화웨이, 엔비디아 경쟁 위해 새로운 AI 칩 개발"</h4></article>
+          </div>
+          
+          <!-- 3행: 정사각 뉴스 -->
+          <div class="news-row small-row">
+            <article class="news-card"><img src="images2/ai6.webp" alt=""><h4>"오픈AI, ChatGPT에 맞춤형 쇼핑 기능 추가"</h4></article>
+            <article class="news-card"><img src="images2/ai7.webp" alt=""><h4>"엔비디아 CEO, 트럼프 행정부에 AI 칩 수출 규제 개정 촉구"</h4></article>
           </div>
         </div>
       
@@ -1136,17 +1188,17 @@ html, body {
         <div class="main-news">
           <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
           <div class="top-headlines">
-            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>bigtech 큰 뉴스 제목 1</h3></article>
-            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
-            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+            <article class="headline wide"><img src="images/ai1.webp" alt=""><h3>bigtech 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.webp" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.webp" alt=""><h3>큰 뉴스 제목 3</h3></article>
           </div>
       
           <!-- 그리드 뉴스 2열 -->
           <div class="news-grid">
-            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
-            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
-            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
-            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
+            <article class="grid-news"><img src="images/ai4.webp" alt=""><h4>소제목 뉴스 A</h4></article>
+            <article class="grid-news"><img src="images/ai5.webp" alt=""><h4>소제목 뉴스 B</h4></article>
+            <article class="grid-news"><img src="images/ai6.webp" alt=""><h4>소제목 뉴스 C</h4></article>
+            <article class="grid-news"><img src="images/ai7.webp" alt=""><h4>소제목 뉴스 D</h4></article>
           </div>
         </div>
       
@@ -1167,26 +1219,52 @@ html, body {
     </div>
     
     <!-- Cybersecurity 섹션 -->
-    <div class="category-group" data-category="cyber" style="display: none;">
-      <div class="tech-layout">
-        <!-- 좌측 뉴스 영역 -->
-        <div class="main-news">
-          <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
-          <div class="top-headlines">
-            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>cyber 큰 뉴스 제목 1</h3></article>
-            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
-            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
-          </div>
-      
-          <!-- 그리드 뉴스 2열 -->
-          <div class="news-grid">
-            <article class="grid-news"><img src="images/ai4.jpg" alt=""><h4>소제목 뉴스 A</h4></article>
-            <article class="grid-news"><img src="images/ai5.jpg" alt=""><h4>소제목 뉴스 B</h4></article>
-            <article class="grid-news"><img src="images/ai6.jpg" alt=""><h4>소제목 뉴스 C</h4></article>
-            <article class="grid-news"><img src="images/ai7.jpg" alt=""><h4>소제목 뉴스 D</h4></article>
-          </div>
-        </div>
-      
+    <!-- Cybersecurity 섹션 -->
+<div class="category-group" data-category="cyber" style="display: none;">
+  <div class="tech-layout">
+    <!-- 좌측 뉴스 영역 -->
+    <div class="main-news">
+      <!-- 1행: 큰 썸네일 3개 -->
+      <div class="news-row big-row">
+        <article class="news-card">
+          <img src="images2/cyber1.webp" alt="">
+          <h3>"모토로라 솔루션즈, 관세 불확실성 속 2분기 실적 전망 하향"</h3>
+        </article>
+        <article class="news-card">
+          <img src="images2/cyber2.webp" alt="">
+          <h3>"스페인 대규모 정전, 재생에너지 탓? 정부와 야당 간 공방"</h3>
+        </article>
+        <article class="news-card">
+          <img src="images2/cyber5.webp" alt="">
+          <h3>"과테말라 외무부 해킹 논란, 미국과 현지 정부 간 입장 차이"</h3>
+        </article>
+      </div>
+
+      <!-- 2행: 중간 썸네일 뉴스 -->
+      <div class="news-row mid-row">
+        <article class="news-card">
+          <img src="images2/cyber7.webp" alt="">
+          <h4>"SK텔레콤, 대규모 고객 정보 유출로 주가 급락"</h4>
+        </article>
+        <article class="news-card">
+          <img src="images2/cyber6.webp" alt="">
+          <h4>"전 CISA 국장, 트럼프 조치로 미국 사이버 방어력 약화 우려"</h4>
+        </article>
+      </div>
+
+      <!-- 3행: 정사각형 뉴스 -->
+      <div class="news-row small-row">
+        <article class="news-card">
+          <img src="images2/cyber4.webp" alt="">
+          <h4>"M&S, 사이버 공격으로 일부 매장 식품 공급 차질"</h4>
+        </article>
+        <article class="news-card">
+          <img src="images2/cyber3.webp" alt="">
+          <h4>"북한 해커, 가짜 기업 설립해 암호화폐 개발자 노려"</h4>
+        </article>
+      </div>
+    </div>
+       
         <!-- 우측 사이드바 -->
         <aside class="tech-sidebar">
           <div class="podcast-box">
@@ -1247,9 +1325,9 @@ html, body {
         <div class="main-news">
           <!-- 상단 주요 뉴스 (큰 썸네일 3개 정도) -->
           <div class="top-headlines">
-            <article class="headline wide"><img src="images/ai1.jpg" alt=""><h3>startups 큰 뉴스 제목 1</h3></article>
-            <article class="headline wide"><img src="images/ai2.jpg" alt=""><h3>큰 뉴스 제목 2</h3></article>
-            <article class="headline wide"><img src="images/ai3.jpg" alt=""><h3>큰 뉴스 제목 3</h3></article>
+            <article class="headline wide"><img src="images/ai1.webp" alt=""><h3>startups 큰 뉴스 제목 1</h3></article>
+            <article class="headline wide"><img src="images/ai2.webp" alt=""><h3>큰 뉴스 제목 2</h3></article>
+            <article class="headline wide"><img src="images/ai3.webp" alt=""><h3>큰 뉴스 제목 3</h3></article>
           </div>
       
           <!-- 그리드 뉴스 2열 -->
@@ -1520,6 +1598,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+      const images = document.querySelectorAll("img");
+      images.forEach(img => {
+        img.setAttribute("loading", "lazy");
+      });
+    });
   </script>
   
 </body>
