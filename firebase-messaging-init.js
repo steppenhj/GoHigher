@@ -23,37 +23,34 @@ logEvent(analytics, 'page_view', { page_path: location.pathname });  // 사용�
 // FCM 설정
 const messaging = getMessaging(app);
 
-// 알림 권한 요청 + 토큰 관리
-function requestPermissionAndGetToken() {
-  if (Notification.permission === "default") { 
-    Notification.requestPermission().then(permission => {
-      if (permission === "granted") {
-        console.log("✅ 알림 권한 허용됨");
-        retrieveToken();
+// FCM 초기화: 권한 요청 + 토큰 관리
+async function initFCM() {
+  // 1) 알림 권한이 아직 ‘묻지 않음(default)’ 상태라면 한 번만 요청
+  if (Notification.permission === "default") {
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      console.warn("🚫 알림 권한이 거부되었거나 중단됨");
+      return;
+    }
+  }
+
+  // 2) 권한이 ‘granted’ 상태일 때만 토큰을 한 번 가져오기
+  if (Notification.permission === "granted") {
+    try {
+      const token = await getToken(messaging, {
+        vapidKey: "BMIz4RuAfnawKTvKZxexSrcjyZDz5SykvfDJJcYIKi7omKUtOzNoSfMQIb29kwjiNaIiQEJpdnOSR4oa3sYVOzM"
+      });
+      if (token) {
+        console.log("📬 FCM 토큰:", token);
       } else {
-        console.warn("🚫 알림 권한 거부됨");
+        console.warn("❗ 토큰이 생성되지 않았습니다.");
       }
-    });
-  } else if (Notification.permission === "granted") {
-    retrieveToken();
+    } catch (err) {
+      console.error("❌ 토큰 요청 실패", err);
+    }
   } else {
     console.warn("🚫 알림 권한 거부 상태");
   }
-}
-
-// 토큰 가져오기
-function retrieveToken() {
-  getToken(messaging, {
-    vapidKey: "BMIz4RuAfnawKTvKZxexSrcjyZDz5SykvfDJJcYIKi7omKUtOzNoSfMQIb29kwjiNaIiQEJpdnOSR4oa3sYVOzM"
-  }).then((token) => {
-    if (token) {
-      console.log("📬 FCM 토큰:", token);
-    } else {
-      console.warn("❗ 토큰이 생성되지 않았습니다.");
-    }
-  }).catch(err => {
-    console.error("❌ 토큰 요청 실패", err);
-  });
 }
 
 // 포그라운드 수신 처리
@@ -65,4 +62,4 @@ onMessage(messaging, (payload) => {
 });
 
 // 실행
-requestPermissionAndGetToken();
+initFCM();
