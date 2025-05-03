@@ -754,6 +754,24 @@ body.dark-mode input {
       opacity: 1;
       visibility: visible;
     }
+    /*배당금 계산기 이동 버튼*/
+    .calc-btn {
+  display: inline-block;
+  margin-left: 5rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, #004080, #002855);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.calc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 86, 179, 0.4);
+  background: linear-gradient(135deg, #0059b3, #004080);
+}
+
     @media (max-width: 768px) {
       .half-section {
         width: 100% !important;
@@ -911,6 +929,7 @@ footer p{
   </nav>
   
     <h2>배당주 TOP 리스트</h2>
+    <a href="#calculator" class="calc-btn">배당금 계산기 사용하기</a>
     <div class="flex-container">
       <div class="half-section">
         <h3>필수 소비재 &amp; 음료</h3>
@@ -1082,7 +1101,7 @@ footer p{
 
   
   
-  <div class="container">
+    <div id="calculator" class="container">
     <h1>배당금 계산기</h1>
     <p>현재 제공된 연평균 배당 성장률을 반영하고 있지만 공시된 배당 이력과 AI 기반 추정 분석을 종합하여 계산된 참고용 수치입니다.<br>
       향후 실제 배당금은 기업의 재무 상황, 시장 환경, 이사회 결정 등 다양한 변수에 따라 달라질 수 있습니다.</p>
