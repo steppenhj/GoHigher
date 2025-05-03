@@ -730,9 +730,9 @@ body.dark-mode .back-to-top {
         height: 30px;
       }
             /* 또는 결과 박스에만 margin-bottom 줄 수도 있습니다 */
-      .resultText + button { /* 결과 박스 직후 버튼을 선택 */
-        margin-bottom: 4rem;
-      }
+            .resultText + button + button {
+    margin-bottom: 4rem; /* 네비게이션 높이(≈3.5rem) + 여유분 */
+  }
     }
 
     @media only screen and (max-device-width: 768px) {
