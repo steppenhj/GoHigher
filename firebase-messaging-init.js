@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
   authDomain: "gohigher-55e51.firebaseapp.com",
   projectId: "gohigher-55e51",
-  storageBucket: "gohigher-55e51.firebasestorage.app",
+  storageBucket: "gohigher-55e51.firebaseapp.com",
   messagingSenderId: "487435343721",
   appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
   measurementId: "G-KQ02L8DXG0"
@@ -23,37 +23,43 @@ logEvent(analytics, 'page_view', { page_path: location.pathname });  // 사용�
 // FCM 설정
 const messaging = getMessaging(app);
 
-// FCM 초기화: 권한 요청 + 토큰 관리
+// FCM 초기화: 알림 권한 요청 + 토큰 발급 + 서비스워커 등록
 async function initFCM() {
-  // 1) 알림 권한이 아직 ‘묻지 않음(default)’ 상태라면 한 번만 요청
-  if (Notification.permission === "default") {
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      console.warn("🚫 알림 권한이 거부되었거나 중단됨");
-      return;
-    }
-  }
+  try {
+    // 1. 서비스워커 등록 (firebase-messaging-sw.js)
+    const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+    console.log("✅ firebase-messaging-sw.js 등록됨:", registration.scope);
 
-  // 2) 권한이 ‘granted’ 상태일 때만 토큰을 한 번 가져오기
-  if (Notification.permission === "granted") {
-    try {
+    // 2. 알림 권한 요청
+    if (Notification.permission === "default") {
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") {
+        console.warn("🚫 알림 권한이 거부되었거나 중단됨");
+        return;
+      }
+    }
+
+    // 3. 토큰 발급 (서비스워커 명시)
+    if (Notification.permission === "granted") {
       const token = await getToken(messaging, {
-        vapidKey: "BMIz4RuAfnawKTvKZxexSrcjyZDz5SykvfDJJcYIKi7omKUtOzNoSfMQIb29kwjiNaIiQEJpdnOSR4oa3sYVOzM"
+        vapidKey: "BMIz4RuAfnawKTvKZxexSrcjyZDz5SykvfDJJcYIKi7omKUtOzNoSfMQIb29kwjiNaIiQEJpdnOSR4oa3sYVOzM",
+        serviceWorkerRegistration: registration
       });
       if (token) {
         console.log("📬 FCM 토큰:", token);
       } else {
         console.warn("❗ 토큰이 생성되지 않았습니다.");
       }
-    } catch (err) {
-      console.error("❌ 토큰 요청 실패", err);
+    } else {
+      console.warn("🚫 알림 권한 거부 상태");
     }
-  } else {
-    console.warn("🚫 알림 권한 거부 상태");
+
+  } catch (err) {
+    console.error("❌ FCM 초기화 실패", err);
   }
 }
 
-// 포그라운드 수신 처리
+// 포그라운드 메시지 수신 처리
 onMessage(messaging, (payload) => {
   console.log("📨 포그라운드 메시지 수신:", payload);
   if (payload.notification) {
