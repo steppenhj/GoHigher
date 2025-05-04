@@ -27,8 +27,8 @@
   <meta name="keywords" content="유명인포폴, 투자기관, 헤지펀드, 포트폴리오, gohigher">
   <!-- 검색엔진 크롤링 허용 -->
   <meta name="robots" content="index,follow">
-  <!-- **확대/축소 불가 설정** -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <!-- 구글 폰트 & 차트.js 및 플러그인 -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1119,25 +1119,25 @@ body.dark-mode .login-btn {
   <nav class="bottom-nav">
     <ul>
       <li>
-        <a href="index.html" class="nav-link" aria-label="뉴스">
+        <a href="index.html" class="nav-link" arial-label="뉴스">
           <span class="icon news-icon"></span>
           <span class="nav-text">뉴스</span>
         </a>
       </li>
       <li>
-        <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
+        <a href="주식포트폴리오.html" class="nav-link" arial-label="투자다이어리">
           <span class="icon diary-icon"></span>
           <span class="nav-text">다이어리</span>
         </a>
       </li>
       <li>
-        <a href="버크셔해서웨이.html" class="nav-link active" aria-label="인기포트폴리오">
+        <a href="버크셔해서웨이.html" class="nav-link active" arial-label="인기포트폴리오">
           <span class="icon chart-icon"></span>
           <span class="nav-text">대가들</span>
         </a>
       </li>
       <li>
-        <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
+        <a href="중소형주식.html" class="nav-link" arial-label="중소형주식">
           <span class="icon company-icon"></span>
           <span class="nav-text">중소형주</span>
         </a>
@@ -1149,7 +1149,7 @@ body.dark-mode .login-btn {
         </a>
       </li>
       <li>
-        <a href="큐레이션.html" class="nav-link" aria-label="큐레이션">
+        <a href="큐레이션.html" class="nav-link" arial-label="큐레이션">
           <span class="icon bull-icon"></span>
           <span class="nav-text">큐레이션</span>
         </a>
@@ -1789,6 +1789,22 @@ body.dark-mode .login-btn {
 
     // (3) 도서 모달 관련 스크립트
     document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+      document.querySelectorAll('a.nav-link').forEach(a => {
+        a.style.webkitTapHighlightColor = 'transparent';
+      });
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          link.classList.add('pressed');
+          setTimeout(() => {
+            window.location.href = link.getAttribute('href');
+          }, 100);
+        });
+      });
       const container = document.getElementById('bookContainer');
       const bookDetails = [
         `<h3>워렌 버핏의 《버핏의 주주 서한》</h3>
@@ -1951,26 +1967,7 @@ body.dark-mode .login-btn {
 
   <script src="auth.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-      }
-    });
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('a.nav-link').forEach(a => {
-        a.style.webkitTapHighlightColor = 'transparent';
-      });
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', e => {
-          e.preventDefault();
-          link.classList.add('pressed');
-          setTimeout(() => {
-            window.location.href = link.getAttribute('href');
-          }, 100);
-        });
-      });
-    });
+    
     document.addEventListener("DOMContentLoaded", function () {
     const loginContainer = document.querySelector(".login-container");
     const profileBox = document.getElementById("profileBox");
