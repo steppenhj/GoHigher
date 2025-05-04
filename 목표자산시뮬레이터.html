@@ -94,15 +94,17 @@
     .sidecard .recommend-box { background: #fff7e6; border-left: 4px solid #f0a500; padding: 0.8rem; margin-top: 1rem; border-radius: 6px; }
     .sidecard .recommend-box strong { display: block; margin-bottom: 0.4rem; color: #c15c00; }
 
-        /* Mobile 최적화 */
+    /* Mobile 최적화 */
     @media (max-width: 768px) {
-      main { flex-direction: column; }
+      main { flex-direction: column; margin: 1rem auto; padding: 0 0.5rem; gap: 1rem; }
       .form-container, .sidecard { width: 100%; flex: none; }
       .sidecard { position: relative; top: auto; margin-top: 1.5rem; }
       header a { top: 0.8rem; left: 0.5rem; font-size: 0.85rem; }
-      main { margin: 1rem auto; padding: 0 0.5rem; gap: 1rem; }
-      .form-container { padding: 1rem; }
       .chart-container { padding: 0.8rem; margin-top: 1.5rem; }
+      #simulateBtn { font-size: 0.95rem; padding: 0.6rem; }
+      .form-container label { margin-bottom: 0.8rem; }
+      .sidecard h3 { font-size: 1rem; }
+      .sidecard p { font-size: 0.9rem; }
     }
   </style>
 </head>
