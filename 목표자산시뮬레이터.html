@@ -94,18 +94,108 @@
     .sidecard .recommend-box { background: #fff7e6; border-left: 4px solid #f0a500; padding: 0.8rem; margin-top: 1rem; border-radius: 6px; }
     .sidecard .recommend-box strong { display: block; margin-bottom: 0.4rem; color: #c15c00; }
 
-    /* Mobile 최적화 */
-    @media (max-width: 768px) {
-      main { flex-direction: column; margin: 1rem auto; padding: 0 0.5rem; gap: 1rem; }
-      .form-container, .sidecard { width: 100%; flex: none; }
-      .sidecard { position: relative; top: auto; margin-top: 1.5rem; }
-      header a { top: 0.8rem; left: 0.5rem; font-size: 0.85rem; }
-      .chart-container { padding: 0.8rem; margin-top: 1.5rem; }
-      #simulateBtn { font-size: 0.95rem; padding: 0.6rem; }
+        /* Mobile Optimization for max-width: 768px */
+        @media (max-width: 768px) {
+      main { flex-direction: column; gap: 1.5rem; }
+      .sidecard { position: relative; top: auto; margin-top: 1rem; }
+      header h1 { font-size: 1.3rem; }
+      header a { font-size: 0.8rem; left: 0.5rem; top: 1rem; }
+      .form-container { padding: 1rem; }
       .form-container label { margin-bottom: 0.8rem; }
-      .sidecard h3 { font-size: 1rem; }
-      .sidecard p { font-size: 0.9rem; }
+      #simulateBtn { font-size: 0.9rem; padding: 0.6rem; }
     }
+
+    /* —————————————————————————————————————————————— */
+/* 다크모드 전용 오버라이드 */
+/* body.dark-mode 클래스가 있을 때만 적용됩니다. */
+/* —————————————————————————————————————————————— */
+/* —————————————————————————————————————————————— */
+/* 다크모드 오버라이드 (참고 페이지 톤으로 조정) */
+/* —————————————————————————————————————————————— */
+:root {
+  --dm-section-bg: #444;      /* 섹션 배경(구역별) */
+  --dm-card-bg:    #333;      /* 카드/컨테이너 */
+  --dm-input-bg:   #3a3a3a;   /* 입력 필드 */
+  --dm-border:     #555;      /* 테두리 선 */
+  --dm-text:       #cacaca;   /* 기본 텍스트 */
+  --dm-muted:      #aaa;      /* 부차 텍스트 */
+  --dm-success:    #304230;   /* 성공 배경 */
+  --dm-failure:    #4a2a2a;   /* 실패 배경 */
+  --dm-recommend:  #3a331f;   /* 추천 박스 배경 */
+}
+
+/* 페이지 배경 & 기본 텍스트 */
+body.dark-mode {
+  background: url('backgroundD.png') no-repeat center center;
+  background-size: cover;
+  color: var(--dm-text);
+}
+
+/* 헤더 */
+body.dark-mode header {
+  background: linear-gradient(135deg, #002b57, #004284);
+  color: var(--dm-text);
+}
+body.dark-mode header a {
+  color: var(--dm-muted);
+}
+
+/* 메인 컨테이너(폼/차트) */
+body.dark-mode .form-container,
+body.dark-mode .chart-container {
+  background: var(--dm-card-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* 라벨 & 인풋 */
+body.dark-mode .form-container label {
+  color: var(--dm-text);
+}
+body.dark-mode .form-container input {
+  background: var(--dm-input-bg);
+  border: 1px solid var(--dm-border);
+  color: var(--dm-text);
+}
+
+/* 실행 버튼 */
+body.dark-mode #simulateBtn {
+  background: linear-gradient(135deg, #0059b3, #004080);
+  color: #fff;
+}
+body.dark-mode #simulateBtn:hover {
+  background: linear-gradient(135deg, #004080, #0059b3);
+}
+
+/* 사이드카드 */
+body.dark-mode .sidecard {
+  background: var(--dm-card-bg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  color: var(--dm-text);
+}
+body.dark-mode .sidecard.success {
+  background: var(--dm-success);
+}
+body.dark-mode .sidecard.failure {
+  background: var(--dm-failure);
+  border-left: 5px solid #ff5c5c;
+}
+body.dark-mode .sidecard h3 {
+  color: #85b4e6;
+}
+
+/* 추천 박스 */
+body.dark-mode .recommend-box {
+  background: var(--dm-recommend);
+  border-left: 4px solid #f0a500;
+  color: #e0c674;
+}
+
+/* 푸터 (필요 시) */
+body.dark-mode footer {
+  background: linear-gradient(135deg, #002b57, #004284);
+  color: var(--dm-text);
+}
+
   </style>
 </head>
 <body>
@@ -257,6 +347,17 @@ document.getElementById('simulateBtn').addEventListener('click', () => {
     options: { responsive: true, scales: { y: { ticks: { callback: val => val.toLocaleString() } } } }
   });
 });
+
+    // ──────────────────────────────
+    // 다크모드 처리
+    // ──────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    });
+    
 </script>
 </body>
 </html>
