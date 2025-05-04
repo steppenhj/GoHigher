@@ -46,7 +46,8 @@ const urlsToCache = [
   '/중소형주식.html',
   '/privacy-policy.html',
   '/icons/shortcut-portfolio.png',
-  '/icons/shortcut-diary.png'
+  '/icons/shortcut-diary.png',
+  '/목표자산시뮬레이터.html'
 ];
 
 // 설치 단계: 핵심 리소스 캐싱

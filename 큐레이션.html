@@ -734,6 +734,19 @@ body.dark-mode .back-to-top {
     margin-bottom: 4rem; /* 네비게이션 높이(≈3.5rem) + 여유분 */
   }
     }
+    .skip-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.skip-btn:hover {
+  opacity: 0.8;
+}
+
 
     @media only screen and (max-device-width: 768px) {
   @supports (-webkit-touch-callout: none) {
@@ -815,6 +828,8 @@ body.dark-mode .back-to-top {
   <!-- 설문 조사 섹션 -->
   <section id="investmentSurvey" style="padding: 2rem; background-color: #f4f7fa; margin: 2rem auto; max-width: 800px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
     <h2 style="text-align:center;">투자 성향 테스트 <span id="progressIndicator"></span></h2>
+      <!-- 건너뛰기 버튼 -->
+    <button id="skipSurvey" type="button" class="skip-btn">테스트 건너뛰기</button>
     <form id="surveyForm">
       <!-- 데모 단계: 1. 성별 -->
       <div class="step active" data-step="1">
@@ -1084,6 +1099,16 @@ title.style.fontWeight = "bold";
 title.style.textAlign = "center";
 curationContainer.appendChild(title);
 
+  // ↓ 여기서 목표자산시뮬레이터 버튼 추가 ↓
+  const simBtn = document.createElement("button");
+  simBtn.textContent = "목표 자산 시뮬레이터 사용해보기";
+  simBtn.classList.add("sim-btn");
+  simBtn.style.marginBottom = "2rem";
+  simBtn.addEventListener("click", () => {
+    window.location.href = "목표자산시뮬레이터.html";
+  });
+  curationContainer.appendChild(simBtn);
+  
   // 그리드 래퍼
   const grid = document.createElement("div");
   grid.classList.add("curation-grid");
@@ -1388,6 +1413,16 @@ curationContainer.appendChild(title);
     // DOMContentLoaded: 로컬 스토리지 결과 확인 및 설문 진행 관리
     // ──────────────────────────────
     document.addEventListener("DOMContentLoaded", function() {
+  // 1) skipSurvey 버튼 요소 가져오기
+  const skipBtn = document.getElementById("skipSurvey");
+  // 2) 클릭 시 showCurationPage() 호출
+  skipBtn?.addEventListener("click", () => {
+    // 설문 섹션 전체를 숨기고
+    document.getElementById("investmentSurvey").style.display = "none";
+    // 큐레이션 페이지를 띄운다
+    showCurationPage();
+  });
+
       const savedResult = localStorage.getItem("surveyResultText");
       const savedBgImage = localStorage.getItem("surveyBackgroundImage");
       
