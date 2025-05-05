@@ -1348,6 +1348,29 @@ body.dark-mode .wave-text {
     }
   }
 }
+
+.ios-install-prompt {
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  right: 10px;
+  padding: 1rem;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 1002;
+}
+.ios-install-prompt button {
+  margin-top: 0.5rem;
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+}
+
     </style>
     
   </head>
@@ -1363,7 +1386,11 @@ body.dark-mode .wave-text {
         <img id="kakao-share-btn" src="kakaotalk.webp" alt="카카오톡 공유하기" aria-label="카카오톡 공유하기" loading="lazy">
       </div>
       <h1><a href="index.html" style="color: inherit; text-decoration: none;">Go Higher</a></h1>
-
+      <div id="iosInstallPrompt" class="ios-install-prompt" style="display:none;">
+        <p>📱 iOS: 공유 버튼(⬆️)을 누른 뒤, “홈 화면에 추가”를 선택하세요.</p>
+        <button id="closeIosPrompt">닫기</button>
+      </div>
+      
       <div class="login-container">
         <div id="profileBox">
           <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
@@ -2030,11 +2057,24 @@ body.dark-mode .wave-text {
         })
         .catch((err) => {
           console.error("❌ Service Worker registration failed:", err);
+            });
         });
-    });
-  } else {
-    console.warn("🚫 Service Workers not supported in this browser.");
-  }
+      } else {
+        console.warn("🚫 Service Workers not supported in this browser.");
+      }
+
+  //iOS 감지해서 PWA 설치 권장
+      const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    const isInStandalone = window.navigator.standalone === true;
+    if (isIos && !isInStandalone) {
+      document.getElementById('iosInstallPrompt').style.display = 'block';
+    }
+    //이건 닫기
+    document.getElementById('closeIosPrompt')
+      .addEventListener('click', () => {
+        document.getElementById('iosInstallPrompt').style.display = 'none';
+      });
+
 </script>
 
 
