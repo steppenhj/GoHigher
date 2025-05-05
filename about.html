@@ -7,14 +7,14 @@
   <meta name="description" content="Go Higher의 비전과 미션을 알아보세요." />
   <link rel="manifest" href="/manifest.json" />
   <link rel="icon" href="/logo.jpg" type="image/jpeg" />
-  <!-- Font Awesome -->
-  <link
+    <!-- [추가] Font Awesome 아이콘 CDN -->
+    <link
     rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
-  />
+  />  
   <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"
@@ -22,6 +22,13 @@
   />
   <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+  <meta name="theme-color" content="#004080">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="/icon-192x192.png">
+
   <!-- Custom CSS -->
   <style>
     /* 기본 리셋 */
@@ -259,7 +266,6 @@
         이를 통해 개인의 재정적 자유를 확대하고, 지속 가능한 금융 생태계를 이루어내는 것이 우리의 목표입니다.
       </p>      
     </div>
-    </div>
     <!-- 추가 섹션 2: 기술력 -->
     <div class="about-section" data-aos="fade-up" data-aos-delay="400">
       <h2>최첨단 기술력</h2>
@@ -310,7 +316,7 @@
 
     <!-- PWA 설치 버튼 영역 -->
     <div id="installContainer" style="text-align: center; margin-top: 20px; display: none;">
-      <button id="installBtn" style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      <button id="installBtn" aria-label="설치 버튼"style="padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
         GoHigher 설치
       </button>
     </div>
@@ -326,12 +332,12 @@
   </footer>
 
           <!-- Back to Top 버튼 -->
-          <button class="back-to-top" id="backToTop">Top</button>
+          <button class="back-to-top" aria-label= "Top 버튼"id="backToTop">Top</button>
 
 
 
   <!-- 다크모드 전환 버튼 -->
-  <button class="theme-toggle-btn" id="themeToggleBtn">
+  <button class="theme-toggle-btn" aria-label="다크모드 전환 버튼" id="themeToggleBtn">
     <i class="fas fa-adjust"></i> 다크모드 전환
   </button>
 
@@ -339,24 +345,7 @@
   <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // 서비스 워커 등록 (PWA 지원)
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/service-worker.js")
-          .then(registration => {
-            console.log("Service Worker registered with scope:", registration.scope);
-            navigator.serviceWorker.addEventListener("message", event => {
-              if (event.data && event.data.type === "NEW_VERSION_AVAILABLE") {
-                alert("새로운 업데이트가 있습니다! 페이지를 새로고침하세요.");
-              }
-            });
-          })
-          .catch(error => {
-            console.log("Service Worker registration failed:", error);
-          });
-      });
-    }
+    // 서비스 워커 등록 (PWA 지원) 삭제했음 필요하면 가지고 오기
 
     // PWA 설치 프롬프트
     let deferredPrompt;
@@ -376,13 +365,9 @@
       }
     });
 
-    // AOS 초기화
-    document.addEventListener("DOMContentLoaded", () => {
-      AOS.init({ duration: 800, once: true });
-    });
-
     // 페이지 로드 시 저장된 테마 적용 및 버튼 텍스트 업데이트
     document.addEventListener("DOMContentLoaded", () => {
+      AOS.init({ duration: 800, once: true });
       const savedTheme = localStorage.getItem("theme");
       const themeToggleBtn = document.getElementById("themeToggleBtn");
       if (savedTheme === "dark") {
@@ -404,15 +389,6 @@
       }
     });
 
-    // 개발자 도구, 소스보기 및 우클릭 차단
-    document.addEventListener("keydown", event => {
-      if (
-        (event.ctrlKey && (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")) ||
-        (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))
-      ) {
-        event.preventDefault();
-      }
-    });
     document.addEventListener("contextmenu", event => {
       event.preventDefault();
     });
