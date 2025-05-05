@@ -32,6 +32,15 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <!-- [추가] Font Awesome 아이콘 CDN -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />  
+
   <meta property="og:title" content="다이어리·포트폴리오 설계·가계부·투자일지·달력·리밸런싱도구 무료 제공" />
   <meta property="og:description" content="주식 포트폴리오·투자 일지·달력·가계부 기능 등을 제공하는 자산 다이어리 페이지입니다. Go Higher에서 간편하게 포트폴리오·일정을 관리해보세요." />
   <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
@@ -958,6 +967,9 @@ footer {
 }
 #goalManagementModal .delete-btn:hover {
   background-color: #800000;
+}
+.login-container:not(.logged-in) #profileBox {
+  display: none;
 }
 
           /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
