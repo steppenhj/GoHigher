@@ -19,7 +19,7 @@
 
   
     <title>미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트</title>
-    <meta name="description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <meta name="description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
     <link rel="canonical" href="https://gohigher.kr/" />
     <!-- 매니페스트 -->
     <link rel="manifest" href="/manifest.json" />
@@ -43,7 +43,7 @@
     <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
-    <meta property="og:description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
     <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
     <meta property="og:url" content="https://gohigher.kr/index.html" />
     <meta property="og:type" content="website" />
@@ -52,7 +52,7 @@
     <!-- Twitter Card 태그 -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
-    <meta name="twitter:description" content="매일 업데이트되는 미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 뉴스를 한눈에 확인하세요!" />
+    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
     <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
     <link rel="icon" href="/logo.jpg" type="image/jpeg" />
 
@@ -66,7 +66,7 @@
         "@type": "WebSite",
         "name": "미국 주식·환율·ETF 최신 뉴스 – 매일 업데이트",
         "url": "https://gohigher.kr",
-        "description": "미국 주식·증시·환율·ETF·테슬라·엔비디아·실적 발표·암호화폐 최신 뉴스! 매일 아침 빠르게 업데이트됩니다.",
+        "description": "한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!",
         "publisher": {
           "@type": "Organization",
           "name": "Go Higher",
@@ -113,6 +113,12 @@
             "position": 5,
             "name": "미국 저평가 주식 추천",
             "item": "https://gohigher.kr/큐레이션"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "목표 자산 시뮬레이션 도구",
+            "item": "https://gohigher.kr/목표자산시뮬레이터"
           }
         ]
       }
@@ -1313,34 +1319,7 @@ body.dark-mode .wave-text {
   transform: scale(1.2);
 }
 
-/* 기본적으로 splash 숨기기 (데스크톱용) */
-#splash {
-  display: none;
-}
 
-/* 모바일 사이즈에서만 splash 보이기 */
-@media screen and (max-width: 768px) {
-  #splash {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #4285F4;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    overflow: hidden;
-  }
-
-  #splash img {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    max-width: 100vw;
-  }
-}
 @media only screen and (max-device-width: 768px) {
   @supports (-webkit-touch-callout: none) {
     .bottom-nav {
@@ -1375,9 +1354,6 @@ body.dark-mode .wave-text {
     
   </head>
   <body>
-    <div id="splash">
-      <img src="/images2/splashScreen.png" alt="GoHigher Splash"  loading="lazy"/>
-    </div>
 
     <!-- 헤더 -->
     <header>
@@ -1452,14 +1428,13 @@ body.dark-mode .wave-text {
       </ul>
     </nav>
 
- <!-- 파도형 섹션 구분 -->
-<div class="section-divider">
-  <div class="wave-text">데이터로 투자하라, 미국 주식의 전략적 인사이트 플랫폼</div>
-  <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-    <path d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"></path>
-  </svg>
-</div>
-
+    <!-- 파도형 섹션 구분 -->
+    <div class="section-divider">
+      <div class="wave-text">데이터로 투자하라, 미국 주식의 전략적 인사이트 플랫폼</div>
+      <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+        <path d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"></path>
+      </svg>
+    </div>
 
     <!-- PWA 설치 버튼 영역 -->
     <div id="installContainer">
@@ -2000,28 +1975,6 @@ body.dark-mode .wave-text {
     console.warn("Kakao SDK가 아직 로드되지 않았거나 Kakao.Share가 정의되지 않았습니다.");
   }
 });
-</script>
-
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const splash = document.getElementById("splash");
-    const main = document.getElementById("main");
-
-    if (!splash || !main) {
-      console.warn("💡 splash 또는 main 요소가 없습니다.");
-      return;
-    }
-
-    if (window.innerWidth <= 768) {
-      setTimeout(() => {
-        splash.style.display = "none";
-        main.style.display = "block";
-      }, 800);
-    } else {
-      splash.style.display = "none";
-      main.style.display = "block";
-    }
-  });
 </script>
 
 <script>
