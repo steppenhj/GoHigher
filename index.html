@@ -17,9 +17,6 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"></noscript>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-      <!-- 폰트 ㅇㅇㅇ-->
-      <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
   
     <title>미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트</title>
     <meta name="description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
@@ -130,7 +127,9 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="print" onload="this.media='all'"/>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     
-
+    <!-- 폰트 ㅇㅇㅇ-->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
 
 
     <!-- 기본 스타일 및 공통 버튼 -->
@@ -1539,6 +1538,11 @@ body.dark-mode .security-grid li {
 body.dark-mode .security-grid li {
   background: #444;
 }
+
+  .android-twa .kakao-share-btn {
+    display: none;
+  }
+</style>
     </style>
     
   </head>
@@ -2158,41 +2162,46 @@ body.dark-mode .security-grid li {
 <script src="챗봇.js"></script>
 
 <script>
-  const kakaoScript = document.createElement("script");
-  kakaoScript.src = "https://developers.kakao.com/sdk/js/kakao.min.js";
-  kakaoScript.onload = function () {
+  window.addEventListener("DOMContentLoaded", function () {
+  if (window.Kakao && !Kakao.isInitialized()) {
     Kakao.init("82dcba58b1c114fc82a3f25a9cffa58d");
+  }
 
-    const shareBtn = document.getElementById("kakao-share-btn");
-    if (shareBtn) {
-      shareBtn.addEventListener("click", function () {
-        Kakao.Share.sendDefault({
-          objectType: 'feed',
-          content: {
-            title: 'Go Higher – 미국주식 뉴스, 다이어리, 배당금 계산기',
-            description: '데이터로 투자하라. 미국 주식 시장 정보를 매일 확인하세요!',
-            imageUrl: 'https://gohigher.kr/logo.jpg',
+  const shareBtn = document.getElementById("kakao-share-btn");
+  if (shareBtn && window.Kakao && Kakao.Share) {
+    shareBtn.addEventListener("click", function () {
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: 'Go Higher – 미국주식 뉴스, 다이어리, 배당금 계산기',
+          description: '데이터로 투자하라. 미국 주식 시장 정보를 매일 확인하세요!',
+          imageUrl: 'https://gohigher.kr/logo.jpg',
+          link: {
+            mobileWebUrl: 'https://gohigher.kr',
+            webUrl: 'https://gohigher.kr'
+          }
+        },
+        buttons: [
+          {
+            title: 'Go Higher 바로가기',
             link: {
               mobileWebUrl: 'https://gohigher.kr',
               webUrl: 'https://gohigher.kr'
             }
-          },
-          buttons: [
-            {
-              title: 'Go Higher 바로가기',
-              link: {
-                mobileWebUrl: 'https://gohigher.kr',
-                webUrl: 'https://gohigher.kr'
-              }
-            }
-          ]
-        });
+          }
+        ]
       });
-    }
-  };
-  document.head.appendChild(kakaoScript);
-</script>
+    });
+  } else {
+    console.warn("Kakao SDK가 아직 로드되지 않았거나 Kakao.Share가 정의되지 않았습니다.");
+  }
+});
 
+if (window.matchMedia('(display-mode: standalone)').matches &&
+      /Android/i.test(navigator.userAgent)) {
+    document.documentElement.classList.add('android-twa');
+  }
+</script>
 
 <script>
   if ("serviceWorker" in navigator) {
