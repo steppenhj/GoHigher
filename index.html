@@ -1358,7 +1358,7 @@ body.dark-mode .wave-text {
     <!-- 헤더 -->
     <header>
       <div class="button-container" style="position: relative;">
-        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="다크모드 전환 버튼">다크모드 전환</button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="다크모드 전환 버튼">다크모드</button>
         <img id="kakao-share-btn" src="kakaotalk.webp" alt="카카오톡 공유하기" aria-label="카카오톡 공유하기" loading="lazy">
       </div>
       <h1><a href="index.html" style="color: inherit; text-decoration: none;">Go Higher</a></h1>
@@ -1837,9 +1837,9 @@ body.dark-mode .wave-text {
           const themeToggleBtn = document.getElementById("themeToggleBtn");
           if (savedTheme === "dark") {
             document.body.classList.add("dark-mode");
-            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드 전환';
+            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드';
           } else {
-            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드 전환';
+            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드';
           }
         });
         const themeToggleBtn = document.getElementById("themeToggleBtn");
@@ -1847,10 +1847,10 @@ body.dark-mode .wave-text {
           document.body.classList.toggle("dark-mode");
           if (document.body.classList.contains("dark-mode")) {
             localStorage.setItem("theme", "dark");
-            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드 전환';
+            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드';
           } else {
             localStorage.setItem("theme", "light");
-            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드 전환';
+            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드';
           }
         });
   
