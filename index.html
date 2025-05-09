@@ -189,6 +189,26 @@ html.js body {
         background-position: center;
       }
 
+      @media (max-width: 768px) {
+  /* 매그니피센트 7 섹션 제목 크기 */
+  #magnificent-seven h2 {
+    font-size: 1.2rem;    /* 원래 1.8rem 정도였다면 1.2rem 정도로 낮춰보세요 */
+  }
+
+  /* 테이블 헤더 • 셀 폰트 크기 */
+  #magnificent-seven .stock-table th,
+  #magnificent-seven .stock-table td {
+    font-size: 0.8rem;    /* 원래 1rem 정도였다면 0.8rem 정도로 낮춰보세요 */
+    line-height: 1.2;     /* 줄간격도 조금 좁히면 더 조밀해 보입니다 */
+  }
+
+  /* 셀 내부 로고 이미지 크기 (선택) */
+  #magnificent-seven .stock-table td img {
+    height: 28px;         /* 원래 35px → 28px */
+    margin-right: 4px;    /* 간격도 살짝 줄여줍니다 */
+  }
+}
+
       .btn-about {
         background: transparent;
         color: #1874d0;
