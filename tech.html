@@ -1,35 +1,59 @@
 <!DOCTYPE html>
 <html lang="ko" class="no-js">
-<head>
-  <script>
-    document.documentElement.classList.remove("no-js");
-    document.documentElement.classList.add("js");
-  </script>
-  
-  <meta charset="UTF-8">
-  <!-- 🔄 외부 서버 연결 미리 하기 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <head>
+    <!-- 자바스크립트 지원 표시용 no-js → js 토글 -->
+    <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
+    </script>
+    <!-- Firebase App (필수) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<!-- Firebase 인증 -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<!-- Firestore -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
-  <!-- 페이지 제목 -->
-  <title>배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석</title>
-  <meta name="description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
-  <link rel="canonical" href="https://gohigher.kr/배당주.html">
-  <link rel="icon" href="https://gohigher.kr/logo.jpg" type="image/jpeg">
-  <!-- 키워드 (네이버에서 일부 활용) -->
-  <meta name="keywords" content="유명인포폴, 투자기관, 헤지펀드, 포트폴리오, gohigher">
-  <!-- 검색엔진 크롤링 허용 -->
-  <meta name="robots" content="index,follow">
-  <!-- **확대/축소 불가 설정** -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 메타 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석</title>
+    <meta name="description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+    <link rel="canonical" href="https://gohigher.kr/배당주.html">
+    <link rel="icon" href="https://gohigher.kr/logo.jpg" type="image/jpeg">
 
-  <!-- 구글 폰트 & 차트.js 및 플러그인 -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-  <!-- Font Awesome 아이콘 CDN -->
+    <!-- SEO 키워드, 로봇 -->
+    <meta name="keywords" content="유명인포폴, 투자기관, 헤지펀드, 포트폴리오, gohigher">
+    <meta name="robots" content="index,follow">
+
+    <!-- SNS 메타 -->
+    <meta property="og:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석">
+    <meta property="og:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+    <meta property="og:url" content="https://gohigher.kr/배당주.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:image" content="https://gohigher.kr/logo.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석">
+    <meta name="twitter:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg">
+
+    <!-- 구조화 데이터 -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"Article",
+      "headline":"미국 고배당주 TOP 분석 및 배당금 계산기 제공",
+      "author":{"@type":"Organization","name":"Go Higher"},
+      "publisher":{"@type":"Organization","name":"Go Higher","logo":{"@type":"ImageObject","url":"https://gohigher.kr/logo.jpg"}},
+      "description":"미국 고배당주에 투자하고 싶은 분들을 위한 종목 추천과 배당금 계산기 제공",
+      "url":"https://gohigher.kr/배당주.html",
+      "datePublished":"2025-03-23",
+      "inLanguage":"ko"
+    }
+    </script>
+
+    <!-- Font Awesome 아이콘 CDN -->
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -37,1061 +61,1265 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />  
-  <!-- 네이버 / 구글 사이트 검증 메타 -->
-  <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
-  <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
-  <!-- Open Graph (OG) 메타 태그: SNS 공유용 -->
-  <meta property="og:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석" />
-  <meta property="og:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자" />
-  <meta property="og:url" content="https://gohigher.kr/버크셔해서웨이.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="ko_KR" />
-  <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석">
-  <meta name="twitter:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
-  <meta name="twitter:image" content="https://gohigher.kr/logo.jpg">
-  <!-- JSON-LD 구조화 데이터(WebPage) -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Article",
-      "headline": "미국 고배당주 TOP 분석 및 배당금 계산기 제공",
-      "author": {
-        "@type": "Organization",
-        "name": "Go Higher"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Go Higher",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://gohigher.kr/logo.jpg"
-        }
-      },
-      "description": "미국 고배당주에 투자하고 싶은 분들을 위한 종목 추천과 배당금 계산기 제공",
-      "url": "https://gohigher.kr/배당주.html",
-      "datePublished": "2025-03-23",
-      "inLanguage": "ko"
-    }
-  </script>
 
-  <style>
-    html.no-js body {
-  opacity: 1; /* JS 안 되더라도 바로 보여줌 */
-}
-
-html.js body {
-  opacity: 0;
-  animation: fadeIn 0.4s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
+    <!-- 구글 폰트: swap 적용, 비동기 로드 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"
+      rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"
+        rel="stylesheet">
+    </noscript>
+    <!-- 외부 아이콘 & 차트 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels" defer></script>
+    <style>
+      html {
+    font-size: 16px;
   }
-}
-
-    html {
-      font-size: 16px;
+  body {
+    background: url(backgroundL.png);
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  :root {
+    --primary-color: #004080;
+    --secondary-color: #0059b3;
+    --accent-color: #f4f7fa;
+    --light-gray: #e0e0e0;
+    --text-color: #333;
+    /* 카드 배경색 등 필요한 변수 추가 */
+    --card-bg: #f9f9f9;
+    --bg-section: #fff;
+  }
+  body.dark-mode {
+    --primary-color: #e0e0e0;
+    --secondary-color: #cccccc;
+    --card-bg: #333;
+    --bg-section: #444;
+    --text-color: #cacaca;
+  }
+  /* 기본 리셋 */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    width: 100%;
+    position: relative;
+  }
+  header h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  header p {
+    font-size: 1rem;
+  }
+  
+  nav {
+    margin-top: 0.5rem;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  nav ul li a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  }
+  nav ul li a:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: scale(1.05);
+  }
+  
+  /* 로그인 버튼 및 프로필 */
+  .login-container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .login-btn {
+    background-color: #fff;
+    color: var(--primary-color);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    margin-left: auto;
+  }
+  .login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    background-color: var(--secondary-color);
+    color: #fff;
+  }
+  #profileBox {
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+    transition: background 0.3s ease;
+  }
+  #profileBox:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  #profileAvatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    margin-right: 0.5rem;
+  }
+  #welcomeText {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+  
+  .desktop-nav {
+      display: block;
     }
-    body {
-      background: url(backgroundL.png);
-      display: flex;
-      margin: 0;
-      padding: 0;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    :root {
-      --primary-color: #004080;
-      --secondary-color: #0059b3;
-      --accent-color: #f4f7fa;
-      --light-gray: #e0e0e0;
-      --text-color: #333;
-      /* 카드 배경색 등 필요한 변수 추가 */
-      --card-bg: #f9f9f9;
-      --bg-section: #fff;
-    }
-    body.dark-mode {
-      --primary-color: #e0e0e0;
-      --secondary-color: #cccccc;
-      --card-bg: #333;
-      --bg-section: #444;
-      --text-color: #cacaca;
-    }
-    /* 기본 리셋 */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      position: relative;
+      padding: 0.3rem 0;
+      background: #fff;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000 !important;
     }
-    header h1 {
-      font-family: 'Roboto', sans-serif;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-    header p {
-      font-size: 1rem;
-    }
-    
-    nav {
-      margin-top: 0.5rem;
-    }
-    nav ul {
-      list-style: none;
+    .bottom-nav ul {
       display: flex;
+      justify-content: space-around;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .bottom-nav li {
+      text-align: center;
+      flex: 1;
+    }
+    .bottom-nav li a.nav-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      gap: 1rem;
-    }
-    nav ul li a {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background-color: #fff;
-      color: var(--primary-color);
-      border: 1px solid var(--primary-color);
-      border-radius: 4px;
       text-decoration: none;
-      transition: background-color 0.3s, color 0.3s, transform 0.3s;
+      color: #888;
+      transition: transform 0.2s, color 0.2s;
     }
-    nav ul li a:hover {
-      background-color: var(--primary-color);
-      color: #fff;
+    .bottom-nav .icon {
+      width: 28px;
+      height: 28px;
+      display: inline-block;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      margin-bottom: 3px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .bottom-nav .nav-text {
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .bottom-nav li a.nav-link.active .nav-text {
+      color: var(--primary-color);
+    }
+    .bottom-nav li a.nav-link:hover {
       transform: scale(1.05);
     }
+    .nav-link.pressed {
+      background-color: rgba(0, 0, 255, 0.1);
+      transition: background-color 0.1s;
+    }
+    .bottom-nav li a.nav-link {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+    .news-icon {
+      background-image: url("images/newsImage.webp");
+    }
+    .nav-link.active .news-icon {
+      background-image: url("images/newsOn.webp");
+    }
+    .diary-icon {
+      background-image: url("images/diaryImage.webp");
+    }
+    .nav-link.active .diary-icon {
+      background-image: url("images/diaryOn.webp");
+    }
+    .chart-icon {
+      background-image: url("images/chartImage.webp");
+    }
+    .nav-link.active .chart-icon {
+      background-image: url("images/chartOn.webp");
+    }
+    .company-icon {
+      background-image: url("images/companyImage.webp");
+    }
+    .nav-link.active .company-icon {
+      background-image: url("images/companyOn.webp");
+    }
+    .coinTree-icon {
+      background-image: url("images/coinTree.webp");
+    }
+    .nav-link.active .coinTree-icon {
+      background-image: url("images/treeOn.webp");
+    }
+    .bull-icon {
+      background-image: url("images/bullImage.webp");
+    }
+    .nav-link.active .bull-icon {
+      background-image: url("images/bullOn.webp");
+    }
+  /* 하단 nav */
+  body.dark-mode .bottom-nav {
+    background: #333;
+  }
+  body.dark-mode .bottom-nav .icon {
+    background-color: #555 !important;
+    color: #cacaca;
+  }
+  body.dark-mode .bottom-nav .nav-text {
+    color: #cacaca;
+  }
+  body.dark-mode .bottom-nav li a.nav-link.active .icon {
+    background-color: var(--primary-color) !important;
+    color: #fff;
+  }
+  body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
+    color: #fff;
+  }
+  body.dark-mode .nav-link:hover {
+    transform: scale(1.05);
+  }
+  
+  footer {
+      background-color: var(--primary-color);
+      text-align: center;
+      font-size: 1rem;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+      margin: 0;
+      padding: 1rem 0;
+      width: 100vw;         /* 브라우저 너비에 꽉 차게 */
+      max-width: 100vw;     /* 오버플로 방지 */
+      overflow-x: hidden;   /* 혹시 넘치는 거 방지 */
+      box-sizing: border-box;
+      margin-top: auto;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }    
+  /* 다크모드 스타일 */
+  body.dark-mode {
+    background: url(backgroundD.png);
+    color: white;
+  }
+  body.dark-mode header {
+    background: linear-gradient(135deg, #002b57, #004284);
+    color: #cacaca;
+  }
+  body.dark-mode nav ul li a {
+    color: #cacaca;
+    border: 1px solid #cacaca;
+    background-color: transparent;
+  }
+  body.dark-mode nav ul li a:hover {
+    background-color: #004284;
+    color: #cacaca;
+  }
+  body.dark-mode .login-btn {
+    background-color: transparent;
+    color: #cacaca;
+    border: 1px solid #cacaca;
+  }
+  body.dark-mode .login-btn:hover {
+    background-color: #004284;
+    color: #cacaca;
+  }
+  body.dark-mode footer {
+    background: linear-gradient(135deg, #002b57, #004284);
+    color: #cacaca !important;
+  }
+  body.dark-mode .bottom-nav .icon,
+  body.dark-mode .bottom-nav li a.nav-link.active .icon {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+    color: #fff !important;
+  }
+  body.dark-mode .back-to-top{
+    background: linear-gradient(135deg, #004080, #002855);
+  }
+  /* 미디어 쿼리 (모바일) */
+  @media (max-width: 768px) {
+    body {
+      font-size: 16px;
+      padding-bottom: 0;
+    }
+    header {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0.5rem !important;
+      box-sizing: border-box;
+    }
+    footer {
+      padding: 0.8rem !important; /* 내부 여백 */
+      /* padding‑bottom 대신 margin‑bottom으로 외부 간격 조절 */
+      margin-bottom: 78px;
+    }
     
-    /* 로그인 버튼 및 프로필 */
+    .desktop-nav {
+      display: none;
+      
+    }
+    .bottom-nav {
+      display: block;
+    }
+    .bottom-nav ul {
+  flex-wrap: nowrap;  /* 한 줄 유지 */
+}
+.bottom-nav {
+width: 100vw;
+max-width: 100vw;
+overflow-x: hidden;
+}
+.bottom-nav li {
+flex: 1 1 0;
+min-width: 0;
+}
+.bottom-nav li a.nav-link {
+width: 100%;
+font-size: 3.2vw;
+}
+.bottom-nav .icon {
+width: 6.5vw;
+height: 6.5vw;
+}
+.bottom-nav .nav-text {
+font-size: 2.8vw;
+}
+html, body {
+overflow-x: hidden;
+max-width: 100vw;
+}
+
+nav ul li a {
+  white-space: nowrap;
+}
     .login-container {
       position: absolute;
       top: 1rem;
       right: 1rem;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-    }
-    .login-btn {
-      background-color: #fff;
-      color: var(--primary-color);
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-      margin-left: auto;
-    }
-    .login-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-      background-color: var(--secondary-color);
-      color: #fff;
+      gap: 0.5rem;
     }
     #profileBox {
+      cursor: pointer;
       display: flex;
       align-items: center;
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(6px);
-      transition: background 0.3s ease;
-    }
-    #profileBox:hover {
-      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
     }
     #profileAvatar {
       width: 36px;
       height: 36px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid #fff;
-      margin-right: 0.5rem;
+      border: 2px solid white;
+      transition: transform 0.2s;
+    }
+    #profileAvatar:hover {
+      transform: scale(1.1);
     }
     #welcomeText {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #fff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      display: none;
     }
-    
-    .desktop-nav {
-        display: block;
-      }
-      .bottom-nav {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 0.3rem 0;
-        background: #fff;
-        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1000 !important;
-      }
-      .bottom-nav ul {
-        display: flex;
-        justify-content: space-around;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      .bottom-nav li {
-        text-align: center;
-        flex: 1;
-      }
-      .bottom-nav li a.nav-link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: #888;
-        transition: transform 0.2s, color 0.2s;
-      }
-      .bottom-nav .icon {
-        width: 28px;
-        height: 28px;
-        display: inline-block;
-        background-color: transparent;
-        border: none;
-        border-radius: 0;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-        margin-bottom: 3px;
-        transition: background-color 0.3s, color 0.3s;
-      }
-      .bottom-nav .nav-text {
-        font-size: 0.75rem;
-        color: #888;
-      }
-      .bottom-nav li a.nav-link.active .nav-text {
-        color: var(--primary-color);
-      }
-      .bottom-nav li a.nav-link:hover {
-        transform: scale(1.05);
-      }
-      .nav-link.pressed {
-        background-color: rgba(0, 0, 255, 0.1);
-        transition: background-color 0.1s;
-      }
-      .bottom-nav li a.nav-link {
-        -webkit-tap-highlight-color: transparent;
-        outline: none;
-        border: none;
-        box-shadow: none;
-      }
-      .news-icon {
-        background-image: url("images/newsImage.webp");
-      }
-      .nav-link.active .news-icon {
-        background-image: url("images/newsOn.webp");
-      }
-      .diary-icon {
-        background-image: url("images/diaryImage.webp");
-      }
-      .nav-link.active .diary-icon {
-        background-image: url("images/diaryOn.webp");
-      }
-      .chart-icon {
-        background-image: url("images/chartImage.webp");
-      }
-      .nav-link.active .chart-icon {
-        background-image: url("images/chartOn.webp");
-      }
-      .company-icon {
-        background-image: url("images/companyImage.webp");
-      }
-      .nav-link.active .company-icon {
-        background-image: url("images/companyOn.webp");
-      }
-      .coinTree-icon {
-        background-image: url("images/coinTree.webp");
-      }
-      .nav-link.active .coinTree-icon {
-        background-image: url("images/treeOn.webp");
-      }
-      .bull-icon {
-        background-image: url("images/bullImage.webp");
-      }
-      .nav-link.active .bull-icon {
-        background-image: url("images/bullOn.webp");
-      }
-    /* 하단 nav */
-    body.dark-mode .bottom-nav {
-      background: #333;
+    .login-btn {
+      display: none;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
+      white-space: nowrap;
     }
-    body.dark-mode .bottom-nav .icon {
-      background-color: #555 !important;
-      color: #cacaca;
+  }
+    .login-container.active .login-btn {
+      display: inline-block;
     }
-    body.dark-mode .bottom-nav .nav-text {
-      color: #cacaca;
+    .login-container:not(.logged-in) #profileBox {
+      display: none;
     }
-    body.dark-mode .bottom-nav li a.nav-link.active .icon {
-      background-color: var(--primary-color) !important;
-      color: #fff;
+    .login-container:not(.logged-in) .login-btn {
+      display: inline-block;
     }
-    body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
-      color: #fff;
+    .login-container.logged-in .login-btn {
+      display: none;
     }
-    body.dark-mode .nav-link:hover {
-      transform: scale(1.05);
+    .login-container.logged-in #profileBox {
+      display: flex;
     }
-    
+
+    /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
+    .back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1001;
+  }
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  @media (max-width: 768px) {
+    button {
+      font-size: 1rem;
+      padding: 12px;
+    }
+    .back-to-top {
+      display: none;
+    }
     footer {
-        background-color: var(--primary-color);
-        text-align: center;
-        font-size: 1rem;
-        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
-        margin: 0;
-        padding: 1rem 0;
-        width: 100vw;         /* 브라우저 너비에 꽉 차게 */
-        max-width: 100vw;     /* 오버플로 방지 */
-        overflow-x: hidden;   /* 혹시 넘치는 거 방지 */
-        box-sizing: border-box;
-        margin-top: auto;
-      }
-      footer a {
-        color: #fff;
-        text-decoration: underline;
-      }    
-    /* 다크모드 스타일 */
-    body.dark-mode {
-      background: url(backgroundD.png);
-      color: white;
-    }
-    body.dark-mode header {
-      background: linear-gradient(135deg, #002b57, #004284);
-      color: #cacaca;
-    }
-    body.dark-mode nav ul li a {
-      color: #cacaca;
-      border: 1px solid #cacaca;
-      background-color: transparent;
-    }
-    body.dark-mode nav ul li a:hover {
-      background-color: #004284;
-      color: #cacaca;
-    }
-    body.dark-mode .login-btn {
-      background-color: transparent;
-      color: #cacaca;
-      border: 1px solid #cacaca;
-    }
-    body.dark-mode .login-btn:hover {
-      background-color: #004284;
-      color: #cacaca;
-    }
-    body.dark-mode footer {
-      background: linear-gradient(135deg, #002b57, #004284);
-      color: #cacaca !important;
-    }
-    body.dark-mode .bottom-nav .icon,
-    body.dark-mode .bottom-nav li a.nav-link.active .icon {
-      background-color: transparent !important;
-      box-shadow: none !important;
-      outline: none !important;
-      border: none !important;
-      color: #fff !important;
-    }
-    body.dark-mode .back-to-top{
-      background: linear-gradient(135deg, #004080, #002855);
-    }
-    /* 미디어 쿼리 (모바일) */
-    @media (max-width: 768px) {
-      body {
-        font-size: 16px;
-        padding-bottom: 0;
-      }
-      header {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0.5rem !important;
-        box-sizing: border-box;
-      }
-      footer {
-        padding: 0.8rem !important; /* 내부 여백 */
-        /* padding‑bottom 대신 margin‑bottom으로 외부 간격 조절 */
-        margin-bottom: 78px;
-      }
-      
-      .desktop-nav {
-        display: none;
-        
-      }
-      .bottom-nav {
-        display: block;
-      }
-      .bottom-nav ul {
-    flex-wrap: nowrap;  /* 한 줄 유지 */
-  }
-  .bottom-nav {
-  width: 100vw;
-  max-width: 100vw;
-  overflow-x: hidden;
+  display: none !important;
 }
-.bottom-nav li {
-  flex: 1 1 0;
-  min-width: 0;
+.news-section.technology h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
-.bottom-nav li a.nav-link {
+
+.news-section.technology .tech-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0.5rem;
+  gap: 0.4rem;
+}
+
+.news-section.technology .tech-nav li {
+  flex: 1 1 auto; /* 자동 너비 조정 */
+  text-align: center;
+}
+
+.news-section.technology .tech-nav li a {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.5rem;
+  min-width: auto;
+  white-space: nowrap;
+}
+.top-headlines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.top-headlines .headline.wide {
   width: 100%;
-  font-size: 3.2vw;
 }
-.bottom-nav .icon {
-  width: 6.5vw;
-  height: 6.5vw;
+.top-headlines .headline h3 {
+  font-size: 1rem;
+  word-break: keep-all;
 }
-.bottom-nav .nav-text {
-  font-size: 2.8vw;
+.news-grid {
+  grid-template-columns: 1fr;
 }
-html, body {
-  overflow-x: hidden;
-  max-width: 100vw;
+.news-grid .grid-news h4 {
+  font-size: 0.95rem;
+}
+.tech-layout {
+  flex-direction: column;
+  padding: 0 1rem;
 }
 
-  nav ul li a {
-    white-space: nowrap;
+.tech-sidebar {
+  width: 100%;
+  padding: 0;
+}
   }
-      .login-container {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      #profileBox {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-      }
-      #profileAvatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid white;
-        transition: transform 0.2s;
-      }
-      #profileAvatar:hover {
-        transform: scale(1.1);
-      }
-      #welcomeText {
-        display: none;
-      }
-      .login-btn {
-        display: none;
-        padding: 0.3rem 0.8rem;
-        font-size: 0.75rem;
-        white-space: nowrap;
-      }
-    }
-      .login-container.active .login-btn {
-        display: inline-block;
-      }
-      .login-container:not(.logged-in) #profileBox {
-        display: none;
-      }
-      .login-container:not(.logged-in) .login-btn {
-        display: inline-block;
-      }
-      .login-container.logged-in .login-btn {
-        display: none;
-      }
-      .login-container.logged-in #profileBox {
-        display: flex;
-      }
-
-      /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
-      .back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 0.5rem 0.8rem;
-      font-size: 0.9rem;
-      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-      color: #fff;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-      z-index: 1001;
-    }
-    .back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-    }
-    @media (max-width: 768px) {
-      button {
-        font-size: 1rem;
-        padding: 12px;
-      }
-      .back-to-top {
-        display: none;
-      }
-      footer {
-    display: none !important;
-  }
-  .news-section.technology h2 {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .news-section.technology .tech-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 0.5rem;
-    gap: 0.4rem;
-  }
-
-  .news-section.technology .tech-nav li {
-    flex: 1 1 auto; /* 자동 너비 조정 */
-    text-align: center;
-  }
-
-  .news-section.technology .tech-nav li a {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.5rem;
-    min-width: auto;
-    white-space: nowrap;
-  }
-  .top-headlines {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  .top-headlines .headline.wide {
-    width: 100%;
-  }
-  .top-headlines .headline h3 {
-    font-size: 1rem;
-    word-break: keep-all;
-  }
-  .news-grid {
-    grid-template-columns: 1fr;
-  }
-  .news-grid .grid-news h4 {
-    font-size: 0.95rem;
-  }
-  .tech-layout {
-    flex-direction: column;
-    padding: 0 1rem;
-  }
-
-  .tech-sidebar {
-    width: 100%;
-    padding: 0;
-  }
-    }
-    .top-tab-nav .tab-item {
-  color: #fff;
-  font-weight: 500;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px;
-  text-decoration: none;
-  position: relative;
-  transition: all 0.3s ease;
+  .top-tab-nav .tab-item {
+color: #fff;
+font-weight: 500;
+padding: 0.6rem 1.2rem;
+border-radius: 20px;
+text-decoration: none;
+position: relative;
+transition: all 0.3s ease;
 }
 
 .top-tab-nav .tab-item::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 4px;
-  background-color: #fbd314;
-  border-radius: 2px;
-  transition: width 0.3s ease;
+content: "";
+position: absolute;
+bottom: -6px;
+left: 50%;
+transform: translateX(-50%);
+width: 0;
+height: 4px;
+background-color: #fbd314;
+border-radius: 2px;
+transition: width 0.3s ease;
 }
 
 .top-tab-nav .tab-item:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+background-color: rgba(255, 255, 255, 0.15);
 }
 
 .top-tab-nav .tab-item:hover::after {
-  width: 60%;
+width: 60%;
 }
 
 .top-tab-nav .tab-item.active {
-  background-color: transparent;
-  font-weight: 700;
+background-color: transparent;
+font-weight: 700;
 }
 
 .top-tab-nav .tab-item.active::after {
-  width: 60%;
+width: 60%;
 }
 footer p{
-  color: white;
+color: white;
 }
 @media only screen and (max-device-width: 768px) {
-  @supports (-webkit-touch-callout: none) {
-    .bottom-nav {
-      padding-bottom: 20px; /* 원하는 padding 값 */
-    }
+@supports (-webkit-touch-callout: none) {
+  .bottom-nav {
+    padding-bottom: 20px; /* 원하는 padding 값 */
   }
+}
 }
 /* Technology News Upload Layout */
 .news-section.technology {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+flex-grow: 1;
+display: flex;
+flex-direction: column;
 }
 .news-section.technology h2{
-  font-size: 2rem;
-  margin: 2rem auto;        /* ✨ 가운데 정렬 + 여백 */
-  text-align: center;       /* ✨ 텍스트 가운데 */
+font-size: 2rem;
+margin: 2rem auto;        /* ✨ 가운데 정렬 + 여백 */
+text-align: center;       /* ✨ 텍스트 가운데 */
 }
 .news-section.technology .tech-nav {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;  /* ✨ 가운데 정렬! */
-  margin-bottom: 1.5rem;
-  list-style: none;
-  padding: 0 1rem;  
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+justify-content: center;  /* ✨ 가운데 정렬! */
+margin-bottom: 1.5rem;
+list-style: none;
+padding: 0 1rem;  
 }
 .news-section.technology .tech-nav li a {
-  text-decoration: none;
-  padding: 0.4rem 0.8rem;
-  background: var(--accent-color);
-  border-radius: 20px;
-  color: var(--primary-color);
-  font-weight: 500;
+text-decoration: none;
+padding: 0.4rem 0.8rem;
+background: var(--accent-color);
+border-radius: 20px;
+color: var(--primary-color);
+font-weight: 500;
 }
 .news-section.technology .tech-content {
-  display: flex;
-  gap: 1rem;
+display: flex;
+gap: 1rem;
 }
 .news-section.technology .tech-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+flex: 1;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1rem;
 }
 .news-section.technology .tech-item {
-  background: var(--card-bg);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 1px 4px var(--card-shadow);
-  transition: transform .2s;
+background: var(--card-bg);
+border-radius: 6px;
+overflow: hidden;
+box-shadow: 0 1px 4px var(--card-shadow);
+transition: transform .2s;
 }
 .news-section.technology .tech-item:hover {
-  transform: translateY(-3px);
+transform: translateY(-3px);
 }
 .news-section.technology .tech-item img {
-  width: 100%;
-  display: block;
+width: 100%;
+display: block;
 }
 .news-section.technology .tech-item h3 {
-  padding: .8rem;
-  font-size: 1.1rem;
-  color: var(--secondary-color);
-  line-height: 1.3;
+padding: .8rem;
+font-size: 1.1rem;
+color: var(--secondary-color);
+line-height: 1.3;
 }
 .news-section.technology .wide-item {
-  grid-column: span 2;
+grid-column: span 2;
 }
 .news-section.technology .tech-sidebar {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+width: 300px;
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
 }
 .tech-sidebar .subscribe-box,
 .tech-sidebar .ad-box,
 .tech-sidebar .podcast-box {
-  background: var(--card-bg);
-  padding: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 1px 4px var(--card-shadow);
+background: var(--card-bg);
+padding: 1rem;
+border-radius: 6px;
+box-shadow: 0 1px 4px var(--card-shadow);
 }
 .tech-sidebar .subscribe-box h4 {
-  margin-bottom: .5rem;
-  font-size: 1rem;
+margin-bottom: .5rem;
+font-size: 1rem;
 }
 .tech-sidebar .subscribe-box label {
-  display: block;
-  margin: .8rem 0;
+display: block;
+margin: .8rem 0;
 }
 .tech-sidebar .subscribe-box .common-btn {
-  width: 100%;
+width: 100%;
 }
 .tech-sidebar .ad-box {
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 0.9rem;
+height: 200px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #999;
+font-size: 0.9rem;
+}
+.ad-box {
+  /* 원하는 가로·세로 크기로 변경 */
+  width: 300px;
+  height: 500px !important;
+  padding: 0.5rem;            /* 안쪽 여백도 필요시 조절 */
+  box-sizing: border-box;     /* padding 포함해서 사이즈 계산 */
+  
+  /* flex 설정이 남아있다면 필요시 초기화 */
+  display: block;             
+}
+.ad-box h5{
+  font-size: 1rem;
 }
 .tech-sidebar .podcast-box h5 {
-  margin-bottom: .3rem;
-  font-size: .95rem;
+margin-bottom: .3rem;
+font-size: .95rem;
 }
 .tech-sidebar .podcast-box audio {
-  width: 100%;
-  margin-top: .5rem;
+width: 100%;
+margin-top: .5rem;
 }
 /* 1) 드롭다운 기본 감싸기 */
 .tab-dropdown {
-  position: relative;
-  display: inline-block;
+position: relative;
+display: inline-block;
 }
 
 .tab-item {
-  color: #fff;
-  font-weight: 500;
-  padding: 0.6rem 1.2rem;
-  border-radius: 20px;
-  text-decoration: none;
-  position: relative;
-  transition: all 0.3s ease;
+color: #fff;
+font-weight: 500;
+padding: 0.6rem 1.2rem;
+border-radius: 20px;
+text-decoration: none;
+position: relative;
+transition: all 0.3s ease;
 }
 
 .tab-item::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 4px;
-  background-color: #fbd314;
-  border-radius: 2px;
-  transition: width 0.3s ease;
+content: "";
+position: absolute;
+bottom: -6px;
+left: 50%;
+transform: translateX(-50%);
+width: 0;
+height: 4px;
+background-color: #fbd314;
+border-radius: 2px;
+transition: width 0.3s ease;
 }
 
 .tab-item:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+background-color: rgba(255, 255, 255, 0.15);
 }
 
 .tab-item:hover::after {
-  width: 60%;
+width: 60%;
 }
 
 .mega-menu {
-  display: none;
-  position: absolute;
-  top: 39px;
-  left: 0;
-  width: 800px;
-  background: white;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  padding: 1rem;
-  border-radius: 4px;
-  z-index: 20;
-  gap: 2rem;
-  flex-wrap: wrap;
+display: none;
+position: absolute;
+top: 39px;
+left: 0;
+width: 800px;
+background: white;
+box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+padding: 1rem;
+border-radius: 4px;
+z-index: 20;
+gap: 2rem;
+flex-wrap: wrap;
 }
 
 .tab-dropdown:hover .mega-menu {
-  display: flex;
+display: flex;
 }
 
 .mega-col {
-  flex: 1;
-  padding: 0 1rem;
-  min-width: 200px;
+flex: 1;
+padding: 0 1rem;
+min-width: 200px;
 }
 
 .mega-col + .mega-col {
-  border-left: 1px solid #e0e0e0;
+border-left: 1px solid #e0e0e0;
 }
 
 .mega-col h4 {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  color: #004080;
+margin-bottom: 0.5rem;
+font-size: 1rem;
+color: #004080;
 }
 
 .mega-col ul {
-  list-style: none;
-  padding: 0;
+list-style: none;
+padding: 0;
 }
 
 .mega-col ul li {
-  margin-bottom: 0.4rem;
+margin-bottom: 0.4rem;
 }
 
 .mega-col ul li a {
-  text-decoration: none;
-  color: #333;
-  font-size: 0.9rem;
-  transition: color 0.2s;
+text-decoration: none;
+color: #333;
+font-size: 0.9rem;
+transition: color 0.2s;
 }
 
 .mega-col ul li a:hover {
-  color: #0059b3;
+color: #0059b3;
 }
 .mega-col ul:not(.security-grid) {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
 }
 
 .mega-col ul:not(.security-grid) li {
-  margin: 0;
+margin: 0;
 }
 .security-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 0.8rem;
 }
 
 .security-grid li {
-  background: #f9f9f9;
-  padding: 0.6rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+background: #f9f9f9;
+padding: 0.6rem;
+border-radius: 4px;
+font-size: 0.85rem;
+text-align: center;
+box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .security-grid li strong {
-  display: block;
-  margin-bottom: 0.2rem;
-  color: #0059b3;
+display: block;
+margin-bottom: 0.2rem;
+color: #0059b3;
 }
 
 /* ▼ 화살표 효과 */
 .tab-dropdown > .tab-item {
-  position: relative;
-  padding-right: 1.6em;
+position: relative;
+padding-right: 1.6em;
 }
 
 .tab-dropdown > .tab-item::before {
-  content: "▼";
-  position: absolute;
-  right: 0.6em;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.7em;
-  opacity: 1;
-  transition: opacity 0.2s;
-  pointer-events: none;
+content: "▼";
+position: absolute;
+right: 0.6em;
+top: 50%;
+transform: translateY(-50%);
+font-size: 0.7em;
+opacity: 1;
+transition: opacity 0.2s;
+pointer-events: none;
 }
 
 .tab-dropdown:hover > .tab-item::before {
-  opacity: 0;
+opacity: 0;
 }
 
 /* 🌙 다크모드 대응 */
 body.dark-mode .mega-menu {
-  background: #333;
+background: #333;
 }
 body.dark-mode .mega-col h4,
 body.dark-mode .mega-col ul li a,
 body.dark-mode .security-grid li {
-  color: #cacaca;
+color: #cacaca;
 }
 body.dark-mode .security-grid li {
-  background: #444;
+background: #444;
 }
 .read-more {
-  display: inline-block;
-  margin: 2rem 0;
-  padding: 12px 28px;
-  font-size: 1rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #004080, #007acc);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  box-shadow: 0 4px 12px rgba(0, 64, 128, 0.3);
-  transition: all 0.3s ease;
-  cursor: pointer;
+display: inline-block;
+margin: 2rem 0;
+padding: 12px 28px;
+font-size: 1rem;
+font-weight: 600;
+background: linear-gradient(135deg, #004080, #007acc);
+color: white;
+border: none;
+border-radius: 30px;
+box-shadow: 0 4px 12px rgba(0, 64, 128, 0.3);
+transition: all 0.3s ease;
+cursor: pointer;
 }
 
 .read-more:hover {
-  background: linear-gradient(135deg, #007acc, #004080);
-  box-shadow: 0 6px 18px rgba(0, 64, 128, 0.4);
-  transform: translateY(-2px);
+background: linear-gradient(135deg, #007acc, #004080);
+box-shadow: 0 6px 18px rgba(0, 64, 128, 0.4);
+transform: translateY(-2px);
 }
 .read-more:focus {
-  outline: none;
+outline: none;
 }
 .tech-nav a.active {
-  background-color: var(--primary-color);
-  color: white;
-  box-shadow: 0 0 12px rgba(0, 64, 128, 0.5); /* 불빛 느낌 */
-  transform: scale(1.05);                     /* 약간 커지는 효과 */
-  transition: all 0.3s ease;
+background-color: var(--primary-color);
+color: white;
+box-shadow: 0 0 12px rgba(0, 64, 128, 0.5); /* 불빛 느낌 */
+transform: scale(1.05);                     /* 약간 커지는 효과 */
+transition: all 0.3s ease;
 }
 body.dark-mode .tech-nav a.active {
-  box-shadow: 0 0 14px rgba(102, 170, 255, 0.6);
+box-shadow: 0 0 14px rgba(102, 170, 255, 0.6);
 }
 body.dark-mode .tech-nav a {
-  color: #f0f0ff !important; /* 밝은 회색으로 잘 보이게 */
-  background-color: #222 !important; /* 배경 살짝 어둡게, 대비 */
-  border: 1px solid #444 !important; /* 구분용 경계 */
+color: #f0f0ff !important; /* 밝은 회색으로 잘 보이게 */
+background-color: #222 !important; /* 배경 살짝 어둡게, 대비 */
+border: 1px solid #444 !important; /* 구분용 경계 */
 }
 .tech-layout {
-  display: flex;
-  flex-grow: 1;
-  gap: 2rem;
-  margin-top: 2rem;
-  max-width: 1200px;       /* 💡 전체 콘텐츠 너비 제한 */
-  margin-left: auto;       /* 💡 가운데 정렬 */
-  margin-right: auto;      /* 💡 가운데 정렬 */
-  padding: 0 1rem;         /* 💡 좌우 여백 확보 */
+display: flex;
+flex-grow: 1;
+gap: 2rem;
+margin-top: 2rem;
+max-width: 1200px;       /* 💡 전체 콘텐츠 너비 제한 */
+margin-left: auto;       /* 💡 가운데 정렬 */
+margin-right: auto;      /* 💡 가운데 정렬 */
+padding: 0 1rem;         /* 💡 좌우 여백 확보 */
 }
 
 .main-news {
-  flex: 2;
+flex: 2;
 }
 .main{
-  flex: 1;
+flex: 1;
 }
 .top-headlines {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+gap: 1rem;
 }
 
 .top-headlines .headline {
-  background: var(--card-bg);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 1px 4px var(--card-shadow);
+background: var(--card-bg);
+border-radius: 6px;
+overflow: hidden;
+box-shadow: 0 1px 4px var(--card-shadow);
 }
 .top-headlines .headline img {
-  width: 100%;
-  display: block;
+width: 100%;
+display: block;
 }
 .top-headlines .headline h3 {
-  padding: 0.6rem;
-  font-size: 1.1rem;
-  color: var(--primary-color);
+padding: 0.6rem;
+font-size: 1.1rem;
+color: var(--primary-color);
 }
 
 .news-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1rem;
+margin-top: 2rem;
 }
 .news-grid .grid-news {
-  background: var(--card-bg);
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 1px 4px var(--card-shadow);
+background: var(--card-bg);
+border-radius: 4px;
+overflow: hidden;
+box-shadow: 0 1px 4px var(--card-shadow);
 }
 .news-grid .grid-news img {
-  width: 100%;
-  display: block;
+width: 100%;
+display: block;
 }
 .news-grid .grid-news h4 {
-  font-size: 1rem;
-  padding: 0.5rem;
-  color: var(--text-color);
+font-size: 1rem;
+padding: 0.5rem;
+color: var(--text-color);
 }
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
+margin: 0;
+padding: 0;
+height: 100%;
+width: 100%;
+max-width: 100vw;
+overflow-x: hidden;
+display: flex;
+flex-direction: column;
 }
 .news-row {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
+display: flex;
+gap: 1rem;
+margin-bottom: 2rem;
 }
 .news-card {
-  flex: 1;
-  overflow: hidden;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  background: var(--card-bg);
-  transition: transform 0.2s;
+flex: 1;
+overflow: hidden;
+border-radius: 6px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+background: var(--card-bg);
+transition: transform 0.2s;
 }
 .news-card:hover {
-  transform: translateY(-4px);
+transform: translateY(-4px);
 }
 .news-card img {
-  width: 100%;
-  display: block;
-  object-fit: cover;
+width: 100%;
+display: block;
+object-fit: cover;
 }
 
 /* 1행 - 와이드 뉴스 */
 .big-row .news-card img {
-  aspect-ratio: 12 / 9;
+aspect-ratio: 12 / 9;
 }
 .big-row {
-  justify-content: space-between;
-  gap: 2rem;
+justify-content: space-between;
+gap: 2rem;
 }
 
 /* 2행 - 기본 비율 뉴스 */
 .mid-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1.5rem;
 }
 .mid-row .news-card img {
-  aspect-ratio: 4 / 5;
+aspect-ratio: 4 / 5;
 }
 
 /* 3행 - 정사각형 뉴스 */
 .small-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1rem;
 }
 .small-row .news-card img {
-  aspect-ratio: 3 / 2;
+aspect-ratio: 3 / 2;
 }
-  </style>
-</head>
-<body>
-  <header>
-    <h1><a href="index.html" style="color: inherit; text-decoration: none;">Go Higher</a></h1>
+/* 로딩 중엔 흐릿하게 → 로드되면 선명하게 전환 */
+img.lazy-img {
+    filter: blur(5px);
+    transition: filter .3s ease-out;
+  }
+  /* 실제 이미지가 로드되면 blur 제거 */
+  img.lazy-img[src*="placeholder"] { filter: blur(5px); }
+  img.lazy-img:not([src*="placeholder"]) { filter: none; }
+  .main-news { flex: 3; }
+    .news-row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .news-card { border: 1px solid #ccc; padding: 0.5rem; flex: 1; }
+    .extended-news-list {
+      display: none;
+  background: var(--bg-section);
+  padding: 1.8rem 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin: 2rem 0 1rem;
+  width: 80%;
+  margin: 2rem auto 1rem;
+}
 
-    <div class="login-container">
-      <!-- 프로필 박스: 아바타와 환영 문구 -->
-      <div id="profileBox">
-        <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
-        <span id="welcomeText">환영합니다, 사용자님!</span>
+/* 섹션 제목 */
+.extended-news-list h3 {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ── 카드(기사) 컨테이너 ── */
+.extended-news-list .headline-article {
+  flex-direction: column;
+  background: var(--card-bg);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid transparent;
+  transition: 
+    transform 0.2s ease, 
+    box-shadow 0.2s ease, 
+    border-color 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* 제목 */
+.extended-news-list .headline-article h4 {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+  margin: 0;
+}
+
+/* 내용(숨김 처리) */
+.extended-news-list .headline-article .article-content {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0.5rem;
+  transition: 
+    max-height 0.3s ease, 
+    opacity 0.3s ease;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* 호버 효과 */
+.extended-news-list .headline-article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  border-color: var(--primary-color);
+}
+
+/* 클릭(토글) 시 내용 펼침 */
+.extended-news-list .headline-article.active .article-content {
+  max-height: 5rem; /* 내용 길이에 맞춰 조정 */
+  opacity: 1;
+}
+
+/* ── “더 보기” 버튼 ── */
+.read-more {
+  display: inline-block;
+  margin-top: 4rem;
+  padding: 0.6rem 1.4rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+.read-more:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+    .headline-article { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; border-bottom: 1px solid #ddd; cursor: pointer; }
+    .headline-article h4 { margin: 0; font-size: 1.1rem; }
+    .article-content { display: none; margin-top: 0.5rem; padding-left: 130px; color: #333; }
+    .headline-article.active .article-content { display: block; }
+    .survey-box {
+        background: #f9f9f9;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      }
+      .bar-box {
+        margin: 0.5rem 0;
+      }
+      .bar-label {
+        margin-bottom: 4px;
+        font-weight: bold;
+      }
+      .bar{
+        display:flex;
+        width:100%;
+        height:28px;
+        border-radius:4px;
+        overflow:hidden;      /* 경계 밖으로 튀어나오지 않게 */
+      }
+      .bar > div{
+        display:flex;               /* 내용(텍스트) 중앙 정렬 */
+        align-items:center;
+        justify-content:center;
+        font-size:12px;
+        color:#fff;
+        white-space:nowrap;
+      }
+      .bar > div:nth-child(1){background:#4caf50;} /* 상승 */
+      .bar > div:nth-child(2){background:#f44336;} /* 하락 */
+      .bar > div:nth-child(3){background:#ffc107;color:#000;} /* 보합 */
+      .bar-fill {
+        height: 100%;
+        width: 0;
+        background-color: #4caf50;
+        transition: width 0.6s ease-in-out;
+      }
+      #bar-unified {
+        display: flex;
+        width: 100%;
+        height: 30px;
+        border-radius: 20px;
+        overflow: hidden;
+        font-weight: bold;
+      }
+      .login-container.logged-in.active .login-btn {
+  display: inline-block !important;
+}
+.comments-container {
+  display: flex;
+  flex-direction: column;
+  /* 사이드바 전체 높이를 채우도록 (필요시 부모 높이에 맞춰 조정) */
+  height: 100%;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;      /* 내부 여백 전부 제거 */
+  margin: 0;       /* 외부 여백 전부 제거 */
+}
+
+.commentsList {
+  flex: none;            /* flex-grow 해제 */
+  height: 300px;         /* 원하는 고정 높이 */
+  overflow-y: auto;      /* 세로 스크롤 */
+  padding-right: 8px;    /* 스크롤바와 내용 간 여백 (선택) */
+  margin: 0;        /* 기본 margin 제거 */
+  padding: 0;       /* 기본 padding 제거 */
+}
+
+/* 각 메시지 */
+.comment {
+  display: flex;
+  align-items: center;
+  flex-direction: column;   /* 세로로 쌓이게 */
+  align-items: flex-start;  /* 왼쪽 정렬 */
+  font-size: 0.9rem;
+}
+
+/* 사용자 이름 */
+.comment-user {
+  font-weight: bold;
+  color: #4fc3f7;
+  margin-right: 0.5rem;
+}
+
+/* 메시지 텍스트 */
+.comment-text {
+  flex: 1;
+  white-space: pre-wrap;    /* 줄 바꿈과 공백 유지 */
+  word-break: break-word;   /* 단어 단위로도 줄 바꿈 */
+}
+
+/* 입력창과 버튼은 아래쪽에 고정 */
+.commentInput, .submitComment {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;             /* 기본 margin 제거 */
+  padding: 0.5rem;       /* 필요하면 padding만 남기세요 */
+  border: 2px solid #004080;
+}
+
+/* 전송 버튼 */
+.submitComment {
+  margin-top: 0.3rem;
+  padding: 0.4rem;
+  background: #4fc3f7;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.webtoon-box {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px var(--card-shadow);
+}
+.webtoon-box h4 {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.webtoon-box p {
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+  color: var(--text-color);
+}
+.webtoon-box img#dailyWebtoon {
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  display: block;
+}
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1><a href="index.html" style="color: inherit; text-decoration: none;">Go Higher</a></h1>
+
+      <div class="login-container">
+        <div id="profileBox">
+          <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" width="36" height="36" />
+          <span id="welcomeText">환영합니다, 사용자님!</span>
+        </div>
+        <a id="authButton" href="login.html" class="login-btn">
+          <i class="fa-solid fa-sign-in-alt"></i> 로그인
+        </a>
       </div>
-      <!-- 로그인/로그아웃 버튼 -->
-      <a id="authButton" href="login.html" class="login-btn">
-        <i class="fas fa-sign-in-alt"></i> 로그인
-      </a>
-    </div>
-    <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
-    <nav class="desktop-nav top-tab-nav">
+
+      <nav class="desktop-nav top-tab-nav">
         <div class="tab-dropdown">
           <a href="index.html" class="tab-item active">투데이뉴스</a>
-      
           <div class="mega-menu">
             <div class="mega-col">
               <h4>News</h4>
@@ -1128,267 +1356,716 @@ html, body {
         <a href="배당주.html" class="tab-item">배당주</a>
         <a href="큐레이션.html" class="tab-item">큐레이션</a>
       </nav>
-  </header>
-  <section class="news-section technology">
-    <h2>Technology</h2>
-    <ul class="tech-nav">
-      <li><a href="#" data-category="ai">AI</a></li>
-      <li><a href="#" data-category="bigtech">Big Tech</a></li>
-      <li><a href="#" data-category="cyber">Cybersecurity</a></li>
-      <li><a href="#" data-category="consumer">Consumer Tech</a></li>
-      <li><a href="#" data-category="startups">Startups</a></li>
-      <li><a href="#" data-category="screentime">Screentime</a></li>
-      <li><a href="#" data-category="depth">Tech In Depth</a></li>
-    </ul>
-    
-    <!-- 2. 기사 항목들에 data-category 속성 추가 (카테고리별로 분류) -->
-    <div class="category-group" data-category="ai" style="display: block;">
-      <div class="tech-layout">
-        <!-- 좌측 뉴스 영역 -->
-        <div class="main-news">
-          <div class="news-row big-row">
-            <article class="news-card"><img src="images2/ai1.webp" alt=""><h3>"도요타와 웨이모, 자율주행 기술 공동 개발 추진"</h3></article>
-            <article class="news-card"><img src="images2/ai2.webp" alt=""><h3>"AI 전력 수요 급증에 대응하는 구글, 미국 전기 기술자 양성에 1,000만 달러 지원"</h3></article>
-            <article class="news-card"><img src="images2/ai3.webp" alt=""><h3>"메타, AI 개발자 유치를 위해 Llama API 출시"</h3></article>
+    </header>
+
+    <section class="news-section technology">
+      <h2>Technology</h2>
+      <ul class="tech-nav">
+        <li><a href="#" data-category="ai">인공지능</a></li>
+        <li><a href="#" data-category="cyber">사이버보안</a></li>
+        <li><a href="#" data-category="space">우주</a></li>
+        <li><a href="#" data-category="disrupted">기술혁신</a></li>
+      </ul>
+
+      <!-- AI 섹션 -->
+      <div class="category-group" data-category="ai" data-loaded="false">
+        <div class="tech-layout">
+          <div class="main-news">
+            <div class="news-row big-row">
+              <article class="news-card">
+                <img
+                  src="images2/ai1.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="도요타와 웨이모, 자율주행 기술 공동 개발 추진"
+                  width="400" height="300"
+                >
+                <h3>“도요타와 웨이모, 자율주행 기술 공동 개발 추진”</h3>
+              </article>
+              <article class="news-card">
+                <img
+                  src="images2/ai2.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="AI 전력 수요 급증에 대응하는 구글, 미국 전기 기술자 양성에 1,000만 달러 지원"
+                  width="400" height="300"
+                >
+                <h3>“AI 전력 수요 급증에 대응하는 구글, 미국 전기 기술자 양성에 1,000만 달러 지원”</h3>
+              </article>
+              <article class="news-card">
+                <img
+                  src="images2/ai3.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="메타, AI 개발자 유치를 위해 Llama API 출시"
+                  width="400" height="300"
+                >
+                <h3>“메타, AI 개발자 유치를 위해 Llama API 출시”</h3>
+              </article>
+            </div>
+            <div class="news-row mid-row">
+              <article class="news-card">
+                <img
+                  src="images2/ai4.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="마이크로소프트, AI 투자 효과로 1분기 실적 호조"
+                  width="300" height="400"
+                >
+                <h4>“마이크로소프트, AI 투자 효과로 1분기 실적 호조…클라우드 수요 급증”</h4>
+              </article>
+              <article class="news-card">
+                <img
+                  src="images2/ai5.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="화웨이, 엔비디아 경쟁 위해 새로운 AI 칩 개발"
+                  width="300" height="400"
+                >
+                <h4>“화웨이, 엔비디아 경쟁 위해 새로운 AI 칩 개발”</h4>
+              </article>
+            </div>
+            <div class="news-row small-row">
+              <article class="news-card">
+                <img
+                  src="images2/ai6.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="오픈AI, ChatGPT에 맞춤형 쇼핑 기능 추가"
+                  width="200" height="200"
+                >
+                <h4>“오픈AI, ChatGPT에 맞춤형 쇼핑 기능 추가”</h4>
+              </article>
+              <article class="news-card">
+                <img
+                  src="images2/ai7.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="엔비디아 CEO, 트럼프 행정부에 AI 칩 수출 규제 개정 촉구"
+                  width="200" height="200"
+                >
+                <h4>“엔비디아 CEO, 트럼프 행정부에 AI 칩 수출 규제 개정 촉구”</h4>
+              </article>
+            </div>
           </div>
-          
-          <!-- 2행: 중간 뉴스 -->
-          <div class="news-row mid-row">
-            <article class="news-card"><img src="images2/ai4.webp" alt=""><h4>"마이크로소프트, AI 투자 효과로 1분기 실적 호조…클라우드 수요 급증"</h4></article>
-            <article class="news-card"><img src="images2/ai5.webp" alt=""><h4>"화웨이, 엔비디아 경쟁 위해 새로운 AI 칩 개발"</h4></article>
-          </div>
-          
-          <!-- 3행: 정사각 뉴스 -->
-          <div class="news-row small-row">
-            <article class="news-card"><img src="images2/ai6.webp" alt=""><h4>"오픈AI, ChatGPT에 맞춤형 쇼핑 기능 추가"</h4></article>
-            <article class="news-card"><img src="images2/ai7.webp" alt=""><h4>"엔비디아 CEO, 트럼프 행정부에 AI 칩 수출 규제 개정 촉구"</h4></article>
-          </div>
+          <aside class="tech-sidebar">
+            <div class="survey-box">
+              <h5>📊 주간 투자 설문조사</h5>
+              <p>이번 주 S&P500은?</p>
+              <form class="surveyForm">
+                <label><input type="radio" name="sp500" value="up"> 상승할 것 같다</label><br>
+                <label><input type="radio" name="sp500" value="down"> 하락할 것 같다</label><br>
+                <label><input type="radio" name="sp500" value="flat"> 변화 없을 듯</label><br>
+                <button class="common-btn" type="submit">투표하기</button>
+              </form>
+              <div class="alreadyVoted"
+                  style="display:none; margin:1em 0; font-weight:bold; font-size:0.9rem;">
+              </div>
+              <div class="surveyResults" style="display: none;">
+                <p><strong>투표 결과</strong></p>
+                <div class="bar" id="bar-unified"></div>
+              </div>
+            </div>
+            <div class="ad-box">
+              <div class="comments-container">
+                <h5>Forum</h5>
+                <ul class="commentsList"></ul>
+                <textarea class="commentInput" placeholder="댓글을 입력하세요..." rows="3"></textarea>
+                <button class="submitComment common-btn">전송</button>
+              </div>
+            </div>
+            <div class="webtoon-box" style="background: var(--card-bg); padding: 1rem; border-radius: 6px; box-shadow: 0 1px 4px var(--card-shadow);">
+              <h4 style="margin-bottom: 0.8rem; font-size: 1rem; color: var(--secondary-color);">
+                📖 투자 웹툰 코너
+              </h4>
+              <p style="font-size: 0.9rem; margin-bottom: 0.6rem;">
+                하루 한 편, 현재 시장 상황을 가볍게 풍자·해설해 주는 일일 금융 만화
+              </p>
+              <img
+                id="dailyWebtoon"
+                src="webtoon.png"
+                alt="오늘의 투자 웹툰"
+                style="width: 100%; border-radius: 4px; object-fit: cover;"
+              />
+            </div>
+          </aside>
         </div>
-
+        <section class="extended-news-list">
+          <h3>인공지능 뉴스</h3>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>GPT-5 출시 임박</h4></div><div class="article-content"><p>GPT-5는 문맥 유지와 다국어 성능이 향상됨.</p></div></div>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>하이퍼클로바X 글로벌 진출</h4></div><div class="article-content"><p>네이버의 모델이 동남아 시장 공략 중.</p></div></div>
+        </section>
+        <div style="text-align: center;">
+          <button class="read-more" data-target="ai" onclick="toggleExtendedNews(this)">Read More</button>
+        </div>
       </div>
-    </div>
+      
 
-    <!-- Cybersecurity 섹션 -->
-<div class="category-group" data-category="cyber" style="display: none;">
-  <div class="tech-layout">
-    <!-- 좌측 뉴스 영역 -->
-    <div class="main-news">
-      <!-- 1행: 큰 썸네일 3개 -->
-      <div class="news-row big-row">
-        <article class="news-card">
-          <img src="images2/cyber1.webp" alt="">
-          <h3>"모토로라 솔루션즈, 관세 불확실성 속 2분기 실적 전망 하향"</h3>
-        </article>
-        <article class="news-card">
-          <img src="images2/cyber2.webp" alt="">
-          <h3>"스페인 대규모 정전, 재생에너지 탓? 정부와 야당 간 공방"</h3>
-        </article>
-        <article class="news-card">
-          <img src="images2/cyber5.webp" alt="">
-          <h3>"과테말라 외무부 해킹 논란, 미국과 현지 정부 간 입장 차이"</h3>
-        </article>
+      <!-- Cybersecurity 섹션 -->
+      <div class="category-group" data-category="cyber" data-loaded="false">
+        <div class="tech-layout">
+          <div class="main-news">
+            <div class="news-row big-row">
+              <article class="news-card">
+                <img
+                  src="images2/cyber1.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="모토로라 솔루션즈, 관세 불확실성 속 2분기 실적 전망 하향"
+                  width="400" height="300"
+                >
+                <h3>“모토로라 솔루션즈, 관세 불확실성 속 2분기 실적 전망 하향”</h3>
+              </article>
+              <article class="news-card">
+                <img
+                  src="images2/cyber2.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="스페인 대규모 정전, 재생에너지 탓? 정부와 야당 간 공방"
+                  width="400" height="300"
+                >
+                <h3>“스페인 대규모 정전, 재생에너지 탓? 정부와 야당 간 공방”</h3>
+              </article>
+              <article class="news-card">
+                <img
+                  src="images2/cyber5.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="과테말라 외무부 해킹 논란, 미국과 현지 정부 간 입장 차이"
+                  width="400" height="300"
+                >
+                <h3>“과테말라 외무부 해킹 논란, 미국과 현지 정부 간 입장 차이”</h3>
+              </article>
+            </div>
+            <div class="news-row mid-row">
+              <article class="news-card">
+                <img
+                  src="images2/cyber7.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="SK텔레콤, 대규모 고객 정보 유출로 주가 급락"
+                  width="300" height="400"
+                >
+                <h4>“SK텔레콤, 대규모 고객 정보 유출로 주가 급락”</h4>
+              </article>
+              <article class="news-card">
+                <img
+                  src="images2/cyber6.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="전 CISA 국장, 트럼프 조치로 미국 사이버 방어력 약화 우려"
+                  width="300" height="400"
+                >
+                <h4>“전 CISA 국장, 트럼프 조치로 미국 사이버 방어력 약화 우려”</h4>
+              </article>
+            </div>
+            <div class="news-row small-row">
+              <article class="news-card">
+                <img
+                  src="images2/cyber4.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="M&S, 사이버 공격으로 일부 매장 식품 공급 차질"
+                  width="200" height="200"
+                >
+                <h4>“M&S, 사이버 공격으로 일부 매장 식품 공급 차질”</h4>
+              </article>
+              <article class="news-card">
+                <img
+                  src="images2/cyber3.webp"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="북한 해커, 가짜 기업 설립해 암호화폐 개발자 노려"
+                  width="200" height="200"
+                >
+                <h4>“북한 해커, 가짜 기업 설립해 암호화폐 개발자 노려”</h4>
+              </article>
+            </div>
+          </div>
+          <aside class="tech-sidebar">
+            <div class="survey-box">
+              <h5>📊 주간 투자 설문조사</h5>
+              <p>이번 주 S&P500은?</p>
+              <form class="surveyForm">
+                <label><input type="radio" name="sp500" value="up"> 상승할 것 같다</label><br>
+                <label><input type="radio" name="sp500" value="down"> 하락할 것 같다</label><br>
+                <label><input type="radio" name="sp500" value="flat"> 변화 없을 듯</label><br>
+                <button class="common-btn" type="submit">투표하기</button>
+              </form>
+              <div class="alreadyVoted"
+                  style="display:none; margin:1em 0; font-weight:bold; font-size:0.9rem;">
+              </div>
+              <div class="surveyResults" style="display: none;">
+                <p><strong>투표 결과</strong></p>
+                <div class="bar" id="bar-unified"></div>
+              </div>
+            </div>
+            <div class="ad-box">
+              <div class="comments-container">
+                <h5>Forum</h5>
+                <ul class="commentsList"></ul>
+                <textarea class="commentInput" placeholder="댓글을 입력하세요..." rows="3"></textarea>
+                <button class="submitComment common-btn">전송</button>
+              </div>
+            </div>
+            <div class="webtoon-box" style="background: var(--card-bg); padding: 1rem; border-radius: 6px; box-shadow: 0 1px 4px var(--card-shadow);">
+              <h4 style="margin-bottom: 0.8rem; font-size: 1rem; color: var(--secondary-color);">
+                📖 투자 웹툰 코너
+              </h4>
+              <p style="font-size: 0.9rem; margin-bottom: 0.6rem;">
+                하루 한 편, 현재 시장 상황을 가볍게 풍자·해설해 주는 일일 금융 만화
+              </p>
+              <img
+                id="dailyWebtoon"
+                src="webtoon.png"
+                alt="오늘의 투자 웹툰"
+                style="width: 100%; border-radius: 4px; object-fit: cover;"
+              />
+            </div>
+          </aside>
+        </div>
+        <section class="extended-news-list">
+          <h3>사이버보안 뉴스</h3>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>보안기업, 신규 취약점 발표</h4></div><div class="article-content"><p>API 결함 발견, 긴급 패치 필요.</p></div></div>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>AI 보안 기술 공개</h4></div><div class="article-content"><p>실시간 공격 탐지에 AI 기술 활용됨.</p></div></div>
+        </section>
+        <div style="text-align: center;">
+          <button class="read-more" data-target="cyber" onclick="toggleExtendedNews(this)">Read More</button>
+        </div>
       </div>
 
-      <!-- 2행: 중간 썸네일 뉴스 -->
-      <div class="news-row mid-row">
-        <article class="news-card">
-          <img src="images2/cyber7.webp" alt="">
-          <h4>"SK텔레콤, 대규모 고객 정보 유출로 주가 급락"</h4>
-        </article>
-        <article class="news-card">
-          <img src="images2/cyber6.webp" alt="">
-          <h4>"전 CISA 국장, 트럼프 조치로 미국 사이버 방어력 약화 우려"</h4>
-        </article>
+      <!-- Consumer Tech 섹션 -->
+      <div class="category-group" data-category="space" data-loaded="false">
+        <div class="tech-layout">
+          <div class="main-news">
+            <div class="top-headlines">
+              <article class="headline wide">
+                <img src="images2/space5.webp" alt="consumer 뉴스 1" width="400" height="300">
+                <h3>"케이티 페리, 블루 오리진 로켓 타고 전원 여성 크루와 우주로"</h3>
+              </article>
+              <article class="headline wide">
+                <img src="images2/space7.webp" alt="consumer 뉴스 2" width="400" height="300">
+                <h3>"日 우주 스타트업 '악셀스페이스', 6월 IPO 추진...상장 통해 성장 가속화"</h3>
+              </article>
+              <article class="headline wide">
+                <img src="images2/space1.webp" alt="consumer 뉴스 3" width="400" height="300">
+                <h3>"스페이스X, FAA 승인 확보! 텍사스서 스타십 발사 본격 확대"</h3>
+              </article>
+            </div>
+            <div class="news-grid">
+              <article class="grid-news">
+                <img src="images2/space4.webp" alt="소제목 뉴스 A" width="300" height="400">
+                <h4>"美 의회, 머스크의 '스페이스X CEO-정부기관 자문' 이중 역할에 의문 제기"</h4>
+              </article>
+              <article class="grid-news">
+                <img src="images2/space3.webp" alt="소제목 뉴스 B" width="300" height="400">
+                <h4>"ESA, NASA 예산 삭감 제안에 촉각...유럽 우주 프로젝트 영향 분석 착수"</h4>
+              </article>
+              <article class="grid-news">
+                <img src="images2/space6.webp" alt="소제목 뉴스 C" width="200" height="200">
+                <h4>"中 유인 우주선 '선저우 19호', 임무 완수하고 북부지역 무사 귀환"</h4>
+              </article>
+              <article class="grid-news">
+                <img src="images2/space2.webp" alt="소제목 뉴스 D" width="200" height="200">
+                <h4>"美 상원 상업위, NASA·FCC 주요 직책 후보자 인준 절차 순항"</h4>
+              </article>
+            </div>
+          </div>
+          <aside class="tech-sidebar">
+            <div class="survey-box">
+              <h5>📊 주간 투자 설문조사</h5>
+              <p>이번 주 S&P500은?</p>
+              <form class="surveyForm">
+                <label><input type="radio" name="sp500" value="up"> 상승할 것 같다</label><br>
+                <label><input type="radio" name="sp500" value="down"> 하락할 것 같다</label><br>
+                <label><input type="radio" name="sp500" value="flat"> 변화 없을 듯</label><br>
+                <button class="common-btn" type="submit">투표하기</button>
+              </form>
+              <div class="alreadyVoted"
+                  style="display:none; margin:1em 0; font-weight:bold; font-size:0.9rem;">
+              </div>
+              <div class="surveyResults" style="display: none;">
+                <p><strong>투표 결과</strong></p>
+                <div class="bar" id="bar-unified"></div>
+              </div>
+            </div>
+            <div class="ad-box">
+              <div class="comments-container">
+                <h5>Forum</h5>
+                <ul class="commentsList"></ul>
+                <textarea class="commentInput" placeholder="댓글을 입력하세요..." rows="3"></textarea>
+                <button class="submitComment common-btn">전송</button>
+              </div>
+            </div>
+            <div class="webtoon-box" style="background: var(--card-bg); padding: 1rem; border-radius: 6px; box-shadow: 0 1px 4px var(--card-shadow);">
+              <h4 style="margin-bottom: 0.8rem; font-size: 1rem; color: var(--secondary-color);">
+                📖 투자 웹툰 코너
+              </h4>
+              <p style="font-size: 0.9rem; margin-bottom: 0.6rem;">
+                하루 한 편, 현재 시장 상황을 가볍게 풍자·해설해 주는 일일 금융 만화
+              </p>
+              <img
+                id="dailyWebtoon"
+                src="webtoon.png"
+                alt="오늘의 투자 웹툰"
+                style="width: 100%; border-radius: 4px; object-fit: cover;"
+              />
+            </div>
+          </aside>
+        </div>
+        <section class="extended-news-list">
+          <h3>우주 뉴스</h3>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>NASA, 달 탐사선 발사 예고</h4></div><div class="article-content"><p>새 로켓 시험 완료, 연내 발사 예정.</p></div></div>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>화성 유인 탐사 시험</h4></div><div class="article-content"><p>스페이스X가 전초 테스트 실시 계획.</p></div></div>
+        </section>
+        <div style="text-align: center;">
+          <button class="read-more" data-target="space" onclick="toggleExtendedNews(this)">Read More</button>
+        </div>
       </div>
 
-      <!-- 3행: 정사각형 뉴스 -->
-      <div class="news-row small-row">
-        <article class="news-card">
-          <img src="images2/cyber4.webp" alt="">
-          <h4>"M&S, 사이버 공격으로 일부 매장 식품 공급 차질"</h4>
-        </article>
-        <article class="news-card">
-          <img src="images2/cyber3.webp" alt="">
-          <h4>"북한 해커, 가짜 기업 설립해 암호화폐 개발자 노려"</h4>
-        </article>
+      <!-- Startups 섹션 -->
+      <div class="category-group" data-category="disrupted" data-loaded="false">
+        <div class="tech-layout">
+          <div class="main-news">
+            <div class="top-headlines">
+              <article class="headline wide">
+                <img src="images2/disrupt5.webp" alt="startups 뉴스 1" width="400" height="300">
+                <h3>"애플, 자체 브라우저에 AI 검색 탑재하나?"</h3>
+              </article>
+              <article class="headline wide">
+                <img src="images2/disrupt4.webp" alt="startups 뉴스 2" width="400" height="300">
+                <h3>"프랑스 AI의 반격! 미스트랄, 기업용 챗봇으로 100일 만에 매출 3배"</h3>
+              </article>
+              <article class="headline wide">
+                <img src="images2/disrupt3.webp" alt="startups 뉴스 3" width="400" height="300">
+                <h3>"아마존 로보택시 '죽스', 라스베이거스 사고 후 차량 리콜"</h3>
+              </article>
+            </div>
+            <div class="news-grid">
+              <article class="grid-news">
+                <img src="images2/disrupt6.webp" alt="소제목 뉴스 A" width="300" height="400">
+                <h4>"우버, 중국 포니AI와 파트너십…중동에 로보택시 푼다"</h4>
+              </article>
+              <article class="grid-news">
+                <img src="images2/disrupt2.webp" alt="소제목 뉴스 B" width="300" height="400">
+                <h4>"넷플릭스, TV 앱 확 바꾼다! AI 검색 기능 iOS에 우선 도입"</h4>
+              </article>
+              <article class="grid-news">
+                <img src="images2/disrupt7.webp" alt="소제목 뉴스 C" width="200" height="200">
+                <h4>"자율주행 손잡은 우버, 메이 모빌리티와 미국 로보택시 시장 공략"</h4>
+              </article>
+              <article class="grid-news">
+                <img src="images2/disrupt1.webp" alt="소제목 뉴스 D" width="200" height="200">
+                <h4>"메르세데스-벤츠, 루미나와 '맞손'…차세대 라이다 센서 공동 개발"</h4>
+              </article>
+            </div>
+          </div>
+          <aside class="tech-sidebar">
+            <div class="survey-box">
+              <h5>📊 주간 투자 설문조사</h5>
+              <p>이번 주 S&P500은?</p>
+              <form class="surveyForm">
+                <label><input type="radio" name="sp500" value="up"> 상승할 것 같다</label><br>
+                <label><input type="radio" name="sp500" value="down"> 하락할 것 같다</label><br>
+                <label><input type="radio" name="sp500" value="flat"> 변화 없을 듯</label><br>
+                <button class="common-btn" type="submit">투표하기</button>
+              </form>
+              <div class="alreadyVoted"
+                  style="display:none; margin:1em 0; font-weight:bold; font-size:0.9rem;">
+              </div>
+              <div class="surveyResults" style="display: none;">
+                <p><strong>투표 결과</strong></p>
+                <div class="bar" id="bar-unified"></div>
+              </div>
+            </div>
+            <div class="ad-box">
+              <div class="comments-container">
+                <h5>Forum</h5>
+                <ul class="commentsList"></ul>
+                <textarea class="commentInput" placeholder="댓글을 입력하세요..." rows="3"></textarea>
+                <button class="submitComment common-btn">전송</button>
+              </div>
+            </div>
+            <div class="webtoon-box" style="background: var(--card-bg); padding: 1rem; border-radius: 6px; box-shadow: 0 1px 4px var(--card-shadow);">
+              <h4 style="margin-bottom: 0.8rem; font-size: 1rem; color: var(--secondary-color);">
+                📖 투자 웹툰 코너
+              </h4>
+              <p style="font-size: 0.9rem; margin-bottom: 0.6rem;">
+                하루 한 편, 현재 시장 상황을 가볍게 풍자·해설해 주는 일일 금융 만화
+              </p>
+              <img
+                id="dailyWebtoon"
+                src="webtoon.png"
+                alt="오늘의 투자 웹툰"
+                style="width: 100%; border-radius: 4px; object-fit: cover;"
+              />
+            </div>
+          </aside>
+        </div>
+        <section class="extended-news-list">
+          <h3>기술혁신 뉴스</h3>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>AI 비즈니스 자동화 솔루션</h4></div><div class="article-content"><p>중소기업을 위한 업무 자동화 솔루션 출시.</p></div></div>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>스타트업 생태계, 규제완화 요구</h4></div><div class="article-content"><p>기술 스타트업들이 정부에 법 개정 건의.</p></div></div>
+        </section>
+        <div style="text-align: center;">
+          <button class="read-more" data-target="disrupted" onclick="toggleExtendedNews(this)">Read More</button>
+        </div>
       </div>
-    </div>
-  <!-- Read More Button -->
-<div style="text-align: center;">
-  <button class="read-more" onclick="scrollToFooter()">Read More</button>
-</div>
 
- <!-- <li><a href="#" data-category="all" class="active">전체</a></li> -->
+      <!-- 모바일 하단 네비게이션 -->
+      <nav class="bottom-nav">
+        <ul>
+          <li><a href="index.html" class="nav-link" aria-label="뉴스"><span class="icon news-icon"></span><span class="nav-text">뉴스</span></a></li>
+          <li><a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리"><span class="icon diary-icon"></span><span class="nav-text">다이어리</span></a></li>
+          <li><a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오"><span class="icon chart-icon"></span><span class="nav-text">대가들</span></a></li>
+          <li><a href="중소형주식.html" class="nav-link" aria-label="중소형주식"><span class="icon company-icon"></span><span class="nav-text">중소형주</span></a></li>
+          <li><a href="배당주.html" class="nav-link active" aria-label="배당주분석"><span class="icon coinTree-icon"></span><span class="nav-text">배당주</span></a></li>
+          <li><a href="큐레이션.html" class="nav-link" aria-label="큐레이션"><span class="icon bull-icon"></span><span class="nav-text">큐레이션</span></a></li>
+        </ul>
+      </nav>
 
-  <!-- 모바일 하단 네비게이션 -->
-  <nav class="bottom-nav">
-    <ul>
-      <li>
-        <a href="index.html" class="nav-link" aria-label="뉴스">
-          <span class="icon news-icon"></span>
-          <span class="nav-text">뉴스</span>
-        </a>
-      </li>
-      <li>
-        <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
-          <span class="icon diary-icon"></span>
-          <span class="nav-text">다이어리</span>
-        </a>
-      </li>
-      <li>
-        <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
-          <span class="icon chart-icon"></span>
-          <span class="nav-text">대가들</span>
-        </a>
-      </li>
-      <li>
-        <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
-          <span class="icon company-icon"></span>
-          <span class="nav-text">중소형주</span>
-        </a>
-      </li>
-      <li>
-        <a href="배당주.html" class="nav-link active" aria-label="배당주분석">
-          <span class="icon coinTree-icon"></span>
-          <span class="nav-text">배당주</span>
-        </a>
-      </li>
-      <li>
-        <a href="큐레이션.html" class="nav-link" aria-label="큐레이션">
-          <span class="icon bull-icon"></span>
-          <span class="nav-text">큐레이션</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  
-  <footer>
-    <p>
-      © 2025 Go Higher, 고하이어. All rights reserved.<br>
-      운영 지역: 대한민국 대구<br>
-      문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a><br>
-    </p>
-  </footer>
-  
-          <!-- Back to Top 버튼 -->
-          <button class="back-to-top" id="backToTop">Top</button>
+      <footer>
+        <p>
+          © 2025 Go Higher, 고하이어. All rights reserved.<br>
+          운영 지역: 대한민국 대구<br>
+          문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a>
+        </p>
+      </footer>
 
-  <script src="auth.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-  const navLinks = document.querySelectorAll(".tech-nav a");
-  const groups = document.querySelectorAll(".category-group");
+      <!-- Back to Top 버튼 -->
+      <button class="back-to-top" id="backToTop">Top</button>
+    </section>
+    <script>
+      // ─── 1) Firebase 초기화 ───────────────────────────────────────
+      const firebaseConfig = {
+        apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+        authDomain: "gohigher-55e51.firebaseapp.com",
+        projectId: "gohigher-55e51",
+        storageBucket: "gohigher-55e51.firebasestorage.app",
+        messagingSenderId: "487435343721",
+        appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+        measurementId: "G-KQ02L8DXG0"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db   = firebase.firestore();
+    
+      // ─── 2) 유틸 함수들 ─────────────────────────────────────────────
+      function initTabs() {
+        const groups = Array.from(document.querySelectorAll('.category-group'));
+        const links  = Array.from(document.querySelectorAll('.tech-nav a'));
+    
+        links.forEach(link => link.addEventListener('click', e => {
+          e.preventDefault();
+          const sel = link.dataset.category;
+          links.forEach(l => l.classList.toggle('active', l === link));
+          groups.forEach(g => {
+            g.style.display = (g.dataset.category === sel) ? 'block' : 'none';
+            const chat = g.querySelector('.commentsList');
+            if (chat && g.style.display === 'block') chat.scrollTop = chat.scrollHeight;
+          });
+        }));
+    
+        const first = links.find(l => l.dataset.category === 'ai');
+        if (first) first.click();
+      }
+    
+      function initBackToTop() {
+        const btn = document.getElementById('backToTop');
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              btn.classList.toggle('show', window.pageYOffset > 300);
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
+        btn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+      }
+    
+      function initLazyLoading() {
+        const groups    = document.querySelectorAll('.category-group');
+        const activeCat = document.querySelector('.tech-nav a.active')?.dataset.category;
+        const observer  = new IntersectionObserver((entries, obs) => {
+          entries.forEach(ent => {
+            if (ent.isIntersecting) {
+              ent.target.style.display = 'block';
+              obs.unobserve(ent.target);
+            }
+          });
+        }, { rootMargin: '0px 0px 200px 0px', threshold: 0.1 });
+    
+        groups.forEach(g => {
+          if (g.dataset.category === activeCat) {
+            g.style.display = 'block';
+          } else {
+            g.style.display = 'none';
+            observer.observe(g);
+          }
+        });
+      }
+    
+      function toggleArticle(el) {
+        el.classList.toggle("active");
+      }
+    
+      function toggleExtendedNews(btn) {
+        const category = btn.dataset.target;
+        const grp = document.querySelector(`.category-group[data-category="${category}"]`);
+        if (!grp) return;
+        const ext = grp.querySelector('.extended-news-list');
+        if (!ext) return;
+        grp.style.display = 'block';
+        ext.style.display = (ext.style.display === 'block') ? 'none' : 'block';
+        if (ext.style.display === 'block') ext.scrollIntoView({ behavior: 'smooth' });
+      }
+    
+      // ─── 3) 댓글 & 설문 & 로그인 이벤트 바인딩 ────────────────────────
+      function initComments() {
+        const commentContainers = document.querySelectorAll(".comments-container");
+        db.collection("adComments").orderBy("timestamp","desc").limit(14)
+          .onSnapshot(snap => {
+            commentContainers.forEach(container => {
+              const listEl = container.querySelector(".commentsList");
+              listEl.innerHTML = "";
+              snap.docs.slice().reverse().forEach(doc => {
+                const { text, userName } = doc.data();
+                const li = document.createElement("li");
+                li.className = "comment";
+                li.innerHTML = `<span class="comment-user">${userName}:</span><span class="comment-text">${text}</span>`;
+                listEl.appendChild(li);
+              });
+              listEl.scrollTop = listEl.scrollHeight;
+            });
+          });
+    
+        commentContainers.forEach(container => {
+          const inputEl = container.querySelector(".commentInput");
+          const btnEl   = container.querySelector(".submitComment");
+          btnEl.addEventListener("click", async () => {
+            const txt = inputEl.value.trim();
+            if (!txt) return alert("댓글을 입력하세요.");
+            const user = auth.currentUser;
+            if (!user) return alert("로그인 후에 댓글을 남길 수 있습니다.");
+            const nicknames = ["버핏의숨겨진아들","이론머스크","삼론머스크","초고속매수러","천천히익절러","매매의귀재","밸류헌터","차트마스터","달러콤파운더","캔들스틱닌자","배당왕버핏","무빙애버리지","알파찾는천사","포트폴리오장인","리스크매니아","마진콜서퍼","하락빨까는자","상승돌풍러","지표술사","롱숏마법사","스캘핑스나이퍼","ETF천사","옵션마에스트로"];
+            const randomName = nicknames[Math.floor(Math.random()*nicknames.length)];
+            await db.collection("adComments").add({ text: txt, userName: randomName, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
+            inputEl.value = "";
+            // 오래된 자동 삭제
+            const allSnap = await db.collection("adComments").get();
+            const excess  = allSnap.size - 14;
+            if (excess>0) {
+              const oldSnap = await db.collection("adComments").orderBy("timestamp","asc").limit(excess).get();
+              const batch = db.batch();
+              oldSnap.docs.forEach(d=>batch.delete(d.ref));
+              await batch.commit();
+            }
+          });
+        });
+      }
+    
+      function initSurvey() {
+        const forms     = document.querySelectorAll(".surveyForm");
+        const votedMsgs = document.querySelectorAll(".alreadyVoted");
+        const resultsEls= document.querySelectorAll(".surveyResults");
+    
+        db.collection("sp500Stats").doc("current").onSnapshot(renderResults);
+    
+        forms.forEach(form => form.addEventListener("submit", async e => {
+          e.preventDefault();
+          const user = auth.currentUser;
+          if (!user) return alert("로그인 후 투표하세요.");
+          const choiceEl = form.querySelector("input[name='sp500']:checked");
+          if (!choiceEl) return alert("항목을 선택해 주세요.");
+          const choice = choiceEl.value;
+          await db.collection("sp500Votes").doc(user.uid).set({ choice, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
+          await db.collection("sp500Stats").doc("current").update({ [choice]: firebase.firestore.FieldValue.increment(1) });
+          forms.forEach(f=>f.style.display="none");
+          const labelMap={ up:"상승", down:"하락", flat:"보합" };
+          votedMsgs.forEach(m=>{ m.textContent=`투표 완료 (당신의 선택: ${labelMap[choice]})`; m.style.display=""; });
+          resultsEls.forEach(r=>r.style.display="");
+          renderResults();
+        }));
+    
+        async function renderResults() {
+          const doc  = await db.collection("sp500Stats").doc("current").get();
+          const data = doc.exists? doc.data(): { up:0, down:0, flat:0 };
+          const total= data.up+data.down+data.flat||1;
+          const pct   = v=>((v/total)*100).toFixed(1);
+          resultsEls.forEach(r=>{
+            r.innerHTML = `<div class="bar">
+                             <div style="width:${pct(data.up)}%">상승${pct(data.up)}%</div>
+                             <div style="width:${pct(data.down)}%">하락${pct(data.down)}%</div>
+                             <div style="width:${pct(data.flat)}%">보합${pct(data.flat)}%</div>
+                           </div>`;
+          });
+        }
+      }
+    
+      function initAuthUI() {
+    const authButton      = document.getElementById("authButton");
+    const welcomeTextElem = document.getElementById("welcomeText");
+    const loginContainer  = document.querySelector(".login-container");
+    const profileBox      = document.getElementById("profileBox");
 
-  navLinks.forEach(link => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const selected = this.dataset.category;
+    auth.onAuthStateChanged(async user => {
+      if (user) {
+        loginContainer.classList.add("logged-in");
+        profileBox.querySelector("img").src = user.photoURL || "logo.jpg";
+        welcomeTextElem.textContent = `${user.displayName || "사용자"}님, 환영합니다.`;
 
-      // 탭 UI 활성화
-      navLinks.forEach(l => l.classList.remove("active"));
-      this.classList.add("active");
+        // ★ 여기만 innerHTML로 변경
+        authButton.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> 로그아웃';
+        authButton.removeAttribute("href");
+        authButton.onclick = async e => { e.preventDefault(); await auth.signOut(); };
 
-      // 섹션 전환
-      groups.forEach(group => {
-        group.style.display = (group.dataset.category === selected) ? "block" : "none"; //group.style.display = (selected === "all" || group.dataset.category === selected) ? "block" : "none";
-      });
-    });
-  });
-  document.querySelector('.tech-nav a[data-category="ai"]').click();
+        const voteDoc = await db.collection("sp500Votes").doc(user.uid).get();
+        if (voteDoc.exists) {
+          const choice = voteDoc.data().choice;
+          const labelMap = { up:"상승", down:"하락", flat:"보합" };
+          document.querySelectorAll(".surveyForm").forEach(f=>f.style.display="none");
+          document.querySelectorAll(".alreadyVoted").forEach(m=>{
+            m.textContent = `이미 투표하셨습니다. (당신의 선택: ${labelMap[choice]})`;
+            m.style.display = "";
+          });
+          document.querySelectorAll(".surveyResults").forEach(r=>r.style.display="");
+        }
+      } else {
+        loginContainer.classList.remove("logged-in");
+        profileBox.querySelector("img").src = "logo.jpg";
+        welcomeTextElem.textContent = "환영합니다, 사용자님!";
 
-});
+        // ★ 여기만 innerHTML로 변경
+        authButton.innerHTML = '<i class="fa-solid fa-sign-in-alt"></i> 로그인';
+        authButton.setAttribute("href","login.html");
+        authButton.onclick = null;
 
-function scrollToFooter() {
-    const footer = document.querySelector('footer');
-    footer.scrollIntoView({ behavior: 'smooth' });
-  }
-
-// 다크모드 스크립트
-document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-  }
-});
-
-// Back to Top 버튼 기능
-document.addEventListener("DOMContentLoaded", () => {
-  const backToTopBtn = document.getElementById("backToTop");
-  window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 300) {
-      backToTopBtn.classList.add("show");
-    } else {
-      backToTopBtn.classList.remove("show");
-    }
-  });
-  backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
-
-// 로그인 상태 관리
-document.addEventListener("DOMContentLoaded", function () {
-  const loginContainer = document.querySelector(".login-container");
-  const profileBox = document.getElementById("profileBox");
-  const authButton = document.getElementById("authButton");
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  if (isLoggedIn) {
-    loginContainer.classList.add("logged-in");
-    authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
-    authButton.href = "#";
-    authButton.style.display = "none";
-  } else {
-    loginContainer.classList.remove("logged-in");
-    authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
-    authButton.href = "login.html";
-    authButton.style.display = "inline-block";
-  }
-  profileBox.addEventListener("click", function () {
-    if (isLoggedIn) {
-      loginContainer.classList.toggle("active");
-      authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
-    }
-  });
-  authButton.addEventListener("click", function (event) {
-    if (isLoggedIn) {
-      event.preventDefault();
-      localStorage.setItem("isLoggedIn", "false");
-      window.location.reload();
-    }
-  });
-});
-    // 다크모드 스크립트
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
+        document.querySelectorAll(".surveyForm").forEach(f=>f.style.display="");
+        document.querySelectorAll(".alreadyVoted").forEach(m=>m.style.display="none");
+        document.querySelectorAll(".surveyResults").forEach(r=>r.style.display="none");
       }
     });
 
-              // Back to Top 버튼 기능
-              document.addEventListener("DOMContentLoaded", () => {
-  const backToTopBtn = document.getElementById("backToTop");
-
-  window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 300) {
-      backToTopBtn.classList.add("show");
-    } else {
-      backToTopBtn.classList.remove("show");
-    }
-  });
-
-  backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-      const images = document.querySelectorAll("img");
-      images.forEach(img => {
-        img.setAttribute("loading", "lazy");
-      });
+    profileBox.addEventListener("click", () => {
+      if (loginContainer.classList.contains("logged-in")) {
+        loginContainer.classList.toggle("active");
+      }
     });
-  </script>
-  
-</body>
+  }
+    
+      // ─── 4) 한 번만 실행 ─────────────────────────────────────────────
+      document.addEventListener("DOMContentLoaded", () => {
+        window.toggleArticle       = toggleArticle;
+        window.toggleExtendedNews  = toggleExtendedNews;
+        initTabs();
+        initBackToTop();
+        initLazyLoading();
+        initComments();
+        initSurvey();
+        initAuthUI();
+      });
+    </script>
+  </body>
 </html>
