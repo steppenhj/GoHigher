@@ -13,9 +13,10 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
   <!-- 리소스 미리 불러오기 -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
-  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
-  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"></noscript>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
   <!-- 페이지 제목 및 메타데이터 -->
   <title>목표 기반 자산 시뮬레이터</title>
