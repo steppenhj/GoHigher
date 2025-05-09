@@ -1461,9 +1461,9 @@ img.lazy-img {
               <div class="alreadyVoted"
                   style="display:none; margin:1em 0; font-weight:bold; font-size:0.9rem;">
               </div>
-              <div class="surveyResults" style="display: none;">
+              <div class="surveyResults" data-bar="barResult1">
                 <p><strong>투표 결과</strong></p>
-                <div class="bar" id="bar-unified"></div>
+                <div class="bar" id="barResult1"></div>
               </div>
             </div>
             <div class="ad-box">
@@ -1967,12 +1967,41 @@ img.lazy-img {
       }
     
       function initSurvey() {
-        const forms     = document.querySelectorAll(".surveyForm");
-        const votedMsgs = document.querySelectorAll(".alreadyVoted");
-        const resultsEls= document.querySelectorAll(".surveyResults");
+        const forms      = document.querySelectorAll(".surveyForm");
+        const votedMsgs  = document.querySelectorAll(".alreadyVoted");
+        const resultsEls = document.querySelectorAll(".surveyResults");
     
-        db.collection("sp500Stats").doc("current").onSnapshot(renderResults);
+        // 👉 투표 컬렉션을 실시간 구독해서 집계
+        db.collection("sp500Votes")
+          .onSnapshot(snapshot => {
+            if (snapshot.empty) {
+        resultsEls.forEach(r => r.style.display = "none");
+        return;
+      }
+            // 1) 각 선택지별 카운트
+            const counts = { up:0, down:0, flat:0 };
+            snapshot.forEach(doc => {
+              const c = doc.data().choice;
+              if (counts[c] !== undefined) counts[c]++;
+            });
     
+            // 2) 퍼센트 계산
+            const total = counts.up + counts.down + counts.flat || 1;
+            const pct   = v => ((v / total) * 100).toFixed(1);
+    
+            // 3) 그래프 렌더링 및 표시
+            resultsEls.forEach(r => {
+              r.innerHTML = `
+                <div class="bar">
+                  <div style="width:${pct(counts.up)}%">상승${pct(counts.up)}%</div>
+                  <div style="width:${pct(counts.down)}%">하락${pct(counts.down)}%</div>
+                  <div style="width:${pct(counts.flat)}%">보합${pct(counts.flat)}%</div>
+                </div>`;
+              r.style.display = "block";
+            });
+          });
+    
+        // 📩 투표 처리: user.uid 로 문서 생성해 중복 방지
         forms.forEach(form => form.addEventListener("submit", async e => {
           e.preventDefault();
           const user = auth.currentUser;
@@ -1980,85 +2009,107 @@ img.lazy-img {
           const choiceEl = form.querySelector("input[name='sp500']:checked");
           if (!choiceEl) return alert("항목을 선택해 주세요.");
           const choice = choiceEl.value;
-          await db.collection("sp500Votes").doc(user.uid).set({ choice, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-          await db.collection("sp500Stats").doc("current").update({ [choice]: firebase.firestore.FieldValue.increment(1) });
-          forms.forEach(f=>f.style.display="none");
-          const labelMap={ up:"상승", down:"하락", flat:"보합" };
-          votedMsgs.forEach(m=>{ m.textContent=`투표 완료 (당신의 선택: ${labelMap[choice]})`; m.style.display=""; });
-          resultsEls.forEach(r=>r.style.display="");
-          renderResults();
-        }));
     
-        async function renderResults() {
-          const doc  = await db.collection("sp500Stats").doc("current").get();
-          const data = doc.exists? doc.data(): { up:0, down:0, flat:0 };
-          const total= data.up+data.down+data.flat||1;
-          const pct   = v=>((v/total)*100).toFixed(1);
-          resultsEls.forEach(r=>{
-            r.innerHTML = `<div class="bar">
-                             <div style="width:${pct(data.up)}%">상승${pct(data.up)}%</div>
-                             <div style="width:${pct(data.down)}%">하락${pct(data.down)}%</div>
-                             <div style="width:${pct(data.flat)}%">보합${pct(data.flat)}%</div>
-                           </div>`;
+          // sp500Votes에 저장
+          await db.collection("sp500Votes").doc(user.uid).set({
+            choice,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
           });
-        }
+    
+          // UI 전환
+          forms.forEach(f => f.style.display = "none");
+          const labelMap = { up:"상승", down:"하락", flat:"보합" };
+          votedMsgs.forEach(m => {
+            m.textContent = `투표 완료 (당신의 선택: ${labelMap[choice]})`;
+            m.style.display = "";
+          });
+          // 그래프는 onSnapshot에서 자동 갱신됩니다
+        }));
       }
     
       function initAuthUI() {
-    const authButton      = document.getElementById("authButton");
-    const welcomeTextElem = document.getElementById("welcomeText");
-    const loginContainer  = document.querySelector(".login-container");
-    const profileBox      = document.getElementById("profileBox");
+        const authButton      = document.getElementById("authButton");
+        const welcomeTextElem = document.getElementById("welcomeText");
+        const loginContainer  = document.querySelector(".login-container");
+        const profileBox      = document.getElementById("profileBox");
+    
+        auth.onAuthStateChanged(async user => {
+          if (user) {
+            loginContainer.classList.add("logged-in");
+            profileBox.querySelector("img").src = user.photoURL || "logo.jpg";
+            welcomeTextElem.textContent = `${user.displayName || "사용자"}님, 환영합니다.`;
+    
+            authButton.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> 로그아웃';
+            authButton.removeAttribute("href");
+            authButton.onclick = async e => {
+              e.preventDefault();
+              await auth.signOut();
+            };
+            
+            if (!user) {
+      forms.forEach(f => f.style.display = "");
+      votedMsgs.forEach(m => m.style.display = "none");
+      resultsEls.forEach(r => r.style.display = "none");
+      return;
+    }
 
-    auth.onAuthStateChanged(async user => {
-      if (user) {
-        loginContainer.classList.add("logged-in");
-        profileBox.querySelector("img").src = user.photoURL || "logo.jpg";
-        welcomeTextElem.textContent = `${user.displayName || "사용자"}님, 환영합니다.`;
-
-        // ★ 여기만 innerHTML로 변경
-        authButton.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> 로그아웃';
-        authButton.removeAttribute("href");
-        authButton.onclick = async e => { e.preventDefault(); await auth.signOut(); };
-
-        const voteDoc = await db.collection("sp500Votes").doc(user.uid).get();
-        if (voteDoc.exists) {
-          const choice = voteDoc.data().choice;
-          const labelMap = { up:"상승", down:"하락", flat:"보합" };
-          document.querySelectorAll(".surveyForm").forEach(f=>f.style.display="none");
-          document.querySelectorAll(".alreadyVoted").forEach(m=>{
-            m.textContent = `이미 투표하셨습니다. (당신의 선택: ${labelMap[choice]})`;
+    // 로그인 되어 있는데 아직 투표 안 했으면 폼만, 결과 숨기기
+    db.collection("sp500Votes").doc(user.uid).get()
+      .then(doc => {
+        if (!doc.exists) {
+          forms.forEach(f => f.style.display = "");
+          votedMsgs.forEach(m => m.style.display = "none");
+          resultsEls.forEach(r => r.style.display = "none");
+        } else {
+          // 이미 투표했으면 폼 숨기고 “이미 투표” 메시지 + 결과 보이기
+          forms.forEach(f => f.style.display = "none");
+          votedMsgs.forEach(m => {
+            m.textContent = `이미 투표하셨습니다. (당신의 선택: ${{
+              up: "상승", down: "하락", flat: "보합"
+            }[doc.data().choice]})`;
             m.style.display = "";
           });
-          document.querySelectorAll(".surveyResults").forEach(r=>r.style.display="");
+          // 실시간 결과 구독 시작
+          subscribeResults();
         }
-      } else {
-        loginContainer.classList.remove("logged-in");
-        profileBox.querySelector("img").src = "logo.jpg";
-        welcomeTextElem.textContent = "환영합니다, 사용자님!";
-
-        // ★ 여기만 innerHTML로 변경
-        authButton.innerHTML = '<i class="fa-solid fa-sign-in-alt"></i> 로그인';
-        authButton.setAttribute("href","login.html");
-        authButton.onclick = null;
-
-        document.querySelectorAll(".surveyForm").forEach(f=>f.style.display="");
-        document.querySelectorAll(".alreadyVoted").forEach(m=>m.style.display="none");
-        document.querySelectorAll(".surveyResults").forEach(r=>r.style.display="none");
+      });
+            // 이미 투표한 사용자면 폼 숨기고 메시지만
+            const voteDoc = await db.collection("sp500Votes").doc(user.uid).get();
+            if (voteDoc.exists) {
+              const choice   = voteDoc.data().choice;
+              const labelMap = { up:"상승", down:"하락", flat:"보합" };
+              document.querySelectorAll(".surveyForm").forEach(f => f.style.display = "none");
+              document.querySelectorAll(".alreadyVoted").forEach(m => {
+                m.textContent = `이미 투표하셨습니다. (당신의 선택: ${labelMap[choice]})`;
+                m.style.display = "";
+              });
+            }
+          } else {
+            loginContainer.classList.remove("logged-in");
+            profileBox.querySelector("img").src = "logo.jpg";
+            welcomeTextElem.textContent = "환영합니다, 사용자님!";
+    
+            authButton.innerHTML = '<i class="fa-solid fa-sign-in-alt"></i> 로그인';
+            authButton.setAttribute("href", "login.html");
+            authButton.onclick = null;
+    
+            document.querySelectorAll(".surveyForm").forEach(f => f.style.display = "");
+            document.querySelectorAll(".alreadyVoted").forEach(m => m.style.display = "none");
+            document.querySelectorAll(".surveyResults").forEach(r => r.style.display = "none");
+          }
+        });
+    
+        profileBox.addEventListener("click", () => {
+          if (loginContainer.classList.contains("logged-in")) {
+            loginContainer.classList.toggle("active");
+          }
+        });
       }
-    });
-
-    profileBox.addEventListener("click", () => {
-      if (loginContainer.classList.contains("logged-in")) {
-        loginContainer.classList.toggle("active");
-      }
-    });
-  }
     
       // ─── 4) 한 번만 실행 ─────────────────────────────────────────────
       document.addEventListener("DOMContentLoaded", () => {
-        window.toggleArticle       = toggleArticle;
-        window.toggleExtendedNews  = toggleExtendedNews;
+        window.toggleArticle      = toggleArticle;
+        window.toggleExtendedNews = toggleExtendedNews;
         initTabs();
         initBackToTop();
         initLazyLoading();
