@@ -55,7 +55,7 @@
   "categories": ["finance", "productivity", "utilities"],
   "shortcuts": [
     {
-      "name": "배당주 계산기",
+      "name": "배당금 계산기",
       "short_name": "배당주",
       "url": "/배당주.html",
       "icons": [{ "src": "/icons/shortcut-portfolio.png", "sizes": "96x96" }]
