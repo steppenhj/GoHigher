@@ -13,10 +13,11 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-<!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
+  <!-- 리소스 미리 불러오기 -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"></noscript>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
   <!-- 페이지 제목(Title)에 사이트명 + 페이지 명시 -->
   <title>다이어리·포트폴리오 설계·가계부·투자일지·달력·리밸런싱도구 무료 제공</title>
