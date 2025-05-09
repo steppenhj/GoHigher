@@ -27,7 +27,13 @@
       "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
-    }
+    },
+    { 
+      "src": "/images2/splash.jpg", 
+      "sizes": "512x512", 
+      "type": "image/jpeg", 
+      "purpose": "maskable any" 
+   }
   ],
   "screenshots": [
     {
