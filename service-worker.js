@@ -34,8 +34,6 @@ const urlsToCache = [
   '/offline.html',
   '/manifest.json',
   '/주식포트폴리오.html',
-  '/main.js',
-  '/styles.css',
   '/logo.jpg',
   '/icon-192x192.png',
   '/icon-512x512.png',
