@@ -584,11 +584,128 @@ nav ul li a {
   flex-direction: column;
   padding: 0 1rem;
 }
+/* 1) 최상단 데스크탑 메뉴 감추기 */
+  .desktop-nav { display: none !important; }
 
-.tech-sidebar {
-  width: 100%;
-  padding: 0;
-}
+  /* 2) 기술 섹션: 가로 → 세로 스택 */
+  .tech-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  .tech-layout .main-news,
+  .tech-layout .tech-sidebar {
+    width: 100%;
+    margin: 0;
+  }
+
+  /* 3) news‐row: 모두 1열 */
+  .news-row.big-row,
+  .news-row.mid-row,
+  .news-row.small-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .read-more {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    margin-bottom: 90px !important;
+  }
+
+  /* 6) bottom-nav 유지, main-footer 마진 확보 */
+  body {
+    padding-bottom: 60px; /* bottom-nav 높이 만큼 여백 */
+  }
+  footer {
+    display: none; /* 필요 시 숨김 */
+  }
+
+  .news-row.big-row,
+  .news-row.mid-row,
+  .news-row.small-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem; /* 칸 사이 간격은 취향대로 조정 */
+  }
+
+  /* 카드 이미지 & 텍스트 크기 약간 조정 */
+  .news-card img {
+    width: 100%;
+    height: auto;
+  }
+  .news-card h3,
+  .news-card h4 {
+    font-size: 0.95rem;
+  }
+  /* 8) 터치 영역 넓히기 */
+  .selector-btn,
+  .read-more,
+  .submitComment,
+  .common-btn {
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .tech-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;      /* 좌우 2열 */
+    grid-template-rows: auto auto;       /* 위아래 2행 */
+    gap: 1rem;
+  }
+
+  /* 2) 그리드 영역 지정 */
+  .survey-box {
+    grid-column: 1 / 2;   /* 좌측 열 */
+    grid-row: 1 / 2;      /* 첫 번째 행 */
+  }
+  .webtoon-box {
+    grid-column: 1 / 2;   /* 좌측 열 */
+    grid-row: 2 / 3;      /* 두 번째 행 */
+  }
+  .ad-box {
+    grid-column: 2 / 3;   /* 우측 열 */
+    grid-row: 1 / 3;      /* 2행을 모두 차지 */
+  }
+
+  /* 3) 내부 박스는 100% 너비 */
+  .survey-box,
+  .webtoon-box,
+  .ad-box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 4) 추가 뉴스(extended-news-list) 가독성 강화 */
+   .category-group .extended-news-list {
+    /* 부모(.tech-layout)의 좌우 padding(1rem)을 상쇄 */
+    margin: 1.5rem -1rem;    
+    width: calc(100% + 2rem); /* 100% + 좌우 오프셋 */
+    padding: 1rem;            
+    box-sizing: border-box;   
+    clear: both;              /* 위에 떠 있는 요소들과 겹치지 않도록 */
+    background: var(--bg-section);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .extended-news-list h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+  .extended-news-list .headline-article {
+    padding: 0.8rem;
+  }
+  .category-group .read-more {
+    display: block;
+    margin: 0 -1rem 1.5rem;  
+    width: calc(100% + 2rem);
+    padding: 0.8rem 1rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
   }
   .top-tab-nav .tab-item {
 color: #fff;
@@ -1938,11 +2055,11 @@ body.dark-mode .bar > div {
       <!-- 모바일 하단 네비게이션 -->
       <nav class="bottom-nav">
         <ul>
-          <li><a href="index.html" class="nav-link" aria-label="뉴스"><span class="icon news-icon"></span><span class="nav-text">뉴스</span></a></li>
+          <li><a href="#" class="nav-link active" aria-label="뉴스"><span class="icon news-icon"></span><span class="nav-text">뉴스</span></a></li>
           <li><a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리"><span class="icon diary-icon"></span><span class="nav-text">다이어리</span></a></li>
           <li><a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오"><span class="icon chart-icon"></span><span class="nav-text">대가들</span></a></li>
           <li><a href="중소형주식.html" class="nav-link" aria-label="중소형주식"><span class="icon company-icon"></span><span class="nav-text">중소형주</span></a></li>
-          <li><a href="배당주.html" class="nav-link active" aria-label="배당주분석"><span class="icon coinTree-icon"></span><span class="nav-text">배당주</span></a></li>
+          <li><a href="배당주.html" class="nav-link" aria-label="배당주분석"><span class="icon coinTree-icon"></span><span class="nav-text">배당주</span></a></li>
           <li><a href="큐레이션.html" class="nav-link" aria-label="큐레이션"><span class="icon bull-icon"></span><span class="nav-text">큐레이션</span></a></li>
         </ul>
       </nav>
@@ -2232,6 +2349,71 @@ body.dark-mode .bar > div {
     initSurvey();
     initAuthUI();
   });
+  (function() {
+  // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
+  if (window.innerWidth > 768) return;
+
+  // 1) 동적 스타일 추가
+  const style = document.createElement("style");
+  style.textContent = `
+    .page-selector {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: #fff;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      z-index: 2000;
+      transform: translateY(100%);
+      transition: transform 0.2s;
+    }
+    .page-selector.show {
+      transform: translateY(0);
+    }
+    .selector-btn {
+      padding: 1rem;
+      font-size: 1rem;
+      border: none;
+      background: #f4f4f4;
+      margin: 0.25rem 0;
+      border-radius: 6px;
+    }
+    .selector-btn:hover { background: #e0e0e0; }
+    .selector-btn.cancel { background: #ffdddd; }
+  `;
+  document.head.appendChild(style);
+
+  // 2) 액션 시트 마크업 생성
+  const selector = document.createElement("div");
+  selector.className = "page-selector";
+  selector.innerHTML = `
+    <button class="selector-btn" data-target="index.html">투데이뉴스</button>
+    <button class="selector-btn" data-target="tech.html">기술페이지</button>
+    <button class="selector-btn cancel">취소</button>
+  `;
+  document.body.appendChild(selector);
+
+  // 3) 버튼 이벤트 연결
+  selector.querySelectorAll(".selector-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.classList.contains("cancel")) {
+        selector.classList.remove("show");
+      } else {
+        window.location.href = btn.dataset.target;
+      }
+    });
+  });
+
+  // 4) 뉴스 아이콘에 클릭 리스너
+  const newsLink = document.querySelector('.bottom-nav a[aria-label="뉴스"]');
+  if (newsLink) {
+    newsLink.addEventListener("click", e => {
+      e.preventDefault();
+      selector.classList.add("show");
+    });
+  }
+})();
 </script>
   </body>
 </html>

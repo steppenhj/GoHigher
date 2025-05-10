@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-  <!-- 리소스 미리 불러오기 -->
+<!-- 리소스 미리 불러오기 -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"></noscript>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
@@ -1309,7 +1309,7 @@ body.dark-mode .security-grid li {
   <nav class="bottom-nav">
     <ul>
       <li>
-        <a href="index.html" class="nav-link" arial-label="뉴스">
+        <a href="#" class="nav-link" aria-label="뉴스">
           <span class="icon news-icon"></span>
           <span class="nav-text">뉴스</span>
         </a>
@@ -2235,7 +2235,71 @@ document.getElementById('viewPortfolioBtn').addEventListener('click', function (
   }, 1500);
 });
 
+(function() {
+  // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
+  if (window.innerWidth > 768) return;
 
+  // 1) 동적 스타일 추가
+  const style = document.createElement("style");
+  style.textContent = `
+    .page-selector {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: #fff;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      z-index: 2000;
+      transform: translateY(100%);
+      transition: transform 0.2s;
+    }
+    .page-selector.show {
+      transform: translateY(0);
+    }
+    .selector-btn {
+      padding: 1rem;
+      font-size: 1rem;
+      border: none;
+      background: #f4f4f4;
+      margin: 0.25rem 0;
+      border-radius: 6px;
+    }
+    .selector-btn:hover { background: #e0e0e0; }
+    .selector-btn.cancel { background: #ffdddd; }
+  `;
+  document.head.appendChild(style);
+
+  // 2) 액션 시트 마크업 생성
+  const selector = document.createElement("div");
+  selector.className = "page-selector";
+  selector.innerHTML = `
+    <button class="selector-btn" data-target="index.html">투데이뉴스</button>
+    <button class="selector-btn" data-target="tech.html">기술페이지</button>
+    <button class="selector-btn cancel">취소</button>
+  `;
+  document.body.appendChild(selector);
+
+  // 3) 버튼 이벤트 연결
+  selector.querySelectorAll(".selector-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.classList.contains("cancel")) {
+        selector.classList.remove("show");
+      } else {
+        window.location.href = btn.dataset.target;
+      }
+    });
+  });
+
+  // 4) 뉴스 아이콘에 클릭 리스너
+  const newsLink = document.querySelector('.bottom-nav a[aria-label="뉴스"]');
+  if (newsLink) {
+    newsLink.addEventListener("click", e => {
+      e.preventDefault();
+      selector.classList.add("show");
+    });
+  }
+})();
   </script>
   
   
