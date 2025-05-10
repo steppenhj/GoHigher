@@ -1598,7 +1598,7 @@ const modalData = {
     <li>
       <strong>EPS:</strong> -2.50
       <span>→ 순이익 부진이 주당순이익에 반영되어 경영 효율성에 문제를 시사함.</span>
-       </li>
+    </li>
     <li><strong>EBITDA:</strong> -70.10억 원</li>
     <li>
       <strong>EBIT:</strong> -108.14억 원
@@ -4798,7 +4798,7 @@ document.body.style.overflow = "auto";
 document.getElementById('modalOverlay').addEventListener('click', (event) => {
   if (event.target.id === 'modalOverlay') {
     closeModal();
-     }
+  }
 });
 // ESC 키로 모달 닫기
 document.addEventListener('keydown', (event) => {
@@ -4806,39 +4806,9 @@ document.addEventListener('keydown', (event) => {
     closeModal();
   }
 });
-
-// ---------------------------------------------------------------------------------------
-// (F) 개발자 도구 차단 (옵션)
-// ---------------------------------------------------------------------------------------
-// document.addEventListener("keydown", function (event) {
-//   if (
-//     event.ctrlKey &&
-//     (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")
-//   ) {
-//     event.preventDefault();
-//   }
-//   if (
-//     event.key === "F12" ||
-//     (event.ctrlKey && event.shiftKey && event.key === "I") ||
-//     (event.ctrlKey && event.shiftKey && event.key === "J")
-//   ) {
-//     event.preventDefault();
-//   }
-// });
-// document.addEventListener("contextmenu", function (event) {
-//   event.preventDefault();
-// });
-
 // ---------------------------------------------------------------------------------------
 // (G) 페이지 로드 후 테이블 렌더링
-// ---------------------------------------------------------------------------------------
 renderStockTable();
-
-// 예시 난독화 코드
-function getSecretKey() {
-  return "my-secret-key";
-}
-console.log(getSecretKey());
 
 document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('theme');
@@ -4921,74 +4891,5 @@ if (window.pageYOffset > 300) {
 backToTopBtn.addEventListener("click", () => {
 window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-// (function() {
-//   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-//   if (!isLoggedIn) {
-//     window.location.href = "https://gohigher.kr/login.html";
-//   }
-// })();
-(function() {
-  // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
-  if (window.innerWidth > 768) return;
 
-  // 1) 동적 스타일 추가
-  const style = document.createElement("style");
-   style.textContent = `
-    .page-selector {
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
-      background: #fff;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      padding: 0.5rem;
-      z-index: 2000;
-      transform: translateY(100%);
-      transition: transform 0.2s;
-    }
-    .page-selector.show {
-      transform: translateY(0);
-    }
-    .selector-btn {
-      padding: 1rem;
-      font-size: 1rem;
-      border: none;
-      background: #f4f4f4;
-      margin: 0.25rem 0;
-      border-radius: 6px;
-    }
-    .selector-btn:hover { background: #e0e0e0; }
-    .selector-btn.cancel { background: #ffdddd; }
-  `;
-  document.head.appendChild(style);
 
-  // 2) 액션 시트 마크업 생성
-  const selector = document.createElement("div");
-  selector.className = "page-selector";
-  selector.innerHTML = `
-    <button class="selector-btn" data-target="index.html">투데이뉴스</button>
-    <button class="selector-btn" data-target="tech.html">기술페이지</button>
-    <button class="selector-btn cancel">취소</button>
-  `;
-  document.body.appendChild(selector);
-
-  // 3) 버튼 이벤트 연결
-  selector.querySelectorAll(".selector-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (btn.classList.contains("cancel")) {
-        selector.classList.remove("show");
-      } else {
-        window.location.href = btn.dataset.target;
-      }
-    });
-  });
-
-  // 4) 뉴스 아이콘에 클릭 리스너
-  const newsLink = document.querySelector('.bottom-nav a[aria-label="뉴스"]');
-  if (newsLink) {
-    newsLink.addEventListener("click", e => {
-      e.preventDefault();
-      selector.classList.add("show");
-    });
-  }
-})();
