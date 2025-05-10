@@ -725,6 +725,37 @@ margin: .8rem 0;
 .tech-sidebar .subscribe-box .common-btn {
 width: 100%;
 }
+.survey-box .common-btn {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #fff;
+  background:#007acc;
+  border: none;
+  border-radius: 30px;
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* 호버/포커스 시 효과 */
+.survey-box .common-btn:hover,
+.survey-box .common-btn:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 64, 128, 0.3);
+  filter: brightness(1.1);
+  outline: none;
+}
+
+/* 클릭(액티브) 시 눌린 느낌 */
+.survey-box .common-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 64, 128, 0.2);
+  filter: brightness(0.95);
+}
 .tech-sidebar .ad-box {
 height: 200px;
 display: flex;
@@ -1301,6 +1332,51 @@ img.lazy-img {
   object-fit: cover;
   display: block;
 }
+body.dark-mode .extended-news-list .article-content p {
+  color: var(--text-color) !important;
+}
+/* 다크 모드에서 투표 컨테이너 배경·텍스트 색 변경 */
+body.dark-mode .survey-box {
+  background: #2b2b2b;           /* 어두운 그레이 계열 배경 */
+  color: var(--text-color);     /* --text-color=#cacaca */
+  border: 1px solid #444;       /* 약간 더 진한 테두리 */
+}
+
+/* 설문 질문 텍스트( <p> ) 색상 */
+body.dark-mode .survey-box p {
+  color: var(--text-color);
+}
+
+/* 라디오 레이블 텍스트 */
+body.dark-mode .survey-box label {
+  color: var(--text-color);
+}
+
+/* ‘투표하기’ 버튼 */
+body.dark-mode .survey-box .common-btn {
+  background: #444;             /* 짙은 버튼 배경 */
+  color: #fff;                  /* 버튼 텍스트는 하양 */
+  border: 1px solid #666;       /* 버튼 테두리 */
+}
+body.dark-mode .survey-box .common-btn:hover {
+  background: #555;
+}
+
+/* 결과 그래프 바 색상 (기존 색상 유지해도 무방하지만 대비가 약하면 조정) */
+body.dark-mode .bar > div:nth-child(1) { /* 상승 */
+  background: #4caf50;
+}
+body.dark-mode .bar > div:nth-child(2) { /* 하락 */
+  background: #e57373;
+}
+body.dark-mode .bar > div:nth-child(3) { /* 보합 */
+  background: #ffc107;
+}
+
+/* 결과 % 텍스트 색상 */
+body.dark-mode .bar > div {
+  color: #000;  /* 황색 바 위 글자는 검정이 더 잘 보입니다 */
+}
     </style>
   </head>
   <body>
@@ -1638,39 +1714,44 @@ img.lazy-img {
       <div class="category-group" data-category="space" data-loaded="false">
         <div class="tech-layout">
           <div class="main-news">
-            <div class="top-headlines">
-              <article class="headline wide">
-                <img src="images2/space5.webp" alt="consumer 뉴스 1" width="400" height="300">
-                <h3>"케이티 페리, 블루 오리진 로켓 타고 전원 여성 크루와 우주로"</h3>
-              </article>
-              <article class="headline wide">
-                <img src="images2/space7.webp" alt="consumer 뉴스 2" width="400" height="300">
-                <h3>"日 우주 스타트업 '악셀스페이스', 6월 IPO 추진...상장 통해 성장 가속화"</h3>
-              </article>
-              <article class="headline wide">
-                <img src="images2/space1.webp" alt="consumer 뉴스 3" width="400" height="300">
-                <h3>"스페이스X, FAA 승인 확보! 텍사스서 스타십 발사 본격 확대"</h3>
-              </article>
-            </div>
-            <div class="news-grid">
-              <article class="grid-news">
-                <img src="images2/space4.webp" alt="소제목 뉴스 A" width="300" height="400">
-                <h4>"美 의회, 머스크의 '스페이스X CEO-정부기관 자문' 이중 역할에 의문 제기"</h4>
-              </article>
-              <article class="grid-news">
-                <img src="images2/space3.webp" alt="소제목 뉴스 B" width="300" height="400">
-                <h4>"ESA, NASA 예산 삭감 제안에 촉각...유럽 우주 프로젝트 영향 분석 착수"</h4>
-              </article>
-              <article class="grid-news">
-                <img src="images2/space6.webp" alt="소제목 뉴스 C" width="200" height="200">
-                <h4>"中 유인 우주선 '선저우 19호', 임무 완수하고 북부지역 무사 귀환"</h4>
-              </article>
-              <article class="grid-news">
-                <img src="images2/space2.webp" alt="소제목 뉴스 D" width="200" height="200">
-                <h4>"美 상원 상업위, NASA·FCC 주요 직책 후보자 인준 절차 순항"</h4>
-              </article>
-            </div>
-          </div>
+  <!-- 1행: 넓은 카드 3개 -->
+  <div class="news-row big-row">
+    <article class="news-card">
+      <img src="images2/space5.webp" alt="케이티 페리…우주로" width="400" height="300">
+      <h3>"케이티 페리, 블루 오리진 로켓 타고 전원 여성 크루와 우주로"</h3>
+    </article>
+    <article class="news-card">
+      <img src="images2/space7.webp" alt="日 우주 스타트업 IPO" width="400" height="300">
+      <h3>"日 우주 스타트업 '악셀스페이스', 6월 IPO 추진…성장 가속화"</h3>
+    </article>
+    <article class="news-card">
+      <img src="images2/space1.webp" alt="스페이스X 발사 확대" width="400" height="300">
+      <h3>"스페이스X, FAA 승인 확보! 텍사스서 스타십 발사 본격 확대"</h3>
+    </article>
+  </div>
+  <!-- 2행: 중간 카드 2개 -->
+  <div class="news-row mid-row">
+    <article class="news-card">
+      <img src="images2/space4.webp" alt="美 의회…이중 역할" width="300" height="400">
+      <h4>"美 의회, 머스크의 '스페이스X CEO-정부기관 자문' 이중 역할에 의문 제기"</h4>
+    </article>
+    <article class="news-card">
+      <img src="images2/space3.webp" alt="ESA 예산 분석" width="300" height="400">
+      <h4>"ESA, NASA 예산 삭감 제안에 촉각…유럽 우주 프로젝트 영향 분석 착수"</h4>
+    </article>
+  </div>
+  <!-- 3행: 작은 카드 2개 -->
+  <div class="news-row small-row">
+    <article class="news-card">
+      <img src="images2/space6.webp" alt="선저우 19호 귀환" width="200" height="200">
+      <h4>"中 유인 우주선 '선저우 19호', 임무 완수하고 북부지역 무사 귀환"</h4>
+    </article>
+    <article class="news-card">
+      <img src="images2/space2.webp" alt="NASA·FCC 인준" width="200" height="200">
+      <h4>"美 상원 상업위, NASA·FCC 주요 직책 후보자 인준 절차 순항"</h4>
+    </article>
+  </div>
+</div>
           <aside class="tech-sidebar">
             <div class="survey-box">
               <h5>📊 주간 투자 설문조사</h5>
@@ -1727,39 +1808,81 @@ img.lazy-img {
       <div class="category-group" data-category="disrupted" data-loaded="false">
         <div class="tech-layout">
           <div class="main-news">
-            <div class="top-headlines">
-              <article class="headline wide">
-                <img src="images2/disrupt5.webp" alt="startups 뉴스 1" width="400" height="300">
-                <h3>"애플, 자체 브라우저에 AI 검색 탑재하나?"</h3>
-              </article>
-              <article class="headline wide">
-                <img src="images2/disrupt4.webp" alt="startups 뉴스 2" width="400" height="300">
-                <h3>"프랑스 AI의 반격! 미스트랄, 기업용 챗봇으로 100일 만에 매출 3배"</h3>
-              </article>
-              <article class="headline wide">
-                <img src="images2/disrupt3.webp" alt="startups 뉴스 3" width="400" height="300">
-                <h3>"아마존 로보택시 '죽스', 라스베이거스 사고 후 차량 리콜"</h3>
-              </article>
-            </div>
-            <div class="news-grid">
-              <article class="grid-news">
-                <img src="images2/disrupt6.webp" alt="소제목 뉴스 A" width="300" height="400">
-                <h4>"우버, 중국 포니AI와 파트너십…중동에 로보택시 푼다"</h4>
-              </article>
-              <article class="grid-news">
-                <img src="images2/disrupt2.webp" alt="소제목 뉴스 B" width="300" height="400">
-                <h4>"넷플릭스, TV 앱 확 바꾼다! AI 검색 기능 iOS에 우선 도입"</h4>
-              </article>
-              <article class="grid-news">
-                <img src="images2/disrupt7.webp" alt="소제목 뉴스 C" width="200" height="200">
-                <h4>"자율주행 손잡은 우버, 메이 모빌리티와 미국 로보택시 시장 공략"</h4>
-              </article>
-              <article class="grid-news">
-                <img src="images2/disrupt1.webp" alt="소제목 뉴스 D" width="200" height="200">
-                <h4>"메르세데스-벤츠, 루미나와 '맞손'…차세대 라이다 센서 공동 개발"</h4>
-              </article>
-            </div>
-          </div>
+      <!-- 1행: 와이드 카드 3개 -->
+      <div class="news-row big-row">
+        <article class="news-card">
+          <img
+            src="images2/disrupt5.webp"
+            alt="애플, 자체 브라우저에 AI 검색 탑재하나?"
+            width="400"
+            height="300"
+          >
+          <h3>"애플, 자체 브라우저에 AI 검색 탑재하나?"</h3>
+        </article>
+        <article class="news-card">
+          <img
+            src="images2/disrupt4.webp"
+            alt="프랑스 AI의 반격! 미스트랄, 기업용 챗봇으로 100일 만에 매출 3배"
+            width="400"
+            height="300"
+          >
+          <h3>"프랑스 AI의 반격! 미스트랄, 기업용 챗봇으로 100일 만에 매출 3배"</h3>
+        </article>
+        <article class="news-card">
+          <img
+            src="images2/disrupt3.webp"
+            alt="아마존 로보택시 '죽스', 라스베이거스 사고 후 차량 리콜"
+            width="400"
+            height="300"
+          >
+          <h3>"아마존 로보택시 '죽스', 라스베이거스 사고 후 차량 리콜"</h3>
+        </article>
+      </div>
+
+      <!-- 2행: 중간 카드 2개 -->
+      <div class="news-row mid-row">
+        <article class="news-card">
+          <img
+            src="images2/disrupt6.webp"
+            alt="우버, 중국 포니AI와 파트너십…중동에 로보택시 푼다"
+            width="300"
+            height="400"
+          >
+          <h4>"우버, 중국 포니AI와 파트너십…중동에 로보택시 푼다"</h4>
+        </article>
+        <article class="news-card">
+          <img
+            src="images2/disrupt2.webp"
+            alt="넷플릭스, TV 앱 확 바꾼다! AI 검색 기능 iOS에 우선 도입"
+            width="300"
+            height="400"
+          >
+          <h4>"넷플릭스, TV 앱 확 바꾼다! AI 검색 기능 iOS에 우선 도입"</h4>
+        </article>
+      </div>
+
+      <!-- 3행: 작은 카드 2개 -->
+      <div class="news-row small-row">
+        <article class="news-card">
+          <img
+            src="images2/disrupt7.webp"
+            alt="자율주행 손잡은 우버, 메이 모빌리티와 미국 로보택시 시장 공략"
+            width="200"
+            height="200"
+          >
+          <h4>"자율주행 손잡은 우버, 메이 모빌리티와 미국 로보택시 시장 공략"</h4>
+        </article>
+        <article class="news-card">
+          <img
+            src="images2/disrupt1.webp"
+            alt="메르세데스-벤츠, 루미나와 '맞손'…차세대 라이다 센서 공동 개발"
+            width="200"
+            height="200"
+          >
+          <h4>"메르세데스-벤츠, 루미나와 '맞손'…차세대 라이다 센서 공동 개발"</h4>
+        </article>
+      </div>
+    </div>
           <aside class="tech-sidebar">
             <div class="survey-box">
               <h5>📊 주간 투자 설문조사</h5>
@@ -2105,6 +2228,16 @@ img.lazy-img {
           }
         });
       }
+      
+      // ──────────────────────────────
+    // 다크모드 처리
+    // ──────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    });
     
       // ─── 4) 한 번만 실행 ─────────────────────────────────────────────
       document.addEventListener("DOMContentLoaded", () => {
