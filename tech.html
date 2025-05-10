@@ -1957,300 +1957,281 @@ body.dark-mode .bar > div {
 
       <!-- Back to Top 버튼 -->
       <button class="back-to-top" id="backToTop" aria-label="TOP버튼">▲</button>
-      
     </section>
     <script>
-      // ─── 1) Firebase 초기화 ───────────────────────────────────────
-      const firebaseConfig = {
-        apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
-        authDomain: "gohigher-55e51.firebaseapp.com",
-        projectId: "gohigher-55e51",
-        storageBucket: "gohigher-55e51.firebasestorage.app",
-        messagingSenderId: "487435343721",
-        appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
-        measurementId: "G-KQ02L8DXG0"
-      };
-      firebase.initializeApp(firebaseConfig);
-      const auth = firebase.auth();
-      const db   = firebase.firestore();
-    
-      // ─── 2) 유틸 함수들 ─────────────────────────────────────────────
-      function initTabs() {
-        const groups = Array.from(document.querySelectorAll('.category-group'));
-        const links  = Array.from(document.querySelectorAll('.tech-nav a'));
-    
-        links.forEach(link => link.addEventListener('click', e => {
-          e.preventDefault();
-          const sel = link.dataset.category;
-          links.forEach(l => l.classList.toggle('active', l === link));
-          groups.forEach(g => {
-            g.style.display = (g.dataset.category === sel) ? 'block' : 'none';
-            const chat = g.querySelector('.commentsList');
-            if (chat && g.style.display === 'block') chat.scrollTop = chat.scrollHeight;
-          });
-        }));
-    
-        const first = links.find(l => l.dataset.category === 'ai');
-        if (first) first.click();
-      }
-    
-      function initBackToTop() {
-        const btn = document.getElementById('backToTop');
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            window.requestAnimationFrame(() => {
-              btn.classList.toggle('show', window.pageYOffset > 300);
-              ticking = false;
-            });
-            ticking = true;
-          }
+  // ─── 1) Firebase 초기화 ───────────────────────────────────────
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.firebasestorage.app",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+    measurementId: "G-KQ02L8DXG0"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db   = firebase.firestore();
+
+  // ─── 2) 유틸 함수들 ─────────────────────────────────────────────
+  function initTabs() {
+    const groups = Array.from(document.querySelectorAll('.category-group'));
+    const links  = Array.from(document.querySelectorAll('.tech-nav a'));
+
+    links.forEach(link => link.addEventListener('click', e => {
+      e.preventDefault();
+      const sel = link.dataset.category;
+      links.forEach(l => l.classList.toggle('active', l === link));
+      groups.forEach(g => {
+        g.style.display = (g.dataset.category === sel) ? 'block' : 'none';
+        const chat = g.querySelector('.commentsList');
+        if (chat && g.style.display === 'block') chat.scrollTop = chat.scrollHeight;
+      });
+    }));
+
+    const first = links.find(l => l.dataset.category === 'ai');
+    if (first) first.click();
+  }
+
+  function initBackToTop() {
+    const btn = document.getElementById('backToTop');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          btn.classList.toggle('show', window.pageYOffset > 300);
+          ticking = false;
         });
-        btn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+        ticking = true;
       }
-    
-      function initLazyLoading() {
-        const groups    = document.querySelectorAll('.category-group');
-        const activeCat = document.querySelector('.tech-nav a.active')?.dataset.category;
-        const observer  = new IntersectionObserver((entries, obs) => {
-          entries.forEach(ent => {
-            if (ent.isIntersecting) {
-              ent.target.style.display = 'block';
-              obs.unobserve(ent.target);
-            }
-          });
-        }, { rootMargin: '0px 0px 200px 0px', threshold: 0.1 });
-    
-        groups.forEach(g => {
-          if (g.dataset.category === activeCat) {
-            g.style.display = 'block';
-          } else {
-            g.style.display = 'none';
-            observer.observe(g);
-          }
-        });
+    });
+    btn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+  }
+
+  function initLazyLoading() {
+    const groups    = document.querySelectorAll('.category-group');
+    const activeCat = document.querySelector('.tech-nav a.active')?.dataset.category;
+    const observer  = new IntersectionObserver((entries, obs) => {
+      entries.forEach(ent => {
+        if (ent.isIntersecting) {
+          ent.target.style.display = 'block';
+          obs.unobserve(ent.target);
+        }
+      });
+    }, { rootMargin: '0px 0px 200px 0px', threshold: 0.1 });
+
+    groups.forEach(g => {
+      if (g.dataset.category === activeCat) {
+        g.style.display = 'block';
+      } else {
+        g.style.display = 'none';
+        observer.observe(g);
       }
-    
-      function toggleArticle(el) {
-        el.classList.toggle("active");
-      }
-    
-      function toggleExtendedNews(btn) {
-        const category = btn.dataset.target;
-        const grp = document.querySelector(`.category-group[data-category="${category}"]`);
-        if (!grp) return;
-        const ext = grp.querySelector('.extended-news-list');
-        if (!ext) return;
-        grp.style.display = 'block';
-        ext.style.display = (ext.style.display === 'block') ? 'none' : 'block';
-        if (ext.style.display === 'block') ext.scrollIntoView({ behavior: 'smooth' });
-      }
-    
-      // ─── 3) 댓글 & 설문 & 로그인 이벤트 바인딩 ────────────────────────
-      function initComments() {
-        const commentContainers = document.querySelectorAll(".comments-container");
-        db.collection("adComments").orderBy("timestamp","desc").limit(14)
-          .onSnapshot(snap => {
-            commentContainers.forEach(container => {
-              const listEl = container.querySelector(".commentsList");
-              listEl.innerHTML = "";
-              snap.docs.slice().reverse().forEach(doc => {
-                const { text, userName } = doc.data();
-                const li = document.createElement("li");
-                li.className = "comment";
-                li.innerHTML = `<span class="comment-user">${userName}:</span><span class="comment-text">${text}</span>`;
-                listEl.appendChild(li);
-              });
-              listEl.scrollTop = listEl.scrollHeight;
-            });
-          });
-    
+    });
+  }
+
+  function toggleArticle(el) {
+    el.classList.toggle("active");
+  }
+
+  function toggleExtendedNews(btn) {
+    const category = btn.dataset.target;
+    const grp = document.querySelector(`.category-group[data-category="${category}"]`);
+    if (!grp) return;
+    const ext = grp.querySelector('.extended-news-list');
+    if (!ext) return;
+    grp.style.display = 'block';
+    ext.style.display = (ext.style.display === 'block') ? 'none' : 'block';
+    if (ext.style.display === 'block') ext.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ─── 3) 댓글 & 설문 & 로그인 이벤트 바인딩 ────────────────────────
+  function initComments() {
+    const commentContainers = document.querySelectorAll(".comments-container");
+    db.collection("adComments").orderBy("timestamp","desc").limit(14)
+      .onSnapshot(snap => {
         commentContainers.forEach(container => {
-          const inputEl = container.querySelector(".commentInput");
-          const btnEl   = container.querySelector(".submitComment");
-          btnEl.addEventListener("click", async () => {
-            const txt = inputEl.value.trim();
-            if (!txt) return alert("댓글을 입력하세요.");
-            const user = auth.currentUser;
-            if (!user) return alert("로그인 후에 댓글을 남길 수 있습니다.");
-            const nicknames = ["버핏의숨겨진아들","이론머스크","삼론머스크","초고속매수러","천천히익절러","매매의귀재","밸류헌터","차트마스터","달러콤파운더","캔들스틱닌자","배당왕버핏","무빙애버리지","알파찾는천사","포트폴리오장인","리스크매니아","마진콜서퍼","하락빨까는자","상승돌풍러","지표술사","롱숏마법사","스캘핑스나이퍼","ETF천사","옵션마에스트로"];
-            const randomName = nicknames[Math.floor(Math.random()*nicknames.length)];
-            await db.collection("adComments").add({ text: txt, userName: randomName, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-            inputEl.value = "";
-            // 오래된 자동 삭제
-            const allSnap = await db.collection("adComments").get();
-            const excess  = allSnap.size - 14;
-            if (excess>0) {
-              const oldSnap = await db.collection("adComments").orderBy("timestamp","asc").limit(excess).get();
-              const batch = db.batch();
-              oldSnap.docs.forEach(d=>batch.delete(d.ref));
-              await batch.commit();
-            }
+          const listEl = container.querySelector(".commentsList");
+          listEl.innerHTML = "";
+          snap.docs.slice().reverse().forEach(doc => {
+            const { text, userName } = doc.data();
+            const li = document.createElement("li");
+            li.className = "comment";
+            li.innerHTML = `<span class="comment-user">${userName}:</span><span class="comment-text">${text}</span>`;
+            listEl.appendChild(li);
           });
+          listEl.scrollTop = listEl.scrollHeight;
         });
-      }
-    
-      function initSurvey() {
-        const forms      = document.querySelectorAll(".surveyForm");
-        const votedMsgs  = document.querySelectorAll(".alreadyVoted");
-        const resultsEls = document.querySelectorAll(".surveyResults");
-    
-        // 👉 투표 컬렉션을 실시간 구독해서 집계
-        db.collection("sp500Votes")
-          .onSnapshot(snapshot => {
-            if (snapshot.empty) {
-        resultsEls.forEach(r => r.style.display = "none");
-        return;
-      }
-            // 1) 각 선택지별 카운트
-            const counts = { up:0, down:0, flat:0 };
-            snapshot.forEach(doc => {
-              const c = doc.data().choice;
-              if (counts[c] !== undefined) counts[c]++;
-            });
-    
-            // 2) 퍼센트 계산
-            const total = counts.up + counts.down + counts.flat || 1;
-            const pct   = v => ((v / total) * 100).toFixed(1);
-    
-            // 3) 그래프 렌더링 및 표시
-            resultsEls.forEach(r => {
-              r.innerHTML = `
-                <div class="bar">
-                  <div style="width:${pct(counts.up)}%">상승${pct(counts.up)}%</div>
-                  <div style="width:${pct(counts.down)}%">하락${pct(counts.down)}%</div>
-                  <div style="width:${pct(counts.flat)}%">보합${pct(counts.flat)}%</div>
-                </div>`;
-              r.style.display = "block";
-            });
-          });
-    
-        // 📩 투표 처리: user.uid 로 문서 생성해 중복 방지
-        forms.forEach(form => form.addEventListener("submit", async e => {
+      });
+
+    commentContainers.forEach(container => {
+      const inputEl = container.querySelector(".commentInput");
+      const btnEl   = container.querySelector(".submitComment");
+      btnEl.addEventListener("click", async () => {
+        const txt = inputEl.value.trim();
+        if (!txt) return alert("댓글을 입력하세요.");
+        const user = auth.currentUser;
+        if (!user) return alert("로그인 후에 댓글을 남길 수 있습니다.");
+        const nicknames = ["버핏의숨겨진아들","이론머스크","삼론머스크","초고속매수러","천천히익절러","매매의귀재","밸류헌터","차트마스터","달러콤파운더","캔들스틱닌자","배당왕버핏","무빙애버리지","알파찾는천사","포트폴리오장인","리스크매니아","마진콜서퍼","하락빨까는자","상승돌풍러","지표술사","롱숏마법사","스캘핑스나이퍼","ETF천사","옵션마에스트로"];
+        const randomName = nicknames[Math.floor(Math.random()*nicknames.length)];
+        await db.collection("adComments").add({
+          text: txt,
+          userName: randomName,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        inputEl.value = "";
+        // 오래된 자동 삭제
+        const allSnap = await db.collection("adComments").get();
+        const excess  = allSnap.size - 14;
+        if (excess > 0) {
+          const oldSnap = await db.collection("adComments")
+                                   .orderBy("timestamp","asc")
+                                   .limit(excess)
+                                   .get();
+          const batch = db.batch();
+          oldSnap.docs.forEach(d => batch.delete(d.ref));
+          await batch.commit();
+        }
+      });
+    });
+  }
+
+  function initSurvey() {
+    const forms      = document.querySelectorAll(".surveyForm");
+    const votedMsgs  = document.querySelectorAll(".alreadyVoted");
+    const resultsEls = document.querySelectorAll(".surveyResults");
+
+    // 👉 투표 컬렉션을 실시간 구독해서 집계
+    db.collection("sp500Votes")
+      .onSnapshot(snapshot => {
+        if (snapshot.empty) {
+          resultsEls.forEach(r => r.style.display = "none");
+          return;
+        }
+        // 1) 각 선택지별 카운트
+        const counts = { up:0, down:0, flat:0 };
+        snapshot.forEach(doc => {
+          const c = doc.data().choice;
+          if (counts[c] !== undefined) counts[c]++;
+        });
+        // 2) 퍼센트 계산
+        const total = counts.up + counts.down + counts.flat || 1;
+        const pct   = v => ((v / total) * 100).toFixed(1);
+        // 3) 그래프 렌더링 및 표시
+        resultsEls.forEach(r => {
+          r.innerHTML = `
+            <div class="bar">
+              <div style="width:${pct(counts.up)}%">상승${pct(counts.up)}%</div>
+              <div style="width:${pct(counts.down)}%">하락${pct(counts.down)}%</div>
+              <div style="width:${pct(counts.flat)}%">보합${pct(counts.flat)}%</div>
+            </div>`;
+          r.style.display = "block";
+        });
+      });
+
+    // 📩 투표 처리: user.uid 로 문서 생성해 중복 방지
+    forms.forEach(form => form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const user = auth.currentUser;
+      if (!user) return alert("로그인 후 투표하세요.");
+      const choiceEl = form.querySelector("input[name='sp500']:checked");
+      if (!choiceEl) return alert("항목을 선택해 주세요.");
+      const choice = choiceEl.value;
+      // sp500Votes에 저장
+      await db.collection("sp500Votes").doc(user.uid).set({
+        choice,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      // UI 전환
+      forms.forEach(f => f.style.display = "none");
+      const labelMap = { up:"상승", down:"하락", flat:"보합" };
+      votedMsgs.forEach(m => {
+        m.textContent = `투표 완료 (당신의 선택: ${labelMap[choice]})`;
+        m.style.display = "";
+      });
+      // 그래프는 onSnapshot에서 자동 갱신됩니다
+    }));
+  }
+
+  function initAuthUI() {
+    const forms      = document.querySelectorAll(".surveyForm");
+    const votedMsgs  = document.querySelectorAll(".alreadyVoted");
+    const resultsEls = document.querySelectorAll(".surveyResults");
+
+    const authButton      = document.getElementById("authButton");
+    const welcomeTextElem = document.getElementById("welcomeText");
+    const loginContainer  = document.querySelector(".login-container");
+    const profileBox      = document.getElementById("profileBox");
+
+    auth.onAuthStateChanged(async user => {
+      if (user) {
+        loginContainer.classList.add("logged-in");
+        profileBox.querySelector("img").src = user.photoURL || "logo.jpg";
+        welcomeTextElem.textContent = `${user.displayName || "사용자"}님, 환영합니다.`;
+        authButton.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> 로그아웃';
+        authButton.removeAttribute("href");
+        authButton.onclick = async e => {
           e.preventDefault();
-          const user = auth.currentUser;
-          if (!user) return alert("로그인 후 투표하세요.");
-          const choiceEl = form.querySelector("input[name='sp500']:checked");
-          if (!choiceEl) return alert("항목을 선택해 주세요.");
-          const choice = choiceEl.value;
-    
-          // sp500Votes에 저장
-          await db.collection("sp500Votes").doc(user.uid).set({
-            choice,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          });
-    
-          // UI 전환
-          forms.forEach(f => f.style.display = "none");
+          await auth.signOut();
+        };
+
+        // 로그인 되었을 때 투표 상태에 따라 UI 설정
+        const voteDoc = await db.collection("sp500Votes").doc(user.uid).get();
+        if (voteDoc.exists) {
+          const choice   = voteDoc.data().choice;
           const labelMap = { up:"상승", down:"하락", flat:"보합" };
+          forms.forEach(f => f.style.display = "none");
           votedMsgs.forEach(m => {
-            m.textContent = `투표 완료 (당신의 선택: ${labelMap[choice]})`;
+            m.textContent = `이미 투표하셨습니다. (당신의 선택: ${labelMap[choice]})`;
             m.style.display = "";
           });
-          // 그래프는 onSnapshot에서 자동 갱신됩니다
-        }));
-      }
-    
-      function initAuthUI() {
-        const authButton      = document.getElementById("authButton");
-        const welcomeTextElem = document.getElementById("welcomeText");
-        const loginContainer  = document.querySelector(".login-container");
-        const profileBox      = document.getElementById("profileBox");
-    
-        auth.onAuthStateChanged(async user => {
-          if (user) {
-            loginContainer.classList.add("logged-in");
-            profileBox.querySelector("img").src = user.photoURL || "logo.jpg";
-            welcomeTextElem.textContent = `${user.displayName || "사용자"}님, 환영합니다.`;
-    
-            authButton.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> 로그아웃';
-            authButton.removeAttribute("href");
-            authButton.onclick = async e => {
-              e.preventDefault();
-              await auth.signOut();
-            };
-            
-            if (!user) {
-      forms.forEach(f => f.style.display = "");
-      votedMsgs.forEach(m => m.style.display = "none");
-      resultsEls.forEach(r => r.style.display = "none");
-      return;
-    }
-
-    // 로그인 되어 있는데 아직 투표 안 했으면 폼만, 결과 숨기기
-    db.collection("sp500Votes").doc(user.uid).get()
-      .then(doc => {
-        if (!doc.exists) {
+          resultsEls.forEach(r => r.style.display = "block");
+        } else {
           forms.forEach(f => f.style.display = "");
           votedMsgs.forEach(m => m.style.display = "none");
           resultsEls.forEach(r => r.style.display = "none");
-        } else {
-          // 이미 투표했으면 폼 숨기고 “이미 투표” 메시지 + 결과 보이기
-          forms.forEach(f => f.style.display = "none");
-          votedMsgs.forEach(m => {
-            m.textContent = `이미 투표하셨습니다. (당신의 선택: ${{
-              up: "상승", down: "하락", flat: "보합"
-            }[doc.data().choice]})`;
-            m.style.display = "";
-          });
-          // 실시간 결과 구독 시작
-          subscribeResults();
         }
-      });
-            // 이미 투표한 사용자면 폼 숨기고 메시지만
-            const voteDoc = await db.collection("sp500Votes").doc(user.uid).get();
-            if (voteDoc.exists) {
-              const choice   = voteDoc.data().choice;
-              const labelMap = { up:"상승", down:"하락", flat:"보합" };
-              document.querySelectorAll(".surveyForm").forEach(f => f.style.display = "none");
-              document.querySelectorAll(".alreadyVoted").forEach(m => {
-                m.textContent = `이미 투표하셨습니다. (당신의 선택: ${labelMap[choice]})`;
-                m.style.display = "";
-              });
-            }
-          } else {
-            loginContainer.classList.remove("logged-in");
-            profileBox.querySelector("img").src = "logo.jpg";
-            welcomeTextElem.textContent = "환영합니다, 사용자님!";
-    
-            authButton.innerHTML = '<i class="fa-solid fa-sign-in-alt"></i> 로그인';
-            authButton.setAttribute("href", "login.html");
-            authButton.onclick = null;
-    
-            document.querySelectorAll(".surveyForm").forEach(f => f.style.display = "");
-            document.querySelectorAll(".alreadyVoted").forEach(m => m.style.display = "none");
-            document.querySelectorAll(".surveyResults").forEach(r => r.style.display = "none");
-          }
-        });
-    
-        profileBox.addEventListener("click", () => {
-          if (loginContainer.classList.contains("logged-in")) {
-            loginContainer.classList.toggle("active");
-          }
-        });
-      }
-      
-      // ──────────────────────────────
-    // 다크모드 처리
-    // ──────────────────────────────
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
+      } else {
+        loginContainer.classList.remove("logged-in");
+        profileBox.querySelector("img").src = "logo.jpg";
+        welcomeTextElem.textContent = "환영합니다, 사용자님!";
+        authButton.innerHTML = '<i class="fa-solid fa-sign-in-alt"></i> 로그인';
+        authButton.setAttribute("href", "login.html");
+        authButton.onclick = null;
+        forms.forEach(f => f.style.display = "");
+        votedMsgs.forEach(m => m.style.display = "none");
+        resultsEls.forEach(r => r.style.display = "none");
       }
     });
-    
-      // ─── 4) 한 번만 실행 ─────────────────────────────────────────────
-      document.addEventListener("DOMContentLoaded", () => {
-        window.toggleArticle      = toggleArticle;
-        window.toggleExtendedNews = toggleExtendedNews;
-        initTabs();
-        initBackToTop();
-        initLazyLoading();
-        initComments();
-        initSurvey();
-        initAuthUI();
-      });
-    </script>
+
+    profileBox.addEventListener("click", () => {
+      if (loginContainer.classList.contains("logged-in")) {
+        loginContainer.classList.toggle("active");
+      }
+    });
+  }
+
+  // ──────────────────────────────
+  // 다크모드 처리
+  // ──────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+  });
+
+  // ─── 4) 한 번만 실행 ─────────────────────────────────────────────
+  document.addEventListener("DOMContentLoaded", () => {
+    window.toggleArticle      = toggleArticle;
+    window.toggleExtendedNews = toggleExtendedNews;
+    initTabs();
+    initBackToTop();
+    initLazyLoading();
+    initComments();
+    initSurvey();
+    initAuthUI();
+  });
+</script>
   </body>
 </html>
