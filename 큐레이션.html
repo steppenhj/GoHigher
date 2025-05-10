@@ -458,10 +458,10 @@
     #investmentSurvey button {
       background: linear-gradient(135deg, #0059b3, #004080);
       color: #fff;
-      padding: 0.8rem 1.4rem;
+      padding: 0.8rem 1.4rem !important;
       border-radius: 8px;
       border: none;
-      font-size: 1rem;
+      font-size: 0.8rem;
       cursor: pointer;
       transition: all 0.3s ease;
       margin-left: 0.5rem;
@@ -608,6 +608,7 @@ body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
 /* 설문 조사 섹션 */
 /* 다크모드에서 설문조사 섹션을 자연스럽게 보이도록 수정 */
 body.dark-mode #investmentSurvey {
+  position: relative;
   background-color: #333 !important;  /* 밝은 배경을 덮어씌우기 위해 !important 사용 */
   color: #cacaca !important;          /* 텍스트 색상도 함께 !important로 지정 */
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
@@ -735,17 +736,19 @@ body.dark-mode .back-to-top {
   }
     }
     .skip-btn {
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  text-decoration: underline;
-}
-.skip-btn:hover {
-  opacity: 0.8;
-}
+       position: static;      /* or relative */
+      margin: 0 auto;     /* 위아래 중앙 정렬 */
+      background: none;
+      border: none;
+      padding: 0.8rem 1.4rem;
+      color: var(--primary-color);
+      font-size: 0.8rem !important;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+    .skip-btn:hover {
+      opacity: 0.8;
+    }
 
 
     @media only screen and (max-device-width: 768px) {
@@ -1015,8 +1018,6 @@ body.dark-mode .security-grid li {
   <!-- 설문 조사 섹션 -->
   <section id="investmentSurvey" style="padding: 2rem; background-color: #f4f7fa; margin: 2rem auto; max-width: 800px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
     <h2 style="text-align:center;">투자 성향 테스트 <span id="progressIndicator"></span></h2>
-      <!-- 건너뛰기 버튼 -->
-    <button id="skipSurvey" type="button" class="skip-btn">테스트 건너뛰기</button>
     <form id="surveyForm">
       <!-- 데모 단계: 1. 성별 -->
       <div class="step active" data-step="1">
@@ -1025,6 +1026,7 @@ body.dark-mode .security-grid li {
         <label><input type="radio" name="gender" value="female"> 여성</label><br>
         <label><input type="radio" name="gender" value="other"> 기타</label>
         <div class="navigation" style="margin-top:1rem; text-align:right;">
+          <button id="skipSurvey" type="button" class="skip-btn">테스트 건너뛰기</button>
           <button type="button" class="nextBtn" style="padding:0.5rem 1rem;">다음</button>
         </div>
       </div>
@@ -1290,6 +1292,7 @@ curationContainer.appendChild(title);
   const simBtn = document.createElement("button");
   simBtn.textContent = "목표 자산 시뮬레이터 사용해보기";
   simBtn.classList.add("sim-btn");
+  simBtn.style.marginLeft = "4rem";
   simBtn.style.marginBottom = "2rem";
   simBtn.addEventListener("click", () => {
     window.location.href = "목표자산시뮬레이터.html";
