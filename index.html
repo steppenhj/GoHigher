@@ -2218,43 +2218,58 @@ if (window.matchMedia('(display-mode: standalone)').matches &&
 
 <script>
   if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker
-        .register("/service-worker.js")
-        .then((registration) => {
-          console.log("✅ Service Worker registered with scope:", registration.scope);
+    window.addEventListener("load", async () => {
+      try {
+        // SW 등록
+        const registration = await navigator.serviceWorker.register("/service-worker.js");
+        console.log("✅ Service Worker registered with scope:", registration.scope);
 
-          // [1] 메시지 수신: 업데이트 알림
-          navigator.serviceWorker.addEventListener("message", (event) => {
-            if (event.data && event.data.type === "NEW_VERSION_AVAILABLE") {
-              alert("새로운 업데이트가 있습니다! 페이지를 새로고침하세요.");
-            }
-          });
-
-          // [2] 백그라운드 싱크 등록
-          if ("SyncManager" in window) {
-            registration.sync.register("sync-gohigher-data")
-              .then(() => console.log("🔁 Background Sync registered"))
-              .catch((err) => console.error("⛔ Background Sync registration failed", err));
+        // [1] 메시지 수신: 업데이트 알림
+        navigator.serviceWorker.addEventListener("message", (event) => {
+          if (event.data && event.data.type === "NEW_VERSION_AVAILABLE") {
+            alert("새로운 업데이트가 있습니다! 페이지를 새로고침하세요.");
           }
-
-          // [3] 주기적 백그라운드 싱크 등록 (지원 브라우저 한정)
-          if ("periodicSync" in registration) {
-            registration.periodicSync.register("periodic-gohigher-news", {
-              minInterval: 12 * 60 * 60 * 1000, // 12시간
-            })
-              .then(() => console.log("📆 Periodic Sync registered"))
-              .catch((err) => console.warn("⚠️ Periodic Sync not supported", err));
-          }
-        })
-        .catch((err) => {
-          console.error("❌ Service Worker registration failed:", err);
-            });
         });
-      } else {
-        console.warn("🚫 Service Workers not supported in this browser.");
-      }
 
+        // [2] 백그라운드 싱크 등록
+        if ("SyncManager" in window) {
+          try {
+            await registration.sync.register("sync-gohigher-data");
+            console.log("🔁 Background Sync registered");
+          } catch (err) {
+            console.error("⛔ Background Sync registration failed", err);
+          }
+        }
+
+        // [3] 주기적 백그라운드 싱크 등록 (지원 & 권한 체크)
+        if ("periodicSync" in registration) {
+          try {
+            const status = await navigator.permissions.query({
+              name: "periodic-background-sync"
+            });
+            if (status.state === "granted") {
+              await registration.periodicSync.register("periodic-gohigher-news", {
+                minInterval: 12 * 60 * 60 * 1000 // 12시간
+              });
+              console.log("📆 Periodic Sync registered");
+            } else {
+              console.log(`⚠️ Periodic Sync permission: ${status.state}`);
+            }
+          } catch (err) {
+            console.warn("⚠️ Periodic Sync registration failed:", err);
+          }
+        } else {
+          console.log("⚠️ Periodic Background Sync not supported in this browser");
+        }
+
+      } catch (err) {
+        console.error("❌ Service Worker registration failed:", err);
+      }
+    });
+  } else {
+    console.warn("🚫 Service Workers not supported in this browser.");
+  }
+  
   //iOS 감지해서 PWA 설치 권장
       const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
     const isInStandalone = window.navigator.standalone === true;

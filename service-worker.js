@@ -49,28 +49,23 @@ const urlsToCache = [
 ];
 
 // 설치 단계: 핵심 리소스 캐싱 (cache.add → fetch+put 패턴)
-self.addEventListener('install', event => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    for (const url of urlsToCache) {
+// --- 백그라운드 싱크(SyncManager) 처리 ---
+self.addEventListener('sync', event => {
+  if (event.tag === 'sync-gohigher-data') {
+    event.waitUntil((async () => {
       try {
-        // 1) 요청 생성: 내부 리소스는 cors, 외부 리소스는 no-cors 필요 시 변경
-        const request = new Request(url, { mode: 'cors' });
-        // 2) 네트워크 요청
-        const response = await fetch(request);
-        // 3) HTTP 상태 검사
-        if (!response.ok) {
-          console.warn(`⚠️ ${url} 캐싱 실패: HTTP ${response.status}`);
-          continue;
+        const resp = await fetch('/sync-endpoint', { method: 'POST' });
+        if (!resp.ok) {
+          // HTTP 400, 500 등 비정상 응답은 에러로 던져서 catch로 빠집니다.
+          throw new Error(`HTTP ${resp.status}`);
         }
-        // 4) 캐시에 저장
-        await cache.put(request, response.clone());
+        console.log('✅ Background sync 성공:', resp.status);
       } catch (err) {
-        console.warn(`⚠️ ${url} 캐싱 중 오류:`, err);
+        // 네트워크 에러, CORS 에러, Non-OK 상태 모두 여기로
+        console.error('❌ Background sync 실패:', err);
       }
-    }
-  })());
-  self.skipWaiting();
+    })());
+  }
 });
 
 
@@ -134,14 +129,16 @@ async function syncData() {
 // 주기적 싱크
 self.addEventListener('periodicsync', event => {
   if (event.tag === 'periodic-gohigher-news') {
-    event.waitUntil(fetchLatestData());
+    event.waitUntil((async () => {
+      try {
+        const resp = await fetch('/sync-endpoint', { method: 'GET' });
+        if (!resp.ok) {
+          throw new Error(`HTTP ${resp.status}`);
+        }
+        console.log('✅ Periodic Sync 성공:', resp.status);
+      } catch (err) {
+        console.warn('⚠️ Periodic Sync 처리 실패:', err);
+      }
+    })());
   }
 });
-async function fetchLatestData() {
-  try {
-    const resp = await fetch('/sync-endpoint', { method: 'GET' });
-    console.log('✅ Periodic Sync 성공:', resp.status);
-  } catch (err) {
-    console.error('❌ Periodic Sync 실패:', err);
-  }
-}
