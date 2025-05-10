@@ -50,20 +50,31 @@ const urlsToCache = [
   '/목표자산시뮬레이터.html'
 ];
 
-// 설치 단계: 핵심 리소스 캐싱
+// 설치 단계: 핵심 리소스 캐싱 (cache.add → fetch+put 패턴)
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(async cache => {
-      await Promise.allSettled(
-        urlsToCache.map(async url => {
-          try { await cache.add(url); }
-          catch (err) { console.warn(`⚠️ 캐시 실패: ${url}`, err); }
-        })
-      );
-    })
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    for (const url of urlsToCache) {
+      try {
+        // 1) 요청 생성: 내부 리소스는 cors, 외부 리소스는 no-cors 필요 시 변경
+        const request = new Request(url, { mode: 'cors' });
+        // 2) 네트워크 요청
+        const response = await fetch(request);
+        // 3) HTTP 상태 검사
+        if (!response.ok) {
+          console.warn(`⚠️ ${url} 캐싱 실패: HTTP ${response.status}`);
+          continue;
+        }
+        // 4) 캐시에 저장
+        await cache.put(request, response.clone());
+      } catch (err) {
+        console.warn(`⚠️ ${url} 캐싱 중 오류:`, err);
+      }
+    }
+  })());
   self.skipWaiting();
 });
+
 
 // 활성화 단계: 이전 캐시 삭제
 self.addEventListener('activate', event => {
