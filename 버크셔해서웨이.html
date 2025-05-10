@@ -1908,6 +1908,13 @@ body.dark-mode .security-grid li {
   });
 }
 
+  // 전역에서 모달을 닫는 함수 정의
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
 
     // (2) 그래프 모달 처리 (책 모달과 충돌 방지를 위해 querySelector 수정)
     const modal = document.getElementById('chartModal');
