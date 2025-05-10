@@ -550,10 +550,14 @@ html.js body {
         width: 100%;
         font-size: 1rem;
         box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+        flex-wrap: wrap;         /* 화면이 좁아지면 줄바꿈 허용 */
+        gap: 1rem;               /* 링크 사이 간격 */
+        margin: 1rem 0;          /* 위아래 여유 */
       }
       footer a {
         color: #fff;
         text-decoration: underline;
+        margin: 0;
       }
       #installContainer {
         text-align: center;
@@ -1627,7 +1631,7 @@ body.dark-mode .security-grid li {
     <nav class="bottom-nav">
       <ul>
         <li>
-          <a href="index.html" class="nav-link active" aria-label="뉴스">
+          <a href="#" class="nav-link active" aria-label="뉴스">
             <span class="icon news-icon" role="img" aria-label="뉴스 아이콘"></span>
             <span class="nav-text">뉴스</span>
           </a>
@@ -1980,10 +1984,9 @@ body.dark-mode .security-grid li {
         <p>
           © 2025 Go Higher, 고하이어. All rights reserved.<br />
           운영 지역: 대한민국<br />
-          버그 발견 시 아래 메일로 연락 부탁드립니다.<br>
-          문의:
-          <a href="mailto:hermann8hesse@gmail.com" style="color: #fff; text-decoration: underline;">hermann8hesse@gmail.com</a><br />
-          <a href="privacy-policy.html" style="color: #fff; text-decoration: underline;">개인정보 보호정책<br></a>
+          <a href="privacy-policy.html" style="color: #fff; text-decoration: underline;">개인정보 보호정책</a>
+          <a href="terms.html" style="color: #fff; text-decoration: underline;">이용약관</a>
+          <a href="contact.html" style="color: #fff; text-decoration: underline;">연락처</a>
         </p>
       </footer>
   
@@ -2241,20 +2244,13 @@ if (window.matchMedia('(display-mode: standalone)').matches &&
           }
         }
 
-        // [3] 주기적 백그라운드 싱크 등록 (지원 & 권한 체크)
+        // [3] 주기적 백그라운드 싱크 등록 (지원 여부만 체크)
         if ("periodicSync" in registration) {
           try {
-            const status = await navigator.permissions.query({
-              name: "periodic-background-sync"
+            await registration.periodicSync.register("periodic-gohigher-news", {
+              minInterval: 12 * 60 * 60 * 1000 // 12시간
             });
-            if (status.state === "granted") {
-              await registration.periodicSync.register("periodic-gohigher-news", {
-                minInterval: 12 * 60 * 60 * 1000 // 12시간
-              });
-              console.log("📆 Periodic Sync registered");
-            } else {
-              console.log(`⚠️ Periodic Sync permission: ${status.state}`);
-            }
+            console.log("📆 Periodic Sync registered");
           } catch (err) {
             console.warn("⚠️ Periodic Sync registration failed:", err);
           }
@@ -2281,7 +2277,73 @@ if (window.matchMedia('(display-mode: standalone)').matches &&
       .addEventListener('click', () => {
         document.getElementById('iosInstallPrompt').style.display = 'none';
       });
+      
 
+(function() {
+  // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
+  if (window.innerWidth > 768) return;
+
+  // 1) 동적 스타일 추가
+  const style = document.createElement("style");
+  style.textContent = `
+    .page-selector {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: #fff;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      z-index: 2000;
+      transform: translateY(100%);
+      transition: transform 0.2s;
+    }
+    .page-selector.show {
+      transform: translateY(0);
+    }
+    .selector-btn {
+      padding: 1rem;
+      font-size: 1rem;
+      border: none;
+      background: #f4f4f4;
+      margin: 0.25rem 0;
+      border-radius: 6px;
+    }
+    .selector-btn:hover { background: #e0e0e0; }
+    .selector-btn.cancel { background: #ffdddd; }
+  `;
+  document.head.appendChild(style);
+
+  // 2) 액션 시트 마크업 생성
+  const selector = document.createElement("div");
+  selector.className = "page-selector";
+  selector.innerHTML = `
+    <button class="selector-btn" data-target="index.html">투데이뉴스</button>
+    <button class="selector-btn" data-target="tech.html">기술페이지</button>
+    <button class="selector-btn cancel">취소</button>
+  `;
+  document.body.appendChild(selector);
+
+  // 3) 버튼 이벤트 연결
+  selector.querySelectorAll(".selector-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.classList.contains("cancel")) {
+        selector.classList.remove("show");
+      } else {
+        window.location.href = btn.dataset.target;
+      }
+    });
+  });
+
+  // 4) 뉴스 아이콘에 클릭 리스너
+  const newsLink = document.querySelector('.bottom-nav a[aria-label="뉴스"]');
+  if (newsLink) {
+    newsLink.addEventListener("click", e => {
+      e.preventDefault();
+      selector.classList.add("show");
+    });
+  }
+})();
 </script>
 
 
