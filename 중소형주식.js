@@ -1598,7 +1598,7 @@ const modalData = {
     <li>
       <strong>EPS:</strong> -2.50
       <span>→ 순이익 부진이 주당순이익에 반영되어 경영 효율성에 문제를 시사함.</span>
-    </li>
+       </li>
     <li><strong>EBITDA:</strong> -70.10억 원</li>
     <li>
       <strong>EBIT:</strong> -108.14억 원
@@ -4798,7 +4798,7 @@ document.body.style.overflow = "auto";
 document.getElementById('modalOverlay').addEventListener('click', (event) => {
   if (event.target.id === 'modalOverlay') {
     closeModal();
-  }
+     }
 });
 // ESC 키로 모달 닫기
 document.addEventListener('keydown', (event) => {
@@ -4810,24 +4810,24 @@ document.addEventListener('keydown', (event) => {
 // ---------------------------------------------------------------------------------------
 // (F) 개발자 도구 차단 (옵션)
 // ---------------------------------------------------------------------------------------
-document.addEventListener("keydown", function (event) {
-  if (
-    event.ctrlKey &&
-    (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")
-  ) {
-    event.preventDefault();
-  }
-  if (
-    event.key === "F12" ||
-    (event.ctrlKey && event.shiftKey && event.key === "I") ||
-    (event.ctrlKey && event.shiftKey && event.key === "J")
-  ) {
-    event.preventDefault();
-  }
-});
-document.addEventListener("contextmenu", function (event) {
-  event.preventDefault();
-});
+// document.addEventListener("keydown", function (event) {
+//   if (
+//     event.ctrlKey &&
+//     (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")
+//   ) {
+//     event.preventDefault();
+//   }
+//   if (
+//     event.key === "F12" ||
+//     (event.ctrlKey && event.shiftKey && event.key === "I") ||
+//     (event.ctrlKey && event.shiftKey && event.key === "J")
+//   ) {
+//     event.preventDefault();
+//   }
+// });
+// document.addEventListener("contextmenu", function (event) {
+//   event.preventDefault();
+// });
 
 // ---------------------------------------------------------------------------------------
 // (G) 페이지 로드 후 테이블 렌더링
@@ -4921,19 +4921,19 @@ if (window.pageYOffset > 300) {
 backToTopBtn.addEventListener("click", () => {
 window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-(function() {
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  if (!isLoggedIn) {
-    window.location.href = "https://gohigher.kr/login.html";
-  }
-})();
+// (function() {
+//   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+//   if (!isLoggedIn) {
+//     window.location.href = "https://gohigher.kr/login.html";
+//   }
+// })();
 (function() {
   // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
   if (window.innerWidth > 768) return;
 
   // 1) 동적 스타일 추가
   const style = document.createElement("style");
-  style.textContent = `
+   style.textContent = `
     .page-selector {
       position: fixed;
       left: 0; right: 0; bottom: 0;
