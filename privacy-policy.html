@@ -14,15 +14,11 @@
       --text-color: #333;
       --heading-color: #222;
       --subheading-color: #555;
+      --email-color: #66b3ff;
       --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       --transition: all 0.3s ease;
     }
-    /* 기본 리셋 및 타이포그래피 */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: "Arial", sans-serif;
       line-height: 1.7;
@@ -31,7 +27,6 @@
       padding: 40px 20px;
       text-align: center;
     }
-    /* 컨테이너: 프리미엄 카드 느낌 */
     .container {
       max-width: 800px;
       margin: 30px auto;
@@ -46,14 +41,8 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    h1, h2 {
-      color: var(--heading-color);
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-size: 2.5rem;
-      text-align: center;
-    }
+    h1, h2 { color: var(--heading-color); margin-bottom: 20px; }
+    h1 { font-size: 2.5rem; text-align: center; }
     h2 {
       font-size: 1.5rem;
       border-bottom: 2px solid var(--primary-color);
@@ -65,11 +54,7 @@
       font-size: 1rem;
       margin-bottom: 15px;
     }
-    ul {
-      margin-left: 20px;
-      list-style: disc;
-    }
-    /* HOME 버튼: 상단 고정 버튼, 팔란티어 스타일의 깔끔한 모던 버튼 */
+    ul { margin-left: 20px; list-style: disc; }
     .home-button {
       display: inline-block;
       padding: 8px 20px;
@@ -81,128 +66,114 @@
       border: none;
       border-radius: 5px;
       text-decoration: none;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
       transition: var(--transition);
     }
-    .home-button:hover {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      transform: translateY(-2px);
+    .home-button:hover { transform: translateY(-2px); }
+    /* 이메일 링크 색상 */
+    a.email-link {
+      color: var(--email-color);
+      text-decoration: underline;
     }
-    /* 푸터 스타일 */
-    .footer {
-      margin-top: 30px;
-      font-size: 0.9rem;
-      color: #777;
-      text-align: center;
-    }
-    /* 다크 모드 */
-    body.dark-mode {
-      background: #222;
-      color: #eee;
-    }
-    body.dark-mode .container {
-      background: #333;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    }
-    body.dark-mode h1, 
-    body.dark-mode h2 {
-      color: #fff;
-    }
-    body.dark-mode p,
-    body.dark-mode li {
-      color: #ccc;
-    }
-    body.dark-mode .home-button {
-      background: linear-gradient(135deg, #003366, #002244);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
-    }
-    body.dark-mode .home-button:hover {
-      background: linear-gradient(135deg, #002244, #001122);
-    }
+    .footer { margin-top: 30px; font-size: 0.9rem; color: #777; text-align: center; }
+    body.dark-mode { background: #222; color: #eee; }
+    body.dark-mode .container { background: #333; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    body.dark-mode h1, body.dark-mode h2 { color: #fff; }
+    body.dark-mode p, body.dark-mode li { color: #ccc; }
+    body.dark-mode .home-button { background: linear-gradient(135deg, #003366, #002244); }
+    body.dark-mode .home-button:hover { background: linear-gradient(135deg, #002244, #001122); }
+    body.dark-mode a.email-link { color: var(--email-color); }
   </style>
 </head>
 <body>
-  <!-- HOME 버튼 -->
   <a href="index.html" class="home-button">HOME</a>
-  
   <div class="container">
     <h1>개인정보 보호정책</h1>
-    <p style="text-align: center;"><strong>최종 업데이트 날짜: 2025년 5월 9일</strong></p>
+    <p style="text-align: center;"><strong>최종 업데이트: 2025년 5월 9일</strong></p>
 
-    <h2>1. 개인정보 수집 항목 및 목적</h2>
-    <p>Go Higher 웹사이트(gohigher.kr)는 다음과 같은 정보를 수집할 수 있습니다.</p>
+    <h2>1. 개인정보 처리 목적 및 법적 근거</h2>
     <ul>
-      <li><strong>사용자 제공 정보:</strong> 이메일, 이름 (로그인 및 고객 지원을 위해 사용)</li>
-      <li><strong>자동 수집 정보:</strong> 기기 정보, IP 주소 (앱 기능 개선 및 보안 목적)</li>
+      <li>서비스 제공 및 회원 관리 (로그인, 식별 등) – 동의 기반 (PIPA 제15조)</li>
+      <li>문의사항 처리 및 고객 응대 – 계약 이행 및 법적 의무 이행</li>
+      <li>통계 분석 및 서비스 개선 – 정당한 이익 기반</li>
+      <li>마케팅 정보 제공 – 선택 동의 시 (PIPA 제22조)</li>
     </ul>
 
-    <h2>2. 데이터 사용 목적</h2>
-    <p>수집된 정보는 다음과 같은 목적으로 사용됩니다.</p>
+    <h2>2. 수집 항목 및 보유 기간</h2>
     <ul>
-      <li>웹사이트 기능 제공 및 유지</li>
-      <li>사용자 경험 개선</li>
-      <li>법적 요구 준수</li>
+      <li>수집 항목: 이름, 이메일, IP 주소, 접속 로그, 기기 정보 등</li>
+      <li>수집 방법: 홈페이지 입력, 자동 수집 도구(Google Analytics 등)</li>
+      <li>보유 기간: 수집일로부터 1년 또는 탈퇴 시까지 (법령 별도 규정 시 해당 기간까지)</li>
     </ul>
 
-    <h2>3. 데이터 공유 및 제3자 제공 여부</h2>
-    <p>우리는 사용자의 개인정보를 제3자와 공유하지 않습니다. 단, 다음과 같은 경우 예외가 적용될 수 있습니다.</p>
+    <h2>3. 개인정보 제3자 제공</h2>
+    <p>회사는 원칙적으로 개인정보를 제3자에게 제공하지 않습니다. 다만, 아래 경우에는 예외로 제공합니다.</p>
     <ul>
-      <li>법적 요구가 있을 경우</li>
-      <li>Google Analytics 또는 Firebase와 같은 서비스 이용</li>
+      <li>법령에 따라 제공이 요구될 경우</li>
+      <li>이용자가 사전에 동의한 경우</li>
     </ul>
 
-    <h2>4. 사용자 데이터 보호 조치</h2>
-    <p>우리는 사용자 데이터를 보호하기 위해 다음과 같은 조치를 취하고 있습니다.</p>
+    <h2>4. 개인정보 처리 위탁 및 국외 이전</h2>
     <ul>
-      <li>SSL 암호화를 통한 데이터 전송</li>
-      <li>개인정보 접근 제한</li>
+      <li>위탁 대상자: Google Analytics (Google LLC)</li>
+      <li>위탁 업무: 웹사이트 이용 통계 분석</li>
+      <li>국외 이전 국가: 미국</li>
+      <li>보유 기간: 서비스 목적 달성 시까지</li>
+      <li>이용자는 브라우저 설정을 통해 수집 거부 가능</li>
     </ul>
 
-    <h2>5. 쿠키 및 추적 기술 사용</h2>
-    <p>당사는 사용자 경험을 개선하기 위해 쿠키 및 유사한 기술을 사용할 수 있습니다.</p>
-    <p>사용자는 브라우저 설정을 통해 쿠키 사용을 제한할 수 있습니다.</p>
-    <p>우리는 서비스 개선을 위해 필수 쿠키 및 분석 쿠키를 사용할 수 있습니다.</p>
-    <p>사용자는 브라우저 설정을 통해 쿠키 저장을 거부할 수 있습니다. 거부할 경우 일부 기능이 제한될 수 있습니다.</p>
+    <h2>5. 이용자 권리 및 행사 방법</h2>
+    <p>이용자는 언제든지 아래 권리를 행사할 수 있습니다.</p>
+    <ul>
+      <li>개인정보 열람, 정정, 삭제 요청</li>
+      <li>처리 정지 요청</li>
+    </ul>
+    <p>권리 행사는 <a href="mailto:hermann8hesse@gmail.com" class="email-link"><strong>hermann8hesse@gmail.com</strong></a>로 이메일을 보내주시면 확인 후 지체 없이 처리합니다.</p>
 
-    <h2>6. 사용자 권리 및 데이터 삭제 요청 방법</h2>
-    <p>사용자는 자신의 데이터를 요청하거나 삭제할 권리가 있습니다.</p>
-    <p>데이터 삭제 요청은 <strong>아래의 이메일</strong>로 연락해 주세요.</p>
+    <h2>6. 개인정보 파기 절차 및 방법</h2>
+    <p>보유 기간 경과 또는 처리 목적 달성 시 지체 없이 아래 절차에 따라 파기합니다.</p>
+    <ul>
+      <li>파기 절차: 내부 방침에 따라 분류 후 관리자 승인 → 파기</li>
+      <li>파기 방법: 전자파일은 복구 불가능한 방법으로 삭제, 문서는 분쇄 또는 소각</li>
+    </ul>
 
-    <h2>7. 앱 사용 시 수집되는 정보</h2>
-<p>Go Higher 앱(Android 버전)은 다음과 같은 정보를 수집하거나 접근할 수 있습니다.</p>
-<ul>
-  <li><strong>기기 정보:</strong> 앱 오류 해결 및 서비스 개선을 위한 기기 모델명, OS 버전</li>
-  <li><strong>앱 사용 로그:</strong> 앱 기능 사용 빈도 및 패턴 등 (분석 및 통계 목적, 익명 처리됨)</li>
-</ul>
+    <h2>7. 개인정보 보호 책임자</h2>
+    <ul>
+      <li>성명: 박해진</li>
+      <li>이메일: <a href="mailto:hermann8hesse@gmail.com" class="email-link"><strong>hermann8hesse@gmail.com</strong></a></li>
+      <li>연락처: 010-6258-1675</li>
+    </ul>
 
-    <h2>8. 문의처</h2>
-    <p>개인정보 보호 관련 문의는 다음 이메일로 보내주세요.</p>
-    <p>이메일: <strong><a href="mailto:hermann8hesse@gmail.com" style="color: var(--primary-color); text-decoration: underline;">hermann8hesse@gmail.com</a></strong></p>
-    <p>Go Higher는 14세 미만의 사용자로부터 의도적으로 개인정보를 수집하지 않습니다. 만약 부모님이나 보호자가 자녀의 개인정보가 수집되었다고 판단될 경우, 위의 이메일로 연락해 주시기 바랍니다.</p>
+    <h2>8. 쿠키 및 추적 기술 사용</h2>
+    <p>필수 쿠키, 분석 쿠키 등을 사용하며, 브라우저 설정을 통해 거부할 수 있습니다. 다만 일부 기능이 제한될 수 있습니다.</p>
+
+    <h2>9. 사용자 데이터 보호 조치</h2>
+    <ul>
+      <li>SSL 암호화 적용</li>
+      <li>개인정보 접근 권한 제한</li>
+    </ul>
+
+    <h2>10. 앱 사용 시 수집되는 정보</h2>
+    <ul>
+      <li>기기 정보: 모델명, OS 버전</li>
+      <li>앱 사용 로그: 기능 사용 빈도 및 패턴 (익명 처리)</li>
+    </ul>
+
+    <h2>11. 문의처</h2>
+    <p>개인정보 관련 문의는 위 책임자 이메일로 부탁드립니다.</p>
+
   </div>
-
   <div class="footer">
-    <p>© 2025 Go Higher, 고하이어. All rights reserved.</p>
+    <p>© 2025 Go Higher. All rights reserved.</p>
   </div>
-  
   <script>
-    // 다크 모드 토글 기능 예시 (추가 가능)
-    // 아래 스크립트는 사용자가 원하는 경우 localStorage를 통해 다크 모드를 유지할 수 있도록 합니다.
     document.addEventListener("DOMContentLoaded", () => {
-      const isDark = localStorage.getItem("theme") === "dark";
-      if(isDark) {
-        document.body.classList.add("dark-mode");
-      }
+      if(localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
     });
-    // 예시로 다크 모드 토글을 위해 키보드 단축키 (D 키)를 사용할 수 있습니다.
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", e => {
       if(e.key.toLowerCase() === "d") {
         document.body.classList.toggle("dark-mode");
-        if(document.body.classList.contains("dark-mode")) {
-          localStorage.setItem("theme", "dark");
-        } else {
-          localStorage.setItem("theme", "light");
-        }
+        localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
       }
     });
   </script>
