@@ -1508,8 +1508,8 @@ curationContainer.appendChild(title);
       }
     ]
   }]
-  // 각 카테고리별 카드 생성
-  categories.forEach(cat => {
+  
+categories.forEach(cat => {
     const card = document.createElement("div");
     card.classList.add("curation-card");
 
@@ -1521,18 +1521,22 @@ curationContainer.appendChild(title);
     // 종목 리스트
     const ul = document.createElement("ul");
     cat.items.forEach(item => {
-      const li = document.createElement("li");
+      // 회사명과 설명 분리
+      const [companyName, desc] = item.label.split('–').map(s => s.trim());
+      // 회사명만 <strong> 감싸기
+      const formattedLabel = `<strong>${companyName}</strong> – ${desc}`;
 
+      const li = document.createElement("li");
       // 로고 아이콘
       const logo = document.createElement("img");
       logo.src = item.icon;
-      logo.alt = item.label;
-      logo.classList.add("brand-icon"); 
+      logo.alt = `${companyName} 로고`;
+      logo.classList.add("brand-icon");
       li.appendChild(logo);
 
       // 종목 텍스트
       const span = document.createElement("span");
-      span.textContent = item.label;
+      span.innerHTML = formattedLabel;
       li.appendChild(span);
 
       ul.appendChild(li);
@@ -1543,11 +1547,10 @@ curationContainer.appendChild(title);
     grid.appendChild(card);
   });
 
-  // 바디에 삽입 (footer 위에 두고 싶다면 아래처럼)
+  // 바디에 삽입 (footer 위에 두기)
   const footer = document.querySelector("footer");
   document.body.insertBefore(curationContainer, footer);
 }
-    
     // ──────────────────────────────
     // 결과 박스 생성 함수 (결과 문구 + 버튼)
     // ──────────────────────────────
