@@ -15,8 +15,6 @@
   <!-- 리소스 미리 불러오기 -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"></noscript>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
   
     <title>미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트</title>
     <meta name="description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
@@ -1637,25 +1635,25 @@ body.dark-mode .security-grid li {
         </li>
         <li>
           <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
-            <span class="icon diary-icon" role="img" aria-label="다이어리리 아이콘"></span>
+            <span class="icon diary-icon" role="img" aria-label="다이어리 아이콘"></span>
             <span class="nav-text">다이어리</span>
           </a>
         </li>
         <li>
           <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
-            <span class="icon chart-icon" role="img" aria-label="대가들들 아이콘"></span>
+            <span class="icon chart-icon" role="img" aria-label="대가들 아이콘"></span>
             <span class="nav-text">대가들</span>
           </a>
         </li>
         <li>
           <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
-            <span class="icon company-icon" role="img" aria-label="중소형형 아이콘"></span>
+            <span class="icon company-icon" role="img" aria-label="중소형 아이콘"></span>
             <span class="nav-text">중소형주</span>
           </a>
         </li>
         <li>
           <a href="배당주.html" class="nav-link" aria-label="배당주분석">
-            <span class="icon coinTree-icon" role="img" aria-label="배당주주 아이콘"></span>
+            <span class="icon coinTree-icon" role="img" aria-label="배당주 아이콘"></span>
             <span class="nav-text">배당주</span>
           </a>
         </li>
@@ -2038,22 +2036,6 @@ body.dark-mode .security-grid li {
             deferredPrompt = null;
             document.getElementById("installContainer").style.display = "none";
           }
-        });
-  
-        // 개발자 도구 및 소스 보기 차단
-        document.addEventListener("keydown", function (event) {
-          if (
-            event.ctrlKey &&
-            (event.key === "u" || event.key === "U" || event.key === "s" || event.key === "S")
-          ) {
-            event.preventDefault();
-          }
-          if ((event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J"))) {
-            event.preventDefault();
-          }
-        });
-        document.addEventListener("contextmenu", function (event) {
-          event.preventDefault();
         });
   
         // AOS 초기화
