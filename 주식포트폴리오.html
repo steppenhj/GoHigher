@@ -1242,6 +1242,28 @@ body.dark-mode .security-grid li {
 body.dark-mode .security-grid li {
   background: #444;
 }
+
+@media (max-width: 768px) {
+  /* 1) 고정 지출 입력창과 버튼을 세로로 쌓기 */
+  .fixed-expense-calculator > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+  .fixed-expense-calculator input[type="text"],
+  .fixed-expense-calculator button {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* 3) 모달이 너무 길어지면 스크롤 가능하게 제한 */
+  .modal-content {
+    max-height: calc(100vh - 80px); /* 헤더·하단 네비 공간을 빼고 */
+    overflow-y: auto;
+  }
+}
+
   </style>
 </head>
 <body>
