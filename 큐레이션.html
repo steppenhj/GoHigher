@@ -911,6 +911,15 @@ body.dark-mode .security-grid li {
 body.dark-mode .security-grid li {
   background: #444;
 }
+
+.curation-title {
+  font-size: 2.2rem;
+}
+@media (max-width: 768px) {
+  .curation-title {
+    font-size: 1.5rem;
+  }
+}
   </style>
 </head>
 <body>
@@ -1275,7 +1284,6 @@ body.dark-mode .security-grid li {
   const title = document.createElement("h2");
 title.textContent = "투자 미래를 여는 맞춤 큐레이션";
 title.style.fontFamily = "Roboto, sans-serif";
-title.style.fontSize = "1.5rem";
 title.style.color = "var(--primary-color)";
 title.style.marginBottom = "2rem";
 title.style.marginTop = "3rem";
