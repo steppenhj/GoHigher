@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>면책조항 | GoHigher</title>
+  <link rel="icon" href="/logo.jpg" type="image/jpeg">
+  <style>
+    :root {
+      --primary-color: #004080;
+      --secondary-color: #0059b3;
+      --accent-color: #f4f7fa;
+      --bg-light: #f9f9f9;
+      --text-color: #333;
+      --heading-color: #222;
+      --subheading-color: #555;
+      --link-color: #66b3ff;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Arial", sans-serif;
+      background: var(--accent-color);
+      color: var(--text-color);
+      padding: 40px 20px;
+      line-height: 1.7;
+    }
+    a { color: var(--link-color); text-decoration: none; transition: var(--transition); }
+    a:hover { text-decoration: underline; }
+    .home-button {
+      display: block;
+      width: max-content;
+      margin: 0 auto 30px;
+      padding: 8px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      text-align: center;
+    }
+    .home-button:hover { transform: translateY(-2px); }
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 { font-size: 2.5rem; color: var(--heading-color); text-align: center; margin-bottom: 20px; }
+    h2 {
+      font-size: 1.5rem;
+      color: var(--heading-color);
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 10px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    p, li {
+      color: var(--subheading-color);
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    ol, ul { margin-left: 20px; list-style-position: inside; }
+    .footer { margin-top: 30px; font-size: 0.9rem; color: #777; text-align: center; }
+
+    /* Dark Mode */
+    body.dark-mode { background: #222; color: #eee; }
+    body.dark-mode .container { background: #333; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
+    body.dark-mode h1, body.dark-mode h2 { color: #fff; }
+    body.dark-mode p, body.dark-mode li { color: #ccc; }
+    body.dark-mode a { color: var(--link-color); }
+    body.dark-mode .home-button { background: linear-gradient(135deg, #003366, #002244); }
+    body.dark-mode .home-button:hover { background: linear-gradient(135deg, #002244, #001122); }
+    body.dark-mode .footer { color: #bbb; }
+
+    /* Responsive: Mobile Optimization */
+    @media screen and (max-width: 768px) {
+      body { padding: 20px 10px; }
+      .container { padding: 20px; margin: 20px auto; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.25rem; }
+      p, li { font-size: 0.9rem; margin-bottom: 10px; }
+      ol, ul { margin-left: 16px; }
+      .home-button { display: block; width: 100%; padding: 10px 16px; font-size: 0.9rem; text-align: center; margin-bottom: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-button">HOME</a>
+  <div class="container">
+    <h1>면책조항</h1>
+    <section>
+      <h2>1. 일반 고지</h2>
+      <p>
+        본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인
+        시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나
+        수익을 보장하지 않습니다</u>. 모든 투자 결정과 그 결과에 대한 책임은
+        투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해
+        gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.
+      </p>
+    </section>
+    <section>
+      <h2>2. 투자위험 안내</h2>
+      <p>
+        금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며,
+        <em>과거 실적은 미래 수익을 보장하지 않습니다</em>. 투자를 결정하기 전
+        해당 상품(집합투자규약, 투자설명서 등)을 반드시 확인하시고, 필요 시
+        공인된 전문가와 상의하시기 바랍니다.
+      </p>
+    </section>
+    <section>
+      <h2>3. 등록 현황</h2>
+      <p>
+        gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상
+        <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.
+        본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수
+        없습니다.
+      </p>
+    </section>
+    <p class="footer">제정일: 2025년 5월 12일 | 최종수정일: 2025년 5월 12일</p>
+  </div>
+  <div class="footer">
+    <p>© 2025 GoHigher. All Rights Reserved.</p>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("theme") === "dark") document.body.classList.add("dark-mode");
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key.toLowerCase() === "d") {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+      }
+    });
+  </script>
+</body>
+</html>

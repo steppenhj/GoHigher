@@ -1557,6 +1557,70 @@ body.dark-mode .security-grid li {
   .android-twa .kakao-share-btn {
     display: none;
   }
+
+/* 1) 기본에선 숨김 */
+.mobile-more-container {
+  display: none;
+}
+
+/* 2) 모바일에서만 보이도록 */
+@media (max-width: 768px) {
+  .mobile-more-container {
+    display: block;
+    position: relative;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  .more-btn {
+    display: inline-block;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .more-btn:active {
+    transform: scale(0.98);
+  }
+  .more-menu {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: bottom 0.3s ease;
+    z-index: 100;
+  }
+  .more-menu.show {
+    display: flex;
+  }
+  .more-link {
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-color);
+    border-top: 1px solid #eee;
+    font-size: 0.95rem;
+  }
+  .more-link:first-child {
+    border-top: none;
+  }
+    footer {
+    display: none !important;
+  }
+}
+
+
 </style>
     </style>
     
@@ -1981,6 +2045,17 @@ body.dark-mode .security-grid li {
         
       </div>
       
+      <!-- 모바일 전용 더보기 메뉴 -->
+<div class="mobile-more-container">
+  <button id="more-toggle" class="more-btn">더보기</button>
+  <div id="more-menu" class="more-menu">
+    <a href="privacy-policy.html" class="more-link">개인정보 보호정책</a>
+    <a href="terms.html" class="more-link">이용약관</a>
+    <a href="contact.html" class="more-link">연락처</a>
+    <a href="disclaimer.html" class="more-link">면책조항</a>
+  </div>
+</div>
+
   <!-- 소셜 버튼 컨테이너 (중앙 정렬) -->
   <div class="social-container" style="text-align: center; margin: 30px 0;">
     <a href="about.html" class="common-btn btn-about">ABOUT GH</a>
@@ -2357,6 +2432,27 @@ if (window.matchMedia('(display-mode: standalone)').matches &&
   }
 })();
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('more-toggle');
+    const menu = document.getElementById('more-menu');
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('show');
+    });
+
+    // 메뉴 밖 클릭 시 닫기
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('show');
+      }
+    });
+  });
+</script>
+
 
 
 <script type="module" src="/firebase-messaging-init.js"></script>
