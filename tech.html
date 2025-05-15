@@ -12,6 +12,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <!-- Firestore -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- 메타 -->
     <meta charset="UTF-8">
@@ -72,12 +73,13 @@
         href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap"
         rel="stylesheet">
     </noscript>
+    <!-- 외부 아이콘 & 차트 라이브러리 -->
     <style>
       html {
     font-size: 16px;
   }
   body {
-    background: url(backgroundL.png);
+    background: url(backgroundL.webp);
     display: flex;
     margin: 0;
     padding: 0;
@@ -1268,12 +1270,16 @@ img.lazy-img {
 /* 내용(숨김 처리) */
 .extended-news-list .headline-article .article-content {
   max-height: 0;
-  opacity: 0;
+  line-height: 1.5;
+  opacity: 1;
   margin-top: 0.5rem;
   transition: 
     max-height 0.3s ease, 
     opacity 0.3s ease;
   overflow: hidden;
+  max-height: none !important;   /* ⭐️높이 제한 해제 */
+  overflow: visible !important;  /* 혹시 모를 숨김 해제   */
+  padding-left: 0 !important;    /* 130px 여백도 제거     */
   padding: 0;
 }
 
@@ -1681,10 +1687,200 @@ body.dark-mode .bar > div {
           </aside>
         </div>
         <section class="extended-news-list">
-          <h3>인공지능 뉴스</h3>
-          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>GPT-5 출시 임박</h4></div><div class="article-content"><p>GPT-5는 문맥 유지와 다국어 성능이 향상됨.</p></div></div>
-          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>하이퍼클로바X 글로벌 진출</h4></div><div class="article-content"><p>네이버의 모델이 동남아 시장 공략 중.</p></div></div>
-        </section>
+        <h3>인공지능 뉴스</h3>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>“휴머노이드 공장 혁명”…중국, AI 로봇으로 제조업 체질 개선 노린다
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              상하이 외곽의 거대한 창고에선 로봇 팔 대신 사람 형상의 ‘아지봇’이 티셔츠를 접고 샌드위치를 만드는 테스트를 17시간씩 반복한다.<br>
+              정부가 조성한 1조 위안 펀드와 2조 원 규모의 지방 보조금 덕분에 유니트리·UBTech 등 30여 개 업체가 올해만 36종의 휴머노이드 모델을 내놨다.<br>
+              부품의 90%를 자국에서 조달해 2030년엔 완제품 원가를 1만7천 달러까지 낮추는 것이 목표.<br>
+              일자리 불안을 우려한 국회는 ‘AI 실업 보험’ 도입도 검토 중이다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>“챗GPT 대항마” 퍼플렉서티, 몸값 140억 달러 노린다
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              엔비디아와 제프 베이조스가 투자한 검색형 챗봇 스타트업 퍼플렉서티가 5억 달러 추가 투자 유치에 나섰다.<br>
+              새 라운드가 성사되면 기업가치는 지난해 90억 달러에서 단숨에 140억 달러로 뛰어오른다.<br>
+              주 투자자는 실리콘밸리 대표 VC 액셀이 유력하다.<br>
+              애플이 사파리에 AI 검색 파트너로 퍼플렉서티를 검토 중이라는 소식도 겹치면서 시장 기대가 커졌다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>구글, 연례 I/O 앞두고 ‘전천후 코딩 에이전트’ 사내 시연
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              구글이 사내 엔지니어에게 Gemini 기반 AI 개발도구 ‘소프트웨어 에이전트’를 공개했다.<br>
+              기획부터 코드 작성·문서화·테스트까지 전 과정을 지원하는 것이 목표다.<br>
+              올해 I/O(5월 20일) 키노트에선 음성 모드의 Gemini를 XR 안경·헤드셋과 연동하는 데모도 예고했다.<br>
+              규제와 경쟁 압박 속에서 투자 대비 성과를 보여주려는 의도로 풀이된다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>유엔, ‘킬러 로봇’ 첫 본회의…합의는 여전히 지지부진
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              뉴욕 유엔총회에서 80여 개국이 자율살상무기 규제를 논의했지만 미국·중국·러시아 등은 “각국 지침으로 충분하다”며 구속력 있는 조약에 난색을 표했다.<br>
+              구테흐스 사무총장은 2026년까지 규범 마련을 촉구했으나,<br>
+              200종 넘게 실전에 투입된 AI 무기가 이미 우크라이나·가자지구에서 사용되고 있다는 보고만 재확인됐다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>챗GPT發 충격…체그, 직원 22% 감원·북미 사무실 철수
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              온라인 학습 플랫폼 체그는 구글 ‘AI 개요’와 무료 챗봇 서비스로 트래픽이 급감하자 248명을 해고하고 북미 오피스를 연말까지 닫는다.<br>
+              구조조정 비용 3,400만~3,800만 달러를 반영하지만 2026년까지 연 1억 달러 절감 효과를 기대한다.<br>
+              1분기 구독자는 31% 감소한 320만 명, 매출은 30% 줄어 1억2,100만 달러에 그쳤다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>美 노동부, 스케일AI 임금 조사 종결…스타트업 “환영”
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              최저임금·초과근로 위반 여부를 살폈던 1년여 조사가 “위법 없음” 결론에 이르렀다.<br>
+              엔비디아·아마존·메타가 투자한 데이터 라벨링 업체 스케일AI(기업가치 140억 달러)는 “인재 확보에 집중할 수 있게 됐다”고 밝혔다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>오픈AI–마이크로소프트, ‘IPO 대비’ 지분 재협상
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              FT에 따르면 MS는 130억 달러 투자 대가로 받은 초과지분 일부를 양보하는 대신 2030년 이후 차세대 모델 접근권을 확보하는 방안을 논의 중이다.<br>
+              구조가 확정되면 오픈AI는 기업공개(IPO) 발판을 다지고 MS는 핵심 기술 독점권을 이어갈 수 있다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>애플, ‘스마트 글라스·AI 서버’ 전용 칩 개발…M6·M7도 준비
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              블룸버그에 따르면 애플은 저전력 애플워치 칩을 개량해 다중 카메라 처리를 지원하는 글라스용 칩을 TSMC와 양산할 계획이다.<br>
+              또한 ‘애플 인텔리전스’를 뒷받침할 서버용 프로세서와 차세대 Mac 칩(M6·M7)도 병행 개발 중이다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>MS “딥시크 앱 금지”…사내 보안·선전 우려
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              브래드 스미스 사장은 상원 청문회에서 “딥시크가 수집한 데이터가 중국으로 전송돼 선전 목적으로 활용될 위험이 있다”며 직원 사용을 차단했다고 밝혔다.<br>
+              마이크로소프트 스토어도 해당 앱을 내려받을 수 없도록 조치했다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>바이두 아폴로, 車렌트 1위 ‘CAR Inc’와 자율주행 렌털 출시
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              베이징에서 체결된 협약에 따라 양사는 도심 거점에 자율주행 차량을 배치하고 단기 렌터카 형태로 서비스를 운영한다.<br>
+              중국 내 로보택시 상용화 경쟁이 차량 공유 시장까지 번진 셈이다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>구글, 글로벌 비즈니스 부문 200명 감원…AI 집중 가속
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              안드로이드·크롬·픽셀을 거느린 플랫폼&디바이스 조직에 이어 매출·파트너십을 담당하는 GBG에서도 인력 조정이 단행됐다.<br>
+              “고객 대응 속도와 부서 간 협업을 높이기 위한 재편”이라는 설명이지만 빅테크 전반의 ‘AI 재배치’ 흐름과 궤를 같이한다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>트럼프 행정부, AI 칩 수출 규제 전면 재검토
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              상무부는 “바이든 정부가 도입한 3단계 수출 라이선스 제도가 복잡해 혁신을 저해한다”며 글로벌 정부 간 직접 협약 방식으로 바꾸겠다고 밝혔다.<br>
+              발표 직후 엔비디아 주가는 3% 상승했다가 장 마감 후 소폭 조정됐다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>캐던스, GPU 기반 ‘Millennium M2000’ 슈퍼컴 공개…“시뮬 8일→24시간”
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              엔비디아 블랙웰 GPU 32개를 탑재한 신형 슈퍼컴은 항공·바이오·칩 설계용 시뮬레이션 속도를 최대 8배 단축한다.<br>
+              가격은 약 200만 달러.<br>
+              보잉·붐슈퍼소닉 등이 이미 테스트를 완료했으며 엔비디아도 10대를 구매해 차세대 칩 연구에 활용할 예정이다.
+            </p>
+          </div>
+        </div>
+
+      </section>
         <div style="text-align: center;">
           <button class="read-more" data-target="ai" onclick="toggleExtendedNews(this)">Read More</button>
         </div>
@@ -1815,10 +2011,143 @@ body.dark-mode .bar > div {
           </aside>
         </div>
         <section class="extended-news-list">
-          <h3>사이버보안 뉴스</h3>
-          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>보안기업, 신규 취약점 발표</h4></div><div class="article-content"><p>API 결함 발견, 긴급 패치 필요.</p></div></div>
-          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>AI 보안 기술 공개</h4></div><div class="article-content"><p>실시간 공격 탐지에 AI 기술 활용됨.</p></div></div>
-        </section>
+  <h3>사이버보안 뉴스</h3>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>M&amp;S 사이버 공격…고객 정보 유출·온라인 몰 3주째 ‘블랙아웃’
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        영국 유통 대기업 마크스앤스펜서(M&amp;S)가 4월 25일 이후 이어진 랜섬웨어 공격으로 온라인 주문을 전면 중단한 가운데, 이름·연락처 등 일부 고객 정보가 외부로 빠져나갔다고 공식 확인했다.<br>
+        결제 카드·비밀번호는 저장하지 않아 노출되지 않았지만, 주문 공백에 따른 매출 손실은 주당 약 1,500만 파운드로 추정된다.<br>
+        회사는 경찰·NCSC와 공조하며 복구 작업을 진행 중이지만 주가는 부활절 이후 15&nbsp;% 가까이 빠졌다.
+      </p>
+    </div>
+  </div>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>구글, 러 해킹조직 ‘Cold&nbsp;River’ 새 악성코드 <em>LOSTKEYS</em> 포착
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        구글 위협분석팀(TAG)은 러시아 FSB 연계 해킹그룹 콜드리버가 파일 탈취·시스템 정보 전송 기능을 갖춘 신규 멀웨어 <em>LOSTKEYS</em>를 배포 중이라고 경고했다.<br>
+        올해 초부터 NATO 자문가·우크라이나 지원 인사 등을 표적 삼아 피싱 메일로 감염을 시도했으며, 2022년 美 원자력 연구소 해킹 때 쓰인 툴보다 정교해졌다는 평가다.<br>
+        러시아 대사관은 “근거 없는 주장”이라며 논평을 거부했다.
+      </p>
+    </div>
+  </div>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>“AI 확산이 공격 난이도 키운다”…英 장관, 사이버 방어 전략 예고
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        패트 매커든 영국 내각사무국 장관은 사이버UK&nbsp;2025 포럼 기조연설에서 “AI의 등장으로 공격 빈도와 파괴력이 모두 세 배 이상 증가할 것”이라는 기밀 평가를 공개했다.<br>
+        지난해 NCSC는 2,000건 가까운 공격을 접수했고 그중 12건은 최고 단계로 분류됐다.<br>
+        정부는 올 하반기 ‘사이버 복원력 법안’과 새로운 국가 전략을 내놓겠다고 밝혔다.
+      </p>
+    </div>
+  </div>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>크라우드스트라이크, 직원 5&nbsp;% 감원…연매출 48억 달러 전망은 유지
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        미 사이버보안 업체 크라우드스트라이크가 운영 효율화 차원에서 약 500명을 해고한다.<br>
+        구조조정 비용은 최대 5,300만 달러로 추산되며 1분기에 700만 달러가 반영된다.<br>
+        회사는 2026회계연도 매출(47.4&nbsp;억–48.1&nbsp;억 달러)·조정&nbsp;EPS(3.33–3.45&nbsp;달러) 가이던스를 그대로 유지했고, 실적 발표는 6월 3일 예정돼 있다.
+      </p>
+    </div>
+  </div>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>“인터넷 끊겨도 결제 OK”…핀란드·北유럽·에스토니아, 오프라인 카드 백업 구축
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        발트해 해저 케이블 훼손 사례가 잇따르자 핀란드·스웨덴·노르웨이·덴마크·에스토니아가 오프라인 카드 결제 시스템을 공동 도입한다.<br>
+        단말기에 거래 정보를 암호화·저장했다가 네트워크 복구 후 전송하는 방식으로, 스웨덴은 2026년 7월 1일까지 필수 인프라를 갖춘다는 목표다.<br>
+        핀란드 중앙은행은 “결제를 미 비자·마스터카드에 과도하게 의존하고 있다”며 유럽 차원의 대안을 촉구했다.
+      </p>
+    </div>
+  </div>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>SKT 2,300만명 개인정보 유출…최태원 회장 ‘대국민 사과’
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        SK그룹 최태원 회장이 사상 최대 규모로 알려진 SK텔레콤 고객 데이터 유출 사태에 대해 공식 사과했다.<br>
+        이름·연락처·결제정보 등이 해커에 넘어간 것으로 추정되며, 당국은 사고 원인으로 내부 계정 탈취 가능성을 조사 중이다.<br>
+        SKT는 피해 고객 모니터링 서비스와 보상 절차를 약속했지만, 가입자 불안과 집단소송 움직임이 커지고 있다.
+      </p>
+    </div>
+  </div>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>메타, NSO에 1억6,800만 달러 배상 판결…“스파이웨어 첫 배심원 승소”
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        미 캘리포니아 배심원단은 이스라엘 스파이웨어 기업 NSO가 WhatsApp 취약점을 악용해 불법 감시에 나섰다며 1억6,730만 달러의 징벌적 손해배상을 메타(구 페이스북)에 지급하라고 평결했다.<br>
+        2019년 제소된 이 사건은 빅테크가 공격적 소송으로 민간 스파이웨어 산업에 제동을 건 첫 사례로 평가된다.<br>
+        NSO는 항소를 예고했다.
+      </p>
+    </div>
+  </div>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>영국 Co-op, 회원 데이터 대량 탈취 확인…M&amp;S 사태 이어 ‘도미노’
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        회원 소유 협동조합 Co-op은 해커가 과거·현재 조합원 대규모 개인정보를 빼냈다고 밝혔다.<br>
+        이름·연락처·생년월일 등이 포함됐지만 비밀번호·결제정보는 안전하다고 설명했다.<br>
+        NCSC·국가범죄수사국이 수사에 착수했으며, 최근 M&amp;S·해롯·Co-op까지 연쇄 공격을 받은 영국 소매업계에 비상이 걸렸다.
+      </p>
+    </div>
+  </div>
+
+  <div class="headline-article" onclick="toggleArticle(this)">
+    <div>
+      <h4>트럼프 前 안보보좌관 사용 ‘TeleMessage’ 해킹…앱 운영사, 서비스 전면 중단
+        <small>2025-05-13</small>
+      </h4>
+    </div>
+    <div class="article-content">
+      <p>
+        도널드 트럼프 전 대통령의 국가안보보좌관 마이크 월츠가 내부 소통에 쓰던 암호화 메신저 TeleMessage가 서버 침해 사실을 인정하고 모든 기능을 일시 중단했다.<br>
+        美 세관국경보호국은 즉각 해당 앱을 공용 단말기에서 제거했으며, 해커는 일부 메시지 자료를 언론에 제공한 것으로 알려졌다.<br>
+        운영사 스마쉬(Smarsh)는 “조사 결과가 나올 때까지 중단 조치를 유지할 것”이라고 밝혔다.
+      </p>
+    </div>
+  </div>
+</section>
         <div style="text-align: center;">
           <button class="read-more" data-target="cyber" onclick="toggleExtendedNews(this)">Read More</button>
         </div>
@@ -1910,7 +2239,7 @@ body.dark-mode .bar > div {
         </div>
         <section class="extended-news-list">
           <h3>우주 뉴스</h3>
-          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>NASA, 달 탐사선 발사 예고</h4></div><div class="article-content"><p>새 로켓 시험 완료, 연내 발사 예정.</p></div></div>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>달 표면용 GPS 시대 개막…스페인 GMV, ‘LUPIN’ 내비게이션 시스템 공개<small>2025-05-13</small></h4></div><div class="article-content"><p>스페인 우주·방위 기술기업 GMV가 달 탐사용 실시간 위치·항법(PNT) 시스템 ‘LUPIN’을 선보였다. 유럽우주국(ESA)의 Moonlight 프로그램 일환으로 개발된 LUPIN은 달 궤도를 도는 위성 신호와 축적된 고해상도 지도를 결합해 “구글 지도 켜고 시내 운전하듯” 탐사 로버와 우주비행사에게 정확한 좌표를 제공한다.</p></div></div>
           <div class="headline-article" onclick="toggleArticle(this)"><div><h4>화성 유인 탐사 시험</h4></div><div class="article-content"><p>스페이스X가 전초 테스트 실시 계획.</p></div></div>
         </section>
         <div style="text-align: center;">
@@ -2041,8 +2370,8 @@ body.dark-mode .bar > div {
         </div>
         <section class="extended-news-list">
           <h3>기술혁신 뉴스</h3>
-          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>AI 비즈니스 자동화 솔루션</h4></div><div class="article-content"><p>중소기업을 위한 업무 자동화 솔루션 출시.</p></div></div>
-          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>스타트업 생태계, 규제완화 요구</h4></div><div class="article-content"><p>기술 스타트업들이 정부에 법 개정 건의.</p></div></div>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>사우디, PIF 산하 ‘Humain’ 설립해 AI 허브 도약 선언<small>2025-05-13</small></h4></div><div class="article-content"><p>사우디아라비아는 무함마드 빈 살만 왕세자가 직접 의장을 맡은 새 법인 Humain을 국부펀드(PIF) 산하에 출범시키며, 초대형 아랍어 멀티모달 LLM과 차세대 데이터센터·클라우드 인프라를 앞세워 “미국 밖 최대 AI 중심지”가 되겠다는 비전을 제시했다.</p></div></div>
+          <div class="headline-article" onclick="toggleArticle(this)"><div><h4>바이두, 동물 울음·생체신호를 ‘문장’으로 번역하는 AI 특허 출원<small>2025-05-13</small></h4></div><div class="article-content"><p>바이두는 소리·행동·심박 등 동물 데이터를 AI로 분석해 행복·불안 등 감정을 추론한 뒤 인간 언어로 매핑하는 시스템을 중국 특허청에 신청했으며, 반려동물 돌봄부터 야생 연구까지 다양한 활용을 꿈꾸고 있지만 현재는 연구 단계라고 설명했다.</p></div></div>
         </section>
         <div style="text-align: center;">
           <button class="read-more" data-target="disrupted" onclick="toggleExtendedNews(this)">Read More</button>
