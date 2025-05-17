@@ -60,7 +60,16 @@
 <script type="module">
   import { Capacitor } from "https://cdn.jsdelivr.net/npm/@capacitor/core@5.0.0/dist/capacitor.js";
   window.Capacitor = Capacitor;
+
+  alert(navigator.userAgent);
+
+  if (window.Capacitor) {
+    alert("진짜 앱에서 실행 중!");
+  } else {
+    alert("이건 웹 브라우저에서 실행 중!");
+  }
 </script>
+
 
     <!-- 구조화된 데이터: WebSite -->
     <script type="application/ld+json">
