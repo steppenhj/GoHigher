@@ -2469,11 +2469,10 @@ if (window.matchMedia('(display-mode: standalone)').matches &&
 
 <script>
   alert(navigator.userAgent);
-
-  if (window.Capacitor) {
-  alert("진짜 앱에서 실행 중!");
+if (/wv/.test(navigator.userAgent)) {
+  alert("앱(WebView)에서 실행 중!");
 } else {
-  alert("이건 웹 브라우저에서 실행 중!");
+  alert("웹 브라우저에서 실행 중!");
 }
 
 </script>
