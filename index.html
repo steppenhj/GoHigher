@@ -57,6 +57,11 @@
 <!-- 수정: integrity 제거 -->
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js" crossorigin="anonymous" async></script>
 
+<script type="module">
+  import { Capacitor } from "https://cdn.jsdelivr.net/npm/@capacitor/core@5.0.0/dist/capacitor.js";
+  window.Capacitor = Capacitor;
+</script>
+
     <!-- 구조화된 데이터: WebSite -->
     <script type="application/ld+json">
       {
