@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging.js";
 import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
 
@@ -7,14 +7,14 @@ const firebaseConfig = {
   apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
   authDomain: "gohigher-55e51.firebaseapp.com",
   projectId: "gohigher-55e51",
-  storageBucket: "gohigher-55e51.firebaseapp.com",
+  storageBucket: "gohigher-55e51.appspot.com",
   messagingSenderId: "487435343721",
   appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
   measurementId: "G-KQ02L8DXG0"
 };
 
-// 앱 초기화
-const app = initializeApp(firebaseConfig);
+// 앱 초기화 (중복 방지)
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 // 🟩 Analytics 초기화
 const analytics = getAnalytics(app);

@@ -2651,7 +2651,7 @@ if (/wv/.test(navigator.userAgent)) {
 </script>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
   import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -2663,7 +2663,8 @@ if (/wv/.test(navigator.userAgent)) {
     appId: "1:487435343721:web:dc5708c3a263214fba4ff8"
   };
 
-  const app = initializeApp(firebaseConfig);
+  // 🔴 여기만 바뀜
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
   async function fetchETF(symbol) {
@@ -2681,6 +2682,7 @@ if (/wv/.test(navigator.userAgent)) {
   // ETF 심볼 순회
   ["SPY", "QQQ", "DIA"].forEach(fetchETF);
 </script>
+
 
 
 <script type="module" src="/firebase-messaging-init.js"></script>
