@@ -1043,9 +1043,9 @@ body.dark-mode .security-grid li {
           <div class="mega-col">
             <h4>News</h4>
             <ul>
-              <li><a href="#technology">정치</a></li>
-              <li><a href="tech.html">기술</a></li>
-              <li><a href="#opinion">의견</a></li>
+                <li><a href="politics.html">정치 뉴스</a></li>
+                <li><a href="tech.html">기술 뉴스</a></li>
+                <li><a href="cnbc-news.html">외신 뉴스</a></li>
             </ul>
           </div>
           <div class="mega-col">
@@ -1780,7 +1780,9 @@ document.addEventListener("DOMContentLoaded", function () {
   selector.className = "page-selector";
   selector.innerHTML = `
     <button class="selector-btn" data-target="index.html">투데이뉴스</button>
-    <button class="selector-btn" data-target="tech.html">기술페이지</button>
+    <button class="selector-btn" data-target="tech.html">기술뉴스</button>
+    <button class="selector-btn" data-target="cnbc-news.html">외신뉴스</button>
+    <button class="selector-btn" data-target="politics.html">정치뉴스</button>
     <button class="selector-btn cancel">취소</button>
   `;
   document.body.appendChild(selector);
