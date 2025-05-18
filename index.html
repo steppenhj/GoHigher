@@ -1786,6 +1786,71 @@ body.dark-mode .news-title {
 body.dark-mode .news-desc {
   color: #bcd;
 }
+.capacitor-app .kakao-share-btn {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .capacitor-app html,
+  .capacitor-app body {
+    font-size: 15px !important;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+  }
+  .capacitor-app h1,
+  .capacitor-app h2,
+  .capacitor-app h3,
+  .capacitor-app .news-section h2,
+  .capacitor-app .half-section h2,
+  .capacitor-app .full-section h2,
+  .capacitor-app .news-card h3,
+  .capacitor-app .news-title {
+    font-size: 1.15rem !important;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+  }
+  .capacitor-app .stock-table th,
+  .capacitor-app .stock-table td {
+    font-size: 0.93rem !important;
+    padding: 0.42rem 0.5rem;
+    line-height: 1.45;
+  }
+  .capacitor-app .news-card p,
+  .capacitor-app .news-desc,
+  .capacitor-app .save-notice,
+  .capacitor-app .index-price-box,
+  .capacitor-app .earnings-list ul li,
+  .capacitor-app .etf-row {
+    font-size: 0.98rem !important;
+    line-height: 1.58;
+  }
+  .capacitor-app .earnings-list li > strong {
+    font-size: 1.03rem !important;
+  }
+  .capacitor-app .earnings-list ul li {
+    font-size: 0.91rem !important;
+    padding-left: 0.35rem;
+  }
+  .capacitor-app .bottom-nav .nav-text {
+    font-size: 0.80rem !important;
+  }
+  .capacitor-app .common-btn,
+  .capacitor-app .more-btn,
+  .capacitor-app .more-link {
+    font-size: 1.01rem !important;
+  }
+  .capacitor-app #chatbot-header {
+    font-size: 1.04rem !important;
+  }
+  .capacitor-app #chatbot-user-input,
+  .capacitor-app #chatbot-send-btn {
+    font-size: 1rem !important;
+  }
+  .capacitor-app .wave-text {
+    font-size: 1.01rem !important;
+    padding: 0 8px !important;
+  }
+}
 
 </style>
     
@@ -2478,10 +2543,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-if (window.matchMedia('(display-mode: standalone)').matches &&
-      /Android/i.test(navigator.userAgent)) {
-    document.documentElement.classList.add('android-twa');
-  }
+if (window.Capacitor) {
+  document.documentElement.classList.add('capacitor-app');
+}
+
 </script>
 
 <script>
@@ -2631,6 +2696,14 @@ if (window.matchMedia('(display-mode: standalone)').matches &&
       }
     });
   });
+</script>
+
+
+<script>alert(window.innerWidth + " x " + window.innerHeight);
+if (window.Capacitor) {
+  document.documentElement.classList.add('capacitor-app');
+}
+
 </script>
 
 <script type="module" src="/firebase-messaging-init.js"></script>

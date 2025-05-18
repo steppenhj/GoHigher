@@ -15,8 +15,6 @@
 
 <!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chart.js">
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0">
 
   <!-- 페이지 제목 -->
   <title>배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석</title>
@@ -35,7 +33,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   <!-- Font Awesome 아이콘 CDN -->
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+        integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- 네이버 / 구글 사이트 검증 메타 -->
   <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
   <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
@@ -95,7 +95,7 @@ html.js body {
       font-size: 16px;
     }
     body {
-      background: url(backgroundL.png);
+      background: url(backgroundL.webp);
     }
     :root {
       --primary-color: #004080;
@@ -357,7 +357,7 @@ html.js body {
       }    
     /* 다크모드 스타일 */
     body.dark-mode {
-      background: url(backgroundD.png);
+      background: url(backgroundD.webp);
       color: white;
     }
     body.dark-mode header {
@@ -592,253 +592,447 @@ footer p{
     }
   }
 }
+/* --- 뉴스 피드 및 카드 관련 CSS --- */
+.container { /* 뉴스 피드를 감싸는 컨테이너의 기본 스타일 */
+  width: 90%;
+  max-width: 1200px; /* 최대 너비 설정 */
+  margin: 2rem auto; /* 상하 마진 및 중앙 정렬 */
+  padding: 1rem;
+  background-color: var(--bg-section); /* 섹션 배경색 (라이트/다크 모드에 따라 변경) */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
-      /* Main Content */
-      .main-content { max-width:1024px; margin:2rem auto; padding:0 1rem; }
-      .news-section { background:#fff; border-radius:8px; padding:2rem; box-shadow:0 2px 8px var(--card-shadow); }
-      .news-section h2 { font-family:'Roboto',sans-serif; color:var(--primary-color); margin-bottom:1rem; border-bottom:2px solid var(--primary-color); display:inline-block; padding-bottom:0.4rem; }
-      .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; }
-      .news-card { background:var(--card-bg); border-radius:6px; padding:1rem; box-shadow:0 1px 4px var(--card-shadow); transition:transform 0.2s; }
-      .news-card:hover { transform:translateY(-3px); box-shadow:0 4px 12px var(--card-shadow); }
-      .news-title { font-size:1.1rem; font-weight:600; margin-bottom:0.6rem; }
-      .news-title a { color:var(--secondary-color); }
-      .news-summary { font-size:0.95rem; color:#555; margin-bottom:0.8rem; }
-      .news-date { font-size:0.85rem; color:#888; text-align:right; }
+body.dark-mode .container {
+  background-color: var(--bg-section); /* 다크 모드 섹션 배경색 */
+}
 
-.tab-dropdown {
-position: relative;
+#news-feed {
+  /* 데스크탑에서는 그리드 레이아웃 사용 */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 반응형 그리드 */
+  gap: 1.5rem; /* 카드 사이의 간격 */
+  padding: 1rem 0; /* 내부 패딩 */
+}
+
+#news-feed h2 { /* '최신 뉴스' 제목 스타일 */
+  grid-column: 1 / -1; /* 제목이 그리드 전체 너비를 차지하도록 설정 */
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.news-card {
+  background-color: var(--card-bg); /* 카드 배경색 (라이트/다크 모드에 따라 변경) */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden; /* 이미지가 카드를 벗어나지 않도록 */
+  display: flex;
+  flex-direction: column; /* 이미지와 내용을 세로로 배치 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-5px); /* 호버 시 살짝 위로 이동 */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.news-image {
+  width: 100%;
+  height: 200px; /* 이미지 높이 고정 */
+  object-fit: cover; /* 이미지가 비율을 유지하며 채우도록 설정 */
+  display: block; /* 이미지 하단 여백 제거 */
+}
+
+.news-content {
+  padding: 1rem;
+  flex-grow: 1; /* 내용 부분이 카드의 남은 공간을 채우도록 */
+  display: flex;
+  flex-direction: column;
+}
+
+.news-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.news-summary {
+  font-size: 0.9rem;
+  color: var(--text-color); /* 요약 내용 텍스트 색상 */
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  flex-grow: 1; /* 요약 내용이 가능한 많은 공간을 차지하도록 */
+}
+
+.news-date {
+  font-size: 0.8rem;
+  color: #777; /* 날짜 텍스트 색상 */
+  text-align: right; /* 날짜를 오른쪽으로 정렬 */
+  margin-top: auto; /* 내용이 적을 경우 날짜를 하단에 고정 */
+}
+
+/* 다크 모드 시 뉴스 카드 텍스트 색상 조정 */
+body.dark-mode .news-title,
+body.dark-mode .news-summary {
+  color: var(--text-color); /* 다크모드 텍스트 색상 변수 사용 */
+}
+
+body.dark-mode .news-date {
+  color: #aaa; /* 다크 모드 날짜 색상 */
+}
+
+
+/* --- 반응형: 모바일 화면 (예: 768px 이하) --- */
+@media (max-width: 768px) {
+  .container {
+    width: 100%; /* 모바일에서는 너비를 100%로 */
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border-radius: 0; /* 모바일에서는 컨테이너 radius 제거 가능 */
+  }
+
+  #news-feed {
+    /* 모바일에서는 세로로 카드 나열 (기본 block 동작) */
+    display: block; 
+    padding: 0 0.5rem; /* 모바일용 패딩 */
+  }
+
+  #news-feed h2 {
+    font-size: 1.5rem; /* 모바일용 제목 크기 */
+    margin-bottom: 1rem;
+  }
+
+  .news-card {
+    margin-bottom: 1rem; /* 카드 사이의 간격 (세로 배치 시) */
+    /* 모바일에서는 그림자 효과를 줄이거나 다르게 설정 가능 */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  .news-image {
+    height: 180px; /* 모바일용 이미지 높이 조정 */
+  }
+
+  .news-title {
+    font-size: 1.1rem; /* 모바일용 제목 크기 */
+  }
+
+  .news-summary {
+    font-size: 0.85rem; /* 모바일용 요약 텍스트 크기 */
+  }
+  .read-more {
+    margin-bottom: 90px !important;
+    width: 100%; /* 전체 너비 유지 */
+    margin: 0; /* 여백 제거 */
+    border-radius: 0 !important; /* 각진 모양으로 변경 */
+    font-size: 1.2rem; /* 크기 조정 (선택사항) */
+    border: none; /* 필요시 테두리 제거 */
+    box-shadow: none; /* 그림자 제거 또는 조정 */
+    background: linear-gradient(135deg, #004080, #007acc); /* 기존 배경 유지 또는 변경 가능 */
+  }
+  /* 4) 추가 뉴스(extended-news-list) 가독성 강화 */
+   .category-group .extended-news-list {
+    /* 부모(.tech-layout)의 좌우 padding(1rem)을 상쇄 */
+    margin: 1.5rem -1rem;    
+    width: calc(100% + 2rem); /* 100% + 좌우 오프셋 */
+    padding: 1rem;            
+    box-sizing: border-box;   
+    clear: both;              /* 위에 떠 있는 요소들과 겹치지 않도록 */
+    background: var(--bg-section);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  /* 뉴스 섹션 전체 너비 확장 */
+  .extended-news-list {
+    margin: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .extended-news-list h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+  .extended-news-list .headline-article {
+    padding: 0.8rem;
+  }
+  .category-group .read-more {
+    display: block;
+    margin: 0 -1rem 1.5rem;  
+    width: calc(100% + 2rem);
+    padding: 0.8rem 1rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}
+/* ── “더 보기” 버튼 ── */
+.read-more {
 display: inline-block;
+margin: 2rem 0;
+padding: 8px 18px;
+font-size: 1rem;
+font-weight: 600;
+background: linear-gradient(135deg, #004080, #007acc);
+color: white;
+border: none;
+border-radius: 30px;
+box-shadow: 0 4px 12px rgba(0, 64, 128, 0.3);
+transition: all 0.3s ease;
+cursor: pointer;
+}
+
+.read-more:hover {
+background: linear-gradient(135deg, #007acc, #004080);
+box-shadow: 0 6px 18px rgba(0, 64, 128, 0.4);
+transform: translateY(-2px);
+}
+.read-more:focus {
+outline: none;
+}
+.headline-article { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; border-bottom: 1px solid #ddd; cursor: pointer; }
+    .headline-article h4 { margin: 0; font-size: 1.1rem; }
+    .article-content { display: none; margin-top: 0.5rem; padding-left: 130px; color: #333; }
+    .headline-article.active .article-content { display: block; }
+    .extended-news-list h3 {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.extended-news-list {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: var(--bg-section);
+  padding: 0 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin: 2rem auto 1rem;
+  width: 80%;
+}
+/* ── 카드(기사) 컨테이너 ── */
+.extended-news-list .headline-article {
+  flex-direction: column;
+  background: var(--card-bg);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid transparent;
+  transition: 
+    transform 0.2s ease, 
+    box-shadow 0.2s ease, 
+    border-color 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* 제목 */
+.extended-news-list .headline-article h4 {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+  margin: 0;
+}
+
+/* 내용(숨김 처리) */
+.extended-news-list .headline-article .article-content {
+  max-height: 0;
+  line-height: 1.5;
+  opacity: 1;
+  margin-top: 0.5rem;
+  transition: 
+    max-height 0.3s ease, 
+    opacity 0.3s ease;
+  overflow: hidden;
+  max-height: none !important;   /* ⭐️높이 제한 해제 */
+  overflow: visible !important;  /* 혹시 모를 숨김 해제   */
+  padding-left: 0 !important;    /* 130px 여백도 제거     */
+  padding: 0;
+}
+
+/* 호버 효과 */
+.extended-news-list .headline-article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  border-color: var(--primary-color);
+}
+
+/* 클릭(토글) 시 내용 펼침 */
+.extended-news-list .headline-article.active .article-content {
+  max-height: 5rem; /* 내용 길이에 맞춰 조정 */
+  opacity: 1;
+}
+.extended-news-list.show {
+  max-height: none;
+  opacity: 1;
+  padding: 1.8rem 1.2rem;
+}
+body.dark-mode .extended-news-list .article-content p {
+  color: var(--text-color) !important;
+}
+/* 1) 드롭다운 기본 감싸기 */
+.tab-dropdown {
+  position: relative;
+  display: inline-block;
 }
 
 .tab-item {
-color: #fff;
-font-weight: 500;
-padding: 0.6rem 1.2rem;
-border-radius: 20px;
-text-decoration: none;
-position: relative;
-transition: all 0.3s ease;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 .tab-item::after {
-content: "";
-position: absolute;
-bottom: -6px;
-left: 50%;
-transform: translateX(-50%);
-width: 0;
-height: 4px;
-background-color: #fbd314;
-border-radius: 2px;
-transition: width 0.3s ease;
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fbd314;
+  border-radius: 2px;
+  transition: width 0.3s ease;
 }
 
 .tab-item:hover {
-background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .tab-item:hover::after {
-width: 60%;
+  width: 60%;
 }
 
-      .mega-menu {
-display: none;
-position: absolute;
-top: 39px;
-left: 0;
-width: 800px;
-background: white;
-box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-padding: 1rem;
-border-radius: 4px;
-z-index: 20;
-gap: 2rem;
-flex-wrap: wrap;
+.mega-menu {
+  display: none;
+  position: absolute;
+  top: 39px;
+  left: 0;
+  width: 800px;
+  background: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  padding: 1rem;
+  border-radius: 4px;
+  z-index: 20;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .tab-dropdown:hover .mega-menu {
-display: flex;
+  display: flex;
 }
 
 .mega-col {
-flex: 1;
-padding: 0 1rem;
-min-width: 200px;
+  flex: 1;
+  padding: 0 1rem;
+  min-width: 200px;
 }
 
 .mega-col + .mega-col {
-border-left: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
 }
 
 .mega-col h4 {
-margin-bottom: 0.5rem;
-font-size: 1rem;
-color: #004080;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #004080;
 }
 
 .mega-col ul {
-list-style: none;
-padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .mega-col ul li {
-margin-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 .mega-col ul li a {
-text-decoration: none;
-color: #333;
-font-size: 0.9rem;
-transition: color 0.2s;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  transition: color 0.2s;
 }
 
 .mega-col ul li a:hover {
-color: #0059b3;
+  color: #0059b3;
 }
 .mega-col ul:not(.security-grid) {
-display: flex;
-flex-wrap: wrap;
-gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .mega-col ul:not(.security-grid) li {
-margin: 0;
+  margin: 0;
 }
 .security-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 0.8rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
 }
 
 .security-grid li {
-background: #f9f9f9;
-padding: 0.6rem;
-border-radius: 4px;
-font-size: 0.85rem;
-text-align: center;
-box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  background: #f9f9f9;
+  padding: 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .security-grid li strong {
-display: block;
-margin-bottom: 0.2rem;
-color: #0059b3;
+  display: block;
+  margin-bottom: 0.2rem;
+  color: #0059b3;
 }
 
 /* ▼ 화살표 효과 */
 .tab-dropdown > .tab-item {
-position: relative;
-padding-right: 1.6em;
+  position: relative;
+  padding-right: 1.6em;
 }
 
 .tab-dropdown > .tab-item::before {
-content: "▼";
-position: absolute;
-right: 0.6em;
-top: 50%;
-transform: translateY(-50%);
-font-size: 0.7em;
-opacity: 1;
-transition: opacity 0.2s;
-pointer-events: none;
+  content: "▼";
+  position: absolute;
+  right: 0.6em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  opacity: 1;
+  transition: opacity 0.2s;
+  pointer-events: none;
 }
 
 .tab-dropdown:hover > .tab-item::before {
-opacity: 0;
+  opacity: 0;
 }
 
 /* 🌙 다크모드 대응 */
 body.dark-mode .mega-menu {
-background: #333;
+  background: #333;
 }
 body.dark-mode .mega-col h4,
 body.dark-mode .mega-col ul li a,
 body.dark-mode .security-grid li {
-color: #cacaca;
-}
-body.dark-mode .security-grid li {
-background: #444;
-}
-
-/* ─── 다크모드 보완 ─── */
-body.dark-mode {
-  background: url(backgroundD.png) center/cover no-repeat;
-  color: var(--text-color);
-}
-
-/* 탭 네비게이션 (데스크탑) */
-body.dark-mode .desktop-nav .tab-item {
   color: #cacaca;
-  background: transparent;
-  border-color: #555;
-}
-body.dark-mode .desktop-nav .tab-item:hover {
-  background: rgba(255,255,255,0.1);
-}
-body.dark-mode .desktop-nav .tab-item.active {
-  color: #fff;
-}
-body.dark-mode .top-tab-nav .mega-menu {
-  background: #2a2a2a;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-}
-body.dark-mode .mega-col h4 {
-  color: #f4f4f4;
-}
-body.dark-mode .mega-col ul li a {
-  color: #cacaca;
-}
-body.dark-mode .mega-col ul li a:hover {
-  color: #fff;
 }
 body.dark-mode .security-grid li {
   background: #444;
-  color: #cacaca;
 }
-body.dark-mode .security-grid li strong {
-  color: #fbd314;
-}
-
-/* 메인 콘텐츠 및 카드 */
-body.dark-mode .main-content {
-  background: var(--bg-section);
-}
-body.dark-mode .news-section {
-  background: #333;
-}
-body.dark-mode .news-card {
-  background: #444;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-}
-body.dark-mode .news-title a {
-  color: var(--accent-color);
-}
-body.dark-mode .news-summary,
-body.dark-mode .news-date {
-  color: #ccc;
-}
-
-/* 하단 Nav (모바일) */
-body.dark-mode .bottom-nav {
-  background: #222;
-}
-body.dark-mode .bottom-nav .nav-text {
-  color: #cacaca;
-}
-body.dark-mode .bottom-nav .nav-link.active .nav-text {
-  color: #fff;
-}
-
-/* ─── 모바일 마지막 뉴스 아래 여유 공간 ─── */
-@media (max-width: 768px) {
-  /* main-content 전체에 패딩을 주거나, 섹션마다 margin-bottom을 줄 수 있습니다 */
-  .main-content {
-    padding-bottom: 5rem;  /* 하단 네비게이션 위에 콘텐츠가 떠 있도록 */
-  }
-  /* 또는 뉴스 카드 마지막 항목에만 간격을 줄 때 */
-  .grid .news-card:last-child {
-    margin-bottom: 2rem;
-  }
+h2{
+  margin: 1.5rem 0;
 }
 .mega-menu {
   background: #fff;
@@ -969,7 +1163,190 @@ body.dark-mode .news-desc {
         <a href="배당주.html" class="tab-item">배당주</a>
         <a href="큐레이션.html" class="tab-item">큐레이션</a>
       </nav>
-    </header>
+  </header>
+
+  <main>
+    <section id="news-feed" class="container">
+      <h2 style="padding-top: 1rem;">정치</h2>
+      
+      <!-- JavaScript에 의해 동적으로 생성된 첫 번째 뉴스 카드 -->
+      <article class="news-card">
+        <img src="politicsImages/politics1.jpg" alt="정치 뉴스 1" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"미국 대법원, 트럼프 추방 중단 조치 유지 결정"</h3>
+          <p class="news-summary">미국 대법원은 전시법을 근거로 한 트럼프 행정부의 이민자 추방 중단 조치를 유지하며, 이민 정책에 중요한 영향을 미칠 전망입니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+      <!-- JavaScript에 의해 동적으로 생성된 두 번째 뉴스 카드 -->
+      <article class="news-card">
+        <img src="politicsImages/politics2.jpg" alt="정치 뉴스 2" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"연방노동부, 트럼프의 공무원 파업 방지 조치 승인"</h3>
+          <p class="news-summary">연방정부는 트럼프 행정부가 추진한 공무원 파업 방지 계획을 승인하며, 노동권 제한 논란이 예상됩니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <img src="politicsImages/politics3.jpg" alt="정치 뉴스 3" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"기소 취하된 톰 기라디 사건, 법적 절차 진행 중"</h3>
+          <p class="news-summary">시카고와 캘리포니아에서 기소가 취하된 톰 기라디 사건은 아직 법적 절차가 남아 있으며, 판결이 기다려지고 있습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="politicsImages/politics4.jpg" alt="정치 뉴스 4" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"트럼프 행정부, 바이든 정책 뒤집고 강제 재설정 허용"</h3>
+          <p class="news-summary">트럼프 행정부는 바이든 정부의 정책을 뒤집으며, 총기 규제와 관련된 강제 재설정을 허용하는 조치를 발표했습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="politicsImages/politics5.jpg" alt="정치 뉴스 5" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"카타르 선물 비행기, 트럼프 대통령 허용 여부 논란"</h3>
+          <p class="news-summary">카타르의 선물 비행기가 미국 법률상 트럼프 대통령에게 허용될 수 있는지 여부가 논란이 되고 있습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="politicsImages/politics6.jpg" alt="정치 뉴스 6" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"트럼프 명령, 화웨이 형사 사건 법적 문제 제기"</h3>
+          <p class="news-summary">미국 법원이 화웨이 관련 형사 사건에서 트럼프 행정부의 명령이 법적 문제를 야기할 수 있다고 지적하며, 법적 쟁점이 부각되고 있습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="politicsImages/politics7.jpg" alt="정치 뉴스 7" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"뉴욕, 트럼프 관련 무료 법률 지원 제한 법안 통과"</h3>
+          <p class="news-summary">뉴욕에서 트럼프 관련 무료 법률 지원을 제한하는 법안이 통과되면서, 법률 지원의 공정성 논란이 일고 있습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="politicsImages/politics8.jpg" alt="정치 뉴스 8" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"마이크로소프트, 유럽 반독점 조사 대응 위해 오피스와 Teams 가격 인하"</h3>
+          <p class="news-summary">유럽연합의 반독점 조사를 피하기 위해, 마이크로소프트는 오피스와 Teams의 가격을 낮추는 방안을 발표했습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="politicsImages/politics9.jpg" alt="정치 뉴스 9" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"인텔, 유럽 규제와 4214만 달러 반독점 벌금에 반발"</h3>
+          <p class="news-summary">인텔은 유럽 규제 당국이 부과한 4214만 달러의 반독점 벌금에 대해 강하게 반발하며, 법적 대응을 예고했습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+      
+    </section>
+  </main>
+  <section class="extended-news-list">
+        <h3 style="margin-bottom: 3rem;">정치 뉴스</h3>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>사우스웨스트, 다양성·포용성(DEI) 관련 소송을 1센트로 종결할 가능성
+              <small>2025-05-17</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              사우스웨스트 항공은 인종·성별 다양성 정책과 관련된 소송에서 거의 무상으로 종료하는 방안을 검토 중이며, 이는 기업의 법적 책임 회피와 이미지 개선 전략의 일환으로 보입니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>캐피탈 원, 저축 계좌 관련 소송에서 4억 2500만 달러 규모 합의
+              <small>2025-05-17</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              캐피탈 원은 고객 저축 계좌와 관련된 소송에서 4억 2500만 달러의 합의에 도달했으며, 이번 사건은 금융기관의 고객 보호와 규제 준수 문제를 다시 한 번 부각시키고 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>일리노이, 민간 검찰인력 사용이 절차권 침해 주장
+              <small>2025-05-17</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              일리노이 주는 민간 검찰인력을 사용하는 것이 법적 절차와 시민의 권리를 침해한다며, 법적·윤리적 문제를 제기하는 논쟁이 일고 있습니다. <br>
+              이는 공공기관의 권한 남용 가능성에 대한 우려를 불러일으키고 있습니다.
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>SEC, 인수 후 시장 부서 축소로 19명 감원
+              <small>2025-05-17</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              미 증권거래위원회(SEC)는 인수 이후 시장 부서를 축소하며, 19명의 인력을 감원하는 구조조정을 단행했고,<br>
+              이는 내부 효율성 강화와 비용 절감 전략의 일환입니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>차터, 코스와의 합병 추진 가속화하며 시장 재편 기대
+              <small>2025-05-17</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              차터 커뮤니케이션즈는 코스와의 합병을 본격 추진하며, 이번 인수합병이 미국 통신 시장의 경쟁 구도를 크게 바꿀 것으로 기대되고 있습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>디즈니, Foot Locker 인수 위해 240억 달러 제안
+              <small>2025-05-17</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              디즈니는 엔터테인먼트와 스포츠 시장의 시너지 강화를 위해 Foot Locker를 인수하는 방안을 검토하며, 대규모 인수합병(M&A) 전략을 추진 중입니다. <br>
+              이는 디즈니의 사업 다각화 전략의 일환입니다.
+            </p>
+          </div>
+        </div>
+
+      </section>
+  <div style="text-align: center;">
+          <button class="read-more" data-target="ai" onclick="toggleExtendedNews(this)">Read More</button>
+        </div>
   
   <!-- 모바일 하단 네비게이션 -->
   <nav class="bottom-nav">
@@ -1013,21 +1390,33 @@ body.dark-mode .news-desc {
     </ul>
   </nav>
   
-      <!-- Main -->
-    <main class="main-content">
-      <section class="news-section" id="cnbc-news">
-        <h2>📰 CNBC 최신 뉴스</h2>
-        <div id="newsList" class="grid"></div>
-      </section>
-    </main>
-
-
   <footer>
     <p>
       © 2025 Go Higher, 고하이어. All rights reserved.<br>
       운영 지역: 대한민국 대구<br>
       문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a><br>
-    </p>
+    </p><br><br><p>
+    본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인
+    시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나
+    수익을 보장하지 않습니다</u>. 모든 투자 결정과 그 결과에 대한 책임은
+    투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해
+    gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.
+  </p>
+
+  <p>
+    금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며,
+    <em>과거 실적은 미래 수익을 보장하지 않습니다</em>. 투자를 결정하기 전
+    해당 상품(집합투자규약, 투자설명서 등)을 반드시 확인하시고, 필요 시
+    공인된 전문가와 상의하시기 바랍니다.
+  </p>
+
+  <p>
+    gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상
+    <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.
+    본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수
+    없습니다.
+  </p>
+        </p>
   </footer>
   
           <!-- Back to Top 버튼 -->
@@ -1090,35 +1479,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-    // 다크모드 스크립트
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-      }
-    });
 
-              // Back to Top 버튼 기능
-              document.addEventListener("DOMContentLoaded", () => {
-  const backToTopBtn = document.getElementById("backToTop");
+function toggleArticle(el) {
+    el.classList.toggle("active");
+  }
 
-  window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 300) {
-      backToTopBtn.classList.add("show");
-    } else {
-      backToTopBtn.classList.remove("show");
-    }
-  });
+function toggleExtendedNews(btn) {
+  const extendedList = document.querySelector('.extended-news-list');
+  if (!extendedList) return;
+  extendedList.classList.toggle('show');
+  if (extendedList.classList.contains('show')) {
+    extendedList.scrollIntoView({ behavior: 'smooth' });
+  }
+}
 
-  backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
-
-  </script>
-  
-      <script>
-   (function() {
+(function() {
   // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
   if (window.innerWidth > 768) return;
 
@@ -1185,37 +1560,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 })();
-    </script>
-    
-      <!-- Firebase & Render Script -->
-    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
-    <script>
-      const firebaseConfig = { apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk", authDomain: "gohigher-55e51.firebaseapp.com", projectId: "gohigher-55e51" };
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
-      db.collection("cnbcNews").orderBy("createdAt","desc").limit(10).get()
-        .then(snap => {
-          const container = document.getElementById('newsList');
-          snap.forEach(doc => {
-            const d = doc.data();
-            const card = document.createElement('div'); card.className='news-card';
-            card.innerHTML = `
-              <div class="news-title"><a href="${d.link}" target="_blank">${d.koTitle || d.title}</a></div>
-              <div class="news-summary">${d.koSummary || d.summary || ''}</div>
-              <div class="news-date">${new Date(d.pubDate).toLocaleString()}</div>
-            `;
-            container.appendChild(card);
-          });
-        }).catch(e=>console.error(e));
-    </script>
-
-    <!-- AOS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-    <script>document.addEventListener('DOMContentLoaded',()=>AOS.init({duration:800,once:true}));</script>
-
-    <!-- Theme Toggle, Auth Script etc. -->
-    <script src="auth.js"></script>
-
+  </script>
 </body>
 </html>
