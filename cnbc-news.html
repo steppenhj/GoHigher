@@ -761,6 +761,88 @@ color: #cacaca;
 body.dark-mode .security-grid li {
 background: #444;
 }
+
+/* ─── 다크모드 보완 ─── */
+body.dark-mode {
+  background: url(backgroundD.png) center/cover no-repeat;
+  color: var(--text-color);
+}
+
+/* 탭 네비게이션 (데스크탑) */
+body.dark-mode .desktop-nav .tab-item {
+  color: #cacaca;
+  background: transparent;
+  border-color: #555;
+}
+body.dark-mode .desktop-nav .tab-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+body.dark-mode .desktop-nav .tab-item.active {
+  color: #fff;
+}
+body.dark-mode .top-tab-nav .mega-menu {
+  background: #2a2a2a;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+}
+body.dark-mode .mega-col h4 {
+  color: #f4f4f4;
+}
+body.dark-mode .mega-col ul li a {
+  color: #cacaca;
+}
+body.dark-mode .mega-col ul li a:hover {
+  color: #fff;
+}
+body.dark-mode .security-grid li {
+  background: #444;
+  color: #cacaca;
+}
+body.dark-mode .security-grid li strong {
+  color: #fbd314;
+}
+
+/* 메인 콘텐츠 및 카드 */
+body.dark-mode .main-content {
+  background: var(--bg-section);
+}
+body.dark-mode .news-section {
+  background: #333;
+}
+body.dark-mode .news-card {
+  background: #444;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+body.dark-mode .news-title a {
+  color: var(--accent-color);
+}
+body.dark-mode .news-summary,
+body.dark-mode .news-date {
+  color: #ccc;
+}
+
+/* 하단 Nav (모바일) */
+body.dark-mode .bottom-nav {
+  background: #222;
+}
+body.dark-mode .bottom-nav .nav-text {
+  color: #cacaca;
+}
+body.dark-mode .bottom-nav .nav-link.active .nav-text {
+  color: #fff;
+}
+
+/* ─── 모바일 마지막 뉴스 아래 여유 공간 ─── */
+@media (max-width: 768px) {
+  /* main-content 전체에 패딩을 주거나, 섹션마다 margin-bottom을 줄 수 있습니다 */
+  .main-content {
+    padding-bottom: 5rem;  /* 하단 네비게이션 위에 콘텐츠가 떠 있도록 */
+  }
+  /* 또는 뉴스 카드 마지막 항목에만 간격을 줄 때 */
+  .grid .news-card:last-child {
+    margin-bottom: 2rem;
+  }
+}
+
   </style>
 </head>
 <body>
