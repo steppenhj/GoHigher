@@ -2649,9 +2649,41 @@ if (/wv/.test(navigator.userAgent)) {
 }
 
 </script>
-<!-- 필요한 위치에만 딱 한 번! -->
-<script type="module" src="/firebase-messaging-init.js"></script>
 
+<script type="module">
+  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.appspot.com",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+    measurementId: "G-KQ02L8DXG0"
+  };
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function fetchETF(symbol) {
+    const docRef = doc(db, "indices", symbol);
+    const docSnap = await getDoc(docRef);
+    const out = document.getElementById(symbol);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      out.innerHTML = `${data.name}(${data.symbol}): <strong>${data.close ? data.close + ' USD' : 'N/A'}</strong> <span style="color:#666; font-size:0.92em">(${data.date || '-'})</span>`;
+    } else {
+      out.innerHTML = "데이터 없음";
+    }
+  }
+
+  // ETF 심볼 순회
+  ["SPY", "QQQ", "DIA"].forEach(fetchETF);
+</script>
+
+
+
+<script type="module" src="/firebase-messaging-init.js"></script>
 
     </body>
   </html> 
