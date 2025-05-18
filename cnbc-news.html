@@ -824,7 +824,7 @@ background: #444;
   <nav class="bottom-nav">
     <ul>
       <li>
-        <a href="index.html" class="nav-link" aria-label="뉴스">
+        <a href="index.html" class="nav-link active" aria-label="뉴스">
           <span class="icon news-icon"></span>
           <span class="nav-text">뉴스</span>
         </a>
@@ -848,7 +848,7 @@ background: #444;
         </a>
       </li>
       <li>
-        <a href="배당주.html" class="nav-link active" aria-label="배당주분석">
+        <a href="배당주.html" class="nav-link" aria-label="배당주분석">
           <span class="icon coinTree-icon"></span>
           <span class="nav-text">배당주</span>
         </a>
@@ -967,12 +967,48 @@ document.addEventListener("DOMContentLoaded", function () {
   </script>
   
       <script>
-          // 2) 액션 시트 마크업 생성
+   (function() {
+  // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
+  if (window.innerWidth > 768) return;
+
+  // 1) 동적 스타일 추가
+  const style = document.createElement("style");
+  style.textContent = `
+    .page-selector {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: #fff;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      z-index: 2000;
+      transform: translateY(100%);
+      transition: transform 0.2s;
+    }
+    .page-selector.show {
+      transform: translateY(0);
+    }
+    .selector-btn {
+      padding: 1rem;
+      font-size: 1rem;
+      border: none;
+      background: #f4f4f4;
+      margin: 0.25rem 0;
+      border-radius: 6px;
+    }
+    .selector-btn:hover { background: #e0e0e0; }
+    .selector-btn.cancel { background: #ffdddd; }
+  `;
+  document.head.appendChild(style);
+
+  // 2) 액션 시트 마크업 생성
   const selector = document.createElement("div");
   selector.className = "page-selector";
   selector.innerHTML = `
     <button class="selector-btn" data-target="index.html">투데이뉴스</button>
-    <button class="selector-btn" data-target="tech.html">기술페이지</button>
+    <button class="selector-btn" data-target="tech.html">기술뉴스</button>
+    <button class="selector-btn" data-target="cnbc-news.html">외신뉴스</button>
     <button class="selector-btn cancel">취소</button>
   `;
   document.body.appendChild(selector);
@@ -996,7 +1032,7 @@ document.addEventListener("DOMContentLoaded", function () {
       selector.classList.add("show");
     });
   }
-;
+})();
     </script>
     
       <!-- Firebase & Render Script -->
