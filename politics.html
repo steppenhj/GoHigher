@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+<head>
+  <script>
+    document.documentElement.classList.remove("no-js");
+    document.documentElement.classList.add("js");
+  </script>
+  
+  <meta charset="UTF-8">
+  <!-- 🔄 외부 서버 연결 미리 하기 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+<!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
+
+  <!-- 페이지 제목 -->
+  <title>배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석</title>
+  <meta name="description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+  <link rel="canonical" href="https://gohigher.kr/배당주.html">
+  <link rel="icon" href="https://gohigher.kr/logo.jpg" type="image/jpeg">
+  <!-- 키워드 (네이버에서 일부 활용) -->
+  <meta name="keywords" content="유명인포폴, 투자기관, 헤지펀드, 포트폴리오, gohigher">
+  <!-- 검색엔진 크롤링 허용 -->
+  <meta name="robots" content="index,follow">
+  <!-- **확대/축소 불가 설정** -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 구글 폰트 & 차트.js 및 플러그인 -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <!-- Font Awesome 아이콘 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+        integrity="sha512-E+6D+E1hht2xkZC4YZ4lMEkZyAH/U/OvcEAEdRCGWvzTC1nJ4TD/Eqol5V5nRNo6UzbB4HaRaFRXTe6dR0b9YQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- 네이버 / 구글 사이트 검증 메타 -->
+  <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+  <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
+  <!-- Open Graph (OG) 메타 태그: SNS 공유용 -->
+  <meta property="og:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석" />
+  <meta property="og:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자" />
+  <meta property="og:url" content="https://gohigher.kr/버크셔해서웨이.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="배당금 계산기 | 미국 고배당주 TOP | 코카콜라·엑슨모빌 등 배당주 분석">
+  <meta name="twitter:description" content="한국인 맞춤 배당금 계산기! 미국 고배당주 분석, 코카콜라·JP모건·뱅크오브아메리카, 종합소득세, DPS, 배당 재투자">
+  <meta name="twitter:image" content="https://gohigher.kr/logo.jpg">
+  <!-- JSON-LD 구조화 데이터(WebPage) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "미국 고배당주 TOP 분석 및 배당금 계산기 제공",
+      "author": {
+        "@type": "Organization",
+        "name": "Go Higher"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Go Higher",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://gohigher.kr/logo.jpg"
+        }
+      },
+      "description": "미국 고배당주에 투자하고 싶은 분들을 위한 종목 추천과 배당금 계산기 제공",
+      "url": "https://gohigher.kr/배당주.html",
+      "datePublished": "2025-03-23",
+      "inLanguage": "ko"
+    }
+  </script>
+
+  <style>
+    html.no-js body {
+  opacity: 1; /* JS 안 되더라도 바로 보여줌 */
+}
+
+html.js body {
+  opacity: 0;
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+    html {
+      font-size: 16px;
+    }
+    body {
+      background: url(backgroundL.webp);
+    }
+    :root {
+      --primary-color: #004080;
+      --secondary-color: #0059b3;
+      --accent-color: #f4f7fa;
+      --light-gray: #e0e0e0;
+      --text-color: #333;
+      /* 카드 배경색 등 필요한 변수 추가 */
+      --card-bg: #f9f9f9;
+      --bg-section: #fff;
+    }
+    body.dark-mode {
+      --primary-color: #e0e0e0;
+      --secondary-color: #cccccc;
+      --card-bg: #333;
+      --bg-section: #444;
+      --text-color: #cacaca;
+    }
+    /* 기본 리셋 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      width: 100%;
+      position: relative;
+    }
+    header h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    header p {
+      font-size: 1rem;
+    }
+    
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    nav ul li a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #fff;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: var(--primary-color);
+      color: #fff;
+      transform: scale(1.05);
+    }
+    
+    /* 로그인 버튼 및 프로필 */
+    .login-container {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .login-btn {
+      background-color: #fff;
+      color: var(--primary-color);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+      margin-left: auto;
+    }
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      background-color: var(--secondary-color);
+      color: #fff;
+    }
+    #profileBox {
+      display: flex;
+      align-items: center;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      transition: background 0.3s ease;
+    }
+    #profileBox:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    #profileAvatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fff;
+      margin-right: 0.5rem;
+    }
+    #welcomeText {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+    
+    .desktop-nav {
+        display: block;
+      }
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.3rem 0;
+        background: #fff;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000 !important;
+      }
+      .bottom-nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .bottom-nav li {
+        text-align: center;
+        flex: 1;
+      }
+      .bottom-nav li a.nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #888;
+        transition: transform 0.2s, color 0.2s;
+      }
+      .bottom-nav .icon {
+        width: 28px;
+        height: 28px;
+        display: inline-block;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-bottom: 3px;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .bottom-nav .nav-text {
+        font-size: 0.75rem;
+        color: #888;
+      }
+      .bottom-nav li a.nav-link.active .nav-text {
+        color: var(--primary-color);
+      }
+      .bottom-nav li a.nav-link:hover {
+        transform: scale(1.05);
+      }
+      .nav-link.pressed {
+        background-color: rgba(0, 0, 255, 0.1);
+        transition: background-color 0.1s;
+      }
+      .bottom-nav li a.nav-link {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        border: none;
+        box-shadow: none;
+      }
+      .news-icon {
+        background-image: url("images/newsImage.png");
+      }
+      .nav-link.active .news-icon {
+        background-image: url("images/newsOn.png");
+      }
+      .diary-icon {
+        background-image: url("images/diaryImage.png");
+      }
+      .nav-link.active .diary-icon {
+        background-image: url("images/diaryOn.png");
+      }
+      .chart-icon {
+        background-image: url("images/chartImage.png");
+      }
+      .nav-link.active .chart-icon {
+        background-image: url("images/chartOn.png");
+      }
+      .company-icon {
+        background-image: url("images/companyImage.png");
+      }
+      .nav-link.active .company-icon {
+        background-image: url("images/companyOn.png");
+      }
+      .coinTree-icon {
+        background-image: url("images/coinTree.png");
+      }
+      .nav-link.active .coinTree-icon {
+        background-image: url("images/treeOn.png");
+      }
+      .bull-icon {
+        background-image: url("images/bullImage.png");
+      }
+      .nav-link.active .bull-icon {
+        background-image: url("images/bullOn.png");
+      }
+    /* 하단 nav */
+    body.dark-mode .bottom-nav {
+      background: #333;
+    }
+    body.dark-mode .bottom-nav .icon {
+      background-color: #555 !important;
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav .nav-text {
+      color: #cacaca;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .icon {
+      background-color: var(--primary-color) !important;
+      color: #fff;
+    }
+    body.dark-mode .bottom-nav li a.nav-link.active .nav-text {
+      color: #fff;
+    }
+    body.dark-mode .nav-link:hover {
+      transform: scale(1.05);
+    }
+    
+    footer {
+        background-color: var(--primary-color);
+        text-align: center;
+        padding: 1rem;
+        width: 100%;
+        font-size: 1rem;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+      }
+      footer a {
+        color: #fff;
+        text-decoration: underline;
+      }    
+    /* 다크모드 스타일 */
+    body.dark-mode {
+      background: url(backgroundD.webp);
+      color: white;
+    }
+    body.dark-mode header {
+      background: linear-gradient(135deg, #002b57, #004284);
+      color: #cacaca;
+    }
+    body.dark-mode nav ul li a {
+      color: #cacaca;
+      border: 1px solid #cacaca;
+      background-color: transparent;
+    }
+    body.dark-mode nav ul li a:hover {
+      background-color: #004284;
+      color: #cacaca;
+    }
+    body.dark-mode .login-btn {
+      background-color: transparent;
+      color: #cacaca;
+      border: 1px solid #cacaca;
+    }
+    body.dark-mode .login-btn:hover {
+      background-color: #004284;
+      color: #cacaca;
+    }
+    body.dark-mode footer {
+      background: linear-gradient(135deg, #002b57, #004284);
+      color: #cacaca !important;
+    }
+    body.dark-mode .bottom-nav .icon,
+    body.dark-mode .bottom-nav li a.nav-link.active .icon {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      outline: none !important;
+      border: none !important;
+      color: #fff !important;
+    }
+    body.dark-mode .back-to-top{
+      background: linear-gradient(135deg, #004080, #002855);
+    }
+    /* 미디어 쿼리 (모바일) */
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+        padding-bottom: 0;
+      }
+      header {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0.5rem !important;
+        box-sizing: border-box;
+      }
+      footer {
+        padding: 0.8rem !important; /* 내부 여백 */
+        /* padding‑bottom 대신 margin‑bottom으로 외부 간격 조절 */
+        margin-bottom: 78px;
+      }
+      
+      .desktop-nav {
+        display: none;
+        
+      }
+      .bottom-nav {
+        display: block;
+      }
+      .bottom-nav ul {
+    flex-wrap: nowrap;  /* 한 줄 유지 */
+  }
+  .bottom-nav {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.bottom-nav li {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.bottom-nav li a.nav-link {
+  width: 100%;
+  font-size: 3.2vw;
+}
+.bottom-nav .icon {
+  width: 6.5vw;
+  height: 6.5vw;
+}
+.bottom-nav .nav-text {
+  font-size: 2.8vw;
+}
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+  nav ul li a {
+    white-space: nowrap;
+  }
+      .login-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      #profileBox {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      #profileAvatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+        transition: transform 0.2s;
+      }
+      #profileAvatar:hover {
+        transform: scale(1.1);
+      }
+      #welcomeText {
+        display: none;
+      }
+      .login-btn {
+        display: none;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+    }
+      .login-container.active .login-btn {
+        display: inline-block;
+      }
+      .login-container:not(.logged-in) #profileBox {
+        display: none;
+      }
+      .login-container:not(.logged-in) .login-btn {
+        display: inline-block;
+      }
+      .login-container.logged-in .login-btn {
+        display: none;
+      }
+      .login-container.logged-in #profileBox {
+        display: flex;
+      }
+
+      /* Back to Top 버튼 (팔란티어 스타일의 미니멀 터치) */
+      .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      z-index: 1001;
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    @media (max-width: 768px) {
+      button {
+        font-size: 1rem;
+        padding: 12px;
+      }
+      .back-to-top {
+        display: none;
+      }
+      footer {
+    display: none !important;
+  }
+    }
+    .top-tab-nav .tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.top-tab-nav .tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fbd314;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.top-tab-nav .tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.top-tab-nav .tab-item:hover::after {
+  width: 60%;
+}
+
+.top-tab-nav .tab-item.active {
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.top-tab-nav .tab-item.active::after {
+  width: 60%;
+}
+footer p{
+  color: white;
+}
+@media only screen and (max-device-width: 768px) {
+  @supports (-webkit-touch-callout: none) {
+    .bottom-nav {
+      padding-bottom: 20px; /* 원하는 padding 값 */
+    }
+  }
+}
+/* --- 뉴스 피드 및 카드 관련 CSS --- */
+.container { /* 뉴스 피드를 감싸는 컨테이너의 기본 스타일 */
+  width: 90%;
+  max-width: 1200px; /* 최대 너비 설정 */
+  margin: 2rem auto; /* 상하 마진 및 중앙 정렬 */
+  padding: 1rem;
+  background-color: var(--bg-section); /* 섹션 배경색 (라이트/다크 모드에 따라 변경) */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .container {
+  background-color: var(--bg-section); /* 다크 모드 섹션 배경색 */
+}
+
+#news-feed {
+  /* 데스크탑에서는 그리드 레이아웃 사용 */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 반응형 그리드 */
+  gap: 1.5rem; /* 카드 사이의 간격 */
+  padding: 1rem 0; /* 내부 패딩 */
+}
+
+#news-feed h2 { /* '최신 뉴스' 제목 스타일 */
+  grid-column: 1 / -1; /* 제목이 그리드 전체 너비를 차지하도록 설정 */
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.news-card {
+  background-color: var(--card-bg); /* 카드 배경색 (라이트/다크 모드에 따라 변경) */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden; /* 이미지가 카드를 벗어나지 않도록 */
+  display: flex;
+  flex-direction: column; /* 이미지와 내용을 세로로 배치 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-5px); /* 호버 시 살짝 위로 이동 */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.news-image {
+  width: 100%;
+  height: 200px; /* 이미지 높이 고정 */
+  object-fit: cover; /* 이미지가 비율을 유지하며 채우도록 설정 */
+  display: block; /* 이미지 하단 여백 제거 */
+}
+
+.news-content {
+  padding: 1rem;
+  flex-grow: 1; /* 내용 부분이 카드의 남은 공간을 채우도록 */
+  display: flex;
+  flex-direction: column;
+}
+
+.news-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.news-summary {
+  font-size: 0.9rem;
+  color: var(--text-color); /* 요약 내용 텍스트 색상 */
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  flex-grow: 1; /* 요약 내용이 가능한 많은 공간을 차지하도록 */
+}
+
+.news-date {
+  font-size: 0.8rem;
+  color: #777; /* 날짜 텍스트 색상 */
+  text-align: right; /* 날짜를 오른쪽으로 정렬 */
+  margin-top: auto; /* 내용이 적을 경우 날짜를 하단에 고정 */
+}
+
+/* 다크 모드 시 뉴스 카드 텍스트 색상 조정 */
+body.dark-mode .news-title,
+body.dark-mode .news-summary {
+  color: var(--text-color); /* 다크모드 텍스트 색상 변수 사용 */
+}
+
+body.dark-mode .news-date {
+  color: #aaa; /* 다크 모드 날짜 색상 */
+}
+
+
+/* --- 반응형: 모바일 화면 (예: 768px 이하) --- */
+@media (max-width: 768px) {
+  .container {
+    width: 100%; /* 모바일에서는 너비를 100%로 */
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border-radius: 0; /* 모바일에서는 컨테이너 radius 제거 가능 */
+  }
+
+  #news-feed {
+    /* 모바일에서는 세로로 카드 나열 (기본 block 동작) */
+    display: block; 
+    padding: 0 0.5rem; /* 모바일용 패딩 */
+  }
+
+  #news-feed h2 {
+    font-size: 1.5rem; /* 모바일용 제목 크기 */
+    margin-bottom: 1rem;
+  }
+
+  .news-card {
+    margin-bottom: 1rem; /* 카드 사이의 간격 (세로 배치 시) */
+    /* 모바일에서는 그림자 효과를 줄이거나 다르게 설정 가능 */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  .news-image {
+    height: 180px; /* 모바일용 이미지 높이 조정 */
+  }
+
+  .news-title {
+    font-size: 1.1rem; /* 모바일용 제목 크기 */
+  }
+
+  .news-summary {
+    font-size: 0.85rem; /* 모바일용 요약 텍스트 크기 */
+  }
+  .read-more{
+    display: block;
+    margin: 0 -1rem 1.5rem;  
+    width: calc(100% + 2rem);
+    padding: 0.8rem 1rem;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 90px !important;
+  }
+  /* 4) 추가 뉴스(extended-news-list) 가독성 강화 */
+   .category-group .extended-news-list {
+    /* 부모(.tech-layout)의 좌우 padding(1rem)을 상쇄 */
+    margin: 1.5rem -1rem;    
+    width: calc(100% + 2rem); /* 100% + 좌우 오프셋 */
+    padding: 1rem;            
+    box-sizing: border-box;   
+    clear: both;              /* 위에 떠 있는 요소들과 겹치지 않도록 */
+    background: var(--bg-section);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .extended-news-list h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+  .extended-news-list .headline-article {
+    padding: 0.8rem;
+  }
+  .category-group .read-more {
+    display: block;
+    margin: 0 -1rem 1.5rem;  
+    width: calc(100% + 2rem);
+    padding: 0.8rem 1rem;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}
+/* ── “더 보기” 버튼 ── */
+.read-more {
+display: inline-block;
+margin: 2rem 0;
+padding: 8px 18px;
+font-size: 1rem;
+font-weight: 600;
+background: linear-gradient(135deg, #004080, #007acc);
+color: white;
+border: none;
+border-radius: 30px;
+box-shadow: 0 4px 12px rgba(0, 64, 128, 0.3);
+transition: all 0.3s ease;
+cursor: pointer;
+}
+
+.read-more:hover {
+background: linear-gradient(135deg, #007acc, #004080);
+box-shadow: 0 6px 18px rgba(0, 64, 128, 0.4);
+transform: translateY(-2px);
+}
+.read-more:focus {
+outline: none;
+}
+.headline-article { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; border-bottom: 1px solid #ddd; cursor: pointer; }
+    .headline-article h4 { margin: 0; font-size: 1.1rem; }
+    .article-content { display: none; margin-top: 0.5rem; padding-left: 130px; color: #333; }
+    .headline-article.active .article-content { display: block; }
+    .extended-news-list h3 {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.extended-news-list {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: var(--bg-section);
+  padding: 0 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin: 2rem auto 1rem;
+  width: 80%;
+}
+/* ── 카드(기사) 컨테이너 ── */
+.extended-news-list .headline-article {
+  flex-direction: column;
+  background: var(--card-bg);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  border: 1px solid transparent;
+  transition: 
+    transform 0.2s ease, 
+    box-shadow 0.2s ease, 
+    border-color 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* 제목 */
+.extended-news-list .headline-article h4 {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+  margin: 0;
+}
+
+/* 내용(숨김 처리) */
+.extended-news-list .headline-article .article-content {
+  max-height: 0;
+  line-height: 1.5;
+  opacity: 1;
+  margin-top: 0.5rem;
+  transition: 
+    max-height 0.3s ease, 
+    opacity 0.3s ease;
+  overflow: hidden;
+  max-height: none !important;   /* ⭐️높이 제한 해제 */
+  overflow: visible !important;  /* 혹시 모를 숨김 해제   */
+  padding-left: 0 !important;    /* 130px 여백도 제거     */
+  padding: 0;
+}
+
+/* 호버 효과 */
+.extended-news-list .headline-article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  border-color: var(--primary-color);
+}
+
+/* 클릭(토글) 시 내용 펼침 */
+.extended-news-list .headline-article.active .article-content {
+  max-height: 5rem; /* 내용 길이에 맞춰 조정 */
+  opacity: 1;
+}
+.extended-news-list.show {
+  max-height: none;
+  opacity: 1;
+  padding: 1.8rem 1.2rem;
+}
+body.dark-mode .extended-news-list .article-content p {
+  color: var(--text-color) !important;
+}
+/* 1) 드롭다운 기본 감싸기 */
+.tab-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.tab-item {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.tab-item::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 4px;
+  background-color: #fbd314;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.tab-item:hover::after {
+  width: 60%;
+}
+
+.mega-menu {
+  display: none;
+  position: absolute;
+  top: 39px;
+  left: 0;
+  width: 800px;
+  background: white;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  padding: 1rem;
+  border-radius: 4px;
+  z-index: 20;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-dropdown:hover .mega-menu {
+  display: flex;
+}
+
+.mega-col {
+  flex: 1;
+  padding: 0 1rem;
+  min-width: 200px;
+}
+
+.mega-col + .mega-col {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mega-col h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #004080;
+}
+
+.mega-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.mega-col ul li {
+  margin-bottom: 0.4rem;
+}
+
+.mega-col ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.mega-col ul li a:hover {
+  color: #0059b3;
+}
+.mega-col ul:not(.security-grid) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mega-col ul:not(.security-grid) li {
+  margin: 0;
+}
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+}
+
+.security-grid li {
+  background: #f9f9f9;
+  padding: 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.security-grid li strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: #0059b3;
+}
+
+/* ▼ 화살표 효과 */
+.tab-dropdown > .tab-item {
+  position: relative;
+  padding-right: 1.6em;
+}
+
+.tab-dropdown > .tab-item::before {
+  content: "▼";
+  position: absolute;
+  right: 0.6em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  opacity: 1;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.tab-dropdown:hover > .tab-item::before {
+  opacity: 0;
+}
+
+/* 🌙 다크모드 대응 */
+body.dark-mode .mega-menu {
+  background: #333;
+}
+body.dark-mode .mega-col h4,
+body.dark-mode .mega-col ul li a,
+body.dark-mode .security-grid li {
+  color: #cacaca;
+}
+body.dark-mode .security-grid li {
+  background: #444;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="index.html" style="color: inherit; text-decoration: none;">Go Higher</a></h1>
+
+    <div class="login-container">
+      <!-- 프로필 박스: 아바타와 환영 문구 -->
+      <div id="profileBox">
+        <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
+        <span id="welcomeText">환영합니다, 사용자님!</span>
+      </div>
+      <!-- 로그인/로그아웃 버튼 -->
+      <a id="authButton" href="login.html" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> 로그인
+      </a>
+    </div>
+    <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
+    <nav class="desktop-nav top-tab-nav">
+      <div class="tab-dropdown">
+        <a href="index.html" class="tab-item active">투데이뉴스</a>
+        <div class="mega-menu">
+          <div class="mega-col">
+            <h4>News</h4>
+            <ul>
+              <li><a href="politics.html">정치</a></li>
+              <li><a href="tech.html">기술</a></li>
+              <li><a href="#opinion">의견</a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4>Data</h4>
+            <ul>
+              <li><a href="#stocks">Stocks</a></li>
+              <li><a href="#futures">Futures</a></li>
+              <li><a href="#rates">Rates &amp; Bonds</a></li>
+              <li><a href="#currencies">Currencies</a></li>
+            </ul>
+          </div>
+          <div class="mega-col top-securities">
+            <h4>Top Securities</h4>
+            <ul class="security-grid">
+              <li><strong>S&amp;P 500</strong><br/>5,528.75 ▲0.06%</li>
+              <li><strong>Nasdaq</strong><br/>17,366.13 ▼0.10%</li>
+              <li><strong>FTSE 100</strong><br/>8,417.47 ▲0.00%</li>
+              <li><strong>Dow Jones</strong><br/>40,227.59 ▲0.28%</li>
+              <li><strong>Russell 2000</strong><br/>1,965.55 ▲0.41%</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
+      <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
+      <a href="중소형주식.html" class="tab-item">중소형주식</a>
+      <a href="배당주.html" class="tab-item">배당주</a>
+      <a href="큐레이션.html" class="tab-item">큐레이션</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="news-feed" class="container">
+      <h2>정치</h2>
+      
+      <!-- JavaScript에 의해 동적으로 생성된 첫 번째 뉴스 카드 -->
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1600077668409-523f5e237305?..." alt="미국 증시, 기술주 중심으로 상승 마감 📈" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">미국 증시, 기술주 중심으로 상승 마감 📈</h3>
+          <p class="news-summary">지난 밤 미국 주요 지수는 기술 기업들의 실적 호조에 힘입어...</p>
+          <time datetime="2025-05-16" class="news-date">2025년 5월 16일</time>
+        </div>
+      </article>
+
+      <!-- JavaScript에 의해 동적으로 생성된 두 번째 뉴스 카드 -->
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
+          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
+          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+        </div>
+      </article>
+
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
+          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
+          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
+          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
+          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
+          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
+          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
+          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
+          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
+          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
+          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
+          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
+          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
+          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
+          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+        </div>
+      </article>
+      
+    </section>
+  </main>
+  <section class="extended-news-list">
+        <h3>정치 뉴스</h3>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>“휴머노이드 공장 혁명”…중국, AI 로봇으로 제조업 체질 개선 노린다
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              상하이 외곽의 거대한 창고에선 로봇 팔 대신 사람 형상의 ‘아지봇’이 티셔츠를 접고 샌드위치를 만드는 테스트를 17시간씩 반복한다.<br>
+              정부가 조성한 1조 위안 펀드와 2조 원 규모의 지방 보조금 덕분에 유니트리·UBTech 등 30여 개 업체가 올해만 36종의 휴머노이드 모델을 내놨다.<br>
+              부품의 90%를 자국에서 조달해 2030년엔 완제품 원가를 1만7천 달러까지 낮추는 것이 목표.<br>
+              일자리 불안을 우려한 국회는 ‘AI 실업 보험’ 도입도 검토 중이다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>“챗GPT 대항마” 퍼플렉서티, 몸값 140억 달러 노린다
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              엔비디아와 제프 베이조스가 투자한 검색형 챗봇 스타트업 퍼플렉서티가 5억 달러 추가 투자 유치에 나섰다.<br>
+              새 라운드가 성사되면 기업가치는 지난해 90억 달러에서 단숨에 140억 달러로 뛰어오른다.<br>
+              주 투자자는 실리콘밸리 대표 VC 액셀이 유력하다.<br>
+              애플이 사파리에 AI 검색 파트너로 퍼플렉서티를 검토 중이라는 소식도 겹치면서 시장 기대가 커졌다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>구글, 연례 I/O 앞두고 ‘전천후 코딩 에이전트’ 사내 시연
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              구글이 사내 엔지니어에게 Gemini 기반 AI 개발도구 ‘소프트웨어 에이전트’를 공개했다.<br>
+              기획부터 코드 작성·문서화·테스트까지 전 과정을 지원하는 것이 목표다.<br>
+              올해 I/O(5월 20일) 키노트에선 음성 모드의 Gemini를 XR 안경·헤드셋과 연동하는 데모도 예고했다.<br>
+              규제와 경쟁 압박 속에서 투자 대비 성과를 보여주려는 의도로 풀이된다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>유엔, ‘킬러 로봇’ 첫 본회의…합의는 여전히 지지부진
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              뉴욕 유엔총회에서 80여 개국이 자율살상무기 규제를 논의했지만 미국·중국·러시아 등은 “각국 지침으로 충분하다”며 구속력 있는 조약에 난색을 표했다.<br>
+              구테흐스 사무총장은 2026년까지 규범 마련을 촉구했으나,<br>
+              200종 넘게 실전에 투입된 AI 무기가 이미 우크라이나·가자지구에서 사용되고 있다는 보고만 재확인됐다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>챗GPT發 충격…체그, 직원 22% 감원·북미 사무실 철수
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              온라인 학습 플랫폼 체그는 구글 ‘AI 개요’와 무료 챗봇 서비스로 트래픽이 급감하자 248명을 해고하고 북미 오피스를 연말까지 닫는다.<br>
+              구조조정 비용 3,400만~3,800만 달러를 반영하지만 2026년까지 연 1억 달러 절감 효과를 기대한다.<br>
+              1분기 구독자는 31% 감소한 320만 명, 매출은 30% 줄어 1억2,100만 달러에 그쳤다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>美 노동부, 스케일AI 임금 조사 종결…스타트업 “환영”
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              최저임금·초과근로 위반 여부를 살폈던 1년여 조사가 “위법 없음” 결론에 이르렀다.<br>
+              엔비디아·아마존·메타가 투자한 데이터 라벨링 업체 스케일AI(기업가치 140억 달러)는 “인재 확보에 집중할 수 있게 됐다”고 밝혔다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>오픈AI–마이크로소프트, ‘IPO 대비’ 지분 재협상
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              FT에 따르면 MS는 130억 달러 투자 대가로 받은 초과지분 일부를 양보하는 대신 2030년 이후 차세대 모델 접근권을 확보하는 방안을 논의 중이다.<br>
+              구조가 확정되면 오픈AI는 기업공개(IPO) 발판을 다지고 MS는 핵심 기술 독점권을 이어갈 수 있다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>애플, ‘스마트 글라스·AI 서버’ 전용 칩 개발…M6·M7도 준비
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              블룸버그에 따르면 애플은 저전력 애플워치 칩을 개량해 다중 카메라 처리를 지원하는 글라스용 칩을 TSMC와 양산할 계획이다.<br>
+              또한 ‘애플 인텔리전스’를 뒷받침할 서버용 프로세서와 차세대 Mac 칩(M6·M7)도 병행 개발 중이다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>MS “딥시크 앱 금지”…사내 보안·선전 우려
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              브래드 스미스 사장은 상원 청문회에서 “딥시크가 수집한 데이터가 중국으로 전송돼 선전 목적으로 활용될 위험이 있다”며 직원 사용을 차단했다고 밝혔다.<br>
+              마이크로소프트 스토어도 해당 앱을 내려받을 수 없도록 조치했다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>바이두 아폴로, 車렌트 1위 ‘CAR Inc’와 자율주행 렌털 출시
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              베이징에서 체결된 협약에 따라 양사는 도심 거점에 자율주행 차량을 배치하고 단기 렌터카 형태로 서비스를 운영한다.<br>
+              중국 내 로보택시 상용화 경쟁이 차량 공유 시장까지 번진 셈이다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>구글, 글로벌 비즈니스 부문 200명 감원…AI 집중 가속
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              안드로이드·크롬·픽셀을 거느린 플랫폼&디바이스 조직에 이어 매출·파트너십을 담당하는 GBG에서도 인력 조정이 단행됐다.<br>
+              “고객 대응 속도와 부서 간 협업을 높이기 위한 재편”이라는 설명이지만 빅테크 전반의 ‘AI 재배치’ 흐름과 궤를 같이한다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>트럼프 행정부, AI 칩 수출 규제 전면 재검토
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              상무부는 “바이든 정부가 도입한 3단계 수출 라이선스 제도가 복잡해 혁신을 저해한다”며 글로벌 정부 간 직접 협약 방식으로 바꾸겠다고 밝혔다.<br>
+              발표 직후 엔비디아 주가는 3% 상승했다가 장 마감 후 소폭 조정됐다.
+            </p>
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>캐던스, GPU 기반 ‘Millennium M2000’ 슈퍼컴 공개…“시뮬 8일→24시간”
+              <small>2025-05-13</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              엔비디아 블랙웰 GPU 32개를 탑재한 신형 슈퍼컴은 항공·바이오·칩 설계용 시뮬레이션 속도를 최대 8배 단축한다.<br>
+              가격은 약 200만 달러.<br>
+              보잉·붐슈퍼소닉 등이 이미 테스트를 완료했으며 엔비디아도 10대를 구매해 차세대 칩 연구에 활용할 예정이다.
+            </p>
+          </div>
+        </div>
+
+      </section>
+  <div style="text-align: center;">
+          <button class="read-more" data-target="ai" onclick="toggleExtendedNews(this)">Read More</button>
+        </div>
+  
+  <!-- 모바일 하단 네비게이션 -->
+  <nav class="bottom-nav">
+    <ul>
+      <li>
+        <a href="index.html" class="nav-link" aria-label="뉴스">
+          <span class="icon news-icon"></span>
+          <span class="nav-text">뉴스</span>
+        </a>
+      </li>
+      <li>
+        <a href="주식포트폴리오.html" class="nav-link" aria-label="투자다이어리">
+          <span class="icon diary-icon"></span>
+          <span class="nav-text">다이어리</span>
+        </a>
+      </li>
+      <li>
+        <a href="버크셔해서웨이.html" class="nav-link" aria-label="인기포트폴리오">
+          <span class="icon chart-icon"></span>
+          <span class="nav-text">대가들</span>
+        </a>
+      </li>
+      <li>
+        <a href="중소형주식.html" class="nav-link" aria-label="중소형주식">
+          <span class="icon company-icon"></span>
+          <span class="nav-text">중소형주</span>
+        </a>
+      </li>
+      <li>
+        <a href="배당주.html" class="nav-link active" aria-label="배당주분석">
+          <span class="icon coinTree-icon"></span>
+          <span class="nav-text">배당주</span>
+        </a>
+      </li>
+      <li>
+        <a href="큐레이션.html" class="nav-link" aria-label="큐레이션">
+          <span class="icon bull-icon"></span>
+          <span class="nav-text">큐레이션</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <footer>
+    <p>
+      © 2025 Go Higher, 고하이어. All rights reserved.<br>
+      운영 지역: 대한민국 대구<br>
+      문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a><br>
+    </p>
+  </footer>
+  
+          <!-- Back to Top 버튼 -->
+          <button class="back-to-top" id="backToTop">Top</button>
+
+  <script src="auth.js"></script>
+  <script>
+
+// 다크모드 스크립트
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+});
+
+// Back to Top 버튼 기능
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.getElementById("backToTop");
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.classList.add("show");
+    } else {
+      backToTopBtn.classList.remove("show");
+    }
+  });
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// 로그인 상태 관리
+document.addEventListener("DOMContentLoaded", function () {
+  const loginContainer = document.querySelector(".login-container");
+  const profileBox = document.getElementById("profileBox");
+  const authButton = document.getElementById("authButton");
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  if (isLoggedIn) {
+    loginContainer.classList.add("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+    authButton.href = "#";
+    authButton.style.display = "none";
+  } else {
+    loginContainer.classList.remove("logged-in");
+    authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
+    authButton.href = "login.html";
+    authButton.style.display = "inline-block";
+  }
+  profileBox.addEventListener("click", function () {
+    if (isLoggedIn) {
+      loginContainer.classList.toggle("active");
+      authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
+    }
+  });
+  authButton.addEventListener("click", function (event) {
+    if (isLoggedIn) {
+      event.preventDefault();
+      localStorage.setItem("isLoggedIn", "false");
+      window.location.reload();
+    }
+  });
+});
+
+function toggleArticle(el) {
+    el.classList.toggle("active");
+  }
+
+function toggleExtendedNews(btn) {
+  const extendedList = document.querySelector('.extended-news-list');
+  if (!extendedList) return;
+  extendedList.classList.toggle('show');
+  if (extendedList.classList.contains('show')) {
+    extendedList.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+(function() {
+  // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
+  if (window.innerWidth > 768) return;
+
+  // 1) 동적 스타일 추가
+  const style = document.createElement("style");
+  style.textContent = `
+    .page-selector {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: #fff;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+      z-index: 2000;
+      transform: translateY(100%);
+      transition: transform 0.2s;
+    }
+    .page-selector.show {
+      transform: translateY(0);
+    }
+    .selector-btn {
+      padding: 1rem;
+      font-size: 1rem;
+      border: none;
+      background: #f4f4f4;
+      margin: 0.25rem 0;
+      border-radius: 6px;
+    }
+    .selector-btn:hover { background: #e0e0e0; }
+    .selector-btn.cancel { background: #ffdddd; }
+  `;
+  document.head.appendChild(style);
+
+  // 2) 액션 시트 마크업 생성
+  const selector = document.createElement("div");
+  selector.className = "page-selector";
+  selector.innerHTML = `
+    <button class="selector-btn" data-target="index.html">투데이뉴스</button>
+    <button class="selector-btn" data-target="tech.html">기술뉴스</button>
+    <button class="selector-btn" data-target="cnbc-news.html">외신뉴스</button>
+    <button class="selector-btn" data-target="politics.html">정치뉴스</button>
+    <button class="selector-btn cancel">취소</button>
+  `;
+  document.body.appendChild(selector);
+
+  // 3) 버튼 이벤트 연결
+  selector.querySelectorAll(".selector-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.classList.contains("cancel")) {
+        selector.classList.remove("show");
+      } else {
+        window.location.href = btn.dataset.target;
+      }
+    });
+  });
+
+  // 4) 뉴스 아이콘에 클릭 리스너
+  const newsLink = document.querySelector('.bottom-nav a[aria-label="뉴스"]');
+  if (newsLink) {
+    newsLink.addEventListener("click", e => {
+      e.preventDefault();
+      selector.classList.add("show");
+    });
+  }
+})();
+  </script>
+</body>
+</html>
