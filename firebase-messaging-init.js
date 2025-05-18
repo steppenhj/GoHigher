@@ -1,11 +1,27 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging.js";
 import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
-import { getApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 
-const app = getApp(); // config 정의/초기화 절대 금지
-const messaging = getMessaging(app);
+// Firebase 설정
+const firebaseConfig = {
+  apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+  authDomain: "gohigher-55e51.firebaseapp.com",
+  projectId: "gohigher-55e51",
+  storageBucket: "gohigher-55e51.firebaseapp.com",
+  messagingSenderId: "487435343721",
+  appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+  measurementId: "G-KQ02L8DXG0"
+};
+
+// 앱 초기화
+const app = initializeApp(firebaseConfig);
+
+// 🟩 Analytics 초기화
 const analytics = getAnalytics(app);
-logEvent(analytics, 'page_view', { page_path: location.pathname });
+logEvent(analytics, 'page_view', { page_path: location.pathname });  // 사용자 추적
+
+// FCM 설정
+const messaging = getMessaging(app);
 
 // FCM 초기화: 알림 권한 요청 + 토큰 발급 + 서비스워커 등록
 async function initFCM() {

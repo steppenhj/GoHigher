@@ -2653,15 +2653,17 @@ if (/wv/.test(navigator.userAgent)) {
 <script type="module">
   import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
   import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
   const firebaseConfig = {
     apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
     authDomain: "gohigher-55e51.firebaseapp.com",
     projectId: "gohigher-55e51",
     storageBucket: "gohigher-55e51.appspot.com",
     messagingSenderId: "487435343721",
-    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
-    measurementId: "G-KQ02L8DXG0"
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8"
   };
+
+  // 🔴 여기만 바뀜
   const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
