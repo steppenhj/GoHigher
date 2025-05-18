@@ -747,6 +747,14 @@ body.dark-mode .news-date {
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   }
+  /* 뉴스 섹션 전체 너비 확장 */
+  .extended-news-list {
+    margin: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
   .extended-news-list h3 {
     font-size: 1.2rem;
     margin-bottom: 0.8rem;
@@ -1023,6 +1031,9 @@ body.dark-mode .security-grid li {
 body.dark-mode .security-grid li {
   background: #444;
 }
+h2{
+  margin: 1.5rem 0;
+}
   </style>
 </head>
 <body>
@@ -1048,9 +1059,9 @@ body.dark-mode .security-grid li {
           <div class="mega-col">
             <h4>News</h4>
             <ul>
-                <li><a href="politics.html">정치 뉴스</a></li>
-                <li><a href="tech.html">기술 뉴스</a></li>
-                <li><a href="cnbc-news.html">외신 뉴스</a></li>
+              <li><a href="politics.html">정치</a></li>
+              <li><a href="tech.html">기술</a></li>
+              <li><a href="#opinion">의견</a></li>
             </ul>
           </div>
           <div class="mega-col">
@@ -1178,7 +1189,7 @@ body.dark-mode .security-grid li {
     </section>
   </main>
   <section class="extended-news-list">
-        <h3>정치 뉴스</h3>
+        <h3 style="margin-bottom: 3rem;">정치 뉴스</h3>
 
         <div class="headline-article" onclick="toggleArticle(this)">
           <div>
@@ -1380,7 +1391,7 @@ body.dark-mode .security-grid li {
   <nav class="bottom-nav">
     <ul>
       <li>
-        <a href="index.html" class="nav-link active" aria-label="뉴스">
+        <a href="index.html" class="nav-link" aria-label="뉴스">
           <span class="icon news-icon"></span>
           <span class="nav-text">뉴스</span>
         </a>
@@ -1404,7 +1415,7 @@ body.dark-mode .security-grid li {
         </a>
       </li>
       <li>
-        <a href="배당주.html" class="nav-link" aria-label="배당주분석">
+        <a href="배당주.html" class="nav-link active" aria-label="배당주분석">
           <span class="icon coinTree-icon"></span>
           <span class="nav-text">배당주</span>
         </a>
@@ -1540,9 +1551,8 @@ function toggleExtendedNews(btn) {
   selector.className = "page-selector";
   selector.innerHTML = `
     <button class="selector-btn" data-target="index.html">투데이뉴스</button>
-    <button class="selector-btn" data-target="tech.html">기술뉴스</button>
-    <button class="selector-btn" data-target="cnbc-news.html">외신뉴스</button>
-    <button class="selector-btn" data-target="politics.html">정치뉴스</button>
+    <button class="selector-btn" data-target="tech.html">기술페이지</button>
+    <button class="selector-btn" data-target="politics.html">정치페이지</button>
     <button class="selector-btn cancel">취소</button>
   `;
   document.body.appendChild(selector);
