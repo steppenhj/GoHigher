@@ -725,15 +725,15 @@ body.dark-mode .news-date {
   .news-summary {
     font-size: 0.85rem; /* 모바일용 요약 텍스트 크기 */
   }
-  .read-more{
-    display: block;
-    margin: 0 -1rem 1.5rem;  
-    width: calc(100% + 2rem);
-    padding: 0.8rem 1rem;
-    box-sizing: border-box;
-    text-align: center;
-    font-size: 1.1rem;
+  .read-more {
     margin-bottom: 90px !important;
+    width: 100%; /* 전체 너비 유지 */
+    margin: 0; /* 여백 제거 */
+    border-radius: 0 !important; /* 각진 모양으로 변경 */
+    font-size: 1.2rem; /* 크기 조정 (선택사항) */
+    border: none; /* 필요시 테두리 제거 */
+    box-shadow: none; /* 그림자 제거 또는 조정 */
+    background: linear-gradient(135deg, #004080, #007acc); /* 기존 배경 유지 또는 변경 가능 */
   }
   /* 4) 추가 뉴스(extended-news-list) 가독성 강화 */
    .category-group .extended-news-list {
@@ -1034,6 +1034,81 @@ body.dark-mode .security-grid li {
 h2{
   margin: 1.5rem 0;
 }
+.mega-menu {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  min-width: 320px;
+  padding: 1.5rem 2.2rem 1.5rem 1.5rem;
+}
+
+.news-desc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.news-desc-list li {
+  margin-bottom: 1.3rem;
+}
+
+.news-desc-list li:last-child {
+  margin-bottom: 0;
+}
+
+.news-desc-list a {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  background: #f7faff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  border: 1px solid #f0f4f8;
+}
+
+.news-desc-list a:hover {
+  background: #e5f0ff;
+  box-shadow: 0 2px 12px rgba(30,100,180,0.08);
+  border-color: #c2dbff;
+}
+
+.news-title {
+  font-size: 1.12rem;
+  font-weight: bold;
+  color: #004080;
+  margin-bottom: 0.2rem;
+}
+
+.news-desc {
+  font-size: 0.95rem;
+  color: #566;
+  margin-left: 2px;
+  margin-top: 1px;
+}
+body.dark-mode .mega-menu {
+  background: #23272f;
+}
+
+body.dark-mode .news-desc-list a {
+  background: #222b37;
+  border: 1px solid #333a46;
+  color: #dbeafe;
+}
+
+body.dark-mode .news-desc-list a:hover {
+  background: #29364c;
+  border-color: #446094;
+}
+
+body.dark-mode .news-title {
+  color: #78b4ff;
+}
+
+body.dark-mode .news-desc {
+  color: #bcd;
+}
   </style>
 </head>
 <body>
@@ -1052,137 +1127,134 @@ h2{
       </a>
     </div>
     <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
-    <nav class="desktop-nav top-tab-nav">
-      <div class="tab-dropdown">
-        <a href="index.html" class="tab-item active">투데이뉴스</a>
-        <div class="mega-menu">
-          <div class="mega-col">
-            <h4>News</h4>
-            <ul>
-              <li><a href="politics.html">정치</a></li>
-              <li><a href="tech.html">기술</a></li>
-              <li><a href="#opinion">의견</a></li>
-            </ul>
-          </div>
-          <div class="mega-col">
-            <h4>Data</h4>
-            <ul>
-              <li><a href="#stocks">Stocks</a></li>
-              <li><a href="#futures">Futures</a></li>
-              <li><a href="#rates">Rates &amp; Bonds</a></li>
-              <li><a href="#currencies">Currencies</a></li>
-            </ul>
-          </div>
-          <div class="mega-col top-securities">
-            <h4>Top Securities</h4>
-            <ul class="security-grid">
-              <li><strong>S&amp;P 500</strong><br/>5,528.75 ▲0.06%</li>
-              <li><strong>Nasdaq</strong><br/>17,366.13 ▼0.10%</li>
-              <li><strong>FTSE 100</strong><br/>8,417.47 ▲0.00%</li>
-              <li><strong>Dow Jones</strong><br/>40,227.59 ▲0.28%</li>
-              <li><strong>Russell 2000</strong><br/>1,965.55 ▲0.41%</li>
-            </ul>
-          </div>
+      <nav class="desktop-nav top-tab-nav">
+        <div class="tab-dropdown">
+          <a href="index.html" class="tab-item active">투데이뉴스</a>
+<div class="mega-menu">
+  <div class="mega-col">
+    <h4>News</h4>
+    <ul class="news-desc-list">
+      <li>
+        <a href="politics.html">
+          <span class="news-title">정치 뉴스</span>
+          <span class="news-desc">미국의 정치적 이슈를 심층적으로 다룹니다.</span>
+        </a>
+      </li>
+      <li>
+        <a href="tech.html">
+          <span class="news-title">기술 뉴스</span>
+          <span class="news-desc">미국 주요 기술 기업들의 뉴스를 신속하게 전합니다.</span>
+        </a>
+      </li>
+      <li>
+        <a href="cnbc-news.html">
+          <span class="news-title">외신 뉴스</span>
+          <span class="news-desc">CNBC 등 주요 외신이 다룬 미국 시장 뉴스를 제공합니다.</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
         </div>
-      </div>
-      <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
-      <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
-      <a href="중소형주식.html" class="tab-item">중소형주식</a>
-      <a href="배당주.html" class="tab-item">배당주</a>
-      <a href="큐레이션.html" class="tab-item">큐레이션</a>
-    </nav>
+        <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
+        <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
+        <a href="중소형주식.html" class="tab-item">중소형주식</a>
+        <a href="배당주.html" class="tab-item">배당주</a>
+        <a href="큐레이션.html" class="tab-item">큐레이션</a>
+      </nav>
   </header>
 
   <main>
     <section id="news-feed" class="container">
-      <h2>정치</h2>
+      <h2 style="padding-top: 1rem;">정치</h2>
       
       <!-- JavaScript에 의해 동적으로 생성된 첫 번째 뉴스 카드 -->
       <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1600077668409-523f5e237305?..." alt="미국 증시, 기술주 중심으로 상승 마감 📈" class="news-image" loading="lazy">
+        <img src="politicsImages/politics1.jpg" alt="정치 뉴스 1" class="news-image" loading="lazy">
         <div class="news-content">
-          <h3 class="news-title">미국 증시, 기술주 중심으로 상승 마감 📈</h3>
-          <p class="news-summary">지난 밤 미국 주요 지수는 기술 기업들의 실적 호조에 힘입어...</p>
-          <time datetime="2025-05-16" class="news-date">2025년 5월 16일</time>
+          <h3 class="news-title">"미국 대법원, 트럼프 추방 중단 조치 유지 결정"</h3>
+          <p class="news-summary">미국 대법원은 전시법을 근거로 한 트럼프 행정부의 이민자 추방 중단 조치를 유지하며, 이민 정책에 중요한 영향을 미칠 전망입니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
         </div>
       </article>
 
       <!-- JavaScript에 의해 동적으로 생성된 두 번째 뉴스 카드 -->
       <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <img src="politicsImages/politics2.jpg" alt="정치 뉴스 2" class="news-image" loading="lazy">
         <div class="news-content">
-          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
-          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
-          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+          <h3 class="news-title">"연방노동부, 트럼프의 공무원 파업 방지 조치 승인"</h3>
+          <p class="news-summary">연방정부는 트럼프 행정부가 추진한 공무원 파업 방지 계획을 승인하며, 노동권 제한 논란이 예상됩니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
         </div>
       </article>
 
       <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <img src="politicsImages/politics3.jpg" alt="정치 뉴스 3" class="news-image" loading="lazy">
         <div class="news-content">
-          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
-          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
-          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
-        </div>
-      </article>
-
-
-      <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
-          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
-          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+          <h3 class="news-title">"기소 취하된 톰 기라디 사건, 법적 절차 진행 중"</h3>
+          <p class="news-summary">시카고와 캘리포니아에서 기소가 취하된 톰 기라디 사건은 아직 법적 절차가 남아 있으며, 판결이 기다려지고 있습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
         </div>
       </article>
 
 
       <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <img src="politicsImages/politics4.jpg" alt="정치 뉴스 4" class="news-image" loading="lazy">
         <div class="news-content">
-          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
-          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
-          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+          <h3 class="news-title">"트럼프 행정부, 바이든 정책 뒤집고 강제 재설정 허용"</h3>
+          <p class="news-summary">트럼프 행정부는 바이든 정부의 정책을 뒤집으며, 총기 규제와 관련된 강제 재설정을 허용하는 조치를 발표했습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
         </div>
       </article>
 
 
       <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <img src="politicsImages/politics5.jpg" alt="정치 뉴스 5" class="news-image" loading="lazy">
         <div class="news-content">
-          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
-          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
-          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+          <h3 class="news-title">"카타르 선물 비행기, 트럼프 대통령 허용 여부 논란"</h3>
+          <p class="news-summary">카타르의 선물 비행기가 미국 법률상 트럼프 대통령에게 허용될 수 있는지 여부가 논란이 되고 있습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
         </div>
       </article>
 
 
       <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <img src="politicsImages/politics6.jpg" alt="정치 뉴스 6" class="news-image" loading="lazy">
         <div class="news-content">
-          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
-          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
-          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+          <h3 class="news-title">"트럼프 명령, 화웨이 형사 사건 법적 문제 제기"</h3>
+          <p class="news-summary">미국 법원이 화웨이 관련 형사 사건에서 트럼프 행정부의 명령이 법적 문제를 야기할 수 있다고 지적하며, 법적 쟁점이 부각되고 있습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
         </div>
       </article>
 
 
       <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <img src="politicsImages/politics7.jpg" alt="정치 뉴스 7" class="news-image" loading="lazy">
         <div class="news-content">
-          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
-          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
-          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+          <h3 class="news-title">"뉴욕, 트럼프 관련 무료 법률 지원 제한 법안 통과"</h3>
+          <p class="news-summary">뉴욕에서 트럼프 관련 무료 법률 지원을 제한하는 법안이 통과되면서, 법률 지원의 공정성 논란이 일고 있습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
         </div>
       </article>
 
 
       <article class="news-card">
-        <img src="https://images.unsplash.com/photo-1554866585-CD94860890b7?..." alt="코카콜라, 새로운 친환경 패키징 도입 발표 🥤" class="news-image" loading="lazy">
+        <img src="politicsImages/politics8.jpg" alt="정치 뉴스 8" class="news-image" loading="lazy">
         <div class="news-content">
-          <h3 class="news-title">코카콜라, 새로운 친환경 패키징 도입 발표 🥤</h3>
-          <p class="news-summary">코카콜라가 지속 가능한 경영의 일환으로 100% 재활용 가능한...</p>
-          <time datetime="2025-05-15" class="news-date">2025년 5월 15일</time>
+          <h3 class="news-title">"마이크로소프트, 유럽 반독점 조사 대응 위해 오피스와 Teams 가격 인하"</h3>
+          <p class="news-summary">유럽연합의 반독점 조사를 피하기 위해, 마이크로소프트는 오피스와 Teams의 가격을 낮추는 방안을 발표했습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
+        </div>
+      </article>
+
+
+      <article class="news-card">
+        <img src="politicsImages/politics9.jpg" alt="정치 뉴스 9" class="news-image" loading="lazy">
+        <div class="news-content">
+          <h3 class="news-title">"인텔, 유럽 규제와 4214만 달러 반독점 벌금에 반발"</h3>
+          <p class="news-summary">인텔은 유럽 규제 당국이 부과한 4214만 달러의 반독점 벌금에 대해 강하게 반발하며, 법적 대응을 예고했습니다.</p>
+          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
         </div>
       </article>
       
@@ -1193,191 +1265,80 @@ h2{
 
         <div class="headline-article" onclick="toggleArticle(this)">
           <div>
-            <h4>“휴머노이드 공장 혁명”…중국, AI 로봇으로 제조업 체질 개선 노린다
-              <small>2025-05-13</small>
+            <h4>사우스웨스트, 다양성·포용성(DEI) 관련 소송을 1센트로 종결할 가능성
+              <small>2025-05-17</small>
             </h4>
           </div>
           <div class="article-content">
             <p>
-              상하이 외곽의 거대한 창고에선 로봇 팔 대신 사람 형상의 ‘아지봇’이 티셔츠를 접고 샌드위치를 만드는 테스트를 17시간씩 반복한다.<br>
-              정부가 조성한 1조 위안 펀드와 2조 원 규모의 지방 보조금 덕분에 유니트리·UBTech 등 30여 개 업체가 올해만 36종의 휴머노이드 모델을 내놨다.<br>
-              부품의 90%를 자국에서 조달해 2030년엔 완제품 원가를 1만7천 달러까지 낮추는 것이 목표.<br>
-              일자리 불안을 우려한 국회는 ‘AI 실업 보험’ 도입도 검토 중이다.
+              사우스웨스트 항공은 인종·성별 다양성 정책과 관련된 소송에서 거의 무상으로 종료하는 방안을 검토 중이며, 이는 기업의 법적 책임 회피와 이미지 개선 전략의 일환으로 보입니다.
             </p>
           </div>
         </div>
 
         <div class="headline-article" onclick="toggleArticle(this)">
           <div>
-            <h4>“챗GPT 대항마” 퍼플렉서티, 몸값 140억 달러 노린다
-              <small>2025-05-13</small>
+            <h4>캐피탈 원, 저축 계좌 관련 소송에서 4억 2500만 달러 규모 합의
+              <small>2025-05-17</small>
             </h4>
           </div>
           <div class="article-content">
             <p>
-              엔비디아와 제프 베이조스가 투자한 검색형 챗봇 스타트업 퍼플렉서티가 5억 달러 추가 투자 유치에 나섰다.<br>
-              새 라운드가 성사되면 기업가치는 지난해 90억 달러에서 단숨에 140억 달러로 뛰어오른다.<br>
-              주 투자자는 실리콘밸리 대표 VC 액셀이 유력하다.<br>
-              애플이 사파리에 AI 검색 파트너로 퍼플렉서티를 검토 중이라는 소식도 겹치면서 시장 기대가 커졌다.
+              캐피탈 원은 고객 저축 계좌와 관련된 소송에서 4억 2500만 달러의 합의에 도달했으며, 이번 사건은 금융기관의 고객 보호와 규제 준수 문제를 다시 한 번 부각시키고 있습니다.
             </p>
           </div>
         </div>
 
         <div class="headline-article" onclick="toggleArticle(this)">
           <div>
-            <h4>구글, 연례 I/O 앞두고 ‘전천후 코딩 에이전트’ 사내 시연
-              <small>2025-05-13</small>
+            <h4>일리노이, 민간 검찰인력 사용이 절차권 침해 주장
+              <small>2025-05-17</small>
             </h4>
           </div>
           <div class="article-content">
             <p>
-              구글이 사내 엔지니어에게 Gemini 기반 AI 개발도구 ‘소프트웨어 에이전트’를 공개했다.<br>
-              기획부터 코드 작성·문서화·테스트까지 전 과정을 지원하는 것이 목표다.<br>
-              올해 I/O(5월 20일) 키노트에선 음성 모드의 Gemini를 XR 안경·헤드셋과 연동하는 데모도 예고했다.<br>
-              규제와 경쟁 압박 속에서 투자 대비 성과를 보여주려는 의도로 풀이된다.
+              일리노이 주는 민간 검찰인력을 사용하는 것이 법적 절차와 시민의 권리를 침해한다며, 법적·윤리적 문제를 제기하는 논쟁이 일고 있습니다. <br>
+              이는 공공기관의 권한 남용 가능성에 대한 우려를 불러일으키고 있습니다.
+          </div>
+        </div>
+
+        <div class="headline-article" onclick="toggleArticle(this)">
+          <div>
+            <h4>SEC, 인수 후 시장 부서 축소로 19명 감원
+              <small>2025-05-17</small>
+            </h4>
+          </div>
+          <div class="article-content">
+            <p>
+              미 증권거래위원회(SEC)는 인수 이후 시장 부서를 축소하며, 19명의 인력을 감원하는 구조조정을 단행했고,<br>
+              이는 내부 효율성 강화와 비용 절감 전략의 일환입니다.
             </p>
           </div>
         </div>
 
         <div class="headline-article" onclick="toggleArticle(this)">
           <div>
-            <h4>유엔, ‘킬러 로봇’ 첫 본회의…합의는 여전히 지지부진
-              <small>2025-05-13</small>
+            <h4>차터, 코스와의 합병 추진 가속화하며 시장 재편 기대
+              <small>2025-05-17</small>
             </h4>
           </div>
           <div class="article-content">
             <p>
-              뉴욕 유엔총회에서 80여 개국이 자율살상무기 규제를 논의했지만 미국·중국·러시아 등은 “각국 지침으로 충분하다”며 구속력 있는 조약에 난색을 표했다.<br>
-              구테흐스 사무총장은 2026년까지 규범 마련을 촉구했으나,<br>
-              200종 넘게 실전에 투입된 AI 무기가 이미 우크라이나·가자지구에서 사용되고 있다는 보고만 재확인됐다.
+              차터 커뮤니케이션즈는 코스와의 합병을 본격 추진하며, 이번 인수합병이 미국 통신 시장의 경쟁 구도를 크게 바꿀 것으로 기대되고 있습니다.
             </p>
           </div>
         </div>
 
         <div class="headline-article" onclick="toggleArticle(this)">
           <div>
-            <h4>챗GPT發 충격…체그, 직원 22% 감원·북미 사무실 철수
-              <small>2025-05-13</small>
+            <h4>디즈니, Foot Locker 인수 위해 240억 달러 제안
+              <small>2025-05-17</small>
             </h4>
           </div>
           <div class="article-content">
             <p>
-              온라인 학습 플랫폼 체그는 구글 ‘AI 개요’와 무료 챗봇 서비스로 트래픽이 급감하자 248명을 해고하고 북미 오피스를 연말까지 닫는다.<br>
-              구조조정 비용 3,400만~3,800만 달러를 반영하지만 2026년까지 연 1억 달러 절감 효과를 기대한다.<br>
-              1분기 구독자는 31% 감소한 320만 명, 매출은 30% 줄어 1억2,100만 달러에 그쳤다.
-            </p>
-          </div>
-        </div>
-
-        <div class="headline-article" onclick="toggleArticle(this)">
-          <div>
-            <h4>美 노동부, 스케일AI 임금 조사 종결…스타트업 “환영”
-              <small>2025-05-13</small>
-            </h4>
-          </div>
-          <div class="article-content">
-            <p>
-              최저임금·초과근로 위반 여부를 살폈던 1년여 조사가 “위법 없음” 결론에 이르렀다.<br>
-              엔비디아·아마존·메타가 투자한 데이터 라벨링 업체 스케일AI(기업가치 140억 달러)는 “인재 확보에 집중할 수 있게 됐다”고 밝혔다.
-            </p>
-          </div>
-        </div>
-
-        <div class="headline-article" onclick="toggleArticle(this)">
-          <div>
-            <h4>오픈AI–마이크로소프트, ‘IPO 대비’ 지분 재협상
-              <small>2025-05-13</small>
-            </h4>
-          </div>
-          <div class="article-content">
-            <p>
-              FT에 따르면 MS는 130억 달러 투자 대가로 받은 초과지분 일부를 양보하는 대신 2030년 이후 차세대 모델 접근권을 확보하는 방안을 논의 중이다.<br>
-              구조가 확정되면 오픈AI는 기업공개(IPO) 발판을 다지고 MS는 핵심 기술 독점권을 이어갈 수 있다.
-            </p>
-          </div>
-        </div>
-
-        <div class="headline-article" onclick="toggleArticle(this)">
-          <div>
-            <h4>애플, ‘스마트 글라스·AI 서버’ 전용 칩 개발…M6·M7도 준비
-              <small>2025-05-13</small>
-            </h4>
-          </div>
-          <div class="article-content">
-            <p>
-              블룸버그에 따르면 애플은 저전력 애플워치 칩을 개량해 다중 카메라 처리를 지원하는 글라스용 칩을 TSMC와 양산할 계획이다.<br>
-              또한 ‘애플 인텔리전스’를 뒷받침할 서버용 프로세서와 차세대 Mac 칩(M6·M7)도 병행 개발 중이다.
-            </p>
-          </div>
-        </div>
-
-        <div class="headline-article" onclick="toggleArticle(this)">
-          <div>
-            <h4>MS “딥시크 앱 금지”…사내 보안·선전 우려
-              <small>2025-05-13</small>
-            </h4>
-          </div>
-          <div class="article-content">
-            <p>
-              브래드 스미스 사장은 상원 청문회에서 “딥시크가 수집한 데이터가 중국으로 전송돼 선전 목적으로 활용될 위험이 있다”며 직원 사용을 차단했다고 밝혔다.<br>
-              마이크로소프트 스토어도 해당 앱을 내려받을 수 없도록 조치했다.
-            </p>
-          </div>
-        </div>
-
-        <div class="headline-article" onclick="toggleArticle(this)">
-          <div>
-            <h4>바이두 아폴로, 車렌트 1위 ‘CAR Inc’와 자율주행 렌털 출시
-              <small>2025-05-13</small>
-            </h4>
-          </div>
-          <div class="article-content">
-            <p>
-              베이징에서 체결된 협약에 따라 양사는 도심 거점에 자율주행 차량을 배치하고 단기 렌터카 형태로 서비스를 운영한다.<br>
-              중국 내 로보택시 상용화 경쟁이 차량 공유 시장까지 번진 셈이다.
-            </p>
-          </div>
-        </div>
-
-        <div class="headline-article" onclick="toggleArticle(this)">
-          <div>
-            <h4>구글, 글로벌 비즈니스 부문 200명 감원…AI 집중 가속
-              <small>2025-05-13</small>
-            </h4>
-          </div>
-          <div class="article-content">
-            <p>
-              안드로이드·크롬·픽셀을 거느린 플랫폼&디바이스 조직에 이어 매출·파트너십을 담당하는 GBG에서도 인력 조정이 단행됐다.<br>
-              “고객 대응 속도와 부서 간 협업을 높이기 위한 재편”이라는 설명이지만 빅테크 전반의 ‘AI 재배치’ 흐름과 궤를 같이한다.
-            </p>
-          </div>
-        </div>
-
-        <div class="headline-article" onclick="toggleArticle(this)">
-          <div>
-            <h4>트럼프 행정부, AI 칩 수출 규제 전면 재검토
-              <small>2025-05-13</small>
-            </h4>
-          </div>
-          <div class="article-content">
-            <p>
-              상무부는 “바이든 정부가 도입한 3단계 수출 라이선스 제도가 복잡해 혁신을 저해한다”며 글로벌 정부 간 직접 협약 방식으로 바꾸겠다고 밝혔다.<br>
-              발표 직후 엔비디아 주가는 3% 상승했다가 장 마감 후 소폭 조정됐다.
-            </p>
-          </div>
-        </div>
-
-        <div class="headline-article" onclick="toggleArticle(this)">
-          <div>
-            <h4>캐던스, GPU 기반 ‘Millennium M2000’ 슈퍼컴 공개…“시뮬 8일→24시간”
-              <small>2025-05-13</small>
-            </h4>
-          </div>
-          <div class="article-content">
-            <p>
-              엔비디아 블랙웰 GPU 32개를 탑재한 신형 슈퍼컴은 항공·바이오·칩 설계용 시뮬레이션 속도를 최대 8배 단축한다.<br>
-              가격은 약 200만 달러.<br>
-              보잉·붐슈퍼소닉 등이 이미 테스트를 완료했으며 엔비디아도 10대를 구매해 차세대 칩 연구에 활용할 예정이다.
+              디즈니는 엔터테인먼트와 스포츠 시장의 시너지 강화를 위해 Foot Locker를 인수하는 방안을 검토하며, 대규모 인수합병(M&A) 전략을 추진 중입니다. <br>
+              이는 디즈니의 사업 다각화 전략의 일환입니다.
             </p>
           </div>
         </div>
@@ -1551,8 +1512,9 @@ function toggleExtendedNews(btn) {
   selector.className = "page-selector";
   selector.innerHTML = `
     <button class="selector-btn" data-target="index.html">투데이뉴스</button>
-    <button class="selector-btn" data-target="tech.html">기술페이지</button>
-    <button class="selector-btn" data-target="politics.html">정치페이지</button>
+    <button class="selector-btn" data-target="tech.html">기술뉴스</button>
+    <button class="selector-btn" data-target="cnbc-news.html">외신뉴스</button>
+    <button class="selector-btn" data-target="politics.html">정치뉴스</button>
     <button class="selector-btn cancel">취소</button>
   `;
   document.body.appendChild(selector);
