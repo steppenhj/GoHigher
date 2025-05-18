@@ -2640,16 +2640,6 @@ if (window.matchMedia('(display-mode: standalone)').matches &&
   });
 </script>
 
-<script>
-  alert(navigator.userAgent);
-if (/wv/.test(navigator.userAgent)) {
-  alert("앱(WebView)에서 실행 중!");
-} else {
-  alert("웹 브라우저에서 실행 중!");
-}
-
-</script>
-
 <script type="module">
   import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
   import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
