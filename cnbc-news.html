@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+  <head>
+    <script>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GoHigher · CNBC 뉴스</title>
+    <meta name="description" content="CNBC RSS로 매일 업데이트되는 최신 미국 증시 뉴스를 GoHigher 스타일로 확인하세요." />
+    <link rel="canonical" href="https://gohigher.kr/cnbc-news.html" />
+
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap">
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- AOS Animate -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+    <!-- GoHigher Styles -->
+    <style>
+      /* Reset & Base */
+      *, *::before, *::after { margin:0; padding:0; box-sizing: border-box; }
+      html { font-family: 'Open Sans', sans-serif; color: #333; background: url(backgroundL.webp) no-repeat center/cover; }
+      body { transition: background 0.3s, color 0.3s; padding-bottom: 60px; }
+      a { color: var(--primary-color); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      :root {
+        --primary-color: #0056d2;
+        --secondary-color: #004080;
+        --card-bg: #fff;
+        --card-shadow: rgba(0,0,0,0.1);
+      }
+      /* Header */
+      header { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color:#fff; padding:1rem; text-align:center; position: sticky; top:0; z-index:100; }
+      header h1 { font-family:'Roboto', sans-serif; font-size:2rem; }
+      .theme-toggle-btn, .kakao-share-btn { position:absolute; top:1rem; border:none; background:transparent; color:#fff; cursor:pointer; }
+      .theme-toggle-btn { left:1rem; }
+      #kakao-share-btn { right:1rem; width:28px; height:28px; }
+      .login-container { position:absolute; top:1rem; right:3rem; display:flex; align-items:center; gap:0.5rem; }
+      .login-btn { background:#fff; color:var(--primary-color); padding:0.4rem 0.8rem; border-radius:20px; font-weight:600; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+
+      /* Desktop Nav */
+      nav.desktop-nav { margin-top:1rem; }
+      .top-tab-nav { display:flex; justify-content:center; gap:0.8rem; flex-wrap:wrap; }
+      .tab-item { color:#fff; padding:0.6rem 1.2rem; border-radius:20px; position:relative; }
+      .tab-item.active { font-weight:700; }
+      .tab-item::after { content:''; position:absolute; bottom:-4px; left:50%; transform:translateX(-50%); width:0; height:4px; background:#fbd314; border-radius:2px; transition:width 0.3s; }
+      .tab-item.active::after, .tab-item:hover::after { width:60%; }
+
+      /* Section Divider */
+      .section-divider { position:relative; width:100%; height:80px; overflow:hidden; }
+      .section-divider svg { position:absolute; top:0; left:0; width:100%; height:auto; }
+      .wave-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:var(--primary-color); font-size:1.2rem; font-style:italic; }
+
+      /* Main Content */
+      .main-content { max-width:1024px; margin:2rem auto; padding:0 1rem; }
+      .news-section { background:#fff; border-radius:8px; padding:2rem; box-shadow:0 2px 8px var(--card-shadow); }
+      .news-section h2 { font-family:'Roboto',sans-serif; color:var(--primary-color); margin-bottom:1rem; border-bottom:2px solid var(--primary-color); display:inline-block; padding-bottom:0.4rem; }
+      .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; }
+      .news-card { background:var(--card-bg); border-radius:6px; padding:1rem; box-shadow:0 1px 4px var(--card-shadow); transition:transform 0.2s; }
+      .news-card:hover { transform:translateY(-3px); box-shadow:0 4px 12px var(--card-shadow); }
+      .news-title { font-size:1.1rem; font-weight:600; margin-bottom:0.6rem; }
+      .news-title a { color:var(--secondary-color); }
+      .news-summary { font-size:0.95rem; color:#555; margin-bottom:0.8rem; }
+      .news-date { font-size:0.85rem; color:#888; text-align:right; }
+
+      /* Footer */
+      footer { background:var(--secondary-color); color:#fff; text-align:center; padding:1rem; margin-top:2rem; font-size:0.9rem; }
+
+      /* Bottom Nav Mobile */
+      .bottom-nav { display:none; position:fixed; bottom:0; left:0; width:100%; background:#fff; box-shadow:0 -2px 6px rgba(0,0,0,0.1); }
+      .bottom-nav ul { display:flex; justify-content:space-around; list-style:none; margin:0; padding:0.5rem 0; }
+      .bottom-nav .nav-link { display:flex; flex-direction:column; align-items:center; color:#888; }
+      .bottom-nav .nav-link.active { color:var(--primary-color); }
+      .bottom-nav .icon { width:28px; height:28px; background-size:cover; margin-bottom:4px; }
+
+      @media (max-width:768px) {
+        nav.desktop-nav { display:none; }
+        .bottom-nav { display:block; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="다크모드 전환">🌙</button>
+      <img id="kakao-share-btn" class="kakao-share-btn" src="kakaotalk.webp" alt="공유하기" />
+      <h1><a href="/">GoHigher</a></h1>
+      <div class="login-container">
+        <div id="profileBox" style="display:none;"><img id="profileAvatar" src="logo.jpg" alt="Avatar" /><span id="welcomeText"></span></div>
+        <a id="authButton" href="login.html" class="login-btn">로그인</a>
+      </div>
+      <nav class="desktop-nav top-tab-nav">
+        <a href="index.html" class="tab-item">투데이뉴스</a>
+        <a href="cnbc-news.html" class="tab-item active">CNBC 뉴스</a>
+        <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
+        <a href="큐레이션.html" class="tab-item">큐레이션</a>
+      </nav>
+    </header>
+
+    <!-- Section Divider -->
+    <div class="section-divider">
+      <div class="wave-text">데이터로 투자하라, 미국 주식의 전략적 인사이트 플랫폼</div>
+      <svg viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M0,0 C150,100 350,0 500,100 L500,150 L0,150 Z"></path></svg>
+    </div>
+
+    <!-- Main -->
+    <main class="main-content">
+      <section class="news-section" id="cnbc-news">
+        <h2>📰 CNBC 최신 뉴스</h2>
+        <div id="newsList" class="grid"></div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      &copy; 2025 GoHigher. All rights reserved.<br>
+      <a href="privacy-policy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
+    </footer>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+      <ul>
+        <li><a href="cnbc-news.html" class="nav-link active"><span class="icon news-icon"></span><span class="nav-text">뉴스</span></a></li>
+        <li><a href="주식포트폴리오.html" class="nav-link"><span class="icon diary-icon"></span><span class="nav-text">다이어리</span></a></li>
+        <li><a href="큐레이션.html" class="nav-link"><span class="icon bull-icon"></span><span class="nav-text">큐레이션</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Firebase & Render Script -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+    <script>
+      const firebaseConfig = { apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk", authDomain: "gohigher-55e51.firebaseapp.com", projectId: "gohigher-55e51" };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      db.collection("cnbcNews").orderBy("createdAt","desc").limit(10).get()
+        .then(snap => {
+          const container = document.getElementById('newsList');
+          snap.forEach(doc => {
+            const d = doc.data();
+            const card = document.createElement('div'); card.className='news-card';
+            card.innerHTML = `
+              <div class="news-title"><a href="${d.link}" target="_blank">${d.koTitle || d.title}</a></div>
+              <div class="news-summary">${d.koSummary || d.summary || ''}</div>
+              <div class="news-date">${new Date(d.pubDate).toLocaleString()}</div>
+            `;
+            container.appendChild(card);
+          });
+        }).catch(e=>console.error(e));
+    </script>
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script>document.addEventListener('DOMContentLoaded',()=>AOS.init({duration:800,once:true}));</script>
+
+    <!-- Theme Toggle, Auth Script etc. -->
+    <script src="auth.js"></script>
+  </body>
+</html>
