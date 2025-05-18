@@ -925,6 +925,81 @@ body.dark-mode .security-grid li {
   font-size: 1rem;
 }
 }
+.mega-menu {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  min-width: 320px;
+  padding: 1.5rem 2.2rem 1.5rem 1.5rem;
+}
+
+.news-desc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.news-desc-list li {
+  margin-bottom: 1.3rem;
+}
+
+.news-desc-list li:last-child {
+  margin-bottom: 0;
+}
+
+.news-desc-list a {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  background: #f7faff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  border: 1px solid #f0f4f8;
+}
+
+.news-desc-list a:hover {
+  background: #e5f0ff;
+  box-shadow: 0 2px 12px rgba(30,100,180,0.08);
+  border-color: #c2dbff;
+}
+
+.news-title {
+  font-size: 1.12rem;
+  font-weight: bold;
+  color: #004080;
+  margin-bottom: 0.2rem;
+}
+
+.news-desc {
+  font-size: 0.95rem;
+  color: #566;
+  margin-left: 2px;
+  margin-top: 1px;
+}
+body.dark-mode .mega-menu {
+  background: #23272f;
+}
+
+body.dark-mode .news-desc-list a {
+  background: #222b37;
+  border: 1px solid #333a46;
+  color: #dbeafe;
+}
+
+body.dark-mode .news-desc-list a:hover {
+  background: #29364c;
+  border-color: #446094;
+}
+
+body.dark-mode .news-title {
+  color: #78b4ff;
+}
+
+body.dark-mode .news-desc {
+  color: #bcd;
+}
   </style>
 </head>
 <body>
@@ -943,45 +1018,42 @@ body.dark-mode .security-grid li {
       </a>
     </div>
     <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
-    <nav class="desktop-nav top-tab-nav">
-      <div class="tab-dropdown">
-        <a href="index.html" class="tab-item">투데이뉴스</a>
-        <div class="mega-menu">
-          <div class="mega-col">
-            <h4>News</h4>
-            <ul>
-                <li><a href="politics.html">정치 뉴스</a></li>
-                <li><a href="tech.html">기술 뉴스</a></li>
-                <li><a href="cnbc-news.html">외신 뉴스</a></li>
-            </ul>
-          </div>
-          <div class="mega-col">
-            <h4>Data</h4>
-            <ul>
-              <li><a href="#stocks">Stocks</a></li>
-              <li><a href="#futures">Futures</a></li>
-              <li><a href="#rates">Rates &amp; Bonds</a></li>
-              <li><a href="#currencies">Currencies</a></li>
-            </ul>
-          </div>
-          <div class="mega-col top-securities">
-            <h4>Top Securities</h4>
-            <ul class="security-grid">
-              <li><strong>S&amp;P 500</strong><br/>5,528.75 ▲0.06%</li>
-              <li><strong>Nasdaq</strong><br/>17,366.13 ▼0.10%</li>
-              <li><strong>FTSE 100</strong><br/>8,417.47 ▲0.00%</li>
-              <li><strong>Dow Jones</strong><br/>40,227.59 ▲0.28%</li>
-              <li><strong>Russell 2000</strong><br/>1,965.55 ▲0.41%</li>
-            </ul>
-          </div>
+      <nav class="desktop-nav top-tab-nav">
+        <div class="tab-dropdown">
+          <a href="index.html" class="tab-item">투데이뉴스</a>
+<div class="mega-menu">
+  <div class="mega-col">
+    <h4>News</h4>
+    <ul class="news-desc-list">
+      <li>
+        <a href="politics.html">
+          <span class="news-title">정치 뉴스</span>
+          <span class="news-desc">미국의 정치적 이슈를 심층적으로 다룹니다.</span>
+        </a>
+      </li>
+      <li>
+        <a href="tech.html">
+          <span class="news-title">기술 뉴스</span>
+          <span class="news-desc">미국 주요 기술 기업들의 뉴스를 신속하게 전합니다.</span>
+        </a>
+      </li>
+      <li>
+        <a href="cnbc-news.html">
+          <span class="news-title">외신 뉴스</span>
+          <span class="news-desc">CNBC 등 주요 외신이 다룬 미국 시장 뉴스를 제공합니다.</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
         </div>
-      </div>
-      <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
-      <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
-      <a href="중소형주식.html" class="tab-item">중소형주식</a>
-      <a href="배당주.html" class="tab-item">배당주</a>
-      <a href="큐레이션.html" class="tab-item active">큐레이션</a>
-    </nav>
+        <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
+        <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
+        <a href="중소형주식.html" class="tab-item">중소형주식</a>
+        <a href="배당주.html" class="tab-item">배당주</a>
+        <a href="큐레이션.html" class="tab-item active">큐레이션</a>
+      </nav>
   </header>
   
   <!-- 모바일 하단 네비게이션 -->

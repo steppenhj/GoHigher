@@ -1620,9 +1620,174 @@ body.dark-mode .security-grid li {
   }
 }
 
+.index-price-box {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 2rem; /* 좌측 안내와 살짝 간격 */
+  min-width: 400px;
+  max-width: 500px;
+  font-family: "Roboto", sans-serif;
+}
+
+.index-price-box h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: #004080;
+  font-weight: bold;
+}
+
+.etf-row {
+  font-size: 1rem;
+  margin: 0.4em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-loading {
+  color: #888;
+  font-size: 0.95em;
+}
+.notice-row {
+  display: flex;
+  gap: 1.5rem;      /* 두 박스 사이 간격 */
+  align-items: stretch; /* 높이 맞춤(원하면 center로) */
+  margin-bottom: 1.5rem;
+}
+
+.notice-row .save-notice {
+  flex: 1 1 0;
+  min-width: 240px;
+  max-width: 520px;
+}
+
+.notice-row .index-price-box {
+  flex: 0 0 320px;    /* 우측 박스는 고정 너비 권장 */
+  min-width: 220px;
+  max-width: 350px;
+  margin-left: 0;
+}
+
+/* 모바일에서는 세로로 배치 (미디어쿼리) */
+@media (max-width: 900px) {
+  .notice-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .notice-row .index-price-box {
+    margin-left: 0;
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+body.dark-mode .index-price-box {
+  background-color: var(--card-bg-dark);
+  border: 1px solid var(--card-border-dark);
+  box-shadow: 0 2px 8px var(--card-shadow-dark);
+  color: var(--card-text-dark);
+}
+
+body.dark-mode .index-price-box h3 {
+  color: var(--card-text-dark);   /* 헤더도 본문 텍스트와 동일하게 */
+}
+
+body.dark-mode .etf-row {
+  color: var(--card-text-dark);
+}
+
+body.dark-mode .index-price-box strong {
+  color: var(--card-accent-dark);
+  font-weight: 700;
+}
+
+body.dark-mode .index-price-box span {
+  color: var(--card-subtle-dark);
+}
+
+body.dark-mode .index-price-box .price-loading {
+  color: var(--card-subtle-dark);
+}
+.mega-menu {
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  min-width: 320px;
+  padding: 1.5rem 2.2rem 1.5rem 1.5rem;
+}
+
+.news-desc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.news-desc-list li {
+  margin-bottom: 1.3rem;
+}
+
+.news-desc-list li:last-child {
+  margin-bottom: 0;
+}
+
+.news-desc-list a {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 1.2rem 1.2rem 1.2rem;
+  background: #f7faff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  border: 1px solid #f0f4f8;
+}
+
+.news-desc-list a:hover {
+  background: #e5f0ff;
+  box-shadow: 0 2px 12px rgba(30,100,180,0.08);
+  border-color: #c2dbff;
+}
+
+.news-title {
+  font-size: 1.12rem;
+  font-weight: bold;
+  color: #004080;
+  margin-bottom: 0.2rem;
+}
+
+.news-desc {
+  font-size: 0.95rem;
+  color: #566;
+  margin-left: 2px;
+  margin-top: 1px;
+}
+body.dark-mode .mega-menu {
+  background: #23272f;
+}
+
+body.dark-mode .news-desc-list a {
+  background: #222b37;
+  border: 1px solid #333a46;
+  color: #dbeafe;
+}
+
+body.dark-mode .news-desc-list a:hover {
+  background: #29364c;
+  border-color: #446094;
+}
+
+body.dark-mode .news-title {
+  color: #78b4ff;
+}
+
+body.dark-mode .news-desc {
+  color: #bcd;
+}
 
 </style>
-    </style>
     
   </head>
   <body>
@@ -1630,7 +1795,10 @@ body.dark-mode .security-grid li {
     <!-- 헤더 -->
     <header>
       <div class="button-container" style="position: relative;">
-        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="다크모드 전환 버튼">다크모드</button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="다크모드 전환 버튼">
+  <i class="fas fa-moon"></i>
+</button>
+
         <img id="kakao-share-btn" class="kakao-share-btn" src="kakaotalk.webp" alt="카카오톡 공유하기" aria-label="카카오톡 공유하기" loading="lazy">
       </div>
       <h1><a href="index.html" style="color: inherit; text-decoration: none;">Go Higher</a></h1>
@@ -1651,34 +1819,32 @@ body.dark-mode .security-grid li {
       <nav class="desktop-nav top-tab-nav">
         <div class="tab-dropdown">
           <a href="index.html" class="tab-item active">투데이뉴스</a>
-          <div class="mega-menu">
-            <div class="mega-col">
-              <h4>News</h4>
-              <ul>
-                <li><a href="politics.html">정치 뉴스</a></li>
-                <li><a href="tech.html">기술 뉴스</a></li>
-                <li><a href="cnbc-news.html">외신 뉴스</a></li>
-              </ul>
-            </div>
-            <div class="mega-col">
-              <h4>Data</h4>
-              <ul>
-                <li><a href="#stocks">Stocks</a></li>
-                <li><a href="#futures">Futures</a></li>
-                <li><a href="#rates">Rates &amp; Bonds</a></li>
-                <li><a href="#currencies">Currencies</a></li>
-              </ul>
-            </div>
-            <div class="mega-col top-securities">
-              <h4>Top Securities</h4>
-              <ul class="security-grid">
-                <li><strong>S&amp;P 500</strong><br/>5,659.91 ▼0.07%</li>
-                <li><strong>Nasdaq</strong><br/>17,928.92 ▲0.00%</li>
-                <li><strong>Dow Jones</strong><br/>41,248.38 ▼0.29%</li>
-                <li><strong>FTSE 100</strong><br/>8,554.80 ▲0.27%</li>
-              </ul>
-            </div>
-          </div>
+<div class="mega-menu">
+  <div class="mega-col">
+    <h4>News</h4>
+    <ul class="news-desc-list">
+      <li>
+        <a href="politics.html">
+          <span class="news-title">정치 뉴스</span>
+          <span class="news-desc">미국의 정치적 이슈를 심층적으로 다룹니다.</span>
+        </a>
+      </li>
+      <li>
+        <a href="tech.html">
+          <span class="news-title">기술 뉴스</span>
+          <span class="news-desc">미국 주요 기술 기업들의 뉴스를 신속하게 전합니다.</span>
+        </a>
+      </li>
+      <li>
+        <a href="cnbc-news.html">
+          <span class="news-title">외신 뉴스</span>
+          <span class="news-desc">CNBC 등 주요 외신이 다룬 미국 시장 뉴스를 제공합니다.</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
         </div>
         <a href="주식포트폴리오.html" class="tab-item">다이어리</a>
         <a href="버크셔해서웨이.html" class="tab-item">대가들</a>
@@ -1767,8 +1933,9 @@ body.dark-mode .security-grid li {
       </aside>
 
       <!-- 메인 내용 -->
-      <main id="main" main class="main-content">
-        <div class="save-notice">
+<main id="main" class="main-content">
+  <div class="notice-row">
+    <div class="save-notice">
           매일 업데이트되는 <strong>미국 및 세계 증시 현황</strong>을 제공합니다.<br>
           웹사이트에서 다음과 같은 주요 기능을 이용할 수 있습니다:<br>
           <br />1️⃣ <strong>최신 증시 뉴스</strong> – 매일 업데이트
@@ -1777,7 +1944,16 @@ body.dark-mode .security-grid li {
           <br />4️⃣ <strong>미국 중소형주 추천</strong> – 유망한 미국 중소형 주식
           <br /><br />
           지금 바로 최신 뉴스를 확인하고, 투자 전략을 세워보세요!
-        </div>
+    </div>
+    <div class="index-price-box">
+      <h3>🇺🇸 주요 미국 ETF 종가</h3>
+      <div id="etf-prices">
+        <div class="etf-row" id="SPY">S&P500 ETF(SPY): <span class="price-loading">로딩중...</span></div>
+        <div class="etf-row" id="QQQ">NASDAQ ETF(QQQ): <span class="price-loading">로딩중...</span></div>
+        <div class="etf-row" id="DIA">DowJones ETF(DIA): <span class="price-loading">로딩중...</span></div>
+      </div>
+    </div>
+  </div>
 
         <!-- 주식 시세 및 환율 정보 섹션 -->
         <section class="news-section" id="stocks-exchange">
@@ -2154,29 +2330,38 @@ body.dark-mode .security-grid li {
         function getSecretKey() {
           return "my-secret-key";
         }
-        console.log(getSecretKey());
   
-        document.addEventListener("DOMContentLoaded", () => {
-          const savedTheme = localStorage.getItem("theme");
-          const themeToggleBtn = document.getElementById("themeToggleBtn");
-          if (savedTheme === "dark") {
-            document.body.classList.add("dark-mode");
-            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드';
-          } else {
-            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드';
-          }
-        });
-        const themeToggleBtn = document.getElementById("themeToggleBtn");
-        themeToggleBtn.addEventListener("click", () => {
-          document.body.classList.toggle("dark-mode");
-          if (document.body.classList.contains("dark-mode")) {
-            localStorage.setItem("theme", "dark");
-            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 라이트모드';
-          } else {
-            localStorage.setItem("theme", "light");
-            themeToggleBtn.innerHTML = '<i class="fas fa-adjust"></i> 다크모드';
-          }
-        });
+document.addEventListener("DOMContentLoaded", () => {
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
+  const icon = themeToggleBtn.querySelector("i");
+  const label = themeToggleBtn.querySelector("span");
+  const savedTheme = localStorage.getItem("theme");
+
+  function updateThemeBtn() {
+    if (document.body.classList.contains("dark-mode")) {
+      icon.className = "fas fa-sun"; // 해 아이콘
+    } else {
+      icon.className = "fas fa-moon"; // 달 아이콘
+    }
+  }
+
+  // 최초 페이지 로딩시
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+  }
+  updateThemeBtn();
+
+  themeToggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    if (document.body.classList.contains("dark-mode")) {
+      localStorage.setItem("theme", "dark");
+    } else {
+      localStorage.setItem("theme", "light");
+    }
+    updateThemeBtn();
+  });
+});
+
   
         // 모바일 nav 탭 효과
         document.addEventListener("DOMContentLoaded", () => {
@@ -2463,6 +2648,38 @@ if (/wv/.test(navigator.userAgent)) {
   alert("웹 브라우저에서 실행 중!");
 }
 
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.appspot.com",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function fetchETF(symbol) {
+    const docRef = doc(db, "indices", symbol);
+    const docSnap = await getDoc(docRef);
+    const out = document.getElementById(symbol);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      out.innerHTML = `${data.name}(${data.symbol}): <strong>${data.close ? data.close + ' USD' : 'N/A'}</strong> <span style="color:#666; font-size:0.92em">(${data.date || '-'})</span>`;
+    } else {
+      out.innerHTML = "데이터 없음";
+    }
+  }
+
+  // ETF 심볼 순회
+  ["SPY", "QQQ", "DIA"].forEach(fetchETF);
 </script>
 
 
