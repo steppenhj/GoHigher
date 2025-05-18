@@ -1,8 +1,9 @@
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-messaging.js";
 import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
 
-// Firebase 설정
+// [공통] Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
   authDomain: "gohigher-55e51.firebaseapp.com",
@@ -13,20 +14,43 @@ const firebaseConfig = {
   measurementId: "G-KQ02L8DXG0"
 };
 
-// 앱 초기화 (중복 방지)
+// [중복방지] 이미 초기화된 경우 getApp, 아니면 initializeApp
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// 🟩 Analytics 초기화
-const analytics = getAnalytics(app);
-logEvent(analytics, 'page_view', { page_path: location.pathname });  // 사용자 추적
+// --- Firestore ---
+const db = getFirestore(app);
 
-// FCM 설정
+async function fetchETF(symbol) {
+  const docRef = doc(db, "indices", symbol);
+  const docSnap = await getDoc(docRef);
+  const out = document.getElementById(symbol);
+  if (out) {
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      out.innerHTML = `${data.name}(${data.symbol}): <strong>${data.close ? data.close + ' USD' : 'N/A'}</strong> <span style="color:#666; font-size:0.92em">(${data.date || '-'})</span>`;
+    } else {
+      out.innerHTML = "데이터 없음";
+    }
+  }
+}
+
+// ETF 심볼 순회
+["SPY", "QQQ", "DIA"].forEach(fetchETF);
+
+// --- Analytics ---
+try {
+  const analytics = getAnalytics(app);
+  logEvent(analytics, 'page_view', { page_path: location.pathname });
+} catch(e) {
+  // analytics를 지원하지 않는 환경 무시
+}
+
+// --- FCM(푸시 알림) ---
 const messaging = getMessaging(app);
 
-// FCM 초기화: 알림 권한 요청 + 토큰 발급 + 서비스워커 등록
 async function initFCM() {
   try {
-    // 1. 서비스워커 등록 (firebase-messaging-sw.js)
+    // 1. 서비스워커 등록
     const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
     console.log("✅ firebase-messaging-sw.js 등록됨:", registration.scope);
 
@@ -39,7 +63,7 @@ async function initFCM() {
       }
     }
 
-    // 3. 토큰 발급 (서비스워커 명시)
+    // 3. 토큰 발급
     if (Notification.permission === "granted") {
       const token = await getToken(messaging, {
         vapidKey: "BMIz4RuAfnawKTvKZxexSrcjyZDz5SykvfDJJcYIKi7omKUtOzNoSfMQIb29kwjiNaIiQEJpdnOSR4oa3sYVOzM",
@@ -53,7 +77,6 @@ async function initFCM() {
     } else {
       console.warn("🚫 알림 권한 거부 상태");
     }
-
   } catch (err) {
     console.error("❌ FCM 초기화 실패", err);
   }
