@@ -5,6 +5,18 @@
       document.documentElement.classList.remove("no-js");
       document.documentElement.classList.add("js");
     </script>
+
+    <!-- 시발 -->
+    <script>
+import('https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js')
+  .then(({ getAnalytics, logEvent }) => {
+    const app = window.firebaseApp || window.app || getApp();
+    const analytics = getAnalytics(app);
+    logEvent(analytics, 'app_open'); // 이게 DAU 집계의 핵심 신호!
+  });
+
+
+    </script>
     
     <meta charset="UTF-8" />
     <!-- 🔄 외부 서버 연결 미리 하기 -->
@@ -2698,66 +2710,7 @@ if (window.Capacitor) {
   });
 </script>
 
-
-<script>alert(window.innerWidth + " x " + window.innerHeight);
-if (window.Capacitor) {
-  document.documentElement.classList.add('capacitor-app');
-}
-
-</script>
-
 <script type="module" src="/firebase-messaging-init.js"></script>
-
-
-
-
-
-<script>
-function getAppEnvironment() {
-  const ua = navigator.userAgent || "";
-  if (ua.includes("wv")) return "Android WebView (wv detected)";
-  if (window.Capacitor && window.Capacitor.isNative) return "Capacitor Native";
-  if (window.cordova) return "Cordova";
-  if (ua.includes("Android")) return "Android Browser";
-  if (ua.includes("iPhone") || ua.includes("iPad")) return "iOS Browser";
-  if (ua.includes("Electron")) return "Electron App";
-  if (ua.includes("Chrome")) return "Chrome Web Browser";
-  return "Unknown";
-}
-
-const environment = getAppEnvironment();
-console.log("[환경 감지]", environment);
-alert("[실행 환경]: " + environment);
-
-// Firebase Analytics로도 기록 (있으면 활용)
-try {
-  import('https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js')
-    .then(({ getAnalytics, logEvent }) => {
-      const app = window.firebaseApp || window.app || getApp(); // 기존 app 객체 활용
-      const analytics = getAnalytics(app);
-      logEvent(analytics, 'environment_detected', { environment });
-    });
-} catch(e) { /* pass */ }
-</script>
-
-
-<script>
-console.log("[UserAgent]", navigator.userAgent);
-console.log("[Location Path]", location.pathname);
-
-try {
-  import('https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js')
-    .then(({ getAnalytics, logEvent }) => {
-      const app = window.firebaseApp || window.app || getApp();
-      const analytics = getAnalytics(app);
-      logEvent(analytics, 'environment_info', {
-        user_agent: navigator.userAgent,
-        location_path: location.pathname,
-        referrer: document.referrer || "none"
-      });
-    });
-} catch(e) { /* pass */ }
-</script>
 
     </body>
   </html> 
