@@ -999,6 +999,149 @@ body.dark-mode .news-title {
 body.dark-mode .news-desc {
   color: #bcd;
 }
+
+.stock-btn {
+  background: #fff;               /* 카드 배경색과 통일, hover에서만 파란 배경 */
+  border: 1px solid #e4e8f0;      /* 연한 테두리(원하면 없애도 됨) */
+  border-radius: 16px;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  min-height: 52px;               /* 아이콘과 텍스트가 적당히 여백 있게 */
+  box-shadow: 0 2px 12px rgba(120,160,200,0.07);
+  color: #222 !important;         /* 텍스트 진하게! */
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+.stock-btn span {
+  color: #222 !important;         /* span 텍스트 명확하게 */
+  font-size: 1.06rem;
+  font-weight: 500;
+}
+
+.stock-btn:hover, .stock-btn:focus {
+  background: #e9f2ff;
+  box-shadow: 0 4px 18px rgba(60,120,200,0.10);
+  outline: none;
+}
+body.dark-mode .stock-btn {
+  background: #222b37;
+  border: 1px solid #44516e;
+  color: #dbeafe !important;
+}
+body.dark-mode .stock-btn span {
+  color: #dbeafe !important;
+}
+body.dark-mode .stock-btn:hover, 
+body.dark-mode .stock-btn:focus {
+  background: #29364c;
+}
+
+.footer-compact {
+  max-width: 900px;
+  margin: 1.5rem auto 0 auto;
+  background: linear-gradient(135deg, #004080 60%, #007acc 100%);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,64,128,0.10);
+  padding: 1.1rem 1.2rem 0.5rem 1.2rem;
+  color: #fff;
+  position: relative;
+  font-size: 1rem;
+}
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-logo-mini {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.7rem;
+  border: 1.5px solid #fff;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.footer-brand-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+.footer-brand-mini {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.footer-location-mini {
+  font-size: 0.97rem;
+  opacity: 0.85;
+}
+.footer-dot {
+  margin: 0 0.2rem;
+  opacity: 0.5;
+}
+.footer-email-mini {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 0.97rem;
+  transition: color 0.2s;
+}
+.footer-email-mini:hover {
+  color: #fbd314;
+}
+.footer-social-mini {
+  display: flex;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+.footer-social-mini a {
+  color: #fff;
+  font-size: 1.15rem;
+  transition: color 0.2s, transform 0.2s;
+}
+.footer-social-mini a:hover {
+  color: #fbd314;
+  transform: scale(1.12);
+}
+.footer-legal {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 1.6;
+}
+.footer-legal strong, .footer-legal u, .footer-legal em {
+  color: #fbd314;
+  font-weight: 600;
+}
+body.dark-mode .footer-compact {
+  background: linear-gradient(135deg, #002b57 60%, #004284 100%);
+  color: #cacaca;
+}
+body.dark-mode .footer-email-mini,
+body.dark-mode .footer-social-mini a {
+  color: #cacaca;
+}
+body.dark-mode .footer-social-mini a:hover {
+  color: #fbd314;
+}
+body.dark-mode .footer-legal {
+  color: #cacaca;
+}
+body.dark-mode .footer-legal strong, 
+body.dark-mode .footer-legal u, 
+body.dark-mode .footer-legal em {
+  color: #fbd314;
+}
+
   </style>
 </head>
 <body>
@@ -1320,36 +1463,35 @@ body.dark-mode .news-desc {
     <div id="surveyResult" style="margin-top:1rem; text-align:center; font-weight:bold;"></div>
   </section>
   
-      <footer>
-        <p>
-          © 2025 Go Higher, 고하이어. All rights reserved.<br />
-          운영 지역: 대한민국<br />
-          <a href="privacy-policy.html" style="color: #fff; text-decoration: underline;">개인정보 보호정책</a>
-          <a href="terms.html" style="color: #fff; text-decoration: underline;">이용약관</a>
-          <a href="contact.html" style="color: #fff; text-decoration: underline;">연락처</a>
-          <br><br><p>
-    본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인
-    시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나
-    수익을 보장하지 않습니다</u>. 모든 투자 결정과 그 결과에 대한 책임은
-    투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해
-    gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.
-  </p>
-
-  <p>
-    금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며,
-    <em>과거 실적은 미래 수익을 보장하지 않습니다</em>. 투자를 결정하기 전
-    해당 상품(집합투자규약, 투자설명서 등)을 반드시 확인하시고, 필요 시
-    공인된 전문가와 상의하시기 바랍니다.
-  </p>
-
-  <p>
-    gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상
-    <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.
-    본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수
-    없습니다.
-  </p>
-        </p>
-      </footer>
+<footer>
+    <div class="footer-compact">
+      <div class="footer-row">
+        <img src="logo.jpg" alt="Go Higher Logo" class="footer-logo-mini" loading="lazy" />
+        <div class="footer-brand-contact">
+          <span class="footer-brand-mini">Go Higher</span>
+          <span class="footer-dot">·</span>
+          <span class="footer-location-mini">대한민국 대구</span>
+          <span class="footer-dot">·</span>
+          <a href="mailto:hermann8hesse@gmail.com" class="footer-email-mini" title="이메일 문의"><i class="fa-solid fa-envelope"></i> hermann8hesse@gmail.com</a>
+        </div>
+        <div class="footer-social-mini">
+          <a href="mailto:hermann8hesse@gmail.com" title="이메일"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://gohigher.kr" title="홈페이지"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://www.youtube.com/results?search_query=gohigher" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <small>
+          본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인 시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나 수익을 보장하지 않습니다</u>.<br>
+          모든 투자 결정과 그 결과에 대한 책임은 투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해 gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.<br>
+          금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며, <em>과거 실적은 미래 수익을 보장하지 않습니다</em>.<br>
+          gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상 <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.<br>
+          본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수 없습니다.
+        </small>
+      </div>
+    </div>
+  </footer>
+  
   
   <!-- Back to Top 버튼 -->
   <button class="back-to-top" id="backToTop" aria-label="TOP버튼">▲</button>
@@ -1406,29 +1548,34 @@ curationContainer.appendChild(title);
   const grid = document.createElement("div");
   grid.classList.add("curation-grid");
   curationContainer.appendChild(grid);
-  const categories = [
+const categories = [
   {
     title: "청춘 도약 투자",
     items: [
       {
         label: "Tesla – 혁신 주도 전기차 리더, 최근 수익성 확대 및 AI 사업 주목",
-        icon: "images/TSLA logo.webp" // 
+        icon: "images/TSLA logo.webp",
+        symbol: "TSLA"
       },
       {
         label: "Nvidia – AI 반도체 분야 선두주자, 데이터센터 수요 증가로 실적 급성장",
-        icon: "images/NVDA logo.webp" // 
+        icon: "images/NVDA logo.webp",
+        symbol: "NVDA"
       },
       {
         label: "Airbnb – 세계 최대 공유숙박 플랫폼, 여행 수요 회복으로 실적 호조",
-        icon: "images/ABNB logo.png"
+        icon: "images/ABNB logo.png",
+        symbol: "ABNB"
       },
       {
         label: "Uber – 글로벌 승차공유·배달 선도 기업, 이용자 증가로 수익성 개선 지속",
-        icon: "images/UBER logo.png"
+        icon: "images/UBER logo.png",
+        symbol: "UBER"
       },
       {
         label: "Coinbase – 미국 최대 가상자산 거래소, 암호화폐 시장 회복으로 실적 반등",
-        icon: "images/COIN logo.svg"
+        icon: "images/COIN logo.svg",
+        symbol: "COIN"
       }
     ]
   },
@@ -1437,23 +1584,28 @@ curationContainer.appendChild(title);
     items: [
       {
         label: "Apple – 세계적 기술 기업, 아이폰 등 견고한 생태계로 안정적 성장 지속",
-        icon: "images/AAPL logo.webp" //
+        icon: "images/AAPL logo.webp",
+        symbol: "AAPL"
       },
       {
         label: "Amazon – 이커머스 및 클라우드 선두주자, 다양한 사업 확대로 성장세 유지",
-        icon: "images/AMZN logo.webp" //
+        icon: "images/AMZN logo.webp",
+        symbol: "AMZN"
       },
       {
         label: "Meta Platforms – 소셜 미디어 제국, 비용 절감으로 수익 개선하며 메타버스 등 미래 투자",
-        icon: "images/META logo.webp" //
+        icon: "images/META logo.webp",
+        symbol: "META"
       },
       {
         label: "Visa – 글로벌 결제 네트워크 기업, 비현금 거래 증가로 꾸준한 실적 성장",
-        icon: "images/V logo.png"
+        icon: "images/V logo.png",
+        symbol: "V"
       },
       {
         label: "Starbucks – 세계적 커피 브랜드, 중국 등 해외시장 성장과 충성 고객층으로 안정적 수익",
-        icon: "images/SBUX logo.svg"
+        icon: "images/SBUX logo.svg",
+        symbol: "SBUX"
       }
     ]
   },
@@ -1462,23 +1614,28 @@ curationContainer.appendChild(title);
     items: [
       {
         label: "Microsoft – 글로벌 소프트웨어 및 클라우드 강자, AI 등 신사업으로 꾸준한 성장",
-        icon: "images/MSFT logo.webp" //
+        icon: "images/MSFT logo.webp",
+        symbol: "MSFT"
       },
       {
         label: "Google – 검색 및 온라인 광고 시장 지배 기업, 클라우드와 AI로 미래 대비",
-        icon: "images/GOOGL logo.webp" //
+        icon: "images/GOOGL logo.webp",
+        symbol: "GOOGL"
       },
       {
         label: "JPMorgan Chase – 미국 최대 은행 중 하나, 견고한 재무 기반과 핀테크 도입으로 안정 성장",
-        icon: "images/JPM logo.jpg" //
+        icon: "images/JPM logo.jpg",
+        symbol: "JPM"
       },
       {
         label: "UnitedHealth Group – 미국 최대 헬스케어 기업, 보험·의료 서비스 전반에서 안정적 수익 창출",
-        icon: "images/UNH logo.png" //
+        icon: "images/UNH logo.png",
+        symbol: "UNH"
       },
       {
         label: "PepsiCo – 글로벌 식음료 기업, 스낵과 음료 부문 고른 성장으로 꾸준한 실적",
-        icon: "images/PEP logo.png" //
+        icon: "images/PEP logo.png",
+        symbol: "PEP"
       }
     ]
   },
@@ -1487,122 +1644,153 @@ curationContainer.appendChild(title);
     items: [
       {
         label: "Johnson & Johnson – 다국적 헬스케어 기업, 제약·의료기기 등 포트폴리오로 안정적 수익",
-        icon: "images/JNJ logo.png" //
+        icon: "images/JNJ logo.png",
+        symbol: "JNJ"
       },
       {
         label: "Coca-Cola – 전세계 음료 시장을 선도하는 기업, 강력한 브랜드 파워로 꾸준한 실적 유지",
-        icon: "images/KO logo.png" //
+        icon: "images/KO logo.png",
+        symbol: "KO"
       },
       {
         label: "McDonald’s – 글로벌 패스트푸드 체인, 강력한 프랜차이즈 모델로 안정적 매출 성장",
-        icon: "images/MCD logo.png" //
+        icon: "images/MCD logo.png",
+        symbol: "MCD"
       },
       {
         label: "Procter & Gamble – 생활용품 분야 글로벌 리더, 다양한 필수 소비재 브랜드로 꾸준한 실적",
-        icon: "images/PG logo.png"
+        icon: "images/PG logo.png",
+        symbol: "PG"
       },
       {
         label: "Costco – 회원제 창고형 소매점 선두 기업, 높은 고객 충성도로 견고한 매출 성장",
-        icon: "images/COST logo.png"
+        icon: "images/COST logo.png",
+        symbol: "COST"
       }
     ]
-  },{
+  },
+  {
     title: "핫픽! 주목 종목",
     items: [
       {
         label: "AMD – CPU·GPU 반도체 제조사, AI 시대에 엔비디아 대항마로 주목받는 성장주",
-        icon: "images/AMD logo.png"
+        icon: "images/AMD logo.png",
+        symbol: "AMD"
       },
       {
         label: "Netflix – 스트리밍 서비스 개척자, 인기 콘텐츠와 구독자 증가로 실적 반등",
-        icon: "images/NFLX logo.png"
+        icon: "images/NFLX logo.png",
+        symbol: "NFLX"
       },
       {
         label: "Palantir – 빅데이터 분석 기업, AI 플랫폼 출시 등으로 투자자 관심 급증",
-        icon: "images/PLTR logo.png"
+        icon: "images/PLTR logo.png",
+        symbol: "PLTR"
       },
       {
         label: "Eli Lilly – 혁신 제약사, 비만 치료제 등 신약 성공으로 시장 기대 상승",
-        icon: "images/LLY logo.png"
+        icon: "images/LLY logo.png",
+        symbol: "LLY"
       },
       {
         label: "DraftKings – 온라인 스포츠베팅 선두주자, 신규 시장 확대와 함께 고속 성장",
-        icon: "images/DKNG logo.png"
+        icon: "images/DKNG logo.png",
+        symbol: "DKNG"
       }
     ]
-  },{
+  },
+  {
     title: "가치발견: 저평가 주식",
     items: [
       {
         label: "Disney – 글로벌 엔터테인먼트 기업, 스트리밍 부문 구조조정 등으로 반등 기대",
-        icon: "images/DIS logo.png"
+        icon: "images/DIS logo.png",
+        symbol: "DIS"
       },
       {
         label: "Intel – 반도체 업계의 선구자, 공정 개선과 신규 사업 투자로 재도약 모색",
-        icon: "images/INTC logo.svg"
+        icon: "images/INTC logo.svg",
+        symbol: "INTC"
       },
       {
         label: "PayPal – 글로벌 온라인 결제 기업, 경쟁 심화로 주가 조정받았으나 여전히 견조한 이용자 기반",
-        icon: "images/PYPL logo.png"
+        icon: "images/PYPL logo.png",
+        symbol: "PYPL"
       },
       {
         label: "Boeing – 항공기 제조 거대기업, 항공 수요 회복에 따른 실적 개선 잠재력",
-        icon: "images/BA logo.png"
+        icon: "images/BA logo.png",
+        symbol: "BA"
       },
       {
         label: "Goldman Sachs – 월가 대표 투자은행, 일시적 실적 부진으로 저평가된 우량주",
-        icon: "images/GS logo.png"
+        icon: "images/GS logo.png",
+        symbol: "GS"
       }
     ]
-  },{
+  },
+  {
     title: "다각화 투자 ETF",
     items: [
       {
         label: "SPDR S&P 500 ETF – S&P 500 지수 추종 ETF로, 미국 시장 전체에 폭넓게 분산투자",
-        icon: "images/SPY logo.png"
+        icon: "images/SPY logo.png",
+        symbol: "SPY"
       },
       {
         label: "Invesco QQQ Trust – 나스닥 100 지수 추종 ETF로, 대형 기술주 중심의 성장 포트폴리오",
-        icon: "images/QQQ logo.png"
+        icon: "images/QQQ logo.png",
+        symbol: "QQQ"
       },
       {
         label: "Vanguard Value ETF – 대형 가치주들로 구성된 ETF로, 저평가 우량주 위주의 투자",
-        icon: "images/VTV logo.png"
+        icon: "images/VTV logo.png",
+        symbol: "VTV"
       },
       {
         label: "Schwab U.S. Dividend Equity ETF – 안정적인 배당을 지급하는 미국 기업들로 구성된 ETF로, 배당 투자자들에게 인기",
-        icon: "images/SCHD logo.png"
+        icon: "images/SCHD logo.png",
+        symbol: "SCHD"
       },
       {
         label: "VanEck Morningstar Wide Moat ETF – 경제적 해자를 가진 기업들에 투자하는 ETF로, 독자적인 종목선정으로 장기 성과 추구",
-        icon: "images/MOAT logo.png"
+        icon: "images/MOAT logo.png",
+        symbol: "MOAT"
       }
     ]
-  },{
+  },
+  {
     title: "프리미엄 주식: 고평가 주식",
     items: [
       {
         label: "Snowflake – 클라우드 데이터 플랫폼 혁신기업, 고속 성장 중이나 주가 밸류에이션 높음",
-        icon: "images/SNOW logo.png"
+        icon: "images/SNOW logo.png",
+        symbol: "SNOW"
       },
       {
         label: "Lucid Group – 프리미엄 전기차 스타트업, 매출 대비 시가총액이 과도하게 높다는 평가",
-        icon: "images/LCID logo.png"
+        icon: "images/LCID logo.png",
+        symbol: "LCID"
       },
       {
         label: "Cloudflare – 클라우드 네트워크 서비스 업체, 성장세 대비 높은 주가수준 유지",
-        icon: "images/NET logo.png"
+        icon: "images/NET logo.png",
+        symbol: "NET"
       },
       {
         label: "Shopify – 이커머스 플랫폼 선도주, 수익성 대비 주가가 여전히 고평가된 성장기업",
-        icon: "images/SHOP logo.png"
+        icon: "images/SHOP logo.png",
+        symbol: "SHOP"
       },
       {
         label: "C3.ai – 기업용 AI 소프트웨어 업체, AI 열풍으로 주목받았으나 실적 대비 주가 부담",
-        icon: "images/AI logo.png"
+        icon: "images/AI logo.png",
+        symbol: "AI"
       }
     ]
-  }]
+  }
+];
+
   
 categories.forEach(cat => {
     const card = document.createElement("div");
@@ -1615,27 +1803,30 @@ categories.forEach(cat => {
 
     // 종목 리스트
     const ul = document.createElement("ul");
+
     cat.items.forEach(item => {
-      // 회사명과 설명 분리
-      const [companyName, desc] = item.label.split('–').map(s => s.trim());
-      // 회사명만 <strong> 감싸기
-      const formattedLabel = `<strong>${companyName}</strong> – ${desc}`;
+  // 회사명과 설명 분리
+  const [companyName, desc] = item.label.split('–').map(s => s.trim());
+  const formattedLabel = `<strong>${companyName}</strong> – ${desc}`;
 
-      const li = document.createElement("li");
-      // 로고 아이콘
-      const logo = document.createElement("img");
-      logo.src = item.icon;
-      logo.alt = `${companyName} 로고`;
-      logo.classList.add("brand-icon");
-      li.appendChild(logo);
+  const li = document.createElement("li");
 
-      // 종목 텍스트
-      const span = document.createElement("span");
-      span.innerHTML = formattedLabel;
-      li.appendChild(span);
+  // ▶ 버튼 생성 및 스타일 적용
+  const btn = document.createElement("button");
+  btn.innerHTML = `<img src="${item.icon}" class="brand-icon" alt="${companyName} 로고" /> <span>${formattedLabel}</span>`;
+  btn.classList.add("stock-btn");
+  btn.setAttribute("data-symbol", item.symbol); // 티커 저장
 
-      ul.appendChild(li);
-    });
+  // 클릭 이벤트
+  btn.addEventListener("click", function() {
+    showStockModal(item.symbol, companyName);
+  });
+
+  li.appendChild(btn);
+  ul.appendChild(li);
+});
+
+
     card.appendChild(ul);
 
     // 카드 그리드에 추가
@@ -1980,5 +2171,119 @@ categories.forEach(cat => {
   }
 })();
   </script>
+
+  <script>
+    // 1. 모달 생성/관리 함수
+function showStockModal(symbol, companyName) {
+  // 이미 존재하는 모달 제거
+  document.getElementById('stockInfoModal')?.remove();
+
+  // 모달 컨테이너 생성
+  const modal = document.createElement('div');
+  modal.id = 'stockInfoModal';
+  modal.style.position = 'fixed';
+  modal.style.left = 0; modal.style.top = 0;
+  modal.style.width = '100vw';
+  modal.style.height = '100vh';
+  modal.style.background = 'rgba(0,0,0,0.25)';
+  modal.style.backdropFilter = 'blur(6px)';
+  modal.style.webkitBackdropFilter = 'blur(6px)';
+  modal.style.zIndex = 99999;
+  modal.style.display = 'flex';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
+
+  // 내용 박스
+  const inner = document.createElement('div');
+  inner.style.background = '#fff';
+  inner.style.borderRadius = '18px';
+  inner.style.boxShadow = '0 6px 24px rgba(0,0,0,0.28)';
+  inner.style.padding = '2.5rem 2rem 1.5rem 2rem';
+inner.style.width = 'min(98vw, 1200px)';  // 최대 1200px까지 넓게
+inner.style.maxWidth = '1200px';          // 데스크탑 한계선
+inner.style.minWidth = '320px';           // 모바일 최소 보장
+inner.style.maxHeight = '85vh';
+inner.style.overflowY = 'auto';
+
+  inner.innerHTML = `
+    <h3 style="margin-top:0">${companyName}</h3>
+    <div id="stockApiResult" style="margin:1rem 0 1.3rem 0; min-height:80px; font-size:1.1rem;">조회 중...</div>
+    <button id="closeStockModal" style="padding:0.7rem 1.5rem; border-radius:12px; border:none; background:#004080; color:#fff; font-size:1rem; cursor:pointer; margin-top:6px;">닫기</button>
+  `;
+  modal.appendChild(inner);
+  document.body.appendChild(modal);
+ // 바디 스크롤 차단
+  document.body.style.overflow = 'hidden';
+  // 닫기 버튼
+  document.getElementById('closeStockModal').onclick = () => {
+    modal.remove();
+    document.body.style.overflow = '';
+  };
+
+  // 다크모드 대응
+  if (document.body.classList.contains('dark-mode')) {
+    inner.style.background = '#222b37';
+    inner.style.color = '#cacaca';
+  }
+
+  // 실제 API 호출
+  fetchPolygonStockInfo(symbol);
+}
+
+// 2. Polygon API로 정보 가져오기
+function fetchPolygonStockInfo(symbol) {
+  const apiKey = "wFORda5lesMUZ96BmvpJ4x4cE3F2PqBt"; // 유료 API KEY
+  fetch(`https://api.polygon.io/v3/reference/tickers/${symbol}?apiKey=${apiKey}`)
+    .then(res => res.json())
+    .then(data => {
+      const info = data?.results;
+      let html = '';
+      if (info) {
+        html += `<div style="margin-bottom:1rem;">`;
+
+        // 로고(있으면)
+        if (info.branding && info.branding.logo_url) {
+          html += `<img src="${info.branding.logo_url}?apiKey=${apiKey}" alt="${info.name} 로고" style="height:42px;border-radius:8px;box-shadow:0 1px 6px rgba(0,0,0,0.11);margin-bottom:0.4rem;"><br>`;
+        }
+
+        html += `<b>종목명</b>: ${info.name || '-'}<br>`;
+        html += `<b>티커</b>: ${info.ticker || '-'}<br>`;
+        html += `<b>산업</b>: ${info.sic_description || '-'}<br>`;
+        html += `<b>상장 시장</b>: ${info.primary_exchange || '-'}<br>`;
+        html += `<b>상장일</b>: ${info.list_date || '-'}<br>`;
+
+        // 추가 정보
+        if (info.description) html += `<b>기업 개요</b>: ${info.description}<br>`;
+        if (info.homepage_url) html += `<b>홈페이지</b>: <a href="${info.homepage_url}" target="_blank">${info.homepage_url}</a><br>`;
+        if (info.total_employees) html += `<b>직원 수</b>: ${info.total_employees}<br>`;
+        if (info.ceo) html += `<b>CEO</b>: ${info.ceo}<br>`;
+        if (info.address) {
+          html += `<b>본사 주소</b>: ${info.address.address1 || ''} ${info.address.city || ''} ${info.address.state || ''} ${info.address.postal_code || ''}<br>`;
+        }
+        if (info.phone_number) html += `<b>대표 전화</b>: ${info.phone_number}<br>`;
+
+        // 섹터/산업
+        if (info.sic_code) html += `<b>SIC Code</b>: ${info.sic_code}<br>`;
+        if (info.cik) html += `<b>CIK</b>: ${info.cik}<br>`;
+        if (info.composite_figi) html += `<b>FIGI</b>: ${info.composite_figi}<br>`;
+        if (info.share_class_figi) html += `<b>Share Class FIGI</b>: ${info.share_class_figi}<br>`;
+
+        // 활성/비활성(상장폐지 등)
+        if (info.active !== undefined) html += `<b>상장 상태</b>: ${info.active ? '활성(상장)' : '비활성(상장폐지)' }<br>`;
+
+        html += `</div>`;
+      } else {
+        html = 'API 조회 결과가 없습니다.';
+      }
+      document.getElementById('stockApiResult').innerHTML = html;
+    })
+    .catch(e => {
+      document.getElementById('stockApiResult').innerHTML = '조회 실패 (API 키/쿼터 확인 필요)';
+    });
+}
+
+
+  </script>
+
 </body>
 </html>

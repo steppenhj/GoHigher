@@ -1340,6 +1340,107 @@ body.dark-mode .news-title {
 body.dark-mode .news-desc {
   color: #bcd;
 }
+
+.footer-compact {
+  max-width: 900px;
+  margin: 1.5rem auto 0 auto;
+  background: linear-gradient(135deg, #004080 60%, #007acc 100%);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,64,128,0.10);
+  padding: 1.1rem 1.2rem 0.5rem 1.2rem;
+  color: #fff;
+  position: relative;
+  font-size: 1rem;
+}
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-logo-mini {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.7rem;
+  border: 1.5px solid #fff;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.footer-brand-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+.footer-brand-mini {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.footer-location-mini {
+  font-size: 0.97rem;
+  opacity: 0.85;
+}
+.footer-dot {
+  margin: 0 0.2rem;
+  opacity: 0.5;
+}
+.footer-email-mini {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 0.97rem;
+  transition: color 0.2s;
+}
+.footer-email-mini:hover {
+  color: #fbd314;
+}
+.footer-social-mini {
+  display: flex;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+.footer-social-mini a {
+  color: #fff;
+  font-size: 1.15rem;
+  transition: color 0.2s, transform 0.2s;
+}
+.footer-social-mini a:hover {
+  color: #fbd314;
+  transform: scale(1.12);
+}
+.footer-legal {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 1.6;
+}
+.footer-legal strong, .footer-legal u, .footer-legal em {
+  color: #fbd314;
+  font-weight: 600;
+}
+body.dark-mode .footer-compact {
+  background: linear-gradient(135deg, #002b57 60%, #004284 100%);
+  color: #cacaca;
+}
+body.dark-mode .footer-email-mini,
+body.dark-mode .footer-social-mini a {
+  color: #cacaca;
+}
+body.dark-mode .footer-social-mini a:hover {
+  color: #fbd314;
+}
+body.dark-mode .footer-legal {
+  color: #cacaca;
+}
+body.dark-mode .footer-legal strong, 
+body.dark-mode .footer-legal u, 
+body.dark-mode .footer-legal em {
+  color: #fbd314;
+}
   </style>
 </head>
 <body>
@@ -1515,36 +1616,35 @@ body.dark-mode .news-desc {
       </p>
     </section>
   </main>
-      <footer>
-        <p>
-          © 2025 Go Higher, 고하이어. All rights reserved.<br />
-          운영 지역: 대한민국<br />
-          <a href="privacy-policy.html" style="color: #fff; text-decoration: underline;">개인정보 보호정책</a>
-          <a href="terms.html" style="color: #fff; text-decoration: underline;">이용약관</a>
-          <a href="contact.html" style="color: #fff; text-decoration: underline;">연락처</a>
-          <br><br><p>
-    본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인
-    시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나
-    수익을 보장하지 않습니다</u>. 모든 투자 결정과 그 결과에 대한 책임은
-    투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해
-    gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.
-  </p>
-
-  <p>
-    금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며,
-    <em>과거 실적은 미래 수익을 보장하지 않습니다</em>. 투자를 결정하기 전
-    해당 상품(집합투자규약, 투자설명서 등)을 반드시 확인하시고, 필요 시
-    공인된 전문가와 상의하시기 바랍니다.
-  </p>
-
-  <p>
-    gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상
-    <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.
-    본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수
-    없습니다.
-  </p>
-        </p>
-      </footer>
+<footer>
+    <div class="footer-compact">
+      <div class="footer-row">
+        <img src="logo.jpg" alt="Go Higher Logo" class="footer-logo-mini" loading="lazy" />
+        <div class="footer-brand-contact">
+          <span class="footer-brand-mini">Go Higher</span>
+          <span class="footer-dot">·</span>
+          <span class="footer-location-mini">대한민국 대구</span>
+          <span class="footer-dot">·</span>
+          <a href="mailto:hermann8hesse@gmail.com" class="footer-email-mini" title="이메일 문의"><i class="fa-solid fa-envelope"></i> hermann8hesse@gmail.com</a>
+        </div>
+        <div class="footer-social-mini">
+          <a href="mailto:hermann8hesse@gmail.com" title="이메일"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://gohigher.kr" title="홈페이지"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://www.youtube.com/results?search_query=gohigher" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <small>
+          본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인 시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나 수익을 보장하지 않습니다</u>.<br>
+          모든 투자 결정과 그 결과에 대한 책임은 투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해 gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.<br>
+          금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며, <em>과거 실적은 미래 수익을 보장하지 않습니다</em>.<br>
+          gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상 <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.<br>
+          본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수 없습니다.
+        </small>
+      </div>
+    </div>
+  </footer>
+  
 
           <!-- Back to Top 버튼 -->
           <button class="back-to-top" id="backToTop" aria-label="TOP버튼">▲</button>

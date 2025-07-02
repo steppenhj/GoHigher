@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <!-- ⏱️ 꼭 쓸 리소스 미리 불러오기 -->
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700|Open+Sans:400,600&display=swap">
 
@@ -1110,6 +1110,107 @@ body.dark-mode .news-title {
 body.dark-mode .news-desc {
   color: #bcd;
 }
+
+.footer-compact {
+  max-width: 900px;
+  margin: 1.5rem auto 0 auto;
+  background: linear-gradient(135deg, #004080 60%, #007acc 100%);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,64,128,0.10);
+  padding: 1.1rem 1.2rem 0.5rem 1.2rem;
+  color: #fff;
+  position: relative;
+  font-size: 1rem;
+}
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-logo-mini {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.7rem;
+  border: 1.5px solid #fff;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.footer-brand-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+.footer-brand-mini {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.footer-location-mini {
+  font-size: 0.97rem;
+  opacity: 0.85;
+}
+.footer-dot {
+  margin: 0 0.2rem;
+  opacity: 0.5;
+}
+.footer-email-mini {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 0.97rem;
+  transition: color 0.2s;
+}
+.footer-email-mini:hover {
+  color: #fbd314;
+}
+.footer-social-mini {
+  display: flex;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+.footer-social-mini a {
+  color: #fff;
+  font-size: 1.15rem;
+  transition: color 0.2s, transform 0.2s;
+}
+.footer-social-mini a:hover {
+  color: #fbd314;
+  transform: scale(1.12);
+}
+.footer-legal {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 1.6;
+}
+.footer-legal strong, .footer-legal u, .footer-legal em {
+  color: #fbd314;
+  font-weight: 600;
+}
+body.dark-mode .footer-compact {
+  background: linear-gradient(135deg, #002b57 60%, #004284 100%);
+  color: #cacaca;
+}
+body.dark-mode .footer-email-mini,
+body.dark-mode .footer-social-mini a {
+  color: #cacaca;
+}
+body.dark-mode .footer-social-mini a:hover {
+  color: #fbd314;
+}
+body.dark-mode .footer-legal {
+  color: #cacaca;
+}
+body.dark-mode .footer-legal strong, 
+body.dark-mode .footer-legal u, 
+body.dark-mode .footer-legal em {
+  color: #fbd314;
+}
   </style>
 </head>
 <body>
@@ -1124,7 +1225,7 @@ body.dark-mode .news-desc {
       </div>
       <!-- 로그인/로그아웃 버튼 -->
       <a id="authButton" href="login.html" class="login-btn">
-        <i class="fas fa-sign-in-alt"></i> 로그인
+        <i class="fa-solid fa-sign-in-alt"></i>
       </a>
     </div>
     <!-- 데스크탑 네비게이션 (모바일에서는 숨김) -->
@@ -1168,97 +1269,6 @@ body.dark-mode .news-desc {
 
   <main>
     <section id="news-feed" class="container">
-      <h2 style="padding-top: 1rem;">정치</h2>
-      
-      <!-- JavaScript에 의해 동적으로 생성된 첫 번째 뉴스 카드 -->
-      <article class="news-card">
-        <img src="politicsImages/politics1.jpg" alt="정치 뉴스 1" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"미국 대법원, 트럼프 추방 중단 조치 유지 결정"</h3>
-          <p class="news-summary">미국 대법원은 전시법을 근거로 한 트럼프 행정부의 이민자 추방 중단 조치를 유지하며, 이민 정책에 중요한 영향을 미칠 전망입니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-
-      <!-- JavaScript에 의해 동적으로 생성된 두 번째 뉴스 카드 -->
-      <article class="news-card">
-        <img src="politicsImages/politics2.jpg" alt="정치 뉴스 2" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"연방노동부, 트럼프의 공무원 파업 방지 조치 승인"</h3>
-          <p class="news-summary">연방정부는 트럼프 행정부가 추진한 공무원 파업 방지 계획을 승인하며, 노동권 제한 논란이 예상됩니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-
-      <article class="news-card">
-        <img src="politicsImages/politics3.jpg" alt="정치 뉴스 3" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"기소 취하된 톰 기라디 사건, 법적 절차 진행 중"</h3>
-          <p class="news-summary">시카고와 캘리포니아에서 기소가 취하된 톰 기라디 사건은 아직 법적 절차가 남아 있으며, 판결이 기다려지고 있습니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-
-
-      <article class="news-card">
-        <img src="politicsImages/politics4.jpg" alt="정치 뉴스 4" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"트럼프 행정부, 바이든 정책 뒤집고 강제 재설정 허용"</h3>
-          <p class="news-summary">트럼프 행정부는 바이든 정부의 정책을 뒤집으며, 총기 규제와 관련된 강제 재설정을 허용하는 조치를 발표했습니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-
-
-      <article class="news-card">
-        <img src="politicsImages/politics5.jpg" alt="정치 뉴스 5" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"카타르 선물 비행기, 트럼프 대통령 허용 여부 논란"</h3>
-          <p class="news-summary">카타르의 선물 비행기가 미국 법률상 트럼프 대통령에게 허용될 수 있는지 여부가 논란이 되고 있습니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-
-
-      <article class="news-card">
-        <img src="politicsImages/politics6.jpg" alt="정치 뉴스 6" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"트럼프 명령, 화웨이 형사 사건 법적 문제 제기"</h3>
-          <p class="news-summary">미국 법원이 화웨이 관련 형사 사건에서 트럼프 행정부의 명령이 법적 문제를 야기할 수 있다고 지적하며, 법적 쟁점이 부각되고 있습니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-
-
-      <article class="news-card">
-        <img src="politicsImages/politics7.jpg" alt="정치 뉴스 7" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"뉴욕, 트럼프 관련 무료 법률 지원 제한 법안 통과"</h3>
-          <p class="news-summary">뉴욕에서 트럼프 관련 무료 법률 지원을 제한하는 법안이 통과되면서, 법률 지원의 공정성 논란이 일고 있습니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-
-
-      <article class="news-card">
-        <img src="politicsImages/politics8.jpg" alt="정치 뉴스 8" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"마이크로소프트, 유럽 반독점 조사 대응 위해 오피스와 Teams 가격 인하"</h3>
-          <p class="news-summary">유럽연합의 반독점 조사를 피하기 위해, 마이크로소프트는 오피스와 Teams의 가격을 낮추는 방안을 발표했습니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-
-
-      <article class="news-card">
-        <img src="politicsImages/politics9.jpg" alt="정치 뉴스 9" class="news-image" loading="lazy">
-        <div class="news-content">
-          <h3 class="news-title">"인텔, 유럽 규제와 4214만 달러 반독점 벌금에 반발"</h3>
-          <p class="news-summary">인텔은 유럽 규제 당국이 부과한 4214만 달러의 반독점 벌금에 대해 강하게 반발하며, 법적 대응을 예고했습니다.</p>
-          <time datetime="2025-05-17" class="news-date">2025년 5월 17일</time>
-        </div>
-      </article>
-      
     </section>
   </main>
   <section class="extended-news-list">
@@ -1391,176 +1401,251 @@ body.dark-mode .news-desc {
     </ul>
   </nav>
   
-  <footer>
-    <p>
-      © 2025 Go Higher, 고하이어. All rights reserved.<br>
-      운영 지역: 대한민국 대구<br>
-      문의: <a href="mailto:hermann8hesse@gmail.com" style="color:#fff; text-decoration:underline;">hermann8hesse@gmail.com</a><br>
-    </p><br><br><p>
-    본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인
-    시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나
-    수익을 보장하지 않습니다</u>. 모든 투자 결정과 그 결과에 대한 책임은
-    투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해
-    gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.
-  </p>
-
-  <p>
-    금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며,
-    <em>과거 실적은 미래 수익을 보장하지 않습니다</em>. 투자를 결정하기 전
-    해당 상품(집합투자규약, 투자설명서 등)을 반드시 확인하시고, 필요 시
-    공인된 전문가와 상의하시기 바랍니다.
-  </p>
-
-  <p>
-    gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상
-    <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.
-    본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수
-    없습니다.
-  </p>
-        </p>
+<footer>
+    <div class="footer-compact">
+      <div class="footer-row">
+        <img src="logo.jpg" alt="Go Higher Logo" class="footer-logo-mini" loading="lazy" />
+        <div class="footer-brand-contact">
+          <span class="footer-brand-mini">Go Higher</span>
+          <span class="footer-dot">·</span>
+          <span class="footer-location-mini">대한민국 대구</span>
+          <span class="footer-dot">·</span>
+          <a href="mailto:hermann8hesse@gmail.com" class="footer-email-mini" title="이메일 문의"><i class="fa-solid fa-envelope"></i> hermann8hesse@gmail.com</a>
+        </div>
+        <div class="footer-social-mini">
+          <a href="mailto:hermann8hesse@gmail.com" title="이메일"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://gohigher.kr" title="홈페이지"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://www.youtube.com/results?search_query=gohigher" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <small>
+          본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인 시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나 수익을 보장하지 않습니다</u>.<br>
+          모든 투자 결정과 그 결과에 대한 책임은 투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해 gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.<br>
+          금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며, <em>과거 실적은 미래 수익을 보장하지 않습니다</em>.<br>
+          gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상 <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.<br>
+          본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수 없습니다.
+        </small>
+      </div>
+    </div>
   </footer>
+  
   
           <!-- Back to Top 버튼 -->
           <button class="back-to-top" id="backToTop">Top</button>
 
   <script src="auth.js"></script>
   <script>
-
-// 다크모드 스크립트
-document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-mode');
-  }
-});
-
-// Back to Top 버튼 기능
-document.addEventListener("DOMContentLoaded", () => {
-  const backToTopBtn = document.getElementById("backToTop");
-  window.addEventListener("scroll", () => {
-    if (window.pageYOffset > 300) {
-      backToTopBtn.classList.add("show");
-    } else {
-      backToTopBtn.classList.remove("show");
-    }
-  });
-  backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
-
-// 로그인 상태 관리
-document.addEventListener("DOMContentLoaded", function () {
-  const loginContainer = document.querySelector(".login-container");
-  const profileBox = document.getElementById("profileBox");
-  const authButton = document.getElementById("authButton");
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  if (isLoggedIn) {
-    loginContainer.classList.add("logged-in");
-    authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
-    authButton.href = "#";
-    authButton.style.display = "none";
-  } else {
-    loginContainer.classList.remove("logged-in");
-    authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> 로그인';
-    authButton.href = "login.html";
-    authButton.style.display = "inline-block";
-  }
-  profileBox.addEventListener("click", function () {
-    if (isLoggedIn) {
-      loginContainer.classList.toggle("active");
-      authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
-    }
-  });
-  authButton.addEventListener("click", function (event) {
-    if (isLoggedIn) {
-      event.preventDefault();
-      localStorage.setItem("isLoggedIn", "false");
-      window.location.reload();
-    }
-  });
-});
-
-function toggleArticle(el) {
-    el.classList.toggle("active");
-  }
-
-function toggleExtendedNews(btn) {
-  const extendedList = document.querySelector('.extended-news-list');
-  if (!extendedList) return;
-  extendedList.classList.toggle('show');
-  if (extendedList.classList.contains('show')) {
-    extendedList.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-(function() {
-  // 모바일 화면(≤768px)이 아니면 아무 것도 안 함
-  if (window.innerWidth > 768) return;
-
-  // 1) 동적 스타일 추가
-  const style = document.createElement("style");
-  style.textContent = `
-    .page-selector {
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
-      background: #fff;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      padding: 0.5rem;
-      z-index: 2000;
-      transform: translateY(100%);
-      transition: transform 0.2s;
-    }
-    .page-selector.show {
-      transform: translateY(0);
-    }
-    .selector-btn {
-      padding: 1rem;
-      font-size: 1rem;
-      border: none;
-      background: #f4f4f4;
-      margin: 0.25rem 0;
-      border-radius: 6px;
-    }
-    .selector-btn:hover { background: #e0e0e0; }
-    .selector-btn.cancel { background: #ffdddd; }
-  `;
-  document.head.appendChild(style);
-
-  // 2) 액션 시트 마크업 생성
-  const selector = document.createElement("div");
-  selector.className = "page-selector";
-  selector.innerHTML = `
-    <button class="selector-btn" data-target="index.html">투데이뉴스</button>
-    <button class="selector-btn" data-target="tech.html">기술뉴스</button>
-    <button class="selector-btn" data-target="cnbc-news.html">외신뉴스</button>
-    <button class="selector-btn" data-target="politics.html">정치뉴스</button>
-    <button class="selector-btn cancel">취소</button>
-  `;
-  document.body.appendChild(selector);
-
-  // 3) 버튼 이벤트 연결
-  selector.querySelectorAll(".selector-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (btn.classList.contains("cancel")) {
-        selector.classList.remove("show");
+    function cleanText(text, forTitle = false) {
+      if (!text) return "";
+      let cleaned = text.replace(/<[^>]*>/g, "");
+      cleaned = cleaned.toLowerCase();
+      cleaned = cleaned.replace(/[\u2018\u2019\u0060\u00B4']/g, "'");
+      if (forTitle) {
+        cleaned = cleaned.replace(/[^\w\s'-]/g, "");
       } else {
-        window.location.href = btn.dataset.target;
+        cleaned = cleaned.replace(/[^\w\s]/g, "");
+      }
+      cleaned = cleaned.replace(/\s+/g, " ").trim();
+      return cleaned.replace(/\s/g, "");
+    }
+    function normalizeUrl(urlString) {
+      if (!urlString) return "";
+      try {
+        const url = new URL(urlString.trim().toLowerCase());
+        let path = url.pathname;
+        if (path.endsWith('/')) path = path.slice(0, -1);
+        const hostname = url.hostname.startsWith('www.') ? url.hostname.substring(4) : url.hostname;
+        return `${hostname}${path}`;
+      } catch (e) {
+        return urlString.trim().toLowerCase()
+          .replace(/^https?:\/\/(www\.)?/, "")
+          .replace(/\/$/, "");
+      }
+    }
+    function generateUniqueKey(article) {
+      if (article.link && article.link.trim()) {
+        return "url:" + normalizeUrl(article.link);
+      }
+      if (article.url && article.url.trim()) {
+        return "url:" + normalizeUrl(article.url);
+      }
+      const titleKey = cleanText(article.title || "", true);
+      const descKey = cleanText(article.description || "", false);
+      if (titleKey && descKey) {
+        return `titledesc:${titleKey}|${descKey}`;
+      }
+      return "json:" + JSON.stringify(article).replace(/\s/g, "").toLowerCase();
+    }
+    function truncateText(text, maxLength) {
+      if (!text) return "요약 정보 없음 😢";
+      return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    }
+    const apiKey = "pub_ba4b40eb71dc4f92b32fa5bad1bce92d";
+    const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&category=politics&country=us&language=en`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const newsFeed = document.getElementById("news-feed");
+        newsFeed.innerHTML = '<h2 style="padding-top: 1rem;">정치</h2>';
+        const seen = new Set();
+        const descSet = new Set();
+        if (data.results && Array.isArray(data.results)) {
+          data.results.forEach(article => {
+            const uniqueKey = generateUniqueKey(article).toLowerCase().trim();
+            const descText = cleanText(article.description || "", false);
+            if (descText && descSet.has(descText)) {
+              return;
+            }
+            if (descText) descSet.add(descText);
+            if (seen.has(uniqueKey)) {
+              return;
+            }
+            seen.add(uniqueKey);
+            const card = document.createElement("article");
+            card.className = "news-card";
+            const imageUrl = article.image_url || "https://gohigher.kr/logo.jpg";
+            const summary = truncateText(article.description, 80);
+            card.innerHTML = `
+              <img src="${imageUrl}" alt="${article.title || '정치 뉴스'}" class="news-image" loading="lazy" onerror="this.onerror=null;this.src='https://gohigher.kr/logo.jpg';">
+              <div class="news-content">
+                <h3 class="news-title">${article.title || "제목 없음"}</h3>
+                <p class="news-summary">${summary}</p>
+                <time class="news-date">${article.pubDate ? new Date(article.pubDate).toLocaleDateString('ko-KR') : "날짜 없음"}</time>
+              </div>
+            `;
+            if (newsFeed) {
+              newsFeed.appendChild(card);
+            }
+          });
+        } else {
+          newsFeed.innerHTML += `<p style="color:orange;">뉴스를 불러오는 데 문제가 발생했습니다. (데이터 형식 오류)</p>`;
+        }
+      })
+      .catch(err => {
+        const newsFeed = document.getElementById("news-feed");
+        if (newsFeed) {
+            newsFeed.innerHTML += `<p style="color:red;">뉴스를 불러오지 못했습니다. (${err.message})</p>`;
+        }
+      });
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
       }
     });
-  });
-
-  // 4) 뉴스 아이콘에 클릭 리스너
-  const newsLink = document.querySelector('.bottom-nav a[aria-label="뉴스"]');
-  if (newsLink) {
-    newsLink.addEventListener("click", e => {
-      e.preventDefault();
-      selector.classList.add("show");
+    document.addEventListener("DOMContentLoaded", () => {
+      const backToTopBtn = document.getElementById("backToTop");
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.classList.add("show");
+        } else {
+          backToTopBtn.classList.remove("show");
+        }
+      });
+      backToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
-  }
-})();
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginContainer = document.querySelector(".login-container");
+      const profileBox = document.getElementById("profileBox");
+      const authButton = document.getElementById("authButton");
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        loginContainer.classList.add("logged-in");
+        authButton.innerHTML = '<i class="fa-solid fa-sign-out-alt"></i> 로그아웃';
+        authButton.href = "#";
+        authButton.style.display = "none";
+      } else {
+        loginContainer.classList.remove("logged-in");
+        authButton.innerHTML = '<i class="fa-solid fa-sign-in-alt"></i> 로그인';
+        authButton.href = "login.html";
+        authButton.style.display = "inline-block";
+      }
+      profileBox.addEventListener("click", function () {
+        if (isLoggedIn) {
+          loginContainer.classList.toggle("active");
+          authButton.style.display = loginContainer.classList.contains("active") ? "inline-block" : "none";
+        }
+      });
+      authButton.addEventListener("click", function (event) {
+        if (isLoggedIn) {
+          event.preventDefault();
+          localStorage.setItem("isLoggedIn", "false");
+          window.location.reload();
+        }
+      });
+    });
+    function toggleArticle(el) {
+      el.classList.toggle("active");
+    }
+    function toggleExtendedNews(btn) {
+      const extendedList = document.querySelector('.extended-news-list');
+      if (!extendedList) return;
+      extendedList.classList.toggle('show');
+      if (extendedList.classList.contains('show')) {
+        extendedList.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    (function() {
+      if (window.innerWidth > 768) return;
+      const style = document.createElement("style");
+      style.textContent = `
+        .page-selector {
+          position: fixed;
+          left: 0; right: 0; bottom: 0;
+          background: #fff;
+          box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+          display: flex;
+          flex-direction: column;
+          padding: 0.5rem;
+          z-index: 2000;
+          transform: translateY(100%);
+          transition: transform 0.2s;
+        }
+        .page-selector.show {
+          transform: translateY(0);
+        }
+        .selector-btn {
+          padding: 1rem;
+          font-size: 1rem;
+          border: none;
+          background: #f4f4f4;
+          margin: 0.25rem 0;
+          border-radius: 6px;
+        }
+        .selector-btn:hover { background: #e0e0e0; }
+        .selector-btn.cancel { background: #ffdddd; }
+      `;
+      document.head.appendChild(style);
+      const selector = document.createElement("div");
+      selector.className = "page-selector";
+      selector.innerHTML = `
+        <button class="selector-btn" data-target="index.html">투데이뉴스</button>
+        <button class="selector-btn" data-target="tech.html">기술뉴스</button>
+        <button class="selector-btn" data-target="cnbc-news.html">외신뉴스</button>
+        <button class="selector-btn" data-target="politics.html">정치뉴스</button>
+        <button class="selector-btn cancel">취소</button>
+      `;
+      document.body.appendChild(selector);
+      selector.querySelectorAll(".selector-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (btn.classList.contains("cancel")) {
+            selector.classList.remove("show");
+          } else {
+            window.location.href = btn.dataset.target;
+          }
+        });
+      });
+      const newsLink = document.querySelector('.bottom-nav a[aria-label="뉴스"]');
+      if (newsLink) {
+        newsLink.addEventListener("click", e => {
+          e.preventDefault();
+          selector.classList.add("show");
+        });
+      }
+    })();
   </script>
 </body>
 </html>

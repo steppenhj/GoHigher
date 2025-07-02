@@ -7,16 +7,6 @@
     </script>
 
     <!-- 시발 -->
-    <script>
-import('https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js')
-  .then(({ getAnalytics, logEvent }) => {
-    const app = window.firebaseApp || window.app || getApp();
-    const analytics = getAnalytics(app);
-    logEvent(analytics, 'app_open'); // 이게 DAU 집계의 핵심 신호!
-  });
-
-
-    </script>
     
     <meta charset="UTF-8" />
     <!-- 🔄 외부 서버 연결 미리 하기 -->
@@ -1863,7 +1853,106 @@ body.dark-mode .news-desc {
     padding: 0 8px !important;
   }
 }
-
+.footer-compact {
+  max-width: 900px;
+  margin: 1.5rem auto 0 auto;
+  background: linear-gradient(135deg, #004080 60%, #007acc 100%);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,64,128,0.10);
+  padding: 1.1rem 1.2rem 0.5rem 1.2rem;
+  color: #fff;
+  position: relative;
+  font-size: 1rem;
+}
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.footer-logo-mini {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.7rem;
+  border: 1.5px solid #fff;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.footer-brand-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  flex-wrap: wrap;
+}
+.footer-brand-mini {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.footer-location-mini {
+  font-size: 0.97rem;
+  opacity: 0.85;
+}
+.footer-dot {
+  margin: 0 0.2rem;
+  opacity: 0.5;
+}
+.footer-email-mini {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 0.97rem;
+  transition: color 0.2s;
+}
+.footer-email-mini:hover {
+  color: #fbd314;
+}
+.footer-social-mini {
+  display: flex;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+.footer-social-mini a {
+  color: #fff;
+  font-size: 1.15rem;
+  transition: color 0.2s, transform 0.2s;
+}
+.footer-social-mini a:hover {
+  color: #fbd314;
+  transform: scale(1.12);
+}
+.footer-legal {
+  margin-top: 0.7rem;
+  font-size: 0.85rem;
+  color: #f3f3f3;
+  text-align: center;
+  line-height: 1.6;
+}
+.footer-legal strong, .footer-legal u, .footer-legal em {
+  color: #fbd314;
+  font-weight: 600;
+}
+body.dark-mode .footer-compact {
+  background: linear-gradient(135deg, #002b57 60%, #004284 100%);
+  color: #cacaca;
+}
+body.dark-mode .footer-email-mini,
+body.dark-mode .footer-social-mini a {
+  color: #cacaca;
+}
+body.dark-mode .footer-social-mini a:hover {
+  color: #fbd314;
+}
+body.dark-mode .footer-legal {
+  color: #cacaca;
+}
+body.dark-mode .footer-legal strong, 
+body.dark-mode .footer-legal u, 
+body.dark-mode .footer-legal em {
+  color: #fbd314;
+}
 </style>
     
   </head>
@@ -2038,64 +2127,9 @@ body.dark-mode .news-desc {
                     <th>등락률</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <img src="images/AMZN logo.webp" loading="lazy" alt="Amazon Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                      <strong>AMZN 아마존</strong>
-                    </td>
-                    <td>193.06USD</td>
-                    <td><span class="red">0.51% 상승</span></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="images/TSLA logo.webp" loading="lazy" alt="Tesla Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                      <strong>TSLA 테슬라</strong>
-                    </td>
-                    <td>298.26USD</td>
-                    <td><span class="red">4.72% 상승</span></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="images/NVDA logo.webp" loading="lazy" alt="NVIDIA Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                      <strong>NVDA 엔비디아</strong>
-                    </td>
-                    <td>116.65USD</td>
-                    <td><span class="blue">0.61% 하락</span></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="images/GOOGL logo.webp" loading="lazy" alt="Google Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                      <strong>GOOGL 구글</strong>
-                    </td>
-                    <td>152.75USD</td>
-                    <td><span class="blue">0.99% 하락</span></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="images/MSFT logo.webp" loading="lazy" alt="Microsoft Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                      <strong>MSFT 마이크로소프트</strong>
-                    </td>
-                    <td>438.73USD</td>
-                    <td><span class="red">0.13% 상승</span></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="images/AAPL logo.webp" loading="lazy" alt="Apple Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                      <strong>AAPL 애플</strong>
-                    </td>
-                    <td>198.53USD</td>
-                    <td><span class="red">0.53% 상승</span></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="images/META logo.webp" loading="lazy" alt="Meta Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
-                      <strong>META 메타</strong>
-                    </td>
-                    <td>592.49USD</td>
-                    <td><span class="blue">0.92% 하락</span></td>
-                  </tr>
-                </tbody>
+<tbody id="mag7-tbody">
+  <!-- JS에서 동적으로 추가 -->
+</tbody>
               </table>
             </div>
 
@@ -2308,36 +2342,35 @@ body.dark-mode .news-desc {
     <a href="https://www.instagram.com/gohigher2025/" class="common-btn btn-instagram" target="_blank">INSTAGRAM</a>
   </div>
   
-      <footer>
-        <p>
-          © 2025 Go Higher, 고하이어. All rights reserved.<br />
-          운영 지역: 대한민국<br />
-          <a href="privacy-policy.html" style="color: #fff; text-decoration: underline;">개인정보 보호정책</a>
-          <a href="terms.html" style="color: #fff; text-decoration: underline;">이용약관</a>
-          <a href="contact.html" style="color: #fff; text-decoration: underline;">연락처</a>
-          <br><br><p>
-    본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인
-    시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나
-    수익을 보장하지 않습니다</u>. 모든 투자 결정과 그 결과에 대한 책임은
-    투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해
-    gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.
-  </p>
-
-  <p>
-    금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며,
-    <em>과거 실적은 미래 수익을 보장하지 않습니다</em>. 투자를 결정하기 전
-    해당 상품(집합투자규약, 투자설명서 등)을 반드시 확인하시고, 필요 시
-    공인된 전문가와 상의하시기 바랍니다.
-  </p>
-
-  <p>
-    gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상
-    <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.
-    본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수
-    없습니다.
-  </p>
-        </p>
-      </footer>
+<footer>
+    <div class="footer-compact">
+      <div class="footer-row">
+        <img src="logo.jpg" alt="Go Higher Logo" class="footer-logo-mini" loading="lazy" />
+        <div class="footer-brand-contact">
+          <span class="footer-brand-mini">Go Higher</span>
+          <span class="footer-dot">·</span>
+          <span class="footer-location-mini">대한민국 대구</span>
+          <span class="footer-dot">·</span>
+          <a href="mailto:hermann8hesse@gmail.com" class="footer-email-mini" title="이메일 문의"><i class="fa-solid fa-envelope"></i> hermann8hesse@gmail.com</a>
+        </div>
+        <div class="footer-social-mini">
+          <a href="mailto:hermann8hesse@gmail.com" title="이메일"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://gohigher.kr" title="홈페이지"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://www.youtube.com/results?search_query=gohigher" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <small>
+          본 콘텐츠는 <strong>gohigher.kr</strong>이(가) 제공하는 일반적인 시장·교육 정보로서, 특정 금융투자상품의 <u>매수·매도·보유를 권유하거나 수익을 보장하지 않습니다</u>.<br>
+          모든 투자 결정과 그 결과에 대한 책임은 투자자 본인에게 있으며, 본 자료에 의존한 투자로 발생한 손실에 대해 gohigher.kr 및 작성자는 <strong>일체의 법적 책임을 지지 않습니다</strong>.<br>
+          금융투자상품은 원금 손실(손실 가능성)을 포함한 다양한 투자위험이 있으며, <em>과거 실적은 미래 수익을 보장하지 않습니다</em>.<br>
+          gohigher.kr은 「자본시장과 금융투자업에 관한 법률」상 <strong>투자자문업·투자일임업 인가/등록을 보유하고 있지 않습니다</strong>.<br>
+          본 자료는 교육·정보 제공 목적이며, 법적·회계적·세무적 자문으로 활용될 수 없습니다.
+        </small>
+      </div>
+    </div>
+  </footer>
+  
   
       <!-- Back to Top 버튼 -->
       <button class="back-to-top" id="backToTop" aria-label="TOP버튼">▲</button>
@@ -2711,6 +2744,90 @@ if (window.Capacitor) {
 </script>
 
 <script type="module" src="/firebase-messaging-init.js"></script>
+
+<script> //매그니피센트 API 연동
+  const mag7Symbols = [
+  {symbol: "AMZN", name: "아마존", logo: "images/AMZN logo.webp"},
+  {symbol: "TSLA", name: "테슬라", logo: "images/TSLA logo.webp"},
+  {symbol: "NVDA", name: "엔비디아", logo: "images/NVDA logo.webp"},
+  {symbol: "GOOGL", name: "구글", logo: "images/GOOGL logo.webp"},
+  {symbol: "MSFT", name: "마이크로소프트", logo: "images/MSFT logo.webp"},
+  {symbol: "AAPL", name: "애플", logo: "images/AAPL logo.webp"},
+  {symbol: "META", name: "메타", logo: "images/META logo.webp"}
+];
+
+const apiKey = "wFORda5lesMUZ96BmvpJ4x4cE3F2PqBt"; // 유료 키
+
+async function fetchMag7() {
+  const tbody = document.getElementById("mag7-tbody");
+  tbody.innerHTML = `<tr><td colspan="3">로딩중...</td></tr>`;
+
+  const results = await Promise.all(
+    mag7Symbols.map(async stock => {
+      // 가격 정보
+      let price, priceLabel = "", isPrev = false;
+      try {
+        const priceRes = await fetch(
+          `https://api.polygon.io/v2/last/trade/${stock.symbol}?apiKey=${apiKey}`
+        );
+        const priceJson = await priceRes.json();
+        price = priceJson?.results?.price;
+      } catch { price = undefined; }
+
+      // 전일 종가
+      let prevClose;
+      try {
+        const prevRes = await fetch(
+          `https://api.polygon.io/v2/aggs/ticker/${stock.symbol}/prev?apiKey=${apiKey}`
+        );
+        const prevJson = await prevRes.json();
+        prevClose = prevJson?.results?.[0]?.c;
+      } catch { prevClose = undefined; }
+
+      // 실제 표기 가격 결정
+      let showPrice = price ?? prevClose ?? "-";
+      if (showPrice === "-") {
+        priceLabel = "-";
+      } else if (price === undefined || price === null) {
+        priceLabel = prevClose ? prevClose.toLocaleString() + " USD <span style='font-size:0.8em;color:#888;'>(전일종가)</span>" : "-";
+        isPrev = true;
+      } else {
+        priceLabel = price.toLocaleString() + " USD";
+      }
+
+      // 등락률
+      let changeStr = "-";
+      if (price !== undefined && prevClose !== undefined && prevClose > 0) {
+        const change = (((showPrice - prevClose) / prevClose) * 100).toFixed(2);
+        changeStr =
+          change > 0
+            ? `<span class="red">${change}% 상승</span>`
+            : change < 0
+              ? `<span class="blue">${Math.abs(change)}% 하락</span>`
+              : `<span>0.00% 변동없음</span>`;
+      } else if (prevClose) {
+        changeStr = `<span style="color:#888;">전일종가 기준</span>`;
+      }
+
+      return `
+        <tr>
+          <td>
+            <img src="${stock.logo}" loading="lazy" alt="${stock.name} Logo" height="35" style="border-radius: 50%; vertical-align: middle; margin-right: 6px;" />
+            <strong>${stock.symbol} ${stock.name}</strong>
+          </td>
+          <td>${priceLabel}</td>
+          <td>${changeStr}</td>
+        </tr>
+      `;
+    })
+  );
+
+  tbody.innerHTML = results.join("");
+}
+
+fetchMag7();
+
+</script>
 
     </body>
   </html> 
