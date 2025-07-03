@@ -103,7 +103,7 @@ html.js body {
       font-size: 16px;
     }
     body {
-      background: url(backgroundL.webp);
+      background: url(images/backgroundL.webp);
     }
     :root {
       --primary-color: #004080;
@@ -538,7 +538,7 @@ html.js body {
       }    
     /* 다크모드 스타일 */
     body.dark-mode {
-      background: url(backgroundD.webp);
+      background: url(images/backgroundD.webp);
       color: white;
     }
     body.dark-mode header {
@@ -1437,7 +1437,6 @@ body.dark-mode .close-modal-btn:hover { background: #1565d8; color: #fff; }
 body.dark-mode #modalTabContent a { color: #78b4ff; }
 body.dark-mode #modalTabContent a:hover { color: #ff7272; }
 body.dark-mode #stockChart { background: #23272f; }
-
   </style>
 </head>
 <body>
@@ -1447,7 +1446,7 @@ body.dark-mode #stockChart { background: #23272f; }
     <div class="login-container">
       <!-- 프로필 박스: 아바타와 환영 문구 -->
       <div id="profileBox">
-        <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
+        <img id="profileAvatar" src="images/logo.jpg" loading="lazy" alt="User Avatar" />
         <span id="welcomeText">환영합니다, 사용자님!</span>
       </div>
       <!-- 로그인/로그아웃 버튼 -->
@@ -1763,7 +1762,7 @@ body.dark-mode #stockChart { background: #23272f; }
       <footer>
     <div class="footer-compact">
       <div class="footer-row">
-        <img src="logo.jpg" alt="Go Higher Logo" class="footer-logo-mini" loading="lazy" />
+        <img src="images/logo.jpg" alt="Go Higher Logo" class="footer-logo-mini" loading="lazy" />
         <div class="footer-brand-contact">
           <span class="footer-brand-mini">Go Higher</span>
           <span class="footer-dot">·</span>
@@ -2211,7 +2210,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 const API_KEY = "wFORda5lesMUZ96BmvpJ4x4cE3F2PqBt";
-const DEFAULT_LOGO = 'logo.jpg';
+const DEFAULT_LOGO = 'images/logo.jpg';
 const polygonBase = "https://api.polygon.io";
 const prevPrices = {};
 let stockChart = null;

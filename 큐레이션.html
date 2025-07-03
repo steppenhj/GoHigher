@@ -91,7 +91,7 @@
         to { transform: scale(1); }
     }
     html { font-size: 16px; }
-    body { background: url(backgroundL.webp); }
+    body { background: url(images/backgroundL.webp); }
     :root {
       --primary-color: #004080;
       --secondary-color: #0059b3;
@@ -283,7 +283,7 @@
       box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
     }
     footer a { color: #fff; text-decoration: underline; }
-    body.dark-mode { background: url(backgroundD.webp); color: white; }
+    body.dark-mode { background: url(images/backgroundD.webp); color: white; }
     body.dark-mode header {
       background: linear-gradient(135deg, #002b57, #004284);
       color: #cacaca;
@@ -1351,7 +1351,7 @@ body.dark-mode #investmentSurvey {
     <div class="login-container">
       <!-- 프로필 박스: 아바타와 환영 문구 -->
       <div id="profileBox">
-        <img id="profileAvatar" src="logo.jpg" loading="lazy" alt="User Avatar" />
+        <img id="profileAvatar" src="images/logo.jpg" loading="lazy" alt="User Avatar" />
         <span id="welcomeText">환영합니다, 사용자님!</span>
       </div>
       <!-- 로그인/로그아웃 버튼 -->
@@ -1703,7 +1703,7 @@ body.dark-mode #investmentSurvey {
 <footer>
     <div class="footer-compact">
       <div class="footer-row">
-        <img src="logo.jpg" alt="Go Higher Logo" class="footer-logo-mini" loading="lazy" />
+        <img src="images/logo.jpg" alt="Go Higher Logo" class="footer-logo-mini" loading="lazy" />
         <div class="footer-brand-contact">
           <span class="footer-brand-mini">Go Higher</span>
           <span class="footer-dot">·</span>
@@ -2265,23 +2265,23 @@ document.getElementById("surveyForm").addEventListener("submit", function(e) {
 
   if (totalScore <= 24) {
     resultText = '<span style="color: white;">당신은 최고의 안전 지향 투자자이십니다. ...</span>';
-    bgImage = "curation/turtle.webp";
+    bgImage = "큐레이션/turtle.webp";
     resultIcon = "fa-solid fa-shield-halved";
   } else if (totalScore <= 32) {
     resultText = '<span style="color: white;">당신은 뛰어난 보수적 투자자이십니다. ...</span>';
-    bgImage = "curation/deer.webp";
+    bgImage = "큐레이션/deer.webp";
     resultIcon = "fa-solid fa-tree";
   } else if (totalScore <= 40) {
     resultText = '<span style="color: white;">당신은 현명한 균형 투자자이십니다. ...</span>';
-    bgImage = "curation/fox.webp";
+    bgImage = "큐레이션/fox.webp";
     resultIcon = "fa-solid fa-balance-scale";
   } else if (totalScore <= 48) {
     resultText = '<span style="color: white;">당신은 대담한 성장 지향 투자자이십니다. ...</span>';
-    bgImage = "curation/eagle.webp";
+    bgImage = "큐레이션/eagle.webp";
     resultIcon = "fa-solid fa-chart-line";
   } else {
     resultText = '<span style="color: white;">당신은 용감한 공격 투자자이십니다. ...</span>';
-    bgImage = "curation/tiger.webp";
+    bgImage = "큐레이션/tiger.webp";
     resultIcon = "fa-solid fa-rocket";
   }
 
