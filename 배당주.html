@@ -1276,6 +1276,168 @@ body.dark-mode .footer-legal u,
 body.dark-mode .footer-legal em {
   color: #fbd314;
 }
+
+/* 모달디자인 */
+.custom-stock-modal {
+  position: fixed; z-index: 9999;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(40,60,100,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Pretendard','Noto Sans KR',sans-serif;
+  animation: fadeIn 0.3s;
+}
+.stock-modal-inner.modal-card {
+  background: #fff;
+  border-radius: 28px;
+  width: 600px;
+  min-height: 540px;
+  height: 540px;
+  max-width: 95vw;
+  max-height: 92vh;
+  box-shadow: 0 12px 48px rgba(0,42,120,0.19), 0 2px 10px rgba(0,86,179,0.10);
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
+  position: relative;
+  border-top: 7px solid #1565d8;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.close-modal-btn {
+  position: absolute; top: 18px; right: 18px;
+  font-size: 2.1em; color: #2352a5;
+  background: #f5f8ff; border: none; cursor: pointer;
+  z-index: 1;
+  transition: color 0.18s, background 0.18s, transform 0.18s;
+  border-radius: 50%; width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0.93;
+  box-shadow: 0 2px 8px rgba(0,42,120,0.08);
+}
+.close-modal-btn:hover { color: #fff; background: #1565d8; transform: scale(1.13); opacity: 1; }
+
+.modal-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid #e3eaf1;
+  margin-bottom: 26px;
+  justify-content: flex-start;
+  background: none;
+  padding-left: 0.2rem;
+}
+.modal-tabs button {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1.08em;
+  font-weight: 500;
+  color: #888;
+  padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+  margin-bottom: -2px;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, font-weight 0.18s;
+  box-shadow: none;
+  letter-spacing: -0.5px;
+}
+.modal-tabs button.active,
+.modal-tabs button:focus {
+  color: #1565d8;
+  border-bottom: 3px solid #1565d8;
+  font-weight: 700;
+  background: none;
+}
+.modal-tabs button:hover {
+  color: #2352a5;
+}
+@media (max-width: 600px) {
+  .stock-modal-inner.modal-card { width: 97vw; min-width: 0; min-height: 340px; height: 340px; padding: 1.1rem 0.3rem 1rem 0.3rem; border-radius: 14px; }
+  .modal-tabs button { font-size: 1em; padding: 0.6rem 0.7rem; }
+}
+body.dark-mode .modal-tabs button { color: #bcd; }
+body.dark-mode .modal-tabs button.active,
+body.dark-mode .modal-tabs button:focus { color: #fbd314; border-bottom: 3px solid #fbd314; font-weight: 700; }
+body.dark-mode .modal-tabs button:hover { color: #fff; }
+
+.modal-content-card {
+  min-height: 160px;
+  padding: 18px 8px 2px 8px;
+  font-size: 1.08em;
+  color: #234;
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+}
+.modal-content-card strong {
+  color: #1565d8;
+  font-weight: 700;
+}
+#modalTabContent ul {
+  margin: 0.7rem 0 0.5rem 1.1rem;
+  padding-left: 0.7em;
+}
+#modalTabContent li {
+  font-size: 1.01em;
+  margin-bottom: 0.19rem;
+  line-height: 1.7;
+}
+#modalTabContent a {
+  color: #1565d8;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+#modalTabContent a:hover { color: #d32f2f; }
+#modalTabContent > div {
+  margin-bottom: 1.1rem;
+}
+#modalTabContent img {
+  vertical-align: middle;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0,42,120,0.10);
+  margin-right: 10px;
+}
+#modalTabContent strong {
+  font-size: 1.18em;
+}
+#modalTabContent .modal-section-title {
+  color: #1565d8; font-weight: bold;
+  font-size: 1.18em; margin: 23px 0 13px 0;
+  border-bottom: 1.8px solid #1565d8;
+  padding-bottom: 2px;
+  letter-spacing: -0.5px;
+}
+#stockChart {
+  margin-top: 28px; width: 98%; height: 200px; display: none;
+  background: #f7faff; border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,42,120,0.07);
+}
+@media (max-width: 600px) {
+  .stock-modal-inner.modal-card { width: 97vw; min-width: 0; padding: 1.1rem 0.3rem 1rem 0.3rem; border-radius: 14px; }
+  .modal-tabs button { font-size: 1em; padding: 10px 10px; }
+  .close-modal-btn { top: 8px; right: 8px; width: 34px; height: 34px; font-size: 1.3em; }
+  .modal-content-card { font-size: 0.98em; padding: 10px 2px 2px 2px; }
+}
+body.dark-mode .custom-stock-modal {
+  background: rgba(20,30,50,0.38);
+}
+body.dark-mode .stock-modal-inner.modal-card {
+  background: #23272f;
+  border: 1.5px solid #333a46;
+  color: #cacaca;
+  box-shadow: 0 10px 30px #0009;
+}
+body.dark-mode .modal-tabs button { color: #78b4ff; }
+body.dark-mode .modal-tabs button.active,
+body.dark-mode .modal-tabs button:focus { color: #fff; background: linear-gradient(90deg, #1565d8 80%, #4e73df 100%); border-bottom: 3px solid #fbd314; }
+body.dark-mode .modal-tabs button:hover { background: #29364c; color: #fbd314; }
+body.dark-mode .modal-content-card, body.dark-mode #modalTabContent strong { color: #bcd; }
+body.dark-mode .close-modal-btn { color: #bcd; background: #23272f; }
+body.dark-mode .close-modal-btn:hover { background: #1565d8; color: #fff; }
+body.dark-mode #modalTabContent a { color: #78b4ff; }
+body.dark-mode #modalTabContent a:hover { color: #ff7272; }
+body.dark-mode #stockChart { background: #23272f; }
+
   </style>
 </head>
 <body>
@@ -1381,23 +1543,18 @@ body.dark-mode .footer-legal em {
         <h3>필수 소비재 &amp; 음료</h3>
         <ul class="earnings-list">
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/KO logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>코카콜라 (KO)</strong> - 61년 연속 배당 증가, 글로벌 음료 시장 강자
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/PEP logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>펩시코 (PEP)</strong> - 51년 연속 배당 증가, 식품 &amp; 음료 시장 점유율 높음
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/PG logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>P&amp;G (PG)</strong> - 67년 연속 배당 증가, 타이드/팬틴/다우니 등 필수 소비재
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/KMB logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>킴벌리클라크 (KMB)</strong> - 51년 연속 배당 증가, Kleenex, Huggies 브랜드 보유
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/MCD logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>맥도날드 (MCD)</strong> - 46년 연속 배당 증가, 글로벌 패스트푸드 1위
           </li>
         </ul>
@@ -1406,19 +1563,15 @@ body.dark-mode .footer-legal em {
         <h3>헬스케어 &amp; 제약</h3>
         <ul class="earnings-list">
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/JNJ logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>존슨앤드존슨 (JNJ)</strong> - 61년 연속 배당 증가, 글로벌 헬스케어 기업
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/ABBV logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>애브비 (ABBV)</strong> - 52년 연속 배당 증가, 항암제/면역질환 치료제 강자
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/MRK logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>머크 (MRK)</strong> - 10년 이상 배당 증가, 신약 개발 강점
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/UNH logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>유나이티드헬스그룹 (UNH)</strong> - 배당 성장률 높고, 미국 최대 의료보험사
           </li>
         </ul>
@@ -1429,15 +1582,12 @@ body.dark-mode .footer-legal em {
         <h3>금융 &amp; 보험</h3>
         <ul class="earnings-list">
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/JPM logo.jpg" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>JP모건체이스 (JPM)</strong> - 13년 연속 배당 증가, 미국 최대 은행
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/BAC logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>뱅크오브아메리카 (BAC)</strong> - 금융 위기 이후 배당 회복, 안정적인 대형은행
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/TFC logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>트루이스트 파이낸셜 (TFC)</strong> - 배당률 높고, 지속적인 성장
           </li>
         </ul>
@@ -1446,15 +1596,12 @@ body.dark-mode .footer-legal em {
         <h3>에너지 &amp; 인프라</h3>
         <ul class="earnings-list">
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/XOM logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>엑슨모빌 (XOM)</strong> - 40년 연속 배당 증가, 세계 최대 석유회사 중 하나
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/CVX logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>셰브론 (CVX)</strong> - 36년 연속 배당 증가, 고배당 안정성 보유
           </li>
           <li style="display: flex; align-items: center; gap: 8px;">
-            <img src="images/NEE logo.png" loading="lazy" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background-color: #fff;">
             <strong>넥스테라 에너지 (NEE)</strong> - 친환경 에너지 성장 기업, 배당 지속 성장
           </li>
         </ul>
@@ -2060,12 +2207,61 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 })();
+
+
+
 const API_KEY = "wFORda5lesMUZ96BmvpJ4x4cE3F2PqBt";
+const DEFAULT_LOGO = 'logo.jpg';
 const polygonBase = "https://api.polygon.io";
 const prevPrices = {};
 let stockChart = null;
+let currentSymbol = null;
+let currentKorName = null;
 
-// 가격 실시간 표시 (색상, 1분 새로고침)
+// 1. [로고 이미지 자동 주입]
+function injectStockLogos() {
+  document.querySelectorAll('.earnings-list li').forEach(li => {
+    const strong = li.querySelector('strong');
+    if (!strong) return;
+    const match = strong.innerText.match(/\((\w+)\)$/);
+    if (!match) return;
+    const symbol = match[1].trim();
+
+    // 기존에 img가 있으면 삭제
+    const oldImg = li.querySelector('img');
+    if (oldImg) oldImg.remove();
+
+    // 새로운 img 생성
+    const img = document.createElement('img');
+    img.alt = symbol + " logo";
+    img.loading = "lazy";
+    img.style.width = "32px";
+    img.style.height = "32px";
+    img.style.borderRadius = "50%";
+    img.style.objectFit = "cover";
+    img.style.backgroundColor = "#fff";
+    img.style.marginRight = "3px";
+    img.src = DEFAULT_LOGO;
+
+    li.insertBefore(img, strong);
+
+    fetch(`https://api.polygon.io/v3/reference/tickers/${symbol}?apiKey=${API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        const logoUrl = data?.results?.branding?.logo_url;
+        if (logoUrl) {
+          img.src = logoUrl + `?apiKey=${API_KEY}`;
+        } else {
+          img.src = DEFAULT_LOGO;
+        }
+      })
+      .catch(e => {
+        img.src = DEFAULT_LOGO;
+      });
+  });
+}
+
+// 2. [가격 실시간 표시 및 1분마다 새로고침]
 function updateAllPrices() {
   document.querySelectorAll('.earnings-list li').forEach(li => {
     const strong = li.querySelector('strong');
@@ -2074,7 +2270,6 @@ function updateAllPrices() {
     if (!match) return;
     const symbol = match[1].trim();
 
-    // 가격 span이 없으면 생성
     let priceSpan = li.querySelector('.price');
     if (!priceSpan) {
       priceSpan = document.createElement('span');
@@ -2084,10 +2279,8 @@ function updateAllPrices() {
       strong.insertAdjacentElement('afterend', priceSpan);
     }
 
-    // 가격 로딩 처리
     priceSpan.innerText = "Loading...";
 
-    // Polygon API 호출
     fetch(`https://api.polygon.io/v2/aggs/ticker/${symbol}/prev?adjusted=true&apiKey=${API_KEY}`)
       .then(res => res.json())
       .then(data => {
@@ -2099,7 +2292,6 @@ function updateAllPrices() {
           const priceText = `$${price.toLocaleString('en-US', {maximumFractionDigits:2})}`;
           priceSpan.innerText = priceText;
 
-          // 가격 변화 색상
           if (symbol in prevPrices) {
             if (price > prevPrices[symbol]) {
               priceSpan.style.color = "#ff3d3d";  // 상승
@@ -2111,7 +2303,7 @@ function updateAllPrices() {
           } else {
             priceSpan.style.color = "#007aff";    // 최초 파랑
           }
-          prevPrices[symbol] = price; // 최신값 저장
+          prevPrices[symbol] = price;
         } else {
           priceSpan.innerText = "N/A";
           priceSpan.style.color = "gray";
@@ -2124,138 +2316,185 @@ function updateAllPrices() {
   });
 }
 
-// 상세정보+차트 (모달) 로딩 함수
-async function renderStockChart(symbol) {
-  const ctx = document.getElementById("stockChart").getContext("2d");
-  const now = new Date();
-  const end = now.toISOString().slice(0,10);
-  const start = new Date(now.getFullYear()-1, now.getMonth(), now.getDate()).toISOString().slice(0,10);
+// 3. [Polygon API]
+async function getBasicInfo(symbol) {
+  const url = `${polygonBase}/v3/reference/tickers/${symbol}?apiKey=${API_KEY}`;
+  return await fetch(url).then(r=>r.json());
+}
+async function getDividends(symbol) {
+  const url = `${polygonBase}/v3/reference/dividends?ticker=${symbol}&apiKey=${API_KEY}`;
+  return await fetch(url).then(r=>r.json());
+}
+async function getNews(symbol) {
+  const url = `${polygonBase}/v2/reference/news?ticker=${symbol}&apiKey=${API_KEY}`;
+  return await fetch(url).then(r=>r.json());
+}
+async function getChart(symbol, start, end) {
   const url = `${polygonBase}/v2/aggs/ticker/${symbol}/range/1/day/${start}/${end}?adjusted=true&sort=asc&apiKey=${API_KEY}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  const labels = [], closes = [];
-  if(data.results && data.results.length > 0) {
-    data.results.forEach(pt=>{
-      const d = new Date(pt.t);
-      labels.push(`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`);
-      closes.push(pt.c);
-    });
-  }
-  if(stockChart) stockChart.destroy();
-  stockChart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: [{
-        label: "종가($)",
-        data: closes,
-        borderWidth: 2,
-        pointRadius: 0,
-        borderColor: "#007aff",
-        backgroundColor: "rgba(0,123,255,0.12)",
-        fill: true,
-        tension: 0.15,
-      }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { display: false },
-        y: { display: true, ticks: { color: "#222", font: { size: 12 }} }
-      }
-    }
-  });
+  return await fetch(url).then(r=>r.json());
 }
 
-// 상세정보+차트 모달
-function openStockModal(symbol, korName) {
-  const modal = document.getElementById('stockModal');
-  const content = document.getElementById('modalContent');
-  modal.style.display = 'flex';
-  content.innerHTML = `
-    <strong>${korName} <span style="font-size:0.99em;font-weight:500; color:#789;">(${symbol})</span></strong>
-    <div style="color:#888;font-size:0.95em;">Loading...</div>
-  `;
-  document.getElementById("stockChart").height = 220;
-  if(stockChart) stockChart.destroy();
-  document.getElementById("stockChart").style.display = "none";
-
-  // API 호출 (시세, 뉴스만!)
-  Promise.all([
-    fetch(`${polygonBase}/v2/aggs/ticker/${symbol}/prev?adjusted=true&apiKey=${API_KEY}`).then(r=>r.json()),
-    fetch(`${polygonBase}/v2/reference/news?ticker=${symbol}&apiKey=${API_KEY}`).then(r=>r.json()),
-  ]).then(async ([priceData, newsData]) => {
-    let html = `
-      <strong>${korName} <span style="font-size:0.98em;font-weight:500; color:#789;">(${symbol})</span></strong>
+// 4. [모달 탭별 정보 파싱/렌더링 함수]
+function renderResult(tab, data) {
+  if(tab==="basic") {
+    const info = data?.results;
+    if(!info) return "정보 없음";
+    return `
+      <div style="margin-bottom:8px;">
+        <img src="${info.branding?.logo_url ? info.branding.logo_url + `?apiKey=${API_KEY}` : DEFAULT_LOGO}" width="40" style="background:#fff; border-radius:50%; margin-right:7px; vertical-align:middle;">
+        <strong style="font-size:1.14em;">${info.name} (${info.ticker})</strong>
+      </div>
+      <div>산업: ${info.industry || "-"}</div>
+      <div>시장: ${info.market || "-"}</div>
+      <div>상장일: ${info.list_date || "-"}</div>
+      <div>홈페이지: <a href="${info.homepage_url}" target="_blank">${info.homepage_url||"-"}</a></div>
+      <div style="margin-top:6px;">ISIN: ${info.share_class_isin || "-"}</div>
     `;
+  }
+  if(tab==="dividend") {
+    if(!data?.results?.length) return "배당 기록 없음";
+    return "<ul style='padding-left:1.1em;'>" + data.results.slice(0,8).map(d =>
+      `<li>${d.ex_dividend_date}: <b>$${d.cash_amount}</b> (${d.frequency}회/년, 지급일: ${d.pay_date})</li>`
+    ).join("") + "</ul>";
+  }
+  if(tab==="news") {
+    if(!data?.results?.length) return "뉴스 없음";
+    return `<ul style="padding-left:1.2em;">` + data.results.slice(0,5).map(news=>
+      `<li>
+        <a href="${news.article_url}" target="_blank">${news.title}</a>
+        <div style="color:#888;font-size:0.95em;">${news.published_utc?.slice(0,10)}</div>
+      </li>`
+    ).join("") + "</ul>";
+  }
+  if(tab==="chart") {
+    return `<div style="color:#789;">1년간 일별 종가 차트</div>`;
+  }
+  return "정보 없음";
+}
 
-    // 시세
-    if(priceData && priceData.results && priceData.results[0]) {
-      const c = priceData.results[0].c;
-      html += `<div style="margin-bottom:0.8rem;font-weight:500;">
-        📈 <b>주가</b>: <span style="color:#007aff;">$${c?.toLocaleString('en-US', {maximumFractionDigits:2})}</span>
-      </div>`;
-    }
-
-    // 뉴스
-    if(newsData && newsData.results && newsData.results.length > 0) {
-      html += `<div><b style="color:#0059b3;">📢 최근 뉴스</b>
-        <ul style="margin:0.2em 0 0 0.4em;padding-left:1em;">`;
-      newsData.results.slice(0,4).forEach(news => {
-        html += `<li style="margin-bottom:0.12em;">
-          <a href="${news.article_url}" target="_blank">${news.title}</a>
-          <div style="font-size:0.91em;color:#999;margin-top:1px;">${news.published_utc.slice(0,10)}</div>
-        </li>`;
-      });
-      html += `</ul></div>`;
-    } else {
-      html += `<div style="margin-bottom:0.2rem;color:#aaa;">최근 뉴스가 없습니다.</div>`;
-    }
-    content.innerHTML = html;
-    document.getElementById("stockChart").style.display = "block";
-    await renderStockChart(symbol);
-  }).catch(e=>{
-    content.innerHTML = `<strong>${korName} (${symbol})</strong><br><br>정보를 불러올 수 없습니다.`;
-    document.getElementById("stockChart").style.display = "none";
+// 5. [모달 탭 클릭 이벤트]
+function setUpModalTabs() {
+  document.querySelectorAll('.modal-tabs button').forEach(btn=>{
+    btn.addEventListener('click', async function(){
+      const tab = btn.dataset.tab;
+      if(!currentSymbol) return;
+      const content = document.getElementById('modalTabContent');
+      content.innerHTML = "로딩 중...";
+      document.getElementById("stockChart").style.display = (tab==="chart") ? "block" : "none";
+      if(tab==="chart") {
+        const now = new Date();
+        const end = now.toISOString().slice(0,10);
+        const start = new Date(now.getFullYear()-1, now.getMonth(), now.getDate()).toISOString().slice(0,10);
+        const data = await getChart(currentSymbol, start, end);
+        if(stockChart) stockChart.destroy();
+        const ctx = document.getElementById("stockChart").getContext("2d");
+        const labels = [], closes = [];
+        if(data.results && data.results.length > 0) {
+          data.results.forEach(pt=>{
+            const d = new Date(pt.t);
+            labels.push(`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`);
+            closes.push(pt.c);
+          });
+          stockChart = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [{
+                label: "종가($)",
+                data: closes,
+                borderWidth: 2,
+                pointRadius: 0,
+                borderColor: "#007aff",
+                backgroundColor: "rgba(0,123,255,0.11)",
+                fill: true,
+                tension: 0.18,
+              }]
+            },
+            options: {
+              plugins: { legend: { display: false } },
+              scales: { x: { display: false }, y: { beginAtZero:true, ticks: { color: "#222" }} }
+            }
+          });
+          content.innerHTML = renderResult(tab, data);
+        } else {
+          content.innerHTML = "차트 데이터 없음";
+        }
+      } else {
+        let data = null;
+        try {
+          if(tab==="basic") data = await getBasicInfo(currentSymbol);
+          else if(tab==="dividend") data = await getDividends(currentSymbol);
+          else if(tab==="news") data = await getNews(currentSymbol);
+          content.innerHTML = renderResult(tab, data);
+        } catch(e) {
+          content.innerHTML = "정보를 불러오지 못했습니다.";
+        }
+        document.getElementById("stockChart").style.display = "none";
+      }
+      document.querySelectorAll('.modal-tabs button').forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+    });
   });
 }
 
-// 닫기 버튼 및 모달 외부 클릭
-document.body.addEventListener('click', e => {
-  if(e.target.id === "closeModal" || e.target.id === "stockModal") {
+// 6. [모달 열기 함수]
+function openStockModal(symbol, korName) {
+  currentSymbol = symbol;
+  currentKorName = korName;
+  const modal = document.getElementById('stockModal');
+  modal.style.display = 'flex';
+  document.querySelector('.modal-tabs button[data-tab="basic"]').click();
+}
+
+// 7. [모달 닫기 이벤트]
+document.body.addEventListener('click', e=>{
+  if(e.target.id==="closeModal" || e.target.id==="stockModal") {
     document.getElementById('stockModal').style.display = 'none';
+    if(stockChart) stockChart.destroy();
+    document.getElementById("stockChart").style.display = "none";
   }
 });
 
-// 종목 li 클릭 이벤트 (한 번만 연결)
-document.querySelectorAll('.earnings-list li').forEach(li => {
-  const strong = li.querySelector('strong');
-  if(!strong) return;
-  const match = strong.innerText.match(/(.+)\s\((\w+)\)$/);
-  if(!match) return;
-  const korName = match[1].trim();
-  const symbol = match[2].trim();
-  li.style.cursor = "pointer";
-  // 중복 방지: 이미 있으면 연결 안 함
-  if(!li.dataset.clickListener) {
-    li.addEventListener('click', function(e){
-      if(e.target.tagName === "A") return;
-      openStockModal(symbol, korName);
-    });
-    li.dataset.clickListener = "1";
-  }
-});
+// 8. [종목 리스트 li 클릭 연결]
+function setUpStockListClick() {
+  document.querySelectorAll('.earnings-list li').forEach(li => {
+    const strong = li.querySelector('strong');
+    if(!strong) return;
+    const match = strong.innerText.match(/(.+)\s\((\w+)\)$/);
+    if(!match) return;
+    const korName = match[1].trim();
+    const symbol = match[2].trim();
+    li.style.cursor = "pointer";
+    if(!li.dataset.clickListener) {
+      li.addEventListener('click', function(e){
+        if(e.target.tagName === "A") return;
+        openStockModal(symbol, korName);
+      });
+      li.dataset.clickListener = "1";
+    }
+  });
+}
 
-// 가격 첫 로드/1분마다 새로고침
-updateAllPrices();
-setInterval(updateAllPrices, 60000);
+document.addEventListener('DOMContentLoaded', ()=>{
+  injectStockLogos();
+  updateAllPrices();
+  setInterval(updateAllPrices, 60000);
+  setUpStockListClick();
+  setUpModalTabs();
+});
   </script>
 <!-- 모달: 스타일 세련/고급/일관화 -->
 <div id="stockModal" class="custom-stock-modal" style="display:none;">
-  <div class="stock-modal-inner">
+  <div class="stock-modal-inner modal-card">
     <button id="closeModal" class="close-modal-btn">&times;</button>
-    <div id="modalContent">Loading...</div>
-    <canvas id="stockChart" style="margin-top:24px;max-width:95vw;height:220px;display:none;"></canvas>
+    <div class="modal-tabs" style="margin-bottom:18px;">
+      <button data-tab="basic">개요</button>
+      <button data-tab="dividend">배당</button>
+      <button data-tab="news">뉴스</button>
+      <button data-tab="chart">차트</button>
+    </div>
+    <div id="modalTabContent" class="modal-content-card">로딩 중...</div>
+    <canvas id="stockChart" style="margin-top:28px; width:98%; height:200px; display:none;"></canvas>
   </div>
 </div>
 
