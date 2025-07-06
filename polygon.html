@@ -1060,8 +1060,8 @@ async function fetchMag7Data() {
   const promises = MAG7.map(async stock => {
     try {
       const [priceRes, prevRes] = await Promise.all([
-        fetch(`${BASE}/stockPrice?ticker=${stock.symbol}`).then(r => r.json()),
-        fetch(`${BASE}/previousClose?ticker=${stock.symbol}`).then(r => r.json())
+        fetch(`${POLYGON_API_BASE}/stockPrice?ticker=${stock.symbol}`).then(r => r.json()),
+        fetch(`${POLYGON_API_BASE}/previousClose?ticker=${stock.symbol}`).then(r => r.json())
       ]);
       const curr = priceRes.price;
       const prev = prevRes.previousClose;
