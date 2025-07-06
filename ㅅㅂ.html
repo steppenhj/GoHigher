@@ -55,6 +55,15 @@
         return;
       }
 
+      // 날짜 세팅
+      const today = new Date();
+      const to = today.toISOString().split('T')[0];
+      const fromDate = new Date();
+      fromDate.setDate(today.getDate() - 7);
+      const from = fromDate.toISOString().split('T')[0];
+
+      const baseUrl = 'https://us-central1-gohigher-55e51.cloudfunctions.net/polygonApi';
+
       // 로딩 표시
       document.getElementById('newsContainer').innerHTML = '로딩 중...';
       document.getElementById('priceContainer').innerHTML = '로딩 중...';
@@ -64,8 +73,8 @@
       document.getElementById('dividendContainer').innerHTML = '로딩 중...';
 
       try {
-       // 뉴스 가져오기
-const newsRes = await fetch(`https://us-central1-gohigher-55e51.cloudfunctions.net/polygonNews?limit=5`);
+        // 뉴스
+        const newsRes = await fetch(`${baseUrl}/news?limit=5`);
         const newsData = await newsRes.json();
         const newsContainer = document.getElementById('newsContainer');
         newsContainer.innerHTML = '';
@@ -80,23 +89,23 @@ const newsRes = await fetch(`https://us-central1-gohigher-55e51.cloudfunctions.n
           newsContainer.appendChild(newsItem);
         });
 
-       // 실시간 주가
-const priceRes = await fetch(`https://us-central1-gohigher-55e51.cloudfunctions.net/stockPrice?ticker=${ticker}`);
+        // 실시간 주가
+        const priceRes = await fetch(`${baseUrl}/price?ticker=${ticker}`);
         const priceData = await priceRes.json();
         document.getElementById('priceContainer').innerHTML = `현재가: ${priceData.price}`;
 
-       // 전일 종가
-const closeRes = await fetch(`https://us-central1-gohigher-55e51.cloudfunctions.net/previousClose?ticker=${ticker}`);
+        // 전일 종가
+        const closeRes = await fetch(`${baseUrl}/previousclose?ticker=${ticker}`);
         const closeData = await closeRes.json();
         document.getElementById('closeContainer').innerHTML = `전일 종가: ${closeData.previousClose}`;
 
         // 일봉 차트
-const chartRes = await fetch(`https://us-central1-gohigher-55e51.cloudfunctions.net/dailyChart?ticker=${ticker}`);
+        const chartRes = await fetch(`${baseUrl}/dailychart?ticker=${ticker}&from=${from}&to=${to}`);
         const chartData = await chartRes.json();
         document.getElementById('chartContainer').innerHTML = chartData.chartData.map(item => `날짜: ${item.date}, 종가: ${item.close}`).join('<br>');
 
-    // 기업 정보
-const infoRes = await fetch(`https://us-central1-gohigher-55e51.cloudfunctions.net/stockInfo?ticker=${ticker}`);
+        // 기업 정보
+        const infoRes = await fetch(`${baseUrl}/info?ticker=${ticker}`);
         const infoData = await infoRes.json();
         document.getElementById('infoContainer').innerHTML = `
           <strong>회사명:</strong> ${infoData.name}<br>
@@ -105,7 +114,7 @@ const infoRes = await fetch(`https://us-central1-gohigher-55e51.cloudfunctions.n
         `;
 
         // 배당금
-const dividendRes = await fetch(`https://us-central1-gohigher-55e51.cloudfunctions.net/dividends?ticker=${ticker}`);
+        const dividendRes = await fetch(`${baseUrl}/dividends?ticker=${ticker}`);
         const dividendData = await dividendRes.json();
         document.getElementById('dividendContainer').innerHTML = dividendData.dividends.map(item => `날짜: ${item.date}, 금액: ${item.amount}`).join('<br>');
 
