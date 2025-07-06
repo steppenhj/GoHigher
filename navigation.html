@@ -131,7 +131,8 @@
 </html>
 
 <script>
-const POLYGON_API_BASE = "http://localhost:5002/gohigher-55e51/us-central1/polygonApi";
+// 실제 배포용(모든 사용자 접근 가능):
+const POLYGON_API_BASE = "https://us-central1-gohigher-55e51.cloudfunctions.net/polygonApi";
 
 document.getElementById('stockSearchBtn').addEventListener('click', function() {
   const ticker = document.getElementById('stockSearchInput').value.trim().toUpperCase();
