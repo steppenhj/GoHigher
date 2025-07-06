@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polygon API 통합 테스트</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { padding: 8px; margin: 5px; }
+    h2 { margin-top: 30px; }
+    .section { margin-bottom: 40px; }
+  </style>
+</head>
+<body>
+
+  <h1>📊 Polygon 통합 주식 데이터</h1>
+  <input type="text" id="tickerInput" placeholder="티커 입력 (예: AAPL)">
+  <button id="searchBtn">검색</button>
+
+  <div id="newsSection" class="section">
+    <h2>📰 뉴스</h2>
+    <div id="newsContainer">데이터 없음</div>
+  </div>
+
+  <div id="priceSection" class="section">
+    <h2>💵 실시간 주가</h2>
+    <div id="priceContainer">데이터 없음</div>
+  </div>
+
+  <div id="closeSection" class="section">
+    <h2>🔒 전일 종가</h2>
+    <div id="closeContainer">데이터 없음</div>
+  </div>
+
+  <div id="chartSection" class="section">
+    <h2>📈 일봉 차트</h2>
+    <div id="chartContainer">데이터 없음</div>
+  </div>
+
+  <div id="infoSection" class="section">
+    <h2>🏢 기업 정보</h2>
+    <div id="infoContainer">데이터 없음</div>
+  </div>
+
+  <div id="dividendSection" class="section">
+    <h2>💰 배당금</h2>
+    <div id="dividendContainer">데이터 없음</div>
+  </div>
+
+  <script>
+    document.getElementById('searchBtn').addEventListener('click', async () => {
+      const ticker = document.getElementById('tickerInput').value.trim().toUpperCase();
+      if (!ticker) {
+        alert('티커를 입력하세요.');
+        return;
+      }
+
+      // 로딩 표시
+      document.getElementById('newsContainer').innerHTML = '로딩 중...';
+      document.getElementById('priceContainer').innerHTML = '로딩 중...';
+      document.getElementById('closeContainer').innerHTML = '로딩 중...';
+      document.getElementById('chartContainer').innerHTML = '로딩 중...';
+      document.getElementById('infoContainer').innerHTML = '로딩 중...';
+      document.getElementById('dividendContainer').innerHTML = '로딩 중...';
+
+      try {
+        // 뉴스 가져오기
+        const newsRes = await fetch(`http://localhost:3000/polygonNews?limit=5`);
+        const newsData = await newsRes.json();
+        const newsContainer = document.getElementById('newsContainer');
+        newsContainer.innerHTML = '';
+        newsData.results.forEach(news => {
+          const newsItem = document.createElement('div');
+          newsItem.style.marginBottom = '20px';
+          newsItem.innerHTML = `
+            <h3>${news.title}</h3>
+            <p>${news.description}</p>
+            <a href="${news.article_url}" target="_blank">기사 보기</a>
+          `;
+          newsContainer.appendChild(newsItem);
+        });
+
+        // 실시간 주가
+        const priceRes = await fetch(`http://localhost:3000/stockPrice?ticker=${ticker}`);
+        const priceData = await priceRes.json();
+        document.getElementById('priceContainer').innerHTML = `현재가: ${priceData.price}`;
+
+        // 전일 종가
+        const closeRes = await fetch(`http://localhost:3000/previousClose?ticker=${ticker}`);
+        const closeData = await closeRes.json();
+        document.getElementById('closeContainer').innerHTML = `전일 종가: ${closeData.previousClose}`;
+
+        // 일봉 차트
+        const chartRes = await fetch(`http://localhost:3000/dailyChart?ticker=${ticker}`);
+        const chartData = await chartRes.json();
+        document.getElementById('chartContainer').innerHTML = chartData.chartData.map(item => `날짜: ${item.date}, 종가: ${item.close}`).join('<br>');
+
+        // 기업 정보
+        const infoRes = await fetch(`http://localhost:3000/stockInfo?ticker=${ticker}`);
+        const infoData = await infoRes.json();
+        document.getElementById('infoContainer').innerHTML = `
+          <strong>회사명:</strong> ${infoData.name}<br>
+          <strong>섹터:</strong> ${infoData.sector}<br>
+          <strong>설명:</strong> ${infoData.description}
+        `;
+
+        // 배당금
+        const dividendRes = await fetch(`http://localhost:3000/dividends?ticker=${ticker}`);
+        const dividendData = await dividendRes.json();
+        document.getElementById('dividendContainer').innerHTML = dividendData.dividends.map(item => `날짜: ${item.date}, 금액: ${item.amount}`).join('<br>');
+
+      } catch (error) {
+        console.error('API 호출 실패:', error);
+        alert('데이터를 불러오는 데 실패했습니다.');
+      }
+    });
+  </script>
+</body>
+</html>
