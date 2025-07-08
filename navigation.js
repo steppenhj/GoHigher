@@ -225,8 +225,37 @@ auth.onAuthStateChanged(async user => {
   });
 
   // ----------------------------------------
-  // 3) 검색 모달 (Polygon API 기반만 남김)
+  // 로그아웃 동작
   // ----------------------------------------
+
+  // 로그아웃 버튼(사이드 메뉴, 내비바 등) 공통 동작
+function setupLogoutLinks() {
+  // 사이드바의 로그아웃
+  document.querySelectorAll('.side-link').forEach(link => {
+    if (link.textContent.trim() === '로그아웃') {
+      link.onclick = function(e) {
+        e.preventDefault();
+        firebase.auth().signOut().then(() => {
+          // 로그아웃 후 홈 또는 로그인 페이지로 이동 (원하는 경로로)
+          window.location.href = "/login.html";
+        });
+      };
+    }
+  });
+  // 상단 내비 로그인 버튼이 로그아웃 상태면
+  const loginBtn = document.getElementById('loginBtn');
+  if (loginBtn && loginBtn.textContent.trim() === '로그아웃') {
+    loginBtn.onclick = function(e) {
+      e.preventDefault();
+      firebase.auth().signOut().then(() => {
+        window.location.href = "/login.html";
+      });
+    };
+  }
+}
+
+// DOM 업데이트 이후 호출
+setupLogoutLinks();
 
   // 1) 오버레이 엘리먼트 필요시 생성
   let searchModalOverlay = document.getElementById('searchModalOverlay');
