@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher · 13F 투자 대가 분석</title>
+  <!-- 네비게이션 CSS -->
+  <link rel="stylesheet" href="../navigation.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+     <script>
+  // --- 반드시 가장 위에 삽입 ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.appspot.com",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+    measurementId: "G-KQ02L8DXG0"
+  };
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const auth = firebase.auth();
+</script>
+ <style>
+    :root {
+      --nav-main: rgba(28, 36, 52, 0.75);
+      --nav-blue: #e9f1ff;
+      --nav-blue-light: #98bfff;
+      --nav-yellow: #ffe066;
+      --bg-main: linear-gradient(120deg, #1e253a 0%, #253258 100%);
+      
+      /* 새로운 디자인 변수들 */
+      --primary-bg: linear-gradient(135deg, #1C2434 0%, #0C1228 60%, #2D3E5B 100%);
+      --card-bg: rgba(28, 36, 52, 0.85);
+      --card-border: rgba(76, 90, 110, 0.4);
+      --card-shadow: 0 8px 32px rgba(12, 18, 40, 0.3);
+      --card-shadow-hover: 0 16px 48px rgba(30, 38, 85, 0.25);
+      --text-primary: #e9f1ff;
+      --text-secondary: #bcd7ff;
+      --text-muted: #98bfff;
+      --accent-primary: #ffe066;
+      --accent-secondary: #98bfff;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+    }
+
+    /* 헤더 섹션 */
+    .hero-section {
+      text-align: center;
+      margin: 4rem 0 6rem;
+      position: relative;
+    }
+
+    .page-title {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+
+    .page-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 2px;
+    }
+
+    .page-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    /* 섹션 공통 스타일 */
+    section {
+      margin: 4rem 0;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    section h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+
+    section h2::before {
+      content: '';
+      width: 6px;
+      height: 32px;
+      background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 3px;
+    }
+
+    /* 개요 섹션 */
+    .overview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .overview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    }
+
+    .overview-card p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* 투자자 목록 */
+    .investor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .investor-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .investor-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .investor-card:hover::before {
+      left: 100%;
+    }
+
+    .investor-card:hover,
+    .investor-card.active {
+      transform: translateY(-8px);
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--accent-primary);
+      background: rgba(28, 36, 52, 0.95);
+    }
+
+    .investor-card.active {
+      background: linear-gradient(135deg, rgba(255, 224, 102, 0.2), rgba(152, 191, 255, 0.2));
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .investor-card span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    /* 테이블 스타일 */
+    .table-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .holdings-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+    }
+
+    .holdings-table th {
+      background: rgba(17, 25, 43, 0.8);
+      color: var(--accent-primary);
+      font-weight: 600;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .holdings-table td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(76, 90, 110, 0.2);
+      transition: background-color 0.2s;
+    }
+
+    .holdings-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .holdings-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .holdings-table td:first-child {
+      font-weight: 600;
+      color: var(--accent-secondary);
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    }
+
+    .holdings-table td:nth-child(2) {
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-weight: 500;
+    }
+
+    .holdings-table td:nth-child(3) {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    /* 분석 카드 */
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .analysis-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .analysis-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    }
+
+    .analysis-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .analysis-card h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin: 0 0 1rem;
+    }
+
+    .analysis-card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .analysis-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .analysis-card li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-secondary);
+    }
+
+    .analysis-card li:last-child {
+      border-bottom: none;
+    }
+
+    .analysis-card li span:first-child {
+      font-weight: 500;
+    }
+
+    .analysis-card li span:last-child {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    /* 차트 컨테이너 */
+    .chart-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      max-width: 1000px;
+      height: 500px;
+      margin: 2rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .chart-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 20px 20px 0 0;
+    }
+
+    #sectorChart {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    /* 푸터 */
+    .page-footer {
+      text-align: center;
+      margin: 6rem 0 2rem;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--card-border);
+      opacity: 0.7;
+    }
+
+    /* 애니메이션 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.02);
+      }
+    }
+
+    /* 로딩 상태 */
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 24px;
+      height: 24px;
+      margin: -12px 0 0 -12px;
+      border: 3px solid var(--accent-primary);
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 반응형 디자인 */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .page-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-section {
+        margin: 2rem 0 4rem;
+      }
+      
+      .investor-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .chart-container {
+        height: 400px;
+        padding: 1rem;
+      }
+      
+      .holdings-table {
+        font-size: 0.9rem;
+      }
+      
+      .holdings-table th,
+      .holdings-table td {
+        padding: 0.75rem 0.5rem;
+      }
+      
+      section h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .overview-card,
+      .analysis-card {
+        padding: 1.5rem;
+      }
+      
+      .chart-container {
+        height: 350px;
+      }
+    }
+
+    /* 스크롤바 스타일링 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(28, 36, 52, 0.3);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-primary);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-secondary);
+    }
+
+    /* 포커스 상태 */
+    .investor-card:focus,
+    .analysis-card:focus {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 2px;
+    }
+
+    /* 부드러운 스크롤 */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <!-- 네비게이션 -->
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link active">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+
+  <div style="height:66px;"></div>
+
+  <!-- 메인 컨텐츠 -->
+  <main class="container">
+    <!-- 히어로 섹션 -->
+    <section class="hero-section">
+      <h1 class="page-title">투자 대가 13F 공시 분석</h1>
+      <p class="page-subtitle">세계 최고의 투자자들의 포트폴리오를 실시간으로 분석해보세요</p>
+    </section>
+
+    <!-- 개요 섹션 -->
+    <section class="section-overview">
+      <h2>🔎 개요</h2>
+      <div class="overview-card">
+        <p>이 페이지는 관리자 페이지에서 입력된 투자 대가의 보유 종목과 분석 결과를 Firestore에서 실시간으로 불러옵니다. 세계적인 투자자들의 투자 철학과 포트폴리오 구성을 한눈에 파악할 수 있습니다.</p>
+      </div>
+    </section>
+
+    <!-- 투자자 목록 -->
+    <section class="section-investors">
+      <h2>💼 투자자 목록</h2>
+      <ul class="investor-grid" id="investorList"></ul>
+    </section>
+
+    <!-- 보유 종목 현황 -->
+    <section class="section-holdings">
+      <h2>📊 보유 종목 현황 <span id="investorNameDisplay"></span></h2>
+      <div class="table-container">
+        <table class="holdings-table">
+          <thead>
+            <tr>
+              <th>티커</th>
+              <th>수량</th>
+              <th>비중(%)</th>
+              <th>비고</th>
+            </tr>
+          </thead>
+          <tbody id="holdingsBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 투자 성향 분석 -->
+    <section class="section-analysis">
+      <h2>📈 투자 성향 & 스타일 분석</h2>
+      <div class="analysis-grid">
+        <div class="analysis-card">
+          <h3>가치 vs 성장</h3>
+          <p id="value-growth-text"></p>
+        </div>
+        <div class="analysis-card">
+          <h3>섹터 배분</h3>
+          <ul id="sector-list"></ul>
+        </div>
+        <div class="analysis-card">
+          <h3>리스크 성향</h3>
+          <p id="risk-text"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 차트 섹션 -->
+    <section class="section-charts">
+      <h2>📉 보유 종목 섹터 배분</h2>
+      <div class="chart-container">
+        <canvas id="sectorChart"></canvas>
+      </div>
+    </section>
+
+    <footer class="page-footer">© 2025 Go Higher. All Rights Reserved.</footer>
+  </main>
+
+  <script src="../navigation.js"></script>
+  <script>
+
+    // DOM 참조
+    const investorListEl   = document.getElementById('investorList');
+    const holdingsBody     = document.getElementById('holdingsBody');
+    const investorNameDisp = document.getElementById('investorNameDisplay');
+    const valueTextEl      = document.getElementById('value-growth-text');
+    const sectorListEl     = document.getElementById('sector-list');
+    const riskTextEl       = document.getElementById('risk-text');
+    const ctx              = document.getElementById('sectorChart').getContext('2d');
+
+    // Chart.js 인스턴스
+    const sectorChart = new Chart(ctx, {
+      type: 'pie',
+      data: { labels: [], datasets: [{ data: [], backgroundColor: [] }] },
+      options: { 
+        plugins: { 
+          legend: { 
+            position: 'bottom', 
+            labels: { 
+              color: '#e9f1ff',
+              font: {
+                family: 'Inter',
+                size: 12
+              },
+              padding: 20
+            } 
+          } 
+        },
+        responsive: true,
+        maintainAspectRatio: false
+      } 
+    });
+
+    // 투자자 목록 로드
+    async function loadInvestors() {
+      const snap = await db.collection('Investors').orderBy('name').get();
+      investorListEl.innerHTML = '';
+      snap.forEach(doc => {
+        const li = document.createElement('li');
+        li.className = 'investor-card';
+        li.dataset.id = doc.id;
+        
+        const span = document.createElement('span');
+        span.textContent = doc.data().name;
+        li.appendChild(span);
+        
+        li.addEventListener('click', () => selectInvestor(doc.id, doc.data().name));
+        investorListEl.appendChild(li);
+      });
+      if (investorListEl.firstChild) {
+        const first = investorListEl.firstChild;
+        selectInvestor(first.dataset.id, first.querySelector('span').textContent);
+      }
+    }
+
+    // 투자자 선택
+    async function selectInvestor(id, name) {
+      // active 처리
+      document.querySelectorAll('.investor-card').forEach(el => el.classList.remove('active'));
+      const selEl = [...investorListEl.children].find(li => li.dataset.id === id);
+      selEl.classList.add('active');
+      investorNameDisp.textContent = `(${name})`;
+
+      // 1) Holdings 불러오기
+      try {
+        const hSnap = await db
+          .collection('Holdings')
+          .where('investorId', '==', id)
+          .get();
+
+        const holdings = hSnap.docs.map(d => d.data());
+        holdings.sort((a, b) => a.ticker.localeCompare(b.ticker, 'en', {numeric: true}));
+
+        holdingsBody.innerHTML = holdings.map(h => `
+          <tr>
+            <td>${h.ticker}</td>
+            <td>${h.qty.toLocaleString()}</td>
+            <td>${h.weight}</td>
+            <td>${h.note || ''}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Holdings 조회 실패', err);
+        holdingsBody.innerHTML = `<tr><td colspan="4" style="color:salmon">데이터를 불러오는 중 오류가 발생했습니다.</td></tr>`;
+      }
+
+      // 2) Analysis 불러오기
+      try {
+        const aSnap = await db
+          .collection('Analysis')
+          .where('investorId', '==', id)
+          .limit(1)
+          .get();
+
+        if (aSnap.empty) {
+          console.warn('Analysis 문서가 없습니다 for', id);
+          return;
+        }
+        const a = aSnap.docs[0].data();
+
+        // 분석 카드
+        valueTextEl.textContent = `가치주 ${a.valueGrowth.value}% / 성장주 ${a.valueGrowth.growth}%`;
+        sectorListEl.innerHTML = a.sectors.map(s => `<li><span>${s.name}</span><span>${s.pct}%</span></li>`).join('');
+        riskTextEl.textContent = a.risk;
+
+        // 차트
+        sectorChart.data.labels = a.sectors.map(s => s.name);
+        sectorChart.data.datasets[0].data = a.sectors.map(s => s.pct);
+        const palette = ['#ffe066','#98bfff','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#84cc16'];
+        sectorChart.data.datasets[0].backgroundColor = a.sectors.map((_,i) => palette[i % palette.length]);
+        sectorChart.update();
+
+      } catch (err) {
+        console.error('Analysis 조회 실패', err);
+      }
+    }
+
+    window.db   = firebase.firestore();
+    window.auth = firebase.auth(); 
+
+    // 초기 로드
+    loadInvestors();
+  </script>
+</body>
+</html>

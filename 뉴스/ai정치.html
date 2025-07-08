@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AI 정치 뉴스 | GoHigher</title>
+  <link rel="stylesheet" href="/navigation.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+          <script>
+  // --- 반드시 가장 위에 삽입 ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.appspot.com",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+    measurementId: "G-KQ02L8DXG0"
+  };
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const auth = firebase.auth();
+</script>
+  <style>
+    .ai-news-card {
+      animation: fadeIn 0.7s cubic-bezier(0.6, 0.1, 0.4, 1);
+      background: linear-gradient(135deg, #222947 0%, #293460 100%);
+      max-width: 1000px;
+      margin: 44px auto 0;
+      border-radius: 24px;
+      box-shadow: 0 12px 42px 0 #1920461a, 0 2px 8px 0 #22294033;
+      padding: 38px 30px 32px 30px;
+      position: relative;
+      overflow: hidden;
+      border: 1.5px solid #2f3857;
+      width: 100%;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(40px);}
+      100% { opacity: 1; transform: none;}
+    }
+    .ai-news-main-header {
+      display: flex; align-items: center; gap: 13px; margin-bottom: 22px;
+    }
+    .ai-news-main-header .ai-news-emoji {
+      font-size: 2.1em; background: linear-gradient(120deg,#272f4d,#39426b); border-radius: 50%; padding: 10px 12px;
+      box-shadow: 0 3px 24px 0 #1e2d5022;
+      border: 2px solid #384064;
+    }
+    .ai-news-main-header .ai-news-title {
+      color: #ffe066;
+      font-size: 1.35em;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 8px #36363522;
+    }
+    #ai-summary-date {
+      color: #b7caf8;
+      font-size: 1em;
+      margin-top: 20px;
+      text-align: right;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .ai-category-block {
+      margin-bottom: 20px;
+      padding: 22px 22px 18px 22px;
+      background: linear-gradient(120deg,rgba(28,35,63,0.98) 65%,rgba(45,56,99,0.91) 100%);
+      border-radius: 18px;
+      box-shadow: 0 4px 18px 0 #222a4c33;
+      border: 1px solid #2f3c67;
+      position: relative;
+      transition: box-shadow .2s, transform .22s;
+    }
+    .ai-category-header {
+      font-size: 1.18em;
+      font-weight: 700;
+      display: flex; align-items: center; gap: 9px;
+      margin-bottom: 13px;
+      color: #eeaaca;
+      letter-spacing: 0.02em;
+      border-bottom: 2px solid #eeaaca;
+      padding-bottom: 3px;
+    }
+    .ai-news-list {
+      margin-top: 10px;
+    }
+    .ai-news-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      margin-bottom: 12px;
+      border-radius: 13px;
+      background: rgba(36,48,86,0.48);
+      padding: 13px 14px 13px 17px;
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 2px 10px 0 #1e274233;
+      font-size: 1.13em;
+    }
+    .ai-news-item:last-child {
+      margin-bottom: 0;
+    }
+    .news-num {
+      color: #ffe066;
+      font-weight: 800;
+      min-width: 32px;
+      font-size: 1.12em;
+      display: inline-block;
+      margin-right: 7px;
+      margin-top: 1.5px;
+    }
+    .news-text {
+      color: #f7fafd;
+      font-size: 1em;
+      font-weight: 400;
+      line-height: 1.75;
+      letter-spacing: 0.01em;
+      text-shadow: 0 1.5px 8px #222a3940;
+      word-break: keep-all;
+      flex: 1;
+      /* 필요하면 추가 스타일 */
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link active">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+
+<!-- AI 정치 뉴스 요약 영역 -->
+<section id="ai-news-summary" class="ai-news-card">
+  <div class="ai-news-main-header">
+    <span class="ai-news-emoji">🏛️</span>
+    <span class="ai-news-title">AI 정치 뉴스 요약</span>
+  </div>
+  <div id="categories-news-wrap"></div>
+  <div id="ai-summary-date"></div>
+</section>
+
+<script src="/navigation.js"></script>
+<div style="height: 66px;"></div>
+
+<script>
+  // 파이어베이스 초기화
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
+
+  async function loadAiPoliticsSummary() {
+    try {
+      const doc = await db.collection('ai-news').doc('latest-categories').get();
+      const wrap = document.getElementById('categories-news-wrap');
+      if (doc.exists && doc.data().정치) {
+        const data = doc.data().정치;
+        let summaryText = data.summary || "";
+        // 1. 줄바꿈 분리 → 2. 마침표+공백 분리 (동적으로 처리)
+        let paragraphs = summaryText.split(/\n+/).map(x => x.trim()).filter(Boolean);
+        if (paragraphs.length < 2) {
+          paragraphs = summaryText.split(/(?<=\.)\s+/).map(x => x.trim()).filter(Boolean);
+        }
+        wrap.innerHTML = `
+          <div class="ai-category-block">
+            <div class="ai-category-header">🏛️ 정치 뉴스</div>
+            <div class="ai-news-list">
+              ${
+                paragraphs.map((text, i) => `
+                  <div class="ai-news-item">
+                    <span class="news-num">${i + 1}.</span>
+                    <span class="news-text">${text}</span>
+                  </div>
+                `).join('')
+              }
+            </div>
+          </div>
+        `;
+        // 날짜
+        if (doc.data().createdAt && doc.data().createdAt.seconds) {
+          const date = new Date(doc.data().createdAt.seconds * 1000);
+          const dateStr = date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' });
+          document.getElementById('ai-summary-date').textContent = `업데이트: ${dateStr}`;
+        }
+      } else {
+        wrap.innerHTML = `<div>오늘의 정치 뉴스 요약이 아직 등록되지 않았어요.</div>`;
+      }
+    } catch (e) {
+      document.getElementById('categories-news-wrap').innerHTML = 'AI 뉴스 요약 불러오기 오류!';
+    }
+  }
+  loadAiPoliticsSummary();
+</script>
+</body>
+</html>

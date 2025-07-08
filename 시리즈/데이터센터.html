@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher | AI·클라우드 인프라 분석</title>
+  <link rel="stylesheet" href="/navigation.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #e9f1ff;
+      --primary-yellow: #ffe066;
+      --accent-green: #84e4bc;
+      --accent-purple: #b7caf8;
+      --bg-dark: linear-gradient(120deg, #1e253a 0%, #253258 100%);
+      --card-bg: rgba(30, 40, 68, 0.97);
+      --card-border: rgba(255, 224, 102, 0.14);
+    }
+
+    .ai-infra-hub {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 20px 44px 20px;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 48px;
+      padding: 40px 20px;
+      background: rgba(40, 50, 90, 0.16);
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+    }
+
+    .main-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: var(--accent-purple);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(132, 228, 188, 0.15);
+      border: 1px solid var(--accent-green);
+      border-radius: 25px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+
+    .trend-indicator::before {
+      content: "📈";
+      font-size: 1.1rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .category-section {
+      background: var(--card-bg);
+      border-radius: 18px;
+      border: 1.5px solid var(--card-border);
+      padding: 28px;
+      box-shadow: 0 8px 32px rgba(20, 45, 90, 0.12);
+      transition: all 0.3s ease;
+    }
+
+    .category-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 224, 102, 0.08);
+      border-color: rgba(255, 224, 102, 0.25);
+    }
+
+    .category-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary-yellow), var(--accent-green));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .stock-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stock-item {
+      background: rgba(45, 55, 85, 0.6);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .stock-item:hover {
+      background: rgba(55, 65, 95, 0.8);
+      border-color: var(--primary-yellow);
+      transform: translateX(4px);
+    }
+
+    .stock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .stock-ticker {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+    }
+
+    .stock-name {
+      font-size: 0.95rem;
+      color: var(--accent-purple);
+      font-weight: 600;
+    }
+
+    .stock-desc {
+      font-size: 0.9rem;
+      color: #dae7ff;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .stock-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(132, 228, 188, 0.15);
+      color: var(--accent-green);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .market-outlook {
+      background: linear-gradient(135deg, rgba(40, 50, 90, 0.3) 0%, rgba(30, 40, 68, 0.4) 100%);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 40px;
+      border: 1px solid var(--card-border);
+    }
+
+    .outlook-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .outlook-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .outlook-item {
+      background: rgba(45, 55, 85, 0.4);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid var(--accent-green);
+    }
+
+    .outlook-item h4 {
+      color: var(--accent-green);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .outlook-item p {
+      color: #dae7ff;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .disclaimer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255, 224, 102, 0.08);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 224, 102, 0.2);
+    }
+
+    .disclaimer p {
+      color: var(--primary-yellow);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .ai-infra-hub {
+        padding: 20px 15px 28px 15px;
+      }
+      
+      .main-title {
+        font-size: 2rem;
+      }
+      
+      .subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .category-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .category-section {
+        padding: 20px;
+      }
+      
+      .outlook-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link active">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+
+  <main class="ai-infra-hub">
+    <div class="hero-section">
+      <h1 class="main-title">AI·클라우드 인프라 분석</h1>
+      <p class="subtitle">
+        차세대 성장동력 기업들의 핵심 인프라 투자 기회를 파악하세요<br>
+        데이터센터, 반도체, 전력/쿨링, 네트워킹 등 핵심 분야 집중 분석
+      </p>
+      <div class="trend-indicator">글로벌 AI 인프라 시장 연평균 성장률 25%+</div>
+    </div>
+
+    <div class="category-grid">
+      <!-- 데이터센터 인프라 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🏢</div>
+          반도체 분야 수혜주
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">NVDA</div>
+                <div class="stock-name">엔비디아</div>
+              </div>
+            </div>
+            <div class="stock-desc">	GPU 설계 선도 기업으로 AI·데이터센터용 고성능 GPU를 공급. 
+              데이터센터 매출이 AI 특수로 폭증하며 회사 실적을 견인.
+              Hopper 등 최신 칩이 데이터센터의 표준으로 자리잡음.
+            </div>
+            <div class="stock-tags">
+              <span class="tag">GPU</span>
+              <span class="tag">AI칩</span>
+              <span class="tag">데이터센터</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AMD</div>
+                <div class="stock-name">AMD</div>
+              </div>
+            </div>
+            <div class="stock-desc">서버용 CPU(EPYC)와 AI 가속기(Instinct 시리즈) 공급. 
+              주요 클라우드 사업자에서 AMD 칩 도입 확대되어 2024년 데이터센터 매출 +94% 기록.
+            엔비디아 대비 후발주자지만 CPU 점유율 확대 및 GPU 경쟁력 강화로 수혜.
+          </div>
+            <div class="stock-tags">
+              <span class="tag">CPU</span>
+              <span class="tag">AI가속기</span>
+              <span class="tag">클라우드</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AVGO</div>
+                <div class="stock-name">브로드컴</div>
+              </div>
+            </div>
+            <div class="stock-desc">데이터센터용 커스텀 ASIC, 네트워크 스위치 칩, AI전용 칩 등을 공급하는 반도체 강자. 
+              구글 등 하이퍼스케일러의 맞춤형 AI 칩을 제작하고 네트워크 솔루션을 제공하여 AI 인프라 투자에 동반 성장. 
+              2024년 AI 관련 매출이 전년 대비 220% 증가하며 주가도 사상 최고치 기록</div>
+            <div class="stock-tags">
+              <span class="tag">ASIC</span>
+              <span class="tag">네트워킹칩</span>
+              <span class="tag">맞춤형칩</span>
+            </div>
+          </div>
+
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">MRVL</div>
+                <div class="stock-name">마벨 테크놀로지</div>
+              </div>
+            </div>
+            <div class="stock-desc">데이터센터용 고속 네트워크 및 스토리지 반도체(DPU, 스위칭 ASIC 등) 전문 기업. 
+              클라우드 업체들의 인프라에 필수적인 칩을 공급하며 AI 시대의 숨은 수혜. 
+              인수합병으로 포트폴리오를 확장해 AI 인프라용 광학 인터커넥트, 이더넷 솔루션 등에서 입지 강화.</div>
+            <div class="stock-tags">
+              <span class="tag">스토리지칩</span>
+              <span class="tag">광통신</span>
+              <span class="tag">DPU</span>
+            </div>
+          </div>
+
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CRDO</div>
+                <div class="stock-name">크레도 테크놀로지</div>
+              </div>
+            </div>
+            <div class="stock-desc">데이터센터 내부 연결에 필요한 고속 AEC(Active Electrical Cable) 기술의 선도 기업. 
+              AI 데이터센터의 막대한 대역폭 요구에 최적화된 초고속 연결 솔루션을 공급.
+              AI 붐으로 주가가 2024년 한해 3배 이상 폭등하며 주목받은 숨은 성장주.</div>
+            <div class="stock-tags">
+              <span class="tag">고속인터커넥트</span>
+              <span class="tag">AI연결</span>
+              <span class="tag">성장주</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 전력 공급 장비 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🔧</div>
+          전력 인프라 분야 수혜주
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">VRT</div>
+                <div class="stock-name">버티브 홀딩스</div>
+              </div>
+            </div>
+            <div class="stock-desc">데이터센터용 전력 및 냉각 전체 솔루션(UPS, 배전, 랙, 쿨링) 제공하는 글로벌 리더. 
+              전 세계 130+개국에서 사업하며 AI 데이터센터 증설로 수요 급증. 
+              전력 병목과 다운타임을 막는 기술로 성장하여 2025년 16~18% 유기적 매출성장을 전망.
+            </div>
+            <div class="stock-tags">
+              <span class="tag">전력장비</span>
+              <span class="tag">냉각솔루션</span>
+              <span class="tag">글로벌</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">ETN</div>
+                <div class="stock-name">이튼</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국계 전력 관리장비 기업으로 대형 UPS, 배전반, 서지 보호 등 데이터센터 전력솔루션 공급. 
+              AI 시대에 늘어나는 전력 수요에 대비해 **배터리 및 전력관리 소프트웨어(Brightlayer)**로 데이터센터 에너지 효율 향상 지원. 
+              안정적인 전력공급 솔루션으로 데이터센터 투자 증가의 직접 수혜주.</div>
+            <div class="stock-tags">
+              <span class="tag">UPS</span>
+              <span class="tag">에너지관리</span>
+              <span class="tag">AI전력</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CMI</div>
+                <div class="stock-name">큐민스</div>
+              </div>
+            </div>
+            <div class="stock-desc">디젤 및 가스 발전기 분야 글로벌 선도 기업으로, 하이퍼스케일 데이터센터의 백업 발전기 공급 주요 업체. 
+              데이터센터 확산으로 대형 발전기 수요가 증가하면서 수혜. 
+              Caterpillar 등과 함께 전 세계 데이터센터 발전기 시장을 주도. 
+              친환경 추세 대응 위해 연료전지 등 대체백업 개발에도 참여.</div>
+            <div class="stock-tags">
+              <span class="tag">백업발전</span>
+              <span class="tag">디젤엔지</span>
+              <span class="tag">친환경</span>
+            </div>
+          </div>
+
+            <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">GNRC</div>
+                <div class="stock-name">제너락</div>
+              </div>
+            </div>
+            <div class="stock-desc">	주로 가정용 발전기로 유명하지만 중대형 산업용 및 데이터센터용 비상발전기 시장에서도 입지 확대. 
+              북미 전력난 우려와 함께 데이터센터의 비상 전력 솔루션 수요가 늘어나며 관심. 
+              다만 가정용 수요 둔화로 주춤했던 주가가 AI 데이터센터용 신제품 출시 등으로 반등 모색.</div>
+            <div class="stock-tags">
+              <span class="tag">비상전원</span>
+              <span class="tag">산업용</span>
+              <span class="tag">전력안정성</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 전력 & 쿨링 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">⚡</div>
+          냉각/공조(HVAC) 분야 수혜주
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CARR</div>
+                <div class="stock-name">캐리어 글로벌</div>
+              </div>
+            </div>
+            <div class="stock-desc">세계적 HVAC 제조사로 상업용 칠러, 냉각탑, 공조시스템을 공급. 
+              데이터센터의 대용량 냉각 수요 증가로 고효율 냉각장치 주문 확대.
+              AI 데이터센터에 최적화된 냉각 솔루션 개발 (예: 수냉식 쿨링)로 시장 대응. 
+              광범위한 서비스망으로 유지보수 수익도 기대.</div>
+            <div class="stock-tags">
+              <span class="tag">HVAC</span>
+              <span class="tag">수냉</span>
+              <span class="tag">데이터센터냉각</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">ETN</div>
+                <div class="stock-name">Eaton Corporation</div>
+              </div>
+            </div>
+            <div class="stock-desc">전력 관리 시스템, UPS·쿨링 솔루션 제공</div>
+            <div class="stock-tags">
+              <span class="tag">전력솔루션</span>
+              <span class="tag">냉각관리</span>
+              <span class="tag">통합인프라</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">FIX</div>
+                <div class="stock-name">컴포트 시스템즈 USA</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국의 HVAC 설비 시공 및 유지보수 전문 기업. 
+              데이터센터에 필요한 칠러, 쿨링타워 등 설치 공사를 수행하며 수혜. 
+              미 전역에 걸친 네트워크로 대형 데이터센터 프로젝트를 수주, AI 데이터센터 증설에 따라 수주물량 증가. 
+              향후 유지관리 서비스 매출도 동반 성장 전망.</div>
+            <div class="stock-tags">
+              <span class="tag">HVAC설치</span>
+              <span class="tag">현장시공</span>
+              <span class="tag">서비스수익</span>
+            </div>
+          </div>
+
+             <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">MOD</div>
+                <div class="stock-name">모딘 제조A</div>
+              </div>
+            </div>
+            <div class="stock-desc">100년 역사 산업 HVAC 기업으로 정밀냉각, 공조 시스템 전문. 
+              산하 Airedale 브랜드로 데이터센터용 정밀 에어컨, 칠러, 공기조화기 등을 공급. 
+              최근 AI 데이터센터向 대형 수주를 확보하며 해당 부문 매출이 전년대비 102% 급증하는 등 성장세. 
+              액침냉각 스타트업 인수 등 혁신 기술 투자에도 적극적.</div>
+            <div class="stock-tags">
+              <span class="tag">정밀냉각</span>
+              <span class="tag">액침냉각</span>
+              <span class="tag">데이터센터공조</span>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- 통신/네트워크 분야 수혜주 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🌐</div>
+          통신/네트워크 분야 수혜주
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CSCO</div>
+                <div class="stock-name">시스코 시스템즈</div>
+              </div>
+            </div>
+            <div class="stock-desc">글로벌 1위 네트워크 장비 기업으로 데이터센터용 스위치, 라우터 공급. 
+              최근 AI 시대에 맞춰 Nexus 9000 스위치 등 초고속 DC 네트워킹 장비에 대규모 투자. 
+              광범위한 제품 포트폴리오로 데이터센터부터 캠퍼스까지 지원. 
+              다만 Arista 등 신흥 경쟁자 대두로 혁신 가속 중.</div>
+            <div class="stock-tags">
+              <span class="tag">네트워크장비</span>
+              <span class="tag">DC스위치</span>
+              <span class="tag">시장점유</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">ANET</div>
+                <div class="stock-name">아리스타 네트웍스</div>
+              </div>
+            </div>
+            <div class="stock-desc">데이터센터 스위치 분야 특화 기업으로 초저지연 이더넷 스위치, 클라우드 네트워크 소프트웨어(EOS)로 급성장. 
+              메타, 마이크로소프트 등 하이퍼스케일러가 주요 고객이며 고성능 AI 네트워크 구축 수혜. 
+              제품 성능과 효율로 시스코를 제치고 시장점유율 급등.</div>
+            <div class="stock-tags">
+              <span class="tag">AI네트워크</span>
+              <span class="tag">초저지연</span>
+              <span class="tag">클라우드특화</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CIEN</div>
+                <div class="stock-name">시에나</div>
+              </div>
+            </div>
+            <div class="stock-desc">통신망용 광전송(Optical) 장비 대표 업체. 
+              데이터센터 간 트래픽 증가로 광케이블 전송 장비 수요 확대의 수혜. 
+              특히 클라우드 사업자들의 데이터센터 간 고속백본 구축에 장거리 광전송 장비 공급. 
+              5G 및 인터넷 트래픽 성장과 함께 안정적 성장세.</div>
+            <div class="stock-tags">
+              <span class="tag">광전송</span>
+              <span class="tag">백본망</span>
+              <span class="tag">인터넷트래픽</span>
+            </div>
+          </div>
+
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">JNPR</div>
+                <div class="stock-name">주니퍼 네트웍스</div>
+              </div>
+            </div>
+            <div class="stock-desc">엔터프라이즈 및 데이터센터 라우터/스위치 공급 업체로 시스코의 경쟁사.
+               과거 대비 시장 존재감은 줄었으나, 특정 기업망 및 중소형 데이터센터 니치마켓에서 꾸준한 수요. 
+               400G급 스위치 등 신제품으로 클라우드 데이터센터 공략 시도. 
+              경쟁열위로 성장은 제한적이지만 저평가된 숨은주로 관심.</div>
+            <div class="stock-tags">
+              <span class="tag">중소형DC</span>
+              <span class="tag">라우팅</span>
+              <span class="tag">숨은수혜</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+            <!-- 부동산/REITs 분야 수혜주 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🎯</div>
+          부동산/REITs 분야 수혜주
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">EQIX</div>
+                <div class="stock-name">에퀴닉스</div>
+              </div>
+            </div>
+            <div class="stock-desc">세계 최대 규모의 콜로케이션 데이터센터 REIT. 
+              6대륙 50여개 도시에서 300곳 이상의 데이터센터 캠퍼스 운영. 
+              전세계 1만여 고객 보유하며 클라우드 사업자, 통신사 등에게 중립적인 데이터센터 공간·연결 서비스를 제공.
+               AI 시대에 맞춰 각 센터를 AI 인프라 준비 완료 상태로 업그레이드 중. 
+               안정적 임대수익과 성장성을 겸비.</div>
+            <div class="stock-tags">
+              <span class="tag">글로벌DC</span>
+              <span class="tag">콜로케이션</span>
+              <span class="tag">안정성</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">DLR</div>
+                <div class="stock-name">디지털 리얼티</div>
+              </div>
+            </div>
+            <div class="stock-desc">에퀴닉스와 쌍벽을 이루는 글로벌 데이터센터 REIT. 
+              북미, 유럽, 아시아 등에 거점 보유. 
+              대규모 캠퍼스 개발로 AI 수요 대응 중이며 일리노이 지역 11곳 데이터센터에 100% 청정전력 도입 등 지속가능성 선도. 
+              테넌트로 클라우드 기업부터 정부기관까지 다양화. 배당 수익과 성장 모두 매력.</div>
+            <div class="stock-tags">
+              <span class="tag">DC임대</span>
+              <span class="tag">청정에너지</span>
+              <span class="tag">배당성장</span>
+            </div>
+          </div>
+          
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">IRM</div>
+                <div class="stock-name">아이언 마운틴</div>
+              </div>
+            </div>
+            <div class="stock-desc">원래 문서보관 업체로 시작했으나 최근 데이터센터 사업에 공격적 투자를 한 이색 리츠. 
+              미국, 유럽, 아시아에 21곳 이상의 코로케이션 시설 운영하며 가장 빠르게 성장하는 콜로 시장 플레이어 중 하나. 
+              기존 고객망과 부지 확보능력을 바탕으로 숨은 데이터센터주로 부각. 
+              안정적인 현금흐름에 성장 모멘텀 추가.</div>
+            <div class="stock-tags">
+              <span class="tag">신흥DC</span>
+              <span class="tag">기존고객망</span>
+              <span class="tag">고성장REIT</span>
+            </div>
+          </div>
+
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AMT</div>
+                <div class="stock-name">아메리칸 타워</div>
+              </div>
+            </div>
+            <div class="stock-desc">주로 통신타워 인프라 REIT로 알려져 있으나, 2021년 CoreSite 인수를 통해 엣지 데이터센터 시장에 진출. 
+              미주 일부 지역에 모듈러 데이터센터를 건설하여 5G 엣지 컴퓨팅 수요 대응. 
+              타워 임대사업과 시너지를 기대할 수 있으나, 데이터센터 비중은 아직 소규모로 초기 단계의 숨은주로 평가.</div>
+            <div class="stock-tags">
+              <span class="tag">엣지DC</span>
+              <span class="tag">타워+DC</span>
+              <span class="tag">초기성장</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+                  <!-- 부동산/REITs 분야 수혜주 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🚀</div>
+          관련 ETF 소개
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">Pacer 데이터 & 인프라 리얼에스타이트 ETF</div>
+                <div class="stock-name">SRVR</div>
+              </div>
+            </div>
+            <div class="stock-desc">데이터센터 REIT와 통신타워 등 디지털 인프라 기업들로 구성된 ETF입니다. 
+              약 $4억 3천7백만 달러 규모 자산을 운용하고 있으며, **배당수익률 약 1.6%**의 인컴도 제공합니다. 
+              데이터센터 부동산 섹터에 집중 투자할 수 있는 상품으로 인기가 높습니다.
+            </div>
+            <div class="stock-tags">
+              <span class="tag">DC리츠</span>
+              <span class="tag">통신타워</span>
+              <span class="tag">인컴형</span>
+            </div>
+          </div>
+
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">DTCR</div>
+                <div class="stock-name">Global X 데이터 센터 & 디지털 인프라 ETF</div>
+              </div>
+            </div>
+            <div class="stock-desc">글로벌 X사가 운용하는 테마형 ETF로, 데이터센터 REIT와 관련 기술주를 함께 담고 있습니다. 
+              2020년 말 설정되었으며 현재 약 $2억 9천만 달러 규모 자산을 보유. 
+              미국 뿐 아니라 해외 주요 디지털 인프라 기업에도 투자하여 글로벌 분산 효과를 제공합니다. 
+              총 보수는 0.5% 수준입니다.</div>
+            <div class="stock-tags">
+              <span class="tag">테마ETF</span>
+              <span class="tag">글로벌DC</span>
+              <span class="tag">디지털인프라</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 시장 전망 -->
+    <div class="market-outlook">
+      <h2 class="outlook-title">📊 데이터센터 수혜주 투자 시 고려사항</h2>
+      <div class="outlook-content">
+        <div class="outlook-item">
+          <h4>🚀 전력 수급 및 에너지 비용</h4>
+          <p>데이터센터는 막대한 전력을 소비하기 때문에 지역 전력망의 용량 제한과 전기료 상승이 큰 영향을 미칩니다. 
+            현재 일부 지역에서는 데이터센터 급증으로 전력망 과부하 및 연결 지연 문제가 발생하며, 커뮤니티는 전력 부족과 요금 인상을 우려하고 있습니다. 
+            따라서 자체 발전, 재생에너지 확보 역량이 경쟁력의 핵심이며, 전력 인프라 투자가 지연되면 데이터센터 성장도 제약될 수 있습니다.</p>
+        </div>
+        <div class="outlook-item">
+          <h4>💰 규제 및 지역사회 반응</h4>
+          <p>데이터센터 건설이 환경 및 소음 문제로 지역 반발을 사는 경우가 늘고 있습니다. 
+            예를 들어 일부 지역에서는 대량의 디젤 백업 발전기 설치에 대해 규제기관이 제동을 걸거나 엄격한 승인 절차를 요구하고 있습니다. 
+            또 전력 인프라 비용을 두고 지방정부와 갈등이 발생하기도 합니다. 
+            따라서 관련 기업들은 친환경 설비 투자(연료전지, 배터리 등)와 지역 사회 기여 노력을 병행해야 하며, 정책 변화에 주의해야 합니다.</p>
+        </div>
+        <div class="outlook-item">
+          <h4>⚠️ 기술 변화 및 혁신</h4>
+          <p>고밀도 컴퓨팅과 냉각 기술의 급변도 주요 고려사항입니다. 
+            AI 도입으로 랙당 수백 kW에 달하는 초고밀도 서버가 등장하면서 기존 공조로는 한계에 직면, 액침 냉각 등 새로운 기술이 부상하고 있습니다. 
+            전통 기업들이 이러한 기술 변화에 뒤처지면 경쟁력을 잃을 수 있습니다. 
+            또한 칩 기술의 변화(예: 차세대 AI칩, 광컴퓨팅)도 투자 종목의 향후 수요에 영향을 미칠 수 있어 지속적인 R&D 투자와 기술 파트너십이 중요합니다.</p>
+        </div>
+        <div class="outlook-item">
+          <h4>🎯 경쟁 구도</h4>
+          <p>데이터센터 수혜 시장에서도 치열한 경쟁이 존재합니다. 
+            반도체 분야에서는 엔비디아 독주에 AMD, 구글 TPU 등 도전이 계속되고, 네트워크 분야에서도 시스코 vs 아리스타, 전력장비 분야에서도 버티브 vs 이튼 등 점유율 경쟁이 전개되고 있습니다. 
+            예를 들어 AMD는 2024년 주요 클라우드 고객의 서버 CPU의 절반 이상을 차지하며 인텔을 빠르게 추격했습니다. 
+            또한 클라우드 사업자들의 내재화(자체 칩 설계, 자체 데이터센터 건설)도 공급사들에게는 경쟁 요인입니다. 
+            이러한 경쟁 속에서 각 기업이 어떤 차별화된 강점(예: 기술 성능, 효율, 비용우위, 고객 관계)을 갖고 있는지 평가해야 합니다.</p>
+        </div>
+
+         <div class="outlook-item">
+          <h4>🎯 경제적 요소</h4>
+          <p>금리와 경기변동도 고려해야 합니다. 
+            데이터센터 REIT의 경우 금리 상승 시 자본조달 비용 증가와 밸류에이션 할인 요인이 있으며, 경기 침체 시 테넌트의 투자 지연으로 성장 둔화 우려가 있습니다. 
+            반도체 및 장비 기업도 고객사의 CapEx 사이클 변화에 실적 변동성이 있을 수 있습니다. 
+            따라서 거시경제 지표와 IT투자 동향을 모니터링하고 밸류에이션 수준을 점검하여 과열에 신중할 필요가 있습니다.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <p>
+        ⚠️ 투자 위험 고지: 본 분석은 참고용이며, 투자 결정은 개인의 판단에 따라 이루어져야 합니다.<br>
+        과거 성과가 미래 수익을 보장하지 않으며, 투자 손실 가능성이 있습니다.
+      </p>
+    </div>
+  </main>
+
+  <script src="/navigation.js"></script>
+  <div style="height: 66px;"></div>
+</body>
+</html> 

@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher | 금리인하 수혜주 집중 분석</title>
+  <link rel="stylesheet" href="/navigation.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #e9f1ff;
+      --primary-yellow: #ffe066;
+      --accent-green: #84e4bc;
+      --accent-purple: #b7caf8;
+      --bg-dark: linear-gradient(120deg, #1e253a 0%, #253258 100%);
+      --card-bg: rgba(30, 40, 68, 0.97);
+      --card-border: rgba(255, 224, 102, 0.14);
+    }
+
+    .ai-infra-hub {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 20px 44px 20px;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 48px;
+      padding: 40px 20px;
+      background: rgba(40, 50, 90, 0.16);
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+    }
+
+    .main-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: var(--accent-purple);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(132, 228, 188, 0.15);
+      border: 1px solid var(--accent-green);
+      border-radius: 25px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+
+    .trend-indicator::before {
+      content: "📉";
+      font-size: 1.1rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .category-section {
+      background: var(--card-bg);
+      border-radius: 18px;
+      border: 1.5px solid var(--card-border);
+      padding: 28px;
+      box-shadow: 0 8px 32px rgba(20, 45, 90, 0.12);
+      transition: all 0.3s ease;
+    }
+
+    .category-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 224, 102, 0.08);
+      border-color: rgba(255, 224, 102, 0.25);
+    }
+
+    .category-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary-yellow), var(--accent-green));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .stock-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stock-item {
+      background: rgba(45, 55, 85, 0.6);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .stock-item:hover {
+      background: rgba(55, 65, 95, 0.8);
+      border-color: var(--primary-yellow);
+      transform: translateX(4px);
+    }
+
+    .stock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .stock-ticker {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+    }
+
+    .stock-name {
+      font-size: 0.95rem;
+      color: var(--accent-purple);
+      font-weight: 600;
+    }
+
+    .stock-desc {
+      font-size: 0.9rem;
+      color: #dae7ff;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .stock-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(132, 228, 188, 0.15);
+      color: var(--accent-green);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .market-outlook {
+      background: linear-gradient(135deg, rgba(40, 50, 90, 0.3) 0%, rgba(30, 40, 68, 0.4) 100%);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 40px;
+      border: 1px solid var(--card-border);
+    }
+
+    .outlook-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .outlook-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .outlook-item {
+      background: rgba(45, 55, 85, 0.4);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid var(--accent-green);
+    }
+
+    .outlook-item h4 {
+      color: var(--accent-green);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .outlook-item p {
+      color: #dae7ff;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .disclaimer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255, 224, 102, 0.08);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 224, 102, 0.2);
+    }
+
+    .disclaimer p {
+      color: var(--primary-yellow);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .ai-infra-hub {
+        padding: 20px 15px 28px 15px;
+      }
+      .main-title {
+        font-size: 2rem;
+      }
+      .subtitle {
+        font-size: 1.1rem;
+      }
+      .category-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .category-section {
+        padding: 20px;
+      }
+      .outlook-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link active">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+
+
+  <main class="ai-infra-hub">
+    <div class="hero-section">
+      <h1 class="main-title">2025년 미국 금리 인하 수혜주 및 유망 자산 분석</h1>
+      <p class="subtitle">
+        미국 연준의 금리인하, 어디에 투자해야 할까?<br>
+        금리 인하 사이클에서 시장의 흐름을 선도할 대표 수혜주와 산업을 분석합니다.
+      </p>
+      <div class="trend-indicator">2025년 기준, 연준 금리인하 본격화 예상</div>
+    </div>
+
+    <div class="category-grid">
+    <!-- 기술/AI/빅테크 -->
+    <div class="category-section">
+      <h2 class="category-title">
+        <div class="category-icon">💻</div>
+        기술/AI/빅테크
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">NVDA</div>
+                <div class="stock-name">엔비디아</div>
+              </div>
+            </div>
+            <div class="stock-desc">	AI 반도체 대표주로, 금리 인하 시 높은 성장성에 대한 미래 이익의 현재가치 상승 → 밸류에이션 상승 기대. 
+              2024년 첫 금리인하 직후 기술주 랠리를 주도. 
+              단기적으로 투자심리 개선 효과, 중장기적으로 AI 수요 확대 수혜.</div>
+            <div class="stock-tags">
+            <span class="tag">AI</span>
+            <span class="tag">반도체</span>
+            <span class="tag">성장주</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AVGO</div>
+                <div class="stock-name">브로드컴</div>
+              </div>
+            </div>
+            <div class="stock-desc">안정적 실적을 내는 반도체/소프트웨어 기업. 
+              견조한 현금흐름과 배당을 보유하여 고금리에도 선방했으며, 금리 인하 시 멀티플 재평가 가능성. 
+              높은 부채비율 없이도 M&A와 투자를 지속해왔고, 할인율 하락 시 내재가치 상승 예상.</div>
+            <div class="stock-tags">
+            <span class="tag">반도체</span>
+            <span class="tag">배당</span>
+            <span class="tag">M&A</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">MSFT</div>
+                <div class="stock-name">마이크로소프트</div>
+              </div>
+            </div>
+            <div class="stock-desc">빅테크 대표주로 클라우드, AI 등 여러 성장엔진 보유. 
+              금리 인하 시 투자심리 개선과 함께 역사적으로 한 달 내 주가가 약 18% 상승하는 등 강세를 보여왔음. 
+              단기 랠리 가능성 높고, 중장기적으로도 낮은 자본비용 환경에서 기술 투자 확대의 수혜 지속.</div>
+            <div class="stock-tags">
+            <span class="tag">클라우드</span>
+            <span class="tag">빅테크</span>
+            <span class="tag">성장주</span>
+            </div>
+          </div>
+                   <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">TSLA</div>
+                <div class="stock-name">테슬라</div>
+              </div>
+            </div>
+            <div class="stock-desc">	미국 소비재/자동차 섹터의 성장주. 
+              금리 하락은 자동차 할부금리 인하로 수요 증가 촉진. 
+              실제 2024년 연준 금리 인하 직후 소비재 섹터가 2% 상승하고 테슬라 주가가 크게 올랐음. 단기 수혜 뚜렷하며, 중장기적으로도 EV시장 성장과 맞물려 수혜 지속.</div>
+            <div class="stock-tags">
+            <span class="tag">EV</span>
+            <span class="tag">자동차</span>
+            <span class="tag">성장주</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <!-- 주택/부동산 -->
+    <div class="category-section">
+      <h2 class="category-title">
+        <div class="category-icon">🏠</div>
+        주택/부동산
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">DHI</div>
+                <div class="stock-name">디알호튼</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 최대 주택건설사로, 모기지 금리 하락에 따른 신규 주택수요 증가의 직접 수혜주. 
+              단기적으로 수주 증가 기대감으로 주가 상승, 중기적으로 주택 판매 실적 개선.</div>
+            <div class="stock-tags">
+            <span class="tag">주택건설</span>
+            <span class="tag">모기지</span>
+            <span class="tag">REITs</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">LEN</div>
+                <div class="stock-name">레나</div>
+              </div>
+            </div>
+            <div class="stock-desc">주택건설 업계 2위로, 금리 인하 시 분양 및 주택판매 확대 기대. 
+              낮은 금리는 주택 구입여력 상승으로 이어져 향후 몇 분기간 실적 호조 전망. 
+              견조한 재무구조로 금리 사이클 변화에 대응 가능.</div>
+            <div class="stock-tags">
+            <span class="tag">주택건설</span>
+            <span class="tag">재무안정</span>
+            <span class="tag">분양</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">HD</div>
+                <div class="stock-name">홈디포</div>
+              </div>
+            </div>
+            <div class="stock-desc">주택 경기 회복 시 인테리어/리모델링 수요 증가로 수혜. 
+              단기보다는 중기적 관점에서 금리 인하 후 주택거래 증가 → 주택 개선 지출 증가로 매출 상승. 
+              경기민감 소비재로서 금리 완화 국면에서 매력.</div>
+            <div class="stock-tags">
+            <span class="tag">리모델링</span>
+            <span class="tag">소비재</span>
+            <span class="tag">경기민감</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- 금융 -->
+    <div class="category-section">
+      <h2 class="category-title">
+        <div class="category-icon">🏦</div>
+        금융
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">JPM</div>
+                <div class="stock-name">JP모간체이스</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 최대 은행으로 다각화된 수익원을 보유. 
+              금리 인하 시 채권평가손 개선 및 자산관리·IB 수익 증가 기대. 
+              과거 Fed 금리 인하 국면마다 평균 +20% 주가 상승을 보이는 등 강세 경향. 
+              단기적으로 투자심리 개선, 중기적으로 대출확대 및 수수료 수익 증가.</div>
+            <div class="stock-tags">
+            <span class="tag">은행</span>
+            <span class="tag">IB</span>
+            <span class="tag">자산관리</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">BAC</div>
+                <div class="stock-name">뱅크오브아메리카</div>
+              </div>
+            </div>
+            <div class="stock-desc">JP모간과 함께 대형은행 대표주. 
+              금리 상승기에 취약했던 예금cost 부담이 완화되고, 보유자산 가치 상승으로 재무가 개선. 
+              역사적으로도 금리 인하 후 평균 +8% 주가 상승 기록. 
+              중기적으로 순이자마진 감소분을 대출 증가로 상쇄 기대.</div>
+            <div class="stock-tags">
+            <span class="tag">은행</span>
+            <span class="tag">대출</span>
+            <span class="tag">예금</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">MET</div>
+                <div class="stock-name">메트라이프</div>
+              </div>
+            </div>
+            <div class="stock-desc">대형 생명보험사로, 금리 하락 시 채권투자 손익 개선 및 지급여력비율(RBC) 상승 효과. 
+              단기적으로 보험 부채디레이션 영향으로 주가 안정, 중장기적으로 자본여력 개선으로 배당여력 확대 기대.</div>
+            <div class="stock-tags">
+            <span class="tag">보험</span>
+            <span class="tag">채권</span>
+            <span class="tag">배당</span>
+            </div>
+          </div>
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">USB</div>
+                <div class="stock-name">US Bancorp</div>
+              </div>
+            </div>
+            <div class="stock-desc">중형은행 대표주 (지역은행 중 상대적으로 건전). 
+              금리 인하 시 지역은행 섹터 전반 반등의 수혜를 입을 가능성. 
+              다만 상업부동산 대출비중 등 리스크 요인 감안 필요. 
+              단기 주가 기술적 반등, 중기 재무개선.</div>
+            <div class="stock-tags">
+            <span class="tag">지역은행</span>
+            <span class="tag">대출</span>
+            <span class="tag">중형주</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <!-- 소비재/유통/자동차 -->
+    <div class="category-section">
+      <h2 class="category-title">
+        <div class="category-icon">🛒</div>
+        소비재/유통/자동차
+  </h2>
+  <div class="stock-list">
+    <div class="stock-item">
+      <div class="stock-header">
+        <div>
+          <div class="stock-ticker">F</div>
+          <div class="stock-name">포드 자동차</div>
+        </div>
+      </div>
+      <div class="stock-desc">미국 자동차 제조사. 
+        약 100억 달러 이상의 부채를 보유해 금리 영향 큼. 
+        고금리로 EV 투자 지연 및 소비자 수요 위축을 겪었으나, 금리 인하 시 자동차 구매심리 회복과 금융비용 감소로 판매 증가 기대. 
+        단기적으로 투자심리 개선, 중기 EV라인 투자 재개 가능./div>
+      <div class="stock-tags">
+            <span class="tag">자동차</span>
+            <span class="tag">제조업</span>
+            <span class="tag">EV</span>
+      </div>
+    </div>
+    <div class="stock-item">
+      <div class="stock-header">
+        <div>
+          <div class="stock-ticker">AMZN</div>
+          <div class="stock-name">Amazon</div>
+        </div>
+      </div>
+      <div class="stock-desc">세계 최대 이커머스 기업이자 클라우드 사업자. 
+        금리 완화로 온라인 소비 증가 및 소매 사업부문의 비용 감소 기대. 
+        또한 성장주로서 할인율 하락 시 미래가치 상승 효과. 
+        중기적으로 소비여력 확대에 따른 매출증가, 장기적으로 클라우드 등 고성장 사업 강화.</div>
+      <div class="stock-tags">
+            <span class="tag">이커머스</span>
+            <span class="tag">클라우드</span>
+            <span class="tag">성장주</span>
+      </div>
+    </div>
+    <div class="stock-item">
+      <div class="stock-header">
+        <div>
+          <div class="stock-ticker">GOOGL</div>
+          <div class="stock-name">Alphabet (Google)</div>
+        </div>
+      </div>
+      <div class="stock-desc">저금리 환경에서 광고·AI 투자 확대로 실적 성장 기대</div>
+      <div class="stock-tags">
+            <span class="tag">검색광고</span>
+            <span class="tag">AI</span>
+            <span class="tag">테크</span>
+      </div>
+    </div>
+    <div class="stock-item">
+      <div class="stock-header">
+        <div>
+          <div class="stock-ticker">M</div>
+          <div class="stock-name">메이시스</div>
+        </div>
+      </div>
+      <div class="stock-desc">미국 백화점/소매 유통사. 
+        소비심리 회복시 의류 등 재cretionary 소비 지출 증가로 매출 개선 예상. 
+        금리 인하로 신용카드 금리도 내려가 할부 소비 촉진. 
+        중기적으로 재고회전 개선 및 이익률 상승 가능. 
+        (단, 전자상거래 경쟁 등 구조적 이슈는 병행 고려)</div>
+      <div class="stock-tags">
+            <span class="tag">소매유통</span>
+            <span class="tag">백화점</span>
+            <span class="tag">소비심리</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+      <!-- 인프라/산업재 -->
+<div class="category-section">
+  <h2 class="category-title">
+    <div class="category-icon">🚧</div>
+    인프라/산업재
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">NEE</div>
+                <div class="stock-name">넥스테라 에너지</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 최대 신재생 발전 유틸리티. 
+              풍력/태양광 등 막대한 설비투자 자본이 필요한데, 금리 인하 시 차입비용 감소로 투자 확대 및 재무안정성 개선. 
+              금리 상승기에는 주가 부진했으나, 인하 전환 시 주가 재평가 가능. 
+              약 2.5% 배당yield로 금리 하락 시 배당매력↑.</div>
+            <div class="stock-tags">
+        <span class="tag">유틸리티</span>
+        <span class="tag">신재생</span>
+        <span class="tag">배당주</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CAT</div>
+                <div class="stock-name">캐터필러</div>
+              </div>
+            </div>
+            <div class="stock-desc">	세계적 건설중장비 제조사. 
+              금리 인하는 정부와 민간의 인프라 투자 확대를 견인하여 건설장비 수요 증대로 연결될 수 있음. 
+              미국 인프라 예산 집행과 맞물려 중기적 매출 증가 기대. 
+              또한 글로벌 경기회복 시 사이클릭 업종으로 후반 강세 가능.</div>
+            <div class="stock-tags">
+        <span class="tag">건설장비</span>
+        <span class="tag">인프라</span>
+        <span class="tag">경기민감</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">UNP</div>
+                <div class="stock-name">유니언 퍼시픽</div>
+              </div>
+            </div>
+            <div class="stock-desc">미주 최대 철도회사로 물류/운송 인프라의 핵심. 
+              금리 인하는 물류기업의 차입 비용 절감 및 **운송수요 증가(경기활성화)**로 이어져 수혜. 
+              디젤 연료비 외 비용구조 개선에 도움이 되고, 배당수익률(약 2%)의 상대가치도 상승.</div>
+            <div class="stock-tags">
+        <span class="tag">철도</span>
+        <span class="tag">운송</span>
+        <span class="tag">인프라</span>
+            </div>
+          </div>
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">EMR</div>
+                <div class="stock-name">에머슨 일렉트릭</div>
+              </div>
+            </div>
+            <div class="stock-desc">산업 자동화 및 전력장비 업체. 
+              제조업 설비투자와 인프라 프로젝트에 납품 비중이 높아 금융여건 완화 → 설비투자 증가의 간접적 수혜. 
+              금리 인하기에 기업들의 CapEx가 확대되면 주문 증가 전망. 
+              안정적 배당 성장 기록으로 저금리 시기 프리미엄 부여 가능.</div>
+            <div class="stock-tags">
+        <span class="tag">산업자동화</span>
+        <span class="tag">전력설비</span>
+        <span class="tag">배당주</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+            <!-- 고배당주/배당성장주 -->
+<div class="category-section">
+  <h2 class="category-title">
+    <div class="category-icon">💰</div>
+    고배당주/배당성장주
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">VZ</div>
+                <div class="stock-name">버라이즌</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 통신대기업으로 **배당수익률 약 6.7%**의 고배당주. 
+              부채 약 $1730억으로 금리 인하 시 이자비용 큰 폭 감소 → 현금흐름 개선으로 배당 안전성 상승. 
+              통신 인프라 투자 비용도 저금리에 완화되어 장기 성장여력 확보.</div>
+            <div class="stock-tags">
+        <span class="tag">통신</span>
+        <span class="tag">고배당</span>
+        <span class="tag">방어주</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">DUK</div>
+                <div class="stock-name">듀크 에너지</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 남동부 지역의 대형 전력 유틸리티. 
+              **배당수익률 ~4%**대로, 금리 인하 시 채권 대비 배당매력 상승 효과. 
+              또한 설비투자 재원 차입비용이 줄어 이익 안정성 증대. 
+              전형적인 금리민감 섹터로 금리 하락 시 주가 상승 경향.</div>
+            <div class="stock-tags">
+        <span class="tag">유틸리티</span>
+        <span class="tag">고배당</span>
+        <span class="tag">방어주</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">KO</div>
+                <div class="stock-name">코카콜라</div>
+              </div>
+            </div>
+            <div class="stock-desc">글로벌 소비재 기업이자 **배당귀족주(Dividend Aristocrat)**로, 60년 연속 배당증가. 
+              금리 인하시 달러 약세 및 소비개선에 따른 실적상향과 낮은 할인율로 배당 성장가치 재평가. 
+              단기보다는 중장기 안정적 수익추구 관점에서 유망.</div>
+            <div class="stock-tags">
+        <span class="tag">소비재</span>
+        <span class="tag">배당귀족</span>
+        <span class="tag">고배당</span>
+            </div>
+          </div>
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">O</div>
+                <div class="stock-name">리얼티 인컴</div>
+              </div>
+            </div>
+            <div class="stock-desc">월배당으로 유명한 리츠(REIT)지만, 채권 대용 고배당주로 분류. 
+              배당수익률 5%+ 수준으로 금리 하락 시 자본비용 감소와 상대적 매력 증대. 
+              장기 임대계약으로 현금흐름 안정, 금리민감도가 높아 주가 반등 가능성.</div>
+            <div class="stock-tags">
+        <span class="tag">리츠</span>
+        <span class="tag">월배당</span>
+        <span class="tag">고배당</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+                  <!-- 관련 ETF (금리 인하 수혜 테마 ETF) -->
+<div class="category-section">
+  <h2 class="category-title">
+    <div class="category-icon">📈</div>
+    관련 ETF
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">QQQ</div>
+                <div class="stock-name">Invesco QQQ</div>
+              </div>
+            </div>
+            <div class="stock-desc">나스닥100 지수 추종 ETF로, 애플·마이크로소프트 등 빅테크와 성장주 중심. 
+              금리 인하 국면에서 나스닥100 지수는 빠르게 상승하는 경향이 있어 기술주 랠리를 포괄적으로 담을 수 있음. 
+              또 VanEck Semiconductor ETF (SMH)는 TSMC·엔비디아 등 반도체주에 집중하며, 반도체 업종의 금리 민감도를 활용한 투자 가능.</div>
+            <div class="stock-tags">
+        <span class="tag">기술주</span>
+        <span class="tag">성장주</span>
+        <span class="tag">ETF</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">XLY</div>
+                <div class="stock-name">Consumer Discretionary Select Sector SPDR</div>
+              </div>
+            </div>
+            <div class="stock-desc">아마존, 테슬라 등 소비재 대표종목들로 구성. 
+              금리 인하로 소비 심리 개선 시 수혜를 볼 수 있는 유통·자동차 분야를 포함. 
+              경기부양기의 소비 증가 베팅에 활용.</div>
+            <div class="stock-tags">
+        <span class="tag">소비재</span>
+        <span class="tag">경기민감</span>
+        <span class="tag">ETF</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">XLF</div>
+                <div class="stock-name">Financial Select Sector SPDR</div>
+              </div>
+            </div>
+            <div class="stock-desc">JP모간, BOA 등 대형은행과 보험사를 포함한 금융지수 ETF. 
+              금리 하락 시 채권평가손 회복과 대출증가로 은행주 반등을 노리는 투자에 적합. 
+              또는 지역은행에 집중한 SPDR S&P Regional Banking ETF (KRE)는 지방은행 반등에 초점.</div>
+            <div class="stock-tags">
+        <span class="tag">금융</span>
+        <span class="tag">은행</span>
+        <span class="tag">ETF</span>
+            </div>
+          </div>
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">VNQ</div>
+                <div class="stock-name">Vanguard Real Estate ETF</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 상장 리츠 전체에 분산투자. 
+              거, 오피스, 리테일, 인프라 REIT 등 포괄. 
+              금리 인하기의 REIT 아웃퍼폼 흐름을 담기에 적절. 
+              모기지 금리 하락에 따른 주택시장 회복까지 폭넓게 반영.</div>
+            <div class="stock-tags">
+        <span class="tag">리츠</span>
+        <span class="tag">부동산</span>
+        <span class="tag">ETF</span>
+            </div>
+          </div>
+
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">XLF</div>
+                <div class="stock-name">Financial Select Sector SPDR</div>
+              </div>
+            </div>
+            <div class="stock-desc">JP모간, BOA 등 대형은행과 보험사를 포함한 금융지수 ETF. 
+              금리 하락 시 채권평가손 회복과 대출증가로 은행주 반등을 노리는 투자에 적합. 
+              또는 지역은행에 집중한 SPDR S&P Regional Banking ETF (KRE)는 지방은행 반등에 초점.</div>
+            <div class="stock-tags">
+        <span class="tag">리츠</span>
+        <span class="tag">부동산</span>
+        <span class="tag">ETF</span>
+            </div>
+          </div>
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">VNQ</div>
+                <div class="stock-name">Vanguard Real Estate ETF</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 상장 리츠 전체에 분산투자. 
+              주거, 오피스, 리테일, 인프라 REIT 등 포괄. 
+              금리 인하기의 REIT 아웃퍼폼 흐름을 담기에 적절. 
+              모기지 금리 하락에 따른 주택시장 회복까지 폭넓게 반영.</div>
+            <div class="stock-tags">
+        <span class="tag">리츠</span>
+        <span class="tag">부동산</span>
+        <span class="tag">ETF</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+           <!-- 관련 리츠 -->
+<div class="category-section">
+  <h2 class="category-title">
+    <div class="category-icon">🏢</div>
+    관련 리츠
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">WELL</div>
+                <div class="stock-name">웰타워</div>
+              </div>
+            </div>
+            <div class="stock-desc">시니어 주거/헬스케어 리츠. 
+              인구 고령화로 안정적 수요. 
+              금리 인하 시 부동산 개발 및 인수 자금조달 비용 감소로 성장 가속 기대. 
+              이미 최근 운용자산 점유율 상승과 비용 감소로 배당 10% 인상, FFO 가이던스 상향하는 등 견조한 실적. 
+              금리 하락→이익 증가의 수혜 뚜렷.</div>
+            <div class="stock-tags">
+        <span class="tag">헬스케어</span>
+        <span class="tag">시니어</span>
+        <span class="tag">리츠</span>
+
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">PLD</div>
+                <div class="stock-name">프롤로지스</div>
+              </div>
+            </div>
+            <div class="stock-desc">물류창고 분야 글로벌 1위 리츠. 
+              이커머스 성장으로 장기적 수요 견고. 
+              금리 인하로 자본비용이 낮아져 신규물류센터 개발 용이, 임차인들의 사업여건 개선으로 임대료 수입 안정. 
+              낮은 빈집률 유지 중이며, 금리하락 시 자산가치(Revaluation) 상승 기대.</div>
+            <div class="stock-tags">
+        <span class="tag">물류</span>
+        <span class="tag">산업용</span>
+        <span class="tag">리츠</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AMT</div>
+                <div class="stock-name">아메리칸 타워</div>
+              </div>
+            </div>
+            <div class="stock-desc">통신 타워 인프라 리츠로, 전세계 통신탑 임대. 
+              최근 금리 상승기 부채 부담으로 조정 받았으나, 금리 인하 시 이자비용 절감과 함께 5G/6G 투자 확대 수혜. 
+              배당 성장률도 높아 채권 대용 투자로 재부각 가능. 
+              저금리 환경에서 성장형 리츠로 주가 회복 예상.</div>
+            <div class="stock-tags">
+        <span class="tag">통신</span>
+        <span class="tag">인프라</span>
+        <span class="tag">리츠</span>
+            </div>
+          </div>
+                    <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">SPG</div>
+                <div class="stock-name">사이먼 프로퍼티</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 최대 쇼핑몰 리츠. 
+              소비침체와 고금리로 어려움 겪었으나 재무구조 양호. 
+              금리 인하로 리파이낸싱 비용 절감 및 소비회복으로 쇼핑몰 매출 임대료 증가 기대. 
+              배당수익률 6% 내외로 금리 인하 시 투자매력 증가, 중장기적으로 오프라인 리테일 회복 베팅.</div>
+            <div class="stock-tags">
+        <span class="tag">쇼핑몰</span>
+        <span class="tag">리테일</span>
+        <span class="tag">리츠</span>
+            </div>
+          </div>
+</div>
+</div>
+
+    </div>
+
+    <!-- 시장 전망 -->
+    <div class="market-outlook">
+      <h2 class="outlook-title">금리 인하에 따른 자산별 영향 메커니즘 정리</h2>
+      <div class="outlook-content">
+        <div class="outlook-item">
+          <h4>🚀 성장주 (기술/고성장 섹터)</h4>
+          <p>할인율(자본비용) 하락으로 미래 이익의 현재가치가 상승합니다. 
+            그 결과 고PER 성장주의 밸류에이션이 재평가되어 주가 상승 압력이 커집니다. 
+            특히 반도체, 인터넷같이 현금흐름이 미래에 치우친 기업일수록 금리 인하의 득을 크게 봅니다 
+            (예: “할인률 4%→3%로 낮아지면 미래 $100의 현재가치 상승”).</p>
+        </div>
+        <div class="outlook-item">
+          <h4>💰 배당주 (고배당 및 배당성장주)</h4>
+          <p>금리 인하로 채권 금리가 하락하면, 안정적 고배당주는 상대적으로 매력적인 투자처가 됩니다. 
+            투자자들이 국채 등에서 이탈해 유틸리티, 통신, 파이프라인, 필수소비재 등 배당수익률이 높은 주식으로 이동하면서 해당 주가가 상승합니다. 
+            동시에 기업들은 이자비용 절감으로 배당 지속 및 증액 여력이 커집니다.</p>
+        </div>
+        <div class="outlook-item">
+          <h4>🏢 REITs (부동산 투자신탁)</h4>
+          <p>부채 의존도가 높은 REIT는 금리 인하로 가장 직접적인 수혜를 입습니다. 
+            차입금리 하락→이자비용 감소로 FFO(운용현금흐름)이 개선되고, 부동산 캡레이트(자본환원율) 하락으로 자산 가치 상승이 발생합니다. 
+            그 결과 REIT의 순자산가치(NAV)와 주가가 상승하게 됩니다. 
+            또한 낮은 자본비용을 활용해 부동산 자산 매입 및 개발을 늘려 장기 성장성을 높일 수도 있습니다.</p>
+        </div>
+        <div class="outlook-item">
+          <h4>🏦 금융자산 (은행·보험 등)</h4>
+          <p>금리 인하 시 채권 가격 상승으로 은행/보험사의 자산건전성이 개선되고 일시적 평가이익이 발생합니다. 
+            대출금리 인하로 차주의 상환부담이 줄어 부실채권 감소 등의 이점도 있지만, 동시에 순이자마진 축소로 은행 본연의 예대마진 수익은 줄 수 있습니다. 
+            다만 전반적으로 경기부양 효과로 대출 수요 증가, 금융 자산운용이익 증가 등 긍정 요인이 커서 대형 금융사는 수혜를 보는 경우가 많습니다.</p>
+        </div>
+                <div class="outlook-item">
+          <h4>🛒 소비 관련 자산</h4>
+          <p>금리 인하 → 가계 가처분소득 증가 및 소비심리 회복으로 이어집니다. 
+            이에 자동차, 주택 등 고관여 소비재 수요 증가와 여행/레저 등 서비스 소비 확대가 나타나 해당 산업 매출이 늘고 주가에 호재가 됩니다. 
+            특히 **할부금융 의존도가 높은 상품(자동차, 가전)**의 판매량이 늘어 제조업체 실적에 직접적 긍정 영향을 줍니다.</p>
+        </div>
+                <div class="outlook-item">
+          <h4>🏗️ 인프라/기초산업</h4>
+          <p>금리 인하는 정부 및 민간의 인프라 투자비용을 낮춰 줍니다.
+            전력, 통신, 교통 등 사회간접자본 건설 프로젝트의 타당성이 개선되고 실행 확률이 높아집니다. 
+            이는 건설중장비, 건자재, 유틸리티 기업들의 매출 증대와 이윤 개선으로 연결됩니다. 
+            또한 인프라 기업들은 보통 부채가 많아 금리 하락 시 이익 레버리지 효과가 커집니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <p>
+        ⚠️ 투자 위험 고지: 본 분석은 참고용이며, 투자 결정은 개인의 판단에 따라 이루어져야 합니다.<br>
+        과거 성과가 미래 수익을 보장하지 않으며, 투자 손실 가능성이 있습니다.
+      </p>
+    </div>
+  </main>
+
+  <script src="/navigation.js"></script>
+  <div style="height: 66px;"></div>
+</body>
+</html>

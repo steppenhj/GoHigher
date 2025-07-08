@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>개인정보처리방침 | GoHigher</title>
+   <link rel="stylesheet" href="/navigation.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {font-family: 'Roboto','맑은 고딕',sans-serif; color:#222c46; margin:0; padding:0;}
+    .privacy-container {max-width: 840px; margin:40px auto 80px auto; background:#fff; border-radius:16px; box-shadow:0 5px 32px #0002; padding:38px 20px;}
+    h1 {color:#003266; font-size:2.1rem; font-weight:900; margin-bottom:30px;}
+    h2 {color:#145aa8; font-size:1.24rem; font-weight:700; margin-top:28px;}
+    ul, ol {margin-left:18px;}
+    .last-updated {color:#8ca6d1; font-size:0.98rem; margin-bottom:32px;}
+    @media (max-width:700px){.privacy-container{padding:14px 5vw;}.h1{font-size:1.3rem;}}
+  </style>
+</head>
+<body>
+      <nav class="nav">
+    <div class="nav-left">
+      <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+        <svg viewBox="0 0 22 22">
+          <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+          <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+          <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        </svg>
+      </button>
+      <span class="brand">Go Higher</span>
+      <div class="nav-menu">
+        <a href="/" class="nav-link">홈</a>
+        <a href="/뉴스.html" class="nav-link">뉴스</a>
+        <a href="/다이어리.html" class="nav-link active">다이어리</a>
+        <a href="/시리즈.html" class="nav-link">시리즈</a>
+        <a href="/멤버십.html" class="nav-link">멤버십</a>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="btn" id="shareBtn">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M14 6V3.5a2.5 2.5 0 10-5 0V6m6 2V7a2 2 0 10-4 0v7a2 2 0 104 0v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="17" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
+        공유
+      </button>
+      <a href="/login.html" class="btn login">로그인</a>
+    </div>
+  </nav>
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <a href="/mypage.html" class="side-link">마이페이지</a>
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+    <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+  </aside>
+  <div class="privacy-container">
+    <h1>개인정보처리방침</h1>
+    <p>
+      <strong>GoHigher(이하 "회사" 또는 "서비스")</strong>는 이용자의 개인정보를 소중하게 생각하며, 개인정보 보호 관련 법령을 준수합니다.<br>
+      본 개인정보처리방침은 GoHigher가 제공하는 웹사이트(https://gohigher.kr 이하 "웹사이트")에서 수집하는 개인정보, 이용 목적, 보관 기간, 이용자 권리, 개인정보 보호를 위한 조치 등에 대해 안내합니다.
+    </p>
+    <h2>1. 수집하는 개인정보 항목</h2>
+    <ul>
+      <li>회원가입 및 로그인 시: 이메일, 구글/소셜 계정 정보(이름, 프로필 이미지 등)</li>
+      <li>서비스 이용 시: 투자 일지, 포트폴리오, 일정, 체크리스트 등 서비스 내 직접 입력한 정보</li>
+      <li>자동 수집 정보: IP 주소, 쿠키, 접속 로그, 서비스 이용 기록, 브라우저 및 기기 정보 등</li>
+    </ul>
+    <h2>2. 개인정보 수집 및 이용 목적</h2>
+    <ul>
+      <li>회원 관리(가입, 본인확인, 불량회원 차단 등)</li>
+      <li>서비스 제공 및 맞춤형 기능 제공(투자 다이어리, 포트폴리오, 캘린더 등)</li>
+      <li>고객 문의 응대, 공지사항 전달, 서비스 개선</li>
+      <li>이벤트·마케팅 활용(선택 동의 시)</li>
+      <li>법령 및 약관 위반 방지</li>
+    </ul>
+    <h2>3. 개인정보 보유 및 이용 기간</h2>
+    <ul>
+      <li>회원 탈퇴 시: 개인정보는 즉시 파기</li>
+      <li>관련 법령에 따라 일정 기간 보존이 필요한 경우 해당 기간 동안만 보관(예: 통신비밀보호법 등)</li>
+      <li>1년 이상 로그인하지 않은 경우, 개인정보 보호법에 따라 휴면처리 또는 파기</li>
+    </ul>
+    <h2>4. 개인정보의 제3자 제공 및 위탁</h2>
+    <ul>
+      <li>원칙적으로 이용자의 동의 없이 제3자에게 개인정보를 제공하지 않습니다.</li>
+      <li>단, 서비스 운영을 위해 아래와 같이 개인정보 처리를 일부 위탁할 수 있습니다:
+        <ul>
+          <li><strong>Google Firebase</strong>: 데이터 저장, 인증, 푸시 알림 등 (서버 위치: 해외, 미국)</li>
+          <li>이메일 서비스(고객 문의 시)</li>
+        </ul>
+      </li>
+      <li>법령에 따라 수사기관 등 관계기관의 요청이 있는 경우 법적 절차에 따라 제공할 수 있습니다.</li>
+    </ul>
+    <h2>5. 이용자 및 법정대리인의 권리와 행사방법</h2>
+    <ul>
+      <li>언제든지 본인의 개인정보를 조회, 수정, 삭제할 수 있습니다.</li>
+      <li>회원탈퇴(서비스 내 ‘회원탈퇴’ 버튼)를 통해 개인정보 삭제를 요청할 수 있습니다.</li>
+      <li>만 14세 미만 아동의 경우, 법정대리인의 동의를 받아야만 가입이 가능합니다.</li>
+    </ul>
+    <h2>6. 개인정보의 파기 절차 및 방법</h2>
+    <ul>
+      <li>수집·이용 목적이 달성된 후에는 즉시 안전하게 파기합니다.</li>
+      <li>전자적 파일: 복구 불가능한 방법으로 영구 삭제</li>
+      <li>종이 문서: 분쇄 또는 소각 등</li>
+    </ul>
+    <h2>7. 개인정보의 안전성 확보 조치</h2>
+    <ul>
+      <li>데이터 암호화 및 접근권한 최소화</li>
+      <li>관리적·기술적 보호조치(Firebase 보안 규칙, TLS/SSL 등)</li>
+      <li>내부 직원 교육 및 점검, 정기적인 보안 진단</li>
+    </ul>
+    <h2>8. 쿠키(Cookie) 및 유사기술 사용</h2>
+    <ul>
+      <li>서비스 이용의 편의를 위해 쿠키를 사용할 수 있습니다.</li>
+      <li>이용자는 웹 브라우저 설정을 통해 쿠키 저장을 거부하거나 삭제할 수 있습니다.</li>
+    </ul>
+    <h2>9. 개인정보 보호책임자 및 문의처</h2>
+    <ul>
+      <li>책임자: 박해진</li>
+      <li>이메일: hermann8hesse@gmail.com</li>
+      <li>기타 문의: ‘고객센터’ 또는 이메일 문의</li>
+    </ul>
+    <h2>10. 기타 안내</h2>
+    <ul>
+      <li>본 방침은 관련 법령, 서비스 정책 변화에 따라 사전 예고 후 변경될 수 있습니다.</li>
+      <li>중요 변경 시 웹사이트 공지사항을 통해 고지합니다.</li>
+    </ul>
+    <br>
+    <div style="color:#b7caf8;font-size:0.97em;margin-top:22px;">
+      본 개인정보처리방침은 2025년 7월 4일부터 시행됩니다.
+    </div>
+  </div>
+
+  <script src="/navigation.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go Higher</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="navigation.css">
+   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <link rel="stylesheet" href="/챗봇/챗봇.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+if (!window.POLYGON_API_BASE) {
+  window.POLYGON_API_BASE = "https://us-central1-gohigher-55e51.cloudfunctions.net/polygonApi";
+}
+</script>
+
+  <style>
+    :root {
+  /* 주요 컬러 변수 정의 */
+  --main: #2563eb;                /* 아이콘·링크 등의 메인 컬러 */
+  --main-dark: #1c2434;           /* 타이틀 등 진한 메인 컬러 */
+  --gray: #f3f4f6;                /* 아이콘 배경색 */
+  --accent: rgba(37,99,235,0.15); /* hover 배경 등 강조색 */
+  --radius: 1rem;                 /* 공통 border-radius */
+  --shadow-card: 0 4px 16px rgba(0,0,0,0.05); /* 공통 카드 그림자 */
+  --section-bg: #ffffff;          /* 섹션 배경색 */
+}
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      background: linear-gradient(135deg, #1C2434 0%, #0C1228 60%, #2D3E5B 100%);
+      font-family: 'Segoe UI', 'Pretendard', sans-serif;
+    }
+    body {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    /* Main Title & Subtitle */
+    .title {
+      position: static;          /* 문서 흐름에 따라 배치 */
+      transform: none;           /* 더 이상 translateX 불필요 */
+      text-align: center;        /* 가로 가운데 정렬 */
+      margin: 2rem auto;         /* 위아래 여백, 좌우 auto */
+      font-size: 3.5rem;
+      color: #eaf0fa;
+      letter-spacing: 0.1em;
+      text-shadow: 0 8px 32px #232b3e, 0 1px 0 #b4c5e4cc;
+      z-index: 10;
+      user-select: none;
+      pointer-events: none;
+      font-weight: 900;
+      margin-top: 64px;
+    }
+    .subtitle {
+      width: 700px;
+      position: static;          /* 문서 흐름에 따라 배치 */
+      transform: none;           /* 더 이상 translateX 불필요 */
+      text-align: center;        /* 가로 가운데 정렬 */
+      margin: 2rem auto;         /* 위아래 여백, 좌우 auto */
+      font-size: 1.5rem;
+      color: #b4c5e4;
+      letter-spacing: 0.1em;
+      z-index: 10;
+      user-select: none;
+      pointer-events: none;
+      font-weight: 400;
+    }
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.25;
+      z-index: 0;
+      pointer-events: none;
+    }
+/* Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(44,62,80,0.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      animation: modalfade 0.3s;
+    }
+    .modal-backdrop.show {
+      display: flex;
+    }
+    .modal {
+      background: rgba(255,255,255,0.13);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+      border: 1.5px solid #b4c5e4cc;
+       width: 480px;            /* 원하는 너비로 고정 */
+  max-width: 90vw;         /* 뷰포트 대비 여유 */
+  max-height: 70vh;        /* 너무 길어지지 않도록 */
+      padding: 2rem 2.5rem 1.5rem;
+      color: #eef2f7;           /* 전체 텍스트를 연한 흰빛으로 */
+  line-height: 1.6;         /* 줄간격 여유 */
+      position: relative;
+      animation: modalfade 0.3s;
+    }
+    .modal h2 {
+  font-size: 1.8rem;        /* 제목 키우기 */
+  color: #ffffff;           /* 제목은 완전 흰색으로 */
+  margin-bottom: 1rem;
+}
+.modal p,
+.modal ul,
+.modal ol {
+  font-size: 1.05rem;       /* 본문 글자 키우기 */
+  color: #f0f4fa;           /* 본문은 살짝 회색 섞인 흰색 */
+  margin-bottom: 1rem;
+}
+
+.modal ul li,
+.modal ol li {
+  margin: 0.6rem 0;         /* 항목 간 간격 */
+}
+    @keyframes modalfade {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.1rem;
+      right: 1.3rem;
+      background: none;
+      border: none;
+      font-size: 1.7rem;
+      color: #3a506b;
+      cursor: pointer;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+    .modal-close:hover {
+      color: #5bc0be;
+    }
+    .index-toolbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 120;
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      background: rgba(20, 28, 44, 0.98);
+      box-shadow: 0 -2px 24px 0 #0c1228cc;
+      padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+      border-top: 1.5px solid #2d3e5b;
+    }
+    .index-card {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(120deg, #232b3e 0%, #2d3e5b 100%);
+      border-radius: 1.1rem;
+      padding: 0.5rem 1.2rem;
+      min-width: 120px;
+      color: #eaf0fa;
+      font-size: 1.08rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px #0c122855;
+      border: 1px solid #2d3e5b;
+      transition: box-shadow 0.2s;
+    }
+    .index-card:hover {
+      box-shadow: 0 4px 16px #5bc0be55;
+    }
+    .index-icon {
+      font-size: 1.3rem;
+      margin-right: 0.2rem;
+    }
+    .index-label {
+      font-size: 1.02rem;
+      color: #b4c5e4;
+      margin-right: 0.3rem;
+    }
+    .index-value {
+      font-size: 1.13rem;
+      font-weight: 700;
+      color: #eaf0fa;
+      margin-right: 0.3rem;
+    }
+    .index-change {
+      font-size: 0.98rem;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      padding: 0.1rem 0.5rem;
+      margin-left: 0.1rem;
+    }
+    .index-change.up {
+      background: #1e2e4a;
+      color: #4be1a0;
+    }
+    .index-change.down {
+      background: #2d1e2a;
+      color: #ff6b81;
+    }
+    /* 주요 서비스 (feature) */
+.feature-section {
+  background: rgba(20,28,44,0.8);
+  padding: 1.7rem 0 1.3rem 0;
+  border-radius: var(--radius);
+  max-width: 1120px;
+  margin: 0 auto 1.7rem auto;
+  box-shadow: 0 2px 10px rgba(0,60,120,0.06);
+}
+
+/* 기존 .features 는 그대로 두고, 카드 스타일은 .feature 로 처리합니다 */
+.features {
+  display: flex;
+  gap: 1.22rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* 카드 배경·테두리 조정 */
+.feature {
+  flex: 1 1 200px;
+  min-width: 185px;
+  max-width: 285px;
+  background: rgba(31,38,60,0.6);
+  border: 1px solid rgba(91,192,190,0.4);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 1.18rem 1.12rem 1.05rem 1.12rem;
+  margin-bottom: 1.1rem;
+  text-align: left;
+  position: relative;
+  transition: box-shadow 0.16s, transform 0.12s;
+  font-size: 1.01rem;
+}
+
+/* 카드 hover 상태 */
+.feature:hover {
+  box-shadow: 0 16px 44px #5bc0be99, 0 1px 8px #f0e85a22;
+  transform: scale(1.04) rotate(-1.5deg);
+  background: linear-gradient(120deg, #232b3e 60%, #5bc0be55 100%);
+  z-index: 2;
+}
+
+/* 아이콘 배경·색상 */
+.feature i {
+  font-size: 1.6rem;
+  color: #5bc0be;                         /* var(--main) 대신 직접 지정 */
+  margin-bottom: 0.5rem;
+  background: rgba(91,192,190,0.15);     /* var(--gray) 대신 변경 */
+  padding: 0.54em;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 1px 4px rgba(0,40,100,0.08);
+}
+
+/* 제목 텍스트 색상 */
+.feature .feature-title {
+  font-weight: 900;
+  color: #eaf0fa;                         /* var(--main-dark) 대신 밝은 흰색 */
+  font-size: 1.06rem;
+  margin: 0.11rem 0 0.25rem;
+  letter-spacing: 0.01em;
+}
+
+/* 설명 텍스트 색상 */
+.feature .feature-desc {
+  color: #b4c5e4;                         /* 연한 회색 계열 */
+  font-size: 0.98rem;
+  margin-bottom: 0.39rem;
+  line-height: 1.52;
+  font-weight: 600;
+}
+
+/* 링크 색상 및 hover */
+.feature .feature-link {
+  display: inline-block;
+  font-size: 0.98rem;
+  color: #5bc0be;                         /* 페이지 accent */
+  text-decoration: underline;
+  margin-top: 0.13rem;
+  font-weight: 800;
+  border-radius: 7px;
+  transition: background 0.12s, color 0.12s;
+  padding: 2px 10px;
+}
+.feature .feature-link:hover {
+  background: rgba(91,192,190,0.25);
+  color: #eaf0fa;
+}
+/* 에디터픽/칼럼 섹션 스타일 */
+.editor-picks-section {
+  background: rgba(20,28,44,0.8); /* 페이지 메인 그라데이션과 어울리는 짙은 배경 */
+  padding: 2rem 1rem;
+  border-radius: var(--radius);
+  max-width: 1120px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.editor-picks-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #eaf0fa;                /* 밝은 텍스트 */
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 리스트 레이아웃 */
+.editor-picks-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+  gap: 1.5rem;
+}
+
+/* 개별 카드 */
+.editor-pick {
+  background: rgba(31,38,60,0.6);
+  border: 1px solid rgba(91,192,190,0.4);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform .2s, box-shadow .2s;
+}
+.editor-pick:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,60,120,0.3);
+}
+
+/* 제목 */
+.editor-pick-title {
+  font-size: 1.13rem;
+  font-weight: 600;
+  color: #5bc0be;               /* 카드 강조 컬러 */
+  margin-bottom: 0.6rem;
+}
+
+/* 설명 */
+.editor-pick-desc {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  color: #b4c5e4;               /* 연한 회색 계열 */
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+/* 링크 */
+.editor-pick-link {
+  align-self: flex-start;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2563eb;               /* 페이지 accent */
+  text-decoration: underline;
+  transition: color .2s, background .2s;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+}
+.editor-pick-link:hover {
+  background: rgba(37,99,235,0.2);
+  color: #eaf0fa;
+}
+/* 실적 캘린더 어두운 모드 */
+  .earnings-calendar-section {
+    background: rgba(20,28,44,0.8);
+    border: 1px solid rgba(91,192,190,0.4);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    padding: 1.3rem 1.4rem;
+    border-radius: 1.2rem;
+    max-width: 950px;
+    margin: 2.2rem auto 1.7rem;
+  }
+  .earnings-calendar-title {
+    font-size: 1.17rem;
+    font-weight: 900;
+    color: #eaf0fa;
+    margin-bottom: 0.72rem;
+    display: flex;
+    align-items: center;
+    gap: 0.66em;
+  }
+  .earnings-calendar-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.34rem;
+    justify-content: flex-start;
+  }
+  .earning-card {
+    display: flex;
+    align-items: center;
+    background: rgba(31,38,60,0.6);
+    border: 1px solid rgba(91,192,190,0.4);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    padding: 0.88rem 1.15rem;
+    border-radius: 1rem;
+    transition: box-shadow 0.15s, transform 0.11s;
+  }
+  .earning-card:hover {
+    box-shadow: 0 6px 20px rgba(0,60,120,0.4);
+    transform: translateY(-2.5px) scale(1.01);
+  }
+  .earning-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-right: 1.1rem;
+    border: 2px solid rgba(246,238,200,0.8);
+  }
+  .earning-name {
+    font-weight: 900;
+    color: #5bc0be;
+    font-size: 1.05rem;
+    margin-bottom: 0.12rem;
+  }
+  .earning-ticker {
+    background: rgba(37,99,235,0.2);
+    color: #eaf0fa;
+    font-size: 0.97em;
+    font-weight: 800;
+    border-radius: 8px;
+    padding: 2px 7px;
+    margin-left: 0.32em;
+  }
+  .earning-date {
+    font-size: 0.99rem;
+    color: #b4c5e4;
+    font-weight: 700;
+  }
+  .earning-tag {
+    font-size: 0.91em;
+    font-weight: 800;
+    padding: 2px 10px;
+    border-radius: 9px;
+    margin-left: 0.8em;
+    background: rgba(37,99,235,0.15);
+    color: #eaf0fa;
+    border: 1px solid rgba(37,99,235,0.4);
+  }
+  .earning-tag.before {
+    background: rgba(20,160,100,0.15);
+    color: #eaf0fa;
+    border-color: rgba(20,160,100,0.4);
+  }
+  /* 유저 후기 */
+    .testimonials-section {
+  background: rgba(20,28,44,0.8);            /* 짙은 반투명 배경 */
+  padding: 1.24rem 0 1.07rem 0;
+  text-align: center;
+  border-radius: var(--radius);
+  margin: 0 auto 1.8rem auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  border: 1px solid rgba(91,192,190,0.4);
+}
+.testimonials-title {
+  font-size: 1.07rem;
+  color: #eaf0fa;                            /* 밝은 흰색 */
+  font-weight: 900;
+  margin-bottom: 0.22rem;
+  letter-spacing: 0.01em;
+}
+.testimonials-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.12rem;
+  margin-top: 0.53rem;
+}
+.testimonial {
+  background: rgba(31,38,60,0.6);            /* 카드 배경 */
+  border: 1px solid rgba(91,192,190,0.4);    /* 테두리 */
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  padding: 0.74rem 1.09rem 0.67rem 1.09rem;
+  font-size: 0.93rem;
+  max-width: 320px;
+  min-width: 170px;
+  color: #b4c5e4;                            /* 연한 회색 텍스트 */
+  line-height: 1.56;
+  text-align: left;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.testimonial:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,60,120,0.4);
+}
+.testimonial-name {
+  display: block;
+  margin-top: 0.5em;
+  font-weight: 900;
+  color: #5bc0be;                            /* 강조 컬러 */
+  font-size: 0.97em;
+  letter-spacing: 0.01em;
+}
+/* About/가이드 */
+    .about-section {
+  background: rgba(20,28,44,0.8);           /* 어두운 배경 */
+  padding: 1.12rem 0 1.05rem 0;
+  text-align: center;
+  border-radius: var(--radius);
+  margin: 0 auto 1.4rem auto;
+  max-width: 1120px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  border: 1px solid rgba(91,192,190,0.4);
+  margin-bottom: 4rem;
+  margin-top: 2rem;
+}
+.about-title {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #eaf0fa;                           /* 밝은 흰색 */
+  margin-bottom: 0.39rem;
+  letter-spacing: 0.01em;
+}
+.about-desc {
+  font-size: 0.98rem;
+  color: #b4c5e4;                           /* 연한 회색 텍스트 */
+  margin-bottom: 1.03rem;
+  line-height: 1.62;
+  max-width: 670px;
+  margin: 0 auto 1.03rem;
+  font-weight: 600;
+}
+
+/* 매그니피센트 7 섹션 */
+.magnificent7-section {
+  background: rgba(20,28,44,0.8);
+  border: 1px solid rgba(91,192,190,0.4);
+  border-radius: 2rem;
+  padding: 2.5rem 2rem 2rem;
+  max-width: 1200px;
+  margin: 3.5rem auto 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.magnificent7-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(91,192,190,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(240,232,90,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.6; }
+}
+
+.magnificent7-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #eaf0fa;
+   margin-bottom: 2.2rem;  /* 기존보다 더 크게! */
+  text-align: center;
+  letter-spacing: 0.02em;
+  position: relative;
+}
+
+.magnificent7-star {
+  font-size: 1.3em;
+  color: #f0e85a;
+  margin-right: 0.3rem;
+  text-shadow: 0 0 12px rgba(240,232,90,0.6);
+  animation: starTwinkle 2s ease-in-out infinite;
+}
+
+.magnificent7-subtitle {
+  font-size: 0.85em;
+  color: #b4c5e4;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  opacity: 0.9;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.1); }
+}
+
+.magnificent7-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+  justify-items: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+.magnificent7-card {
+  background: linear-gradient(135deg, rgba(31,38,60,0.8) 0%, rgba(44,62,80,0.6) 100%);
+  border: 1px solid rgb(69, 96, 124);
+  border-radius: 1.2rem;
+  padding: 1.5rem 1.3rem;
+  min-width: 280px;
+  max-width: 320px;
+  color: #eaf0fa;
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  overflow: hidden;
+   box-sizing: border-box;  /* 반드시 추가! */
+}
+
+.magnificent7-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  opacity: 0.8;
+}
+
+.magnificent7-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 4px 20px rgba(91,192,190,0.2);
+  border-color: rgba(91,192,190,0.6);
+  z-index: 100;
+}
+
+.magnificent7-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.magnificent7-symbol {
+  font-size: 1.25em;
+  font-weight: 900;
+  color: var(--card-accent-color, #5bc0be);
+  text-shadow: 0 0 8px rgba(91,192,190,0.4);
+}
+
+.magnificent7-name {
+  font-size: 0.9em;
+  color: #b4c5e4;
+  font-weight: 500;
+  flex-grow: 1;
+}
+
+.magnificent7-price {
+  margin-top: 0.3rem;
+  font-size: 1.2em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.magnificent7-current {
+  font-weight: 900;
+  font-size: 1.2em;
+  color: #eaf0fa;
+}
+
+.magnificent7-change {
+  font-size: 1.2em;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.magnificent7-prev {
+  font-size: 1.2em;
+  color: #98bfff;
+  margin-top: 0.2rem;
+  font-weight: 600;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .magnificent7-section {
+    padding: 1.8rem 1.2rem 1.5rem;
+    margin: 2rem auto 2rem;
+  }
+  
+  .magnificent7-title {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .magnificent7-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .magnificent7-card {
+    min-width: 100%;
+    max-width: none;
+    padding: 1.3rem 1.1rem;
+  }
+}
+.particle-hero {
+  position: relative;
+  width: 100%;
+  max-width: 950px;
+  height: 380px;
+  margin: 60px auto 54px auto;
+  z-index: 5;
+  overflow: visible;
+}
+#particle-bg {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-orbs {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 3;
+  
+}
+.hero-orb {
+  position: absolute;
+  left: 50%; top: 54%;
+  transform: translate(-50%,-50%);
+  width: 116px; height: 116px;
+  background: radial-gradient(ellipse at 70% 30%, #44e0ee77 30%, #5bc0becc 100%);
+  box-shadow: 0 6px 44px 0 #44e0ee66, 0 1px 8px 0 #b4c5e433;
+  border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: box-shadow .19s, transform .14s, background .15s;
+  cursor: pointer;
+  z-index: 4;
+  user-select: none;
+  border: 2.5px solid #eaf0fa44;
+  overflow: visible;
+  font-family: inherit;
+}
+.hero-orb span {
+  margin-top: 0.55rem;
+  font-size: 1.02rem;
+  color: #eaf0fa;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.hero-orb i {
+  font-size: 2.6rem;
+  color: #fff;
+  text-shadow: 0 2px 16px #5bc0be99;
+}
+.hero-orb:hover, .hero-orb:focus {
+  box-shadow: 0 16px 68px 0 #f0e85a33, 0 8px 36px 0 #5bc0becc;
+  background: radial-gradient(ellipse at 30% 80%, #f0e85a99 20%, #5bc0be 100%);
+  transform: translate(-50%,-52%) scale(1.13);
+  z-index: 6;
+  border-color: #f0e85a88;
+}
+.main-orb {
+  width: 146px; height: 146px;
+  background: radial-gradient(circle at 55% 30%, #f0e85a88 20%, #5bc0beee 90%);
+  box-shadow: 0 8px 72px 0 #f0e85a33, 0 2px 24px 0 #5bc0be44;
+  left: 50%; top: 42%;
+  border: 3.5px solid #f0e85a90;
+}
+/* 캘린더 테이블 간단 다크 스타일 */
+#calendar {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto 1.5rem auto;
+  border-collapse: collapse;
+  background: rgba(31,38,60,0.72);
+  border-radius: 1.2rem;
+  overflow: hidden;
+  font-size: 1.06rem;
+}
+#calendar th, #calendar td {
+  width: 14.2%;
+  text-align: center;
+  padding: 0.63em 0.3em;
+  border: 1px solid rgba(91,192,190,0.11);
+  vertical-align: top;
+  color: #eaf0fa;
+}
+#calendar th {
+  background: rgba(44,62,80,0.82);
+  font-weight: 700;
+  color: #ffe066;
+  font-size: 1.03em;
+  border-bottom: 2px solid #5bc0be;
+}
+#calendar td {
+  min-height: 66px;
+  height: 66px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.08s;
+}
+#calendar td:hover {
+  background: rgba(91,192,190,0.13);
+}
+.event-dot {
+  display: inline-block;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  margin: 2px 3px 0 0;
+  background: #ffd67a;
+  border: 1px solid #b4c5e4;
+  vertical-align: middle;
+  box-shadow: 0 0 5px #eaf0fa55;
+}
+.event-dot.dividend { background: #45c6ff; }
+.event-dot.split { background: #fa5662; }
+.event-dot.earning { background: #ffe066; }
+.event-list-preview {
+  margin: 0.17em 0 0 0;
+  font-size: 0.91em;
+  color: #b4c5e4;
+  text-align: left;
+  line-height: 1.4;
+}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link active">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+
+  <main>
+  <div class="title">Go Higher</div>
+  <div class="subtitle">데이터 중심, 미국 주식 투자 플랫폼.
+    트레이딩, 장기투자, ETF, 환율, 포트폴리오까지
+    당신만의 성장과 전략을 한 곳에서.</div>
+<div class="particle-hero">
+  <canvas id="particle-bg"></canvas>
+  <div class="hero-orbs">
+    <div class="hero-orb" data-modal="modal1">
+      <i class="fa-solid fa-info-circle"></i>
+      <span>About</span>
+    </div>
+    <div class="hero-orb" data-modal="modal2" style="left:5%;top:68%;">
+      <i class="fa-solid fa-gem"></i>
+      <span>Value</span>
+    </div>
+    <div class="hero-orb" data-modal="modal3" style="left:79%;top:68%;">
+      <i class="fa-solid fa-handshake"></i>
+      <span>Commitment</span>
+    </div>
+    <div class="hero-orb" data-modal="modal4" style="left:17%;top:18%;">
+      <i class="fa-solid fa-cogs"></i>
+      <span>Features</span>
+    </div>
+    <div class="hero-orb" data-modal="modal5" style="left:90%;top:19%;">
+      <i class="fa-solid fa-route"></i>
+      <span>Roadmap</span>
+    </div>
+  </div>
+</div>
+<!-- Hero 끝나는 부분 바로 아래 추가 -->
+<svg class="hero-wave" viewBox="0 0 1440 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;position:relative;top:-38px;">
+  <path d="M0,70 C320,180 1120,0 1440,80 L1440,140 L0,140Z" fill="#232b3e" fill-opacity="0.88"/>
+</svg>
+  <!-- Modal Structure -->
+  <!-- Modal Structure -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" id="modal1">
+      <button class="modal-close" data-close>&times;</button>
+      <h2>About</h2>
+      <p>Go Higher는 단순한 투자 도구를 넘어, 여러분의 투자 여정을 함께 걷는 파트너입니다.<br>
+      미국 주식 시장의 방대한 데이터를 깊이 있는 인사이트로 가공하여 제공하며,  
+      초보자에게는 쉬운 진입로를, 숙련자에게는 날카로운 분석 무기를 드립니다.<br>  
+      언제나 여러분의 선택에 든든한 근거를 더해드립니다.</p>
+    </div>
+    <div class="modal" id="modal2">
+      <button class="modal-close" data-close>&times;</button>
+      <h2>Value</h2>
+      <p><strong>투명성</strong><br>
+      모든 데이터와 분석 과정은 출처와 근거를 명확히 공개하여 신뢰의 토대를 쌓습니다.<br><br>
+      <strong>정확성</strong><br>
+      금융 업계 최상위 공급처의 실시간 데이터를 사용해 오차 없는 정보를 전달합니다.<br><br>
+      <strong>사용자 중심</strong><br>
+      직관적인 인터페이스와 맞춤 알림으로, 언제 어디서나 편안하게 투자 결정을 내리실 수 있도록 설계했습니다.</p>
+    </div>
+    <div class="modal" id="modal3">
+      <button class="modal-close" data-close>&times;</button>
+      <h2>Commitment</h2>
+      <p>• <strong>항상 곁에서 지원</strong><br>
+      24시간 언제든 문의 가능하며, 1시간 이내 전문 상담원이 답변을 드립니다.<br><br>
+      • <strong>엄격한 보안 기준</strong><br>
+      금융권과 동일한 TLS 1.3 암호화와 다중 인증 체계를 적용해 소중한 정보를 지킵니다.<br><br>
+      • <strong>철저한 개인정보 보호</strong><br>
+      GDPR, 국내 개인정보보호법 등 국제·국내 기준을 모두 준수하여 여러분의 프라이버시를 보장합니다.
+    </div>
+    <div class="modal" id="modal4">
+      <button class="modal-close" data-close>&times;</button>
+      <h2>Features</h2>
+      <p>
+  <ul style="text-align:left; margin:1rem 0;">
+      <li><strong>실시간 시세 대시보드</strong>  
+      주요 지수와 종목을 한눈에, 빠르고 정확하게 파악합니다.</li>
+      <li><strong>투자 다이어리</strong>  
+      매매 내역, 감정 기록, 목표 달성까지 꼼꼼히 기록하고 관리합니다.</li>
+      <li><strong>맞춤 알림</strong>  
+      종목 가격 변동, 뉴스, 실적 일정 등 중요한 순간을 놓치지 않도록 알려드립니다.</li>
+      <li><strong>포트폴리오 시뮬레이터</strong>  
+      다양한 시나리오로 리밸런싱과 배당 전략을 미리 테스트할 수 있습니다.</li>
+      <li><strong>AI 뉴스 큐레이션</strong>  
+      당신의 투자 성향과 관심사에 맞춰 핵심 뉴스만 선별해 드립니다.</li>
+    </ul></p>
+    </div>
+    <div class="modal" id="modal5">
+      <button class="modal-close" data-close>&times;</button>
+      <h2>Roadmap</h2>
+      <p>
+  <ol style="text-align:left; margin:1rem 0;">
+      <li><strong>2025 Q3</strong> — 사용자 편의성을 높인 모바일 앱 정식 출시</li>
+      <li><strong>2025 Q4</strong> — AI 기반 투자 어드바이저 베타 서비스 오픈</li>
+      <li><strong>2026 Q1</strong> — 글로벌 ETF·외화 포트폴리오 지원 확대</li>
+      <li><strong>2026 Q2</strong> — 투자자 커뮤니티 포럼 및 카피트레이딩 기능 도입</li>
+    </ol></p>
+    </div>
+  </div>
+
+  <!-- 매그니 7 -->
+  <section class="magnificent7-section" id="magnificent7-section">
+    <div class="magnificent7-title">
+      <span class="magnificent7-star">⭐</span> Magnificent 7 <span class="magnificent7-subtitle">(주요 빅테크 실시간 시세)</span>
+    </div>
+    <div class="magnificent7-cards" id="magnificent7-cards"></div>
+  </section>
+
+  <!-- 주요 서비스(Feature) -->
+<section class="feature-section">
+  <div class="features">
+    <div class="feature">
+      <i class="fa-solid fa-newspaper"></i>
+      <div class="feature-title">투데이뉴스</div>
+      <div class="feature-desc">미국주식·글로벌 증시와 산업, 경제 이슈를 매일 요약.</div>
+      <a href="뉴스/투데이뉴스.html" class="feature-link">오늘의 뉴스 →</a>
+    </div>
+    <div class="feature">
+      <i class="fa-solid fa-clipboard-list"></i>
+      <div class="feature-title">투자 다이어리</div>
+      <div class="feature-desc">포트폴리오 설계, 목표 관리, 메모, 가계부 기능까지 한 번에.</div>
+      <a href="다이어리.html" class="feature-link">투자 다이어리 →</a>
+    </div>
+    <div class="feature">
+      <i class="fa-solid fa-microchip"></i>
+      <div class="feature-title">기술/테크 뉴스</div>
+      <div class="feature-desc">나스닥, AI, 반도체 등 테크주 실시간 주요 뉴스만 선별 제공.</div>
+      <a href="뉴스/ai기술.html" class="feature-link">테크 뉴스 →</a>
+    </div>
+    <div class="feature">
+      <i class="fa-brands fa-chrome"></i>
+      <div class="feature-title">CNBC/글로벌 속보</div>
+      <div class="feature-desc">CNBC·블룸버그 등 미국 현지 당일 뉴스 헤드라인만 한눈에.</div>
+      <a href="뉴스/CNBC.html" class="feature-link">글로벌 뉴스 →</a>
+    </div>
+    <div class="feature">
+      <i class="fa-solid fa-landmark-flag"></i>
+      <div class="feature-title">정책/정치 뉴스</div>
+      <div class="feature-desc">미국 관세, 정책, 규제·정치 이슈도 실시간 큐레이션.</div>
+      <a href="뉴스/ai정치.html" class="feature-link">정치·정책 뉴스 →</a>
+    </div>
+    <div class="feature">
+      <i class="fa-solid fa-chess-king"></i>
+      <div class="feature-title">대가들의 전략</div>
+      <div class="feature-desc">워렌 버핏 등 투자 대가의 실제 포트폴리오와 투자 인사이트.</div>
+      <a href="시리즈/대가들.html" class="feature-link">투자 전략 →</a>
+    </div>
+    <div class="feature">
+      <i class="fa-solid fa-building"></i>
+      <div class="feature-title">중소형주 추천</div>
+      <div class="feature-desc">미국 중소형·테마별 우량주, ETF 등 심층 분석/추천.</div>
+      <a href="시리즈/중소형주식.html" class="feature-link">종목 추천 →</a>
+    </div>
+    <div class="feature">
+      <i class="fa-solid fa-chart-line"></i>
+      <div class="feature-title">자산 시뮬레이터</div>
+      <div class="feature-desc">목표 자산 추적, 리밸런싱, 배당금 시뮬레이션까지 한번에.</div>
+      <a href="자산시뮬레이터.html" class="feature-link">시뮬레이터 →</a>
+    </div>
+  </div>
+</section>
+<!-- 에디터픽/칼럼 -->
+  <section class="editor-picks-section">
+    <div class="editor-picks-title">📝 투자 인사이트 & 에디터 추천</div>
+    <div class="editor-picks-list">
+      <div class="editor-pick">
+        <div class="editor-pick-title">2025년 하반기 미국 주식 전망</div>
+        <div class="editor-pick-desc">미국 연준의 금리정책, 신기술, AI 혁신, 대선 등 이슈별로 전망을 해설합니다.</div>
+        <a href="뉴스/투데이뉴스.html#outlook" class="editor-pick-link">분석 전체 보기</a>
+      </div>
+      <div class="editor-pick">
+        <div class="editor-pick-title">투자 초보를 위한 5가지 전략</div>
+        <div class="editor-pick-desc">데이터로 투자하는 습관, ETF 활용, 분산, 장기투자 원칙 등 핵심만 정리.</div>
+        <a href="guide.html" class="editor-pick-link">무료 가이드 →</a>
+      </div>
+      <div class="editor-pick">
+        <div class="editor-pick-title">월배당 포트폴리오 예시</div>
+        <div class="editor-pick-desc">매달 현금흐름이 생기는 배당 포트폴리오 설계법과 실제 ETF 예시.</div>
+        <a href="배당주.html" class="editor-pick-link">배당주/ETF 보기</a>
+      </div>
+    </div>
+  </section>
+  <!-- 7월 주요 일정 캘린더 (대체) -->
+<section class="earnings-calendar-section">
+  <div class="earnings-calendar-title">
+    <i class="fa-solid fa-calendar-days"></i> 7월 주요 일정 달력
+  </div>
+  <div id="calendar-container"></div>
+</section>
+<!-- 일정 상세 모달 -->
+<div class="modal-backdrop" id="eventModalBackdrop" style="z-index:400;">
+  <div class="modal" id="eventModal">
+    <button class="modal-close" data-close="eventModal">&times;</button>
+    <h2>일정 상세</h2>
+    <div id="eventModalContent"></div>
+  </div>
+</div>
+
+  <!-- 유저 후기/추천사 (소셜 프루프) -->
+  <section class="testimonials-section">
+    <div class="testimonials-title">실제 이용자들의 투자 후기</div>
+    <div class="testimonials-list">
+      <div class="testimonial">
+        "뉴스, 종목, 포트폴리오 관리까지 다 있어서 진짜 편해요!"
+        <span class="testimonial-name">– 김OO, 직장인</span>
+      </div>
+      <div class="testimonial">
+        "시장 데이터가 매일 업데이트돼서 신뢰감이 갑니다. 다크모드도 최고."
+        <span class="testimonial-name">– 이OO, 대학생</span>
+      </div>
+      <div class="testimonial">
+        "미국주식 처음인데, 초보 가이드랑 다이어리로 시작했습니다. 강추!"
+        <span class="testimonial-name">– 박OO, 투자 입문자</span>
+      </div>
+    </div>
+  </section>
+
+
+<!-- 플로팅 챗봇 버튼 -->
+<button id="chatbot-toggle-btn" class="chatbot-fab" aria-label="챗봇 열기">
+  <img src="https://cdn-icons-png.flaticon.com/512/4712/4712032.png" alt="챗봇" width="32">
+</button>
+<!-- 챗봇 팝업 -->
+<div class="chatbot-popup" id="chatbot-popup">
+  <div class="chatbot-container">
+    <div class="chatbot-header">
+      <span>GoHigher 챗봇</span>
+      <button class="close-btn" id="close-btn" aria-label="챗봇 닫기">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="messages"></div>
+    <div class="chatbot-input-area">
+      <input type="text" id="user-input" placeholder="궁금한 점을 입력하세요..." autocomplete="off">
+      <button id="send-btn">전송</button>
+    </div>
+    <div class="chatbot-hint" style="padding:8px 0 0 4px; color:#94a3b8; font-size:0.98em; text-align:center;">
+      문의를 남기면 관리자가 답변드립니다. (최대 3개 문의 후 답변 대기)
+    </div>
+  </div>
+</div>
+
+  
+
+  <!-- About/미션/문의 -->
+  <section class="about-section">
+    <div class="about-title">Why Go Higher?</div>
+    <div class="about-desc">
+      <b>Go Higher</b>는 데이터, 뉴스, 전략, 커뮤니티를 연결하는 <b>미국 주식 투자자의 필수 플랫폼</b>입니다.<br>
+      수수료 없이, 광고 최소화. 누구나 성장할 수 있는 투자 도구, 분석, 커뮤니티를 제공합니다.<br>
+      초보부터 고수까지, 당신의 투자 여정에 함께합니다.
+    </div>
+  </section>
+</main>
+  <!-- 지수 툴바 -->
+  <div class="index-toolbar">
+    <div class="index-card sp500">
+      <span class="index-icon">📈</span>
+      <span class="index-label">S&amp;P 500</span>
+      <span class="index-value">5,123.41</span>
+      <span class="index-change up">+0.42%</span>
+    </div>
+    <div class="index-card nasdaq">
+      <span class="index-icon">💹</span>
+      <span class="index-label">NASDAQ</span>
+      <span class="index-value">16,345.23</span>
+      <span class="index-change down">-0.18%</span>
+    </div>
+    <div class="index-card usdkrw">
+      <span class="index-icon">💲</span>
+      <span class="index-label">달러/원</span>
+      <span class="index-value">1,382.50</span>
+      <span class="index-change up">+2.10</span>
+    </div>
+    <div class="index-card us10y">
+      <span class="index-icon">🏦</span>
+      <span class="index-label">미국 10Y</span>
+      <span class="index-value">4.32%</span>
+      <span class="index-change up">+0.03</span>
+    </div>
+  </div>
+
+ <script>
+// 1. About/Value/Features/Roadmap 모달 (hero-orb)
+document.querySelectorAll('.hero-orb[data-modal]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    const modalId = el.getAttribute('data-modal');
+    document.getElementById('modalBackdrop').classList.add('show');
+    document.querySelectorAll('#modalBackdrop .modal').forEach(m => m.style.display = 'none');
+    document.getElementById(modalId).style.display = 'block';
+  });
+});
+document.querySelectorAll('#modalBackdrop .modal-close').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.getElementById('modalBackdrop').classList.remove('show');
+  });
+});
+document.getElementById('modalBackdrop').addEventListener('mousedown', function(e) {
+  if (e.target === this) this.classList.remove('show');
+});
+
+// 2. 파티클 애니메이션
+const canvas = document.getElementById('particle-bg');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  let dpr = window.devicePixelRatio || 1;
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+  const PARTICLE_COUNT = 38;
+  let particles = [];
+  for(let i=0;i<PARTICLE_COUNT;i++){
+    const angle = Math.random() * 2*Math.PI;
+    const r = 70 + Math.random()*170;
+    particles.push({
+      x: canvas.width/2 + Math.cos(angle)*r,
+      y: canvas.height/2 + Math.sin(angle)*r,
+      r: 1.3 + Math.random()*2.4,
+      dx: (Math.random()-0.5)*0.6,
+      dy: (Math.random()-0.5)*0.6,
+      o: 0.10+Math.random()*0.24
+    });
+  }
+  function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let p of particles){
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*dpr,0,2*Math.PI);
+      ctx.fillStyle = `rgba(91,192,190,${p.o})`;
+      ctx.shadowColor = "#f0e85a";
+      ctx.shadowBlur = 15*dpr;
+      ctx.fill();
+      p.x += p.dx*dpr; p.y += p.dy*dpr;
+      if(p.x<10*dpr||p.x>canvas.width-10*dpr) p.dx*=-1;
+      if(p.y<10*dpr||p.y>canvas.height-10*dpr) p.dy*=-1;
+      if(Math.random()<0.02){ p.dx+=(Math.random()-0.5)*0.1; p.dy+=(Math.random()-0.5)*0.1; }
+      if(p.dx>1) p.dx=1; if(p.dx<-1) p.dx=-1;
+      if(p.dy>1) p.dy=1; if(p.dy<-1) p.dy=-1;
+    }
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+}
+
+
+// 4. Magnificent 7 시세 데이터
+const MAG7 = [
+  { symbol: "AAPL", name: "Apple", color: "#ffe066", logo: "https://logo.clearbit.com/apple.com" },
+  { symbol: "MSFT", name: "Microsoft", color: "#4be1a0", logo: "https://logo.clearbit.com/microsoft.com" },
+  { symbol: "GOOGL", name: "Alphabet", color: "#8ab4f8", logo: "https://logo.clearbit.com/abc.xyz" },
+  { symbol: "AMZN", name: "Amazon", color: "#ffd67a", logo: "https://logo.clearbit.com/amazon.com" },
+  { symbol: "META", name: "Meta", color: "#45c6ff", logo: "https://logo.clearbit.com/meta.com" },
+  { symbol: "NVDA", name: "Nvidia", color: "#98f08c", logo: "https://logo.clearbit.com/nvidia.com" },
+  { symbol: "TSLA", name: "Tesla", color: "#fa5662", logo: "https://logo.clearbit.com/tesla.com" }
+];
+async function fetchMag7Data() {
+  const cards = document.getElementById("magnificent7-cards");
+  cards.innerHTML = '<div style="color:#b4c5e4;font-size:1.06em;padding:18px 0 8px 0;">불러오는 중...</div>';
+  const base = window.POLYGON_API_BASE;
+  const promises = MAG7.map(async stock => {
+    try {
+      const [priceRes, prevRes] = await Promise.all([
+        fetch(`${base}/stockPrice?ticker=${stock.symbol}`).then(r => r.json()),
+        fetch(`${base}/previousClose?ticker=${stock.symbol}`).then(r => r.json())
+      ]);
+      const curr = priceRes.price;
+      const prev = prevRes.previousClose;
+      let change = curr && prev ? (curr - prev).toFixed(2) : "-";
+      let rate = curr && prev ? ((curr - prev) / prev * 100).toFixed(2) : "-";
+      return { ...stock, curr, prev, change, rate };
+    } catch (e) {
+      return { ...stock, curr: "-", prev: "-", change: "-", rate: "-" };
+    }
+  });
+  const results = await Promise.all(promises);
+  cards.innerHTML = results.map(s => {
+    const changeClass = s.change > 0 ? 'positive' : s.change < 0 ? 'negative' : 'neutral';
+    const changeIcon = s.change > 0 ? '▲' : s.change < 0 ? '▼' : '';
+    return `
+      <div class="magnificent7-card" style="--card-accent-color: ${s.color}">
+        <div class="magnificent7-card-header">
+          <img src="${s.logo}" alt="${s.symbol} 로고" class="magnificent7-logo" style="width:38px;height:38px;border-radius:50%;background:#222;margin-right:0.8em;border:1.5px solid #eef2f7;"/>
+          <span class="magnificent7-symbol">${s.symbol}</span>
+          <span class="magnificent7-name">${s.name}</span>
+        </div>
+        <div class="magnificent7-price">
+          <span class="magnificent7-current">${s.curr ?? "-"}</span>
+          <span class="magnificent7-change ${changeClass}">
+            ${changeIcon} ${s.change !== "-" ? s.change : "-"} (${s.rate !== "-" ? s.rate + "%" : "-"})
+          </span>
+        </div>
+        <div class="magnificent7-prev">
+          전일 종가: ${s.prev ?? "-"}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+fetchMag7Data();
+</script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.appspot.com",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+    measurementId: "G-KQ02L8DXG0"
+  };
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  // 7월 달력 렌더 함수
+  async function renderJulyCalendar() {
+    const year = 2025;
+    const month = 6; // 0-indexed (7월은 6)
+    const daysInMonth = 31;
+    const firstDay = new Date(year, month, 1).getDay(); // 0:일~6:토
+
+    // 일정 불러오기
+    const snap = await db.collection("schedules")
+      .where("date", ">=", "2025-07-01")
+      .where("date", "<=", "2025-07-31")
+      .get();
+    const eventsByDay = {};
+    snap.forEach(doc => {
+      const d = doc.data();
+      const day = Number(d.date.split('-')[2]);
+      if (!eventsByDay[day]) eventsByDay[day] = [];
+      eventsByDay[day].push(d);
+    });
+
+    // 달력 테이블 생성
+    let html = `<table id="calendar">
+      <thead>
+        <tr>
+          <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          ${'<td></td>'.repeat(firstDay)}
+    `;
+
+    let dow = firstDay; // 요일 인덱스
+    for(let d = 1; d <= daysInMonth; d++) {
+      let eventHtml = "";
+      if (eventsByDay[d]) {
+        eventHtml += eventsByDay[d].map(ev => `
+          <span class="event-dot ${ev.type||''}" title="${ev.title}"></span>
+          <div class="event-list-preview">${ev.title}</div>
+        `).join('');
+      }
+      html += `<td data-day="${d}">${d}${eventHtml}</td>`;
+      dow++;
+      if (dow === 7 && d !== daysInMonth) {
+        html += `</tr><tr>`;
+        dow = 0;
+      }
+    }
+    // 뒷부분 빈칸
+    if (dow < 7 && dow !== 0) html += '<td></td>'.repeat(7 - dow);
+    html += '</tr></tbody></table>';
+
+    document.getElementById("calendar-container").innerHTML = html;
+
+    // 일정 클릭시 상세 모달
+    document.querySelectorAll('#calendar td[data-day]').forEach(td => {
+      td.onclick = () => {
+        const day = td.getAttribute('data-day');
+        if (!eventsByDay[day]) return;
+        let content = eventsByDay[day].map(ev => `
+          <b>${ev.title}</b> (${ev.type})<br>
+          <small>${ev.desc || ''}</small>
+        `).join('<hr>');
+        document.getElementById("eventModalContent").innerHTML = content;
+        document.getElementById("eventModalBackdrop").classList.add("show");
+      };
+    });
+
+    // 모달 닫기 (X 버튼)
+    document.querySelectorAll('.modal-close[data-close="eventModal"]').forEach(btn => {
+      btn.onclick = () => document.getElementById("eventModalBackdrop").classList.remove("show");
+    });
+
+    // 모달 바깥(Backdrop) 클릭 시 닫기 (이 줄 추가!)
+    document.getElementById('eventModalBackdrop').addEventListener('mousedown', function(e) {
+      if (e.target === this) this.classList.remove('show');
+    });
+
+  }
+  // 지수 툴바 정보: 심볼 및 태그 클래스 매칭
+const INDEXES = [
+  { symbol: "SPX",    className: "sp500",    label: "S&amp;P 500" },
+  { symbol: "NDX",    className: "nasdaq",   label: "NASDAQ" },
+  { symbol: "USDKRW", className: "usdkrw",   label: "달러/원" },
+  { symbol: "US10Y",  className: "us10y",    label: "미국 10Y" },
+];
+
+// 숫자, 퍼센트 등 보기 좋게 포맷
+function formatValue(value, isPercent) {
+  if (value == null || isNaN(value)) return "-";
+  if (isPercent) return Number(value).toFixed(2) + "%";
+  if (Math.abs(value) > 1000 && !isPercent) return Number(value).toLocaleString();
+  return Number(value).toFixed(2);
+}
+
+async function updateIndexToolbar() {
+  const base = window.POLYGON_API_BASE;
+  for (let idx of INDEXES) {
+    try {
+      // 가격(현재), 전일종가 둘 다 요청
+      const [priceRes, prevRes] = await Promise.all([
+        fetch(`${base}/stockPrice?ticker=${idx.symbol}`).then(r => r.json()),
+        fetch(`${base}/previousClose?ticker=${idx.symbol}`).then(r => r.json())
+      ]);
+      const curr = priceRes.price;
+      const prev = prevRes.previousClose;
+      let change = (curr && prev) ? (curr - prev) : null;
+      let rate = (curr && prev) ? ((curr - prev) / prev * 100) : null;
+
+      // DOM 반영
+      const card = document.querySelector(`.index-card.${idx.className}`);
+      if (!card) continue;
+      // 값 삽입
+      card.querySelector('.index-value').innerHTML = formatValue(curr, idx.className==="us10y");
+      const changeElem = card.querySelector('.index-change');
+      changeElem.innerHTML =
+        (change > 0 ? "+" : (change < 0 ? "" : "")) +
+        (idx.className==="usdkrw" || idx.className==="us10y"
+          ? formatValue(change, false)
+          : formatValue(rate, true));
+      // 색상·클래스 처리
+      changeElem.classList.remove("up", "down");
+      if (change > 0) changeElem.classList.add("up");
+      else if (change < 0) changeElem.classList.add("down");
+    } catch (e) {
+      // 실패 시 '-'
+      const card = document.querySelector(`.index-card.${idx.className}`);
+      if (card) {
+        card.querySelector('.index-value').innerHTML = "-";
+        card.querySelector('.index-change').innerHTML = "-";
+        card.querySelector('.index-change').classList.remove("up", "down");
+      }
+    }
+  }
+}
+
+  // 페이지 로드시 실행
+  renderJulyCalendar();
+</script>
+
+<script src="navigation.js"></script>
+<script src="챗봇/챗봇.js"></script>
+</body>
+</html>

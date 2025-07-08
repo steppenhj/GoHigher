@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher | AI 수혜주 집중 분석</title>
+  <link rel="stylesheet" href="/navigation.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #e9f1ff;
+      --primary-yellow: #ffe066;
+      --accent-green: #84e4bc;
+      --accent-purple: #b7caf8;
+      --bg-dark: linear-gradient(120deg, #1e253a 0%, #253258 100%);
+      --card-bg: rgba(30, 40, 68, 0.97);
+      --card-border: rgba(255, 224, 102, 0.14);
+    }
+
+    .ai-infra-hub {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 20px 44px 20px;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 48px;
+      padding: 40px 20px;
+      background: rgba(40, 50, 90, 0.16);
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+    }
+
+    .main-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: var(--accent-purple);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(132, 228, 188, 0.15);
+      border: 1px solid var(--accent-green);
+      border-radius: 25px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+
+    .trend-indicator::before {
+      content: "🤖";
+      font-size: 1.1rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .category-section {
+      background: var(--card-bg);
+      border-radius: 18px;
+      border: 1.5px solid var(--card-border);
+      padding: 28px;
+      box-shadow: 0 8px 32px rgba(20, 45, 90, 0.12);
+      transition: all 0.3s ease;
+    }
+
+    .category-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 224, 102, 0.08);
+      border-color: rgba(255, 224, 102, 0.25);
+    }
+
+    .category-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary-yellow), var(--accent-green));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .stock-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stock-item {
+      background: rgba(45, 55, 85, 0.6);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .stock-item:hover {
+      background: rgba(55, 65, 95, 0.8);
+      border-color: var(--primary-yellow);
+      transform: translateX(4px);
+    }
+
+    .stock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .stock-ticker {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+    }
+
+    .stock-name {
+      font-size: 0.95rem;
+      color: var(--accent-purple);
+      font-weight: 600;
+    }
+
+    .stock-desc {
+      font-size: 0.9rem;
+      color: #dae7ff;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .stock-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(132, 228, 188, 0.15);
+      color: var(--accent-green);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .market-outlook {
+      background: linear-gradient(135deg, rgba(40, 50, 90, 0.3) 0%, rgba(30, 40, 68, 0.4) 100%);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 40px;
+      border: 1px solid var(--card-border);
+    }
+
+    .outlook-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .outlook-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .outlook-item {
+      background: rgba(45, 55, 85, 0.4);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid var(--accent-green);
+    }
+
+    .outlook-item h4 {
+      color: var(--accent-green);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .outlook-item p {
+      color: #dae7ff;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .disclaimer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255, 224, 102, 0.08);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 224, 102, 0.2);
+    }
+
+    .disclaimer p {
+      color: var(--primary-yellow);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .ai-infra-hub {
+        padding: 20px 15px 28px 15px;
+      }
+      .main-title {
+        font-size: 2rem;
+      }
+      .subtitle {
+        font-size: 1.1rem;
+      }
+      .category-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .category-section {
+        padding: 20px;
+      }
+      .outlook-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link active">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+
+
+  <main class="ai-infra-hub">
+    <div class="hero-section">
+      <h1 class="main-title">AI 수혜주 집중 분석</h1>
+      <p class="subtitle">
+        생성 AI, AI 인프라, 엔터프라이즈 AI까지<br>
+        글로벌 AI 산업 밸류체인의 핵심 기업과 성장 기회를 심층 분석합니다.
+      </p>
+      <div class="trend-indicator">생성AI·인공지능 시장 연평균 성장률 35%+</div>
+    </div>
+
+    <div class="category-grid">
+      <!-- 반도체/AI가속기 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">💡</div>
+          반도체 & AI 가속기
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">NVDA</div>
+                <div class="stock-name">NVIDIA</div>
+              </div>
+            </div>
+            <div class="stock-desc">생성 AI 붐을 이끄는 GPU, AI 가속기 시장의 독보적 리더</div>
+            <div class="stock-tags">
+              <span class="tag">GPU</span>
+              <span class="tag">AI가속기</span>
+              <span class="tag">반도체</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AMD</div>
+                <div class="stock-name">Advanced Micro Devices</div>
+              </div>
+            </div>
+            <div class="stock-desc">서버·AI용 CPU·GPU 시장 성장, 엔비디아 대항마</div>
+            <div class="stock-tags">
+              <span class="tag">GPU</span>
+              <span class="tag">CPU</span>
+              <span class="tag">AI</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">TSM</div>
+                <div class="stock-name">TSMC</div>
+              </div>
+            </div>
+            <div class="stock-desc">첨단 AI 반도체 파운드리 글로벌 No.1, AI 수요 급증 최대 수혜</div>
+            <div class="stock-tags">
+              <span class="tag">파운드리</span>
+              <span class="tag">반도체</span>
+              <span class="tag">AI칩</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 클라우드 플랫폼 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">☁️</div>
+          클라우드 플랫폼 & 빅테크
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">MSFT</div>
+                <div class="stock-name">Microsoft</div>
+              </div>
+            </div>
+            <div class="stock-desc">Azure·Copilot 등 생성 AI 플랫폼 선도, OpenAI와 전략적 협업</div>
+            <div class="stock-tags">
+              <span class="tag">클라우드</span>
+              <span class="tag">생성AI</span>
+              <span class="tag">플랫폼</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">GOOGL</div>
+                <div class="stock-name">Alphabet (Google)</div>
+              </div>
+            </div>
+            <div class="stock-desc">Gemini·Vertex AI, AI 검색·클라우드 AI 리더십 강화</div>
+            <div class="stock-tags">
+              <span class="tag">클라우드AI</span>
+              <span class="tag">생성AI</span>
+              <span class="tag">검색</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AMZN</div>
+                <div class="stock-name">Amazon</div>
+              </div>
+            </div>
+            <div class="stock-desc">AWS Bedrock·SageMaker 등 AI 플랫폼·서비스 확장</div>
+            <div class="stock-tags">
+              <span class="tag">클라우드</span>
+              <span class="tag">AI서비스</span>
+              <span class="tag">AWS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 생성AI 서비스 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🧠</div>
+          생성AI 서비스 & 모델
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">META</div>
+                <div class="stock-name">Meta Platforms</div>
+              </div>
+            </div>
+            <div class="stock-desc">Llama 등 생성AI 공개, 소셜미디어·광고에 AI 적극 도입</div>
+            <div class="stock-tags">
+              <span class="tag">생성AI</span>
+              <span class="tag">SNS</span>
+              <span class="tag">AI모델</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">ADBE</div>
+                <div class="stock-name">Adobe</div>
+              </div>
+            </div>
+            <div class="stock-desc">Firefly, 생성형 AI 도구 상용화 선도, 크리에이티브 분야 혁신</div>
+            <div class="stock-tags">
+              <span class="tag">생성AI</span>
+              <span class="tag">크리에이티브</span>
+              <span class="tag">SaaS</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">ORCL</div>
+                <div class="stock-name">Oracle</div>
+              </div>
+            </div>
+            <div class="stock-desc">엔터프라이즈 AI·데이터베이스, AI 워크로드 클라우드 전환 가속</div>
+            <div class="stock-tags">
+              <span class="tag">AI워크로드</span>
+              <span class="tag">데이터베이스</span>
+              <span class="tag">엔터프라이즈</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 엔터프라이즈 AI & 소프트웨어 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🏢</div>
+          엔터프라이즈 AI & 소프트웨어
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CRM</div>
+                <div class="stock-name">Salesforce</div>
+              </div>
+            </div>
+            <div class="stock-desc">AI 기반 CRM, 데이터 클라우드, 기업 AI 혁신 가속화</div>
+            <div class="stock-tags">
+              <span class="tag">CRM</span>
+              <span class="tag">AI소프트웨어</span>
+              <span class="tag">엔터프라이즈</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">SNOW</div>
+                <div class="stock-name">Snowflake</div>
+              </div>
+            </div>
+            <div class="stock-desc">AI 데이터 플랫폼, 데이터 파이프라인 및 분석 시장 성장</div>
+            <div class="stock-tags">
+              <span class="tag">데이터</span>
+              <span class="tag">AI플랫폼</span>
+              <span class="tag">클라우드</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">PLTR</div>
+                <div class="stock-name">Palantir Technologies</div>
+              </div>
+            </div>
+            <div class="stock-desc">정부·민간 AI 분석 플랫폼, 대규모 데이터 기반 의사결정 지원</div>
+            <div class="stock-tags">
+              <span class="tag">데이터분석</span>
+              <span class="tag">AI</span>
+              <span class="tag">플랫폼</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 시장 전망 -->
+    <div class="market-outlook">
+      <h2 class="outlook-title">📊 글로벌 AI 시장 전망 및 투자 전략</h2>
+      <div class="outlook-content">
+        <div class="outlook-item">
+          <h4>🚀 성장 동력</h4>
+          <p>생성 AI·모델 혁신, 엔터프라이즈 AI 도입 가속화, AI 인프라 투자 확대가 시장 성장의 핵심 동력</p>
+        </div>
+        <div class="outlook-item">
+          <h4>💰 투자 기회</h4>
+          <p>AI 반도체, 클라우드 플랫폼, 생성AI 서비스 등 고성장 밸류체인 전반에서 투자 기회 포착</p>
+        </div>
+        <div class="outlook-item">
+          <h4>⚠️ 리스크 요인</h4>
+          <p>AI 규제 이슈, 반도체 공급망 불확실성, 경쟁 심화, 기술 발전 속도에 따른 시장 변동성 확대</p>
+        </div>
+        <div class="outlook-item">
+          <h4>🎯 투자 전략</h4>
+          <p>분산 투자, 기술 우위 기업 우선, 시장 사이클/정책 변화 모니터링, 성장성·수익성 동시 고려</p>
+        </div>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <p>
+        ⚠️ 투자 위험 고지: 본 분석은 참고용이며, 투자 결정은 개인의 판단에 따라 이루어져야 합니다.<br>
+        과거 성과가 미래 수익을 보장하지 않으며, 투자 손실 가능성이 있습니다.
+      </p>
+    </div>
+  </main>
+  <script src="/navigation.js"></script>
+  <div style="height: 66px;"></div>
+</body>
+</html>

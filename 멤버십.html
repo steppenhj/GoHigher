@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher Navigation</title>
+  <link rel="stylesheet" href="navigation.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0; padding: 0;
+      min-height: 100vh;
+    }
+    .membership-hub {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 54px 18px 40px 18px;
+      text-align: center;
+    }
+    .membership-title {
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: #ffe066;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      line-height: 1.17;
+      display: inline-block;
+      vertical-align: bottom;
+      white-space: pre;
+      border-right: 2px solid #ffe066;
+      animation: blink 0.85s steps(1) infinite;
+    }
+    @keyframes blink {
+      0%, 100% { border-color: #ffe066; }
+      50% { border-color: transparent; }
+    }
+    .membership-desc {
+      font-size: 1.16rem;
+      color: #d2e1ff;
+      margin-bottom: 36px;
+      font-weight: 600;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+    .pricing-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+    .pricing-card {
+      background: rgba(30, 40, 68, 0.97);
+      border-radius: 19px;
+      box-shadow: 0 4px 22px 0 rgba(20,45,90,0.13);
+      padding: 34px 30px 30px 30px;
+      border: 2px solid rgba(255, 224, 102, 0.15);
+      min-width: 260px;
+      color: #fffbe7;
+      text-align: left;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      transition: box-shadow 0.22s, background 0.22s, border 0.22s;
+    }
+    .pricing-card.highlight {
+      border: 2.5px solid #ffe066;
+      box-shadow: 0 4px 28px 0 #ffe06623;
+      background: linear-gradient(120deg, #313960 65%, #ffe06614 100%);
+    }
+    .pricing-card-title {
+      font-size: 1.27rem;
+      font-weight: 800;
+      color: #ffe066;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pricing-card-price {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fffbe7;
+      margin-bottom: 13px;
+    }
+    .pricing-card-benefit {
+      color: #e4debc;
+      font-size: 1.04rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+      min-height: 38px;
+    }
+    .membership-join-btn {
+      background: linear-gradient(90deg, #ffe066 60%, #ffd44a 100%);
+      color: #1d2443;
+      font-weight: 800;
+      border-radius: 12px;
+      border: none;
+      padding: 12px 0;
+      font-size: 1.18rem;
+      margin-top: 10px;
+      margin-bottom: 7px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      box-shadow: 0 1px 8px #ffe06635;
+      width: 100%;
+    }
+    .membership-join-btn:hover {
+      background: #ffe066;
+      color: #232c47;
+    }
+    .payment-methods {
+      margin: 30px 0 18px 0;
+      text-align: left;
+    }
+    .payment-methods-title {
+      font-size: 1.05rem;
+      color: #ffe066;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+    .payment-list {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .payment-method {
+      background: #23294d;
+      color: #ffe066;
+      border-radius: 8px;
+      padding: 7px 15px;
+      border: 1.5px solid #ffe06644;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      transition: border 0.18s, background 0.18s, color 0.18s;
+    }
+    .payment-method.selected,
+    .payment-method:hover {
+      border: 1.5px solid #ffe066;
+      background: #ffe06633;
+      color: #232c47;
+    }
+    .membership-faq {
+      margin-top: 36px;
+      background: rgba(30, 40, 68, 0.89);
+      color: #b8ccf6;
+      border-radius: 14px;
+      padding: 26px 14px 14px 14px;
+      text-align: left;
+      font-size: 0.97rem;
+    }
+    .faq-title {
+      font-size: 1.09rem;
+      font-weight: 700;
+      color: #ffe066;
+      margin-bottom: 10px;
+    }
+    .faq-item {
+      margin-bottom: 9px;
+      line-height: 1.7;
+    }
+    @media (max-width: 650px) {
+      .membership-hub { padding: 22px 5px 30px 5px; }
+      .membership-title { font-size: 1.22rem; }
+      .membership-desc { font-size: 0.99rem; }
+      .pricing-cards { flex-direction: column; gap: 13px; }
+      .pricing-card { min-width: 0; padding: 18px 10px 16px 10px;}
+      .membership-join-btn { font-size: 1.03rem; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link">시리즈</a>
+      <a href="/멤버십.html" class="nav-link active">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+
+
+    <main class="membership-hub">
+    <h1 class="membership-title" id="membershipTypingTitle"></h1>
+    <p class="membership-desc">
+      Go Higher 멤버십에 가입하면<br>
+      프리미엄 투자 콘텐츠와 맞춤 포트폴리오, 광고 없는 환경 등<br>
+      다양한 회원 전용 혜택을 경험할 수 있습니다.
+    </p>
+
+    <div class="pricing-cards">
+      <!-- 무료/프리미엄 플랜 예시 -->
+      <div class="pricing-card">
+        <div class="pricing-card-title"><i class="fa-regular fa-circle-check"></i> BASIC</div>
+        <div class="pricing-card-price">0원</div>
+        <div class="pricing-card-benefit">일부 무료 콘텐츠<br>기본 뉴스/시리즈 열람</div>
+        <button class="membership-join-btn" disabled>이용 중</button>
+      </div>
+      <div class="pricing-card highlight">
+        <div class="pricing-card-title"><i class="fa-solid fa-crown"></i> PREMIUM</div>
+        <div class="pricing-card-price">월 9,900원</div>
+        <div class="pricing-card-benefit">
+          <ul style="margin:0 0 0 12px;padding:0;text-align:left;">
+            <li>프리미엄 투자 데이터/분석 무제한</li>
+            <li>맞춤 포트폴리오/다이어리 전체 기능</li>
+            <li>광고 없는 쾌적한 이용 환경</li>
+            <li>카카오톡 1:1 투자 Q&A</li>
+            <li>회원 우선 신기능</li>
+          </ul>
+        </div>
+        <button class="membership-join-btn">프리미엄 가입하기</button>
+      </div>
+    </div>
+    
+    <form class="payment-methods">
+      <div class="payment-methods-title"><i class="fa-solid fa-credit-card"></i> 결제 수단 선택</div>
+      <div class="payment-list">
+        <div class="payment-method selected"><i class="fa-solid fa-credit-card"></i>카드결제</div>
+        <div class="payment-method"><i class="fa-solid fa-building-columns"></i>계좌이체</div>
+        <div class="payment-method"><i class="fa-brands fa-cc-paypal"></i>페이팔</div>
+        <div class="payment-method"><i class="fa-solid fa-qrcode"></i>카카오/토스</div>
+      </div>
+    </form>
+    <div class="membership-faq">
+      <div class="faq-title"><i class="fa-solid fa-circle-question"></i> 자주 묻는 질문</div>
+      <div class="faq-item"><b>Q. 언제든 해지/환불 가능한가요?</b><br>네, 결제 후 언제든 마이페이지에서 구독 해지 가능합니다.</div>
+      <div class="faq-item"><b>Q. 결제는 안전한가요?</b><br>PG사(토스/카카오페이 등) 안전 결제 시스템을 사용합니다.</div>
+      <div class="faq-item"><b>Q. 결제 방법을 변경하고 싶으면?</b><br>결제 수단 선택 후 바로 적용 가능합니다.</div>
+    </div>
+  </main>
+
+<script src="navigation.js"></script>
+  <script>
+    // 타이핑 애니메이션
+    const memTitle = "Go Higher 멤버십";
+    const memTitleTarget = document.getElementById("membershipTypingTitle");
+    let memIdx = 0;
+    function typingMembership() {
+      if (memIdx <= memTitle.length) {
+        memTitleTarget.textContent = memTitle.slice(0, memIdx);
+        memIdx++;
+        setTimeout(typingMembership, 55);
+      }
+    }
+    typingMembership();
+
+    // 결제수단 선택 효과
+    document.querySelectorAll('.payment-method').forEach(el => {
+      el.onclick = function() {
+        document.querySelectorAll('.payment-method').forEach(m=>m.classList.remove('selected'));
+        this.classList.add('selected');
+      }
+    });
+  </script>
+
+  <div style="height: 66px;"></div>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>시리즈 | Go Higher</title>
+  <link rel="stylesheet" href="navigation.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  
+  <style>
+
+    .series-hub {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 56px 20px 40px 20px;
+      text-align: center;
+      border-radius: 20px;
+      color: #f0e85a;
+      user-select: none;
+    }
+    .series-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #ffea3a;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      line-height: 1.2;
+      white-space: pre; /* 한글 타이핑 자연스럽게 */
+      border-right: 2px solid #ffea3a;
+      animation: blink 0.85s steps(1) infinite;
+      display: inline-block;     /* 핵심: 글자만큼만 width 차지 */
+      vertical-align: bottom;    /* (선택) baseline 대신 bottom이 좀 더 자연스러움 */
+    }
+    @keyframes blink {
+    0%, 100% { border-color: #ffea3a; }
+    50% { border-color: transparent; }
+    }
+    .series-desc {
+      font-size: 1.2rem;
+      color: #c5dafeee;
+      margin-bottom: 48px;
+      font-weight: 600;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+    .series-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .series-card {
+      position: relative;
+      background: rgba(25, 30, 60, 0.90);
+      border-radius: 24px;
+      padding: 32px 28px 32px 28px;
+      border: 1.5px solid rgba(255, 224, 102, 0.17);
+      transition: background 0.22s, transform 0.18s;
+      text-align: left;
+      color: #f9f9d6;
+      text-decoration: none;
+      overflow: hidden;
+      min-height: 210px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      box-shadow: none;
+    }
+    .series-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      pointer-events: none;
+      background: linear-gradient(130deg,rgba(255,255,255,0.04),rgba(248,224,102,0.07) 110%);
+      opacity: 0.70;
+      z-index: 0;
+    }
+    .series-card:hover,
+    .series-card:focus {
+      background: linear-gradient(125deg,#ffe0661a 60%,#394374 100%);
+      /* 노란색 테두리 제거 */
+      border-color: transparent;
+      color: #ffe066cc;
+      z-index: 10;
+    }
+    .series-card:hover .series-card-icon,
+    .series-card:focus .series-card-icon {
+      transform: scale(1.22);
+      filter: drop-shadow(0 5px 16px #ffe066cc);
+      color: #fff36a;
+    }
+    .series-card:hover .series-card-title,
+    .series-card:focus .series-card-title {
+      transform: scale(1.12);
+      color: #fff36a;
+      text-shadow: 0 1px 12px #fff85fcc;
+    }
+    .series-card:hover .series-card-desc,
+    .series-card:focus .series-card-desc {
+      transform: scale(1.08);
+      color: #fff9b3;
+      text-shadow: 0 1px 9px #fffad7aa;
+    }
+    .series-card-icon,
+    .series-card-title,
+    .series-card-desc {
+      transition: transform 0.23s, color 0.22s, text-shadow 0.25s, filter 0.20s;
+      transform-origin: left top;
+    }
+    .series-card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+      color: #f6d744;
+      filter: drop-shadow(0 3px 9px #ffe06688);
+    }
+    .series-card:nth-child(2) .series-card-icon { color: #7be6ff; filter: drop-shadow(0 3px 9px #7be6ff88);}
+    .series-card:nth-child(3) .series-card-icon { color: #58abff; filter: drop-shadow(0 3px 9px #58abff88);}
+    .series-card:nth-child(4) .series-card-icon { color: #ed8c82; filter: drop-shadow(0 3px 9px #ed8c8288);}
+    .series-card:nth-child(5) .series-card-icon { color: #c1a6ff; filter: drop-shadow(0 3px 9px #c1a6ff88);}
+    .series-card:nth-child(6) .series-card-icon { color: #ffe066; filter: drop-shadow(0 3px 9px #ffe06688);}
+    .series-card:nth-child(7) .series-card-icon { color: #8dffc9; filter: drop-shadow(0 3px 9px #8dffc988);}
+    .series-card:nth-child(8) .series-card-icon { color: #ffd173; filter: drop-shadow(0 3px 9px #ffd17388);}
+    .series-card-title {
+      font-size: 1.21rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: #f7fa9b;
+      letter-spacing: -0.02em;
+      z-index: 2;
+      position: relative;
+      text-shadow: 0 1.5px 10px #ffe06644;
+      line-height: 1.22;
+    }
+    .series-card-desc {
+      font-size: 1.07rem;
+      color: #dde7ffcc;
+      line-height: 1.55;
+      z-index: 2;
+      position: relative;
+      font-weight: 500;
+      user-select: text;
+    }
+    .series-card-link {
+      margin-top: 18px;
+      font-weight: 700;
+      color: #ffe066;
+      background: none;
+      border: none;
+      font-size: 1.01rem;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      transition: color 0.18s;
+      align-self: flex-end;
+      z-index: 2;
+    }
+    .series-card-link:hover { color: #fff36a; }
+    .series-divider {
+      border: 0;
+      height: 1.9px;
+      width: 80%;
+      margin: 48px auto 38px auto;
+      background: linear-gradient(90deg,#fffbe6 10%, #ffe066 50%, #aabfff 90%);
+      opacity: 0.31;
+      border-radius: 3px;
+      box-shadow: 0 1px 7px #ffe06655;
+    }
+    .theme-section-desc {
+  text-align: center;
+  margin-bottom: 26px;
+  font-size: 1.19rem;
+  color: #e9edfa;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  background: none;
+  padding: 0 8px;
+  user-select: none;
+}
+
+.theme-section-title {
+  font-size: 1.28em;
+  color: #ffe066;
+  font-weight: 800;
+  display: inline-block;
+  margin-bottom: 7px;
+  letter-spacing: -0.02em;
+}
+
+  </style>
+  </style>
+  <!-- 아이콘용 FontAwesome (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- 기존 네비게이션 포함 -->
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link active">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+
+  <main class="series-hub">
+    <h1 class="series-title" id="typingTitle">Go Higher 투자 시리즈</h1>
+    <p class="series-desc">
+      대가들의 투자 분석부터 중소형주, 배당주, 데이터센터 수혜주까지<br>
+      다양한 투자 전략과 분석을 카드 형태로 제공합니다.
+    </p>
+    <!-- 1부: 구분선 위 카드들 -->
+    <div class="series-cards">
+      <a href="시리즈/대가들.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-coins"></i></div>
+        <div class="series-card-title">워렌 버핏의 투자 전략</div>
+        <div class="series-card-desc">가치투자의 대가가 전하는 장기투자 철학과 내재가치 분석, 복리의 마법을 깊이 있게 다룹니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+      <!-- <a href="시리즈/중소형주식.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="series-card-title">미국 중소형주 분석</div>
+        <div class="series-card-desc">성장 가능성이 높은 중소형 종목을 섹터별로 집중 분석하고 리스크까지 함께 짚어줍니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a> -->
+      <a href="시리즈/배당주.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+        <div class="series-card-title">배당주 투자 가이드</div>
+        <div class="series-card-desc">안정적 현금흐름, 성장성, 배당성장주/고배당주 투자 타이밍 등 핵심 노하우를 제공합니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+      <a href="시리즈/etf.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="series-card-title">ETF 투자 전략</div>
+        <div class="series-card-desc">분산투자, 저비용, 트렌드 대응까지 효율적인 ETF 포트폴리오 구성법을 알려드립니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+      <a href="시리즈/테마.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-brain"></i></div>
+        <div class="series-card-title">테마별 투자 인사이트</div>
+        <div class="series-card-desc">AI, 친환경, 헬스케어 등 미래 유망 테마·성장주를 심층 분석합니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+    </div>
+    <!-- 구분선 -->
+    <hr class="series-divider">
+<div class="theme-section-desc">
+  <span class="theme-section-title">핵심 성장 테마주 집중 분석</span><br>
+  급변하는 시장 환경 속에서 미래를 이끌 핵심 테마와<br>
+  각 테마별 대표 수혜주를 심층적으로 분석합니다.<br>
+  데이터 기반의 인사이트로, 투자 전략의 차별화를 경험하세요.
+</div>
+
+    <!-- 2부: 구분선 아래 (데이터센터 + AI 수혜주 + 금리인하 수혜주) -->
+    <div class="series-cards">
+      <a href="/시리즈/데이터센터.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-server"></i></div>
+        <div class="series-card-title">데이터센터 수혜주 분석</div>
+        <div class="series-card-desc">AI·클라우드 시대, 인프라·반도체·전력/쿨링 등 차세대 성장동력 기업을 집중 분석합니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+      <a href="/시리즈/ai수혜주.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-microchip"></i></div>
+        <div class="series-card-title">AI 수혜주 분석</div>
+        <div class="series-card-desc">AI 인프라·소프트웨어·반도체 등 AI 시대의 대표 수혜주를 심층 해부합니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+      <a href="/시리즈/금리인하.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-percent"></i></div>
+        <div class="series-card-title">금리인하 수혜주 분석</div>
+        <div class="series-card-desc">금리인하 국면에서 유리한 산업과 수혜주, 핵심 투자 포인트를 카드로 정리합니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+      <a href="/시리즈/친환경.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-leaf"></i></div>
+        <div class="series-card-title">친환경 에너지 수혜주 분석</div>
+        <div class="series-card-desc">
+          글로벌 에너지 전환과 탄소중립 정책 속<br>
+          미래를 이끌 친환경 대표주와 핵심 투자 포인트를 카드로 정리합니다.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+      <a href="/시리즈/사이버보안.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="series-card-title">사이버 보안 수혜주 분석</div>
+        <div class="series-card-desc">
+          해킹, 랜섬웨어, 정보 유출 위험이 커지는 시대,<br>
+          사이버 보안 기업들의 성장 가능성과 수혜 포인트를 정리했습니다.
+        </div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+      <a href="/시리즈/헬스케어.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="series-card-title">헬스케어 수혜주 분석</div>
+        <div class="series-card-desc">
+          고령화, 바이오 혁신, 웰니스 트렌드에 따라 급성장 중인<br>
+          헬스케어 산업의 핵심 기업과 투자 포인트를 카드로 정리했습니다.
+        </div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+
+    </div>
+          <a href="/시리즈/핫토픽.html" class="series-card">
+        <div class="series-card-icon"><i class="fa-solid fa-bolt"></i></div>
+        <div class="series-card-title">핫 토픽</div>
+        <div class="series-card-desc">
+        GoHigher 리서치팀이 직접 선정한 가장 뜨거운 투자 주제!<br>
+        시장의 흐름을 읽는 통찰, 누구보다 빠르게 만나보세요.</div>
+        <span class="series-card-link">자세히 보기 &raquo;</span>
+      </a>
+  </main>
+
+  <!-- 기존 사이드바/오버레이/스크립트 그대로 유지 -->
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar"> ... <!-- (생략, 기존 그대로 사용) --> </aside>
+  <script src="navigation.js"></script>
+  <div style="height: 66px;"></div>
+
+  <script>
+        const text = "Go Higher 투자 시리즈";
+    const target = document.getElementById("typingTitle");
+    let i = 0;
+    function typing() {
+    if (i <= text.length) {
+        target.textContent = text.slice(0, i);
+        i++;
+        setTimeout(typing, 68); // 속도 조절
+    }
+    }
+    typing();
+  </script>
+</body>
+</html>

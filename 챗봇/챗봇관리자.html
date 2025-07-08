@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher 챗봇 문의관리</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    body { background: #e8eaf6; min-height: 100vh; margin:0; font-family: 'Segoe UI', Arial, sans-serif; }
+    .admin-wrap { max-width: 680px; margin: 50px auto; background:#fff; border-radius:18px; box-shadow:0 4px 24px #243c8d22; padding:36px 24px 32px 24px;}
+    .admin-title { color: #2563eb; font-size: 1.34rem; font-weight: 900; margin-bottom: 24px;}
+    .inquiry-list { margin-top:18px; }
+    .inquiry-item { background:#f5f7fa; border-radius:10px; padding:16px 14px; margin-bottom:14px; box-shadow:0 2px 8px #243c8d18; text-align:left;}
+    .inquiry-meta { color:#435; font-size:0.98rem; margin-bottom:3px;}
+    .inquiry-msg { margin-bottom:7px; color:#133; }
+    .reply-form { display:flex; gap:7px; align-items:center; margin-top:9px; }
+    .reply-form input { flex:1; font-size:1rem; border:1px solid #b4c5e4; border-radius:7px; padding:8px;}
+    .reply-form button { background:#2563eb; color:#fff; border:none; border-radius:7px; padding:7px 14px; font-weight:700; cursor:pointer;}
+    .reply-text { color:#2563eb; margin-top:5px; }
+    .status-new { color:#b91c1c; font-weight:700; }
+    .status-answered { color:#2db05a; font-weight:700; }
+  </style>
+</head>
+<body>
+  <div class="admin-wrap">
+    <div class="admin-title">GoHigher 챗봇 문의내역 (관리자)</div>
+    <div id="inquiry-list" class="inquiry-list"></div>
+    <a href="javascript:history.back();" class="back-btn" style="margin-top:30px;">← 이전으로</a>
+  </div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.firebasestorage.app",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+    measurementId: "G-KQ02L8DXG0"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // 문의 리스트 불러오기
+async function loadUserChats() {
+  const container = document.getElementById('inquiry-list');
+  container.innerHTML = '불러오는 중...';
+
+  // 모든 메시지(질문+답변) 시간순 정렬로 불러오기
+  const snap = await db.collection('user_chat')
+    .orderBy('createdAt', 'asc') // 오래된 순으로
+    .get();
+
+  if (snap.empty) {
+    container.innerHTML = '<div style="color:#999">문의 내역이 없습니다.</div>';
+    return;
+  }
+
+  // 1. 모든 메시지를 배열로 저장
+  const allMsgs = [];
+  snap.forEach(doc => {
+    const d = doc.data();
+    allMsgs.push({ ...d, docId: doc.id });
+  });
+
+  // 2. 각 질문(user)마다 답변(bot)을 찾아서 리스트로 출력
+  for (let i = 0; i < allMsgs.length; i++) {
+    const msg = allMsgs[i];
+    if (msg.sender !== 'user') continue; // 질문만
+
+    // 이 질문 이후에 같은 sessionId, 그리고 qCreatedAt==msg.createdAt.seconds (또는 가장 가까운 bot메시지)를 답변으로 찾기
+    let answerMsg = null;
+    for (let j = i + 1; j < allMsgs.length; j++) {
+      const next = allMsgs[j];
+      if (
+        next.sender === 'bot' &&
+        next.sessionId === msg.sessionId &&
+        (
+          (next.qCreatedAt && msg.createdAt && next.qCreatedAt === msg.createdAt.seconds) // qCreatedAt 방식 지원
+          || !next.qCreatedAt // qCreatedAt이 없는 예전 메시지라면 sessionId만 일치하면 답변으로 인정
+        )
+      ) {
+        answerMsg = next;
+        break;
+      }
+    }
+
+    const isAnswered = !!answerMsg;
+    const time = msg.createdAt?.toDate?.() ? new Date(msg.createdAt.toDate()).toLocaleString() : '-';
+
+    const div = document.createElement('div');
+    div.className = 'inquiry-item';
+    div.innerHTML = `
+      <div class="inquiry-meta">
+        <b>${msg.sessionId}</b> | <span style="font-size:0.94em;">${time}</span>
+        <span class="status-${isAnswered ? 'answered' : 'new'}" style="margin-left:12px;">[${isAnswered ? '답변완료':'대기중'}]</span>
+      </div>
+      <div class="inquiry-msg">${msg.message}</div>
+      <div>
+        <div class="reply-text">${isAnswered ? "🟢 답변: " + answerMsg.message : ""}</div>
+        <form class="reply-form" data-session="${msg.sessionId}" data-qtime="${msg.createdAt?.seconds}" style="margin-top:7px;${isAnswered?'display:none':''}">
+          <input type="text" placeholder="여기에 답변을 작성..." required>
+          <button type="submit">답변 전송</button>
+        </form>
+      </div>
+    `;
+    container.appendChild(div);
+
+    // 답변폼 이벤트
+    const form = div.querySelector('.reply-form');
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const answer = form.querySelector('input').value.trim();
+        if (!answer) return;
+        await db.collection('user_chat').add({
+          sessionId: form.dataset.session,
+          sender: 'bot',
+          message: answer,
+          qCreatedAt: Number(form.dataset.qtime), // 질문 타임스탬프
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        alert('답변이 저장되었습니다.');
+        loadUserChats();
+      });
+    }
+  }
+}
+loadUserChats();
+
+</script>
+</body>
+</html>

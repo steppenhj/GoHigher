@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher Navigation</title>
+   <link rel="stylesheet" href="navigation.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+  // --- 반드시 가장 위에 삽입 ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.appspot.com",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+    measurementId: "G-KQ02L8DXG0"
+  };
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const auth = firebase.auth();
+</script>
+
+  <style>
+    :root {
+      --yellow: #ffe066;
+      --yellow-dark: #ffbe44;
+      --bg-dark: #232b3e;
+      --bg-section: #1e2844e9;
+      --font: #f9f9d6;
+      --font-soft: #b7caf8;
+      --border: #ffe06638;
+      --accent: #84e4bc;
+      --err: #fd7d7b;
+      --shadow: 0 8px 32px 0 rgba(31,38,135,0.12);
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0; padding: 0; min-height: 100vh;
+      background: linear-gradient(120deg, #232b3e 0%, #2e3b5a 100%);
+      color: var(--font);
+    }
+    .diary-hub {
+      max-width: 1240px;
+      margin: 0 auto; padding: 44px 8px 40px 8px;
+      text-align: center;
+    }
+    .diary-title {
+      font-size: 2.3rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+      border-right: 2px solid var(--yellow);
+      animation: blink 0.85s steps(1) infinite;
+      background: linear-gradient(90deg, #ffe066 60%, #ffe06666 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block; /* 꼭 있어야 함! */
+    }
+    @keyframes blink {0%,100%{border-color:var(--yellow);}50%{border-color:transparent;}}
+    .diary-desc {
+      font-size: 1.09rem;
+      color: var(--font-soft);
+      margin-bottom: 34px;
+      max-width: 540px;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.5;
+      background:rgba(40,50,90,0.14);
+      border-radius:10px;
+      padding:8px 0;
+    }
+    .diary-main-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(318px, 1fr));
+      gap: 40px;
+      margin-top: 5px;
+      justify-content: center;
+    }
+    .diary-card {
+      background: var(--bg-section);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 44px 30px 32px 30px; /* 상,우,하,좌 순 */
+      border: 1.5px solid var(--border);
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin-bottom: 5px;
+      position: relative;
+      transition: box-shadow 0.19s, background 0.18s;
+    }
+    .diary-card-title {
+  font-size: 1.3rem; /* 키움 */
+      font-weight: 800;
+      color: var(--yellow);
+      margin-bottom: 11px;
+      letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 7px;
+    }
+    /* 투자일지/감정 */
+    .diary-textarea, .emotion-textarea {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      padding: 11px;
+      font-size: 1.03rem;
+      background: #232948;
+      color: var(--yellow);
+      margin-bottom: 10px; margin-top: 3px;
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.17s, background 0.17s;
+    }
+    .diary-textarea:focus, .emotion-textarea:focus { border-color: var(--yellow); }
+    .diary-save-btn { background: var(--yellow); color: #232b3e;
+      border-radius: 10px; border: none; padding: 10px 0;
+      font-size: 1.12rem; font-weight: 800;
+      cursor: pointer; transition: background 0.13s; width: 100%; margin-top: 2px;}
+    .diary-save-btn:active { background: var(--yellow-dark);}
+    .diary-save-btn, .checklist-add-btn, .todo-add-btn, .asset-save-btn {
+  box-shadow: 0 4px 12px rgba(255, 224, 102, 0.4);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.diary-save-btn:hover, .checklist-add-btn:hover, .todo-add-btn:hover, .asset-save-btn:hover {
+  background-color: var(--yellow-dark);
+  box-shadow: 0 6px 20px rgba(255, 190, 68, 0.6);
+}
+
+textarea {
+  min-height: 60px; /* 조금 더 여유 있게 */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+textarea:focus {
+  background-color: #2a3b62;
+  border-color: var(--yellow-dark);
+}
+    .asset-input-form { display:flex; gap:5px; margin-bottom:8px;}
+    .asset-date-input, .asset-value-input {
+      border-radius: 7px; border: 1.2px solid var(--border);
+      background: #232948; color: var(--yellow);
+      font-size: 1.02rem; padding: 7px 8px; width: 113px;
+    }
+    .asset-save-btn { background: var(--yellow); color: #232b3e;
+      font-weight: 700; border-radius: 9px; border: none;
+      padding: 8px 17px; font-size: 1rem; cursor: pointer;}
+    .asset-save-btn:active { background: var(--yellow-dark);}
+    .asset-list-table {width:100%;font-size:0.98em;margin:9px 0;}
+    .asset-list-table td, .asset-list-table th {padding:4px 7px;text-align:right;}
+    .asset-list-table th {color:var(--yellow);}
+    .asset-list-table td.delbtn {text-align:center;}
+    /* 캘린더 */
+    .calendar-area {background: #232b3e;border-radius:12px;min-height:70px;color:var(--font-soft);}
+    #calendar { width: 100%; min-width: 220px; max-width: 100%; margin: 0 auto 0.5rem auto; }
+    .calendar-table {width:100%;border-collapse:collapse;}
+    .calendar-table th,.calendar-table td{ text-align:center;width:14.2%;height:35px;font-size:1.01rem;border-radius:7px;}
+    .calendar-table th { color: var(--yellow); font-weight:700;}
+    .calendar-table td { color: #fff; cursor:pointer;}
+    .calendar-table td.today{ background: #ffe06633; color:var(--yellow);font-weight:800;}
+    .calendar-table td.has-memo{color:#222c46;background:#fff066bb;}
+    .calendar-table td:hover:not(.empty) {background: #3d4a74;}
+    .calendar-table td.empty { background:none; cursor:default;}
+    #calendarMemoBox { background:#222a44;padding:11px;border-radius:10px;}
+    #calendarMemoInput { color:var(--yellow);background:#232948;border:1px solid var(--border);}
+    /* 체크/투두 */
+    .diary-checklist, .diary-todo-list {list-style:none;padding:0;margin-bottom:6px;}
+    .diary-checklist li, .diary-todo-list li {display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+    .diary-checklist input[type="checkbox"], .diary-todo-list input[type="checkbox"]{ accent-color: var(--yellow); width:1.09em;height:1.09em;}
+    .checklist-input, .todo-input { width:64%;border:1px solid var(--border);border-radius:7px;padding:7px 10px;background:#202443;color:var(--yellow);}
+    .checklist-input:focus, .todo-input:focus { border-color: var(--yellow);}
+    .checklist-add-btn, .todo-add-btn {background: var(--yellow); color: #232b3e; border-radius:9px; border:none; padding:8px 17px;font-size:1rem;font-weight:700;cursor:pointer;}
+    .checklist-add-btn:active, .todo-add-btn:active {background: var(--yellow-dark);}
+    .delbtn {background:none;border:none;color:var(--err);cursor:pointer;}
+    .delbtn:hover {color:#fff;}
+    /* 반응형 */
+    @media (max-width: 700px) {
+      .diary-main-grid {grid-template-columns:1fr;gap:12px;}
+      .diary-title {font-size:1.26rem;}
+      .diary-card {padding:13px 6px 9px 6px;}
+    }
+    /* 토스트 알림 */
+    .toast { position:fixed;bottom:33px;left:50%;transform:translateX(-50%);
+      background:var(--yellow);color:#232b3e;padding:9px 23px;font-weight:700;border-radius:12px;font-size:1.01em;
+      z-index:10000;box-shadow:0 5px 18px #0003;opacity:0.95;animation:toastShow 1.6s;}
+    @keyframes toastShow {0%{transform:translateY(16px) scale(0.98);opacity:0;}30%{opacity:1;}100%{opacity:0.96;}}
+ #diaryTypingTitle {
+  
+  border-right: 2px solid var(--yellow);
+  animation: blink 0.8s steps(1) infinite;
+  white-space: nowrap;  /* 줄 바꿈 방지 */
+  overflow: hidden;
+}
+
+ </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link active">다이어리</a>
+      <a href="/시리즈.html" class="nav-link">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+  <main class="diary-hub">
+    <div class="diary-title" id="diaryTypingTitle">Go Higher 투자 다이어리</div>
+    <div class="diary-desc">나만의 투자 성장 기록!<br>오늘의 투자일지, 자산 추이, 일정, 체크리스트까지 한 눈에.</div>
+    <div class="diary-main-grid">
+      <!-- 투자 일지/감정 -->
+      <section class="diary-card">
+        <div class="diary-card-title"><i class="fa-solid fa-pen-nib"></i> 오늘의 투자 일지</div>
+        <textarea class="diary-textarea" placeholder="오늘의 투자 경험, 배운 점, 감정, 아이디어를 자유롭게 적어보세요."></textarea>
+        <textarea class="emotion-textarea" placeholder="오늘의 투자 감정과 매매 이유"></textarea>
+        <button class="diary-save-btn">저장</button>
+      </section>
+      <!-- 자산 추이 그래프/입력 -->
+      <section class="diary-card diary-asset-card">
+        <div class="diary-card-title"><i class="fa-solid fa-chart-line"></i> 자산·수익 추이</div>
+        <form class="asset-input-form">
+          <input type="date" class="asset-date-input" required>
+          <input type="number" class="asset-value-input" placeholder="자산 금액(원)" min="0" required>
+          <button type="submit" class="asset-save-btn">저장</button>
+        </form>
+        <canvas id="assetChart" style="width:100%;max-width:320px;height:120px;margin-top:10px;"></canvas>
+        <table class="asset-list-table"></table>
+      </section>
+      <!-- 체크리스트 -->
+      <section class="diary-card">
+        <div class="diary-card-title"><i class="fa-solid fa-bullseye"></i> 목표 & 체크리스트</div>
+        <ul class="diary-checklist"></ul>
+        <input type="text" class="checklist-input" placeholder="목표 추가">
+        <button class="checklist-add-btn">추가</button>
+      </section>
+      <!-- 투두 리스트 -->
+      <section class="diary-card">
+        <div class="diary-card-title"><i class="fa-solid fa-list-check"></i> 투자 할 일</div>
+        <ul class="diary-todo-list"></ul>
+        <input type="text" class="todo-input" placeholder="할 일 추가">
+        <button class="todo-add-btn">추가</button>
+      </section>
+      <!-- 캘린더 -->
+      <section class="diary-card diary-calendar-card">
+        <div class="diary-card-title"><i class="fa-solid fa-calendar-days"></i> 나의 투자 캘린더</div>
+        <div class="calendar-area">
+          <div id="calendar"></div>
+          <div id="calendarMemoBox" style="display:none;margin-top:12px;">
+            <strong id="calendarMemoDate"></strong><br>
+            <textarea id="calendarMemoInput" placeholder="이 날의 투자 메모를 적으세요" style="width:92%;min-height:52px;border-radius:8px;"></textarea><br>
+            <button id="calendarMemoSaveBtn" style="margin-top:6px;">저장</button>
+            <button id="calendarMemoCancelBtn" style="margin-top:6px;">취소</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div id="toastBox" style="display:none;"></div>
+<script src="navigation.js"></script>
+
+<script>
+  if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.firestore();
+
+
+let currentUser = null;
+// 최상단 한 번만!
+function getToday() {
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+let today = getToday();
+let diaryLoading = false;
+
+// =========== 공통 함수 ===========
+    // ====== Toast ======
+    function toast(msg, sec=1.5) {
+      const box = document.getElementById('toastBox');
+      box.textContent = msg;
+      box.className = 'toast';
+      box.style.display = "block";
+      setTimeout(()=>{box.style.display="none"}, sec*1000);
+    }
+    // ====== 투자일지/감정 ======
+    const diaryTextarea = document.querySelector('.diary-textarea');
+    const emotionTextarea = document.querySelector('.emotion-textarea');
+    const diarySaveBtn = document.querySelector('.diary-save-btn');
+    let diaryDirty = false;
+    async function saveDiary(auto=false) {
+      if (!currentUser) return;
+      const text = diaryTextarea.value.trim();
+      const emotion = emotionTextarea.value.trim();
+      if (!text && !emotion && auto) return;
+      diarySaveBtn.disabled = true;
+      await db.collection('users').doc(currentUser.uid).collection('diary').doc(today)
+        .set({ text, emotion, date: new Date() });
+      if (!auto) toast('일지가 저장됨!');
+      diarySaveBtn.disabled = false;
+    }
+    async function loadDiary(date=today) {
+      if (!currentUser) return;
+      diarySaveBtn.disabled = true;
+      const doc = await db.collection('users').doc(currentUser.uid).collection('diary').doc(date).get();
+      if (doc.exists) {
+        diaryTextarea.value = doc.data().text||"";
+        emotionTextarea.value = doc.data().emotion||"";
+      } else {
+        diaryTextarea.value = "";
+        emotionTextarea.value = "";
+      }
+      diarySaveBtn.disabled = false;
+    }
+    ["input","change"].forEach(ev => {
+      diaryTextarea.addEventListener(ev, ()=>{diaryDirty=true;});
+      emotionTextarea.addEventListener(ev, ()=>{diaryDirty=true;});
+    });
+    setInterval(()=>{if(currentUser&&diaryDirty){saveDiary(true);diaryDirty=false;}}, 5000);
+    diarySaveBtn.onclick = ()=>saveDiary(false);
+
+    // ====== 자산/수익 추이(차트+리스트) ======
+    const assetForm = document.querySelector('.asset-input-form');
+    const assetDateInput = document.querySelector('.asset-date-input');
+    const assetValueInput = document.querySelector('.asset-value-input');
+    const assetChartCanvas = document.getElementById('assetChart');
+    const assetTable = document.querySelector('.asset-list-table');
+    let assetChart = null;
+    assetDateInput.valueAsDate = new Date();
+    assetForm.onsubmit = async (e) => {
+      e.preventDefault();
+      if(!currentUser) return toast('로그인 필요!');
+      const date = assetDateInput.value;
+      const value = parseFloat(assetValueInput.value);
+      if(!date||isNaN(value)) return toast('날짜/금액 입력!');
+      await db.collection('users').doc(currentUser.uid).collection('assets').doc(date)
+        .set({ value, date: new Date(date+"T09:00:00Z") });
+      assetValueInput.value = '';
+      await loadAssetChart();
+      toast('자산 저장!');
+    };
+    async function loadAssetChart() {
+      if(!currentUser) { assetChartCanvas.style.display="none"; assetTable.innerHTML=''; return;}
+      const qs = await db.collection('users').doc(currentUser.uid).collection('assets')
+        .orderBy('date').limit(90).get();
+      let labels = [], data = [], docs=[];
+      qs.forEach(doc => {
+        labels.push(doc.id); data.push(doc.data().value); docs.push({id:doc.id,val:doc.data().value});
+      });
+      // 차트
+      if(assetChart) assetChart.destroy();
+      assetChart = new Chart(assetChartCanvas, {
+        type: 'line',
+        data: { labels, datasets: [{ label:'자산 추이(원)', data, fill:true, tension:0.28, borderColor:'#ffe066', backgroundColor:'rgba(255,224,102,0.11)', pointRadius:3 }]},
+        options: { plugins: {legend:{display:false}}, scales: {x:{grid:{display:false}}, y:{grid:{color:'#3d4a74'}} } }
+      });
+      // 리스트
+      assetTable.innerHTML = `<tr><th>날짜</th><th>금액</th><th></th></tr>` +
+        docs.map(d=>`<tr><td>${d.id}</td><td>${d.val.toLocaleString()}</td><td class="delbtn"><button class="delbtn" data-id="${d.id}">삭제</button></td></tr>`).join('');
+      assetTable.querySelectorAll('.delbtn').forEach(btn=>{
+        btn.onclick=async()=>{
+          if(confirm('정말 삭제할까요?')){
+            await db.collection('users').doc(currentUser.uid).collection('assets').doc(btn.dataset.id).delete();
+            await loadAssetChart();
+            toast('삭제됨');
+          }
+        }
+      });
+    }
+    // ====== 체크리스트 ======
+    const checklistUl = document.querySelector('.diary-checklist');
+    const checklistInput = document.querySelector('.checklist-input');
+    const checklistAddBtn = document.querySelector('.checklist-add-btn');
+    checklistAddBtn.onclick = async () => {
+      if (!currentUser) return;
+      const text = checklistInput.value.trim();
+      if (!text) return;
+      await db.collection('users').doc(currentUser.uid)
+        .collection('checklist').add({ text, checked: false, created: new Date() });
+      checklistInput.value = '';
+      loadChecklist();
+    };
+    checklistInput.onkeydown = (e) => { if(e.key==='Enter'){ e.preventDefault(); checklistAddBtn.click(); } };
+    async function loadChecklist() {
+      if (!currentUser) return;
+      const snapshot = await db.collection('users').doc(currentUser.uid)
+        .collection('checklist').orderBy('created','asc').get();
+      checklistUl.innerHTML = '';
+      if(snapshot.empty) checklistUl.innerHTML = `<li style="color:#b7caf8;">목표 없음.</li>`;
+      snapshot.forEach(doc => {
+        const item = doc.data();
+        const li = document.createElement('li');
+        li.innerHTML = `<input type="checkbox" ${item.checked?'checked':''}> <span>${item.text}</span>
+        <button class="delbtn" data-id="${doc.id}">✖️</button>`;
+        li.querySelector('input').onchange = () => {
+          db.collection('users').doc(currentUser.uid)
+            .collection('checklist').doc(doc.id)
+            .update({checked: li.querySelector('input').checked});
+        };
+        li.querySelector('button').onclick = () => {
+          if(confirm('삭제?')) db.collection('users').doc(currentUser.uid)
+            .collection('checklist').doc(doc.id).delete().then(loadChecklist);
+        };
+        checklistUl.appendChild(li);
+      });
+    }
+    // ====== 투두 ======
+    const todoUl = document.querySelector('.diary-todo-list');
+    const todoInput = document.querySelector('.todo-input');
+    const todoAddBtn = document.querySelector('.todo-add-btn');
+    todoAddBtn.onclick = async () => {
+      if (!currentUser) return;
+      const text = todoInput.value.trim();
+      if (!text) return;
+      await db.collection('users').doc(currentUser.uid)
+        .collection('todo').add({ text, checked: false, created: new Date() });
+      todoInput.value = '';
+      loadTodo();
+    };
+    todoInput.onkeydown = (e) => { if(e.key==='Enter'){ e.preventDefault(); todoAddBtn.click(); } };
+    async function loadTodo() {
+      if (!currentUser) return;
+      const snapshot = await db.collection('users').doc(currentUser.uid)
+        .collection('todo').orderBy('created','asc').get();
+      todoUl.innerHTML = '';
+      if(snapshot.empty) todoUl.innerHTML = `<li style="color:#b7caf8;">할 일 없음.</li>`;
+      snapshot.forEach(doc => {
+        const item = doc.data();
+        const li = document.createElement('li');
+        li.innerHTML = `<input type="checkbox" ${item.checked?'checked':''}> <span>${item.text}</span>
+        <button class="delbtn" data-id="${doc.id}">✖️</button>`;
+        li.querySelector('input').onchange = () => {
+          db.collection('users').doc(currentUser.uid)
+            .collection('todo').doc(doc.id)
+            .update({checked: li.querySelector('input').checked});
+        };
+        li.querySelector('button').onclick = () => {
+          if(confirm('삭제?')) db.collection('users').doc(currentUser.uid)
+            .collection('todo').doc(doc.id).delete().then(loadTodo);
+        };
+        todoUl.appendChild(li);
+      });
+    }
+    // ====== 캘린더 ======
+    const calendarEl = document.getElementById('calendar');
+    const memoBox = document.getElementById('calendarMemoBox');
+    const memoInput = document.getElementById('calendarMemoInput');
+    const memoDateSpan = document.getElementById('calendarMemoDate');
+    const memoSaveBtn = document.getElementById('calendarMemoSaveBtn');
+    const memoCancelBtn = document.getElementById('calendarMemoCancelBtn');
+    let calendarYear, calendarMonth, calendarMemos = {};
+    function getToday() { const d = new Date(); return d.toISOString().slice(0,10);}
+    function renderCalendar(year, month) {
+      calendarEl.innerHTML = "";
+      const d = new Date(year, month, 1);
+      const firstDay = d.getDay(), lastDate = new Date(year, month+1, 0).getDate();
+      let html = `<table class="calendar-table"><thead><tr>
+      <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+      </tr></thead><tbody><tr>`;
+      for(let i=0;i<firstDay;i++) html += `<td class="empty"></td>`;
+      for(let day=1;day<=lastDate;day++){
+        const dateStr = `${year}-${(month+1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
+        let cls = [];
+        if(dateStr===getToday()) cls.push("today");
+        if(calendarMemos[dateStr]) cls.push("has-memo");
+        html += `<td class="${cls.join(' ')}" data-date="${dateStr}">${day}${calendarMemos[dateStr] ? " ●" : ""}</td>`;
+        if((firstDay+day)%7===0) html += "</tr><tr>";
+      }
+      html += `</tr></tbody></table>`;
+      html += `<div style="display:flex;justify-content:space-between;margin-top:2px;">
+      <button id="calPrev">&lt;</button>
+      <b>${year}년 ${month+1}월</b>
+      <button id="calNext">&gt;</button>
+      </div>`;
+      calendarEl.innerHTML = html;
+      document.getElementById('calPrev').onclick = ()=>drawCalendar(year, month-1);
+      document.getElementById('calNext').onclick = ()=>drawCalendar(year, month+1);
+      calendarEl.querySelectorAll('td[data-date]').forEach(td=>{
+        td.onclick = ()=>openMemoInput(td.getAttribute('data-date'));
+      });
+    }
+    async function loadCalendarMemos(year, month) {
+      calendarMemos = {};
+      if(!currentUser) return;
+      const from = `${year}-${(month+1).toString().padStart(2,'0')}-01`;
+      const to = `${year}-${(month+1).toString().padStart(2,'0')}-31`;
+      const qs = await db.collection('users').doc(currentUser.uid).collection('calendar')
+        .where('date','>=',new Date(from)).where('date','<=',new Date(to)).get();
+      qs.forEach(doc => {
+        calendarMemos[doc.id] = doc.data().memo;
+      });
+    }
+    async function drawCalendar(y, m){
+      calendarYear = y; calendarMonth = m;
+      await loadCalendarMemos(y, m);
+      renderCalendar(y, m);
+    }
+    function openMemoInput(dateStr){
+      memoBox.style.display="block";
+      memoDateSpan.textContent = dateStr;
+      memoInput.value = calendarMemos[dateStr]||"";
+      memoSaveBtn.onclick = async ()=>{
+        if(!currentUser) return toast('로그인 필요');
+        await db.collection('users').doc(currentUser.uid).collection('calendar').doc(dateStr)
+          .set({memo:memoInput.value,date:new Date(dateStr)});
+        memoBox.style.display="none";
+        await drawCalendar(calendarYear, calendarMonth);
+        toast('저장됨!');
+      };
+      memoCancelBtn.onclick = ()=>{ memoBox.style.display="none"; };
+    }
+
+    // ====== 인증 이벤트 ======
+    auth.onAuthStateChanged((user) => {
+      currentUser = user;
+      today = (new Date()).toISOString().slice(0,10);
+      if (!user) {
+        [diarySaveBtn, checklistAddBtn, todoAddBtn].forEach(btn => btn.disabled = true);
+        checklistUl.innerHTML = `<li style="color:#b7caf8;">로그인하면 내 목표를 저장할 수 있습니다.</li>`;
+        todoUl.innerHTML = `<li style="color:#b7caf8;">로그인하면 할 일을 관리할 수 있습니다.</li>`;
+        assetChartCanvas.style.display="none"; assetTable.innerHTML='';
+      } else {
+        [diarySaveBtn, checklistAddBtn, todoAddBtn].forEach(btn => btn.disabled = false);
+        loadDiary(today); loadChecklist(); loadTodo(); loadAssetChart();
+        const d = new Date();
+        drawCalendar(d.getFullYear(), d.getMonth());
+      }
+    });
+  </script>
+<script>
+  const typingTarget = document.getElementById('diaryTypingTitle');
+  const textToType = "Go Higher 투자 다이어리";
+  let index = 0;
+
+  function typeWriter() {
+    if(index <= textToType.length) {
+      typingTarget.textContent = textToType.slice(0, index);
+      index++;
+      setTimeout(typeWriter, 100);
+    }
+  }
+
+  window.onload = () => {
+    typeWriter();
+  };
+</script>
+
+  <div style="height: 66px;"></div>
+</body>
+</html>

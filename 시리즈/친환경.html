@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher | 친환경 에너지 수혜주 집중 분석</title>
+  <link rel="stylesheet" href="/navigation.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #e9f1ff;
+      --primary-yellow: #ffe066;
+      --accent-green: #84e4bc;
+      --accent-purple: #b7caf8;
+      --bg-dark: linear-gradient(120deg, #1e253a 0%, #253258 100%);
+      --card-bg: rgba(30, 40, 68, 0.97);
+      --card-border: rgba(255, 224, 102, 0.14);
+    }
+
+    .ai-infra-hub {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 20px 44px 20px;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 48px;
+      padding: 40px 20px;
+      background: rgba(40, 50, 90, 0.16);
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+    }
+
+    .main-title {
+      font-size: 2.6rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary-yellow) 0%, var(--accent-green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.18rem;
+      color: var(--accent-green);
+      margin-bottom: 24px;
+      line-height: 1.65;
+    }
+
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(132, 228, 188, 0.15);
+      border: 1px solid var(--accent-green);
+      border-radius: 25px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+
+    .trend-indicator::before {
+      content: "🌱";
+      font-size: 1.1rem;
+    }
+
+    .category-grid {
+      display: grid;
+       grid-template-columns: 1fr; /* 무조건 한 줄만! */
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .category-section {
+      background: var(--card-bg);
+      border-radius: 18px;
+      border: 1.5px solid var(--card-border);
+      padding: 28px;
+      box-shadow: 0 8px 32px rgba(20, 45, 90, 0.12);
+      transition: all 0.3s ease;
+       margin-bottom: 38px; 
+    }
+
+    .category-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 224, 102, 0.08);
+      border-color: rgba(255, 224, 102, 0.25);
+    }
+
+    .category-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary-yellow), var(--accent-green));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .stock-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stock-item {
+      background: rgba(45, 55, 85, 0.6);
+      border-radius: 12px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .stock-item:hover {
+      background: rgba(55, 65, 95, 0.8);
+      border-color: var(--primary-yellow);
+      transform: translateX(4px);
+    }
+
+    .stock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .stock-ticker {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+    }
+
+    .stock-name {
+      font-size: 0.95rem;
+      color: var(--accent-purple);
+      font-weight: 600;
+    }
+
+    .stock-desc {
+      font-size: 0.9rem;
+      color: #dae7ff;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .stock-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(132, 228, 188, 0.15);
+      color: var(--accent-green);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .market-outlook {
+      background: linear-gradient(135deg, rgba(40, 50, 90, 0.3) 0%, rgba(30, 40, 68, 0.4) 100%);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 40px;
+      border: 1px solid var(--card-border);
+    }
+
+    .outlook-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .outlook-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .outlook-item {
+      background: rgba(45, 55, 85, 0.4);
+      border-radius: 12px;
+      padding: 20px;
+      border-left: 4px solid var(--accent-green);
+    }
+
+    .outlook-item h4 {
+      color: var(--accent-green);
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .outlook-item p {
+      color: #dae7ff;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .disclaimer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255, 224, 102, 0.08);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 224, 102, 0.2);
+    }
+
+    .disclaimer p {
+      color: var(--primary-yellow);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+.category-section h3 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #e6f8ff;
+  background: linear-gradient(90deg, #23325a10 60%, #a3eed925 100%);
+  border-left: 4px solid var(--accent-green);
+  padding: 16px 20px 16px 18px;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  margin-top: 4px;
+  line-height: 1.7;
+  box-shadow: 0 2px 8px 0 rgba(60, 120, 180, 0.07);
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+.category-title {
+  /* 기존 코드 유지 */
+  margin-bottom: 12px;
+}
+.category-section h3 {
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link active">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
+<button class="btn" id="shareBtn">
+  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
+  공유
+</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">대표: 박해진</div>
+    <div class="biz-info">사업자번호: 123-45-67890</div>
+    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
+    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+
+
+  <main class="ai-infra-hub">
+    <div class="hero-section">
+      <h1 class="main-title">친환경 에너지 수혜주 집중 분석</h1>
+      <p class="subtitle">
+        글로벌 탄소중립 정책과 에너지 패러다임 전환 속에서<br>
+        신재생에너지, 전기차, 에너지저장, 수소 등<br>
+        미래를 선도할 친환경 대표주를 데이터 기반으로 분석합니다.
+      </p>
+      <div class="trend-indicator">2025년 신재생에너지 시장 연평균 성장률 18%+</div>
+    </div>
+
+    <div class="category-grid">
+      <!-- 태양광 에너지 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">☀️</div>
+          태양광 에너지
+        </h2>
+        <h3>미국 태양광 시장은 2025년에도 성장세가 이어질 전망이다. 미국 에너지정보청(EIA)에 따르면 2025년 신규 발전설비 중 무려 **81%**가 태양광·배터리 저장에 할당되며, 그중 태양광이 50% 이상를 차지할 것으로 예상된다. 주요 대형주로는 태양광 모듈 제조사인 퍼스트솔라(First Solar, FSLR), 주택용 설치기업 선런(Sunrun, RUN), 태양광 인버터 제조사 솔라엣지(SolarEdge, SEDG)·엔페이즈(Enphase, ENPH) 등이 꼽힌다</h3>
+        <div class="stock-list">
+      <div class="stock-item">
+        <div class="stock-header">
+          <div>
+            <div class="stock-ticker">FSLR</div>
+            <div class="stock-name">퍼스트솔라</div>
+          </div>
+        </div>
+        <div class="stock-desc">미국 대형 유틸리티용 태양광 모듈 제조업체. 최근 태양광 임대 프로젝트에 대한 세제 혜택 존속 기대로 주가 강세.</div>
+        <div class="stock-tags">
+          <span class="tag">태양광</span>
+          <span class="tag">유틸리티</span>
+          <span class="tag">친환경</span>
+        </div>
+      </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">RUN</div>
+                <div class="stock-name">선런</div>
+              </div>
+            </div>
+            <div class="stock-desc">주택용 태양광 설치·관리 기업. 
+              퍼스트솔라와 함께 세제혜택 소식에 주가 급등. 
+              장기적 성장 잠재력 우수.</div>
+            <div class="stock-tags">
+              <span class="tag">태양광</span>
+              <span class="tag">주택용</span>
+              <span class="tag">성장주</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">SEDG</div>
+                <div class="stock-name">솔라엣지</div>
+              </div>
+            </div>
+            <div class="stock-desc">태양광 인버터 및 에너지관리 솔루션 선도업체. 
+              2024년 주가 급락했으나 회복 중. 
+              저장장치 사업 확장 기대.</div>
+            <div class="stock-tags">
+              <span class="tag">태양광</span>
+              <span class="tag">인버터</span>
+              <span class="tag">에너지관리</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 풍력 에너지 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🚗</div>
+          풍력 에너지
+        </h2>
+        <h3>미국 풍력발전은 해상·육상 모두 성장세를 보이고 있다. 
+          EIA는 2025년 약 7.7GW의 풍력 용량이 신규로 추가될 것이라고 전망했다. 
+          대표주로는 **넥스트에라 에너지(NextEra Energy, NEE)**를 꼽을 수 있다. 
+          넥스트에라는 미국 최대 재생에너지 기업으로 풍력·태양광 발전용량이 방대하다. 
+          최근 상원 법안 수정으로 풍력 혜택이 유지되면서 업계 기대감이 커졌다. 
+          **델타 에어라인(DA)**이나 GE 벌노바(GE Vernova)(구 GE의 발전부문) 등도 풍력 설비 투자에 나서고 있다.
+          또 풍력 자산을 보유한 패턴 에너지(Pattern Energy, PEGI), 클리어웨이 에너지(Clearway Energy, CWEN) 등도 수혜주다.</h3>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">NEE</div>
+                <div class="stock-name">넥스트에라 에너지</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 최대 재생에너지 기업. 
+              육상·해상 풍력 보유, 전력 판매업자와 사업자(IPP) 역할. 
+              최근 법안 수정안으로 주가 일시 조정.</div>
+            <div class="stock-tags">
+              <span class="tag">풍력</span>
+              <span class="tag">신재생</span>
+              <span class="tag">대형전력기업</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">PEGI</div>
+                <div class="stock-name">패턴 에너지</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 및 국제 해상풍력 자산 보유 기업. 안정적 배당수익이 특징. 풍력 확대 정책 수혜주.</div>
+            <div class="stock-tags">
+              <span class="tag">풍력</span>
+              <span class="tag">배당</span>
+              <span class="tag">인프라</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CWEN</div>
+                <div class="stock-name">클리어웨이 에너지</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 풍력 및 태양광 발전 자산을 가진 회사. 배당형 구조로 꾸준한 수익 추구.</div>
+            <div class="stock-tags">
+              <span class="tag">풍력</span>
+              <span class="tag">배당</span>
+              <span class="tag">태양광</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 수소 에너지 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🏭</div>
+          수소 에너지
+        </h2>
+        <h3>
+          수소연료전지 및 그린수소 분야도 각광받고 있다. 
+          미국의 대표적인 수소주로는 플러그파워(Plug Power, PLUG), 블룸에너지(Bloom Energy, BE), 퓨얼셀에너지(FuelCell Energy, FCEL), 볼라드파워(Ballard Power, BLDP) 등이 있다. 
+          플러그파워는 그린수소 생산부터 저장·연료전지 발전을 아우르는 업체로, 대형 물류·운송 수요 증가를 노린다. 
+          블룸에너지는 고체산화물 연료전지로 데이터센터 등 분산전원에 강점이 있다. 
+          최근 미국 의회 세제안에서 수소 관련 세액공제는 유지되었는데, 특히 연료전지에 대한 인센티브가 부활되면서 플러그파워와 블룸에너지 주가가 각각 16.5%↑, 10%↑ 급등했다. 
+          연료전지 기업 외에 수소탱크(LOB량)나 장비회사들도 중장기 성장 수혜가 기대된다.
+        </h3>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">PLUG</div>
+                <div class="stock-name">Plug Power</div>
+              </div>
+            </div>
+            <div class="stock-desc">	그린수소 생산·공급 선도기업. 
+              연료전지 발전 시스템까지 토털 솔루션 제공. 
+              최근 연료전지 세제혜택 유지 소식에 강세.</div>
+            <div class="stock-tags">
+              <span class="tag">수소</span>
+              <span class="tag">연료전지</span>
+              <span class="tag">그린수소</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">BE</div>
+                <div class="stock-name">블룸에너지</div>
+              </div>
+            </div>
+            <div class="stock-desc">고체산화물 연료전지 제조사. 
+              데이터센터·상업용 분산전원에 적용. 
+              세제안 발표 후 주가 급등(연료전지 대상 인센티브 부활).</div>
+            <div class="stock-tags">
+              <span class="tag">분산전원</span>
+              <span class="tag">연료전지</span>
+              <span class="tag">그린수소</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">FCEL</div>
+                <div class="stock-name">퓨얼셀에너지</div>
+              </div>
+            </div>
+            <div class="stock-desc">대형 스택 연료전지 시스템 회사. 
+              정부·산업용 전력 보조적 역할 기대. 
+              생산능력 확대 중.</div>
+            <div class="stock-tags">
+              <span class="tag">연료전지</span>
+              <span class="tag">산업용</span>
+              <span class="tag">에너지저장</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 배터리 저장장치 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🔋</div>
+          배터리 저장장치
+        </h2>
+        <h3>
+          전력망 안정화와 재생에너지 확대를 위해 배터리 저장장치(ESS) 수요가 급증하고 있다. 
+          EIA에 따르면 2025년 미국에 약 18.2GW의 유틸리티용 배터리 용량이 추가될 것으로 예상되며, 이는 전년 대비 기록적인 성장이다. 
+          관련 대형주는 플루언스 에너지(Fluence Energy, FLNC)(Siemens·AES 합작 배터리 솔루션), AES(AES Corp, AES), 넥스트에라(NEE)(거대 배터리 프로젝트 보유), 테슬라(TSLA)(Megapack) 등이 있다. 
+          특히 플루언스는 세제안 통과로 주목받으며 주가(+3.1%↑)가 올랐다. 
+          기술주로는 전고체 배터리 기업 퀀텀스케이프(QS), 철-크롬 배터리 ESS Inc. (GWH) 등이 성장주로 거론된다.
+        </h3>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">FLNC</div>
+                <div class="stock-name">플루언스 에너지</div>
+              </div>
+            </div>
+            <div class="stock-desc">Siemens와 AES 합작의 배터리 저장 솔루션 기업. 
+              배터리 팩, 인버터 제공. 최근 세제소식에 강세(+3.1%).</div>
+            <div class="stock-tags">
+              <span class="tag">인프라</span>
+              <span class="tag">배터리</span>
+              <span class="tag">ESG</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AES</div>
+                <div class="stock-name">AES</div>
+              </div>
+            </div>
+            <div class="stock-desc">글로벌 에너지 기업. 
+              미국·유럽에서 대규모 ESS 프로젝트 다수 진행 중. 
+              배당수익률 상대적으로 높음.</div>
+            <div class="stock-tags">
+              <span class="tag">ESS</span>
+              <span class="tag">배당</span>
+              <span class="tag">신재생</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">TSLA</div>
+                <div class="stock-name">테슬라</div>
+              </div>
+            </div>
+            <div class="stock-desc">EV 제조사지만 Megapack 등 에너지저장 시스템도 생산. 
+              기술력 우위로 ESS 시장 진출.</div>
+            <div class="stock-tags">
+              <span class="tag">ESS</span>
+              <span class="tag">전기차</span>
+              <span class="tag">성장주</span>
+            </div>
+          </div>
+        </div>
+      </div>
+            <!-- 원자력 에너지 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">⚛️</div>
+          수소 에너지
+        </h2>
+        <h3>
+        원자력은 재생에너지의 대체·보완원으로 부상하고 있다. 2025년 미 정부의 원자력 활성화 정책에 힘입어 관련 기업들이 급등세를 보였다. 
+        우라늄 광산업체인 Uranium Energy (UEC)·Energy Fuels (UUUU)·Centrus (LEU) 주가가 20% 안팎 급등했고, 캐나다 최대 우라늄 기업 **캐멕코(Cameco, CCJ)**도 약 10% 상승했다. 
+        우라늄 광산과 연관된 ETF인 **Global X Uranium(URA)**는 11.6% 급등했다. 
+        원전 운영사로는 미국 내 전력 생산 비중이 높은 Constellation Energy (CEG), NextEra Energy (NEE) 등이 있으며, 이들 또한 소폭 상승했다. 
+        특히 스타트업 중 **오클로(Oklo, OKLO)**와 뉴스케일 파워(NuScale, SMR) 같은 소형 모듈 원자로(SMR) 개발사가 20~30%대 급등하며 투자자의 관심을 끌었다.
+        </h3>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">CCJ</div>
+                <div class="stock-name">캐멕코</div>
+              </div>
+            </div>
+            <div class="stock-desc">캐나다 최대 우라늄 광산업체. 
+              미국 원자력 활성화 정책 기대감에 원자재 가격 상승 수혜.</div>
+            <div class="stock-tags">
+              <span class="tag">우라늄</span>
+              <span class="tag">원자력</span>
+              <span class="tag">자원주</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">UEC</div>
+                <div class="stock-name">Uranium Energy</div>
+              </div>
+            </div>
+            <div class="stock-desc">미국 우라늄 광산 회사. 
+              공급부족 우려 속 주가 급등세.</div>
+            <div class="stock-tags">
+              <span class="tag">우라늄</span>
+              <span class="tag">원자력</span>
+              <span class="tag">자원주</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">OKLO</div>
+                <div class="stock-name">오클로</div>
+              </div>
+            </div>
+            <div class="stock-desc">소형 모듈 원자로(SMR) 개발 스타트업. 
+              첨단 기술 성공 시 고수익 기대. 
+              최근 기업 인수·계약 소식으로 주가 급등.</div>
+            <div class="stock-tags">
+              <span class="tag">SMR</span>
+              <span class="tag">원자력</span>
+              <span class="tag">혁신기술</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 시장 전망 -->
+    <div class="market-outlook">
+      <h2 class="outlook-title">📊 친환경 에너지 시장 전망</h2>
+      <div class="outlook-content">
+        <div class="outlook-item">
+          <h4>🌍 글로벌 성장 동력</h4>
+          <p>2050 탄소중립 목표, IRA 등 정책 지원, 원가경쟁력 개선으로 신재생에너지 시장의 구조적 성장 가속화</p>
+        </div>
+        <div class="outlook-item">
+          <h4>💡 투자 기회</h4>
+          <p>친환경 정책 수혜주, 신기술(ESS·수소), 글로벌 인프라 기업 등 다각화된 포트폴리오의 성장 잠재력</p>
+        </div>
+        <div class="outlook-item">
+          <h4>⚠️ 리스크 요인</h4>
+          <p>에너지 가격 변동성, 원자재 공급망 이슈, 정책 변화, 경쟁 심화 등은 변동성 요인</p>
+        </div>
+        <div class="outlook-item">
+          <h4>🎯 투자 전략</h4>
+          <p>성장성·안정성 균형, 신재생·배당 인프라·수소/ESS 등 주제별 분산 투자, 장기적 관점 권장</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <p>
+        ⚠️ 투자 위험 고지: 본 분석은 참고용이며, 투자 결정은 개인의 판단에 따라 이루어져야 합니다.<br>
+        과거 성과가 미래 수익을 보장하지 않으며, 투자 손실 가능성이 있습니다.
+      </p>
+    </div>
+  </main>
+
+  <script src="/navigation.js"></script>
+  <div style="height: 66px;"></div>
+</body>
+</html>
