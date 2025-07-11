@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher | 사이버보안 수혜주 집중 분석</title>
+
+            <!-- 사이트 검증 메타 -->
+    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
+    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+    <meta property="og:url" content="https://gohigher.kr/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Higher" />
+    <meta property="og:locale" content="ko_KR" />
+    <!-- Twitter Card 태그 -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
+    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
+    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+
+  <link rel="stylesheet" href="../navigation.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #e9f1ff;
+      --primary-yellow: #ffe066;
+      --accent-green: #84e4bc;
+      --accent-purple: #b7caf8;
+      --bg-dark: linear-gradient(120deg, #1e253a 0%, #253258 100%);
+      --card-bg: rgba(30, 40, 68, 0.97);
+      --card-border: rgba(255, 224, 102, 0.14);
+      --cyber-glow: #00ff88;
+      --cyber-blue: #0088ff;
+    }
+    
+    body { 
+      background: var(--bg-dark); 
+      color: #dae7ff; 
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    .ai-infra-hub { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 48px 20px 44px 20px;
+    }
+    
+    .hero-section { 
+      text-align: center; 
+      margin-bottom: 48px; 
+      padding: 40px 20px; 
+      background: linear-gradient(135deg, rgba(40, 50, 90, 0.2) 0%, rgba(30, 40, 68, 0.3) 100%);
+      border-radius: 20px; 
+      border: 1px solid var(--card-border);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+      animation: rotate 10s linear infinite;
+      z-index: -1;
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .main-title { 
+      font-size: 2.8rem; 
+      font-weight: 900; 
+      background: linear-gradient(135deg, var(--cyber-glow) 0%, var(--cyber-blue) 100%);
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+      background-clip: text; 
+      margin-bottom: 16px; 
+      letter-spacing: -0.02em;
+    }
+    
+    .subtitle { 
+      font-size: 1.3rem; 
+      color: var(--accent-purple); 
+      margin-bottom: 24px; 
+      line-height: 1.6;
+    }
+    
+    .trend-indicator { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      background: rgba(132, 228, 188, 0.15);
+      border: 1px solid var(--accent-green);
+      border-radius: 25px; 
+      padding: 8px 16px; 
+      font-size: 0.95rem; 
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+    
+    .trend-indicator::before { 
+      content: "\1F512"; 
+      font-size: 1.1rem;
+    }
+    
+    .category-list { 
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .category-section { 
+      background: linear-gradient(145deg, rgba(30, 40, 68, 0.95) 0%, rgba(40, 50, 90, 0.95) 100%);
+      border-radius: 20px; 
+      border: 1px solid var(--card-border);
+      padding: 32px; 
+      box-shadow: 0 8px 32px rgba(20, 45, 90, 0.12);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .category-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cyber-glow), var(--cyber-blue), var(--accent-green));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .category-section:hover { 
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0, 255, 136, 0.1);
+      border-color: rgba(0, 255, 136, 0.3);
+    }
+    
+    .category-section:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .category-title { 
+      font-size: 1.5rem; 
+      font-weight: 800; 
+      color: var(--primary-yellow); 
+      margin-bottom: 24px; 
+      display: flex; 
+      align-items: center; 
+      gap: 16px;
+      position: relative;
+    }
+    
+    .category-icon { 
+      width: 40px; 
+      height: 40px; 
+      background: linear-gradient(135deg, var(--cyber-glow), var(--cyber-blue));
+      border-radius: 12px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 1.4rem;
+      box-shadow: 0 4px 16px rgba(0, 255, 136, 0.3);
+    }
+    
+    .stock-list { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 20px;
+    }
+    
+    .stock-item { 
+      background: linear-gradient(145deg, rgba(45, 55, 85, 0.8) 0%, rgba(55, 65, 95, 0.8) 100%);
+      border-radius: 16px; 
+      padding: 24px; 
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .stock-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 136, 0.05) 50%, transparent 70%);
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .stock-item:hover { 
+      transform: translateX(8px);
+      border-color: var(--cyber-glow);
+      box-shadow: 0 8px 24px rgba(0, 255, 136, 0.15);
+    }
+    
+    .stock-item:hover::after {
+      opacity: 1;
+    }
+    
+    .stock-header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin-bottom: 12px;
+    }
+    
+    .stock-ticker { 
+      font-size: 1.3rem; 
+      font-weight: 800; 
+      color: var(--cyber-glow);
+      text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+    }
+    
+    .stock-name { 
+      font-size: 1rem; 
+      color: var(--accent-purple); 
+      font-weight: 600;
+    }
+    
+    .stock-desc { 
+      font-size: 1.05rem; 
+      color: #dae7ff; 
+      line-height: 1.6; 
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .stock-tags { 
+      display: flex; 
+      gap: 8px; 
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .tag { 
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.15) 0%, rgba(0, 136, 255, 0.15) 100%);
+      color: var(--cyber-glow);
+      padding: 6px 12px; 
+      border-radius: 8px; 
+      font-size: 0.9rem; 
+      font-weight: 600;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .tag:hover {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.25) 0%, rgba(0, 136, 255, 0.25) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
+    }
+    
+    .market-outlook { 
+      background: linear-gradient(145deg, rgba(40, 50, 90, 0.4) 0%, rgba(30, 40, 68, 0.5) 100%);
+      max-width: 1200px;
+      border-radius: 20px; 
+      padding: 40px; 
+      margin-top: 40px; 
+      border: 1px solid var(--card-border);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .market-outlook::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cyber-glow), var(--cyber-blue), var(--accent-green));
+    }
+    
+    .outlook-title { 
+      font-size: 1.6rem; 
+      font-weight: 800; 
+      color: var(--primary-yellow); 
+      margin-bottom: 24px; 
+      text-align: center;
+      position: relative;
+    }
+    
+    .outlook-content { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+      gap: 24px;
+    }
+    
+    .outlook-item { 
+      background: linear-gradient(145deg, rgba(45, 55, 85, 0.6) 0%, rgba(55, 65, 95, 0.6) 100%);
+      border-radius: 16px; 
+      padding: 24px; 
+      border-left: 4px solid var(--cyber-glow);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .outlook-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 30%, rgba(0, 255, 136, 0.05) 50%, transparent 70%);
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .outlook-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 255, 136, 0.15);
+      border-left-color: var(--cyber-blue);
+    }
+    
+    .outlook-item:hover::before {
+      opacity: 1;
+    }
+    
+    .outlook-item h4 { 
+      color: var(--cyber-glow);
+      font-size: 1.2rem; 
+      margin-bottom: 12px; 
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .outlook-item p { 
+      color: #dae7ff; 
+      font-size: 0.95rem; 
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .disclaimer { 
+      text-align: center; 
+      max-width: 1232px;
+      margin-top: 40px; 
+      padding: 24px; 
+      background: linear-gradient(145deg, rgba(255, 224, 102, 0.1) 0%, rgba(255, 224, 102, 0.05) 100%);
+      border-radius: 16px; 
+      border: 1px solid rgba(255, 224, 102, 0.3);
+      position: relative;
+    }
+    
+    .disclaimer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-yellow), var(--accent-green));
+      border-radius: 16px 16px 0 0;
+    }
+    
+    .disclaimer p { 
+      color: var(--primary-yellow); 
+      font-size: 0.9rem; 
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+    .market-outlook, .disclaimer {
+  margin: 40px auto 0 auto; /* auto가 중앙 정렬 */
+  /* ... */
+}
+    @media (max-width: 768px) { 
+      .ai-infra-hub { padding: 20px 15px 28px 15px; } 
+      .main-title { font-size: 2rem; } 
+      .subtitle { font-size: 1.1rem; } 
+      .category-list { 
+        grid-template-columns: 1fr;
+        gap: 20px; 
+      } 
+      .category-section { padding: 24px; } 
+      .outlook-content { grid-template-columns: 1fr; } 
+      .market-outlook { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
+      <svg viewBox="0 0 22 22">
+        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
+      </svg>
+    </button>
+    <span class="brand">Go Higher</span>
+    <div class="nav-menu">
+      <a href="/" class="nav-link">홈</a>
+      <a href="/뉴스.html" class="nav-link">뉴스</a>
+      <a href="/다이어리.html" class="nav-link">다이어리</a>
+      <a href="/시리즈.html" class="nav-link active">시리즈</a>
+      <a href="/멤버십.html" class="nav-link">멤버십</a>
+    </div>
+  </div>
+  <div class="nav-right" id="navRight">
+    <div class="stock-search">
+      <input id="stockSearchInput" type="text" placeholder="티커/심볼 (예: CRWD, PANW)" autocomplete="off" style="width:180px;max-width:220px;" />
+      <button class="btn stock-btn" id="stockSearchBtn" aria-label="주식 검색" title="주식 검색" style="margin-left:-2px;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+    <button class="btn" id="shareBtn"><span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>공유</button>
+    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
+  </div>
+</nav>
+  <div class="overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
+    <h2>Go Higher 메뉴</h2>
+    <div class="user-info">
+      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
+        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
+      </span>
+      <div>
+        <div class="user-name">비로그인</div>
+        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
+        <div class="user-status">로그인 필요</div>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <a href="/마이페이지.html" class="side-link">마이페이지</a>
+      <a href="/설정.html" class="side-link">설정</a>
+    </div>
+    <hr>
+        <div>
+      <a href="/" class="side-link">홈</a>
+      <a href="/뉴스.html" class="side-link">뉴스</a>
+      <a href="/다이어리.html" class="side-link">다이어리</a>
+      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <a href="/멤버십.html" class="side-link">멤버십</a>
+    </div>
+
+    <a href="/login.html" class="side-link">로그아웃</a>
+    <hr>
+    <div class="biz-info-title">사업자 등록</div>
+    <div class="biz-info">GoHigher | 대표 박해진</div>
+    <div class="biz-info">대구광역시 북구 동천로 155, 네스빌101동 12층</div>
+    <div class="biz-info">사업자번호 407-09-54622</div>
+    <div class="biz-info">연락처 070-8080-1675</div>
+    <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
+  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
+    <a href="/푸터/이용약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="/푸터/privacy-policy.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="/푸터/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+  </div>
+  <!-- 저작권 문구 -->
+   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
+    © 2025 GoHigher. All rights reserved
+
+</aside>
+
+<!-- 검색 모달 -->
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
+  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
+  <div id="modalResult" class="stock-result"></div>
+</div>
+<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
+
+  <main class="ai-infra-hub">
+  <div class="hero-section">
+    <h1 class="main-title">사이버보안 수혜주 집중 분석</h1>
+    <p class="subtitle">
+      랜섬웨어·AI 공격·클라우드 전환 등으로 사이버보안이 전 세계 모든 산업의 핵심 리스크가 되고 있습니다.<br>
+      본 페이지는 실제 시장 데이터와 심층 기업 분석에 기반해 <b>미국 상장사들의 실적, 기술, 성장 모멘텀, 투자 리스크</b>를 명확히 제공합니다.
+    </p>
+    <div class="trend-indicator">2024~2028년 글로벌 보안시장 연평균 성장률 12% 전망</div>
+  </div>
+  <div class="category-list">
+
+    <!-- 차세대 엔드포인트 & AI 보안 -->
+    <div class="category-section">
+  <h2 class="category-title"><div class="category-icon">🛡️</div>차세대 엔드포인트 & AI 보안</h2>
+  <div class="stock-list">
+
+    <!-- CrowdStrike -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">CRWD</div><div class="stock-name">크라우드스트라이크</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 클라우드 기반 XDR(확장형 탐지·대응) 분야 글로벌 선도 기업.<br>
+        <b>핵심 경쟁력:</b> 실시간 위협 인텔리전스, AI·ML 기반 자동화 탐지, 방대한 글로벌 보안 데이터.<br>
+        <b>주요 제품/서비스:</b> Falcon Platform(EDR/XDR), Cloud Security, Identity Protection.<br>
+        <b>기술 혁신:</b> 데이터레이크·AI 엔진 기반 자동 위협 사냥, 클라우드 네이티브 구조.<br>
+        <b>전략 파트너십/확장:</b> AWS, Microsoft Azure, Google Cloud 등과 네이티브 통합, 글로벌 MSP 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 30억 달러 돌파, 연평균 40% 이상 고성장, ARR 비중 70% 이상.<br>
+        <b>시장 평가:</b> 업계 내 가장 혁신적이고 성장성 높은 차세대 보안 표준, 대형 기관·공공 고객 확대.
+      </div>
+      <div class="stock-tags"><span class="tag">XDR</span><span class="tag">AI보안</span><span class="tag">클라우드</span></div>
+    </div>
+
+    <!-- SentinelOne -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">S</div><div class="stock-name">센티넬원</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 100% 자동화된 자율 EDR/XDR 시장 선도.<br>
+        <b>핵심 경쟁력:</b> 초경량 에이전트, AI 기반 행위분석, 자동 위협 격리.<br>
+        <b>주요 제품/서비스:</b> Singularity Platform, Ranger IoT, MDR.<br>
+        <b>기술 혁신:</b> 행위 기반 AI 분석, ‘Attack Storyline’ 실시간 공격 경로 시각화.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 MSSP 연동, 중소~대기업 폭넓게 공략.<br>
+        <b>실적 및 성장:</b> 2024년 매출 7억 달러, 3년간 2배 성장, 고객 1.1만개 돌파.<br>
+        <b>시장 평가:</b> 점유율·혁신 선점에 집중, 고변동성이나 기술주로서 주목.
+      </div>
+      <div class="stock-tags"><span class="tag">AI</span><span class="tag">EDR</span></div>
+    </div>
+
+    <!-- Rapid7 -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">RPD</div><div class="stock-name">래피드7</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 취약점 관리와 MDR·EDR 통합 보안 기업.<br>
+        <b>핵심 경쟁력:</b> 글로벌 취약점 관리 기술, 다중 클라우드 지원.<br>
+        <b>주요 제품/서비스:</b> Insight Platform(MDR/EDR), InsightVM.<br>
+        <b>기술 혁신:</b> AI 위협 분석, 데이터 기반 자동화 대응.<br>
+        <b>전략 파트너십/확장:</b> AWS 등 주요 클라우드와 연동.<br>
+        <b>실적 및 성장:</b> 2024년 매출 8억 달러, ARR 비중 70% 이상.<br>
+        <b>시장 평가:</b> 취약점 기반 위협탐지 특화, 엔터프라이즈 시장 점유율 상승.
+      </div>
+      <div class="stock-tags"><span class="tag">취약점관리</span><span class="tag">EDR</span></div>
+    </div>
+
+    <!-- Tenable -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">TENB</div><div class="stock-name">테너블</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 글로벌 취약점 및 공격노출 관리 대표.<br>
+        <b>핵심 경쟁력:</b> Nessus 엔진, 클라우드·IoT·OT 보안까지 지원.<br>
+        <b>주요 제품/서비스:</b> Nessus, Tenable.io, Tenable.ot.<br>
+        <b>기술 혁신:</b> AI 기반 취약점 인텔리전스, 다중 환경 지원.<br>
+        <b>전략 파트너십/확장:</b> 주요 MSP/클라우드 연동, 중대형 시장 확장.<br>
+        <b>실적 및 성장:</b> 2024년 매출 8억 달러, 글로벌 30,000+ 고객.<br>
+        <b>시장 평가:</b> 취약점 평가 분야 글로벌 점유율 1위.
+      </div>
+      <div class="stock-tags"><span class="tag">취약점</span><span class="tag">IoT보안</span></div>
+    </div>
+
+    <!-- Varonis Systems -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">VRNS</div><div class="stock-name">배로니스시스템즈</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 엔드포인트 데이터 거버넌스·행위 분석 특화.<br>
+        <b>핵심 경쟁력:</b> AI 데이터 유출 탐지, 내부자 위협 방지.<br>
+        <b>주요 제품/서비스:</b> Data Security Platform, DLP.<br>
+        <b>기술 혁신:</b> AI 기반 실시간 행위 분석.<br>
+        <b>전략 파트너십/확장:</b> MS, AWS 등 대형 클라우드 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 5억 달러.<br>
+        <b>시장 평가:</b> 데이터 중심 보안, DLP·행위분석 시장의 강자.
+      </div>
+      <div class="stock-tags"><span class="tag">AI</span><span class="tag">행위분석</span></div>
+    </div>
+  </div>
+</div>
+
+    <div class="category-section">
+  <h2 class="category-title"><div class="category-icon">🌐</div>네트워크 & 클라우드 보안</h2>
+  <div class="stock-list">
+
+    <!-- Palo Alto Networks -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">PANW</div><div class="stock-name">팔로알토네트웍스</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 네트워크·클라우드 보안 분야 글로벌 No.1.<br>
+        <b>핵심 경쟁력:</b> 차세대 방화벽·SOAR, AI 위협 분석.<br>
+        <b>주요 제품/서비스:</b> Prisma Cloud, Cortex XSOAR, Strata.<br>
+        <b>기술 혁신:</b> 멀티클라우드 SOAR·AI 보안 엔진, OT(산업보안) 시장 선도.<br>
+        <b>전략 파트너십/확장:</b> AWS·MS·구글 등 클라우드와 협력, 통신사 제휴.<br>
+        <b>실적 및 성장:</b> 2024년 매출 80억 달러, ARR 75% 비중.<br>
+        <b>시장 평가:</b> 대형 기업·공공 시장 독보적 점유, 보안 플랫폼 Top3.
+      </div>
+      <div class="stock-tags"><span class="tag">SOAR</span><span class="tag">클라우드</span></div>
+    </div>
+
+    <!-- Zscaler -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">ZS</div><div class="stock-name">질스케일러</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 클라우드 기반 SASE·ZTNA 분야 혁신 기업.<br>
+        <b>핵심 경쟁력:</b> 제로트러스트·실시간 경로 분리·AI 위협대응.<br>
+        <b>주요 제품/서비스:</b> Zscaler Internet Access/Private Access.<br>
+        <b>기술 혁신:</b> API 오픈형 플랫폼, 동적 트래픽 제어.<br>
+        <b>전략 파트너십/확장:</b> MS, AWS 등 주요 클라우드와 협업.<br>
+        <b>실적 및 성장:</b> 2024년 매출 20억 달러, 연 30% 성장.<br>
+        <b>시장 평가:</b> SASE/ZTNA 분야 트렌드 리더, 원격근무 특화.
+      </div>
+      <div class="stock-tags"><span class="tag">SASE</span><span class="tag">ZTNA</span></div>
+    </div>
+
+    <!-- Fortinet -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">FTNT</div><div class="stock-name">포티넷</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 하드웨어·소프트웨어 통합 방화벽 글로벌 리더.<br>
+        <b>핵심 경쟁력:</b> 독자 보안 ASIC, 저지연 네트워크.<br>
+        <b>주요 제품/서비스:</b> FortiGate, FortiOS, Secure SD-WAN.<br>
+        <b>기술 혁신:</b> HW/SW 통합, OT(산업제어) 보안 특화.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 IT유통망·통신사와 파트너십.<br>
+        <b>실적 및 성장:</b> 2024년 매출 60억 달러, 고객 저변 확대.<br>
+        <b>시장 평가:</b> 가격 경쟁력·시장 점유율, SMB~대기업 IT 인프라에서 필수.
+      </div>
+      <div class="stock-tags"><span class="tag">방화벽</span><span class="tag">SD-WAN</span></div>
+    </div>
+
+    <!-- Check Point -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">CHKP</div><div class="stock-name">체크포인트</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 30년 업력의 글로벌 네트워크 보안 강자.<br>
+        <b>핵심 경쟁력:</b> ThreatCloud AI, 뛰어난 신뢰성.<br>
+        <b>주요 제품/서비스:</b> Quantum Security Gateway, Harmony Endpoint, CloudGuard.<br>
+        <b>기술 혁신:</b> 통합 위협 인텔리전스, 저비용 구조.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 SI/클라우드와 연동, 주주친화 정책.<br>
+        <b>실적 및 성장:</b> 2024년 매출 24억 달러, 안정적 현금흐름.<br>
+        <b>시장 평가:</b> 보수적 투자, 방어적 포트폴리오에 적합.
+      </div>
+      <div class="stock-tags"><span class="tag">방화벽</span><span class="tag">안정성</span><span class="tag">AI</span></div>
+    </div>
+
+    <!-- Cloudflare -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">NET</div><div class="stock-name">클라우드플레어</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> CDN·DDoS·엣지 보안 혁신 대표.<br>
+        <b>핵심 경쟁력:</b> 글로벌 분산 인프라, AI 네트워크.<br>
+        <b>주요 제품/서비스:</b> DDoS Protection, WAF, Zero Trust, Magic Transit.<br>
+        <b>기술 혁신:</b> 엣지 컴퓨팅·AI 접목, 서버리스 보안.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 파트너와 API 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 13억 달러, 글로벌 트래픽 25% 처리.<br>
+        <b>시장 평가:</b> SaaS 기반, 성장성 최고, 중소~대기업 수요 폭발.
+      </div>
+      <div class="stock-tags"><span class="tag">DDoS</span><span class="tag">엣지보안</span></div>
+    </div>
+
+  </div>
+</div>
+
+    <!-- 보안 SW/ID & 접근관리 -->
+    <div class="category-section">
+  <h2 class="category-title"><div class="category-icon">🪪</div>아이덴티티 & 접근관리 보안</h2>
+  <div class="stock-list">
+
+    <!-- Okta -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">OKTA</div><div class="stock-name">옥타</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> IDaaS(인증·접근관리) 글로벌 1위.<br>
+        <b>핵심 경쟁력:</b> 99.99% SLA, 7,000개 이상 SaaS와 원활한 연동.<br>
+        <b>주요 제품/서비스:</b> Okta Identity Cloud(SSO, MFA, Lifecycle Management), Auth0.<br>
+        <b>기술 혁신:</b> Zero Trust Identity, 자동화 워크플로우.<br>
+        <b>전략 파트너십/확장:</b> Google, Salesforce, ServiceNow, AWS 등.<br>
+        <b>실적 및 성장:</b> 2024년 매출 20억 달러, 1.88만 고객사.<br>
+        <b>시장 평가:</b> 제로트러스트 필수 인프라, 인증 시장 독주.
+      </div>
+      <div class="stock-tags"><span class="tag">IDaaS</span><span class="tag">SSO</span><span class="tag">ZeroTrust</span></div>
+    </div>
+
+    <!-- CyberArk -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">CYBR</div><div class="stock-name">사이버아크</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 특권 계정(Privileged Access) 관리 세계 1위.<br>
+        <b>핵심 경쟁력:</b> 클라우드·온프레미스 통합 특권관리, 강력한 자동화.<br>
+        <b>주요 제품/서비스:</b> Privileged Access Management, Identity Security Platform.<br>
+        <b>기술 혁신:</b> 자동화 인증·Zero Trust, SaaS 전환.<br>
+        <b>전략 파트너십/확장:</b> AWS, Azure 등 클라우드와 연동.<br>
+        <b>실적 및 성장:</b> 2024년 매출 8억 달러, ARR 60% 이상.<br>
+        <b>시장 평가:</b> 특권관리·클라우드 전환 리더.
+      </div>
+      <div class="stock-tags"><span class="tag">PAM</span><span class="tag">ID</span></div>
+    </div>
+
+    <!-- ForgeRock (acquired by Thoma Bravo but kept 상장형태) -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">FORG</div><div class="stock-name">포지락</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 아이덴티티 관리·액세스 거버넌스 글로벌 강자.<br>
+        <b>핵심 경쟁력:</b> 대규모 사용자 IAM, API 보안.<br>
+        <b>주요 제품/서비스:</b> ForgeRock Identity Platform.<br>
+        <b>기술 혁신:</b> AI 기반 거버넌스, IoT·클라우드 연동.<br>
+        <b>전략 파트너십/확장:</b> 클라우드 플랫폼·ISV와 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 3억 달러, 연평균 25% 성장.<br>
+        <b>시장 평가:</b> 엔터프라이즈 IAM/IGA 성장세.
+      </div>
+      <div class="stock-tags"><span class="tag">IAM</span><span class="tag">IGA</span></div>
+    </div>
+
+    <!-- SailPoint -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">SAIL</div><div class="stock-name">세일포인트</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 아이덴티티 거버넌스(IAM/IGA) 시장 리더.<br>
+        <b>핵심 경쟁력:</b> 고도화된 권한 관리, AI 분석.<br>
+        <b>주요 제품/서비스:</b> IdentityNow, IdentityIQ.<br>
+        <b>기술 혁신:</b> 클라우드 네이티브, 자동화 정책관리.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 IT·SaaS 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 5억 달러.<br>
+        <b>시장 평가:</b> 미국·유럽 시장 점유율 강자.
+      </div>
+      <div class="stock-tags"><span class="tag">IGA</span><span class="tag">ID거버넌스</span></div>
+    </div>
+
+    <!-- Ping Identity -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">PING</div><div class="stock-name">핑아이덴티티</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 대기업용 인증·싱글사인온 전문.<br>
+        <b>핵심 경쟁력:</b> 대규모 인증처리, 고성능 API 연동.<br>
+        <b>주요 제품/서비스:</b> PingOne, PingID, PingFederate.<br>
+        <b>기술 혁신:</b> 클라우드·온프레미스 하이브리드.<br>
+        <b>전략 파트너십/확장:</b> MS, AWS, Okta 등 주요 업체와 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 3억 달러.<br>
+        <b>시장 평가:</b> 인증·SSO 인프라의 대명사.
+      </div>
+      <div class="stock-tags"><span class="tag">SSO</span><span class="tag">ID관리</span></div>
+    </div>
+  </div>
+</div>
+<div class="category-section">
+  <h2 class="category-title"><div class="category-icon">🗄️</div>데이터 보안 & DLP</h2>
+  <div class="stock-list">
+
+    <!-- Varonis Systems -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">VRNS</div><div class="stock-name">배로니스시스템즈</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 데이터 거버넌스·DLP·내부자 위협 방지 특화.<br>
+        <b>핵심 경쟁력:</b> AI 행위분석, 실시간 데이터유출 탐지.<br>
+        <b>주요 제품/서비스:</b> Data Security Platform, Data Advantage.<br>
+        <b>기술 혁신:</b> AI 기반 DLP, 엔터프라이즈 데이터 거버넌스.<br>
+        <b>전략 파트너십/확장:</b> MS, AWS, 주요 SaaS 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 5억 달러.<br>
+        <b>시장 평가:</b> 데이터중심 보안, 내부 위협 탐지 리더.
+      </div>
+      <div class="stock-tags"><span class="tag">DLP</span><span class="tag">AI</span></div>
+    </div>
+
+    <!-- Proofpoint -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">PFPT</div><div class="stock-name">프루프포인트</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 이메일·데이터 보안 글로벌 강자.<br>
+        <b>핵심 경쟁력:</b> 피싱·스팸 AI 탐지, 클라우드 이메일 보안.<br>
+        <b>주요 제품/서비스:</b> Proofpoint Email Protection, Targeted Attack Protection.<br>
+        <b>기술 혁신:</b> AI 기반 피싱 탐지, DLP 연동.<br>
+        <b>전략 파트너십/확장:</b> MS·구글·세일즈포스 등 클라우드 연동.<br>
+        <b>실적 및 성장:</b> 2024년 매출 12억 달러.<br>
+        <b>시장 평가:</b> 이메일 기반 위협에 최적화, DLP+이메일 연동 독보적.
+      </div>
+      <div class="stock-tags"><span class="tag">이메일보안</span><span class="tag">DLP</span></div>
+    </div>
+
+    <!-- Zscaler -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">ZS</div><div class="stock-name">질스케일러</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> SASE·클라우드 보안·DLP 통합.<br>
+        <b>핵심 경쟁력:</b> 트래픽·파일 DLP, 제로트러스트.<br>
+        <b>주요 제품/서비스:</b> Zscaler Data Protection, CASB, Internet Access.<br>
+        <b>기술 혁신:</b> 실시간 경로분리·AI 위협 탐지.<br>
+        <b>전략 파트너십/확장:</b> 대형 SaaS 연동, 멀티클라우드 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 20억 달러.<br>
+        <b>시장 평가:</b> 데이터/트래픽 DLP 통합, 성장률 Top.
+      </div>
+      <div class="stock-tags"><span class="tag">클라우드</span><span class="tag">DLP</span></div>
+    </div>
+
+    <!-- Symantec (브로드컴 산하) -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">AVGO</div><div class="stock-name">브로드컴(시만텍)</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 브로드컴 산하, 글로벌 데이터/엔드포인트 DLP 1위.<br>
+        <b>핵심 경쟁력:</b> SIEM·DLP·EDR 통합, 대기업 시장 강세.<br>
+        <b>주요 제품/서비스:</b> Symantec Data Loss Prevention, Endpoint Security.<br>
+        <b>기술 혁신:</b> 통합 위협 인텔리전스, 클라우드·온프레미스 DLP.<br>
+        <b>전략 파트너십/확장:</b> MS·AWS·구글 등과 글로벌 연동.<br>
+        <b>실적 및 성장:</b> 브로드컴 보안부문 60억 달러 이상.<br>
+        <b>시장 평가:</b> 엔터프라이즈 DLP 시장 Top, 신뢰성 매우 높음.
+      </div>
+      <div class="stock-tags"><span class="tag">DLP</span><span class="tag">SIEM</span></div>
+    </div>
+
+    <!-- Microsoft -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">MSFT</div><div class="stock-name">마이크로소프트</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 글로벌 No.1 SaaS/클라우드, 보안+DLP 시장 모두 석권.<br>
+        <b>핵심 경쟁력:</b> M365·Azure·Defender·Purview 등 전방위 데이터 보안.<br>
+        <b>주요 제품/서비스:</b> Microsoft Purview, Defender, Sentinel.<br>
+        <b>기술 혁신:</b> Copilot for Security, 자동화 DLP·AI 분석.<br>
+        <b>전략 파트너십/확장:</b> 5,000개 이상 ISV·글로벌 협력.<br>
+        <b>실적 및 성장:</b> 보안부문 연 200억 달러 매출, DLP 시장 성장 견인.<br>
+        <b>시장 평가:</b> 모든 산업군 DLP 필수 인프라.
+      </div>
+      <div class="stock-tags"><span class="tag">DLP</span><span class="tag">AI</span></div>
+    </div>
+  </div>
+</div>
+<div class="category-section">
+  <h2 class="category-title"><div class="category-icon">⚙️</div>OT/IoT/산업제어 시스템 보안</h2>
+  <div class="stock-list">
+
+    <!-- Fortinet -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">FTNT</div><div class="stock-name">포티넷</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> OT·IoT·네트워크 통합 보안 글로벌 Top.<br>
+        <b>핵심 경쟁력:</b> 자체 보안 ASIC, 산업제어 저지연 보호.<br>
+        <b>주요 제품/서비스:</b> FortiGate, FortiOS, OT보안 솔루션.<br>
+        <b>기술 혁신:</b> HW/SW 통합, OT보안 선도.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 통신사·산업 인프라 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 60억 달러, OT 시장 점유율 상승.<br>
+        <b>시장 평가:</b> 산업현장 보안 표준, 가격경쟁력 강점.
+      </div>
+      <div class="stock-tags"><span class="tag">OT</span><span class="tag">IoT</span></div>
+    </div>
+
+    <!-- Palo Alto Networks -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">PANW</div><div class="stock-name">팔로알토네트웍스</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 산업제어·클라우드·네트워크까지 아우르는 보안 No.1.<br>
+        <b>핵심 경쟁력:</b> OT보안 전용 기능, AI 보안 엔진.<br>
+        <b>주요 제품/서비스:</b> Prisma Cloud, Cortex XSOAR, OT보안.<br>
+        <b>기술 혁신:</b> 멀티클라우드·산업제어 보안 선도.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 OT·IT 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 80억 달러.<br>
+        <b>시장 평가:</b> OT/IoT 보안·자동화 선도 기업.
+      </div>
+      <div class="stock-tags"><span class="tag">OT</span><span class="tag">AI</span></div>
+    </div>
+
+    <!-- Claroty -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">CLVT</div><div class="stock-name">클라로티</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 산업제어·IoT·의료기기 보안 신흥 강자.<br>
+        <b>핵심 경쟁력:</b> OT+IT 통합, 실시간 위협 탐지.<br>
+        <b>주요 제품/서비스:</b> Claroty Platform.<br>
+        <b>기술 혁신:</b> AI 기반 네트워크 가시성, 위협자동화.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 제조사·헬스케어 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 2억 달러.<br>
+        <b>시장 평가:</b> OT/IoT/의료 시장 점유율 급상승.
+      </div>
+      <div class="stock-tags"><span class="tag">OT</span><span class="tag">IoT</span></div>
+    </div>
+
+    <!-- Tenable -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">TENB</div><div class="stock-name">테너블</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> OT/IoT 공격 노출 취약점 관리 리더.<br>
+        <b>핵심 경쟁력:</b> Nessus 기반 OT·IoT 환경 지원.<br>
+        <b>주요 제품/서비스:</b> Tenable.ot, Nessus.<br>
+        <b>기술 혁신:</b> AI 기반 OT/IoT 취약점 분석.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 MSP/제조사 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 8억 달러.<br>
+        <b>시장 평가:</b> OT/IoT 보안특화, 시장 확장 중.
+      </div>
+      <div class="stock-tags"><span class="tag">OT</span><span class="tag">취약점</span></div>
+    </div>
+
+    <!-- Cisco Systems -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">CSCO</div><div class="stock-name">시스코시스템즈</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 산업·네트워크 인프라 세계 1위, OT보안 확장.<br>
+        <b>핵심 경쟁력:</b> 네트워크 보안·산업 프로토콜 지원.<br>
+        <b>주요 제품/서비스:</b> Cisco IoT Security, Cyber Vision.<br>
+        <b>기술 혁신:</b> IoT/OT 전용 위협 인텔리전스.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 제조사·유통 협력.<br>
+        <b>실적 및 성장:</b> 2024년 보안부문 매출 40억 달러.<br>
+        <b>시장 평가:</b> 글로벌 OT/IoT 보안 Top.
+      </div>
+      <div class="stock-tags"><span class="tag">OT</span><span class="tag">IoT</span></div>
+    </div>
+  </div>
+</div>
+<div class="category-section">
+  <h2 class="category-title"><div class="category-icon">✉️</div>이메일·특수위협 & 클라우드 애플리케이션 보안</h2>
+  <div class="stock-list">
+
+    <!-- Proofpoint -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">PFPT</div><div class="stock-name">프루프포인트</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 이메일·피싱·BEC 방어 글로벌 선도 기업.<br>
+        <b>핵심 경쟁력:</b> AI 기반 피싱·악성메일 탐지.<br>
+        <b>주요 제품/서비스:</b> Email Protection, Targeted Attack Protection, Threat Response.<br>
+        <b>기술 혁신:</b> 실시간 위협 인텔리전스, DLP·CASB 연동.<br>
+        <b>전략 파트너십/확장:</b> MS, 구글 등 클라우드 이메일 연동.<br>
+        <b>실적 및 성장:</b> 2024년 매출 12억 달러.<br>
+        <b>시장 평가:</b> BEC·피싱 위협 대응 No.1, 대기업 선호도 높음.
+      </div>
+      <div class="stock-tags"><span class="tag">이메일보안</span><span class="tag">피싱</span></div>
+    </div>
+
+    <!-- Mimecast -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">MIME</div><div class="stock-name">마임캐스트</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 이메일·스팸·랜섬웨어 위협 방지 전문.<br>
+        <b>핵심 경쟁력:</b> 멀티레이어 이메일 위협 차단.<br>
+        <b>주요 제품/서비스:</b> Mimecast Email Security, Brand Exploit Protection.<br>
+        <b>기술 혁신:</b> AI 기반 실시간 분석·피싱 방지.<br>
+        <b>전략 파트너십/확장:</b> MS 365·Google Workspace 연동.<br>
+        <b>실적 및 성장:</b> 2024년 매출 6억 달러.<br>
+        <b>시장 평가:</b> 중견~대기업에 인기, 빠른 혁신주.
+      </div>
+      <div class="stock-tags"><span class="tag">이메일</span><span class="tag">스팸</span></div>
+    </div>
+
+    <!-- Cloudflare -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">NET</div><div class="stock-name">클라우드플레어</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> SaaS·애플리케이션·DDoS 방어 대표주.<br>
+        <b>핵심 경쟁력:</b> 글로벌 CDN·AI 위협 방어.<br>
+        <b>주요 제품/서비스:</b> Email Security, Zero Trust, Magic Transit.<br>
+        <b>기술 혁신:</b> API·클라우드 기반 보안.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 SaaS/클라우드와 연동.<br>
+        <b>실적 및 성장:</b> 2024년 매출 13억 달러.<br>
+        <b>시장 평가:</b> SaaS 보안·클라우드 위협의 대세.
+      </div>
+      <div class="stock-tags"><span class="tag">클라우드보안</span><span class="tag">DDoS</span></div>
+    </div>
+
+    <!-- Cisco Systems -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">CSCO</div><div class="stock-name">시스코시스템즈</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 대기업 네트워크·이메일 보안 강자.<br>
+        <b>핵심 경쟁력:</b> 이메일 보안·스팸 차단·DLP 연동.<br>
+        <b>주요 제품/서비스:</b> Cisco Secure Email, Umbrella.<br>
+        <b>기술 혁신:</b> 실시간 위협 인텔리전스·AI.<br>
+        <b>전략 파트너십/확장:</b> MS, 구글 등 주요 SaaS와 협력.<br>
+        <b>실적 및 성장:</b> 보안부문 연 40억 달러 매출.<br>
+        <b>시장 평가:</b> 대기업 필수 인프라, 신뢰성·시장점유율 우위.
+      </div>
+      <div class="stock-tags"><span class="tag">이메일</span><span class="tag">스팸차단</span></div>
+    </div>
+
+    <!-- Zscaler -->
+    <div class="stock-item">
+      <div class="stock-header"><div><div class="stock-ticker">ZS</div><div class="stock-name">질스케일러</div></div></div>
+      <div class="stock-desc">
+        <b>기업 소개:</b> 클라우드 이메일·CASB·SASE 연동.<br>
+        <b>핵심 경쟁력:</b> 실시간 DLP·CASB·애플리케이션 보안.<br>
+        <b>주요 제품/서비스:</b> Zscaler Cloud Protection, Email Security.<br>
+        <b>기술 혁신:</b> AI 기반 애플리케이션 위협 탐지.<br>
+        <b>전략 파트너십/확장:</b> 글로벌 SaaS 연동, 클라우드 협력.<br>
+        <b>실적 및 성장:</b> 2024년 매출 20억 달러.<br>
+        <b>시장 평가:</b> 멀티 SaaS·클라우드 애플리케이션 보안 리더.
+      </div>
+      <div class="stock-tags"><span class="tag">이메일</span><span class="tag">CASB</span></div>
+    </div>
+  </div>
+</div>
+  
+</main>
+<!-- 투자자 성향별 추천 -->
+  <div class="market-outlook">
+    <h2 class="outlook-title">투자자 성향별 추천 종목</h2>
+    <div class="outlook-content">
+      <div class="outlook-item">
+        <h4>🚀 공격적 투자자</h4>
+        <p>
+          <b>센티넬원(S), 질스케일러(ZS), 옥타(OKTA)</b><br>
+          ▶ AI·클라우드 신기술, 자율보안·제로트러스트 분야에서 고성장/고위험을 감수할 투자자에게<br>
+          ▶ 매출성장 빠르나, 적자폭/주가 변동성 주의
+        </p>
+      </div>
+      <div class="outlook-item">
+        <h4>💰 중립적 투자자</h4>
+        <p>
+          <b>크라우드스트라이크(CRWD), 팔로알토네트웍스(PANW), 포티넷(FTNT)</b><br>
+          ▶ 안정적 시장점유율, 반복매출 기반, 대형 고객 다수<br>
+          ▶ 실적+성장 균형, 장기 포트폴리오 편입에 적합
+        </p>
+      </div>
+      <div class="outlook-item">
+        <h4>🎯 보수적 투자자</h4>
+        <p>
+          <b>마이크로소프트(MSFT), 체크포인트(CHKP)</b><br>
+          ▶ 장수·대형 IT기업, 배당과 안정성 중시<br>
+          ▶ 낮은 변동성, 고배당, 보수적 운용에 최적
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="disclaimer">
+    <p>
+      ⚠️ 본 페이지는 실제 심층 리서치 및 최신 시장 자료 기반입니다.<br>
+      투자 결정은 투자자 본인 책임입니다. 과거 성과가 미래를 보장하지 않습니다.
+    </p>
+  </div>
+  <script src="../navigation.js"></script>
+  <div style="height: 66px;"></div>
+</body>
+</html>
