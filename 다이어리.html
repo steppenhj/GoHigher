@@ -3,6 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>GoHigher Navigation</title>
+
+        <!-- 사이트 검증 메타 -->
+    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
+    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+    <meta property="og:url" content="https://gohigher.kr/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Higher" />
+    <meta property="og:locale" content="ko_KR" />
+    <!-- Twitter Card 태그 -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
+    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
+    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+    
    <link rel="stylesheet" href="navigation.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,173 +55,216 @@
       --yellow: #ffe066;
       --yellow-dark: #ffbe44;
       --bg-dark: #232b3e;
-      --bg-section: #1e2844e9;
+      --bg-section: rgba(30,40,68,0.97);
       --font: #f9f9d6;
       --font-soft: #b7caf8;
       --border: #ffe06638;
       --accent: #84e4bc;
       --err: #fd7d7b;
-      --shadow: 0 8px 32px 0 rgba(31,38,135,0.12);
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      margin: 0; padding: 0; min-height: 100vh;
-      background: linear-gradient(120deg, #232b3e 0%, #2e3b5a 100%);
-      color: var(--font);
+      --shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+      --card-glow: 0 0 24px 0 rgba(255,224,102,0.10), 0 2px 24px 0 rgba(132,228,188,0.10);
+      --blur-bg: blur(7px) saturate(1.2);
+      --tab-gradient: linear-gradient(90deg, #ffe066 0%, #84e4bc 100%);
     }
     .diary-hub {
-      max-width: 1240px;
-      margin: 0 auto; padding: 44px 8px 40px 8px;
+      max-width: 1000px;
+      max-height: auto;
+      margin: 0 auto; padding: 48px 10px 36px 10px;
       text-align: center;
     }
     .diary-title {
-      font-size: 2.3rem;
+      font-size: 2rem;
       font-weight: 900;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       letter-spacing: -0.01em;
       border-right: 2px solid var(--yellow);
       animation: blink 0.85s steps(1) infinite;
-      background: linear-gradient(90deg, #ffe066 60%, #ffe06666 100%);
+      background: linear-gradient(90deg, #ffe066 60%, #84e4bc 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      display: inline-block; /* 꼭 있어야 함! */
+      display: inline-block;
+      filter: drop-shadow(0 2px 8px #ffe06644);
+      text-shadow: 0 2px 12px #ffe06633;
     }
     @keyframes blink {0%,100%{border-color:var(--yellow);}50%{border-color:transparent;}}
     .diary-desc {
-      font-size: 1.09rem;
+      font-size: 1.08rem;
       color: var(--font-soft);
-      margin-bottom: 34px;
-      max-width: 540px;
+      margin-bottom: 22px;
+      max-width: 420px;
       margin-left: auto; margin-right: auto;
       line-height: 1.5;
-      background:rgba(40,50,90,0.14);
+      background:rgba(40,50,90,0.13);
       border-radius:10px;
-      padding:8px 0;
+      padding:10px 0;
+      box-shadow: 0 2px 12px #232b3e22;
     }
-    .diary-main-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(318px, 1fr));
-      gap: 40px;
-      margin-top: 5px;
+    /* 탭 네비게이션 */
+    .diary-tabs {
+      display: flex;
       justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      background: none;
+    }
+    .diary-tab {
+      background: none;
+      border: none;
+      color: var(--font-soft);
+      font-size: 1.05rem;
+      font-weight: 900;
+      padding: 10px 22px 8px 22px;
+      border-radius: 16px 16px 0 0;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.13s;
+      outline: none;
+      border-bottom: 2px solid transparent;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -0.01em;
+      box-shadow: 0 2px 8px #ffe06611;
+      margin-bottom: -2px;
+    }
+    .diary-tab .tab-icon {
+      margin-right: 6px;
+      font-size: 1.05em;
+      vertical-align: -2px;
+    }
+    .diary-tab.active {
+      color: #232b3e;
+      background: var(--tab-gradient);
+      border-bottom: 2px solid var(--yellow);
+      box-shadow: 0 4px 18px #ffe06633, 0 2px 12px #84e4bc22;
+      z-index: 2;
+      transform: translateY(-2px) scale(1.03);
+    }
+    .diary-tab:active {
+      transform: scale(0.98);
+    }
+    /* 탭 컨텐츠 */
+    .diary-tab-content {
+      display: none;
+      animation: fadeIn 0.4s;
+    }
+    .diary-tab-content.active {
+      display: block;
+      animation: fadeIn 0.4s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
     }
     .diary-card {
       background: var(--bg-section);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 44px 30px 32px 30px; /* 상,우,하,좌 순 */
+      border-radius: 18px;
+      box-shadow: var(--shadow), var(--card-glow);
+      padding: 32px 18px 22px 18px;
       border: 1.5px solid var(--border);
-      min-height: 240px;
+      min-height: 160px;
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
       position: relative;
-      transition: box-shadow 0.19s, background 0.18s;
+      transition: box-shadow 0.22s, background 0.18s, transform 0.18s;
+      backdrop-filter: var(--blur-bg);
+      border-top: 2.5px solid var(--yellow-dark);
     }
     .diary-card-title {
-  font-size: 1.3rem; /* 키움 */
-      font-weight: 800;
+      font-size: 1.18rem;
+      font-weight: 900;
       color: var(--yellow);
-      margin-bottom: 11px;
+      margin-bottom: 13px;
       letter-spacing: -0.01em;
-      display: flex; align-items: center; gap: 7px;
+      display: flex; align-items: center; gap: 8px;
+      text-shadow: 0 2px 8px #ffe06633;
     }
-    /* 투자일지/감정 */
-    .diary-textarea, .emotion-textarea {
-      width: 100%;
-      min-height: 52px;
-      border-radius: 11px;
-      border: 1px solid var(--border);
-      padding: 11px;
-      font-size: 1.03rem;
-      background: #232948;
+    .diary-save-btn, .checklist-add-btn, .todo-add-btn, .asset-save-btn {
+      background: var(--tab-gradient);
+      color: #232b3e;
+      border-radius: 12px; border: none; padding: 12px 0;
+      font-size: 1.08rem; font-weight: 900;
+      cursor: pointer; transition: background 0.18s, box-shadow 0.18s, transform 0.13s;
+      width: 100%; margin-top: 2px;
+      box-shadow: 0 4px 16px rgba(255, 224, 102, 0.22);
+    }
+    .diary-save-btn:active, .checklist-add-btn:active, .todo-add-btn:active, .asset-save-btn:active {
+      background: var(--yellow-dark);
+      transform: scale(0.98);
+    }
+    .diary-save-btn:hover, .checklist-add-btn:hover, .todo-add-btn:hover, .asset-save-btn:hover {
+      background: linear-gradient(90deg, var(--yellow-dark), var(--yellow));
+      box-shadow: 0 8px 24px #ffe06666;
+      transform: scale(1.03);
+    }
+    .diary-textarea, .emotion-textarea, .checklist-input, .todo-input, .asset-date-input, .asset-value-input, #calendarMemoInput {
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      padding: 12px;
+      font-size: 1.08rem;
+      background: rgba(35,41,72,0.98);
       color: var(--yellow);
-      margin-bottom: 10px; margin-top: 3px;
+      margin-bottom: 10px; margin-top: 4px;
       font-family: inherit;
       resize: vertical;
-      transition: border-color 0.17s, background 0.17s;
+      transition: border-color 0.19s, background 0.19s, box-shadow 0.18s;
+      box-shadow: 0 2px 12px #ffe06622;
+      backdrop-filter: blur(2px);
     }
-    .diary-textarea:focus, .emotion-textarea:focus { border-color: var(--yellow); }
-    .diary-save-btn { background: var(--yellow); color: #232b3e;
-      border-radius: 10px; border: none; padding: 10px 0;
-      font-size: 1.12rem; font-weight: 800;
-      cursor: pointer; transition: background 0.13s; width: 100%; margin-top: 2px;}
-    .diary-save-btn:active { background: var(--yellow-dark);}
-    .diary-save-btn, .checklist-add-btn, .todo-add-btn, .asset-save-btn {
-  box-shadow: 0 4px 12px rgba(255, 224, 102, 0.4);
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-}
-.diary-save-btn:hover, .checklist-add-btn:hover, .todo-add-btn:hover, .asset-save-btn:hover {
-  background-color: var(--yellow-dark);
-  box-shadow: 0 6px 20px rgba(255, 190, 68, 0.6);
-}
-
-textarea {
-  min-height: 60px; /* 조금 더 여유 있게 */
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-textarea:focus {
-  background-color: #2a3b62;
-  border-color: var(--yellow-dark);
-}
-    .asset-input-form { display:flex; gap:5px; margin-bottom:8px;}
-    .asset-date-input, .asset-value-input {
-      border-radius: 7px; border: 1.2px solid var(--border);
-      background: #232948; color: var(--yellow);
-      font-size: 1.02rem; padding: 7px 8px; width: 113px;
+    .diary-textarea:focus, .emotion-textarea:focus, .checklist-input:focus, .todo-input:focus, .asset-date-input:focus, .asset-value-input:focus, #calendarMemoInput:focus {
+      border-color: var(--yellow-dark);
+      background: #2a3b62;
+      box-shadow: 0 4px 18px #ffe06644;
     }
-    .asset-save-btn { background: var(--yellow); color: #232b3e;
-      font-weight: 700; border-radius: 9px; border: none;
-      padding: 8px 17px; font-size: 1rem; cursor: pointer;}
-    .asset-save-btn:active { background: var(--yellow-dark);}
-    .asset-list-table {width:100%;font-size:0.98em;margin:9px 0;}
-    .asset-list-table td, .asset-list-table th {padding:4px 7px;text-align:right;}
-    .asset-list-table th {color:var(--yellow);}
+    /* 기타 기존 스타일 유지, 일부 크기 축소 */
+    .asset-list-table {width:100%;font-size:1em;margin:10px 0; background:rgba(35,41,72,0.92); border-radius:8px; box-shadow:0 2px 8px #ffe06622;}
+    .asset-list-table td, .asset-list-table th {padding:7px 10px;text-align:right; font-size:1em;}
+    .asset-list-table th {color:var(--yellow); font-weight:900; font-size:1.05em;}
     .asset-list-table td.delbtn {text-align:center;}
-    /* 캘린더 */
-    .calendar-area {background: #232b3e;border-radius:12px;min-height:70px;color:var(--font-soft);}
+    .calendar-area {background: #232b3e;border-radius:12px;min-height:60px;color:var(--font-soft);box-shadow:0 2px 8px #ffe06622;}
     #calendar { width: 100%; min-width: 220px; max-width: 100%; margin: 0 auto 0.5rem auto; }
     .calendar-table {width:100%;border-collapse:collapse;}
-    .calendar-table th,.calendar-table td{ text-align:center;width:14.2%;height:35px;font-size:1.01rem;border-radius:7px;}
-    .calendar-table th { color: var(--yellow); font-weight:700;}
-    .calendar-table td { color: #fff; cursor:pointer;}
-    .calendar-table td.today{ background: #ffe06633; color:var(--yellow);font-weight:800;}
-    .calendar-table td.has-memo{color:#222c46;background:#fff066bb;}
-    .calendar-table td:hover:not(.empty) {background: #3d4a74;}
+    .calendar-table th,.calendar-table td{ text-align:center;width:14.2%;height:32px;font-size:1.02rem;border-radius:7px;}
+    .calendar-table th { color: var(--yellow); font-weight:900; background:rgba(255,224,102,0.04);}
+    .calendar-table td { color: #fff; cursor:pointer; transition: background 0.13s, color 0.13s;}
+    .calendar-table td.today{ background: #ffe06633; color:var(--yellow);font-weight:900;}
+    .calendar-table td.has-memo{color:#222c46;background:#fff066cc; font-weight:700;}
+    .calendar-table td:hover:not(.empty) {background: #3d4a74; color:var(--yellow);}
     .calendar-table td.empty { background:none; cursor:default;}
-    #calendarMemoBox { background:#222a44;padding:11px;border-radius:10px;}
-    #calendarMemoInput { color:var(--yellow);background:#232948;border:1px solid var(--border);}
+    #calendarMemoBox { background:#222a44;padding:10px;border-radius:10px;box-shadow:0 2px 8px #ffe06622;}
     /* 체크/투두 */
-    .diary-checklist, .diary-todo-list {list-style:none;padding:0;margin-bottom:6px;}
-    .diary-checklist li, .diary-todo-list li {display:flex;align-items:center;gap:7px;margin-bottom:4px;}
-    .diary-checklist input[type="checkbox"], .diary-todo-list input[type="checkbox"]{ accent-color: var(--yellow); width:1.09em;height:1.09em;}
-    .checklist-input, .todo-input { width:64%;border:1px solid var(--border);border-radius:7px;padding:7px 10px;background:#202443;color:var(--yellow);}
-    .checklist-input:focus, .todo-input:focus { border-color: var(--yellow);}
-    .checklist-add-btn, .todo-add-btn {background: var(--yellow); color: #232b3e; border-radius:9px; border:none; padding:8px 17px;font-size:1rem;font-weight:700;cursor:pointer;}
-    .checklist-add-btn:active, .todo-add-btn:active {background: var(--yellow-dark);}
-    .delbtn {background:none;border:none;color:var(--err);cursor:pointer;}
+    .diary-checklist, .diary-todo-list {list-style:none;padding:0;margin-bottom:10px;}
+    .diary-checklist li, .diary-todo-list li {display:flex;align-items:center;gap:8px;margin-bottom:6px; background:rgba(255,224,102,0.04); border-radius:7px; padding:5px 8px; font-size:1em;}
+    .diary-checklist input[type="checkbox"], .diary-todo-list input[type="checkbox"]{ accent-color: var(--yellow); width:1em;height:1em;}
+    .delbtn {background:none;border:none;color:var(--err);cursor:pointer; font-size:1.05em;}
     .delbtn:hover {color:#fff;}
-    /* 반응형 */
-    @media (max-width: 700px) {
-      .diary-main-grid {grid-template-columns:1fr;gap:12px;}
-      .diary-title {font-size:1.26rem;}
-      .diary-card {padding:13px 6px 9px 6px;}
+    @media (max-width: 900px) {
+      .diary-hub {max-width: 98vw;}
+      .diary-title {font-size:1.2rem;}
+      .diary-card {padding:14px 4px 10px 4px; border-radius:10px;}
+      .diary-tabs {gap:2px;}
+      .diary-tab {font-size:0.95rem;padding:6px 6px; border-radius:8px 8px 0 0;}
+      .diary-card-title {font-size:1rem;}
     }
-    /* 토스트 알림 */
+    @media (max-width: 600px) {
+      .diary-hub {padding: 12px 2px 10px 2px;}
+      .diary-title {font-size:1.1rem;}
+      .diary-card {padding:8px 2px 6px 2px; border-radius:10px;}
+      .diary-tabs {gap:2px;}
+      .diary-tab {font-size:0.95rem;padding:6px 6px; border-radius:8px 8px 0 0;}
+      .diary-card-title {font-size:1rem;}
+    }
     .toast { position:fixed;bottom:33px;left:50%;transform:translateX(-50%);
-      background:var(--yellow);color:#232b3e;padding:9px 23px;font-weight:700;border-radius:12px;font-size:1.01em;
-      z-index:10000;box-shadow:0 5px 18px #0003;opacity:0.95;animation:toastShow 1.6s;}
+      background:var(--yellow);color:#232b3e;padding:11px 27px;font-weight:900;border-radius:14px;font-size:1.07em;
+      z-index:10000;box-shadow:0 5px 18px #0003;opacity:0.97;animation:toastShow 1.6s;}
     @keyframes toastShow {0%{transform:translateY(16px) scale(0.98);opacity:0;}30%{opacity:1;}100%{opacity:0.96;}}
  #diaryTypingTitle {
-  
-  border-right: 2px solid var(--yellow);
+  border-right: 2.5px solid var(--yellow);
   animation: blink 0.8s steps(1) infinite;
-  white-space: nowrap;  /* 줄 바꿈 방지 */
+  white-space: nowrap;
   overflow: hidden;
 }
-
- </style>
+  </style>
 </head>
 <body>
 <nav class="nav">
@@ -285,17 +347,17 @@ textarea:focus {
     <a href="/login.html" class="side-link">로그아웃</a>
     <hr>
     <div class="biz-info-title">사업자 등록</div>
-    <div class="biz-info">대표: 박해진</div>
-    <div class="biz-info">사업자번호: 123-45-67890</div>
-    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <div class="biz-info">GoHigher | 대표 박해진</div>
+    <div class="biz-info">대구광역시 북구 동천로 155, 네스빌101동 12층</div>
+    <div class="biz-info">사업자번호 407-09-54622</div>
+    <div class="biz-info">연락처 070-8080-1675</div>
     <hr>
 
   <!-- 정책/소개/약관 버튼 -->
   <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
-    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
-    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
-    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
-    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+    <a href="푸터/이용약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="푸터/privacy-policy.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="푸터/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
   </div>
   <!-- 저작권 문구 -->
    <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
@@ -315,15 +377,22 @@ textarea:focus {
   <main class="diary-hub">
     <div class="diary-title" id="diaryTypingTitle">Go Higher 투자 다이어리</div>
     <div class="diary-desc">나만의 투자 성장 기록!<br>오늘의 투자일지, 자산 추이, 일정, 체크리스트까지 한 눈에.</div>
-    <div class="diary-main-grid">
-      <!-- 투자 일지/감정 -->
+    <div class="diary-tabs">
+      <button class="diary-tab active" data-tab="diary"><span class="tab-icon">📝</span>투자일지</button>
+      <button class="diary-tab" data-tab="asset"><span class="tab-icon">📈</span>자산추이</button>
+      <button class="diary-tab" data-tab="checklist"><span class="tab-icon">🎯</span>체크리스트</button>
+      <button class="diary-tab" data-tab="todo"><span class="tab-icon">✅</span>투두</button>
+      <button class="diary-tab" data-tab="calendar"><span class="tab-icon">📅</span>캘린더</button>
+    </div>
+    <div class="diary-tab-content active" id="tab-diary">
       <section class="diary-card">
         <div class="diary-card-title"><i class="fa-solid fa-pen-nib"></i> 오늘의 투자 일지</div>
         <textarea class="diary-textarea" placeholder="오늘의 투자 경험, 배운 점, 감정, 아이디어를 자유롭게 적어보세요."></textarea>
         <textarea class="emotion-textarea" placeholder="오늘의 투자 감정과 매매 이유"></textarea>
         <button class="diary-save-btn">저장</button>
       </section>
-      <!-- 자산 추이 그래프/입력 -->
+    </div>
+    <div class="diary-tab-content" id="tab-asset">
       <section class="diary-card diary-asset-card">
         <div class="diary-card-title"><i class="fa-solid fa-chart-line"></i> 자산·수익 추이</div>
         <form class="asset-input-form">
@@ -334,21 +403,24 @@ textarea:focus {
         <canvas id="assetChart" style="width:100%;max-width:320px;height:120px;margin-top:10px;"></canvas>
         <table class="asset-list-table"></table>
       </section>
-      <!-- 체크리스트 -->
+    </div>
+    <div class="diary-tab-content" id="tab-checklist">
       <section class="diary-card">
         <div class="diary-card-title"><i class="fa-solid fa-bullseye"></i> 목표 & 체크리스트</div>
         <ul class="diary-checklist"></ul>
         <input type="text" class="checklist-input" placeholder="목표 추가">
         <button class="checklist-add-btn">추가</button>
       </section>
-      <!-- 투두 리스트 -->
+    </div>
+    <div class="diary-tab-content" id="tab-todo">
       <section class="diary-card">
         <div class="diary-card-title"><i class="fa-solid fa-list-check"></i> 투자 할 일</div>
         <ul class="diary-todo-list"></ul>
         <input type="text" class="todo-input" placeholder="할 일 추가">
         <button class="todo-add-btn">추가</button>
       </section>
-      <!-- 캘린더 -->
+    </div>
+    <div class="diary-tab-content" id="tab-calendar">
       <section class="diary-card diary-calendar-card">
         <div class="diary-card-title"><i class="fa-solid fa-calendar-days"></i> 나의 투자 캘린더</div>
         <div class="calendar-area">
@@ -650,6 +722,20 @@ let diaryLoading = false;
 
   window.onload = () => {
     typeWriter();
+    // 탭 전환 스크립트: DOM이 완전히 로드된 후에도 정상 동작
+    const tabs = document.querySelectorAll('.diary-tab');
+    const tabContents = document.querySelectorAll('.diary-tab-content');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        const tabId = 'tab-' + this.dataset.tab;
+        tabContents.forEach(c => {
+          if (c.id === tabId) c.classList.add('active');
+        });
+      });
+    });
   };
 </script>
 

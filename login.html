@@ -3,6 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>GoHigher | 로그인 & 회원가입</title>
+
+        <!-- 사이트 검증 메타 -->
+    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
+    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+    <meta property="og:url" content="https://gohigher.kr/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Higher" />
+    <meta property="og:locale" content="ko_KR" />
+    <!-- Twitter Card 태그 -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
+    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
+    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+    
   <link rel="stylesheet" href="navigation.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
@@ -10,8 +29,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -236,8 +253,6 @@
     }
     .google-btn { background: #fff; color: #1d2443; border: 1.2px solid #e6e6e6;}
     .google-btn:hover { background: #f5f5f5;}
-    .kakao-btn { background: #ffe066; color: #2c2621; }
-    .kakao-btn:hover { background: #ffe477;}
     .auth-links {
       display: flex;
       justify-content: space-between;
@@ -345,15 +360,17 @@
     <a href="/login.html" class="side-link">로그아웃</a>
     <hr>
     <div class="biz-info-title">사업자 등록</div>
-    <div class="biz-info">대표: 박해진</div>
-    <div class="biz-info">사업자번호: 123-45-67890</div>
-    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <div class="biz-info">GoHigher | 대표 박해진</div>
+    <div class="biz-info">대구광역시 북구 동천로 155, 네스빌101동 12층</div>
+    <div class="biz-info">사업자번호 407-09-54622</div>
+    <div class="biz-info">연락처 070-8080-1675</div>
     <hr>
+
+  <!-- 정책/소개/약관 버튼 -->
   <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
-    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
-    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
-    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
-    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+    <a href="푸터/이용약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="푸터/privacy-policy.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="푸터/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
   </div>
    <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
     © 2025 GoHigher. All rights reserved
@@ -395,13 +412,10 @@
         <button type="button" class="auth-social-btn google-btn" id="googleLoginBtn">
           <i class="fa-brands fa-google"></i> Google로 로그인
         </button>
-        <button type="button" class="auth-social-btn kakao-btn" id="kakaoLoginBtn">
-          <i class="fa-solid fa-comment"></i> Kakao로 로그인
-        </button>
       </div>
       <div class="auth-links">
         <a href="#" class="auth-link" id="toSignupLink">회원가입</a>
-        <a href="/findpw.html" class="auth-link">비밀번호 찾기</a>
+        <a href="#" class="auth-link" id="findPwBtn">비밀번호 찾기</a>
       </div>
       <div class="result-msg" id="loginResultMsg" style="margin-top:12px; text-align:center; min-height:1.5em;"></div>
     </form>
@@ -483,7 +497,6 @@
         msg.textContent = "로그인에 실패했습니다. 다시 시도해주세요.";
     }
   };
-  
   // 구글 로그인
   document.getElementById("googleLoginBtn").onclick = function() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -498,36 +511,55 @@
         document.getElementById("loginResultMsg").textContent = "구글 로그인 실패";
       });
   };
-  // 카카오 로그인 (알림)
-document.getElementById('kakaoLoginBtn').onclick = function() {
-  // 카카오 인증 페이지로 이동
-  window.location.href =
-  'https://kauth.kakao.com/oauth/authorize'
-  + '?client_id=93675b67e780019cd5ee6eeb7f2967fe'
-  + '&redirect_uri=https://gohigher.kr/login'
-  + '&response_type=code';
-};
 
-  const code = new URL(location.href).searchParams.get('code');
-if (code) {
-  document.getElementById('loginBox').innerHTML = '<div style="text-align:center;padding:44px 0;">카카오 로그인 처리 중...</div>';
-  fetch('https://us-central1-gohigher-55e51.cloudfunctions.net/polygonApi/auth/kakao', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ code })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.token) {
-      firebase.auth().signInWithCustomToken(data.token)
-        .then(() => window.location.replace("/"));  // history에서 code 제거
-    } else {
-      alert('카카오 로그인 실패: ' + (data.error || '토큰 없음'));
-      // 실패 시에도 code를 URL에서 제거
-      window.history.replaceState({}, document.title, "/login.html");
+  // 회원가입 처리
+  document.getElementById("signupForm").onsubmit = async function(e) {
+    e.preventDefault();
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value.trim();
+    const resultMsg = document.getElementById("signupResultMsg");
+    resultMsg.textContent = "";
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+      resultMsg.style.color = "#83ffbd";
+      resultMsg.textContent = "가입이 완료되었습니다! 로그인 해주세요.";
+      document.getElementById("signupForm").reset();
+    } catch(err) {
+      resultMsg.style.color = "#fd7d7b";
+      if (err.code === "auth/email-already-in-use") resultMsg.textContent = "이미 등록된 이메일입니다.";
+      else if (err.code === "auth/invalid-email") resultMsg.textContent = "이메일 형식이 올바르지 않습니다.";
+      else if (err.code === "auth/weak-password") resultMsg.textContent = "비밀번호는 6자 이상이어야 합니다.";
+      else resultMsg.textContent = "가입 중 오류가 발생했습니다.";
     }
-  });
-}
+  };
+  document.getElementById("findPwBtn").onclick = function() {
+  alert(`
+1. 로그인에 사용하는 이메일을 입력해 주세요.
+2. 비밀번호 재설정 이메일이 발송됩니다.
+3. 받은 메일의 링크를 클릭해 새 비밀번호를 설정하세요.
+
+※ 이메일이 도착하지 않았다면 스팸함도 확인해 주세요!
+`);
+};
+document.getElementById("findPwBtn").onclick = async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  if (!email) {
+    alert("먼저 이메일을 입력해 주세요.");
+    return;
+  }
+  try {
+    await auth.sendPasswordResetEmail(email);
+    alert("비밀번호 재설정 메일이 발송되었습니다. 이메일을 확인해 주세요!");
+  } catch (err) {
+    if (err.code === "auth/user-not-found")
+      alert("해당 이메일로 가입된 계정이 없습니다.");
+    else if (err.code === "auth/invalid-email")
+      alert("이메일 형식이 올바르지 않습니다.");
+    else
+      alert("메일 발송에 실패했습니다. 다시 시도해 주세요.");
+  }
+};
 </script>
 <div style="height: 66px;"></div>
 </body>

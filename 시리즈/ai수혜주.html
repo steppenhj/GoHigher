@@ -3,6 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>GoHigher | AI 수혜주 집중 분석</title>
+
+        <!-- 사이트 검증 메타 -->
+    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
+    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+    <meta property="og:url" content="https://gohigher.kr/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Higher" />
+    <meta property="og:locale" content="ko_KR" />
+    <!-- Twitter Card 태그 -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
+    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
+    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+    
   <link rel="stylesheet" href="/navigation.css">
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -72,14 +91,15 @@
       font-size: 1.1rem;
     }
 
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 28px;
+    .category-list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px; /* 섹터 사이 간격 */
       margin-bottom: 40px;
     }
 
     .category-section {
+      /* 기존 디자인 유지 */
       background: var(--card-bg);
       border-radius: 18px;
       border: 1.5px solid var(--card-border);
@@ -87,7 +107,7 @@
       box-shadow: 0 8px 32px rgba(20, 45, 90, 0.12);
       transition: all 0.3s ease;
     }
-
+.category-grid { display: none !important; }
     .category-section:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 40px rgba(255, 224, 102, 0.08);
@@ -155,7 +175,7 @@
     }
 
     .stock-desc {
-      font-size: 0.9rem;
+      font-size: 1.2rem;
       color: #dae7ff;
       line-height: 1.5;
       margin-bottom: 8px;
@@ -172,7 +192,7 @@
       color: var(--accent-green);
       padding: 4px 8px;
       border-radius: 6px;
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       font-weight: 600;
     }
 
@@ -337,17 +357,17 @@
     <a href="/login.html" class="side-link">로그아웃</a>
     <hr>
     <div class="biz-info-title">사업자 등록</div>
-    <div class="biz-info">대표: 박해진</div>
-    <div class="biz-info">사업자번호: 123-45-67890</div>
-    <div class="biz-info">이메일: hermann8hesse@gmail.com</div>
+    <div class="biz-info">GoHigher | 대표 박해진</div>
+    <div class="biz-info">대구광역시 북구 동천로 155, 네스빌101동 12층</div>
+    <div class="biz-info">사업자번호 407-09-54622</div>
+    <div class="biz-info">연락처 070-8080-1675</div>
     <hr>
 
   <!-- 정책/소개/약관 버튼 -->
   <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
-    <a href="/소개.html" class="policy-link" style="color:inherit; text-decoration:none;">소개</a>
-    <a href="/약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
-    <a href="/개인정보처리방침.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
-    <a href="/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
+    <a href="푸터/이용약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
+    <a href="푸터/privacy-policy.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
+    <a href="푸터/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
   </div>
   <!-- 저작권 문구 -->
    <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
@@ -376,22 +396,48 @@
       <div class="trend-indicator">생성AI·인공지능 시장 연평균 성장률 35%+</div>
     </div>
 
-    <div class="category-grid">
-      <!-- 반도체/AI가속기 -->
+    <div class="category-list">
+      <!-- 반도체 및 인프라 (GPU, 칩셋) -->
       <div class="category-section">
         <h2 class="category-title">
           <div class="category-icon">💡</div>
-          반도체 & AI 가속기
+          반도체 및 인프라 (GPU, 칩셋)
         </h2>
         <div class="stock-list">
           <div class="stock-item">
             <div class="stock-header">
               <div>
                 <div class="stock-ticker">NVDA</div>
-                <div class="stock-name">NVIDIA</div>
+                <div class="stock-name">엔비디아</div>
               </div>
             </div>
-            <div class="stock-desc">생성 AI 붐을 이끄는 GPU, AI 가속기 시장의 독보적 리더</div>
+            <div class="stock-desc">기업 소개: 엔비디아는 PC·모바일 그래픽용 GPU로 시작해 현재는 데이터센터용 AI GPU 분야를 사실상 독점한 반도체 기업입니다. 
+              시가총액이 4조 달러에 육박하여 세계 1위 수준에 올랐으며, AI 붐에 힘입어 과거 4년간 기업가치가 8배 폭증했습니다.
+              <br>
+              <br>
+              AI 핵심 사업: 엔비디아의 최신 A100, H100 GPU 등이 초거대 AI 모델 학습에 표준처럼 쓰이고 있으며, AI 슈퍼컴퓨터 구축에 필수적인 CUDA 소프트웨어 생태계를 보유한 것이 강점입니다. 
+              MS, 아마존, 구글, 테슬라 등 빅테크들이 AI 데이터센터 경쟁적으로 구축하면서 엔비디아의 고성능 칩 수요는 “무절제(insatiable)”할 정도로 급증했습니다. 
+              데이터센터용 AI 칩이 현재 엔비디아 매출의 **91%**를 차지할 만큼 주력으로 부상했습니다.
+              <br>
+              <br>
+              단기 전망: 2024년 회계연도 4분기(2025년 1월 기준) 매출이 전년 대비 78% 증가하는 등 기록적 실적을 달성했고, 
+              향후 1년간도 AI 인프라 투자 붐에 따른 초과수요가 지속될 전망입니다. 
+              엔비디아는 차세대 Blackwell 아키텍처 GPU도 계획보다 빠르게 수요가 늘고 있다고 밝혔으며, 
+              차기 분기 가이던스도 시장 예상을 크게 웃돌았습니다. 
+              공급망 제약으로 고객이 GPU를 기다려야 할 정도여서 단기 실적은 매우 견조할 것으로 예상됩니다.
+              <br>
+              <br>
+              중장기 전망: **“AI 시대는 이제 막 본격화 단계”**라는 분석이 나올 정도로, 향후 수년간 AI 인프라 투자가 지속될 것으로 보입니다. 
+              한 번 구축된 AI 하드웨어는 510년 활용되므로 교체 주기가 길고, 헬스케어·자율주행 등 산업별 특화 AI 확대에 따라 고성능 GPU에 대한 지속적 수요가 예상됩니다. 
+              엔비디아는 탄탄한 CUDA 생태계와 기술 리더십으로 AI 가속기 시장 지배적 지위를 유지하며 고성장세를 이어갈 가능성이 높습니다. 
+              애널리스트들은 엔비디아의 2025년 예상 PER이 32배 수준으로, 향후 7080%의 고성장률을 감안하면 밸류에이션 부담도 점차 완화될 것이라고 분석합니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 중간. 최대 리스크는 공급망 및 경쟁입니다. 현재 엔비디아 GPU는 TSMC의 5nm 공정에 크게 의존하여, 생산 차질 시 공급 부족 위험이 있습니다. 
+              또한 AWS(트레이늄), 구글(TPU) 등 거대 IT 기업들이 자체 AI칩 개발에 나섰고 AMD 등 경쟁사가 추격하고 있어 중장기적으로 경쟁 심화 가능성이 있습니다. 
+              미국의 대중 수출 규제와 같은 정책 리스크도 상존합니다. 
+              다만 엔비디아는 기술/생태계 우위로 당분간 독주가 예상되고, 
+              최근 주가 급등에도 예상 이익 대비 P/E가 과거 평균보다 낮아지는 등 재무 부담이 크지 않아 전반적 위험도는 중간 수준으로 평가됩니다.</div>
             <div class="stock-tags">
               <span class="tag">GPU</span>
               <span class="tag">AI가속기</span>
@@ -405,7 +451,40 @@
                 <div class="stock-name">Advanced Micro Devices</div>
               </div>
             </div>
-            <div class="stock-desc">서버·AI용 CPU·GPU 시장 성장, 엔비디아 대항마</div>
+            <div class="stock-desc">기업 소개: AMD는 x86 CPU와 GPU를 설계·판매하는 반도체 회사로, 
+              데이터센터용 EPYC 서버 CPU와 Instinct 시리즈 GPU로 엔비디아를 추격하고 있습니다. 
+              시총 약 1,900억 달러 규모로 업계 2위 GPU 업체이며, 자일린스 인수로 FPGA 분야까지 영역을 넓혔습니다.
+              <br>
+              <br>
+              AI 핵심 사업: AMD는 최근 AI 가속기 개발에 박차를 가하고 있습니다. 
+              2024년에 MI300 시리즈 GPU(코드명 Antares)를 출시했고, 
+              2025년에 차세대 MI350을 예정하는 등 공격적 로드맵을 제시했습니다. 
+              엔비디아 CUDA 독점에 맞서 ROCm 오픈소스 생태계를 구축하고, 소프트웨어 협력(예: Mimik과 AI Fabric 공동개발)을 통해 개발자 지원을 강화하는 전략입니다. 
+              사우디아라비아의 AI 클라우드 사업에 AMD GPU가 채택되어 약 100억 달러 규모 계약을 따내는 등 대형 파트너십도 성과를 내고 있습니다. 
+              업계 예상으로는 AMD의 AI 칩 매출이 2025년에 130~150억 달러에 이를 수 있다는 낙관적 전망도 있습니다.
+              <br>
+              <br>
+              단기 전망: 2024년~2025년은 AMD의 데이터센터 매출 급증기입니다. 
+              2025년 1분기 데이터센터 부문 매출은 전년 대비 +57% 증가하며 38.6억 달러를 기록했는데, 
+              이는 AI용 EPYC CPU 및 MI300 가속기 판매 호조에 힘입은 것입니다. 
+              다만 엔비디아 대비 소프트웨어 최적화나 고객층이 아직 제한적이라 2025년 AI 가속기 매출이 예상보다 적은 70억 달러 수준에 그칠 가능성을 일부 애널리스트는 제기합니다. 
+              단기적으로 MI300 출하 확대와 주요 클라우드사업자 공급이 실적 관건이며, 
+              PC용 CPU 시장 부진을 데이터센터가 만회하는 추세가 이어질 전망입니다.
+              <br>
+              <br>
+              중장기 전망: AMD는 향후 **MI350(2025년) → MI400 시리즈(2026년)**로 성능을 대폭 향상시키며 엔비디아와 격차를 좁힐 계획입니다. 
+              또한 CPU+GPU 이종집적(APU), FPGA 활용 등 고성능 컴퓨팅 솔루션을 다양화하고 있어 AI 인프라 시장 점유율 확대 여지가 있습니다. 
+              2028년까지 AI 가속기 시장이 연간 60% 이상 성장해 전체 TAM이 5,000억 달러 이상 될 것으로 AMD는 전망하며, 
+              이 중 유의미한 점유율 달성을 목표로 하고 있습니다. 
+              다만 소프트웨어 생태계 구축과 대형 고객 확보가 성공해야 본격 도약이 가능할 것입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 중간. AMD의 위험요인은 경쟁 우위 부족과 외부 변수입니다. 
+              현재 AI GPU 시장 80% 이상을 엔비디아가 점유하고 있어 AMD는 후발주자로서 시장을 뚫어야 합니다. 
+              CUDA에 비해 열세인 소프트웨어 호환성, 개발자 커뮤니티를 얼마나 끌어올릴지가 숙제입니다. 
+              또한 AMD도 엔비디아처럼 첨단공정은 TSMC에 의존하므로 공급망 리스크가 존재합니다. 
+              전반적으로 AMD는 견조한 재무와 다양한 제품군으로 안정성이 있지만, 
+              AI 부문에서의 성과 불확실성과 높은 연구개발 투자로 위험도는 중간 수준으로 평가됩니다.</div>
             <div class="stock-tags">
               <span class="tag">GPU</span>
               <span class="tag">CPU</span>
@@ -415,34 +494,95 @@
           <div class="stock-item">
             <div class="stock-header">
               <div>
-                <div class="stock-ticker">TSM</div>
-                <div class="stock-name">TSMC</div>
+                <div class="stock-ticker">AVGO</div>
+                <div class="stock-name">브로드컴</div>
               </div>
             </div>
-            <div class="stock-desc">첨단 AI 반도체 파운드리 글로벌 No.1, AI 수요 급증 최대 수혜</div>
+            <div class="stock-desc">기업 소개: 브로드컴은 반도체 설계와 엔터프라이즈 소프트웨어 사업을 모두 영위하는 독특한 기업입니다. 스마트폰 부품(무선칩)부터 데이터센터 스위치용 ASIC까지 광범위한 칩 포트폴리오를 보유했고, 최근 소프트웨어 업체인 CA, 시만텍 엔터프라이즈 사업 인수에 이어 VMware 인수도 완료하며 소프트웨어 부문을 크게 키웠습니다. 
+              AI 핵심 사업: 브로드컴의 반도체 부문은 AI 데이터센터용 핵심 부품들을 공급합니다. 예를 들어 엔비디아 H100 GPU를 연결하는 고속 스위치/인터커넥트 칩은 브로드컴 제품이며, 구글 TPU 등의 커스텀 AI칩 개발에도 참여하고 있습니다. CEO 훅 탄은 “AI 시대에도 범용 반도체와 맞춤형 솔루션 모두에서 기회가 크다”고 강조합니다. 한편 VMware 인수를 통해 클라우드/가상화 소프트웨어까지 갖추며, 기업 데이터센터 고객에게 종합 인프라 솔루션을 제공하게 되었습니다. 
+              이처럼 하드웨어+소프트웨어 균형 잡힌 포트폴리오가 브로드컴의 강점으로 평가됩니다
+              <br>
+              <br>
+              단기 전망: 브로드컴은 경기나 메모리 가격 사이클에 비교적 안정적인 실적을 내는 기업입니다. 
+              2023년에도 AI 특수로 네트워크/ASIC 매출이 호조를 보여 분기 실적이 연이어 사상 최고치를 찍었습니다. 
+              2025년 단기적으로는 VMware 인수 시너지가 관건인데, 
+              VMware의 연 130억 달러 매출과 높은 이익률이 연결되면서 브로드컴 전체 현금흐름이 더욱 탄탄해질 전망입니다. 
+              또한 AI 서버간 연결 스위치, PCIe칩 등의 수요가 늘며 반도체 부문도 안정적 성장할 것으로 예상됩니다.
+              <br>
+              <br>
+              중장기 전망: 브로드컴은 M&A 기반 성장 전략을 지속할 것으로 보입니다. 
+              엔비디아 등 특정 고객 매출 의존도가 높지 않고, Apple 등 대형 고객과 장기 계약으로 기본 매출이 견조합니다. 
+              AI 트래픽 폭증으로 고속 네트워크 솔루션 수요는 꾸준히 증가하여 브로드컴의 Tomahawk 스위치 칩 등은 시장 지위를 유지할 가능성이 높습니다. 
+              VMware 인수로 클라우드 인프라 소프트웨어 시장에서도 입지를 확보하여, 
+              향후 AI 시대 기업용 소프트웨어 수요까지 흡수할 수 있습니다. 
+              이러한 다각화로 중장기 한자리수 중~고성장을 안정적으로 이어갈 전망입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 낮음. 브로드컴은 사업 포트폴리오가 다변화되고 현금창출력이 뛰어나 위험이 낮은 편입니다. 
+              반도체 가격 변동에 크게 흔들리지 않는 안정적 매출 흐름을 기대할 수 있고, 높은 마진의 소프트웨어 부문이 버퍼 역할을 합니다. 
+              주요 리스크는 대형 M&A 이후 통합 리스크와 일부 고객 집중도입니다. 
+              Apple 매출 비중이 20% 내외로 높아 Apple이 자체 칩으로 대체할 경우 타격이 있을 수 있습니다. 
+              또한 규제당국의 견제(과거 반독점 이슈 등)도 체크포인트입니다. 
+              그러나 전체적으로 재무 건전성, 사업안정성 측면에서 업계 최상위여서 위험등급을 **낮음(보수적 투자에도 적합)**으로 평가합니다.</div>
             <div class="stock-tags">
-              <span class="tag">파운드리</span>
-              <span class="tag">반도체</span>
+              <span class="tag">안정적</span>
+              <span class="tag">인프라</span>
               <span class="tag">AI칩</span>
             </div>
           </div>
         </div>
       </div>
-      <!-- 클라우드 플랫폼 -->
+      <!-- 클라우드 및 데이터센터 -->
       <div class="category-section">
         <h2 class="category-title">
           <div class="category-icon">☁️</div>
-          클라우드 플랫폼 & 빅테크
+          클라우드 및 데이터센터
         </h2>
         <div class="stock-list">
           <div class="stock-item">
             <div class="stock-header">
               <div>
                 <div class="stock-ticker">MSFT</div>
-                <div class="stock-name">Microsoft</div>
+                <div class="stock-name">마이크로소프트</div>
               </div>
             </div>
-            <div class="stock-desc">Azure·Copilot 등 생성 AI 플랫폼 선도, OpenAI와 전략적 협업</div>
+            <div class="stock-desc">기업 소개: 마이크로소프트는 Windows OS와 Office로 대표되는 세계 최대 소프트웨어 기업이며, 
+              Azure 클라우드 사업으로도 AWS에 이어 글로벌 2위를 달리고 있습니다. 
+              시총 2.5조 달러 규모의 초대형 기업으로, 엔터프라이즈 IT 전반에 걸쳐 지배적인 위치를 차지하고 있습니다.
+              AI 관련 핵심 사업: MS는 OpenAI(ChatGPT 개발사)에 100억 달러 이상 투자하고 Azure에 독점 클라우드 인프라를 제공함으로써 생성형 AI 붐을 주도했습니다. 
+              자사 검색엔진 Bing에 GPT-4 기반 Bing Chat을 탑재하고, Office 365 전 제품에 Copilot이라는 생성형 AI 비서를 통합하는 등 플랫폼 레벨에서 AI 기능을 구현하고 있습니다. 
+              Azure 클라우드는 OpenAI의 GPT 시리즈를 비롯해 여러 AI 모델을 API로 제공하는 Azure OpenAI 서비스를 운영 중이며, 
+              자체 AI 슈퍼컴퓨터(엔비디아 GPU + 자체 InfiniBand 네트워크 등)도 구축했습니다. 
+              내부적으로도 GitHub Copilot(개발자용 AI) 등 AI 상품화에 가장 적극적인 기업 중 하나입니다. 
+              CFO 에이미 후드는 “Azure 성장률 중 **8%포인트는 AI 서비스 덕분이며, 수요가 공급보다 높아 일시적으로 제한을 받고 있다”고 밝혔습니다. 
+              이는 AI 서비스가 Azure 성장의 상당 부분을 차지하고 있음을 의미합니다.
+              <br>
+              <br>
+              단기 전망: 마이크로소프트는 2024년 회계연도 4분기(캘린더 2024년 2Q)에 Azure 매출이 2627% 성장했으며, 
+              이 중 AI 서비스가 8%p 기여하여 Azure 순성장률 30% 이상을 달성했습니다. 
+              그러나 AI 수요가 워낙 폭발적이어서 데이터센터 용량이 부족해 일부 고객 수요를 못받고 있는 상황이라고 합니다. 
+              이에 따라 2025년 상반기까지 거액의 CAPEX 투입을 통해 서버/GPU 확충을 진행 중이며, 
+              하반기부터는 Azure 성장률이 재가속될 것으로 전망했습니다. 
+              한편 소프트웨어 부문에서는 Copilot을 포함한 프리미엄 AI 기능을 기업 고객에 추가 판매하면서 Office 등 구독당 가격인상이 예정되어 있어 단기 매출 상승 요인이 될 것입니다. 
+              전반적으로 MS는 AI 수요 대응 투자로 이익 증가 폭은 제한되나, 매출 성장 탄력은 계속 높아지는 추세입니다.
+              <br>
+              <br>
+              중장기 전망: 마이크로소프트는 AI를 차세대 플랫폼 변화로 규정하고 장기 투자를 천명했습니다. 
+              Satya Nadella CEO는 “이번 AI 전환은 과거 클라우드 전환만큼 지식·자본 집약적”이라며 긴 안목으로 투자하고 있다고 강조했습니다. 
+              향후 35년간 MS는 Windows, Office, Dynamics 등 모든 제품에 AI를 내장하여 제품 경쟁력 강화 및 신규 수익원 창출을 노립니다. 
+              예컨대 Copilot을 통해 GitHub 매출이 1년만에 40% 이상 성장했듯이, 
+              각종 Copilot이 제품 매출을 견인할 것으로 보입니다. 
+              Azure 역시 OpenAI 파트너십으로 독보적 입지를 구축, 기업용 AI 플랫폼 1위를 목표하고 있습니다. 
+              이러한 전략이 순항하면 MS는 클라우드+소프트웨어를 모두 지배하는 AI 시대의 최대 수혜 기업 지위를 이어갈 전망입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 낮음. MS는 매우 안정적인 현금흐름과 광범위한 제품 포트폴리오를 보유하여 위험이 낮습니다. 
+              다만 몇 가지 유의점은 있습니다. 우선 경쟁 리스크로, 구글 등 경쟁사가 AI기술 격차를 줄이며 추격할 가능성입니다. 
+              특히 검색 분야에서 Bing이 일시 주목받았으나 구글의 대응으로 점유율 변화는 미미한 상태입니다. 
+              둘째, 규제 리스크로 대형 IT기업에 대한 반독점 조사 및 AI 윤리 규제 등이 강화되면 사업전략에 제약이 있을 수 있습니다. 
+              실제로 MS의 OpenAI 투자나 Windows에의 기능 번들링에 경쟁사들이 문제를 제기하는 움직임이 있습니다. 
+              그럼에도 MS는 탄탄한 모멘텀과 보수적 재무구조를 갖춰 다운사이드 리스크가 제한적입니다. 
+              따라서 전반적 위험등급은 **낮음(안정적)**으로 평가됩니다.</div>
             <div class="stock-tags">
               <span class="tag">클라우드</span>
               <span class="tag">생성AI</span>
@@ -453,10 +593,59 @@
             <div class="stock-header">
               <div>
                 <div class="stock-ticker">GOOGL</div>
-                <div class="stock-name">Alphabet (Google)</div>
+                <div class="stock-name">알파벳/구글</div>
               </div>
             </div>
-            <div class="stock-desc">Gemini·Vertex AI, AI 검색·클라우드 AI 리더십 강화</div>
+            <div class="stock-desc">기업 소개: 구글은 전세계 검색엔진 시장을 장악한 ICT 공룡으로, 
+              유튜브 등의 플랫폼과 안드로이드 OS 생태계까지 보유한 광고 기술 기업입니다. 
+              모회사 알파벳 산하에 Waymo(자율주행), Verily(헬스케어) 등 다양한 혁신 사업도 있지만, 
+              매출의 80% 이상은 검색·유튜브 광고에서 나옵니다. 
+              한편 Google Cloud (GCP) 부문은 시장 3위 사업자로 빠르게 성장 중입니다.
+              <br>
+              <br>
+              AI 관련 핵심 사업: 구글은 “AI 퍼스트”를 선언한 가장 선도적인 AI 연구기업으로, 
+              TensorFlow 등 AI 프레임워크 개발과 딥마인드(AlphaGo) 인수 등으로 유명합니다. 
+              2023년 ChatGPT에 대응해 자체 초거대 언어모델 PaLM 2를 공개하고 이를 활용한 Bard 챗봇을 출시했습니다. 
+              2024년에는 차세대 멀티모달 모델 Gemini를 선보여 검색, 클라우드, 생산성 전반에 적용할 계획입니다. 
+              실제로 구글은 검색 결과에 AI 요약답변을 제시하는 통합검색(SGE)을 시범 적용하고 있고, 
+              내부 보고에 따르면 검색 광고 클릭률이 AI 답변 덕분에 20% 이상 개선되는 효과를 보였습니다. 
+              또한 구글 클라우드의 Vertex AI 플랫폼으로 개발자들이 자신만의 모델을 쉽고 빠르게 학습·배포하도록 돕고 있으며, 
+              AutoML 등 기능으로 모델 학습시간을 40%+ 단축시켰습니다. 
+              인프라 측면에서도 **TPU(Tensor Processing Unit)**라는 자체 AI칩을 개발해 자사 서비스와 일부 클라우드 고객에게 제공함으로써 엔비디아 의존도를 낮추고 있습니다. 
+              요약하면 구글은 AI 연구부터 인프라, 응용서비스까지 수직 통합한 플레이어입니다.
+              <br>
+              <br>
+              단기 전망: 20242025년에 구글은 광고 사업 회복 + AI 신사업 성장이라는 두 마리 토끼를 추구합니다. 
+              2023년 애플의 정책 등으로 흔들렸던 타겟 광고 효율이 AI 기반 추천 개선으로 다시 상승세를 탔고, 
+              2024년 4분기 광고 매출은 410억 달러로 전년 대비 15% 증가했습니다. 
+              AI 통합검색이 본격화되면서 검색 사용자가 전년 대비 15% 늘었다는 지표도 있습니다. 
+              클라우드 부문도 호조를 보여 2024년 4분기 매출이 86.5억 달러로 37% 성장하며 처음으로 분기 영업이익 흑자를 달성했습니다. 
+              단기적으로 이러한 추세 – 광고 성장세 회복, 클라우드 지속 고성장 – 이 이어질 것으로 보입니다. 
+              다만 AI 경쟁 격화로 데이터센터 투자비용 증가와 일부 검색 광고 수익 잠식 우려가 혼재해 있고, 
+              이에 대한 시장 눈치보기도 단기 주가에 영향을 줄 것입니다.
+              <br>
+              <br>
+              중장기 전망: 구글은 AI를 통해 사업 포트폴리오 확장을 노립니다. 
+              검색·광고 분야에서는 AI 채팅과 동영상, 커머스를 결합한 새로운 수익 모델을 만들고 있습니다. 
+              예컨대 유튜브에 생성형 AI툴을 제공하여 크리에이터 생산성을 높이고, 
+              사용자가 AI로 영상을 편집·제작하게 함으로써 콘텐츠 생태계 강화를 도모합니다. 
+              클라우드 사업에서는 “우리는 AI에 있어 가장 개방적인 클라우드”를 표방하며 오픈소스 및 타사 모델을 자유롭게 쓸 수 있는 플랫폼 전략으로 기업 고객을 공략 중입니다. 
+              이를 통해 2028년까지 **에이전틱 AI(Agentic AI)**라는 새로운 대형 시장이 열릴 것이며, 
+              구글은 자체 AI 스택(딥마인드 연구 → TPU 인프라 → Vertex/Workspace 서비스)을 모두 통제해 경쟁사보다 빠르게 혁신할 수 있다고 CEO 토마스 쿠리안은 자신합니다. 
+              향후 35년간 구글은 검색 패러다임 변화에 대응하여 AI 중심의 제품 리뉴얼을 이뤄낼 것이고, 
+              클라우드도 적자 탈출 후 고성장을 지속해 알파벳의 양대 축으로 자리잡을 전망입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 중간. 구글의 가장 큰 리스크는 기존 비즈니스 모델의 잠재적 교란입니다. 
+              AI 챗봇이 검색 광고를 대체할지, 혹은 보완할지가 중장기 핵심 이슈인데, 
+              만약 사용자들이 검색 대신 AI 답변만 보게 되면 구글의 주수입원인 광고 노출이 감소할 수 있습니다. 
+              구글은 이를 막기 위해 검색결과에 AI를 통합하면서도 광고를 자연스럽게 녹여내는 실험을 하고 있지만, 
+              결과는 더 지켜봐야 합니다. 또한 반독점 규제 리스크도 높습니다. 
+              미 법무부는 구글의 검색 시장 독점을 두고 소송을 진행 중이며, 
+              결과에 따라 디폴트 검색엔진 계약구조 변화 등 영향이 있을 수 있습니다. 
+              끝으로, AI 경쟁에서 오픈소스 모델 확산으로 과거만큼의 기술적 우위 유지가 어려울 가능성도 있습니다. 
+              그럼에도 구글은 막대한 인재와 데이터자원을 보유하고 있어 쉽게 위치를 내주진 않을 전망이며, 
+              위험수준은 중간 정도로 평가됩니다.</div>
             <div class="stock-tags">
               <span class="tag">클라우드AI</span>
               <span class="tag">생성AI</span>
@@ -467,116 +656,437 @@
             <div class="stock-header">
               <div>
                 <div class="stock-ticker">AMZN</div>
-                <div class="stock-name">Amazon</div>
+                <div class="stock-name">아마존닷컴</div>
               </div>
             </div>
-            <div class="stock-desc">AWS Bedrock·SageMaker 등 AI 플랫폼·서비스 확장</div>
+            <div class="stock-desc">기업 소개: 아마존은 전자상거래로 출발해 현재는 **AWS(아마존 웹서비스)**라는 세계 최대의 클라우드 인프라 사업부를 거느린 종합 IT 기업입니다. 시가총액 1.3조 달러 수준으로, 온라인 쇼핑, 물류, 디지털 콘텐츠 등 다각화된 사업을 영위하지만 영업이익의 대부분을 AWS가 창출해왔습니다.
+              AI 관련 핵심 사업: AWS는 AI 시대 사실상의 표준 인프라를 제공하고 있습니다. 
+              GPU 인스턴스는 물론 **자체 개발한 AI 칩(Trainium, Inferentia)**을 통해 “동일 성능 대비 3040% 비용절감”을 내세우고 있어 수천 개 기업이 채택 중입니다. 
+              또한 SageMaker 플랫폼으로 AI 모델 빌드배포 전 과정을 자동화하여 개발 생산성을 60% 이상 향상시켰고, 
+              Amazon Bedrock 서비스를 통해 다양한 오픈LLM(예: AI21, 코히어, 앤트로픽 등)을 API로 쉽게 활용할 수 있게 하는 생태계 허브 역할도 하고 있습니다. 
+              이외에 Amazon Connect(컨택센터용 음성 AI), Lookout for Vision(제조 영상 AI) 등 산업 특화 AI서비스도 출시하며 인프라+솔루션 동시 제공 기업으로 자리매김했습니다. 
+              CEO 앤디 재시는 “AI를 모든 사업부에 적용해 1,000개 이상의 사내 AI 프로젝트를 진행 중”이라 밝혀, 커머스·물류·디지털광고 등에서도 AI를 폭넓게 활용하고 있습니다.
+              <br>
+              <br>
+              단기 전망: AWS 사업은 2024년에 성장세 재가속이 기대됩니다. 
+              2025년 회계 1분기(2024년 4Q) AWS 매출은 293억 달러로 17% 증가했고, 
+              AI 수요가 이 성장을 견인했습니다. 
+              아마존 경영진은 “현재 AWS의 AI 관련 매출은 연간 수십억 달러 규모이며 전년 대비 세 자릿수(100%+) 성장 중”이라고 밝혔습니다. 
+              다만 GPU 등 공급 제한으로 더 많은 고객을 받고 싶어도 못 받고 있는 상황이며, 하반기부터 Tranium2 및 추가 NVIDIA 칩 물량이 확보되면 클라우드 성장률이 다시 상승할 것으로 전망했습니다. 
+              한편 전자상거래 본업은 경기 둔화 영향으로 성장률이 낮아졌으나 비용 효율화로 수익성은 개선되고 있습니다. 
+              전반적으로 향후 1년간 AWS의 AI특수, 리테일 수익성 개선으로 견조한 실적 흐름이 예상됩니다.
+              <br>
+              <br>
+              중장기 전망: 아마존은 AI를 계기로 AWS의 시장잠재치가 더 커졌다고 보고 있습니다. 
+              재시 CEO는 “AI 등장 전에도 AWS가 수백억 달러 사업으로 클 것이라 봤지만, 
+              이제는 그보다 훨씬 더 커질 수 있다고 생각한다”고 언급했습니다. 
+              실제로 전세계 IT예산의 클라우드 전환이 가속되면서, 
+              AWS는 장기적으로 매출 수천억 달러 규모까지 성장 여력이 있다는 평가입니다. 
+              또한 AI 시대에 최대 모델 제공 플랫폼 지위를 노리며, 
+              모든 레벨의 AI스택(칩-프레임워크-애플리케이션)을 자체 제공해 타사 대비 가격 경쟁력을 확보하려는 전략입니다. 
+              이러한 공격적 투자와 비전으로, 향후 3~5년 내에도 AWS는 클라우드 1위 자리를 지키며 아마존 전체의 성장엔진 역할을 이어갈 전망입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 중간. 아마존은 빅테크 중에서도 사업다각화와 규모가 최고 수준이라 안정적이지만, 
+              리스크 요인도 몇 가지 있습니다. 우선 클라우드 산업 경쟁이 치열합니다. 
+              Microsoft와 Google이 막대한 투자로 추격하고 가격경쟁도 심화될 수 있습니다. 또한 AI 인프라 확장을 위한 CAPEX 투자가 급증하면서 단기 현금흐름에 부담이 될 가능성도 있습니다. 
+              리테일 부문은 경기변동에 민감해 소비 침체 시 실적 압박이 있고, 
+              반대로 호황기에는 물류비용 증가 등의 문제가 생길 수 있습니다. 
+              마지막으로 아마존은 반독점 규제 리스크가 존재해, AWS와 리테일의 결합력이 제한당할 소지도 거론됩니다. 
+              전반적으로 사업 기반은 탄탄하지만 투자 규모와 외부변수 영향을 고려하여 위험도를 중간 수준으로 평가합니다.</div>
             <div class="stock-tags">
               <span class="tag">클라우드</span>
               <span class="tag">AI서비스</span>
               <span class="tag">AWS</span>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- 생성AI 서비스 -->
-      <div class="category-section">
-        <h2 class="category-title">
-          <div class="category-icon">🧠</div>
-          생성AI 서비스 & 모델
-        </h2>
-        <div class="stock-list">
-          <div class="stock-item">
-            <div class="stock-header">
-              <div>
-                <div class="stock-ticker">META</div>
-                <div class="stock-name">Meta Platforms</div>
-              </div>
-            </div>
-            <div class="stock-desc">Llama 등 생성AI 공개, 소셜미디어·광고에 AI 적극 도입</div>
-            <div class="stock-tags">
-              <span class="tag">생성AI</span>
-              <span class="tag">SNS</span>
-              <span class="tag">AI모델</span>
-            </div>
-          </div>
-          <div class="stock-item">
-            <div class="stock-header">
-              <div>
-                <div class="stock-ticker">ADBE</div>
-                <div class="stock-name">Adobe</div>
-              </div>
-            </div>
-            <div class="stock-desc">Firefly, 생성형 AI 도구 상용화 선도, 크리에이티브 분야 혁신</div>
-            <div class="stock-tags">
-              <span class="tag">생성AI</span>
-              <span class="tag">크리에이티브</span>
-              <span class="tag">SaaS</span>
-            </div>
-          </div>
-          <div class="stock-item">
+
+                    <div class="stock-item">
             <div class="stock-header">
               <div>
                 <div class="stock-ticker">ORCL</div>
-                <div class="stock-name">Oracle</div>
+                <div class="stock-name">오라클</div>
               </div>
             </div>
-            <div class="stock-desc">엔터프라이즈 AI·데이터베이스, AI 워크로드 클라우드 전환 가속</div>
+            <div class="stock-desc">기업 소개: 오라클은 전통적인 DBMS(데이터베이스 관리시스템) 분야의 글로벌 1위 기업으로, 
+              ERP 등 기업용 소프트웨어 제품군도 보유하고 있습니다. 
+              최근에는 **오라클 클라우드 인프라스트럭처(OCI)**로 퍼블릭 클라우드 시장에 진입하여 가파른 성장세를 보이고 있습니다. 
+              시가총액 약 3,500억 달러 수준입니다.
+              <br>
+              <br>
+              AI 관련 핵심 사업: 오라클은 AI 시대에 고성능 클라우드 인프라 제공자 및 엔터프라이즈 AI 솔루션 공급자로 자리매김 중입니다. 
+              OCI는 2023년 엔비디아와 협력해 대규모 GPU 클러스터를 구축, 
+              일부 AI 스타트업들이 AWS 대신 OCI를 선택하도록 하여 주목받았습니다. 
+              예컨대 OpenAI 모델 학습에도 오라클이 일부 관여한 것으로 알려졌습니다. 
+              오라클 클라우드는 엔비디아 H100 수천 개 규모의 슈퍼클러스터를 보유하며, 
+              고성능 컴퓨팅에 특화된 아키텍처로 AI 워크로드에 강점을 보입니다. 
+              또한 오라클은 자사 클라우드 애플리케이션(ERP, SCM 등)에 생성형 AI 기능을 추가하고, 의료 데이터(자회사 Cerner 인수)를 활용한 AI 진단 등 산업별 AI 솔루션을 개발하고 있습니다. 
+              한편 2023년 말에는 엘리슨 CTO가 “우리 클라우드 매출의 30% 이상이 AI 워크로드 관련”이라고 언급하며 AI가 성장을 견인함을 강조했습니다
+              <br>
+              <br>
+              단기 전망: 오라클은 2023년부터 클라우드 부문 호실적에 힘입어 주가가 사상 최고치를 경신했습니다. 
+              2024회계연도 4분기(캘린더 2024년 2분기) 실적에서 클라우드 인프라 매출이 전년 대비 76% 급증하여 투자자들을 놀라게 했습니다. 
+              이러한 고성장은 AI 업체들의 수요 유치와 오라클 기존 기업고객의 클라우드 전환이 맞물린 결과입니다. 
+              향후 1년간도 OCI는 공격적 데이터센터 증설을 통해 성장 지속이 예상되며, 
+              엘리슨 회장은 FY25 클라우드 성장률이 20% 중반에서 FY26에 40%+로 뛰어오를 것이라 전망했습니다. 
+              단기적으로는 AI 붐으로 인한 신규 수요를 OCI가 얼마나 추가로 확보하느냐가 핵심이며, 
+              클라우드 경쟁사 대비 가격·성능 우위 홍보에 주력할 것입니다.
+              <br>
+              <br>
+              중장기 전망: 오라클의 장기 전략은 특정 분야에서의 강점 극대화입니다. 
+              자체 데이터센터 규모는 AWS 등에 비해 작지만, 오라클 DB 고객 기반과 하이브리드 클라우드(Exadata 등) 솔루션으로 틈새시장을 공략합니다. 
+              오라클은 FY2029년까지 회사 전체 매출을 현재 530억 달러에서 1,040억 달러로 두 배로 늘리겠다고 장기목표를 제시했는데, 
+              그 원동력이 클라우드 및 AI 사업입니다. 
+              만약 이 목표대로라면 연평균 15% 이상 성장해야 하며, 
+              이를 위해 AI 인프라 수요를 꾸준히 흡수하고 멀티클라우드 환경에서의 독자적 입지를 확보해야 합니다. 
+              데이터베이스 분야에서는 자사 DB의 AI 처리 최적화를 통해, 
+              다른 클라우드 위에서도 오라클 DB를 사용하는 멀티클라우드 매출이 분기 100%+ 성장하는 등 긍정적 징후가 나타나고 있습니다. 
+              요약하면 오라클은 자사 강점(기업데이터+애플리케이션)과 AI를 결합하여 중장기적 성장 모멘텀을 이어갈 것으로 보입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 중간. 오라클은 클라우드로 성공적 전환 중이지만, 리스크도 존재합니다. 
+              우선 클라우드 시장 후발주자로서 인지도와 규모 면에서 AWS, MS, 구글에 밀립니다. 
+              가격 경쟁이 벌어지면 수주 확보에 어려움을 겪을 수 있습니다. 
+              또한 2021년 Cerner 인수 이후 부채 부담이 늘었고, 대형 M&A에 따른 통합 리스크도 잠재합니다. 
+              AI 활용에 따른 경쟁도 변수인데, SAP 등 경쟁사들도 자사 SW에 AI를 접목하며 따라오는 중입니다. 
+              그러나 오라클은 보수적 재무관리로 부채를 빠르게 상환 중이고, 클라우드 고객 락인 효과가 커 하방 위험은 제한적입니다. 이에 위험등급은 **중간(보통)**으로 판단됩니다.</div>
             <div class="stock-tags">
-              <span class="tag">AI워크로드</span>
-              <span class="tag">데이터베이스</span>
-              <span class="tag">엔터프라이즈</span>
+              <span class="tag">다크호스</span>
+              <span class="tag">기업용 클라우드</span>
+              <span class="tag">데이터베이스 강자</span>
             </div>
           </div>
         </div>
       </div>
-      <!-- 엔터프라이즈 AI & 소프트웨어 -->
+      <!-- 소프트웨어 및 플랫폼 -->
       <div class="category-section">
         <h2 class="category-title">
-          <div class="category-icon">🏢</div>
-          엔터프라이즈 AI & 소프트웨어
+          <div class="category-icon">🧠</div>
+          소프트웨어 및 플랫폼
         </h2>
         <div class="stock-list">
-          <div class="stock-item">
-            <div class="stock-header">
-              <div>
-                <div class="stock-ticker">CRM</div>
-                <div class="stock-name">Salesforce</div>
-              </div>
-            </div>
-            <div class="stock-desc">AI 기반 CRM, 데이터 클라우드, 기업 AI 혁신 가속화</div>
-            <div class="stock-tags">
-              <span class="tag">CRM</span>
-              <span class="tag">AI소프트웨어</span>
-              <span class="tag">엔터프라이즈</span>
-            </div>
-          </div>
-          <div class="stock-item">
-            <div class="stock-header">
-              <div>
-                <div class="stock-ticker">SNOW</div>
-                <div class="stock-name">Snowflake</div>
-              </div>
-            </div>
-            <div class="stock-desc">AI 데이터 플랫폼, 데이터 파이프라인 및 분석 시장 성장</div>
-            <div class="stock-tags">
-              <span class="tag">데이터</span>
-              <span class="tag">AI플랫폼</span>
-              <span class="tag">클라우드</span>
-            </div>
-          </div>
           <div class="stock-item">
             <div class="stock-header">
               <div>
                 <div class="stock-ticker">PLTR</div>
-                <div class="stock-name">Palantir Technologies</div>
+                <div class="stock-name">팔란티어</div>
               </div>
             </div>
-            <div class="stock-desc">정부·민간 AI 분석 플랫폼, 대규모 데이터 기반 의사결정 지원</div>
+            <div class="stock-desc">팔란티어 (Palantir, PLTR) – 정부·기업용 AI 플랫폼 개척자
+              기업 소개: 팔란티어는 미국의 데이터 분석 플랫폼 기업으로, 미국 정부 및 국방부를 주요 고객으로 성장했습니다. 
+              한때 실리콘밸리의 비밀스런 스타트업 이미지가 강했지만, 
+              현재는 사회보장국, IRS(국세청) 등 주요 정부기관의 핵심 기술 파트너로 입지를 굳혔습니다. 
+              시가총액 약 400억 달러 규모이며, 2020년 상장 후 민간 기업 고객도 빠르게 늘리는 중입니다.
+              <br>
+              <br>
+              AI 관련 핵심 사업: 팔란티어는 원래 빅데이터 통합·분석 플랫폼(Foundry, Gotham)으로 유명하지만, 
+              2023년 **AIP(Artificial Intelligence Platform)**를 새롭게 출시하며 기업용 AI 플랫폼 선도주자를 자처했습니다. 
+              AIP는 기업이 자체 보유 데이터와 대형 언어모델(예: GPT-4, Llama2 등)을 안전하게 연결해 사용할 수 있는 소프트웨어로, 
+              출시 직후 미국 국방부 등에서 폭발적 관심을 얻었습니다. 
+              실제로 “미 정부의 Maven 프로젝트(국방 AI) 예산이 13억 달러로 증액되며 팔란티어가 수혜를 볼 것”이라는 전망이 나왔고, 
+              민간 분야에서도 수십 개 기업이 AIP 파일럿 프로그램에 참여했습니다. 
+              팔란티어는 또한 기존 플랫폼에 생성형 AI 기능을 접목해, 
+              예컨대 AI가 데이터 해석 결과를 자연어 리포팅하거나, 가상비서가 요약·질의응답을 수행하는 기능을 제공하고 있습니다. 
+              CEO 알렉스 카프는 팔란티어를 “서방 세계를 위한 AI 플랫폼”으로 포지셔닝하며, 
+              특히 군사·정보 분야에서 독보적 실적을 강조합니다.
+              <br>
+              <br>
+              단기 전망: 2023년 AI 열풍으로 팔란티어 주가는 큰 변동성을 보였으나, 실적은 점진적 개선세입니다. 
+              2023년부터 연속으로 분기 순이익 흑자를 달성하며 첫 흑자 기업으로 전환했고, 
+              정부 부문 매출이 꾸준히 증가했습니다. 2024년 단기적으로 AIP를 통한 신규 계약이 매출로 인식되는지가 관건인데, 
+              팔란티어는 “실제 몇 개월 만에 계약 성사가 이루어지고 있다”며 빠른 고객전환에 자신감을 보였습니다. 
+              앞서 언급한 미 국방부 Maven 외에도 연방기관들의 AI 도입 예산 증가는 팔란티어에 호재입니다. 
+              다만 상대적으로 높은 주가 밸류에이션(EV/EBITDA)은 부담 요인으로, 단기 주가에는 변동성이 클 수 있습니다.
+              <br>
+              <br>
+              중장기 전망: 팔란티어의 3~5년 뒤 비전은 **“모든 기업에 AI 코파일럿이 붙는 시대에, 
+              그 운영체제를 제공하는 회사”**가 되는 것입니다. 
+              방위산업에서 축적한 최고 수준의 데이터 통합·보안 기술을 바탕으로, 금융, 헬스케어, 공공기관 등 다양한 영역으로 AI 플랫폼을 확산시킬 계획입니다. 
+              팔란티어 경영진은 **“AI는 유행이 아니라 지속적 수요를 창출하는 구조적 변화”**라며, 
+              향후 자체 모델 개발까지 염두에 두고 있습니다. 
+              중장기적으로 미국과 우방국 정부의 AI 국방투자 확대 추세 및 민간 기업들의 AI 경쟁력 확보 노력이 팔란티어에 지속적 성장기회를 제공할 전망입니다. 
+              이러한 스토리를 바탕으로 팔란티어는 향후 수년간 30% 내외의 매출 성장과 꾸준한 이익률 개선을 노리고 있습니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 높음. 팔란티어는 미래 성장성이 크지만 리스크도 상당합니다. 
+              우선 밸류에이션 부담이 큰 편으로, 현재 이익 대비 주가 수준이 높아 조금만 목표 달성에 차질이 생겨도 주가 변동성이 큽니다. 
+              또한 매출의 정부 의존도가 절반 이상으로 높아, 특정 예산 삭감이나 정권교체 등의 영향을 받을 수 있습니다. 
+              민간 고객 사업은 아직 초기라 경쟁도 변수입니다. 
+              IBM, MS 등 여러 기업이 유사한 기업용 AI 솔루션을 내놓고 있어 팔란티어가 지속적인 기술 우위를 증명해야 합니다. 
+              마지막으로 데이터 윤리/프라이버시 이슈에 팔란티어 이름이 자주 거론되는 점도 리스크입니다. 
+              이상과 같은 이유로 팔란티어의 위험등급을 고위험으로 분류하며, 공격적 성향 투자자에게 적합한 종목으로 판단됩니다.</div>
             <div class="stock-tags">
-              <span class="tag">데이터분석</span>
-              <span class="tag">AI</span>
-              <span class="tag">플랫폼</span>
+              <span class="tag">정부</span>
+              <span class="tag">기업</span>
+              <span class="tag">AI 플랫폼 개척자</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">AI</div>
+                <div class="stock-name">C3.ai</div>
+              </div>
+            </div>
+            <div class="stock-desc">기업 소개: C3.ai는 티커(symbol) 자체가 ‘AI’일 만큼 AI 테마 대표주로 알려진 기업입니다. 
+              설립자 토마스 지벨이 2000년대 CRM 소프트웨어 성공 후 2009년 창업한 회사로, 에너지, 제조, 금융 등 기업에 AI 애플리케이션을 제공하는 플랫폼 사업을 하고 있습니다. 
+              현재 시총은 약 30억 달러대로, 2020년 말 상장 당시 한때 10배 이상 폭등하기도 했던 변동성 높은 종목입니다.
+              <br>
+              <br>
+              AI 핵심 사업: C3.ai의 제품은 기업 고객을 위한 AI 모델 개발 및 활용 플랫폼입니다. 
+              예컨대 석유회사에 설비 고장 예측모델, 은행에 이상거래 탐지모델 등을 맞춤 구축해주며 라이선스/구독료를 받습니다. 
+              2023년에는 C3 Generative AI를 출시하여, 다양한 산업별로 GPT 등의 대형언어모델을 연결한 검색형 애플리케이션 (예: 업무 보고서 생성, 채팅 질의응답)을 제공하기 시작했습니다. 
+              또한 마이크로소프트, 구글클라우드와 전략적 협력을 맺어 자사 솔루션을 이들 클라우드 마켓플레이스에서 판매하고 있습니다. 
+              C3는 “엔터프라이즈 AI 시장에서 토털 솔루션 제공자”를 표방하지만, 
+              실제 프로젝트 구현에는 시간과 커스터마이징이 많이 들어 성장 한계에 부딪혀왔습니다. 
+              최근에는 영업 전략을 전환해 구독형 소비 기반 모델로 바꾸고 고객 진입장벽을 낮추는 중입니다.
+              <br>
+              <br>
+              단기 전망: C3.ai의 최근 분기(2024년 4Q) 매출은 8660만 달러로 전년보다 20% 증가하며 시장 예상을 상회했고, 
+              2025년 회계연도 가이던스도 ~30% 성장으로 상향 조정했습니다. 
+              경상적 수익모델 전환(1회성 계약→사용량 기반)으로 초기엔 매출 둔화가 있었지만 점차 회복세입니다. 
+              또한 경비 절감으로 현금흐름도 개선되어, 2024년 하반기부터 영업손실 폭이 줄고 있습니다. 
+              단기적으로 **“올해 말까지 손익분기점 달성”**을 목표로 하고 있어, 비용 통제와 신규 수주 여부가 중요합니다. 
+              AI 붐으로 문의 건수는 크게 증가했으나, 실제 매출 전환까지는 수주 리드타임이 있어 당장의 폭발적 성장은 어렵습니다. 
+              따라서 1년 내 주가는 시장 기대치와 실적 달성도에 따라 급등락 가능성이 높습니다.
+              <br>
+              <br>
+              중장기 전망: 향후 35년간 C3.ai의 핵심 과제는 지속적 매출 성장과 흑자전환입니다. 
+              회사 측은 연 30% 이상 매출성장을 회복하고 2025~2026년 영업이익 흑자를 달성하겠다고 밝혔습니다. 
+              이를 위해 판매채널을 다각화(클라우드 파트너 등)하고 제품을 템플릿화하여 반복 판매 가능한 AI 앱 스토어화 하는 전략을 취하고 있습니다. 
+              만약 계획대로 고객수가 늘면 높은 소프트웨어 마진율(현재 70% 안팎) 덕분에 수익레버리지가 크게 나타날 수 있습니다. 
+              반대로 시장경쟁 심화로 점유에 실패하면 장기적 적자지속 우려가 남아 있습니다. 
+              다행히 현금보유가 7억 달러 이상으로 재무 여력은 안정적이어서 단기간에 유동성 문제는 없을 전망입니다. 
+              overall, 엔터프라이즈 AI 시장 성장(2025년까지 연 2530% 성장 전망)의 혜택을 어느 정도까지 누느냐가 중장기 판가름을 좌우할 것입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 높음. C3.ai는 수익성 부재와 치열한 경쟁으로 인해 고위험으로 간주됩니다. 
+              현재까지 누적 적자가 크고 매출 규모(연 3억 달러 내외)가 작아 규모의 경제에 못 미치고 있습니다. 
+              경쟁 면에서 세일즈포스, MS, 팔란티어 등 대형사가 기업용 AI 시장을 노리고 있어 C3가 단독으로 거대기업을 상대로 수주하기는 쉽지 않습니다. 
+              또한 과거 회계논란(매출인식 방식 관련 공매도 리포트) 등으로 투자자 신뢰에 금이 간 부분도 있습니다. 
+              긍정적으로는 풍부한 현금으로 당장 급한 위기는 없지만, 밸류에이션 변동성이 극심하여(밸류 대비 주가 급등락) 보수적 투자자에게는 적합하지 않습니다. 
+              종합하면 C3.ai의 위험등급은 고위험입니다.</div>
+            <div class="stock-tags">
+              <span class="tag">엔터프라이즈 AI </span>
+              <span class="tag">소프트웨어</span>
+              <span class="tag">순수 플레이어</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">NOW</div>
+                <div class="stock-name">서비스나우</div>
+              </div>
+            </div>
+            <div class="stock-desc">기업 소개: 서비스나우는 기업용 IT 서비스관리(ITSM) 소프트웨어에서 출발해 현재는 HR, 
+              고객지원 등 전사적 프로세스 자동화 플랫폼으로 확장한 SaaS 기업입니다. 글로벌 대기업들이 대거 고객사이며, 
+              구독형 수익모델로 연 60억 달러 이상 매출을 올립니다.
+              <br>
+              <br>
+              AI 관련 핵심 사업: 서비스나우는 Now 플랫폼 내에 AI를 심층 통합하여, 기업의 업무 효율을 대폭 향상시키고 있습니다. 
+              예를 들어 Now Assist라는 생성형 AI 모듈을 출시해, IT 문의나 고객 질문에 AI 챗봇이 즉각 답변하고 복잡한 건만 담당자에 이관하는 하이브리드 지원 프로세스를 구현했습니다. 
+              이를 통해 고객사의 IT 장애 대응 시간을 30분→5분 이하로 단축하고, 
+              고객지원 문의의 70% 이상을 AI가 자체 해결하는 성과를 냈습니다. 
+              또한 HR 부서의 직원문의 응답 자동화율을 80% 이상으로 끌어올려 연 수백만 달러 인건비 절감 효과를 제공했습니다. 
+              2025년 3월에는 Moveworks(자연어 엔터프라이즈 챗봇 기업)을 약 27억 달러에 인수하여, 
+              자사 플랫폼에 고도화된 NLP 기술을 통합했습니다. 
+              이로써 고객이 맞춤형 AI 에이전트를 손쉽게 제작할 수 있는 Agent Studio 툴이 강화되었고, 
+              AI 모델 학습속도도 50% 빨라져 향후 서비스나우 구독 매출 성장에 기여할 것으로 기대됩니다.
+              <br>
+              <br>
+              단기 전망: 서비스나우는 2024년에도 견조한 고성장을 이어갔습니다. 
+              024년 4분기 매출 17억 달러로 전년 대비 35% 증가했고, 이 중 구독매출이 95% 이상을 차지해 안정적입니다. 
+              특히 AI 신제품 Now Assist 출시 후 분기별 계약 건수가 +150% 급증하는 등 고객 반응이 뜨거웠습니다. 
+              AI 기능 도입이 신규고객 유치와 업셀링으로 연결되어 단기 실적에 긍정적입니다. 
+              또한 매년 90% 이상의 유지율을 자랑하는 만큼, 기존 고객들의 AI 모듈 추가 구매가 매출 상승 요인입니다. 
+              단기적으로 글로벌 경기 둔화로 기업 IT예산이 신중해지고 있으나, 생산성 향상에 직결되는 자동화 투자는 우선순위가 높아 서비스나우의 수주 파이프라인은 탄탄한 편입니다.
+              <br>
+              <br>
+              중장기 전망: 서비스나우는 AI를 기반으로 엔터프라이즈 소프트웨어 1위까지 도약을 노립니다. 
+              현재 IT서비스 관리 분야에서는 독보적 1위이며, 앞으로는 기업의 모든 업무 흐름에 AI 코파일럿을 붙여주는 플랫폼으로 진화하려 합니다. 
+              3~5년 내 목표는 연 매출 110억 달러 달성(현재의 약 2배)이며, 이를 위해 인수합병(M&A)과 파트너 에코시스템 확장도 지속할 것입니다. 
+              AI 기술 발전에 따라 자가학습 자동화 영역이 늘어나면, 서비스나우의 가치제안(단순 반복업무 제거)이 더욱 부각될 전망입니다. 
+              다만 경쟁사로 마이크로소프트(파워플랫폼 등)나 BMC 등이 존재해 기술 선두 유지가 중요합니다. 
+              서비스나우는 R&D에 막대한 투자를 지속하면서 AI 혁신 주도기업 위치를 지키려 할 것입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 중간. 서비스나우는 높은 성장성과 우량 고객 기반으로 비교적 안정적이나, 
+              몇 가지 위험요인이 있습니다. 밸류에이션이 고성장 SaaS답게 PER 50배를 넘는 등 높아, 
+              성장률 둔화 시 주가 조정 위험이 있습니다. 또한 경기변동에 IT예산 축소 시 신규계약이 지연될 수 있습니다. 
+              다행히 고객 락인이 강하고 비용절감 효과가 명확해 경기불황에도 해지가 드문 편입니다. 
+              AI 경쟁 측면에서는 마이크로소프트 등이 유사 기능을 출시해 위협이 있지만, 
+              서비스나우는 플랫폼 특화성이 높아 아직은 차별화가 유지되고 있습니다. 
+              전반적으로 재무 안정성은 높으나 주가 변동성을 감안해 위험등급은 중간으로 평가합니다.</div>
+            <div class="stock-tags">
+              <span class="tag">AI로 업무자동화</span>
+              <span class="tag">SaaS 기업</span>
+              <span class="tag">선도주자</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 로보틱스 및 자율주행 -->
+      <div class="category-section">
+        <h2 class="category-title">
+          <div class="category-icon">🏢</div>
+          로보틱스 및 자율주행
+        </h2>
+        <div class="stock-list">
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">TSLA</div>
+                <div class="stock-name">테슬라</div>
+              </div>
+            </div>
+            <div class="stock-desc">기업 소개: 테슬라는 전기차(EV)를 대중화시킨 선도 기업이자 시가총액 8천억 달러를 넘는 글로벌 자동차 업계 1위 기업입니다. 
+              연간 180만 대 이상의 전기차를 판매하고 에너지저장장치(ESS) 사업도 영위합니다. 
+              그러나 일론 머스크 CEO는 테슬라를 **“AI 로보틱스 기업”**으로 규정할 만큼, **완전 자율주행(FSD)**과 휴머노이드 로봇(옵티머스) 개발에 집중하고 있습니다.
+              <br>
+              <br>
+              AI 관련 핵심 사업: 테슬라의 AI 전략은 자율주행 소프트웨어와 맞춤형 하드웨어의 수직통합입니다. 테슬라 전기차에는 자사가 개발한 FSD(Full Self-Driving) 베타 소프트웨어가 탑재되어, 
+              수백만 km에 달하는 주행 데이터를 AI가 학습하며 차선을 변경하거나 교차로를 통과하는 등 고도 자율주행을 구현 중입니다. 
+              이를 지원하는 **차량용 AI칩(테슬라 자율주행 컴퓨터)**도 독자 설계했고, 데이터센터용 AI훈련 슈퍼컴퓨터 Dojo를 구축하여 FSD AI모델 학습 효율을 높이고 있습니다. 
+              또한 2022년 공개한 인간형 로봇 **Optimus(옵티머스)**에도 테슬라의 시각 AI 기술을 접목하여, 
+              공장내 단순반복 작업 등을 자동화하려 합니다. 
+              요약하면 테슬라는 차량+로봇 플랫폼에 자체 AI 두뇌를 심어 향후 거대한 로보틱스 시장을 개척하려는 것입니다.
+              <br>
+              <br>
+              단기 전망: 현재 테슬라 매출과 이익은 여전히 자동차 판매가 대부분이어서, 단기 실적은 EV 수요와 마진에 영향을 받습니다. 
+              20232024년 들어 경쟁사의 EV출시와 고금리로 판매 경쟁이 심화되어 테슬라는 공격적 가격인하를 단행, 
+              자동차 부문 이익률이 낮아졌습니다. 단기적으로는 신차 출시 사이클(예: 사이버트럭 양산)과 주요 시장의 EV 보조금 정책 등이 주가에 영향을 줄 것입니다. 한편 자율주행 부문에서는 FSD 베타가 북미에서 꾸준히 업데이트되며, 구독형 FSD 매출이 점진적 상승 중입니다. 다만 완전 자율주행 상용화는 규제와 기술적 이슈로 1년 내 실현되긴 어렵고, 옵티머스 로봇도 프로토타입 단계라 당장의 수익 기여는 없습니다. 대신 이 기간 테슬라는 AI 관련 막대한 R&D 비용 투자를 이어갈 예정이라, 단기 실적 변동성과 무관하게 기술 모멘텀에 대한 기대감이 주가에 반영될 것입니다. 
+              <br>
+              <br>
+              중장기 전망: 테슬라의 35년 후 비전은 하드웨어와 소프트웨어를 모두 지배하는 회사가 되는 것입니다. 
+              만약 FSD가 **상용화 수준(레벨4/5)**에 도달하면, 테슬라는 차량당 고가의 FSD 소프트웨어 판매로 막대한 고마진 수익원을 확보하게 됩니다. 
+              더 나아가 로보택시 네트워크 사업으로 차량 1대당 매출을 지금의 수배로 늘릴 수 있다는 전망도 있습니다. 
+              옵티머스 로봇 역시 향후 노동력 부족을 해결하는 범용 로봇으로 발전한다면 테슬라의 또다른 대박 제품이 될 잠재력이 있습니다. 
+              일론 머스크는 “자율주행과 범용 로봇이 테슬라의 장기적 가치 핵심”이라고 공언해왔습니다. 
+              현실적으로 5년 내 FSD가 규제 허가를 받아 일부 지역(예: 고속도로, 특정 도시)에서 완전 자율주행 서비스를 시작할 가능성은 높아 보입니다. 
+              로봇은 그보다는 시간이 더 필요하겠지만, 공장 자동화용으로는 테스트를 거쳐 부분 도입될 수 있습니다. 
+              이런 시나리오에서 테슬라는 자동차 제조기업을 넘어 소프트웨어 구독과 로봇 판매로 수익구조 다변화를 이룰 것입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 높음. 테슬라는 대형 우량기업이지만 주가 변동성과 미래 실현 불확실성이 커 위험등급을 높게 책정합니다. 
+              우선 주가 측면에서 12개월 선행 PER이 60배를 넘는 등 고평가 논란이 지속됩니다. 
+              이는 투자자들이 자율주행 등 미래 성장을 선반영한 것이므로, 만약 기술 개발이 예상보다 지연되면 크게 실망 매물이 나올 수 있습니다. 
+              또한 경영 리스크로 일론 머스크 개인의 다른 사업(소셜미디어 등) 관여나 돌발 행동이 회사 이미지와 주가에 영향을 주는 점이 있습니다. 
+              경쟁 측면에서는 전통 자동차 업체들과 기술기업들이 자율주행 개발에 수백억 달러를 투자하고 있어, 향후 시장 경쟁이 심화될 가능성이 높습니다. 
+              끝으로 규제/안전 리스크도 있습니다. 자율주행 관련 사고가 발생하면 규제가 강화되어 상용화가 지연될 수 있습니다. 
+              결론적으로 테슬라는 혁신성과 성장잠재력만큼이나 리스크도 크므로, 공격적 투자 성향이 요구되는 고위험 종목으로 볼 수 있습니다.</div>
+            <div class="stock-tags">
+              <span class="tag">전기차</span>
+              <span class="tag">혁명가</span>
+              <span class="tag">AI 로보틱스</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">MBLY</div>
+                <div class="stock-name">모빌아이</div>
+              </div>
+            </div>
+            <div class="stock-desc">기업 소개: 모빌아이는 자동차의 **첨단 운전자보조 시스템(ADAS)**용 칩과 소프트웨어를 개발하는 기업으로, 
+              전세계 800여 개 차종에 카메라 기반 ADAS를 공급해온 업계 표준입니다. 
+              2017년 인텔이 인수했다가 2022년 IPO로 분사했습니다. 현재 글로벌 차량용 카메라 센서+칩 시장 점유율 70% 이상을 차지합니다.
+              <br>
+              <br>
+              AI 관련 핵심 사업: 모빌아이의 핵심은 컴퓨터비전 기술입니다. 
+              단일 카메라로 차선, 차량, 보행자를 인식하는 EyeQ 칩과 알고리즘이 주력제품이며, 테슬라를 제외한 대부분 완성차 업체가 모빌아이 기술을 채용해 차선이탈경고, 
+              자동비상제동 등의 기능을 구현했습니다. 최근 모빌아이는 카메라 11대를 탑재해 **고속도로에서 손떼고 운전(레벨2+ 자율주행)**이 가능한 SuperVision™ 시스템을 개발, 
+              2021년 중국 지리 Zeekr 브랜드에 처음 적용했습니다. 
+              SuperVision의 성능이 입증되며 지리 외에 유럽 등 다른 완성차들에도 채택될 예정이고, 
+              2026년까지 누적 120만 대 이상 차량에 SuperVision이 탑재될 것으로 예상됩니다. 
+              이 시스템을 기반으로 운전자 개입이 거의 없는 “Chauffeur” (레벨4 소비자 자율주행) 프로그램도 개발 중이며, 2030년 이전 양산을 목표로 합니다. 
+              한편 로보택시 등 모빌리티 서비스를 위한 완전 자율주행 솔루션 **Mobileye Drive™**도 준비하여 일부 파일럿을 진행 중입니다 (독일 등지에서 자율셔틀 테스트 등). 
+              요약하면 모빌아이는 현재 ADAS 1위 업체에서 나아가, 향후 소비자용 자율주행 풀스택 공급자가 되려는 비전을 갖고 있습니다.
+              <br>
+              <br>
+              단기 전망: 전세계 자동차 시장 부진에도 불구하고, ADAS 채택률 상승 추세로 모빌아이의 칩 출하량은 증가하고 있습니다. 
+              2024년 매출은 16억 달러로 전년 대비 +20% 내외 성장할 것으로 보입니다. 
+              특히 20232025년에 자동차 제조사들이 레벨2+ 자율주행 기능을 옵션으로 속속 출시하면서 EyeQ 매출의 재가속이 기대됩니다. 
+              모빌아이는 2025년 매출을 20억 달러 이상으로 전망하며, SuperVision 등 고부가 제품 매출 비중이 늘어나는 구성을 그리고 있습니다. 
+              다만 아직 연구개발 투자가 커 영업손실이 이어지고 있는데, 2024년 인텔 지분 인수 당시 발생한 감액으로 32억 달러 일회성 손실이 반영되기도 했습니다. 
+              이러한 회계 이슈를 제외하면 현금흐름은 안정적이며, 2025년부터 손익분기점에 근접할 전망입니다. 
+              단기적으로는 신규 수주 공시(완성차와의 계약 체결) 및 분기별 출하량이 주가에 영향을 줄 것입니다. 
+              최근 애널리스트들은 2025년 모빌아이가 23건의 대형 계약을 발표하며 주요 촉매가 될 것으로 내다봤습니다.
+              <br>
+              <br>
+              중장기 전망: 모빌아이의 중장기 그림은 **“자동차 업계의 인텔 인사이드”**처럼 모든 자율주행차에 모빌아이 솔루션이 들어가는 것입니다. 
+              현재 2030년까지 확보한 ADAS 사업 주문잔고(pipeline)가 170억 달러에 달하며, 
+              이는 고급 ADAS (SuperVision)의 성공으로 더욱 확대될 수 있습니다. 
+              또한 완전 자율주행 분야에서도, 일부 OEM과 소비자용 L4 시스템 계약(2030년까지 15억 달러 규모)을 체결해 놓은 상태입니다. 
+              만일 기술 및 법규가 뒷받침되어 2025~2030년에 자율주행 차량 출고가 본격화된다면, 
+              모빌아이의 매출은 기하급수적으로 성장할 수 있습니다. 
+              회사 측은 향후 10년간 연평균 20% 이상 성장세를 목표로 하고 있습니다. 
+              경쟁사로는 엔비디아(Drive 플랫폼)와 퀄컴(Snapdragon Ride)이 있지만, 모빌아이는 카메라 위주의 저비용 접근법과 다년간 쌓은 주행데이터(도로맵핑 REM 기술)로 차별화를 이룹니다. 
+              따라서 중장기적으로도 ADAS 지배력 유지 및 자율주행 신시장 개척에 성공할 가능성이 높다는 평가입니다.
+              <br>
+              <br>
+              리스크 분석: 위험등급: 중간. 모빌아이는 강력한 시장 지위를 가졌지만 자동차 업황과 기술 경쟁에 영향을 받습니다. 
+              주요 리스크로는 완성차 업계의 경기 변동입니다. 
+              경기침체 시 옵션인 ADAS 채택이 지연되거나 주문이 감소할 수 있습니다. 
+              또한 경쟁 심화로 주요 고객사를 잃을 위험도 있습니다. 
+              테슬라는 자체 기술을 고집하고, 독일차 업체들은 Bosch, Valeo 등과 독자 솔루션을 모색하는 움직임이 있습니다. 
+              두 번째 리스크는 기술 및 규제입니다. 자율주행 기술 개발이 예상보다 늦어지거나, 
+              사고로 규제가 강화되면 상용화가 지연되어 성장세가 꺾일 수 있습니다. 
+              반대로 너무 빨리 기술이 발전하면 빅테크 등이 직접 시장에 뛰어들 가능성도 배제 못합니다. 
+              그러나 모빌아이는 **재무상태가 양호(무차입에 가까움)**하고, 인텔이라는 우호 지분도 있어 안정성이 높습니다. 
+              전반적으로 위험등급은 **중간(보통)**으로 판단되며, 중립적 성향 투자자도 접근 가능한 종목으로 볼 수 있습니다.</div>
+            <div class="stock-tags">
+              <span class="tag">ADAS</span>
+              <span class="tag">첨단운전보조</span>
+              <span class="tag">솔루션 업체</span>
+            </div>
+          </div>
+          <div class="stock-item">
+            <div class="stock-header">
+              <div>
+                <div class="stock-ticker">SYM</div>
+                <div class="stock-name">심보틱</div>
+              </div>
+            </div>
+            <div class="stock-desc">기업 소개: 심보틱은 물류창고 자동화 로봇 시스템을 개발·구축하는 회사로, 
+              월마트가 최대 고객 및 투자자로 알려져 있습니다. 
+              창고에서 상품을 자동으로 분류, 적재, 출고하는 로봇 팔과 셔틀 시스템을 AI 소프트웨어로 통합 운영하며, 
+              북미 대형 유통업체들을 고객사로 확보했습니다. 2022년 말 SPAC 합병으로 상장했습니다.
+              AI 관련 핵심 사업: 심보틱의 솔루션은 수천평 규모 창고에 자율주행 로봇 수백 대를 투입해 인간없이 24시간 가동하는 시스템입니다. 
+              AI 비전 기술과 최적화 알고리즘으로 로봇들이 상품 팔레트를 해체하고, 주문별로 분류해 재적재하여 출하하는데, 
+              이를 통해 처리속도 5배, 오류 80% 감소 등의 효과를 냅니다. 
+              월마트는 2017년부터 심보틱 시스템을 도입해 왔고, 2022년에 42개 지역센터에 전면 도입하는 파트너십을 발표했습니다. 
+              2025년 1월에는 심보틱이 월마트의 자체물류 자회사(ASRS 사업)를 2억 달러에 인수하는 딜을 체결하며 양사 협력을 더욱 강화했습니다. 
+              월마트는 이와 별도로 5억 20백만 달러를 투자하여 향후 수년간 400개 매장 픽업센터에 심보틱 기술을 장착할 것을 합의했는데, 
+              이로써 심보틱 백로그(주문잔고)가 50억 달러 이상 확대될 전망입니다. 
+              이는 2023년 매출(17.8억 달러)의 약 3배에 달하는 규모입니다. 
+              현재 심보틱은 월마트 외에도 Albertsons, Target 등 대형 유통사를 고객으로 확보해 총 60곳 이상 시스템 구축 프로젝트를 진행 중입니다.
+              단기 전망: 심보틱은 2024년 회계 1분기 매출 4.87억 달러로 전년 대비 +35% 성장했고, 조정 EBITDA도 개선되어 -0.19억 달러(순손실 0.19억)로 손실폭이 축소되었습니다. 
+              즉, 아직 순이익은 적자이지만 매출증가에 따라 비용 효율이 개선되고 있습니다. 
+              향후 1년 내에는 기존 수주 프로젝트 40여 곳을 순차적으로 완료하면서 분기 매출 30~40% 성장세를 이어갈 것으로 보입니다. 
+              특히 월마트와의 새 계약으로 2025년 이후 매출 가시성이 높아졌습니다. 
+              단기 리스크는 시스템 설치 지연 등의 운영상 이슈인데, 경영진은 일부 디플로이먼트 병목을 인지하고 효율화 중이라고 밝혔습니다. 
+              또한 고객사 1위 월마트 의존도가 높아 매출 집중 위험이 있는데, 
+              월마트 사업을 인수하며 관계가 더 공고해졌으므로 단기에는 안정적으로 보입니다.
+              중장기 전망: 심보틱의 비전은 AI 스마트 물류센터 플랫폼화입니다. 
+              북미에만 3천 곳 이상의 대형 물류창고가 있고, 마이크로풀필먼트 등 신규시장도 고려하면 총 시장규모는 3천억 달러 이상으로 추산됩니다. 
+              심보틱은 현재 백로그만 약 180억 달러에 달하며, 5년 내 연매출 50억 달러 기업으로 도약이 가능해 보입니다. 
+              또한 소프트웨어 수익(운영 시스템 유지보수 등)도 프로젝트 완료 후 지속 발생하여, 설치증가 → 구독매출 축적 구조로 이익률이 향상될 수 있습니다. 
+              2025년 이후 해외시장 진출(소프트뱅크 JV 설립) 등도 계획되어 있습니다. 
+              중장기 과제는 고객 다변화로, 월마트 외에 제조업, 국방 등 다른 섹터로 로봇 시스템을 판매해 포트폴리오를 넓히려 하고 있습니다. 
+              만약 성공한다면 물류창고의 안정적 캐시카우 + 신규 산업용 로봇 개척이라는 두 마리 토끼를 잡게 됩니다.
+              리스크 분석: 위험등급: 높음. 심보틱은 고속 성장중인 혁신 기업이지만 고객 집중도와 외부 변수에 취약한 측면이 있어 고위험으로 평가됩니다. 
+              우선 매출의 상당 부분이 월마트에서 발생하며, 동사가 투자자이기도 해서 관계가 밀접하지만 동시에 월마트에 대한 의존도 리스크입니다. 
+              둘째, 수익성 확보가 과제입니다. 아직 완전한 흑자를 내지 못했고 대규모 프로젝트 수행 시 현금유출이 동반되기에, 
+              예상대로 설치를 마치고 안정적 관리수수료를 거둬야 이익 전환이 가능합니다. 
+              설치 지연이나 원가 상승 등 실행 리스크를 관리해야 합니다. 
+              또한 업종 특성상 경기침체 시 고객사 투자가 지연될 위험도 있습니다. 
+              기술적으로는 현재 독보적이나, 향후 아마존 등도 외부 판매를 시작하거나 신규 로봇기업이 성장하면 경쟁 심화 가능성이 있습니다. 
+              요약하면 심보틱은 성장 잠재력만큼 리스크도 높은 공격적 투자 대상입니다.</div>
+            <div class="stock-tags">
+              <span class="tag">AI 물류창고</span>
+              <span class="tag">로봇 자동화</span>
+              <span class="tag">떠오르는 강자</span>
             </div>
           </div>
         </div>
@@ -584,23 +1094,34 @@
     </div>
     <!-- 시장 전망 -->
     <div class="market-outlook">
-      <h2 class="outlook-title">📊 글로벌 AI 시장 전망 및 투자 전략</h2>
+      <h2 class="outlook-title">투자자 성향별 추천 종목</h2>
       <div class="outlook-content">
         <div class="outlook-item">
-          <h4>🚀 성장 동력</h4>
-          <p>생성 AI·모델 혁신, 엔터프라이즈 AI 도입 가속화, AI 인프라 투자 확대가 시장 성장의 핵심 동력</p>
+          <h4>🚀 공격적 투자자</h4>
+          <p>팔란티어(PLTR), C3.ai(AI), 심보틱(SYM), 테슬라(TSLA) 등을 꼽을 수 있습니다. 
+            이들은 밸류에이션이 높거나 수익성이 아직 낮아 변동성이 크지만, 성공 시 잠재적 수익률도 매우 큰 종목들입니다. 
+            팔란티어와 C3.ai는 AI 소프트웨어 순수 플레이로서 시장 기대가 높아 주가 등락이 심하지만 정부 계약 확대나 기업 수주 증가에 따라 주가가 크게 상승할 수 있습니다. 
+            심보틱은 매출 고성장 중인 물류 로봇 혁신기업으로 월마트와의 대규모 계약으로 성장 가시성이 높으나, 고객 집중 리스크로 고위험입니다. 
+            테슬라는 시가총액은 크지만 주가 변동폭이 커 사실상 공격적 투자 성향이 요구되며, FSD 상용화 등 성공 시 엄청난 수익 창출이 가능하지만 지연 시 조정폭도 클 수 있습니다. 
+            요약하면 이러한 종목들은 AI의 장기 대형 테마에 베팅하는 성격으로, 포트폴리오 일부를 할애하여 고위험·고수익을 노리는 전략에 적합합니다.</p>
         </div>
         <div class="outlook-item">
-          <h4>💰 투자 기회</h4>
-          <p>AI 반도체, 클라우드 플랫폼, 생성AI 서비스 등 고성장 밸류체인 전반에서 투자 기회 포착</p>
+          <h4>💰 중립적 투자자</h4>
+          <p>엔비디아(NVDA), 아마존(AMZN), AMD(AMD), 서비스나우(NOW) 등을 추천합니다. 
+            이들은 업종 대표주로서 성장성이 높지만 대형주로 비교적 안정적입니다. 
+            엔비디아는 AI 칩 절대강자로 고성장을 이어가나 시총이 커지며 변동성이 다소 낮아진 측면이 있습니다. 
+            아마존은 AWS와 리테일을 겸비해 리스크 분산이 되고 AI로 클라우드 재성장이 기대됩니다. 
+            AMD는 엔비디아 대비 위험은 조금 높으나 데이터센터 성과로 중기 성장 가능성이 충분합니다. 
+            서비스나우는 이미 수익을 내는 SaaS 기업으로 AI 도입으로 추가 성장이 예상되나 안정적인 구독모델을 지녔습니다. 
+            이들 종목은 성장성과 안정성의 균형을 추구하는 투자자에게 어울리며, 포트폴리오의 주력 성장주로 고려할 만합니다.</p>
         </div>
         <div class="outlook-item">
-          <h4>⚠️ 리스크 요인</h4>
-          <p>AI 규제 이슈, 반도체 공급망 불확실성, 경쟁 심화, 기술 발전 속도에 따른 시장 변동성 확대</p>
-        </div>
-        <div class="outlook-item">
-          <h4>🎯 투자 전략</h4>
-          <p>분산 투자, 기술 우위 기업 우선, 시장 사이클/정책 변화 모니터링, 성장성·수익성 동시 고려</p>
+          <h4>🎯 보수적 투자자</h4>
+          <p>마이크로소프트(MSFT), 알파벳(구글)(GOOGL), 브로드컴(AVGO) 등을 권장합니다. 
+            이들 기업은 시가총액이 크고 수익창출력이 높아 주가 안정성이 상대적으로 높습니다. 
+            마이크로소프트와 구글은 AI 시대에 핵심 인프라와 플랫폼을 보유하면서도 기존 사업(소프트웨어, 광고)에서 견고한 현금흐름을 내고 있어 안정성+성장성을 겸비했습니다. 
+            브로드컴은 반도체/소프트웨어 다각화로 실적 변동성이 작고 배당도 지급하는 등 보수적 투자에 적합합니다. 
+            이들 종목은 낮은 변동성과 탄탄한 재무구조로 위험이 제한적이며, 보수적 포트폴리오의 기본축으로 삼을 만합니다.</p>
         </div>
       </div>
     </div>
