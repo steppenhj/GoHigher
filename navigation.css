@@ -176,13 +176,18 @@
       background: #ffe066;
       color: #222c42;
     }
-    .overlay {
-      display: none;
-      position: fixed; left:0; top:0; width:100vw; height:100vh;
-      background: rgba(60,100,180,0.09);
-      z-index: 40;
-    }
-    .overlay.active { display: block; }
+.overlay {
+  display: none;
+  position: fixed;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  /* 아래만 원하는 대로 조절! */
+  background: rgba(10, 14, 30, 0.68);  /* 더 진한 어두운 반투명 배경 */
+  z-index: 40;
+}
+.overlay.active {
+  display: block;
+}
     .sidebar {
   /* 기존 설정 유지 */
   position: fixed;

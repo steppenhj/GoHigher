@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSidebarBtn = document.getElementById('closeSidebarBtn');
   const sidebar         = document.getElementById('sidebar');
   const sidebarOverlay  = document.getElementById('sidebarOverlay');
-  openSidebarBtn.onclick  = () => { sidebar.classList.add('active'); sidebarOverlay.classList.add('active'); };
-  closeSidebarBtn.onclick = () => { sidebar.classList.remove('active'); sidebarOverlay.classList.remove('active'); };
+  openSidebarBtn.onclick  = () => { sidebar.classList.add('active'); sidebarOverlay.classList.add('active'); document.body.style.overflow = 'hidden';  };
+  closeSidebarBtn.onclick = () => { sidebar.classList.remove('active'); sidebarOverlay.classList.remove('active');  document.body.style.overflow = '';   };
   sidebarOverlay.onclick  = closeSidebarBtn.onclick;
 
   document.querySelectorAll('.nav-link').forEach(link => {
@@ -40,137 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
     appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
     measurementId: "G-KQ02L8DXG0"
   };
-
-  function getValidProfilePhoto(url) {
-    if (!url || url.trim() === "") return '/logo.jpg';
-    return url;
-  }
-
   if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
-  const db = firebase.firestore();
-
-  // --- [추가] 카카오 프로필 정보 입력 모달 함수 ---
-  function showKakaoProfileModal(user) {
-    // 중복생성 방지
-    if (!document.getElementById('kakaoProfileModal')) {
-      const modalHtml = `
-      <div id="kakaoProfileModal" style="position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:5000;background:rgba(0,0,0,0.44);display:flex;align-items:center;justify-content:center;">
-        <div style="background:#fff; padding:30px 22px; border-radius:15px; min-width:310px; box-shadow:0 4px 22px #1e254055;">
-          <div style="font-weight:700;font-size:1.13em;margin-bottom:15px;letter-spacing:-0.5px">
-            👤 카카오 계정 추가 정보 입력
-          </div>
-          <input id="kakaoNameInput" style="width:100%;margin-bottom:11px;padding:9px;" maxlength="24" placeholder="이름 또는 닉네임" />
-          <input id="kakaoEmailInput" style="width:100%;margin-bottom:17px;padding:9px;" maxlength="40" placeholder="이메일" type="email" />
-          <button id="kakaoProfileSaveBtn" style="width:100%;padding:10px 0;background:#2563eb;color:#fff;border:none;border-radius:8px;font-weight:600;font-size:1.02em;">저장</button>
-        </div>
-      </div>
-      `;
-      document.body.insertAdjacentHTML('beforeend', modalHtml);
-    }
-    const modal = document.getElementById('kakaoProfileModal');
-    modal.style.display = 'flex';
-    // 저장 버튼 리스너
-    document.getElementById('kakaoProfileSaveBtn').onclick = async function() {
-      const name = document.getElementById('kakaoNameInput').value.trim();
-      const email = document.getElementById('kakaoEmailInput').value.trim();
-      if (!name || !email) {
-        alert('이름과 이메일을 모두 입력하세요!');
-        return;
-      }
-      try {
-        // Firestore userInfo 저장/업데이트
-        await db.collection("userInfo").doc(user.uid).set({
-          displayName: name,
-          email,
-          photoURL: '/logo.jpg',
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        }, { merge: true });
-        // Auth 유저도 업데이트 (이메일 변경 불가 시 생략)
-        await user.updateProfile({ displayName: name, photoURL: '/logo.jpg' }).catch(()=>{});
-        try { await user.updateEmail(email); } catch(e) {/*이메일 변경 안되면 패스*/}
-        // 모달 닫기 및 새로고침
-        modal.style.display = 'none';
-        window.location.reload();
-      } catch(e) {
-        alert('저장 오류: ' + (e.message || e));
-      }
-    };
-  }
-
-auth.onAuthStateChanged(async user => {
-  const userInfo = document.querySelector('.user-info');
-  const loginBtn = document.getElementById('loginBtn');
-  const profilePhoto = document.getElementById('profilePhoto');
-  
-  // Firestore에서 추가 정보가 이미 있는지 먼저 체크!
-  let firestoreInfo = null;
-  if (user && user.uid.startsWith('kakao:')) {
-    const doc = await db.collection("userInfo").doc(user.uid).get();
-    if (doc.exists) firestoreInfo = doc.data();
-  }
-
-  // 카카오 displayName/email 없고 Firestore 정보도 없을 때만 모달!
-  if (
-    user &&
-    user.uid.startsWith('kakao:') &&
-    (!firestoreInfo || !firestoreInfo.displayName || !firestoreInfo.email)
-  ) {
-    showKakaoProfileModal(user);
-
-    // 미완성 UI 표시
-    if (userInfo) {
-      const nameEl = userInfo.querySelector('.user-name');
-      const emailEl = userInfo.querySelector('.user-email');
-      const statusEl = userInfo.querySelector('.user-status');
-      const photoEl = userInfo.querySelector('.user-photo');
-      nameEl.textContent = '이름 입력 필요';
-      emailEl.textContent = '이메일 입력 필요';
-      statusEl.textContent = '입력 필요';
-      photoEl.src = '/logo.jpg';
-      photoEl.style.display = 'block';
-      const logoutLink = document.querySelector('.side-link[href="/login.html"]');
-      if (logoutLink) {
-        logoutLink.textContent = '로그아웃';
-        logoutLink.onclick = e => { e.preventDefault(); auth.signOut().then(()=>location.reload()); };
-      }
-    }
-    if (profilePhoto) {
-      profilePhoto.src = '/logo.jpg';
-      profilePhoto.style.display = 'inline-block';
-    }
-    if (loginBtn) loginBtn.style.display = 'none';
-    return;
-  }
-
-  // Firestore에서 항상 값 가져와서 표시 (카카오 유저)
-  async function setUserFromFirestore(uid) {
-    try {
-      const doc = await db.collection("userInfo").doc(uid).get();
-      if (!doc.exists) return;
-      const data = doc.data();
-      if (userInfo) {
-        const nameEl     = userInfo.querySelector('.user-name');
-        const emailEl    = userInfo.querySelector('.user-email');
-        const statusEl   = userInfo.querySelector('.user-status');
-        const photoEl    = userInfo.querySelector('.user-photo');
-        const logoutLink = document.querySelector('.side-link[href="/login.html"]');
-        nameEl.textContent  = data.displayName || '이름없음';
-        emailEl.textContent = data.email || '';
-        statusEl.textContent= '로그인됨';
-        photoEl.src         = getValidProfilePhoto(data.photoURL);
-        photoEl.style.display = 'block';
-        if (logoutLink) {
-          logoutLink.textContent = '로그아웃';
-          logoutLink.onclick = e => { e.preventDefault(); auth.signOut().then(()=>location.reload()); };
-        }
-      }
-      if (profilePhoto) {
-        profilePhoto.src = getValidProfilePhoto(data.photoURL);
-        profilePhoto.style.display = 'inline-block';
-      }
-    } catch (err) { /* 무시 */ }
-  }
+  auth.onAuthStateChanged(user => {
+    // ----- 사이드바(user-info) 영역 -----
+    const userInfo    = document.querySelector('.user-info');
+    const loginBtn    = document.getElementById('loginBtn');
+    const profilePhoto= document.getElementById('profilePhoto');
 
     if (userInfo) {
       const nameEl     = userInfo.querySelector('.user-name');
@@ -178,84 +54,45 @@ auth.onAuthStateChanged(async user => {
       const statusEl   = userInfo.querySelector('.user-status');
       const photoEl    = userInfo.querySelector('.user-photo');
       const logoutLink = document.querySelector('.side-link[href="/login.html"]');
+
       if (user) {
-        if (
-          user.uid.startsWith('kakao:') &&
-          (!user.displayName || !user.email || !user.photoURL)
-        ) {
-          setUserFromFirestore(user.uid);
-        } else {
-          nameEl.textContent  = user.displayName || (user.email ? user.email.split('@')[0] : "카카오유저");
-          emailEl.textContent = user.email || '';
-          statusEl.textContent= '로그인됨';
-          photoEl.src = getValidProfilePhoto(user.photoURL);
-          photoEl.style.display = 'block';
-          if (logoutLink) {
-            logoutLink.textContent = '로그아웃';
-            logoutLink.onclick = e => { e.preventDefault(); auth.signOut().then(()=>location.reload()); };
-          }
-        }
+        console.log('photoURL:', user.photoURL);
+        nameEl.textContent  = user.displayName || user.email.split('@')[0];
+        emailEl.textContent = user.email;
+        statusEl.textContent= '로그인됨';
+        photoEl.src = user.photoURL || '//logo.jpg';
+        photoEl.onerror = function() { this.src = '/logo.jpg'; };
+        photoEl.style.display = 'block'; // 무조건 표시
+        logoutLink.textContent = '로그아웃';
+        logoutLink.onclick = e => { e.preventDefault(); auth.signOut().then(()=>location.reload()); };
       } else {
         nameEl.textContent  = '비로그인';
         emailEl.textContent = '';
         statusEl.textContent= '로그인 필요';
-        photoEl.style.display = 'none';
-        if (logoutLink) {
-          logoutLink.textContent = '로그인';
-          logoutLink.onclick = null;
-        }
+        photoEl.src = '/logo.jpg';
+        photoEl.style.display = 'none'; // 숨김
+        logoutLink.textContent = '로그인';
+        logoutLink.onclick = null;
       }
     }
 
-    if (user) {
-      if (
-        user.uid.startsWith('kakao:') &&
-        (!user.displayName || !user.photoURL)
-      ) {
-        setUserFromFirestore(user.uid);
-      } else {
-        loginBtn.style.display     = 'none';
-        profilePhoto.src = getValidProfilePhoto(user.photoURL); 
+    // ----- 상단바(오른쪽) profilePhoto -----
+    if (loginBtn && profilePhoto) {
+      if (user) {
+        profilePhoto.src = user.photoURL || '/logo.jpg';
+        profilePhoto.onerror = function() { this.src = '/logo.jpg'; };
         profilePhoto.style.display = 'inline-block';
+        loginBtn.style.display = 'none';
+      } else {
+        profilePhoto.src = '/logo.jpg';
+        profilePhoto.style.display = 'none';
+        loginBtn.style.display = 'inline-block';
       }
-    } else {
-      loginBtn.style.display     = 'inline-block';
-      profilePhoto.style.display = 'none';
     }
   });
-
   // ----------------------------------------
-  // 로그아웃 동작
+  // 3) 검색 모달 (Polygon API 기반만 남김)
   // ----------------------------------------
-
-  // 로그아웃 버튼(사이드 메뉴, 내비바 등) 공통 동작
-function setupLogoutLinks() {
-  // 사이드바의 로그아웃
-  document.querySelectorAll('.side-link').forEach(link => {
-    if (link.textContent.trim() === '로그아웃') {
-      link.onclick = function(e) {
-        e.preventDefault();
-        firebase.auth().signOut().then(() => {
-          // 로그아웃 후 홈 또는 로그인 페이지로 이동 (원하는 경로로)
-          window.location.href = "/login.html";
-        });
-      };
-    }
-  });
-  // 상단 내비 로그인 버튼이 로그아웃 상태면
-  const loginBtn = document.getElementById('loginBtn');
-  if (loginBtn && loginBtn.textContent.trim() === '로그아웃') {
-    loginBtn.onclick = function(e) {
-      e.preventDefault();
-      firebase.auth().signOut().then(() => {
-        window.location.href = "/login.html";
-      });
-    };
-  }
-}
-
-// DOM 업데이트 이후 호출
-setupLogoutLinks();
 
   // 1) 오버레이 엘리먼트 필요시 생성
   let searchModalOverlay = document.getElementById('searchModalOverlay');
