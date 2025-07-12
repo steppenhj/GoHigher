@@ -1,26 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>GoHigher | 로그인 & 회원가입</title>
+  <title>Go Higher | 미국주식 로그인 · 회원가입 – 안전하고 간편한 투자 시작</title>
+<meta name="description" content="Go Higher에 로그인하거나 회원가입하고, 미국주식·ETF·환율·포트폴리오 관리 등 모든 프리미엄 투자 서비스를 안전하게 이용해보세요. 간편 가입, 구글 소셜 로그인, 투자 데이터 완벽 연동!">
+<meta name="keywords" content="미국주식 로그인, 미국주식 회원가입, Go Higher 가입, 투자플랫폼 회원가입, 미국 증시 계정, 미국주식 계정, ETF, 포트폴리오, 소셜 로그인, 구글 로그인, 투자 데이터, 안전한 투자, 로그인, 회원가입, 계정 생성, 미국 주식 플랫폼">
 
-        <!-- 사이트 검증 메타 -->
-    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
-    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
-    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
-    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
-    <meta property="og:url" content="https://gohigher.kr/index.html" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Go Higher" />
-    <meta property="og:locale" content="ko_KR" />
-    <!-- Twitter Card 태그 -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
-    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
-    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
-    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+<!-- canonical (로그인/회원가입의 실제 URL로 교체 필요) -->
+<link rel="canonical" href="https://gohigher.kr/login.html" />
+
+<!-- 사이트 검증 -->
+<meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+<meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
+
+<!-- Open Graph (SNS 공유 최적화) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Go Higher | 미국주식 로그인 · 회원가입 – 안전하고 간편한 투자 시작" />
+<meta property="og:description" content="지금 Go Higher에 로그인 또는 회원가입하고, 미국주식, ETF, 환율, 투자 다이어리, AI 투자뉴스 등 모든 투자 정보를 빠르고 안전하게 시작하세요!" />
+<meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+<meta property="og:url" content="https://gohigher.kr/login.html" />
+<meta property="og:site_name" content="Go Higher" />
+<meta property="og:locale" content="ko_KR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Go Higher | 미국주식 로그인 · 회원가입" />
+<meta name="twitter:description" content="미국주식 투자 시작은 간편 로그인/회원가입에서! 안전한 투자환경, 프리미엄 데이터 연동, 구글 소셜 로그인 지원" />
+<meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+
+<!-- 추가 권장 -->
+<meta name="author" content="Go Higher" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/logo.jpg" type="image/jpeg" />
     
   <link rel="stylesheet" href="navigation.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -272,12 +285,43 @@
       text-align: center;
       min-height: 1.3em;
     }
-    @media (max-width: 600px) {
+@media (max-width: 768px) {
       .auth-container { padding: 16px 3vw; }
       .auth-box { padding: 16px 5vw; max-width: 98vw;}
       .auth-btn, .auth-social-btn { font-size: 1rem; padding: 10px 0; }
       .auth-tabs { min-width: 0; }
       .auth-tab { font-size: 1.07rem; padding: 0.9em 0; }
+      .auth-tabs {
+    min-width: 0 !important;
+    width: 100% !important;
+    box-shadow: 0 4px 12px #ffe06644, 0 1.5px 6px #23294822, 0 1px 3px #fffbe035 inset;
+    border-radius: 1.4em !important;
+    margin-bottom: 18px !important;
+  }
+  .auth-tab {
+    font-size: 1rem !important;
+    padding: 0.75em 0 !important;
+    min-width: 0 !important;
+    border-radius: 0 !important;
+    letter-spacing: 0 !important;
+    flex: 1 1 0 !important;
+    gap: 0.45em !important;
+  }
+  .auth-tab:first-child {
+    border-radius: 1em 0 0 1em !important;
+  }
+  .auth-tab:last-child {
+    border-radius: 0 1em 1em 0 !important;
+  }
+  .auth-tab .auth-tab__icon {
+    font-size: 1.08em !important;
+    margin-right: 0.12em !important;
+  }
+  .auth-tab.active {
+    transform: translateY(-2px) scale(1.04) !important;
+    box-shadow: 0 4px 20px #ffe06666, 0 1.5px 6px #fffbe044 inset !important;
+    border-bottom: 3px solid #fffbe0 !important;
+  }
     }
   </style>
 </head>

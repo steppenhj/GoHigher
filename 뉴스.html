@@ -2,25 +2,35 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>GoHigher 뉴스</title>
+  <title>Go Higher 뉴스 | 미국주식·증시·환율 실시간 AI 요약 & 오늘의 이슈</title>
+<meta name="description" content="미국 주식·증시·환율·ETF·테슬라·엔비디아·암호화폐 등 핵심 투자 뉴스를 한눈에! 실시간 속보, AI 요약, 오늘의 주요 이슈까지 Go Higher 뉴스 허브에서 매일 확인하세요.">
+<meta name="keywords" content="미국주식 뉴스, 증시 속보, 환율 정보, AI 뉴스 요약, 오늘의 이슈, 투자 정보, ETF, 테슬라, 엔비디아, 암호화폐 뉴스, 미국 증시, CNBC 뉴스, AI 증시, 기술 트렌드, 미국 경제, Go Higher, 투자 허브">
+<link rel="canonical" href="https://gohigher.kr/뉴스.html" />
 
-        <!-- 사이트 검증 메타 -->
-    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
-    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
-    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
-    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
-    <meta property="og:url" content="https://gohigher.kr/index.html" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Go Higher" />
-    <meta property="og:locale" content="ko_KR" />
-    <!-- Twitter Card 태그 -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
-    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
-    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
-    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+<!-- 사이트 검증 -->
+<meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+<meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
+
+<!-- Open Graph (SNS 공유용) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Go Higher 뉴스 | 미국주식·증시·환율 실시간 AI 요약 & 오늘의 이슈" />
+<meta property="og:description" content="미국주식, 증시, 환율, ETF, 암호화폐까지 최신 투자 뉴스를 AI가 빠르게 요약! 오늘의 주요 이슈도 한 번에 확인하세요." />
+<meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+<meta property="og:url" content="https://gohigher.kr/뉴스.html" />
+<meta property="og:site_name" content="Go Higher" />
+<meta property="og:locale" content="ko_KR" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Go Higher 뉴스 | 미국주식·증시·환율 실시간 AI 요약 & 오늘의 이슈" />
+<meta name="twitter:description" content="미국주식·증시·환율 등 투자 뉴스를 한 번에! 실시간 이슈 & AI 핵심 요약은 Go Higher 뉴스 허브에서 확인하세요." />
+<meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+
+<!-- 기타 권장 태그 -->
+<meta name="author" content="Go Higher" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/logo.jpg" type="image/jpeg" />
     
   <link rel="stylesheet" href="navigation.css">
 
@@ -255,6 +265,63 @@
   margin-bottom: 7px;
   letter-spacing: -0.02em;
 }
+
+
+@media (max-width: 768px) {
+  .news-cards {
+    display: grid !important;
+    gap: 14px;
+    margin-bottom: 18px !important;
+  }
+  /* 상단 투데이뉴스+CNBC(2개짜리 news-cards): 한 줄에 2개 */
+  .news-cards:first-of-type {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* 하단 AI 뉴스(3개짜리 news-cards): 한 줄에 3개 */
+  .news-cards:last-of-type {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .news-card {
+    min-width: 0;
+    padding: 16px 6px 16px 6px;
+    border-radius: 14px;
+    font-size: 0.97em;
+    /* 아이콘/텍스트 줄임 처리 */
+    text-align: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 148px;
+    /* 카드 높이 조절 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .news-card-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  .news-card-title {
+    font-size: 1.01rem;
+    margin-bottom: 5px;
+    text-align: center;
+    line-height: 1.28;
+    font-weight: 800;
+  }
+  .news-card-desc {
+    font-size: 0.98rem;
+    line-height: 1.33;
+    margin-top: 0;
+    text-align: center;
+    font-weight: 500;
+    min-height: 38px;
+    /* 2줄까지 보이게 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+}
+
 </style>
 
 </head>

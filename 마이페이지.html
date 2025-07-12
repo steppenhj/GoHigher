@@ -2,25 +2,37 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>마이페이지 | Go Higher</title>
+  <title>마이페이지 | Go Higher – 나의 투자 관리, 자산대시보드, 다이어리, 문의내역 한눈에</title>
+<meta name="description" content="Go Higher 마이페이지에서 나만의 투자 포트폴리오, 즐겨찾기 종목, 투자 다이어리, 자산 추이, 고객 문의 내역 등 맞춤형 투자 관리 서비스를 제공합니다. 내 미국주식 투자 현황을 한눈에 확인하고 성장 기록을 관리해보세요.">
+<meta name="keywords" content="마이페이지, 투자 관리, 포트폴리오, 미국주식 대시보드, 투자 다이어리, 즐겨찾기 종목, 자산 추이, 투자 기록, 투자 문의, Go Higher, 맞춤 투자 서비스, 회원 투자 분석, 주식 자산관리">
 
-        <!-- 사이트 검증 메타 -->
-    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
-    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
-    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
-    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
-    <meta property="og:url" content="https://gohigher.kr/index.html" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Go Higher" />
-    <meta property="og:locale" content="ko_KR" />
-    <!-- Twitter Card 태그 -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
-    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
-    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
-    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+<!-- canonical: 실제 마이페이지 경로에 맞게! 예: /마이페이지.html -->
+<link rel="canonical" href="https://gohigher.kr/마이페이지.html" />
+
+<!-- 사이트 검증 -->
+<meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+<meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
+
+<!-- Open Graph (SNS, 카카오/페북 공유 최적화) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="마이페이지 | Go Higher – 나만의 투자 대시보드와 성장 기록" />
+<meta property="og:description" content="투자 포트폴리오, 즐겨찾기 종목, 투자 다이어리, 자산 추이, 문의내역까지 내 투자정보를 한눈에 관리! Go Higher 마이페이지에서 성장의 변화를 경험하세요." />
+<meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+<meta property="og:url" content="https://gohigher.kr/마이페이지.html" />
+<meta property="og:site_name" content="Go Higher" />
+<meta property="og:locale" content="ko_KR" />
+
+<!-- Twitter Card (트위터/X 공유) -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="마이페이지 | Go Higher – 나만의 투자 대시보드와 성장 기록" />
+<meta name="twitter:description" content="나의 투자 현황과 자산, 다이어리, 문의내역을 한곳에서! Go Higher 마이페이지에서 쉽고 편리하게 관리하세요." />
+<meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+
+<!-- 추가 권장 -->
+<meta name="author" content="Go Higher" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/logo.jpg" type="image/jpeg" />
     
    <link rel="stylesheet" href="navigation.css">
 
@@ -437,31 +449,201 @@
       transform: translateX(5px);
     }
     
-    /* 반응형 */
-    @media (max-width: 768px) {
-      .mypage-main-container {
-        padding: 20px 15px 60px 15px;
-      }
-      
-      .user-profile-card > div {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 20px;
-      }
-      
-      #favoritesGrid {
-        grid-template-columns: 1fr;
-      }
-      
-      .stock-table {
-        font-size: 0.85rem;
-      }
-      
-      .stock-table th,
-      .stock-table td {
-        padding: 12px 8px;
-      }
-    }
+@media (max-width: 768px) {
+  .mypage-main-container {
+    max-width: 100vw !important;
+    padding: 14px 2.5vw 32px 2.5vw !important;
+    border-radius: 0 !important;
+  }
+  .mypage-section {
+    margin-bottom: 22px !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    min-width: 0 !important;
+  }
+  /* 프로필 카드 */
+  .user-profile-card {
+    border-radius: 14px !important;
+    margin-bottom: 18px !important;
+    box-shadow: none !important;
+  }
+  .user-profile-card > div[style*="padding:40px"] {
+    padding: 18px 9px !important;
+    gap: 11px !important;
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    justify-items: center !important;
+  }
+  .user-profile-card img {
+    width: 62px !important;
+    height: 62px !important;
+    border-width: 2px !important;
+  }
+  .user-profile-card #mypageUserName {
+    font-size: 1.15rem !important;
+    margin-bottom: 4px !important;
+  }
+  .user-profile-card #mypageUserEmail {
+    font-size: 0.99rem !important;
+    margin-bottom: 8px !important;
+  }
+  .user-profile-card #mypageMembership {
+    font-size: 0.96em !important;
+    padding: 6px 11px !important;
+    border-radius: 13px !important;
+  }
+  .user-profile-card > div:last-child {
+    margin-top: 10px !important;
+    text-align: center !important;
+  }
+  /* 각 섹션 공통 */
+  .mypage-section > div[style*="display:flex"] {
+    gap: 7px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    margin-bottom: 12px !important;
+  }
+  .mypage-section h2 {
+    font-size: 1.09rem !important;
+    margin: 0 0 0.1em 0 !important;
+  }
+  .mypage-section p {
+    font-size: 0.89rem !important;
+    margin: 2px 0 0 0 !important;
+  }
+  /* 즐겨찾기 */
+  .favorites-card > div[style*="gap:15px"] > div[style*="width:50px"] {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.2rem !important;
+    border-radius: 9px !important;
+  }
+  .favorites-card .view-toggle-btn {
+    font-size: 0.86rem !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+  }
+  #favoritesEmpty, #diaryEmpty, #assetEmpty, #chatbotEmpty {
+    padding: 36px 3vw !important;
+    font-size: 0.99rem !important;
+    border-radius: 13px !important;
+  }
+  #favoritesEmpty > div,
+  #diaryEmpty > div,
+  #assetEmpty > div,
+  #chatbotEmpty > div {
+    font-size: 2.2rem !important;
+    margin-bottom: 10px !important;
+  }
+  #favoritesGrid {
+    grid-template-columns: 1fr !important;
+    gap: 11px !important;
+    padding: 0 !important;
+  }
+  .stock-card {
+    border-radius: 11px !important;
+    padding: 14px 8px !important;
+    font-size: 0.97rem !important;
+  }
+  /* 테이블 (스와이프) */
+  #favoritesTableContainer {
+    overflow-x: auto !important;
+    padding-bottom: 2px !important;
+  }
+  .stock-table th, .stock-table td {
+    padding: 7px 7px !important;
+    font-size: 0.91rem !important;
+  }
+  /* 다이어리 */
+  .diary-card > div[style*="width:50px"] {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.2rem !important;
+    border-radius: 9px !important;
+  }
+  .diary-card a,
+  #favoritesEmpty button,
+  #diaryEmpty button,
+  #assetEmpty button,
+  #chatbotEmpty button {
+    font-size: 0.97rem !important;
+    border-radius: 9px !important;
+    padding: 10px 17px !important;
+    margin-top: 4px !important;
+  }
+  #diaryTimeline {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+  #diaryPreview {
+    margin-left: 25px !important;
+    padding: 14px 7px !important;
+    border-radius: 11px !important;
+  }
+  #diaryPreview > div {
+    font-size: 0.97rem !important;
+    min-height: 40px !important;
+    padding: 10px !important;
+    border-radius: 7px !important;
+  }
+  #diaryPreview > div[style*="color:#4ecdc4;"] {
+    font-size: 0.97rem !important;
+    margin-bottom: 7px !important;
+    gap: 5px !important;
+  }
+  #diaryPreview > div[style*="left:-37px"] {
+    left: -22px !important;
+    top: 16px !important;
+    width: 13px !important;
+    height: 13px !important;
+    border-width: 2px !important;
+    box-shadow: 0 0 0 2px rgba(78,205,196,0.15) !important;
+  }
+  /* 자산 카드 */
+  .asset-card > div[style*="width:50px"] {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.2rem !important;
+    border-radius: 9px !important;
+  }
+  .asset-card .period-btn {
+    font-size: 0.84rem !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+  }
+  #assetDashboard > div[style*="display:grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 9px !important;
+    margin-bottom: 12px !important;
+  }
+  #assetDashboard > div:last-child {
+    border-radius: 11px !important;
+    padding: 13px 7px !important;
+  }
+  #assetDashboard .asset-stat {
+    font-size: 0.99rem !important;
+    padding: 9px 0 !important;
+  }
+  /* 챗봇 */
+  .chatbot-card > div[style*="width:50px"] {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.2rem !important;
+    border-radius: 9px !important;
+  }
+  #chatbotChat {
+    border-radius: 11px !important;
+    padding: 13px 7px !important;
+    max-height: 180px !important;
+    font-size: 0.97rem !important;
+  }
+  #chatbotList li {
+    border-radius: 9px !important;
+    padding: 11px 8px !important;
+    margin-bottom: 8px !important;
+    font-size: 0.97rem !important;
+  }
+}
   </style>
 
   <script src="navigation.js"></script>

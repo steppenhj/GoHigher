@@ -212,6 +212,7 @@
       position: relative;
       overflow: hidden;
       text-align: center;
+      z-index: 1;
     }
 
     .investor-card::before {
@@ -223,6 +224,7 @@
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
       transition: left 0.6s;
+      z-index: 0 !important;
     }
 
     .investor-card:hover::before {
@@ -480,6 +482,60 @@
       100% { transform: rotate(360deg); }
     }
 
+    /* 스크롤바 스타일링 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(28, 36, 52, 0.3);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-primary);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-secondary);
+    }
+
+    /* 포커스 상태 */
+    .investor-card:focus,
+    .analysis-card:focus {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 2px;
+    }
+
+    /* 부드러운 스크롤 */
+    html {
+      scroll-behavior: smooth;
+    }
+    .holdings-table td.weight-cell {
+  color: #ffe066;
+  font-weight: 700;
+  font-size: 1.05em;
+  background: rgba(255,224,102,0.08);
+  letter-spacing: 0.01em;
+  border-radius: 6px;
+}
+.investor-card {
+  position: relative;
+}
+.investor-desc-box {
+  margin-top: 18px;
+  font-size: 1.08rem;
+  background: #252d44;
+  border-radius: 10px;
+  padding: 18px 26px;
+  min-height: 44px;
+  color: #ffe066;
+  border: 2px solid #ffe066;
+  box-shadow: 0 6px 30px rgba(30,40,80,0.09);
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
     /* 반응형 디자인 */
     @media (max-width: 768px) {
       .container {
@@ -519,51 +575,45 @@
       section h2 {
         font-size: 1.8rem;
       }
-    }
-
-    @media (max-width: 480px) {
-      .page-title {
-        font-size: 2rem;
-      }
-      
-      .overview-card,
-      .analysis-card {
-        padding: 1.5rem;
-      }
-      
-      .chart-container {
-        height: 350px;
-      }
-    }
-
-    /* 스크롤바 스타일링 */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: rgba(28, 36, 52, 0.3);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--accent-primary);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-secondary);
-    }
-
-    /* 포커스 상태 */
-    .investor-card:focus,
-    .analysis-card:focus {
-      outline: 2px solid var(--accent-primary);
-      outline-offset: 2px;
-    }
-
-    /* 부드러운 스크롤 */
-    html {
-      scroll-behavior: smooth;
+  .investor-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* 한 줄에 4개 */
+    gap: 0.5rem;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .investor-card {
+    padding: 0.65rem 0.3rem;
+    min-height: 34px;
+    border-radius: 7px;
+    font-size: 0.96em;
+    margin: 0;
+    text-align: center;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px; /* or adjust as needed */
+  }
+  .investor-card span {
+    font-size: 0.97em;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-align: center;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .investor-desc-box {
+    margin-top: 10px;
+    font-size: 0.97rem;
+    padding: 11px 8px;
+    border-radius: 7px;
+  }
     }
   </style>
 </head>
@@ -699,7 +749,9 @@
     <section class="section-investors">
       <h2>💼 투자자 목록</h2>
       <ul class="investor-grid" id="investorList"></ul>
+      <div id="investorDescBox" class="investor-desc-box"></div>
     </section>
+    
 
     <!-- 보유 종목 현황 -->
     <section class="section-holdings">
@@ -709,7 +761,6 @@
           <thead>
             <tr>
               <th>티커</th>
-              <th>수량</th>
               <th>비중(%)</th>
               <th>비고</th>
             </tr>
@@ -786,25 +837,28 @@
 
     // 투자자 목록 로드
     async function loadInvestors() {
-      const snap = await db.collection('Investors').orderBy('name').get();
-      investorListEl.innerHTML = '';
-      snap.forEach(doc => {
-        const li = document.createElement('li');
-        li.className = 'investor-card';
-        li.dataset.id = doc.id;
-        
-        const span = document.createElement('span');
-        span.textContent = doc.data().name;
-        li.appendChild(span);
-        
-        li.addEventListener('click', () => selectInvestor(doc.id, doc.data().name));
-        investorListEl.appendChild(li);
-      });
-      if (investorListEl.firstChild) {
-        const first = investorListEl.firstChild;
-        selectInvestor(first.dataset.id, first.querySelector('span').textContent);
-      }
-    }
+  const snap = await db.collection('Investors').orderBy('name').get();
+  investorListEl.innerHTML = '';
+  snap.forEach(doc => {
+    const data = doc.data();
+    const li = document.createElement('li');
+    li.className = 'investor-card';
+    li.dataset.id = doc.id;
+    li.tabIndex = 0;
+    li.dataset.desc = data.desc || "";
+    const span = document.createElement('span');
+    span.textContent = data.name;
+    li.appendChild(span);
+
+
+    li.addEventListener('click', () => selectInvestor(doc.id, data.name));
+    investorListEl.appendChild(li);
+  });
+  if (investorListEl.firstChild) {
+    const first = investorListEl.firstChild;
+    selectInvestor(first.dataset.id, first.querySelector('span').textContent);
+  }
+}
 
     // 투자자 선택
     async function selectInvestor(id, name) {
@@ -822,13 +876,12 @@
           .get();
 
         const holdings = hSnap.docs.map(d => d.data());
-        holdings.sort((a, b) => a.ticker.localeCompare(b.ticker, 'en', {numeric: true}));
+        holdings.sort((a, b) => parseFloat(b.weight) - parseFloat(a.weight));
 
         holdingsBody.innerHTML = holdings.map(h => `
           <tr>
             <td>${h.ticker}</td>
-            <td>${h.qty.toLocaleString()}</td>
-            <td>${h.weight}</td>
+            <td class="weight-cell">${h.weight}</td>
             <td>${h.note || ''}</td>
           </tr>
         `).join('');
@@ -866,6 +919,12 @@
       } catch (err) {
         console.error('Analysis 조회 실패', err);
       }
+      // 투자자 설명 박스에 설명 노출
+const descBox = document.getElementById('investorDescBox');
+const selInvestor = [...investorListEl.children].find(li => li.classList.contains('active'));
+descBox.textContent = selInvestor && selInvestor.dataset.desc
+  ? selInvestor.dataset.desc
+  : '';
     }
 
     window.db   = firebase.firestore();

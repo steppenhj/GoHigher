@@ -298,46 +298,6 @@
       margin: 14px 0 10px 0;
       border: none; border-top: 1.2px solid #2b3344;
     }
-    @media (max-width: 820px) {
-      .nav-menu { display: none; }
-    }
-    @media (max-width: 670px) {
-      .nav {
-        width: 98vw;
-        min-width: 0;
-        padding: 0 6px;
-        height: 46px;
-      }
-      .brand { font-size: 0.97rem;}
-      .btn { font-size: 0.96rem; padding: 4px 8px;}
-      .btn.login { padding: 4px 10px;}
-      
-      /* 모바일에서 주식 검색 스타일 조정 */
-      .stock-search {
-        padding: 3px 6px;
-        gap: 6px;
-      }
-      
-      .stock-search input {
-        width: 80px;
-        font-size: 0.85rem;
-        padding: 4px 6px;
-      }
-      
-      .stock-search #stockSearchBtn {
-        font-size: 0.8rem;
-        padding: 4px 8px;
-        min-width: 50px;
-      }
-      
-      .stock-result {
-        position: fixed;
-        top: 70px;
-        left: 10px;
-        right: 10px;
-        width: auto;
-      }
-    }
     .policy-links {
   margin-top: 16px;
   padding: 10px 0 2px 0;
@@ -729,3 +689,29 @@ tbody tr:last-child {
 .search-modal, .stock-summary-card, .stock-section-card, table, th, td {
   font-size: var(--modal-font-size) !important;
 }
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .nav {
+        width: 98vw;
+        min-width: 0;
+        padding: 0 6px;
+        height: 46px;
+      }
+      .brand { font-size: 0.97rem;}
+      .btn { font-size: 0.96rem; padding: 4px 8px;}
+      .btn.login { padding: 4px 10px;}
+      
+      /* 모바일에서 주식 검색 스타일 조정 */
+      .stock-search {
+        display: none;
+      }
+      
+      .nav-left, .nav-right {
+  flex-wrap: nowrap;   /* 줄바꿈 안 함 */
+  white-space: nowrap; /* 자식들도 줄바꿈 안 함 */
+}
+
+.brand, .btn.share {
+  white-space: nowrap; /* 텍스트 강제 한 줄 */
+}
+    }
