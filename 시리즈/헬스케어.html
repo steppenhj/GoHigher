@@ -250,6 +250,59 @@
   display: inline-block;
 }
 
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: visible;
+  }
+  .stock-detail-table table,
+  .stock-detail-table thead,
+  .stock-detail-table tbody,
+  .stock-detail-table th,
+  .stock-detail-table td,
+  .stock-detail-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .stock-detail-table thead {
+    display: none; /* 머리글 숨김 */
+  }
+
+  .stock-detail-table tbody tr {
+    background: rgba(36, 47, 71, 0.99);
+    border-radius: 12px;
+    margin-bottom: 22px;
+    box-shadow: 0 2px 10px rgba(40,60,120,0.11);
+    padding: 0 0 4px 0;
+  }
+
+  .stock-detail-table td {
+    padding: 12px 10px 9px 16px;
+    border: none;
+    font-size: 1.07em;
+    position: relative;
+    color: #f5f6fc;
+    min-height: 30px;
+    border-bottom: none;
+  }
+
+  .stock-detail-table td:first-child {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #ffe066;
+    padding-top: 18px;
+  }
+
+  .stock-detail-table td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #84e4bc;
+    display: block;
+    margin-bottom: 2px;
+    font-size: 0.97em;
+    letter-spacing: -0.01em;
+  }
+}
 
   </style>
 </head>

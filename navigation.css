@@ -696,6 +696,7 @@ tbody tr:last-child {
         min-width: 0;
         padding: 0 6px;
         height: 46px;
+    margin-bottom: 18px;   /* 18px~24px 등 취향에 맞게 */
       }
       .brand { font-size: 0.97rem;}
       .btn { font-size: 0.96rem; padding: 4px 8px;}
@@ -714,4 +715,5 @@ tbody tr:last-child {
 .brand, .btn.share {
   white-space: nowrap; /* 텍스트 강제 한 줄 */
 }
+
     }
