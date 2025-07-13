@@ -210,7 +210,6 @@
       backdrop-filter: blur(18px);
       border: 1.7px solid rgba(76,90,110,0.52);
       height: fit-content;
-      position: sticky;
       top: 2rem;
     }
 
@@ -303,6 +302,63 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .price-growth-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.growth-inline-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.growth-btn {
+  background: linear-gradient(90deg, #2c3855 50%, #3a4d77 110%);
+  color: #ffe066;
+  border: 1.2px solid #ffe06690;
+  border-radius: 8px;
+  font-size: 1.15em;
+  font-weight: bold;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  transition: all 0.18s;
+  margin: 0 1px;
+}
+.growth-btn:hover {
+  background: #ffe066;
+  color: #222c42;
+  box-shadow: 0 2px 10px 0 #98bfff22;
+}
+.growth-percent {
+  min-width: 36px;
+  display: inline-block;
+  color: #ffe066 !important;
+  font-size: 1.18em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+.checkbox-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 8px;
+}
+.checkbox-row label {
+  margin-bottom: 0 !important;
+  font-weight: 500;
+  color: #c7dbff;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+}
+.checkbox-row input[type="checkbox"] {
+  accent-color: #ffe066;
+  margin-right: 0.4em;
+}
 
     /* 반응형 디자인 */
     @media (max-width: 1024px) {
@@ -395,7 +451,7 @@
   공유
 </button>
     <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
-    <img id="profilePhoto" class="profile-photo" src="/logo.jpg" alt="프로필" style="display:none;" />
+    <img id="profilePhoto" class="profile-photo" src="/default-profile.png" alt="프로필" style="display:none;" />
   </div>
 </nav>
 
@@ -477,28 +533,44 @@
       </section>
 
       <!-- 계산기 섹션 -->
-      <section class="calculator-section">
-        <h2>배당금 계산기</h2>
-        <form class="calculator-form">
-          <div class="form-group">
-            <label for="selectedTicker">종목 선택</label>
-            <select id="selectedTicker" required>
-              <option value="" disabled selected>카테고리에서 종목 선택</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="shareCount">매수 주식수</label>
-            <input type="number" id="shareCount" value="0" min="0" required>
-          </div>
-          <div class="form-group">
-            <label for="pricePerShare">매수가격 (USD)</label>
-            <input type="number" id="pricePerShare" value="0" min="0" step="0.01" required>
-          </div>
-          <button type="button" class="calculate-btn" id="calculateBtn">
-            💰 배당금 계산하기
-          </button>
-        </form>
-        <div class="result" id="result"></div>
+       <section class="calculator-section">
+      <form class="calculator-form">
+  <div class="form-group">
+    <label for="selectedTicker">종목 선택</label>
+    <select id="selectedTicker"></select>
+  </div>
+  <div class="form-group">
+    <label for="shareCount">매수 주식수</label>
+    <input type="number" id="shareCount" value="0">
+  </div>
+  <div class="form-group">
+    <label for="pricePerShare">매수가격 (USD)</label>
+    <input type="number" id="pricePerShare" value="0" step="0.01">
+  </div>
+  <!-- 추가 -->
+  <div class="form-group">
+    <label for="years">보유기간 (년)</label>
+    <input type="number" id="years" value="5" min="1" max="100">
+  </div>
+  <div class="form-group">
+    <label for="exchangeRate">환율</label>
+    <input type="number" id="exchangeRate" value="1400">
+  </div>
+  <div class="form-group price-growth-group">
+  <label>주가상승률</label>
+  <div class="growth-inline-wrap">
+    <button type="button" class="growth-btn" onclick="decrementGrowthRate()">-</button>
+    <span id="priceGrowthRateDisplay" class="growth-percent">0%</span>
+    <button type="button" class="growth-btn" onclick="incrementGrowthRate()">+</button>
+  </div>
+</div>
+<div class="form-group checkbox-row">
+  <label><input type="checkbox" id="reinvest"> 배당금 재투자</label>
+  <label><input type="checkbox" id="applyTax"> 세금 적용</label>
+</div>
+  <button type="button" class="calculate-btn" id="calculateBtn">💰 배당금 계산하기</button>
+</form>
+<div class="result" id="result"></div>
       </section>
     </div>
   </div>
@@ -506,58 +578,127 @@
   <script>
     // 카테고리별 데이터
     const categories = [
-      {
-        name: 'ETF',
-        description: '다양한 배당주에 분산 투자하는 ETF 모음으로 안정적인 수익을 추구합니다.',
-        icon: '📈',
-        iconClass: 'icon-etf',
-        stocks: [
-          { name: 'Vanguard Dividend Appreciation ETF', ticker: 'VIG', yield: 1.8, dividend: 0.75 },
-          { name: 'Schwab U.S. Dividend Equity ETF', ticker: 'SCHD', yield: 3.5, dividend: 0.40 },
-          { name: 'iShares Select Dividend ETF', ticker: 'DVY', yield: 3.7, dividend: 0.74 }
-        ]
-      },
-      {
-        name: '배당 블루칩 (Blue Chip)',
-        description: '시가총액이 크고 안정적인 배당을 제공하는 대형 우량 기업들입니다.',
-        icon: '🏢',
-        iconClass: 'icon-bluechip',
-        stocks: [
-          { name: '코카콜라', ticker: 'KO', yield: 3.1, dividend: 0.44 },
-          { name: '존슨앤존슨', ticker: 'JNJ', yield: 2.6, dividend: 1.13 }
-        ]
-      },
-      {
-        name: '배당 챔피언 (Achievers)',
-        description: '25년 이상 연속으로 배당이 증가한 기업들로 지속적인 성장을 보여줍니다.',
-        icon: '🏆',
-        iconClass: 'icon-achievers',
-        stocks: [
-          { name: 'T. Rowe Price Group', ticker: 'TROW', yield: 2.8, dividend: 1.36 },
-          { name: 'Emerson Electric', ticker: 'EMR', yield: 3.2, dividend: 0.48 }
-        ]
-      },
-      {
-        name: '배당 귀족 (Aristocrats)',
-        description: '25년 이상 배당을 늘려온 S&P 500 기업들로 최고의 안정성을 자랑합니다.',
-        icon: '👑',
-        iconClass: 'icon-aristocrats',
-        stocks: [
-          { name: '프록터앤갬블', ticker: 'PG', yield: 2.5, dividend: 0.93 },
-          { name: '3M Company', ticker: 'MMM', yield: 3.4, dividend: 1.48 }
-        ]
-      },
-      {
-        name: '배당 왕 (Kings)',
-        description: '50년 이상 배당을 늘려온 기업들로 투자계의 전설적인 존재들입니다.',
-        icon: '👑',
-        iconClass: 'icon-kings',
-        stocks: [
-          { name: '에어프로덕츠', ticker: 'APD', yield: 2.2, dividend: 1.57 },
-          { name: '스탠리 블랙앤드데커', ticker: 'SWK', yield: 1.3, dividend: 1.35 }
-        ]
-      }
-    ];
+  {
+    name: 'ETF',
+    description: '다양한 배당주, 월배당 및 배당 성장 테마 ETF로 분산 및 현금흐름 투자를 추구합니다.',
+    icon: '📈',
+    iconClass: 'icon-etf',
+    stocks: [
+      { name: 'Schwab U.S. Dividend Equity ETF', ticker: 'SCHD', yield: 3.76, dividend: 0.26 }, // 분기
+      { name: 'JPMorgan Equity Premium Income ETF', ticker: 'JEPI', yield: 7.45, dividend: 0.38 }, // 월
+      { name: 'JPMorgan Nasdaq Equity Premium Income ETF', ticker: 'JEPQ', yield: 11.04, dividend: 0.42 }, // 월
+      { name: 'Vanguard Dividend Appreciation ETF', ticker: 'VIG', yield: 1.71, dividend: 0.88 }, // 분기
+      { name: 'iShares Select Dividend ETF', ticker: 'DVY', yield: 3.42, dividend: 0.87 }, // 분기
+      { name: 'SPDR Portfolio S&P 500 High Dividend ETF', ticker: 'SPYD', yield: 5.03, dividend: 0.39 }, // 분기
+      { name: 'iShares Core High Dividend ETF', ticker: 'HDV', yield: 4.11, dividend: 1.08 }, // 분기
+      { name: 'Vanguard High Dividend Yield ETF', ticker: 'VYM', yield: 3.11, dividend: 0.88 }, // 분기
+      { name: 'iShares Core Dividend Growth ETF', ticker: 'DGRO', yield: 2.31, dividend: 0.31 }, // 분기
+    ]
+  },
+  {
+    name: '배당 블루칩 (Blue Chip)',
+    description: '시가총액이 크고 안정적인 배당을 제공하는 대형 우량 기업들입니다.',
+    icon: '🏢',
+    iconClass: 'icon-bluechip',
+    stocks: [
+      { name: '존슨앤존슨', ticker: 'JNJ', yield: 3.27, dividend: 1.24 },
+      { name: '코카콜라', ticker: 'KO', yield: 3.11, dividend: 0.485 },
+      { name: '펩시코', ticker: 'PEP', yield: 3.08, dividend: 1.355 },
+      { name: '월마트', ticker: 'WMT', yield: 1.36, dividend: 0.2075 },
+      { name: '에이버리데니슨', ticker: 'AVY', yield: 1.53, dividend: 0.84 },
+      { name: '엑손모빌', ticker: 'XOM', yield: 3.38, dividend: 0.95 },
+      { name: '비자', ticker: 'V', yield: 0.75, dividend: 0.52 },
+      { name: '유나이티드헬스', ticker: 'UNH', yield: 1.37, dividend: 2.10 },
+      { name: '머크', ticker: 'MRK', yield: 2.51, dividend: 0.77 },
+      { name: '홈디포', ticker: 'HD', yield: 2.38, dividend: 2.25 },
+      { name: '아메리칸 익스프레스', ticker: 'AXP', yield: 1.19, dividend: 0.70 },
+      { name: '시스코 시스템즈', ticker: 'CSCO', yield: 3.44, dividend: 0.40 },
+      { name: '애플', ticker: 'AAPL', yield: 0.46, dividend: 0.25 },
+      { name: '인텔', ticker: 'INTC', yield: 1.57, dividend: 0.125 },
+    ]
+  },
+  {
+    name: '배당 챔피언 (Achievers)',
+    description: '10년 이상 연속으로 배당이 증가한 기업들로 지속적인 성장을 보여줍니다.',
+    icon: '🏆',
+    iconClass: 'icon-achievers',
+    stocks: [
+      { name: 'T. Rowe Price Group', ticker: 'TROW', yield: 4.25, dividend: 1.24 },
+      { name: '에이블리티원 파이낸셜', ticker: 'ABT', yield: 1.95, dividend: 0.55 },
+      { name: '텍사스 인스트루먼트', ticker: 'TXN', yield: 2.90, dividend: 1.30 },
+      { name: '켐벨스프', ticker: 'CPB', yield: 3.56, dividend: 0.37 },
+      { name: '도미니언 에너지', ticker: 'D', yield: 5.21, dividend: 0.6675 },
+      { name: '페덱스', ticker: 'FDX', yield: 2.09, dividend: 1.38 },
+      { name: '월그린스 부츠 얼라이언스', ticker: 'WBA', yield: 8.95, dividend: 0.25 },
+      { name: '피앤씨 파이낸셜 서비스', ticker: 'PNC', yield: 4.08, dividend: 1.55 },
+      { name: '슈왑', ticker: 'SCHW', yield: 1.61, dividend: 0.25 },
+      { name: 'Aflac Incorporated', ticker: 'AFL', yield: 2.35, dividend: 0.50 },
+      { name: 'Archer-Daniels-Midland', ticker: 'ADM', yield: 2.77, dividend: 0.50 },
+      { name: 'Automatic Data Processing', ticker: 'ADP', yield: 2.24, dividend: 1.40 },
+      { name: 'Cintas Corporation', ticker: 'CTAS', yield: 0.75, dividend: 1.35 },
+    ]
+  },
+  {
+    name: '배당 귀족 (Aristocrats)',
+    description: '25년 이상 배당을 늘려온 S&P 500 기업들로 최고의 안정성을 자랑합니다.',
+    icon: '👑',
+    iconClass: 'icon-aristocrats',
+    stocks: [
+      { name: '에이티앤티', ticker: 'T', yield: 6.09, dividend: 0.28 },
+      { name: '에이브비', ticker: 'ABBV', yield: 3.37, dividend: 1.55 },
+      { name: '쉐브론', ticker: 'CVX', yield: 4.14, dividend: 1.63 },
+      { name: '피플스 유나이티드 파이낸셜', ticker: 'PBCT', yield: 4.15, dividend: 0.18 },
+      { name: '일리노이 툴 웍스', ticker: 'ITW', yield: 2.16, dividend: 1.40 },
+      { name: '로우스', ticker: 'LOW', yield: 1.66, dividend: 1.10 },
+      { name: 'Sysco Corporation', ticker: 'SYY', yield: 2.46, dividend: 0.50 },
+      { name: 'Dover Corporation', ticker: 'DOV', yield: 1.38, dividend: 0.51 },
+      { name: 'Clorox Company', ticker: 'CLX', yield: 2.77, dividend: 1.20 },
+      { name: 'Ecolab Inc.', ticker: 'ECL', yield: 1.15, dividend: 0.57 },
+      { name: 'Brown-Forman', ticker: 'BF.B', yield: 1.18, dividend: 0.21 },
+      { name: 'Stanley Black & Decker', ticker: 'SWK', yield: 3.15, dividend: 0.81 },
+    ]
+  },
+  {
+    name: '배당 왕 (Kings)',
+    description: '50년 이상 배당을 늘려온 기업들로 투자계의 전설적인 존재들입니다.',
+    icon: '👑',
+    iconClass: 'icon-kings',
+    stocks: [
+      { name: '노스웨스트 내추럴', ticker: 'NWN', yield: 4.55, dividend: 0.49 },
+      { name: '콜게이트-팔모라이브', ticker: 'CL', yield: 2.27, dividend: 0.50 },
+      { name: '파커하니핀', ticker: 'PH', yield: 1.23, dividend: 1.48 },
+      { name: '3M', ticker: 'MMM', yield: 6.23, dividend: 1.51 },
+      { name: '제너럴 다이나믹스', ticker: 'GD', yield: 1.89, dividend: 1.42 },
+      { name: 'Hormel Foods', ticker: 'HRL', yield: 3.23, dividend: 0.28 },
+      { name: 'Cincinnati Financial', ticker: 'CINF', yield: 2.90, dividend: 0.75 },
+      { name: 'Lancaster Colony', ticker: 'LANC', yield: 1.62, dividend: 0.85 },
+      { name: 'Federal Realty Investment Trust', ticker: 'FRT', yield: 4.17, dividend: 1.08 },
+      { name: 'Commerce Bancshares', ticker: 'CBSH', yield: 1.59, dividend: 0.27 },
+      { name: 'California Water Service', ticker: 'CWT', yield: 1.88, dividend: 0.26 },
+      { name: 'ABM Industries', ticker: 'ABM', yield: 1.75, dividend: 0.22 },
+      { name: 'Farmers & Merchants Bancorp', ticker: 'FMCB', yield: 1.55, dividend: 9.10 },
+    ]
+  },
+  {
+    name: '배당성장주 (Dividend Growth Stocks)',
+    description: '최근 5~10년간 배당 증가율이 높고, 성장성이 뛰어난 배당주입니다.',
+    icon: '📈',
+    iconClass: 'icon-growth',
+    stocks: [
+      { name: '마이크로소프트', ticker: 'MSFT', yield: 0.66, dividend: 0.75 },
+      { name: '브로드컴', ticker: 'AVGO', yield: 1.45, dividend: 5.25 },
+      { name: '로퍼 테크놀로지스', ticker: 'ROP', yield: 0.54, dividend: 0.75 },
+      { name: '써머피셔 사이언티픽', ticker: 'TMO', yield: 0.24, dividend: 0.35 },
+      { name: 'S&P 글로벌', ticker: 'SPGI', yield: 0.83, dividend: 0.91 },
+      { name: '마스터카드', ticker: 'MA', yield: 0.56, dividend: 0.66 },
+      { name: '유나이티드헬스그룹', ticker: 'UNH', yield: 1.37, dividend: 2.10 },
+      { name: '코스트코', ticker: 'COST', yield: 0.54, dividend: 1.16 },
+      { name: 'T. Rowe Price Group', ticker: 'TROW', yield: 4.25, dividend: 1.24 },
+      { name: 'NextEra Energy', ticker: 'NEE', yield: 2.47, dividend: 0.47 },
+      { name: '에이블리티원 파이낸셜', ticker: 'ABT', yield: 1.95, dividend: 0.55 },
+    ]
+  }
+];
 
     const categoryList = document.getElementById('category-list');
     const select = document.getElementById('selectedTicker');
@@ -610,37 +751,218 @@
     });
 
     // 계산기 로직
-    document.getElementById('calculateBtn').addEventListener('click', () => {
-      const ticker = select.value;
-      const shares = parseFloat(document.getElementById('shareCount').value) || 0;
-      const price = parseFloat(document.getElementById('pricePerShare').value) || 0;
-      
-      if (!ticker || shares <= 0 || price <= 0) {
-        alert('모든 필드를 올바르게 입력해주세요.');
-        return;
+    // 주가상승률 UI 및 로컬스토리지
+  function incrementGrowthRate() {
+    let display = document.getElementById('priceGrowthRateDisplay');
+    let value = parseInt(display.innerText.replace('%', '')) || 0;
+    value = Math.min(value + 1, 30); // 최대 30% 제한
+    display.innerText = value + '%';
+    localStorage.setItem('priceGrowthRate', value);
+  }
+  function decrementGrowthRate() {
+    let display = document.getElementById('priceGrowthRateDisplay');
+    let value = parseInt(display.innerText.replace('%', '')) || 0;
+    value = Math.max(0, value - 1);
+    display.innerText = value + '%';
+    localStorage.setItem('priceGrowthRate', value);
+  }
+  // 최초 접속 시 로컬스토리지에서 값 불러오기
+  window.addEventListener('DOMContentLoaded', () => {
+    let display = document.getElementById('priceGrowthRateDisplay');
+    let val = localStorage.getItem('priceGrowthRate');
+    if (display && val !== null) display.innerText = val + '%';
+  });
+
+  // 한국 종합소득세 누진세율 계산
+  function calculateKRTax(grossIncome) {
+    const brackets = [
+      { limit: 12000000, rate: 0.06, deduction: 0 },
+      { limit: 46000000, rate: 0.15, deduction: 1080000 },
+      { limit: 88000000, rate: 0.24, deduction: 5220000 },
+      { limit: 150000000, rate: 0.35, deduction: 14900000 },
+      { limit: 300000000, rate: 0.38, deduction: 19400000 },
+      { limit: 500000000, rate: 0.40, deduction: 25400000 },
+      { limit: 1000000000, rate: 0.42, deduction: 35400000 },
+      { limit: Infinity, rate: 0.45, deduction: 66900000 }
+    ];
+    for (let i = 0; i < brackets.length; i++) {
+      if (grossIncome <= brackets[i].limit) {
+        const tax = grossIncome * brackets[i].rate - brackets[i].deduction;
+        return Math.max(tax, 0);
+      }
+    }
+    return 0;
+  }
+
+  // 종목별 연간배당(dps), 배당성장률 (샘플 데이터, 확장 가능)
+const dividendData = {
+  // ETF
+  "SCHD":  { dps: 1.03 / 4, growth: 0.122 },       // 연간 $1.03, 분기별 평균 $0.2575, 1년 성장률 12.2% :contentReference[oaicite:1]{index=1}
+
+  "JEPI":  { dps: 2.68, growth: 0.01 },
+  "JEPQ":  { dps: 3.12, growth: 0.01 },
+  "VIG":   { dps: 2.1,  growth: 0.07 },
+  "DVY":   { dps: 3.67, growth: 0.03 },
+  "SPYD":  { dps: 1.58, growth: 0.02 },
+  "HDV":   { dps: 3.23, growth: 0.02 },
+  "VYM":   { dps: 3.3,  growth: 0.07 },
+  "DGRO":  { dps: 1.18, growth: 0.09 },
+
+  // 배당 블루칩
+  "JNJ":   { dps: 5.20, growth: 0.048 },           // 분기 $1.30 → 연간 $5.20, 증가율 4.8% :contentReference[oaicite:2]{index=2}
+  "KO":    { dps: 1.92, growth: 0.05 },
+  "PEP":   { dps: 5.42, growth: 0.045 },
+  "WMT":   { dps: 2.48, growth: 0.015 },
+  "AVY":   { dps: 3.34, growth: 0.08 },
+  "XOM":   { dps: 3.80, growth: 0.035 },
+  "V":     { dps: 2.00, growth: 0.17 },
+  "UNH":   { dps: 8.42, growth: 0.13 },
+  "MRK":   { dps: 2.96, growth: 0.05 },
+  "HD":    { dps: 8.36, growth: 0.11 },
+  "AXP":   { dps: 2.40, growth: 0.08 },
+  "CSCO":  { dps: 1.60, growth: 0.06 },
+  "AAPL":  { dps: 0.96, growth: 0.06 },
+  "INTC":  { dps: 0.52, growth: 0.01 },
+
+  // 배당 챔피언 (Achievers)
+  "TROW":  { dps: 4.96, growth: 0.07 },
+  "ABT":   { dps: 2.20, growth: 0.09 },
+  "TXN":   { dps: 5.20, growth: 0.08 },
+  "CPB":   { dps: 1.48, growth: 0.015 },
+  "D":     { dps: 2.67, growth: 0.02 },
+  "FDX":   { dps: 5.04, growth: 0.15 },
+  "WBA":   { dps: 1.00, growth: 0.02 },
+  "PNC":   { dps: 6.20, growth: 0.045 },
+  "SCHW":  { dps: 1.00, growth: 0.09 },
+  "AFL":   { dps: 2.00, growth: 0.075 },
+  "ADM":   { dps: 2.00, growth: 0.065 },
+  "ADP":   { dps: 6.00, growth: 0.13 },
+  "CTAS":  { dps: 5.40, growth: 0.16 },
+
+  // 배당 귀족 (Aristocrats)
+  "T":     { dps: 1.11, growth: 0.01 },
+  "ABBV":  { dps: 6.20, growth: 0.10 },
+  "CVX":   { dps: 6.52, growth: 0.065 },
+  "PBCT":  { dps: 0.72, growth: 0.02 },
+  "ITW":   { dps: 5.68, growth: 0.08 },
+  "LOW":   { dps: 4.40, growth: 0.15 },
+  "SYY":   { dps: 2.00, growth: 0.07 },
+  "DOV":   { dps: 2.04, growth: 0.10 },
+  "CLX":   { dps: 4.80, growth: 0.05 },
+  "ECL":   { dps: 2.28, growth: 0.06 },
+  "BF.B":  { dps: 0.86, growth: 0.09 },
+  "SWK":   { dps: 3.24, growth: 0.07 },
+
+  // 배당 왕 (Kings)
+  "NWN":   { dps: 1.96, growth: 0.015 },
+  "CL":    { dps: 1.92, growth: 0.045 },
+  "PH":    { dps: 5.92, growth: 0.085 },
+  "MMM":   { dps: 6.04, growth: 0.035 },
+  "GD":    { dps: 5.68, growth: 0.075 },
+  "HRL":   { dps: 1.12, growth: 0.09 },
+  "CINF":  { dps: 3.00, growth: 0.07 },
+  "LANC":  { dps: 3.40, growth: 0.055 },
+  "FRT":   { dps: 4.32, growth: 0.016 },
+  "CBSH":  { dps: 1.08, growth: 0.05 },
+  "CWT":   { dps: 1.04, growth: 0.045 },
+  "ABM":   { dps: 0.88, growth: 0.07 },
+  "FMCB":  { dps: 36.40, growth: 0.03 },
+
+  // 배당성장주 (Dividend Growth)
+  "MSFT":  { dps: 3.32, growth: 0.1058 },        // 연간 $3.32, 성장률 약 10.6% :contentReference[oaicite:3]{index=3}
+  "AVGO":  { dps: 21.00, growth: 0.16 },
+  "ROP":   { dps: 3.00, growth: 0.13 },
+  "TMO":   { dps: 1.40, growth: 0.11 },
+  "SPGI":  { dps: 3.64, growth: 0.14 },
+  "MA":    { dps: 2.64, growth: 0.18 },
+  "COST":  { dps: 4.64, growth: 0.13 },
+  "NEE":   { dps: 1.88, growth: 0.10 }
+};
+
+  // 배당금 계산 및 복리 시뮬레이션
+  function calculateDividends() {
+    const ticker = document.getElementById('selectedTicker').value;
+    const shares = parseFloat(document.getElementById('shareCount').value) || 0;
+    const price = parseFloat(document.getElementById('pricePerShare').value) || 0;
+    const years = parseInt(document.getElementById('years').value) || 1;
+    const exchangeRate = parseFloat(document.getElementById('exchangeRate').value) || 1400;
+    const reinvest = document.getElementById('reinvest').checked;
+    const applyTax = document.getElementById('applyTax').checked;
+    const priceGrowthRate = parseFloat(document.getElementById('priceGrowthRateDisplay').innerText.replace('%','')) / 100;
+
+    if (!ticker || shares <= 0 || price <= 0 || years <= 0) {
+      alert('모든 필드를 올바르게 입력해주세요.');
+      return;
+    }
+
+    // 연간 배당, 성장률 데이터 가져오기
+    let dps = (dividendData[ticker]?.dps || 0);        // 1주당 연간 배당금(USD)
+    let growthRate = (dividendData[ticker]?.growth || 0); // 배당 성장률
+    if (!dps) {
+      alert('해당 종목의 배당 정보가 아직 등록되지 않았어요! (업데이트 요청 환영)');
+      return;
+    }
+
+    let currentShares = shares;
+    let currentPrice = price;
+    let totalGrossDividends = 0;
+    let totalAfterTaxDividends = 0;
+    let firstYearDividendWon = 0;
+
+    // 시뮬 결과 (차트용)
+    let yearlyData = [];
+
+    for (let i = 0; i < years; i++) {
+      const yearlyDividendUSD = currentShares * dps; // 해당연도 배당금(USD)
+      const yearlyDividendWon = yearlyDividendUSD * exchangeRate;
+
+      let afterTaxDividendWon = yearlyDividendWon;
+      if (applyTax) {
+        const usTax = yearlyDividendWon * 0.15; // 미국 세금 15%
+        const krTax = calculateKRTax(yearlyDividendWon * 0.85);
+        afterTaxDividendWon = yearlyDividendWon - usTax - krTax;
       }
 
-      const allStocks = categories.flatMap(cat => cat.stocks);
-      const stock = allStocks.find(s => s.ticker === ticker);
-      
-      if (!stock) return;
+      if (i === 0) firstYearDividendWon = yearlyDividendWon;
 
-      const annualDividend = shares * stock.dividend * 4;
-      const totalCost = shares * price;
-      const actualYield = totalCost ? (annualDividend / totalCost * 100) : 0;
-      const monthlyDividend = annualDividend / 12;
+      totalGrossDividends += yearlyDividendWon;
+      totalAfterTaxDividends += afterTaxDividendWon;
 
-      const resultDiv = document.getElementById('result');
-      resultDiv.innerHTML = `
-        <div style="font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600;">📊 계산 결과</div>
-        <div style="margin-bottom: 0.3rem;">💰 연간 배당 예상: <strong>$${annualDividend.toFixed(2)}</strong></div>
-        <div style="margin-bottom: 0.3rem;">📅 월간 배당 예상: <strong>$${monthlyDividend.toFixed(2)}</strong></div>
-        <div style="margin-bottom: 0.3rem;">💵 총 투자금액: <strong>$${totalCost.toFixed(2)}</strong></div>
-        <div style="color: #ffe066; font-weight: 600;">📈 예상 수익률: <strong>${actualYield.toFixed(2)}%</strong></div>
-      `;
-      
-      resultDiv.classList.add('show');
-    });
+      // 배당금 재투자
+      if (reinvest) {
+        const additionalShares = afterTaxDividendWon / (currentPrice * exchangeRate);
+        currentShares += additionalShares;
+      }
+
+      dps *= (1 + growthRate);               // 배당 증가율 반영
+      currentPrice *= (1 + priceGrowthRate); // 주가상승률 반영
+      yearlyData.push(Math.round(applyTax ? afterTaxDividendWon : yearlyDividendWon));
+    }
+
+    // 결과 표시
+    let resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `
+      <div style="font-size:1.1rem; margin-bottom:0.5rem; font-weight:600;">📊 계산 결과</div>
+      <div style="margin-bottom:0.3rem;">💰 누적 배당금${applyTax ? '(세후)' : '(세전)'}: <strong>${Math.round(applyTax ? totalAfterTaxDividends : totalGrossDividends).toLocaleString()}원</strong></div>
+      <div style="margin-bottom:0.3rem;">📅 연간 배당금(첫 해): <strong>${Math.round(firstYearDividendWon).toLocaleString()}원</strong></div>
+      <div style="margin-bottom:0.3rem;">💵 누적 투자금(재투자 포함): <strong>${Math.round(currentShares * currentPrice * exchangeRate).toLocaleString()}원</strong></div>
+      <div style="color: #ffe066; font-weight: 600;">📈 복리 효과, 차트로 확인!</div>
+    `;
+    resultDiv.classList.add('show');
+    // (추가) 차트 표시 기능 필요 시 여기에 Chart.js 등 추가 가능!
+  }
+
+  // 버튼에 계산기 연결
+  document.getElementById('calculateBtn').addEventListener('click', calculateDividends);
+
+  // 숫자 음수 방지
+  document.getElementById('shareCount').addEventListener('input', function() { if (this.value < 0) this.value = 0; });
+  document.getElementById('pricePerShare').addEventListener('input', function() { if (this.value < 0) this.value = 0; });
+  document.getElementById('years').addEventListener('input', function() {
+    if (this.value < 1) this.value = 1;
+    if (this.value > 100) this.value = 100;
+  });
+  document.getElementById('exchangeRate').addEventListener('input', function() { if (this.value < 0) this.value = 0; });
 
     // 입력 필드 실시간 유효성 검사
     document.getElementById('shareCount').addEventListener('input', function() {

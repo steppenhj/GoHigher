@@ -464,6 +464,16 @@
         <a href="#" class="auth-link" id="findPwBtn">비밀번호 찾기</a>
       </div>
       <div class="result-msg" id="loginResultMsg" style="margin-top:12px; text-align:center; min-height:1.5em;"></div>
+    
+    
+    <div class="policy-agree" style="margin-top:18px; margin-bottom:9px; font-size:0.97em;">
+  <input type="checkbox" id="policyAgree" style="vertical-align:-2px;" required>
+  <label for="policyAgree" style="color:#ffe066;font-weight:600;">
+    <span style="color:#fff;">[필수]</span>
+    <a href="#" id="showPolicyModal" style="text-decoration:underline; color:#ffe066; font-weight:700;">개인정보처리방침 및 이용약관 동의</a>
+  </label>
+</div>
+
     </form>
   </div>
   <!-- 회원가입 폼 -->
@@ -485,6 +495,149 @@
     </div>
   </div>
 </main>
+
+
+<div id="policyModal" class="modal-overlay" style="display:none;">
+  <div class="modal-content" style="max-width:420px; margin:5% auto; background:#232948; color:#ffe066; border-radius:12px; box-shadow:0 8px 32px #222a48aa; padding:30px 24px; position:relative;">
+    <h2 style="color:#ffe066; font-size:1.2em; margin-bottom:15px;">개인정보처리방침 및 이용약관</h2>
+    <div style="height:330px; overflow-y:auto; background:#22284a; color:#fffbe0; border-radius:8px; padding:12px 14px; margin-bottom:16px; font-size:0.97em; line-height:1.65;">
+      <!-- 이용약관 -->
+      <h3 style="color:#ffe066; font-size:1.09em; margin-bottom:5px;">이용약관</h3>
+      <p>본 약관은 GoHigher(이하 ‘회사’)가 제공하는 서비스(이하 ‘서비스’)의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임 사항을 규정함을 목적으로 합니다.</p>
+      <strong>제1조(목적)</strong>
+      <p>이 약관은 회사가 제공하는 웹사이트 및 관련 서비스의 이용조건 및 절차, 회사와 회원 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정합니다.</p>
+      <strong>제2조(용어의 정의)</strong>
+      <ul>
+        <li>‘서비스’란 회사가 제공하는 모든 온라인 서비스 및 관련 제반 서비스를 말합니다.</li>
+        <li>‘회원’이란 본 약관에 동의하고 회사와 서비스 이용계약을 체결한 자를 말합니다.</li>
+        <li>‘비회원’이란 회원가입을 하지 않고 서비스를 이용하는 자를 말합니다.</li>
+      </ul>
+      <strong>제3조(약관의 효력 및 변경)</strong>
+      <ol>
+        <li>이 약관은 서비스를 이용하고자 하는 모든 이용자에 대하여 그 효력이 있습니다.</li>
+        <li>회사는 관련 법령을 위배하지 않는 범위에서 이 약관을 변경할 수 있습니다. 변경된 약관은 웹사이트에 공지함으로써 효력을 발생합니다.</li>
+      </ol>
+      <strong>제4조(서비스의 제공 및 변경)</strong>
+      <ol>
+        <li>회사는 서비스 제공을 위해 최선을 다합니다.</li>
+        <li>서비스의 내용, 운영상/기술상 사정에 따라 서비스의 전부 또는 일부를 변경, 중단할 수 있으며, 사전에 공지합니다.</li>
+      </ol>
+      <strong>제5조(회원가입)</strong>
+      <ol>
+        <li>회원가입은 이용자가 약관에 동의하고 회사가 정한 절차에 따라 회원가입 신청을 한 후 회사가 이를 승낙함으로써 체결됩니다.</li>
+        <li>회사는 다음 각 호에 해당하는 신청에 대하여는 승낙을 하지 않을 수 있습니다.
+          <ul>
+            <li>타인의 명의를 도용한 경우</li>
+            <li>허위 정보를 기재한 경우</li>
+            <li>기타 회사가 정한 기준에 부합하지 않는 경우</li>
+          </ul>
+        </li>
+      </ol>
+      <strong>제6조(회원의 의무)</strong>
+      <ol>
+        <li>회원은 관계 법령, 약관, 회사의 안내 및 주의사항을 준수해야 합니다.</li>
+        <li>회원은 자신의 계정 정보를 관리할 책임이 있습니다.</li>
+        <li>회원은 회사의 사전 동의 없이 영리 목적으로 서비스를 사용할 수 없습니다.</li>
+      </ol>
+      <strong>제7조(개인정보보호)</strong>
+      <p>회사는 회원의 개인정보를 관련 법령에 따라 보호하며, 개인정보 처리방침에 따라 안전하게 관리합니다.</p>
+      <strong>제8조(계약해지 및 이용제한)</strong>
+      <ol>
+        <li>회원은 언제든지 서비스 내 제공된 절차에 따라 이용계약을 해지할 수 있습니다.</li>
+        <li>회사는 회원이 본 약관 또는 관련 법령을 위반할 경우 사전 통지 없이 이용계약을 해지하거나 서비스 이용을 제한할 수 있습니다.</li>
+      </ol>
+      <strong>제9조(책임의 한계)</strong>
+      <ol>
+        <li>회사는 천재지변, 불가항력 등 회사의 귀책 사유 없이 발생한 손해에 대하여 책임을 지지 않습니다.</li>
+        <li>회원이 서비스를 이용하여 기대하는 이익을 얻지 못하거나, 서비스 자료에 대한 선택 또는 이용으로 발생하는 손해 등에 대하여 회사는 책임을 지지 않습니다.</li>
+      </ol>
+      <strong>제10조(저작권)</strong>
+      <ol>
+        <li>회사가 작성한 저작물에 대한 저작권 및 지적재산권은 회사에 귀속됩니다.</li>
+        <li>이용자는 회사의 사전 승인 없이 회사의 정보를 영리 목적으로 이용하거나 제3자에게 이용하게 할 수 없습니다.</li>
+      </ol>
+      <strong>제11조(분쟁해결 및 관할법원)</strong>
+      <ol>
+        <li>회사와 이용자 간 발생한 분쟁에 관한 소송은 회사의 본점 소재지를 관할하는 법원을 전속 관할로 합니다.</li>
+      </ol>
+
+      <hr style="border:0;border-top:1.5px solid #ffe06633;margin:12px 0;">
+
+      <!-- 개인정보처리방침 -->
+      <h3 style="color:#ffe066; font-size:1.09em; margin-bottom:5px;">개인정보처리방침</h3>
+      <p><strong>GoHigher(이하 "회사" 또는 "서비스")</strong>는 이용자의 개인정보를 소중하게 생각하며, 개인정보 보호 관련 법령을 준수합니다.<br>
+      본 개인정보처리방침은 GoHigher가 제공하는 웹사이트(https://gohigher.kr 이하 "웹사이트")에서 수집하는 개인정보, 이용 목적, 보관 기간, 이용자 권리, 개인정보 보호를 위한 조치 등에 대해 안내합니다.</p>
+      <strong>1. 수집하는 개인정보 항목</strong>
+      <ul>
+        <li>회원가입 및 로그인 시: 이메일, 구글/소셜 계정 정보(이름, 프로필 이미지 등)</li>
+        <li>서비스 이용 시: 투자 일지, 포트폴리오, 일정, 체크리스트 등 서비스 내 직접 입력한 정보</li>
+        <li>자동 수집 정보: IP 주소, 쿠키, 접속 로그, 서비스 이용 기록, 브라우저 및 기기 정보 등</li>
+      </ul>
+      <strong>2. 개인정보 수집 및 이용 목적</strong>
+      <ul>
+        <li>회원 관리(가입, 본인확인, 불량회원 차단 등)</li>
+        <li>서비스 제공 및 맞춤형 기능 제공(투자 다이어리, 포트폴리오, 캘린더 등)</li>
+        <li>고객 문의 응대, 공지사항 전달, 서비스 개선</li>
+        <li>이벤트·마케팅 활용(선택 동의 시)</li>
+        <li>법령 및 약관 위반 방지</li>
+      </ul>
+      <strong>3. 개인정보 보유 및 이용 기간</strong>
+      <ul>
+        <li>회원 탈퇴 시: 개인정보는 즉시 파기</li>
+        <li>관련 법령에 따라 일정 기간 보존이 필요한 경우 해당 기간 동안만 보관(예: 통신비밀보호법 등)</li>
+        <li>1년 이상 로그인하지 않은 경우, 개인정보 보호법에 따라 휴면처리 또는 파기</li>
+      </ul>
+      <strong>4. 개인정보의 제3자 제공 및 위탁</strong>
+      <ul>
+        <li>원칙적으로 이용자의 동의 없이 제3자에게 개인정보를 제공하지 않습니다.</li>
+        <li>단, 서비스 운영을 위해 아래와 같이 개인정보 처리를 일부 위탁할 수 있습니다:
+          <ul>
+            <li><strong>Google Firebase</strong>: 데이터 저장, 인증, 푸시 알림 등 (서버 위치: 해외, 미국)</li>
+            <li>이메일 서비스(고객 문의 시)</li>
+          </ul>
+        </li>
+        <li>법령에 따라 수사기관 등 관계기관의 요청이 있는 경우 법적 절차에 따라 제공할 수 있습니다.</li>
+      </ul>
+      <strong>5. 이용자 및 법정대리인의 권리와 행사방법</strong>
+      <ul>
+        <li>언제든지 본인의 개인정보를 조회, 수정, 삭제할 수 있습니다.</li>
+        <li>회원탈퇴(서비스 내 ‘회원탈퇴’ 버튼)를 통해 개인정보 삭제를 요청할 수 있습니다.</li>
+        <li>만 14세 미만 아동의 경우, 법정대리인의 동의를 받아야만 가입이 가능합니다.</li>
+      </ul>
+      <strong>6. 개인정보의 파기 절차 및 방법</strong>
+      <ul>
+        <li>수집·이용 목적이 달성된 후에는 즉시 안전하게 파기합니다.</li>
+        <li>전자적 파일: 복구 불가능한 방법으로 영구 삭제</li>
+        <li>종이 문서: 분쇄 또는 소각 등</li>
+      </ul>
+      <strong>7. 개인정보의 안전성 확보 조치</strong>
+      <ul>
+        <li>데이터 암호화 및 접근권한 최소화</li>
+        <li>관리적·기술적 보호조치(Firebase 보안 규칙, TLS/SSL 등)</li>
+        <li>내부 직원 교육 및 점검, 정기적인 보안 진단</li>
+      </ul>
+      <strong>8. 쿠키(Cookie) 및 유사기술 사용</strong>
+      <ul>
+        <li>서비스 이용의 편의를 위해 쿠키를 사용할 수 있습니다.</li>
+        <li>이용자는 웹 브라우저 설정을 통해 쿠키 저장을 거부하거나 삭제할 수 있습니다.</li>
+      </ul>
+      <strong>9. 개인정보 보호책임자 및 문의처</strong>
+      <ul>
+        <li>책임자: 박해진</li>
+        <li>이메일: hermann8hesse@gmail.com</li>
+        <li>기타 문의: ‘고객센터’ 또는 이메일 문의</li>
+      </ul>
+      <strong>10. 기타 안내</strong>
+      <ul>
+        <li>본 방침은 관련 법령, 서비스 정책 변화에 따라 사전 예고 후 변경될 수 있습니다.</li>
+        <li>중요 변경 시 웹사이트 공지사항을 통해 고지합니다.</li>
+      </ul>
+    </div>
+    <button id="closePolicyModal" class="auth-btn" style="margin-top:0;">닫기</button>
+  </div>
+</div>
+
+
 <script src="navigation.js"></script>
 <script>
   // Firebase config (from login.html)
@@ -648,6 +801,42 @@ document.getElementById("findPwBtn").onclick = async function(e) {
       alert("메일 발송에 실패했습니다. 다시 시도해 주세요.");
   }
 };
+</script>
+
+<script>
+  // 개인정보처리 모달
+  // 모달 열기/닫기
+document.getElementById('showPolicyModal').onclick = function(e) {
+  e.preventDefault();
+  document.getElementById('policyModal').style.display = 'block';
+};
+document.getElementById('closePolicyModal').onclick = function() {
+  document.getElementById('policyModal').style.display = 'none';
+};
+
+// 로그인/구글 로그인 비활성화 제어
+const policyAgree = document.getElementById('policyAgree');
+const loginBtn = document.querySelector('#loginForm .auth-btn');
+const googleBtn = document.getElementById('googleLoginBtn');
+function updateLoginBtns() {
+  const checked = policyAgree.checked;
+  loginBtn.disabled = !checked;
+  googleBtn.disabled = !checked;
+  if (!checked) {
+    loginBtn.style.opacity = '0.55';
+    googleBtn.style.opacity = '0.55';
+    loginBtn.style.cursor = 'not-allowed';
+    googleBtn.style.cursor = 'not-allowed';
+  } else {
+    loginBtn.style.opacity = '';
+    googleBtn.style.opacity = '';
+    loginBtn.style.cursor = '';
+    googleBtn.style.cursor = '';
+  }
+}
+policyAgree.addEventListener('change', updateLoginBtns);
+updateLoginBtns(); // 초기 비활성화
+
 </script>
 
 <div style="height: 66px;"></div>
