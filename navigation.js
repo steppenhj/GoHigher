@@ -359,3 +359,47 @@ if (userInfo) {
     }
   }
 });
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const nav = document.querySelector('.nav');
+  let isMini = false;
+
+  // 스크롤 내리면 mini
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60 && !isMini) {
+      nav.classList.add('mini');
+      isMini = true;
+    } else if (window.scrollY <= 60 && isMini) {
+      nav.classList.remove('mini');
+      isMini = false;
+    }
+  });
+
+  // **mini 네비 전체 클릭 시 네비 복원**
+  nav.addEventListener('click', function(e) {
+    if (nav.classList.contains('mini')) {
+      nav.classList.remove('mini');
+      isMini = false;
+      // (햄버거버튼 말고 mini영역 전체 클릭시 동작)
+      e.stopPropagation();
+      return;
+    }
+    // 만약 전체 네비 상태에서 내부 버튼 클릭(예: 햄버거→사이드바)라면 여기선 원래 동작 유지
+  });
+
+  // (선택) 바깥 클릭 시 mini 복귀
+  document.addEventListener('click', function(e) {
+    if (!nav.contains(e.target) && !nav.classList.contains('mini')) {
+      nav.classList.add('mini');
+      isMini = true;
+    }
+  });
+});

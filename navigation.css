@@ -206,11 +206,10 @@
 
   /* 추가된 부분 ↓ */
   overflow-y: auto;             /* 세로 스크롤 허용 */
-  -ms-overflow-style: none;      /* IE, Edge에서 스크롤바 숨김 */
-  scrollbar-width: none;         /* Firefox에서 스크롤바 숨김 */
+    scrollbar-width: none;        /* Firefox에서 스크롤바 숨김 */
+  -ms-overflow-style: none;     /* IE/Edge에서 스크롤바 숨김 */
 }
-
-/* WebKit 계열 브라우저(Chrome, Safari) 스크롤바 숨김 */
+/* Webkit 브라우저(크롬, 사파리 등)용 */
 .sidebar::-webkit-scrollbar {
   display: none;
 }
@@ -303,6 +302,7 @@
       margin: 14px 0 10px 0;
       border: none; border-top: 1.2px solid #2b3344;
     }
+    
     .policy-links {
   margin-top: 16px;
   padding: 10px 0 2px 0;
@@ -722,3 +722,58 @@ tbody tr:last-child {
 }
 
     }
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+.nav {
+  position: fixed;
+  top: 18px; left: 50%; transform: translateX(-50%);
+  width: 87vw; max-width: 1100px; min-width: 320px;
+  height: 52px;
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--nav-main);
+  box-shadow: var(--nav-shadow);
+  transition: all .28s cubic-bezier(.55,.11,.54,.89);
+  z-index: 100;
+  overflow: hidden;
+}
+.nav.mini {
+  width: 54px;   /* 작게 */
+  min-width: 0; max-width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  left: 36px;    /* 좌측(또는 원하는 곳) */
+  top: 32px;
+  transform: none;
+  padding: 0;
+  box-shadow: 0 2px 16px #1e253a66;
+  background: rgba(255,255,255,0.19) url('나침반.png') no-repeat center/cover;
+
+}
+.nav.mini .nav-left,
+.nav.mini .nav-menu,
+.nav.mini .nav-right,
+.nav.mini .brand {
+  display: none !important;   /* 모든 메뉴 숨김 */
+}
+.nav.mini .hamburger-btn {
+  display: flex !important;
+  margin: auto;
+  position: relative;
+  left: 0; top: 0;
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,0.19);
+  box-shadow: none;
+}
+
