@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -465,14 +464,6 @@
       </div>
       <div class="result-msg" id="loginResultMsg" style="margin-top:12px; text-align:center; min-height:1.5em;"></div>
     
-    
-    <div class="policy-agree" style="margin-top:18px; margin-bottom:9px; font-size:0.97em;">
-  <input type="checkbox" id="policyAgree" style="vertical-align:-2px;" required>
-  <label for="policyAgree" style="color:#ffe066;font-weight:600;">
-    <span style="color:#fff;">[필수]</span>
-    <a href="#" id="showPolicyModal" style="text-decoration:underline; color:#ffe066; font-weight:700;">개인정보처리방침 및 이용약관 동의</a>
-  </label>
-</div>
 
     </form>
   </div>
@@ -633,7 +624,16 @@
         <li>중요 변경 시 웹사이트 공지사항을 통해 고지합니다.</li>
       </ul>
     </div>
-    <button id="closePolicyModal" class="auth-btn" style="margin-top:0;">닫기</button>
+    <div id="policyConsentWrap" style="display:none; margin-top:16px;">
+      <label style="display:flex;align-items:center;gap:7px;font-size:1em;">
+        <input type="checkbox" id="policyAgreeCheck">
+        <span style="color:#ffe066;font-weight:600;">
+          개인정보처리방침 및 이용약관에 동의합니다 (필수)
+        </span>
+      </label>
+      <button id="policyConsentBtn" class="auth-btn" style="margin-top:14px;">동의 후 계속</button>
+      <button id="policyCancelBtn" class="auth-btn" style="margin-top:8px;background:#232948;color:#ffe066;border:1px solid #ffe06666;">취소</button>
+    </div>
   </div>
 </div>
 
@@ -709,67 +709,118 @@ document.getElementById('loginForm').onsubmit = async function(e) {
   }
 };
 
-  // 구글 로그인
-document.getElementById("googleLoginBtn").onclick = function() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider)
-    .then(async result => {
-      // Firestore user 등록 (로그인/회원가입 통합)
-      const user = result.user;
+// 공통 동의 모달 오픈 함수
+function showPolicyConsent(type, payload, resultMsg) {
+  // type: "google" 또는 "email"
+  // payload: 구글 user 또는 { email, password }
+  const modal = document.getElementById('policyModal');
+  const wrap = document.getElementById('policyConsentWrap');
+  modal.style.display = 'block';
+  wrap.style.display = '';
+
+  // 체크 해제
+  document.getElementById('policyAgreeCheck').checked = false;
+
+  // 기존 이벤트 제거 (중복 방지)
+  const consentBtn = document.getElementById('policyConsentBtn');
+  const cancelBtn = document.getElementById('policyCancelBtn');
+  consentBtn.onclick = null;
+  cancelBtn.onclick = null;
+
+  // 동의 후 계속
+  consentBtn.onclick = async function() {
+    if (!document.getElementById('policyAgreeCheck').checked) {
+      alert("동의는 필수입니다.");
+      return;
+    }
+    if (type === "google") {
+      // 구글: firestore 등록, 완료 메시지, 이동
+      const user = payload;
       await db.collection("users").doc(user.uid).set({
         email: user.email,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         paid: false
       }, { merge: true });
+      modal.style.display = 'none';
+      wrap.style.display = 'none';
+      document.getElementById("loginResultMsg").style.color = "#83ffbd";
+      document.getElementById("loginResultMsg").textContent = "가입 완료! 잠시 후 이동합니다.";
+      setTimeout(()=>window.location.href="/", 1200);
+    } else if (type === "email") {
+      // 이메일: 회원가입
+      try {
+        const { email, password } = payload;
+        const userCred = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCred.user;
+        await db.collection("users").doc(user.uid).set({
+          email: user.email,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          paid: false
+        }, { merge: true });
+        await user.sendEmailVerification();
+        resultMsg.style.color = "#83ffbd";
+        resultMsg.textContent = "가입이 완료되었습니다! 이메일 인증 후 로그인해 주세요.";
+        document.getElementById("signupForm").reset();
+      } catch (err) {
+        resultMsg.style.color = "#fd7d7b";
+        if (err.code === "auth/email-already-in-use") resultMsg.textContent = "이미 등록된 이메일입니다.";
+        else if (err.code === "auth/invalid-email") resultMsg.textContent = "이메일 형식이 올바르지 않습니다.";
+        else if (err.code === "auth/weak-password") resultMsg.textContent = "비밀번호는 6자 이상이어야 합니다.";
+        else resultMsg.textContent = "가입 중 오류가 발생했습니다.";
+      }
+      modal.style.display = 'none';
+      wrap.style.display = 'none';
+    }
+  };
+  // 취소 버튼
+  cancelBtn.onclick = async function() {
+    modal.style.display = 'none';
+    wrap.style.display = 'none';
+    if (type === "google") {
+      await auth.signOut();
+      document.getElementById("loginResultMsg").style.color = "#fd7d7b";
+      document.getElementById("loginResultMsg").textContent = "동의하지 않아 가입이 취소되었습니다.";
+    }
+    // 이메일 취소는 그냥 닫기만
+  };
+}
+
+document.getElementById("googleLoginBtn").onclick = async function() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  try {
+    const result = await auth.signInWithPopup(provider);
+    const user = result.user;
+    const userRef = db.collection("users").doc(user.uid);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+      // 신규 가입자라면 동의 모달
+      showPolicyConsent("google", user);
+    } else {
       document.getElementById("loginResultMsg").style.color = "#83ffbd";
       document.getElementById("loginResultMsg").textContent = "구글 로그인 성공! 잠시 후 이동합니다.";
       setTimeout(()=>window.location.href="/", 1200);
-    })
-    .catch(err => {
-      document.getElementById("loginResultMsg").style.color = "#fd7d7b";
-      document.getElementById("loginResultMsg").textContent = "구글 로그인 실패";
-    });
+    }
+  } catch(err) {
+    document.getElementById("loginResultMsg").style.color = "#fd7d7b";
+    document.getElementById("loginResultMsg").textContent = "구글 로그인 실패";
+  }
 };
 
 
-// 회원가입 처리
-document.getElementById("signupForm").onsubmit = async function(e) {
+document.getElementById("signupForm").onsubmit = function(e) {
   e.preventDefault();
   const email = document.getElementById("signupEmail").value.trim();
   const password = document.getElementById("signupPassword").value.trim();
   const passwordConfirm = document.getElementById("signupPasswordConfirm").value.trim();
   const resultMsg = document.getElementById("signupResultMsg");
   resultMsg.textContent = "";
-
-  // 비밀번호 확인
   if (password !== passwordConfirm) {
     resultMsg.style.color = "#fd7d7b";
     resultMsg.textContent = "비밀번호가 일치하지 않습니다.";
     return;
   }
-
-  try {
-    const userCred = await auth.createUserWithEmailAndPassword(email, password);
-    // Firestore user 등록
-    const user = userCred.user;
-    await db.collection("users").doc(user.uid).set({
-      email: user.email,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      paid: false
-    }, { merge: true });
-    resultMsg.style.color = "#83ffbd";
-    resultMsg.textContent = "가입이 완료되었습니다! 이메일 인증 후 로그인해 주세요.";
-    document.getElementById("signupForm").reset();
-
-    // 이메일 인증 발송
-    await user.sendEmailVerification();
-  } catch(err) {
-    resultMsg.style.color = "#fd7d7b";
-    if (err.code === "auth/email-already-in-use") resultMsg.textContent = "이미 등록된 이메일입니다.";
-    else if (err.code === "auth/invalid-email") resultMsg.textContent = "이메일 형식이 올바르지 않습니다.";
-    else if (err.code === "auth/weak-password") resultMsg.textContent = "비밀번호는 6자 이상이어야 합니다.";
-    else resultMsg.textContent = "가입 중 오류가 발생했습니다.";
-  }
+  // 동의 모달 오픈 (type/email)
+  showPolicyConsent("email", { email, password }, resultMsg);
 };
 
 
