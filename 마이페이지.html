@@ -42,6 +42,64 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+    .main-left { width: 370px; min-width: 250px;}
+    .main-right { flex: 1; min-width: 210px; display: flex; flex-direction: column; gap: 22px; }
+    .profile-box {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 34px;
+      background: linear-gradient(90deg, #4a70dd 60%, #181f2d 100%);
+      padding: 22px 22px 20px 18px; border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(70,100,200,0.11);
+    }
+    .profile-info { flex: 1; }
+    .profile-info .name { font-size: 1.25rem; font-weight: 700;}
+    .profile-info .email { color: #b7caf8; font-size: 1.02rem;}
+    .calendar-box {
+      background: #202944; border-radius: 18px; box-shadow: 0 8px 32px rgba(38,48,79,0.22);
+      padding: 30px 10px 24px 10px; margin-bottom: 13px; max-width: 370px;
+    }
+    .calendar-title { font-size: 1.12rem; font-weight: 800; margin-bottom: 17px; color: #ffe066; letter-spacing: 0.03em; }
+    .calendar-table { width: 100%; border-collapse: collapse; background: none; }
+    .calendar-table th, .calendar-table td { width: 14.3%; text-align: center; font-size: 1.02em; padding: 8px 0;}
+    .calendar-table th { color: #98bfff; font-size: 0.97em; }
+    .calendar-table td { color: #e9f1ff; font-size: 1.11em; position: relative; }
+    .calendar-table td.stamped::before {
+      content: "⭐"; position: absolute; left: 50%; top: 53%; transform: translate(-50%,-50%);
+      font-size: 1.5em; color: #ffe066; z-index: 2; filter: drop-shadow(0 0 2px #1a2233);
+    }
+    .calendar-table td.today { outline: 2px solid #ffe066; border-radius: 7px; font-weight: 700; color: #ffe066; background: rgba(255,224,102,0.10);}
+    .attendance-summary { text-align: center; color: #ffe066; margin: 7px 0 0 0; font-size: 1.13em; font-weight: 600; }
+    .stamp-btn {
+      margin-top: 14px; background: linear-gradient(90deg, #ffe066 50%, #ffaf7b 100%);
+      color: #1a2233; font-weight: 700; font-size: 1.08em; padding: 12px 0; width: 100%; border: none; border-radius: 13px; cursor: pointer;
+      transition: background 0.18s; box-shadow: 0 4px 18px rgba(255,224,102,0.13); letter-spacing:0.01em;
+    }
+    .stamp-btn[disabled] { filter: grayscale(0.6); opacity: 0.6; cursor: default;}
+    .login-guide { text-align: center; color: #98bfff; font-size: 1.12em; margin: 60px 0; }
+    .side-card { background: #202944; border-radius: 18px; box-shadow: 0 6px 24px rgba(38,48,79,0.18); padding: 23px 18px; margin-bottom: 0; }
+    .side-card-title { font-size: 1.13em; font-weight: 700; margin-bottom: 9px; color: #ffe066;}
+    .side-card-bar-bg { background: #26324b; border-radius: 9px; height: 17px; width: 100%; position: relative;}
+    .side-card-bar-fill { background: linear-gradient(90deg, #ffe066, #ffaf7b); border-radius: 9px; height: 100%; transition: width .3s;}
+    .side-card-badge { background: #ffe066; color: #222; border-radius: 8px; font-size: 0.95em; padding: 3px 10px; font-weight: 600; margin-left: 7px;}
+    .side-card-quote { color: #b7caf8; font-size: 1.12em; font-style: italic; line-height: 1.55; }
+    .side-card-goal { font-size: 1.07em; color: #e9f1ff;}
+    .side-card-goal .goal-label { color: #ffe066; font-size:0.97em;}
+    .mypage-main-flex {
+  display: flex;
+  gap: 32px;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 44px 6px 28px 6px;
+}
+    @media (max-width: 850px) {
+      .mypage-main-flex { flex-direction: column; max-width: 98vw; gap: 24px;}
+      .main-left, .calendar-box { max-width: 100%; width: 100%; }
+      .main-right { flex-direction: column; min-width: 0;}
+
+    }
+  </style>
 
 </head>
 <body>
@@ -65,19 +123,26 @@
   </div>
   <div class="nav-right" id="navRight">
     <div class="stock-search">
-      <input id="stockSearchInput" type="text" placeholder="심볼 (AAPL)" />
-      <button
-  class="btn stock-btn"
-  id="stockSearchBtn"
-  aria-label="주식 검색"
-  title="주식 검색"
->
-  <!-- Heroicons’s magnifying-glass -->
-  <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-    <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
-  </svg>
-</button>
-    </div>
+  <input
+    id="stockSearchInput"
+    type="text"
+    placeholder="티커/심볼 (예: AAPL, MSFT)"
+    autocomplete="off"
+    style="width:180px;max-width:220px;"
+  />
+  <button
+    class="btn stock-btn"
+    id="stockSearchBtn"
+    aria-label="주식 검색"
+    title="주식 검색"
+    style="margin-left:-2px;"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
+    </svg>
+  </button>
+</div>
+
 <button class="btn" id="shareBtn">
   <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
   공유
@@ -115,7 +180,9 @@
       <a href="/멤버십.html" class="side-link">멤버십</a>
     </div>
 
-    <a href="/login.html" class="side-link">로그아웃</a>
+<a href="/login.html" class="side-link" id="loginLink">로그인</a>
+<a href="#" class="side-link" id="logoutLink" style="display:none;">로그아웃</a>
+
     <hr>
     <div class="biz-info-title">사업자 등록</div>
     <div class="biz-info">GoHigher | 대표 박해진</div>
@@ -133,799 +200,266 @@
   <!-- 저작권 문구 -->
    <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
     © 2025 GoHigher. All rights reserved
-    </div>
+
 </aside>
 
-<div id="searchModalOverlay" class="modal-overlay" style="display:none;"></div>
-
 <!-- 검색 모달 -->
-<div id="searchModal" class="search-modal" style="display:none;">
+<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
   <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
-  <h2 class="modal-title">검색 결과</h2>
+  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
+  <div id="stockModalTabs"
+       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
   <div id="modalResult" class="stock-result"></div>
 </div>
 
   <div style="height: 66px;"></div>
 
-  <main class="mypage-main-container" style="max-width:1200px;margin:0 auto;padding:40px 20px 80px 20px;">
-    
-    <!-- 회원 정보 - 헬로카드 스타일 -->
-    <section class="mypage-section user-profile-card" style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:30px;padding:0;margin-bottom:40px;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(102,126,234,0.3);">
-      <div
-  style="position:absolute;top:0;left:0;right:0;bottom:0;
-    background-image: url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cdefs%3E%3Cpattern id=%27grain%27 width=%27100%27 height=%27100%27 patternUnits=%27userSpaceOnUse%27%3E%3Ccircle cx=%2725%27 cy=%2725%27 r=%271%27 fill=%27white%27 opacity=%270.1%27/%3E%3Ccircle cx=%2775%27 cy=%2775%27 r=%271%27 fill=%27white%27 opacity=%270.1%27/%3E%3Ccircle cx=%2750%27 cy=%2710%27 r=%270.5%27 fill=%27white%27 opacity=%270.1%27/%3E%3C/pattern%3E%3C/defs%3E%3Crect width=%27100%27 height=%27100%27 fill=%27url(%23grain)%27/%3E%3C/svg%3E');
-    background-size: cover;">
+
+   <div class="mypage-main-flex">
+    <!-- LEFT: 프로필 + 달력 -->
+    <div class="main-left">
+      <div class="profile-box" id="profileBox" style="display:none;">
+        <img id="profilePhoto" class="profile-photo" src="/logo.jpg" alt="프로필">
+        <div class="profile-info">
+          <div class="name" id="userName">-</div>
+          <div class="email" id="userEmail"></div>
+        </div>
+      </div>
+      <div id="calendarBox" class="calendar-box" style="display:none;">
+        <div class="calendar-title">이번 달 출석 도장 달력</div>
+        <table class="calendar-table" id="calendarTable"></table>
+        <div class="attendance-summary" id="attendanceSummary"></div>
+        <button class="stamp-btn" id="stampBtn" style="margin-top:18px;">오늘 도장 찍기</button>
+      </div>
+      <div id="loginGuide" class="login-guide" style="display:none;">
+        출석 도장 기능을 사용하려면 <b>로그인</b>이 필요합니다.<br><br>
+        <a href="/login.html" style="color:#ffe066;text-decoration:underline;">로그인 페이지로 이동</a>
+      </div>
+    </div>
+
+    <!-- RIGHT: 미션 진행바, 명언, 자산목표 -->
+    <div class="main-right" id="sidePanel" style="display:none;">
+      <!-- 출석 미션 진행바 -->
+      <div class="side-card" id="missionCard">
+        <div class="side-card-title">🎯 출석 미션</div>
+        <div style="margin-bottom:8px;font-size:0.98em;color:#b7caf8;">
+          이번 달 목표: <b>20일 이상 출석</b> <span id="missionBadge" class="side-card-badge" style="display:none;">달성!</span>
+        </div>
+        <div class="side-card-bar-bg">
+          <div id="missionBar" class="side-card-bar-fill" style="width:0%"></div>
+        </div>
+<div style="margin-top:8px;font-size:0.96em; color:#b7caf8;">
+  현재 <span id="missionCnt" style="color:#ffe066;">0</span>일 / 20일
 </div>
-      <div style="position:relative;z-index:1;padding:40px;display:grid;grid-template-columns:auto 1fr auto;gap:30px;align-items:center;">
-        <div style="position:relative;">
-          <img id="mypageProfilePhoto" src="/logo.jpg" alt="프로필" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.3);box-shadow:0 10px 30px rgba(0,0,0,0.3);">
-          <div style="position:absolute;bottom:5px;right:5px;width:25px;height:25px;background:#4ade80;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.2);"></div>
-        </div>
-        <div>
-          <div id="mypageUserName" style="font-size:2rem;font-weight:800;color:white;margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,0.3);">이름</div>
-          <div id="mypageUserEmail" style="font-size:1.1rem;color:rgba(255,255,255,0.9);margin-bottom:12px;">이메일</div>
-          <div id="mypageMembership" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.2);padding:10px 20px;border-radius:20px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.3);">
-            <span style="font-size:1.2em;">👑</span>
-            <span style="color:white;font-weight:600;">멤버십: -</span>
-          </div>
-        </div>
-        <div style="text-align:right;color:white;">
-          <div style="font-size:0.9rem;opacity:0.8;margin-bottom:4px;">마지막 로그인</div>
-          <div style="font-size:1rem;font-weight:600;">방금 전</div>
-          <div style="margin-top:15px;padding:8px 16px;background:rgba(255,255,255,0.15);border-radius:12px;font-size:0.9rem;">
-            <div style="margin-bottom:4px;">활동 점수</div>
-            <div style="font-weight:700;font-size:1.1rem;">🔥 2,847</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- 즐겨찾기 종목 - 카드 그리드 스타일 -->
-    <section class="mypage-section favorites-card" style="margin-bottom:40px;">
-      <div style="display:flex;align-items:center;gap:15px;margin-bottom:30px;">
-        <div style="width:50px;height:50px;background:linear-gradient(135deg, #ff6b6b, #ee5a24);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 25px rgba(255,107,107,0.3);">⭐</div>
-        <div>
-          <h2 style="font-size:1.8rem;color:#e9f1ff;font-weight:800;margin:0;">즐겨찾기 종목</h2>
-          <p style="color:#b7caf8;margin:5px 0 0 0;font-size:1rem;">관심 있는 종목들을 한눈에 확인하세요</p>
-        </div>
-        <div style="margin-left:auto;display:flex;gap:10px;">
-          <button class="view-toggle-btn active" data-view="grid" style="background:rgba(255,224,102,0.2);color:#ffe066;border:1px solid rgba(255,224,102,0.3);padding:8px 12px;border-radius:8px;font-size:0.9rem;cursor:pointer;transition:all 0.2s;">그리드</button>
-          <button class="view-toggle-btn" data-view="table" style="background:rgba(152,191,255,0.1);color:#98bfff;border:1px solid rgba(152,191,255,0.2);padding:8px 12px;border-radius:8px;font-size:0.9rem;cursor:pointer;transition:all 0.2s;">테이블</button>
-        </div>
       </div>
-      
-      <div id="favoritesEmpty" style="color:#b7caf8;font-size:1.1rem;text-align:center;padding:60px 20px;display:none;background:linear-gradient(135deg, rgba(45,62,91,0.3) 0%, rgba(28,36,52,0.4) 100%);border-radius:20px;border:2px dashed rgba(152,191,255,0.3);">
-        <div style="font-size:4rem;margin-bottom:20px;animation:float 3s ease-in-out infinite;">📊</div>
-        <div style="font-size:1.3rem;font-weight:600;margin-bottom:10px;">즐겨찾기한 종목이 없습니다</div>
-        <div style="font-size:1rem;color:#8e9bb3;margin-bottom:20px;">관심 있는 종목을 즐겨찾기에 추가해보세요!</div>
-        <button style="background:linear-gradient(135deg, #98bfff, #667eea);color:white;border:none;padding:12px 24px;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s;">종목 둘러보기</button>
+      <!-- 오늘의 명언 -->
+      <div class="side-card">
+        <div class="side-card-title">💡 오늘의 성장 명언</div>
+        <div id="quoteText" class="side-card-quote"></div>
       </div>
-      
-      <div id="favoritesGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:20px;display:none;"></div>
-      
-      <div id="favoritesTableContainer" style="display:none;">
-        <div style="background:linear-gradient(135deg, rgba(32,38,60,0.97) 0%, rgba(28,36,52,0.95) 100%);border-radius:20px;padding:25px;box-shadow:0 10px 40px rgba(0,0,0,0.2);border:1px solid rgba(76,90,110,0.3);">
-          <table class="stock-table" id="favoritesTable" style="width:100%;border-collapse:collapse;">
-            <thead>
-              <tr style="background:linear-gradient(90deg, #2c3855 50%, #3a4d77 110%);">
-                <th style="color:#e9f1ff;padding:18px 15px;font-weight:600;text-align:center;font-size:1rem;border-bottom:2px solid rgba(76,90,110,0.4);">심볼</th>
-                <th style="color:#e9f1ff;padding:18px 15px;font-weight:600;text-align:left;font-size:1rem;border-bottom:2px solid rgba(76,90,110,0.4);">종목명</th>
-                <th style="color:#e9f1ff;padding:18px 15px;font-weight:600;text-align:center;font-size:1rem;border-bottom:2px solid rgba(76,90,110,0.4);">현재가</th>
-                <th style="color:#e9f1ff;padding:18px 15px;font-weight:600;text-align:center;font-size:1rem;border-bottom:2px solid rgba(76,90,110,0.4);">등락률</th>
-                <th style="color:#e9f1ff;padding:18px 15px;font-weight:600;text-align:center;font-size:1rem;border-bottom:2px solid rgba(76,90,110,0.4);">관리</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+      <!-- 자산 목표 -->
+      <div class="side-card">
+        <div class="side-card-title">📈 내 자산 목표</div>
+        <div id="goalBox" class="side-card-goal">
+          <span style="color:#98bfff;">불러오는 중...</span>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</main>
 
-    <!-- 최근 다이어리 - 타임라인 스타일 -->
-    <section class="mypage-section diary-card" style="margin-bottom:40px;">
-      <div style="display:flex;align-items:center;gap:15px;margin-bottom:30px;">
-        <div style="width:50px;height:50px;background:linear-gradient(135deg, #4ecdc4, #44a08d);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 25px rgba(78,205,196,0.3);">📔</div>
-        <div>
-          <h2 style="font-size:1.8rem;color:#e9f1ff;font-weight:800;margin:0;">투자 다이어리</h2>
-          <p style="color:#b7caf8;margin:5px 0 0 0;font-size:1rem;">나만의 투자 성장 기록</p>
-        </div>
-        <a href="/다이어리.html" style="margin-left:auto;background:linear-gradient(135deg, #4ecdc4, #44a08d);color:white;padding:12px 20px;border-radius:12px;font-weight:600;text-decoration:none;transition:all 0.2s;box-shadow:0 4px 15px rgba(78,205,196,0.3);">새 글 작성</a>
-      </div>
-      
-      <div id="diaryEmpty" style="color:#b7caf8;font-size:1.1rem;text-align:center;padding:60px 20px;background:linear-gradient(135deg, rgba(45,62,91,0.3) 0%, rgba(28,36,52,0.4) 100%);border-radius:20px;border:2px dashed rgba(78,205,196,0.3);">
-        <div style="font-size:4rem;margin-bottom:20px;animation:float 3s ease-in-out infinite;">✍️</div>
-        <div style="font-size:1.3rem;font-weight:600;margin-bottom:10px;">작성한 다이어리가 없습니다</div>
-        <div style="font-size:1rem;color:#8e9bb3;margin-bottom:20px;">오늘의 투자 경험을 기록해보세요!</div>
-        <button style="background:linear-gradient(135deg, #4ecdc4, #44a08d);color:white;border:none;padding:12px 24px;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s;">첫 글 작성하기</button>
-      </div>
-      
-      <div id="diaryTimeline" style="display:none;position:relative;">
-        <div style="position:absolute;left:25px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom, #4ecdc4, #44a08d);"></div>
-        <div id="diaryPreview" style="position:relative;background:linear-gradient(135deg, rgba(32,38,60,0.97) 0%, rgba(28,36,52,0.95) 100%);border-radius:20px;padding:30px;margin-left:50px;box-shadow:0 10px 40px rgba(0,0,0,0.2);border:1px solid rgba(76,90,110,0.3);">
-          <div style="position:absolute;left:-37px;top:30px;width:20px;height:20px;background:#4ecdc4;border-radius:50%;border:4px solid rgba(28,36,52,0.95);box-shadow:0 0 0 4px rgba(78,205,196,0.2);"></div>
-          <div id="diaryDate" style="color:#4ecdc4;font-size:1.1rem;margin-bottom:15px;font-weight:600;display:flex;align-items:center;gap:10px;">
-            <span style="font-size:1.3em;">📅</span>
-            <span></span>
-          </div>
-          <div id="diaryText" style="color:#c7dbff;font-size:1.1rem;line-height:1.7;background:rgba(28,36,52,0.4);padding:20px;border-radius:12px;border-left:4px solid #4ecdc4;min-height:80px;"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 자산 추이 - 대시보드 스타일 -->
-    <section class="mypage-section asset-card" style="margin-bottom:40px;">
-      <div style="display:flex;align-items:center;gap:15px;margin-bottom:30px;">
-        <div style="width:50px;height:50px;background:linear-gradient(135deg, #f093fb, #f5576c);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 25px rgba(240,147,251,0.3);">💰</div>
-        <div>
-          <h2 style="font-size:1.8rem;color:#e9f1ff;font-weight:800;margin:0;">자산 대시보드</h2>
-          <p style="color:#b7caf8;margin:5px 0 0 0;font-size:1rem;">포트폴리오 성과를 한눈에</p>
-        </div>
-        <div style="margin-left:auto;display:flex;gap:10px;">
-          <button class="period-btn active" data-period="7d" style="background:rgba(240,147,251,0.2);color:#f093fb;border:1px solid rgba(240,147,251,0.3);padding:8px 12px;border-radius:8px;font-size:0.9rem;cursor:pointer;transition:all 0.2s;">7일</button>
-          <button class="period-btn" data-period="30d" style="background:rgba(152,191,255,0.1);color:#98bfff;border:1px solid rgba(152,191,255,0.2);padding:8px 12px;border-radius:8px;font-size:0.9rem;cursor:pointer;transition:all 0.2s;">30일</button>
-          <button class="period-btn" data-period="90d" style="background:rgba(152,191,255,0.1);color:#98bfff;border:1px solid rgba(152,191,255,0.2);padding:8px 12px;border-radius:8px;font-size:0.9rem;cursor:pointer;transition:all 0.2s;">90일</button>
-        </div>
-      </div>
-      
-      <div id="assetEmpty" style="color:#b7caf8;font-size:1.1rem;text-align:center;padding:60px 20px;background:linear-gradient(135deg, rgba(45,62,91,0.3) 0%, rgba(28,36,52,0.4) 100%);border-radius:20px;border:2px dashed rgba(240,147,251,0.3);">
-        <div style="font-size:4rem;margin-bottom:20px;animation:float 3s ease-in-out infinite;">📈</div>
-        <div style="font-size:1.3rem;font-weight:600;margin-bottom:10px;">자산 데이터가 없습니다</div>
-        <div style="font-size:1rem;color:#8e9bb3;margin-bottom:20px;">자산을 등록하면 추이를 확인할 수 있습니다!</div>
-        <button style="background:linear-gradient(135deg, #f093fb, #f5576c);color:white;border:none;padding:12px 24px;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s;">자산 등록하기</button>
-      </div>
-      
-      <div id="assetDashboard" style="display:none;">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:20px;margin-bottom:30px;">
-          <div style="background:linear-gradient(135deg, rgba(32,38,60,0.97) 0%, rgba(28,36,52,0.95) 100%);border-radius:15px;padding:20px;text-align:center;border:1px solid rgba(76,90,110,0.3);">
-            <div style="font-size:2rem;margin-bottom:10px;">📊</div>
-            <div style="color:#8e9bb3;font-size:0.9rem;margin-bottom:5px;">총 자산</div>
-            <div style="color:#e9f1ff;font-size:1.5rem;font-weight:700;" id="totalAssets">$0</div>
-          </div>
-          <div style="background:linear-gradient(135deg, rgba(32,38,60,0.97) 0%, rgba(28,36,52,0.95) 100%);border-radius:15px;padding:20px;text-align:center;border:1px solid rgba(76,90,110,0.3);">
-            <div style="font-size:2rem;margin-bottom:10px;">📈</div>
-            <div style="color:#8e9bb3;font-size:0.9rem;margin-bottom:5px;">수익률</div>
-            <div style="color:#4ade80;font-size:1.5rem;font-weight:700;" id="totalReturn">+0.00%</div>
-          </div>
-          <div style="background:linear-gradient(135deg, rgba(32,38,60,0.97) 0%, rgba(28,36,52,0.95) 100%);border-radius:15px;padding:20px;text-align:center;border:1px solid rgba(76,90,110,0.3);">
-            <div style="font-size:2rem;margin-bottom:10px;">🎯</div>
-            <div style="color:#8e9bb3;font-size:0.9rem;margin-bottom:5px;">목표 달성</div>
-            <div style="color:#ffe066;font-size:1.5rem;font-weight:700;" id="goalProgress">0%</div>
-          </div>
-        </div>
-        <div style="background:linear-gradient(135deg, rgba(32,38,60,0.97) 0%, rgba(28,36,52,0.95) 100%);border-radius:20px;padding:30px;box-shadow:0 10px 40px rgba(0,0,0,0.2);border:1px solid rgba(76,90,110,0.3);">
-          <canvas id="assetChart" height="150" style="max-width:100%;"></canvas>
-        </div>
-      </div>
-    </section>
-
-    <!-- 챗봇 문의 - 채팅 스타일 -->
-    <section class="mypage-section chatbot-card" style="margin-bottom:40px;">
-      <div style="display:flex;align-items:center;gap:15px;margin-bottom:30px;">
-        <div style="width:50px;height:50px;background:linear-gradient(135deg, #a8edea, #fed6e3);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 8px 25px rgba(168,237,234,0.3);">💬</div>
-        <div>
-          <h2 style="font-size:1.8rem;color:#e9f1ff;font-weight:800;margin:0;">고객 지원</h2>
-          <p style="color:#b7caf8;margin:5px 0 0 0;font-size:1rem;">최근 문의 내역과 답변</p>
-        </div>
-        <button style="margin-left:auto;background:linear-gradient(135deg, #a8edea, #fed6e3);color:#222c42;padding:12px 20px;border-radius:12px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 15px rgba(168,237,234,0.3);">새 문의하기</button>
-      </div>
-      
-      <div id="chatbotEmpty" style="color:#b7caf8;font-size:1.1rem;text-align:center;padding:60px 20px;background:linear-gradient(135deg, rgba(45,62,91,0.3) 0%, rgba(28,36,52,0.4) 100%);border-radius:20px;border:2px dashed rgba(168,237,234,0.3);">
-        <div style="font-size:4rem;margin-bottom:20px;animation:float 3s ease-in-out infinite;">🤖</div>
-        <div style="font-size:1.3rem;font-weight:600;margin-bottom:10px;">최근 문의 내역이 없습니다</div>
-        <div style="font-size:1rem;color:#8e9bb3;margin-bottom:20px;">궁금한 점이 있으면 언제든 문의하세요!</div>
-        <button style="background:linear-gradient(135deg, #a8edea, #fed6e3);color:#222c42;border:none;padding:12px 24px;border-radius:12px;font-weight:600;cursor:pointer;transition:all 0.2s;">문의하기</button>
-      </div>
-      
-      <div id="chatbotChat" style="display:none;background:linear-gradient(135deg, rgba(32,38,60,0.97) 0%, rgba(28,36,52,0.95) 100%);border-radius:20px;padding:25px;box-shadow:0 10px 40px rgba(0,0,0,0.2);border:1px solid rgba(76,90,110,0.3);max-height:400px;overflow-y:auto;">
-        <ul id="chatbotList" style="list-style:none;padding:0;margin:0;"></ul>
-      </div>
-    </section>
-  </main>
-
-  <style>
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .mypage-section {
-      animation: slideIn 0.6s ease-out;
-    }
-    
-    .mypage-section:nth-child(2) { animation-delay: 0.1s; }
-    .mypage-section:nth-child(3) { animation-delay: 0.2s; }
-    .mypage-section:nth-child(4) { animation-delay: 0.3s; }
-    .mypage-section:nth-child(5) { animation-delay: 0.4s; }
-    
-    .view-toggle-btn.active,
-    .period-btn.active {
-      background: rgba(255,224,102,0.2) !important;
-      color: #ffe066 !important;
-      border-color: rgba(255,224,102,0.3) !important;
-    }
-    
-    .view-toggle-btn:hover,
-    .period-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-    
-    /* 그리드 카드 스타일 */
-    .stock-card {
-      background: linear-gradient(135deg, rgba(32,38,60,0.97) 0%, rgba(28,36,52,0.95) 100%);
-      border-radius: 20px;
-      padding: 25px;
-      border: 1px solid rgba(76,90,110,0.3);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .stock-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #ff6b6b, #ee5a24);
-    }
-    
-    .stock-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-      border-color: rgba(255,107,107,0.3);
-    }
-    
-    /* 테이블 스타일 개선 */
-    .stock-table tr {
-      transition: all 0.2s ease;
-    }
-    
-    .stock-table tr:hover {
-      background: rgba(45,62,91,0.4);
-      transform: scale(1.01);
-    }
-    
-    .stock-table td {
-      padding: 16px 15px;
-      text-align: center;
-      border-bottom: 1px solid rgba(76,90,110,0.3);
-      font-size: 0.95rem;
-      color: #c7dbff;
-    }
-    
-    .stock-table td:first-child {
-      font-weight: 700;
-      color: #98bfff;
-      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    }
-    
-    .stock-table td:nth-child(2) {
-      text-align: left;
-      font-weight: 500;
-    }
-    
-    .stock-table td:nth-child(3) {
-      font-weight: 600;
-      color: #ffe066;
-    }
-    
-    .stock-table td:nth-child(4) {
-      font-weight: 600;
-    }
-    
-    /* 챗봇 메시지 스타일 */
-    #chatbotList li {
-      background: rgba(45,62,91,0.4);
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 15px;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    
-    #chatbotList li::before {
-      content: '';
-      position: absolute;
-      left: -8px;
-      top: 20px;
-      width: 0;
-      height: 0;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-right: 8px solid rgba(45,62,91,0.4);
-    }
-    
-    #chatbotList li:hover {
-      background: rgba(55,65,95,0.6);
-      border-color: rgba(168,237,234,0.3);
-      transform: translateX(5px);
-    }
-    
-@media (max-width: 768px) {
-  .mypage-main-container {
-    max-width: 100vw !important;
-    padding: 14px 2.5vw 32px 2.5vw !important;
-    border-radius: 0 !important;
-  }
-  .mypage-section {
-    margin-bottom: 22px !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    min-width: 0 !important;
-  }
-  /* 프로필 카드 */
-  .user-profile-card {
-    border-radius: 14px !important;
-    margin-bottom: 18px !important;
-    box-shadow: none !important;
-  }
-  .user-profile-card > div[style*="padding:40px"] {
-    padding: 18px 9px !important;
-    gap: 11px !important;
-    grid-template-columns: 1fr !important;
-    text-align: center !important;
-    justify-items: center !important;
-  }
-  .user-profile-card img {
-    width: 62px !important;
-    height: 62px !important;
-    border-width: 2px !important;
-  }
-  .user-profile-card #mypageUserName {
-    font-size: 1.15rem !important;
-    margin-bottom: 4px !important;
-  }
-  .user-profile-card #mypageUserEmail {
-    font-size: 0.99rem !important;
-    margin-bottom: 8px !important;
-  }
-  .user-profile-card #mypageMembership {
-    font-size: 0.96em !important;
-    padding: 6px 11px !important;
-    border-radius: 13px !important;
-  }
-  .user-profile-card > div:last-child {
-    margin-top: 10px !important;
-    text-align: center !important;
-  }
-  /* 각 섹션 공통 */
-  .mypage-section > div[style*="display:flex"] {
-    gap: 7px !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    margin-bottom: 12px !important;
-  }
-  .mypage-section h2 {
-    font-size: 1.09rem !important;
-    margin: 0 0 0.1em 0 !important;
-  }
-  .mypage-section p {
-    font-size: 0.89rem !important;
-    margin: 2px 0 0 0 !important;
-  }
-  /* 즐겨찾기 */
-  .favorites-card > div[style*="gap:15px"] > div[style*="width:50px"] {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.2rem !important;
-    border-radius: 9px !important;
-  }
-  .favorites-card .view-toggle-btn {
-    font-size: 0.86rem !important;
-    padding: 6px 10px !important;
-    border-radius: 6px !important;
-  }
-  #favoritesEmpty, #diaryEmpty, #assetEmpty, #chatbotEmpty {
-    padding: 36px 3vw !important;
-    font-size: 0.99rem !important;
-    border-radius: 13px !important;
-  }
-  #favoritesEmpty > div,
-  #diaryEmpty > div,
-  #assetEmpty > div,
-  #chatbotEmpty > div {
-    font-size: 2.2rem !important;
-    margin-bottom: 10px !important;
-  }
-  #favoritesGrid {
-    grid-template-columns: 1fr !important;
-    gap: 11px !important;
-    padding: 0 !important;
-  }
-  .stock-card {
-    border-radius: 11px !important;
-    padding: 14px 8px !important;
-    font-size: 0.97rem !important;
-  }
-  /* 테이블 (스와이프) */
-  #favoritesTableContainer {
-    overflow-x: auto !important;
-    padding-bottom: 2px !important;
-  }
-  .stock-table th, .stock-table td {
-    padding: 7px 7px !important;
-    font-size: 0.91rem !important;
-  }
-  /* 다이어리 */
-  .diary-card > div[style*="width:50px"] {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.2rem !important;
-    border-radius: 9px !important;
-  }
-  .diary-card a,
-  #favoritesEmpty button,
-  #diaryEmpty button,
-  #assetEmpty button,
-  #chatbotEmpty button {
-    font-size: 0.97rem !important;
-    border-radius: 9px !important;
-    padding: 10px 17px !important;
-    margin-top: 4px !important;
-  }
-  #diaryTimeline {
-    margin-left: 0 !important;
-    padding: 0 !important;
-  }
-  #diaryPreview {
-    margin-left: 25px !important;
-    padding: 14px 7px !important;
-    border-radius: 11px !important;
-  }
-  #diaryPreview > div {
-    font-size: 0.97rem !important;
-    min-height: 40px !important;
-    padding: 10px !important;
-    border-radius: 7px !important;
-  }
-  #diaryPreview > div[style*="color:#4ecdc4;"] {
-    font-size: 0.97rem !important;
-    margin-bottom: 7px !important;
-    gap: 5px !important;
-  }
-  #diaryPreview > div[style*="left:-37px"] {
-    left: -22px !important;
-    top: 16px !important;
-    width: 13px !important;
-    height: 13px !important;
-    border-width: 2px !important;
-    box-shadow: 0 0 0 2px rgba(78,205,196,0.15) !important;
-  }
-  /* 자산 카드 */
-  .asset-card > div[style*="width:50px"] {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.2rem !important;
-    border-radius: 9px !important;
-  }
-  .asset-card .period-btn {
-    font-size: 0.84rem !important;
-    padding: 6px 10px !important;
-    border-radius: 6px !important;
-  }
-  #assetDashboard > div[style*="display:grid"] {
-    grid-template-columns: 1fr !important;
-    gap: 9px !important;
-    margin-bottom: 12px !important;
-  }
-  #assetDashboard > div:last-child {
-    border-radius: 11px !important;
-    padding: 13px 7px !important;
-  }
-  #assetDashboard .asset-stat {
-    font-size: 0.99rem !important;
-    padding: 9px 0 !important;
-  }
-  /* 챗봇 */
-  .chatbot-card > div[style*="width:50px"] {
-    width: 36px !important;
-    height: 36px !important;
-    font-size: 1.2rem !important;
-    border-radius: 9px !important;
-  }
-  #chatbotChat {
-    border-radius: 11px !important;
-    padding: 13px 7px !important;
-    max-height: 180px !important;
-    font-size: 0.97rem !important;
-  }
-  #chatbotList li {
-    border-radius: 9px !important;
-    padding: 11px 8px !important;
-    margin-bottom: 8px !important;
-    font-size: 0.97rem !important;
-  }
-}
-  </style>
 
   <script src="navigation.js"></script>
   <script>
+    // Firebase 설정
     const firebaseConfig = {
-  apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
-  authDomain: "gohigher-55e51.firebaseapp.com",
-  projectId: "gohigher-55e51",
-  storageBucket: "gohigher-55e51.appspot.com",
-  messagingSenderId: "487435343721",
-  appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
-  measurementId: "G-KQ02L8DXG0"
-};
-if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+      apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+      authDomain: "gohigher-55e51.firebaseapp.com",
+      projectId: "gohigher-55e51",
+      storageBucket: "gohigher-55e51.appspot.com",
+      messagingSenderId: "487435343721",
+      appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+      measurementId: "G-KQ02L8DXG0"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-// 2. Chart.js 로드 (CDN)
-(function loadChartJs() {
-  if (!window.Chart) {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-    document.head.appendChild(script);
-  }
-})();
+    // 명언 배열
+    const QUOTES = [
+      "성공은 매일의 작은 노력이 쌓여 만들어집니다.",
+      "시장보다 먼저 움직이지 말고, 오래 살아남는 법을 배워라.",
+      "투자는 미래를 바꾸는 가장 강력한 도구다.",
+      "실패를 두려워하지 말고, 계속 시도하라.",
+      "복리는 시간과 인내의 보상이다.",
+      "큰 변화는 꾸준한 습관에서 시작된다.",
+      "분산과 인내, 두 단어만 잊지 마라.",
+      "투자 성장은 매일의 기록과 실행에서 온다."
+    ];
 
-window.addEventListener('DOMContentLoaded', () => {
-  // --- 1. 회원 정보 관련 DOM 변수 ---
-  const profilePhoto = document.getElementById('mypageProfilePhoto');
-  const userName     = document.getElementById('mypageUserName');
-  const userEmail    = document.getElementById('mypageUserEmail');
-  const membership   = document.getElementById('mypageMembership');
-
-  // --- 2. 기타 섹션 DOM 변수 ---
-  const favoritesTable = document.getElementById('favoritesTable');
-  const favoritesTbody = favoritesTable ? favoritesTable.querySelector('tbody') : null;
-  const favoritesEmpty = document.getElementById('favoritesEmpty');
-  const favoritesGrid = document.getElementById('favoritesGrid');
-  const favoritesTableContainer = document.getElementById('favoritesTableContainer');
-  const viewToggleButtons = document.querySelectorAll('.view-toggle-btn');
-
-  const diaryEmpty   = document.getElementById('diaryEmpty');
-  const diaryTimeline = document.getElementById('diaryTimeline');
-  const diaryPreview = document.getElementById('diaryPreview');
-  const diaryDate    = document.getElementById('diaryDate');
-  const diaryText    = document.getElementById('diaryText');
-
-  const assetChartEl = document.getElementById('assetChart');
-  const assetEmpty   = document.getElementById('assetEmpty');
-  const assetDashboard = document.getElementById('assetDashboard');
-  const totalAssets = document.getElementById('totalAssets');
-  const totalReturn = document.getElementById('totalReturn');
-  const goalProgress = document.getElementById('goalProgress');
-  const periodButtons = document.querySelectorAll('.period-btn');
-  let assetChart;
-
-  const chatbotEmpty = document.getElementById('chatbotEmpty');
-  const chatbotList  = document.getElementById('chatbotList');
-  const chatbotChat  = document.getElementById('chatbotChat');
-
-  // --- 3. 회원 정보 렌더 함수 ---
-  function renderUserInfo(user) {
-    if (!user) {
-      if (userName)     userName.textContent = '비로그인';
-      if (userEmail)    userEmail.textContent = '';
-      if (profilePhoto) profilePhoto.src = '/logo.jpg';
-      if (membership)   membership.innerHTML = `<span style="font-size:1.2em;">👑</span> <span style="color:white;font-weight:600;">멤버십: -</span>`;
-      return;
+    // 유틸
+    function getTodayStr() {
+      const d = new Date();
+      return d.toISOString().slice(0,10);
     }
-    if (userName)     userName.textContent = user.displayName || user.email.split('@')[0];
-    if (userEmail)    userEmail.textContent = user.email;
-    if (profilePhoto) profilePhoto.src = user.photoURL || '/logo.jpg';
-    if (membership)   membership.innerHTML =
-      `<span style="font-size:1.2em;">👑</span> <span style="color:white;font-weight:600;">멤버십: ${user.email.includes("premium") ? "프리미엄" : "일반"}</span>`;
-  }
-
-  // --- 4. 인증 상태 변화 감지 ---
-  auth.onAuthStateChanged(async user => {
-    renderUserInfo(user);
-
-    if (!user) {
-      // 모든 섹션 비움
-      if (favoritesGrid) favoritesGrid.style.display = 'none';
-      if (favoritesTableContainer) favoritesTableContainer.style.display = 'none';
-      if (diaryTimeline) diaryTimeline.style.display = 'none';
-      if (diaryEmpty) diaryEmpty.style.display = '';
-      if (assetDashboard) assetDashboard.style.display = 'none';
-      if (assetEmpty) assetEmpty.style.display = '';
-      if (assetChart) assetChart.destroy();
-      if (chatbotList) chatbotList.style.display = 'none';
-      if (chatbotEmpty) chatbotEmpty.style.display = '';
-      if (chatbotChat) chatbotChat.style.display = 'none';
-      return;
-    }
-    // 유저 정보 불러오기
-    loadFavorites(user.uid);
-    loadDiary(user.uid);
-    loadAssets(user.uid);
-    loadChatbot(user.uid);
-  });
-
-  // --- 5. 즐겨찾기 종목 불러오기 ---
-  async function loadFavorites(uid) {
-    if (favoritesGrid) favoritesGrid.style.display = 'none';
-    if (favoritesTableContainer) favoritesTableContainer.style.display = 'none';
-    if (favoritesGrid) favoritesGrid.innerHTML = '';
-    if (favoritesTbody) favoritesTbody.innerHTML = '';
-    try {
-      const snap = await db.collection('users').doc(uid).collection('favorites').orderBy('addedAt', 'desc').limit(10).get();
-      if (snap.empty) {
-        if (favoritesEmpty) favoritesEmpty.style.display = '';
-        return;
-      }
-      if (favoritesGrid) favoritesGrid.style.display = 'grid';
-      if (favoritesTableContainer) favoritesTableContainer.style.display = '';
-      const promises = [];
-      snap.forEach(doc => {
-        const fav = doc.data();
-        promises.push(fetch(`/stockInfo?ticker=${fav.symbol}`)
-          .then(r=>r.json())
-          .then(info=>({id:doc.id,symbol:fav.symbol,name:info.name||'-'}))
-          .catch(()=>({id:doc.id,symbol:fav.symbol,name:'-'})));
-      });
-      const rows = await Promise.all(promises);
-      // 가격/등락률 fetch
-      const pricePromises = rows.map(row =>
-        fetch(`/stockPrice?ticker=${row.symbol}`)
-          .then(r=>r.json())
-          .then(p=>({...row, price:p.price}))
-          .catch(()=>({...row, price:'-'}))
-      );
-      const priceRows = await Promise.all(pricePromises);
-      if (favoritesGrid) favoritesGrid.innerHTML = '';
-      priceRows.forEach(row => {
-        // 카드뷰
-        const card = document.createElement('div');
-        card.classList.add('stock-card');
-        card.innerHTML = `
-          <div class="ticker">${row.symbol}</div>
-          <div class="stock-name">${row.name}</div>
-          <div class="stock-price">${row.price !== undefined ? '$'+row.price : '-'}</div>
-          <div class="stock-change">-</div>
-          <button class="btn" style="padding:2px 8px;font-size:0.97em;" onclick="removeFavorite('${row.id}')">삭제</button>
-        `;
-        if (favoritesGrid) favoritesGrid.appendChild(card);
-        // 테이블뷰 (필요하면 추가)
-        if (favoritesTbody) {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${row.symbol}</td>
-            <td>${row.name}</td>
-            <td>${row.price !== undefined ? '$'+row.price : '-'}</td>
-            <td>-</td>
-            <td><button class="btn" style="padding:2px 8px;font-size:0.97em;" onclick="removeFavorite('${row.id}')">삭제</button></td>
-          `;
-          favoritesTbody.appendChild(tr);
-        }
-      });
-    } catch (e) {
-      if (favoritesEmpty) {
-        favoritesEmpty.textContent = '종목 정보를 불러오지 못했습니다.';
-        favoritesEmpty.style.display = '';
-      }
-    }
-  }
-
-  // 즐겨찾기 삭제
-  window.removeFavorite = async function(id) {
-    const user = auth.currentUser;
-    if (!user) return;
-    await db.collection('users').doc(user.uid).collection('favorites').doc(id).delete();
-    loadFavorites(user.uid);
-  };
-
-  // --- 6. 최근 다이어리 불러오기 ---
-  async function loadDiary(uid) {
-    if (diaryTimeline) diaryTimeline.style.display = 'none';
-    if (diaryEmpty) diaryEmpty.style.display = '';
-    try {
-      const snap = await db.collection('users').doc(uid).collection('diary').orderBy('date','desc').limit(1).get();
-      if (snap.empty) return;
-      const doc = snap.docs[0].data();
-      if (diaryDate) diaryDate.textContent = doc.date || '';
-      if (diaryText) diaryText.textContent = doc.text ? (doc.text.length > 120 ? doc.text.slice(0,120)+'...' : doc.text) : '';
-      if (diaryPreview) diaryPreview.style.display = '';
-      if (diaryEmpty) diaryEmpty.style.display = 'none';
-      if (diaryTimeline) diaryTimeline.style.display = '';
-    } catch (e) {}
-  }
-
-  // --- 7. 자산 추이 불러오기 ---
-  async function loadAssets(uid) {
-    if (assetDashboard) assetDashboard.style.display = 'none';
-    if (assetEmpty) assetEmpty.style.display = '';
-    if (assetChart) assetChart.destroy();
-    try {
-      const snap = await db.collection('users').doc(uid).collection('assets').orderBy('date','desc').limit(8).get();
-      if (snap.empty) return;
-      const data = snap.docs.map(d=>d.data()).reverse();
-      const labels = data.map(d=>d.date);
-      const values = data.map(d=>d.value);
-      if (!window.Chart) {
-        setTimeout(()=>loadAssets(uid), 300);
-        return;
-      }
-      assetChart = new Chart(assetChartEl.getContext('2d'), {
-        type: 'line',
-        data: {
-          labels,
-          datasets: [{
-            label: '자산',
-            data: values,
-            borderColor: '#ffe066',
-            backgroundColor: 'rgba(255,224,102,0.13)',
-            pointRadius: 3,
-            tension: 0.3
-          }]
-        },
-        options: {
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { color: '#b7caf8' }, grid: { color: '#233154' } },
-            y: { ticks: { color: '#ffe066' }, grid: { color: '#233154' } }
+    function renderCalendar(stampArr) {
+      const table = document.getElementById('calendarTable');
+      table.innerHTML = '';
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month+1, 0).getDate();
+      const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+      let tr = document.createElement('tr');
+      weekdays.forEach(d=>{ let th=document.createElement('th'); th.textContent=d; tr.appendChild(th); });
+      table.appendChild(tr);
+      let date = 1;
+      for (let r=0;r<6;r++) {
+        let row = document.createElement('tr');
+        for (let c=0;c<7;c++) {
+          let td = document.createElement('td');
+          if (r===0 && c<firstDay) {
+            td.textContent = '';
+          } else if (date > lastDate) {
+            td.textContent = '';
+          } else {
+            td.textContent = date;
+            const ymd = `${year}-${String(month+1).padStart(2,'0')}-${String(date).padStart(2,'0')}`;
+            if (stampArr.includes(ymd)) td.classList.add('stamped');
+            if (ymd === getTodayStr()) td.classList.add('today');
+            date++;
           }
+          row.appendChild(td);
+        }
+        table.appendChild(row);
+        if (date > lastDate) break;
+      }
+    }
+    async function getAttendance(uid) {
+      const doc = await db.collection('users').doc(uid).get();
+      return (doc.exists && doc.data().attendance) ? doc.data().attendance : [];
+    }
+    async function addTodayAttendance(uid) {
+      const userRef = db.collection('users').doc(uid);
+      const today = getTodayStr();
+      await db.runTransaction(async t => {
+        const doc = await t.get(userRef);
+        let arr = doc.exists && doc.data().attendance ? doc.data().attendance : [];
+        if (!arr.includes(today)) {
+          arr.push(today);
+          t.update(userRef, { attendance: arr });
         }
       });
-      if (assetEmpty) assetEmpty.style.display = 'none';
-      if (assetDashboard) assetDashboard.style.display = '';
-    } catch (e) {}
-  }
+    }
+    async function getUserGoal(uid) {
+      const doc = await db.collection('users').doc(uid).get();
+      if (!doc.exists) return null;
+      const data = doc.data();
+      return {
+        goal: data.goalAmount,
+        current: data.currentAmount
+      };
+    }
 
-  // --- 8. 챗봇 문의 불러오기 ---
-  async function loadChatbot(uid) {
-    if (chatbotList) chatbotList.innerHTML = '';
-    if (chatbotList) chatbotList.style.display = 'none';
-    if (chatbotEmpty) chatbotEmpty.style.display = '';
-    if (chatbotChat) chatbotChat.style.display = 'none';
-    try {
-      const snap = await db.collection('user_chat').where('sender','==','user').where('uid','==',uid).orderBy('createdAt','desc').limit(3).get();
-      if (snap.empty) return;
-      if (chatbotList) chatbotList.style.display = '';
-      if (chatbotEmpty) chatbotEmpty.style.display = 'none';
-      if (chatbotChat) chatbotChat.style.display = '';
-      snap.forEach(doc => {
-        const d = doc.data();
-        const li = document.createElement('li');
-        li.style.marginBottom = '7px';
-        li.innerHTML = `<span style="color:#ffe066;font-size:0.98em;">${d.createdAt && d.createdAt.toDate ? d.createdAt.toDate().toLocaleString() : ''}</span><br><span style="color:#c7dbff;">${d.message ? (d.message.length>60?d.message.slice(0,60)+'...':d.message) : ''}</span>`;
-        if (chatbotList) chatbotList.appendChild(li);
-      });
-    } catch (e) {}
-  }
+    // --- 마이페이지 동작
+    let currentUid = null;
+    auth.onAuthStateChanged(async user => {
+      const profileBox = document.getElementById('profileBox');
+      const calendarBox = document.getElementById('calendarBox');
+      const loginGuide = document.getElementById('loginGuide');
+      const sidePanel = document.getElementById('sidePanel');
+      if (!user) {
+        profileBox.style.display = 'none';
+        calendarBox.style.display = 'none';
+        sidePanel.style.display = 'none';
+        loginGuide.style.display = '';
+        return;
+      }
+      profileBox.style.display = '';
+      calendarBox.style.display = '';
+      sidePanel.style.display = '';
+      loginGuide.style.display = 'none';
+      document.getElementById('userName').textContent = user.displayName || user.email.split('@')[0];
+      document.getElementById('userEmail').textContent = user.email;
+      document.getElementById('profilePhoto').src = user.photoURL || '/logo.jpg';
+      currentUid = user.uid;
 
-  // --- 9. 뷰 토글 버튼 (그리드/테이블) ---
-  if (viewToggleButtons && viewToggleButtons.length > 0) {
-    viewToggleButtons.forEach(btn => {
-      btn.addEventListener('click', function() {
-        viewToggleButtons.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        if (this.dataset.view === 'grid') {
-          if (favoritesGrid) favoritesGrid.style.display = 'grid';
-          if (favoritesTableContainer) favoritesTableContainer.style.display = 'none';
-        } else {
-          if (favoritesGrid) favoritesGrid.style.display = 'none';
-          if (favoritesTableContainer) favoritesTableContainer.style.display = '';
-        }
-      });
+      // 출석데이터 + 사이드패널 정보 렌더
+      const arr = await getAttendance(user.uid);
+      renderCalendar(arr);
+      renderSummary(arr);
+
+      // 사이드: 미션 진행바
+      renderMissionBar(arr);
+
+      // 사이드: 명언
+      document.getElementById('quoteText').textContent = QUOTES[Math.floor(Math.random()*QUOTES.length)];
+
+      // 사이드: 자산 목표
+      const goalData = await getUserGoal(user.uid);
+      renderGoalBox(goalData);
+
+      // 오늘 출석 찍기 버튼 (중복 방지)
+      const today = getTodayStr();
+      const stampBtn = document.getElementById('stampBtn');
+      if (arr.includes(today)) {
+        stampBtn.textContent = "오늘 이미 출석 도장 완료!";
+        stampBtn.disabled = true;
+      } else {
+        stampBtn.textContent = "오늘 도장 찍기";
+        stampBtn.disabled = false;
+      }
     });
-  }
 
-  // --- 10. 자산 대시보드 기간 버튼 ---
-  if (periodButtons && periodButtons.length > 0) {
-    periodButtons.forEach(btn => {
-      btn.addEventListener('click', function() {
-        periodButtons.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        // 실제 데이터 필터링 필요시 여기에 추가 구현
-      });
-    });
-  }
-});
+    // 출석 찍기 이벤트
+    document.getElementById('stampBtn').onclick = async function() {
+      if (!currentUid) return;
+      await addTodayAttendance(currentUid);
+      const arr = await getAttendance(currentUid);
+      renderCalendar(arr);
+      renderSummary(arr);
+      renderMissionBar(arr);
+      this.textContent = "오늘 이미 출석 도장 완료!";
+      this.disabled = true;
+    };
 
+    function renderSummary(arr) {
+      const now = new Date();
+      const prefix = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-`;
+      const monthCnt = arr.filter(d=>d.startsWith(prefix)).length;
+      document.getElementById('attendanceSummary').textContent = `이번 달 출석: ${monthCnt}회`;
+    }
+    function renderMissionBar(arr) {
+      // 목표: 20일 (수정 가능)
+      const now = new Date();
+      const prefix = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-`;
+      const monthCnt = arr.filter(d=>d.startsWith(prefix)).length;
+      const percent = Math.min(100, Math.round((monthCnt/20)*100));
+      document.getElementById('missionBar').style.width = percent + "%";
+      document.getElementById('missionCnt').textContent = monthCnt;
+      if (monthCnt >= 20) {
+        document.getElementById('missionBadge').style.display = '';
+      } else {
+        document.getElementById('missionBadge').style.display = 'none';
+      }
+    }
+    function renderGoalBox(goalData) {
+      const el = document.getElementById('goalBox');
+      if (!goalData || typeof goalData.goal !== 'number' || typeof goalData.current !== 'number') {
+        el.innerHTML = `<span class="goal-label">설정된 자산 목표가 없습니다.<br>
+        <span style="font-size:0.96em;">설정은 <b>다이어리</b>에서 가능</span></span>`;
+        return;
+      }
+      const pct = Math.min(100, Math.round((goalData.current/goalData.goal)*100));
+      el.innerHTML = `
+        <span class="goal-label">목표 금액:</span> ${goalData.goal.toLocaleString()}원<br>
+        <span class="goal-label">현재:</span> ${goalData.current.toLocaleString()}원
+        <div class="side-card-bar-bg" style="margin:8px 0 3px 0;"><div class="side-card-bar-fill" style="width:${pct}%;"></div></div>
+        <span style="color:#ffe066;font-weight:600;">진행률 ${pct}%</span>
+      `;
+    }
   </script>
 </body>
 </html>

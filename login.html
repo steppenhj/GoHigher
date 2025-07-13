@@ -42,6 +42,8 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -466,14 +468,17 @@
   </div>
   <!-- 회원가입 폼 -->
   <div class="auth-box" id="signupBox" style="display:none;">
-    <form id="signupForm" autocomplete="off">
-      <label class="auth-label" for="signupEmail">이메일</label>
-      <input type="email" id="signupEmail" class="auth-input" required placeholder="이메일을 입력하세요" maxlength="50" autocomplete="username">
-      <label class="auth-label" for="signupPassword">비밀번호</label>
-      <input type="password" id="signupPassword" class="auth-input" required placeholder="비밀번호 (6자 이상)" minlength="6" maxlength="30" autocomplete="new-password">
-      <button type="submit" class="auth-btn">가입하기</button>
-      <div class="result-msg" id="signupResultMsg"></div>
-    </form>
+<form id="signupForm" autocomplete="off">
+  <label class="auth-label" for="signupEmail">이메일</label>
+  <input type="email" id="signupEmail" class="auth-input" required placeholder="이메일을 입력하세요" maxlength="50" autocomplete="username">
+  <label class="auth-label" for="signupPassword">비밀번호</label>
+  <input type="password" id="signupPassword" class="auth-input" required placeholder="비밀번호 (6자 이상)" minlength="6" maxlength="30" autocomplete="new-password">
+  <label class="auth-label" for="signupPasswordConfirm">비밀번호 확인</label>
+  <input type="password" id="signupPasswordConfirm" class="auth-input" required placeholder="비밀번호 재입력" minlength="6" maxlength="30" autocomplete="new-password">
+  <button type="submit" class="auth-btn">가입하기</button>
+  <div class="result-msg" id="signupResultMsg"></div>
+</form>
+
     <div class="auth-links" style="justify-content:center;">
       이미 계정이 있으신가요?
       <a href="#" class="auth-link" id="toLoginLink">로그인</a>
@@ -496,6 +501,8 @@
     firebase.initializeApp(firebaseConfig);
   }
   const auth = firebase.auth();
+  const db = firebase.firestore();
+
 
   // 탭 전환
   const loginTab = document.getElementById('loginTab');
@@ -520,62 +527,99 @@
   document.getElementById('toLoginLink').onclick = function(e) { e.preventDefault(); showLogin(); };
 
   // 로그인 처리
-  document.getElementById('loginForm').onsubmit = async function(e) {
-    e.preventDefault();
-    const email = document.getElementById("loginEmail").value.trim();
-    const pw = document.getElementById("loginPassword").value.trim();
-    const msg = document.getElementById("loginResultMsg");
-    msg.textContent = "";
-    try {
-      await auth.signInWithEmailAndPassword(email, pw);
-      msg.style.color = "#83ffbd";
-      msg.textContent = "로그인 성공! 잠시 후 이동합니다.";
-      setTimeout(()=>window.location.href="/", 1200);
-    } catch(err) {
+document.getElementById('loginForm').onsubmit = async function(e) {
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value.trim();
+  const pw = document.getElementById("loginPassword").value.trim();
+  const msg = document.getElementById("loginResultMsg");
+  msg.textContent = "";
+  try {
+    const userCred = await auth.signInWithEmailAndPassword(email, pw);
+    const user = userCred.user;
+    if (!user.emailVerified) {
       msg.style.color = "#fd7d7b";
-      if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password")
-        msg.textContent = "이메일 또는 비밀번호가 올바르지 않습니다.";
-      else if (err.code === "auth/invalid-email")
-        msg.textContent = "이메일 형식이 올바르지 않습니다.";
-      else
-        msg.textContent = "로그인에 실패했습니다. 다시 시도해주세요.";
+      msg.textContent = "이메일 인증이 필요합니다. 인증 메일을 확인하세요.";
+      // 인증메일 재발송 안내 등 추가 가능
+      return;
     }
-  };
-  // 구글 로그인
-  document.getElementById("googleLoginBtn").onclick = function() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-      .then(result => {
-        document.getElementById("loginResultMsg").style.color = "#83ffbd";
-        document.getElementById("loginResultMsg").textContent = "구글 로그인 성공! 잠시 후 이동합니다.";
-        setTimeout(()=>window.location.href="/", 1200);
-      })
-      .catch(err => {
-        document.getElementById("loginResultMsg").style.color = "#fd7d7b";
-        document.getElementById("loginResultMsg").textContent = "구글 로그인 실패";
-      });
-  };
+    msg.style.color = "#83ffbd";
+    msg.textContent = "로그인 성공! 잠시 후 이동합니다.";
+    setTimeout(()=>window.location.href="/", 1200);
+  } catch(err) {
+    msg.style.color = "#fd7d7b";
+    if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password")
+      msg.textContent = "이메일 또는 비밀번호가 올바르지 않습니다.";
+    else if (err.code === "auth/invalid-email")
+      msg.textContent = "이메일 형식이 올바르지 않습니다.";
+    else
+      msg.textContent = "로그인에 실패했습니다. 다시 시도해주세요.";
+  }
+};
 
-  // 회원가입 처리
-  document.getElementById("signupForm").onsubmit = async function(e) {
-    e.preventDefault();
-    const email = document.getElementById("signupEmail").value.trim();
-    const password = document.getElementById("signupPassword").value.trim();
-    const resultMsg = document.getElementById("signupResultMsg");
-    resultMsg.textContent = "";
-    try {
-      await auth.createUserWithEmailAndPassword(email, password);
-      resultMsg.style.color = "#83ffbd";
-      resultMsg.textContent = "가입이 완료되었습니다! 로그인 해주세요.";
-      document.getElementById("signupForm").reset();
-    } catch(err) {
-      resultMsg.style.color = "#fd7d7b";
-      if (err.code === "auth/email-already-in-use") resultMsg.textContent = "이미 등록된 이메일입니다.";
-      else if (err.code === "auth/invalid-email") resultMsg.textContent = "이메일 형식이 올바르지 않습니다.";
-      else if (err.code === "auth/weak-password") resultMsg.textContent = "비밀번호는 6자 이상이어야 합니다.";
-      else resultMsg.textContent = "가입 중 오류가 발생했습니다.";
-    }
-  };
+  // 구글 로그인
+document.getElementById("googleLoginBtn").onclick = function() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(async result => {
+      // Firestore user 등록 (로그인/회원가입 통합)
+      const user = result.user;
+      await db.collection("users").doc(user.uid).set({
+        email: user.email,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        paid: false
+      }, { merge: true });
+      document.getElementById("loginResultMsg").style.color = "#83ffbd";
+      document.getElementById("loginResultMsg").textContent = "구글 로그인 성공! 잠시 후 이동합니다.";
+      setTimeout(()=>window.location.href="/", 1200);
+    })
+    .catch(err => {
+      document.getElementById("loginResultMsg").style.color = "#fd7d7b";
+      document.getElementById("loginResultMsg").textContent = "구글 로그인 실패";
+    });
+};
+
+
+// 회원가입 처리
+document.getElementById("signupForm").onsubmit = async function(e) {
+  e.preventDefault();
+  const email = document.getElementById("signupEmail").value.trim();
+  const password = document.getElementById("signupPassword").value.trim();
+  const passwordConfirm = document.getElementById("signupPasswordConfirm").value.trim();
+  const resultMsg = document.getElementById("signupResultMsg");
+  resultMsg.textContent = "";
+
+  // 비밀번호 확인
+  if (password !== passwordConfirm) {
+    resultMsg.style.color = "#fd7d7b";
+    resultMsg.textContent = "비밀번호가 일치하지 않습니다.";
+    return;
+  }
+
+  try {
+    const userCred = await auth.createUserWithEmailAndPassword(email, password);
+    // Firestore user 등록
+    const user = userCred.user;
+    await db.collection("users").doc(user.uid).set({
+      email: user.email,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      paid: false
+    }, { merge: true });
+    resultMsg.style.color = "#83ffbd";
+    resultMsg.textContent = "가입이 완료되었습니다! 이메일 인증 후 로그인해 주세요.";
+    document.getElementById("signupForm").reset();
+
+    // 이메일 인증 발송
+    await user.sendEmailVerification();
+  } catch(err) {
+    resultMsg.style.color = "#fd7d7b";
+    if (err.code === "auth/email-already-in-use") resultMsg.textContent = "이미 등록된 이메일입니다.";
+    else if (err.code === "auth/invalid-email") resultMsg.textContent = "이메일 형식이 올바르지 않습니다.";
+    else if (err.code === "auth/weak-password") resultMsg.textContent = "비밀번호는 6자 이상이어야 합니다.";
+    else resultMsg.textContent = "가입 중 오류가 발생했습니다.";
+  }
+};
+
+
   document.getElementById("findPwBtn").onclick = function() {
   alert(`
 1. 로그인에 사용하는 이메일을 입력해 주세요.
@@ -605,6 +649,7 @@ document.getElementById("findPwBtn").onclick = async function(e) {
   }
 };
 </script>
+
 <div style="height: 66px;"></div>
 </body>
 </html> 
