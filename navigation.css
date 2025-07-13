@@ -758,7 +758,7 @@ tbody tr:last-child {
   transform: none;
   padding: 0;
   box-shadow: 0 2px 16px #1e253a66;
-  background: rgba(255,255,255,0.19) url('나침반.png') no-repeat center/cover;
+  background: rgba(255,255,255,0.19) url('images/나침반.png') no-repeat center/cover;
 
 }
 .nav.mini .nav-left,
