@@ -901,7 +901,6 @@ if (!window.POLYGON_API_BASE) {
     </div>
 </section>
 
-
   <!-- 7월 주요 일정 캘린더 (대체) -->
 <section class="earnings-calendar-section">
   <div class="earnings-calendar-title">
@@ -912,10 +911,30 @@ if (!window.POLYGON_API_BASE) {
 
 </main>
 
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="navigation.js"></script>
+<!-- 🟦 Chatbot Floating Button -->
+<button class="chatbot-fab" id="chatbot-toggle-btn" aria-label="챗봇 열기">
+  <img src="/챗봇/챗봇.webp" alt="챗봇">
+</button>
+
+<!-- 🟦 Chatbot Popup (Initially Hidden) -->
+<div class="chatbot-popup" id="chatbot-popup">
+  <div class="chatbot-container">
+    <div class="chatbot-header">
+      GoHigher 챗봇
+      <button class="close-btn" id="close-btn" aria-label="챗봇 닫기">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="messages">
+      <!-- 메시지 동적 생성됨 -->
+    </div>
+    <div class="chatbot-input-area">
+      <input type="text" id="user-input" placeholder="문의 또는 질문을 입력하세요" autocomplete="off" maxlength="500" />
+      <button id="send-btn">전송</button>
+    </div>
+    <div class="chatbot-hint">
+      빠른 답변: <b>운영 시간, 비밀번호 찾기, 데이터 보안...</b>
+    </div>
+  </div>
+</div>
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -1096,87 +1115,7 @@ if (!window.POLYGON_API_BASE) {
 
     document.getElementById("calendar-container").innerHTML = html;
 
-    // 일정 클릭시 상세 모달
-    document.querySelectorAll('#calendar td[data-day]').forEach(td => {
-      td.onclick = () => {
-        const day = td.getAttribute('data-day');
-        if (!eventsByDay[day]) return;
-        let content = eventsByDay[day].map(ev => `
-          <b>${ev.title}</b> (${ev.type})<br>
-          <small>${ev.desc || ''}</small>
-        `).join('<hr>');
-        document.getElementById("eventModalContent").innerHTML = content;
-        document.getElementById("eventModalBackdrop").classList.add("show");
-      };
-    });
-
-    // 모달 닫기 (X 버튼)
-    document.querySelectorAll('.modal-close[data-close="eventModal"]').forEach(btn => {
-      btn.onclick = () => document.getElementById("eventModalBackdrop").classList.remove("show");
-    });
-
-    // 모달 바깥(Backdrop) 클릭 시 닫기 (이 줄 추가!)
-    document.getElementById('eventModalBackdrop').addEventListener('mousedown', function(e) {
-      if (e.target === this) this.classList.remove('show');
-    });
-
   }
-  // 지수 툴바 정보: 심볼 및 태그 클래스 매칭
-const INDEXES = [
-  { symbol: "SPX",    className: "sp500",    label: "S&amp;P 500" },
-  { symbol: "NDX",    className: "nasdaq",   label: "NASDAQ" },
-  { symbol: "USDKRW", className: "usdkrw",   label: "달러/원" },
-  { symbol: "US10Y",  className: "us10y",    label: "미국 10Y" },
-];
-
-// 숫자, 퍼센트 등 보기 좋게 포맷
-function formatValue(value, isPercent) {
-  if (value == null || isNaN(value)) return "-";
-  if (isPercent) return Number(value).toFixed(2) + "%";
-  if (Math.abs(value) > 1000 && !isPercent) return Number(value).toLocaleString();
-  return Number(value).toFixed(2);
-}
-
-async function updateIndexToolbar() {
-  const base = window.POLYGON_API_BASE;
-  for (let idx of INDEXES) {
-    try {
-      // 가격(현재), 전일종가 둘 다 요청
-      const [priceRes, prevRes] = await Promise.all([
-        fetch(`${base}/stockPrice?ticker=${idx.symbol}`).then(r => r.json()),
-        fetch(`${base}/previousClose?ticker=${idx.symbol}`).then(r => r.json())
-      ]);
-      const curr = priceRes.price;
-      const prev = prevRes.previousClose;
-      let change = (curr && prev) ? (curr - prev) : null;
-      let rate = (curr && prev) ? ((curr - prev) / prev * 100) : null;
-
-      // DOM 반영
-      const card = document.querySelector(`.index-card.${idx.className}`);
-      if (!card) continue;
-      // 값 삽입
-      card.querySelector('.index-value').innerHTML = formatValue(curr, idx.className==="us10y");
-      const changeElem = card.querySelector('.index-change');
-      changeElem.innerHTML =
-        (change > 0 ? "+" : (change < 0 ? "" : "")) +
-        (idx.className==="usdkrw" || idx.className==="us10y"
-          ? formatValue(change, false)
-          : formatValue(rate, true));
-      // 색상·클래스 처리
-      changeElem.classList.remove("up", "down");
-      if (change > 0) changeElem.classList.add("up");
-      else if (change < 0) changeElem.classList.add("down");
-    } catch (e) {
-      // 실패 시 '-'
-      const card = document.querySelector(`.index-card.${idx.className}`);
-      if (card) {
-        card.querySelector('.index-value').innerHTML = "-";
-        card.querySelector('.index-change').innerHTML = "-";
-        card.querySelector('.index-change').classList.remove("up", "down");
-      }
-    }
-  }
-}
 
   // 페이지 로드시 실행
   renderJulyCalendar();
