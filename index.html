@@ -37,7 +37,6 @@
 <meta name="robots" content="index, follow" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="navigation.css">
    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -273,7 +272,7 @@ if (!window.POLYGON_API_BASE) {
 .frontier-image {
     height: 100%;
     min-height: 450px;
-    background-image: url('반도체.png');
+    background-image: url('images/반도체.png');
     background-size: cover;
     background-position: center;
     transition: transform 0.4s ease;
@@ -730,7 +729,9 @@ if (!window.POLYGON_API_BASE) {
       <a href="/멤버십.html" class="side-link">멤버십</a>
     </div>
 
-    <a href="/login.html" class="side-link">로그아웃</a>
+<a href="/login.html" class="side-link" id="loginLink">로그인</a>
+<a href="#" class="side-link" id="logoutLink" style="display:none;">로그아웃</a>
+
     <hr>
     <div class="biz-info-title">사업자 등록</div>
     <div class="biz-info">GoHigher | 대표 박해진</div>
@@ -823,7 +824,7 @@ if (!window.POLYGON_API_BASE) {
                     <span class="player-chip">TSMC</span>
                     <span class="player-chip">Broadcom</span>
                 </div>
-                <a href="#" class="frontier-cta">리포트 전문 보기</a>
+                <a href="/시리즈/핫토픽.html" class="frontier-cta">리포트 전문 보기</a>
             </div>
         </div>
     </section>
