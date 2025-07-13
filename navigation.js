@@ -48,33 +48,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginBtn    = document.getElementById('loginBtn');
     const profilePhoto= document.getElementById('profilePhoto');
 
-    if (userInfo) {
-      const nameEl     = userInfo.querySelector('.user-name');
-      const emailEl    = userInfo.querySelector('.user-email');
-      const statusEl   = userInfo.querySelector('.user-status');
-      const photoEl    = userInfo.querySelector('.user-photo');
-      const logoutLink = document.querySelector('.side-link[href="/login.html"]');
+if (userInfo) {
+  const nameEl     = userInfo.querySelector('.user-name');
+  const emailEl    = userInfo.querySelector('.user-email');
+  const statusEl   = userInfo.querySelector('.user-status');
+  const photoEl    = userInfo.querySelector('.user-photo');
+  const logoutLink = document.querySelector('.side-link[href="/login.html"]');
 
-      if (user) {
-        console.log('photoURL:', user.photoURL);
-        nameEl.textContent  = user.displayName || user.email.split('@')[0];
-        emailEl.textContent = user.email;
-        statusEl.textContent= '로그인됨';
-        photoEl.src = user.photoURL || '//logo.jpg';
-        photoEl.onerror = function() { this.src = '/logo.jpg'; };
-        photoEl.style.display = 'block'; // 무조건 표시
-        logoutLink.textContent = '로그아웃';
-        logoutLink.onclick = e => { e.preventDefault(); auth.signOut().then(()=>location.reload()); };
-      } else {
-        nameEl.textContent  = '비로그인';
-        emailEl.textContent = '';
-        statusEl.textContent= '로그인 필요';
-        photoEl.src = '/logo.jpg';
-        photoEl.style.display = 'none'; // 숨김
-        logoutLink.textContent = '로그인';
-        logoutLink.onclick = null;
-      }
+  if (user) {
+    if (nameEl)     nameEl.textContent  = user.displayName || user.email.split('@')[0];
+    if (emailEl)    emailEl.textContent = user.email;
+    if (statusEl)   statusEl.textContent= '로그인됨';
+    if (photoEl) {
+      photoEl.src = user.photoURL || '/logo.jpg';
+      photoEl.onerror = function() { this.src = '/logo.jpg'; };
+      photoEl.style.display = 'block';
     }
+    if (logoutLink) {
+      logoutLink.textContent = '로그아웃';
+      logoutLink.onclick = e => { e.preventDefault(); auth.signOut().then(()=>location.reload()); };
+    }
+  } else {
+    if (nameEl)     nameEl.textContent  = '비로그인';
+    if (emailEl)    emailEl.textContent = '';
+    if (statusEl)   statusEl.textContent= '로그인 필요';
+    if (photoEl) {
+      photoEl.src = '/logo.jpg';
+      photoEl.style.display = 'none';
+    }
+    if (logoutLink) {
+      logoutLink.textContent = '로그인';
+      logoutLink.onclick = null;
+    }
+  }
+}
 
     // ----- 상단바(오른쪽) profilePhoto -----
     if (loginBtn && profilePhoto) {
