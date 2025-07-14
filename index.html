@@ -967,6 +967,45 @@ if (!window.POLYGON_API_BASE) {
 투자에는 항상 위험이 따르며, 과거의 성과가 미래의 결과나 수익을 보장하지 않습니다. 금융상품 투자 시에는 재정적 손실 가능성을 충분히 인지하고, 본인의 투자 목표와 위험 수준을 신중하게 고려한 후 투자하시기 바랍니다.</span>
   </div>
 </footer>
+<div id="membershipNotice" style="
+  display:none; 
+  position:fixed; 
+  z-index:2000; 
+  top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.48);
+  backdrop-filter: blur(2.5px);
+  align-items:center; justify-content:center;">
+  <div style="
+    background:#232b41;
+    border-radius:22px; 
+    max-width:370px;
+    margin:0 auto;
+    padding:34px 30px 22px 30px; 
+    box-shadow:0 8px 32px rgba(18,23,38,0.18);
+    text-align:center;
+    position:relative;
+    border:2px solid #ffe066;
+  ">
+    <button onclick="document.getElementById('membershipNotice').style.display='none'" 
+      aria-label="팝업 닫기"
+      style="
+        position:absolute; right:18px; top:14px; 
+        background:none; border:none; color:#ffe066; 
+        font-size:1.8rem; font-weight:700; cursor:pointer;
+      ">&times;</button>
+    <div style="font-size:2.1rem; margin-bottom:10px;">🎉</div>
+    <div style="font-size:1.12rem; color:#ffe066; font-weight:700; margin-bottom:11px;">
+      멤버십 준비 단계<br>모든 기능 <span style="color:#4ade80;">무료</span> 이용 가능!
+    </div>
+    <div style="font-size:0.98rem; color:#e9f1ff; margin-bottom:7px; line-height:1.55;">
+      GoHigher는 현재 멤버십 시스템 준비 단계에 있습니다.<br>
+      <b>지금은 로그인과 멤버십 가입 없이<br>모든 기능을 자유롭게 이용할 수 있습니다.</b>
+    </div>
+    <div style="color:#bcd7ff; font-size:0.89rem; margin-top:9px;">
+      멤버십 준비가 완료되면 기존의 로그인, 멤버십 없이 가능했던 기능들이 일부 사용할 수 없을 수도 있습니다.<br><br>👋 방문해주셔서 진심으로 감사합니다!
+    </div>
+  </div>
+</div>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         // 기존 Chart.js 관련 코드는 모두 삭제되었습니다.
@@ -1150,6 +1189,12 @@ if (!window.POLYGON_API_BASE) {
 
   // 페이지 로드시 실행
   renderJulyCalendar();
+
+  document.addEventListener('DOMContentLoaded', function () {
+  setTimeout(function() {
+    document.getElementById('membershipNotice').style.display = 'flex';
+  }, 700); // 0.7초 후 표시 (딜레이 조정 가능)
+});
 </script>
 
 
