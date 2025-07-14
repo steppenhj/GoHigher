@@ -18,8 +18,9 @@
     }
     html, body { font-size: 15px; }
     body {
+      min-height: 100vh;
       margin: 0;
-      background: linear-gradient(135deg, #1C2434 0%, #0C1228 60%, #2D3E5B 100%);
+      background: linear-gradient(135deg, #02000b 10%, #0f1733 40%, #2D3E5B 100%);
       font-family: 'Roboto', 'Noto Sans KR', Arial, sans-serif;
       transition: background 0.24s;
     }
@@ -777,3 +778,88 @@ tbody tr:last-child {
   box-shadow: none;
 }
 
+
+.main-footer {
+  width: 100vw;
+  background: linear-gradient(120deg, #1e253a 0%, #232f49 100%);
+  color: #d7e7fa;
+  border-top: 2.5px solid #233154;
+  box-shadow: 0 -3px 28px #0c122820;
+  margin-top: 66px;
+  padding-top: 16px;
+  padding-bottom: 22px;
+  margin-bottom: 0 !important;
+  font-size: 0.99em;
+  letter-spacing: 0.01em;
+  user-select: none;
+  flex-shrink: 0;
+}
+.footer-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 24px;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+}
+.footer-logo {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #ffe066;
+  border: 2px solid #fff5;
+  box-shadow: 0 1px 8px #232b3e1f;
+}
+.footer-title {
+  display: flex; flex-direction: column;
+  gap: 2px;
+}
+.footer-title span:first-child {
+  font-weight: 700; font-size: 1.15em;
+  color: #ffe066; letter-spacing: 0.03em;
+}
+.footer-sub {
+  color: #98bfff;
+  font-size: 0.95em;
+  font-weight: 400;
+  opacity: 0.82;
+}
+.footer-links {
+  display: flex; flex-direction: column;
+  gap: 6px; min-width: 120px;
+}
+.footer-links a {
+  color: #c2d7fc; text-decoration: none;
+  transition: color 0.18s;
+  font-size: 1em;
+  font-weight: 500;
+}
+.footer-links a:hover { color: #ffe066; text-decoration: underline;}
+.footer-info {
+  display: flex; flex-direction: column; gap: 2px;
+  font-size: 0.97em; color: #92a5ce;
+}
+.footer-bottom {
+  max-width: 1040px;
+  margin: 18px auto 0 auto;
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.95em; color: #8e9bb3;
+  border-top: 1.2px solid #223150;
+  padding-top: 8px;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+#wrap {
+  flex: 1 0 auto;
+  min-height: 0;     /* footer랑 충돌 나지 않도록 */
+  margin: 0;         /* 혹시 wrap에 margin이 있을까봐 */
+  padding: 0;
+}
