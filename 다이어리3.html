@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>투자 다이어리 | Go Higher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="navigation.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+ /* --- 전역 스타일 및 변수 정의 --- */
+:root {
+    --primary-yellow: #ffe066;
+    --primary-orange: #ffaf7b;
+    --dark-bg-1: #20263a;
+    --dark-bg-2: #232b42;
+    --dark-bg-3: #2a3250;
+    --input-bg: #283153;
+    --text-light: #b7caf8;
+    --text-white: #f3f4f8;
+    --border-color: #2a3250;
+    --shadow-color-dark: rgba(38, 48, 79, 0.20);
+    --shadow-color-light: rgba(255, 224, 102, 0.14);
+    --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+/* box-sizing, 폰트 등 기본 설정 */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--dark-bg-1);
+    font-family: var(--font-sans);
+    /* 은은한 오로라 효과를 위한 배경 그라데이션 추가 */
+    background-image: radial-gradient(circle at 15% 25%, rgba(171, 192, 255, 0.1), transparent 40%),
+                      radial-gradient(circle at 85% 65%, rgba(255, 224, 102, 0.08), transparent 50%);
+}
+
+
+.diary-main {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 70px 0 44px 0;
+}
+
+
+/* ---- 인포바 (오로라 유리 재질 스타일) ---- */
+.gh-info-bar {
+    /* Glassmorphism 효과 */
+    background: linear-gradient(110deg, rgba(35, 43, 66, 0.6), rgba(33, 35, 46, 0.5));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* Safari 지원 */
+
+    color: var(--text-white); /* 기본 텍스트 색상을 흰색 계열로 변경하여 가독성 확보 */
+    border-radius: 18px; /* 좀 더 부드러운 곡률 */
+    margin: 20px 18px 40px 18px;
+    padding: 24px 28px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+                inset 0 1px 1px rgba(255, 255, 255, 0.05); /* 입체감을 위한 이중 그림자 */
+    letter-spacing: 0.01em;
+    position: relative;
+    overflow: hidden;
+    animation: slidefade 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 유리 테두리 효과 */
+}
+
+/* 광원 애니메이션 효과 */
+.gh-info-bar::before {
+    content: "";
+    position: absolute;
+    right: -50px;
+    top: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, var(--primary-yellow) 0%, transparent 60%);
+    opacity: 0; /* 평소엔 숨김 */
+    filter: blur(40px);
+    z-index: 0;
+    pointer-events: none;
+    animation: aurora-glow 6s infinite ease-in-out;
+}
+
+/* 더 부드럽고 은은한 광원 애니메이션 */
+@keyframes aurora-glow {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+    50% { transform: translate(-20px, 20px) scale(1.3); opacity: 0.25; }
+}
+
+@keyframes slidefade {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 제목 텍스트 스타일 */
+.gh-info-bar b {
+    color: var(--primary-yellow);
+    font-size: 1.1em;
+    font-weight: 700;
+    text-shadow: 0 1px 8px rgba(255, 224, 102, 0.3); /* 텍스트에 네온 효과 */
+}
+
+.gh-info-bar span {
+    position: relative;
+    z-index: 1;
+    color: var(--text-light); /* 설명 텍스트 색상 */
+    line-height: 1.6; /* 줄 간격 확보 */
+}
+
+/* ---- 탭 버튼 ---- */
+.tab-buttons {
+    display: flex;
+    margin: 0 0 30px 0;
+    border-radius: 17px;
+    background: var(--dark-bg-1);
+    overflow: hidden;
+    box-shadow: 0 3px 22px var(--shadow-color-dark);
+    border: 1.3px solid var(--border-color);
+    position: relative;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 18px 0 17px 0;
+    font-size: 1.1em; /* 기본 폰트 사이즈 조정 */
+    font-weight: 700; /* 굵기 조정 */
+    letter-spacing: 0.02em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    transition: all 0.25s ease; /* 모든 전환 효과를 부드럽게 */
+    outline: none;
+    position: relative;
+    z-index: 1;
+    border-right: 1px solid var(--dark-bg-2);
+}
+
+.tab-btn:last-child {
+    border-right: none;
+}
+
+.tab-btn.active, .tab-btn:focus {
+    background: linear-gradient(93deg, var(--primary-yellow) 56%, var(--primary-orange) 110%);
+    color: #181f2d;
+    font-size: 1.12em; /* 활성 탭 폰트 크기 미세 조정 */
+    box-shadow: 0 3px 22px var(--shadow-color-light);
+    z-index: 2;
+}
+
+/* 마우스 올렸을 때 더 명확한 피드백 */
+.tab-btn:not(.active):hover {
+    background: var(--dark-bg-2);
+    color: var(--primary-yellow);
+    transform: translateY(-2px); /* 살짝 위로 이동 */
+}
+
+/* ---- 카드 영역 ---- */
+.card-box {
+    background: linear-gradient(109deg, #202944 88%, #23233a 100%);
+    border-radius: 20px;
+    box-shadow: 0 12px 40px var(--shadow-color-dark); /* 그림자 강화 */
+    padding: 40px 32px 28px 32px;
+    margin-bottom: 32px;
+    animation: fadein 0.4s ease-out; /* 애니메이션 부드럽게 */
+    border: 1.2px solid var(--border-color);
+    position: relative;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.card-title {
+    color: var(--primary-yellow);
+    font-size: 1.27em;
+    font-weight: 800; /* 굵기 조정 */
+    margin-bottom: 28px; /* 여백 증가 */
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-shadow: 0 2px 12px #242a4155;
+}
+
+.card-title:before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 24px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #ffe066bb, #ffaf7baa 85%);
+    margin-right: 7px;
+    box-shadow: 0 2px 12px #ffe06644;
+}
+
+.form-label {
+    color: var(--text-light);
+    font-size: 1.05em; /* 폰트 사이즈 조정 */
+    margin-bottom: 10px; /* 여백 조정 */
+    display: block;
+    font-weight: 600;
+}
+
+.goal-input, .principle-input {
+    width: 100%;
+    padding: 16px; /* 패딩 증가 */
+    border-radius: 13px;
+    border: 2px solid transparent; /* 기본 테두리는 투명하게 */
+    background: var(--input-bg);
+    color: var(--text-white);
+    font-size: 1.1em;
+    margin-bottom: 22px;
+    outline: none;
+    font-family: inherit;
+    resize: none;
+    transition: border 0.2s ease, background-color 0.2s ease; /* 전환 효과 부드럽게 */
+    box-shadow: 0 2px 10px #181f2d22;
+    font-weight: 600;
+}
+
+/* 포커스 시 테두리 색상과 배경색을 더 명확하게 변경 */
+.goal-input:focus, .principle-input:focus {
+    border: 2px solid var(--primary-yellow);
+    background-color: #313961;
+}
+
+/* ---- 버튼 공통 스타일 ---- */
+.goal-form-btn, .principle-btn {
+    width: 100%;
+    background: linear-gradient(92deg, var(--primary-yellow) 64%, var(--primary-orange) 100%);
+    color: #181f2d;
+    font-weight: 800;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.12em;
+    padding: 16px 0; /* 패딩 증가 */
+    cursor: pointer;
+    transition: all 0.2s ease; /* 모든 전환 효과 */
+    box-shadow: 0 4px 20px var(--shadow-color-light);
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+
+/* 버튼 호버 시 입체감 */
+.goal-form-btn:not(:disabled):hover, .principle-btn:not(:disabled):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px var(--shadow-color-light);
+}
+
+
+.goal-form-btn:active, .principle-btn:active {
+    transform: translateY(-1px); /* 클릭 시 살짝 들어가는 효과 */
+    background: linear-gradient(90deg, var(--primary-orange) 80%, var(--primary-yellow) 100%);
+    color: #21253c;
+}
+
+/* 비활성화 버튼 스타일 개선 */
+.goal-form-btn:disabled, .principle-btn:disabled {
+    filter: grayscale(0.6);
+    opacity: 0.6;
+    cursor: not-allowed; /* 커서 모양 변경 */
+    box-shadow: none; /* 그림자 제거 */
+}
+
+.form-message {
+    margin-top: 15px;
+    color: #4ade80;
+    font-size: 1.08em;
+    text-align: center;
+    font-weight: 700;
+}
+
+.form-error {
+    color: #ff6b6b !important;
+}
+
+/* ---- 투자 원칙 뷰 ---- */
+.principle-view {
+    background: rgba(37, 48, 74, 0.5); /* 배경 투명도 조절 */
+    border-radius: 13px;
+    color: var(--text-white);
+    font-size: 1.13em;
+    line-height: 1.74;
+    padding: 18px 20px; /* 패딩 조정 */
+    margin-top: 10px;
+    min-height: 57px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.15); /* 내부 그림자 */
+    font-weight: 600;
+}
+
+/* 수정 버튼을 더 버튼처럼 보이게 개선 */
+.principle-edit-btn {
+    background: var(--dark-bg-2);
+    border: 1px solid var(--primary-yellow);
+    color: var(--primary-yellow);
+    font-weight: 700;
+    margin-left: 0; /* 좌측 정렬 */
+    margin-top: 12px;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 6px 14px;
+    border-radius: 8px;
+    text-decoration: none; /* 밑줄 제거 */
+    transition: all 0.2s ease;
+}
+
+.principle-edit-btn:hover {
+    background: var(--primary-yellow);
+    color: var(--dark-bg-2);
+}
+
+
+/* ---- AI 안내 ---- */
+.ai-guide {
+    background: var(--dark-bg-2);
+    color: var(--text-light);
+    border-radius: 11px;
+    padding: 18px;
+    font-size: 1.05em;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: 600;
+    box-shadow: 0 2px 9px #232a3a11;
+    line-height: 1.6;
+}
+.card-desc {
+  color: #b7caf8;        /* 연한 파랑 계열 */
+  font-size: 1.02em;     /* 살짝 키우거나 원하는 스타일 추가 */
+  margin-bottom: 16px;   /* 필요시 여백도 추가 가능 */
+}
+
+
+/* ---- 반응형 (기존 코드 유지 및 미세 조정) ---- */
+@media (max-width: 680px) {
+    .diary-main {
+        padding: 30px 0 14vw 0;
+    }
+    .gh-info-bar {
+        font-size: 0.99em;
+        padding: 18px 7vw;
+        margin: 12px 3vw 28px 3vw;
+    }
+    .tab-buttons {
+        margin: 0 2vw 24px 2vw;
+    }
+    .card-box {
+        padding: 30px 5vw 25px 5vw; /* 패딩값 조정 */
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+}
+@media (max-width: 430px) {
+    .card-title {
+        font-size: 1.15em; /* 모바일 가독성 위해 폰트 키움 */
+    }
+    .card-box {
+        padding: 25px 5vw 20px 5vw;
+    }
+    .tab-btn {
+        font-size: 0.95em;
+        padding: 14px 0;
+    }
+    .goal-input, .principle-input {
+        padding: 14px;
+        font-size: 1em;
+    }
+    .goal-form-btn, .principle-btn {
+        padding: 15px 0;
+    }
+}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <!-- (index.html과 동일, 네비게이션 부분 복사) -->
+</nav>
+<div style="height:66px"></div>
+
+<div class="gh-info-bar">
+  <b>GoHigher는 단순 챗GPT/챗봇이 아닙니다.</b><br>
+  <span>
+    글로벌 증시 실시간 데이터와 Google Gemini를 직접 연동해,<br>
+    <b>최신 투자 뉴스·주가·ETF 트렌드와 당신의 데이터</b>를 결합한<br>
+    <span style="color:#ffe066;">진짜 '실전형' 맞춤 AI 분석</span>을 제공합니다.<br>
+    <span style="font-size:0.97em;">GPT-4만 쓰는 서비스보다 훨씬 더 <b>실시간, 시장 반영, 맞춤형</b>입니다.</span>
+  </span>
+</div>
+
+<div class="diary-main">
+  <div class="tab-buttons">
+    <button class="tab-btn active" id="tabGoal">자산 목표</button>
+    <button class="tab-btn" id="tabPrinciple">투자 원칙</button>
+    <button class="tab-btn" id="tabAIPort">AI 포트폴리오 진단</button>
+    <button class="tab-btn" id="tabAIRoadmap">AI 자산 로드맵</button>
+  </div>
+  <!-- 자산목표 카드 -->
+  <div class="card-box" id="goalCard">
+    <div class="card-title">📈 나의 자산 목표</div>
+    <p class="card-desc">마이페이지에서도 확인 가능</p>
+    <form id="goalForm">
+      <label for="goalAmount" class="form-label">목표 금액 (원)</label>
+      <input type="number" id="goalAmount" class="goal-input" min="1" placeholder="예) 10,000,000" required />
+      <label for="currentAmount" class="form-label">현재 자산 (원)</label>
+      <input type="number" id="currentAmount" class="goal-input" min="0" placeholder="예) 1,000,000" required />
+      <button type="submit" class="goal-form-btn">목표 저장</button>
+      <div id="goalFormMessage" class="form-message"></div>
+    </form>
+  </div>
+  <!-- 투자원칙 카드 -->
+  <div class="card-box" id="principleCard" style="display:none;">
+    <div class="card-title">💡 나만의 투자 원칙</div>
+    <form id="principleForm" style="display:block;">
+      <label for="principleText" class="form-label">내가 지키고 싶은 투자 철학, 원칙, 좌우명</label>
+      <textarea id="principleText" class="principle-input" rows="5" maxlength="500" placeholder="예) 나는 장기 분산 투자에 집중한다. 감정적인 매매를 피하고 매달 리밸런싱 점검을 한다." required></textarea>
+      <button type="submit" class="principle-btn">원칙 저장</button>
+      <div id="principleFormMessage" class="form-message"></div>
+    </form>
+    <div id="principleView" class="principle-view" style="display:none;"></div>
+    <button id="principleEditBtn" class="principle-edit-btn" style="display:none;">✏️ 수정</button>
+  </div>
+<!-- AI 포트폴리오 진단 카드 -->
+<div class="card-box" id="aiPortfolioCard" style="display:none;">
+  <div class="card-title">🤖 AI 포트폴리오 진단</div>
+  <div class="ai-guide">
+    현재 포트폴리오를 입력하시면,<br>
+    <b>AI가 최신 데이터로 리스크, 성장성, 업종·종목 편중</b>까지 분석 후<br>
+    <span style="color:#ffe066;">앞으로의 전략 방향성을 구체적으로 제안해드립니다.</span>
+    <br><br>
+    <span style="color:#b7caf8; font-size:0.97em;">
+      예시: <b>애플 30%, 테슬라 20%, 팔란티어 15%, 나머지 현금 35%</b>
+    </span>
+  </div>
+  <form id="aiPortForm">
+    <textarea class="principle-input" id="aiPortText" rows="4" maxlength="300"
+      placeholder="보유 종목(또는 ETF), 비중/금액 등 자유롭게 입력해 주세요.&#10;예: 애플 30%, 테슬라 20%, QQQ 10%, 현금 40% 등"></textarea>
+    <button class="goal-form-btn" type="submit" disabled>AI 분석 요청</button>
+
+    <div id="aiPortResult" style="margin-top:17px;"></div>
+  </form>
+</div>
+
+<!-- AI 자산 로드맵 카드 -->
+<div class="card-box" id="aiRoadmapCard" style="display:none;">
+  <div class="card-title">🧭 AI 자산 로드맵</div>
+  <div class="ai-guide">
+    현재 자산 상태, 월 투자 가능 금액, 목표를 입력해 주세요.<br>
+    <span style="color:#ffe066;">AI가 당신만을 위한 실전 로드맵과 전략을 제시합니다.</span>
+    <br><br>
+    <span style="color:#b7caf8; font-size:0.97em;">
+      예시: 현금 200만원, 미국주식 600만원(마이크로소프트 50%, 구글 50%),<br>
+      월 투자 가능 금액 30만원, 목표: 3년 후 2,000만원
+    </span>
+  </div>
+  <form id="aiRoadmapForm">
+<input type="text" id="roadmapAssetState" class="goal-input" placeholder="현재 자산 상태 (예: 현금 200만원, 미국주식 600만원 등)">
+<input type="number" id="roadmapMonthlyInvest" class="goal-input" placeholder="월 투자 가능 금액 (예: 300000)">
+<input type="text" id="roadmapGoal" class="goal-input" placeholder="목표 (예: 3년 후 2,000만원)">
+<button class="goal-form-btn" type="submit">AI 분석 요청</button>
+
+    <div id="aiRoadmapResult" style="margin-top:15px;"></div>
+  </form>
+</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+  // Firebase 설정
+  const firebaseConfig = {
+    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+    authDomain: "gohigher-55e51.firebaseapp.com",
+    projectId: "gohigher-55e51",
+    storageBucket: "gohigher-55e51.appspot.com",
+    messagingSenderId: "487435343721",
+    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+    measurementId: "G-KQ02L8DXG0"
+  };
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // ======= 탭 UI (기존과 동일) =======
+  const tabs = [
+    { btn: document.getElementById('tabGoal'), card: document.getElementById('goalCard') },
+    { btn: document.getElementById('tabPrinciple'), card: document.getElementById('principleCard') },
+    { btn: document.getElementById('tabAIPort'), card: document.getElementById('aiPortfolioCard') },
+    { btn: document.getElementById('tabAIRoadmap'), card: document.getElementById('aiRoadmapCard') }
+  ];
+  tabs.forEach((tab, idx) => {
+    tab.btn.onclick = () => {
+      tabs.forEach((t, i) => {
+        t.btn.classList.toggle('active', i === idx);
+        t.card.style.display = (i === idx ? '' : 'none');
+      });
+      // 탭 전환 시 결과 새로고침
+      if(idx === 2) loadPortfolioAnalysis(); // 포트폴리오 진단 탭
+      if(idx === 3) loadAssetRoadmap();      // 자산 로드맵 탭
+    };
+  });
+
+  // ======= AI 분석 결과 Firestore에서 불러오기 =======
+
+  // 1. 포트폴리오 진단
+  async function loadPortfolioAnalysis() {
+    const user = auth.currentUser;
+    const resultDiv = document.getElementById('aiPortResult');
+    if (!user) {
+      resultDiv.innerHTML = "<span style='color:#ff6b6b;'>로그인 후 이용 가능합니다.</span>";
+      return;
+    }
+    try {
+      const doc = await db.collection('users').doc(user.uid).get();
+      const d = doc.data();
+      if (d && d.aiPortfolioAnalysis) {
+        resultDiv.innerHTML = `
+          <div style="background:#232a3c;padding:19px 16px 15px 16px;border-radius:11px;color:#ffe066;font-weight:700;line-height:1.6;margin-top:7px;box-shadow:0 2px 9px #232a3a11">
+            ${d.aiPortfolioAnalysis.replace(/\n/g, '<br>')}
+          </div>`;
+      } else {
+        resultDiv.innerHTML = "<span style='color:#b7caf8;'>아직 분석 결과가 없습니다.<br>AI 분석 요청 후 이곳에 결과가 나타납니다.</span>";
+      }
+    } catch(e) {
+      resultDiv.innerHTML = "<span style='color:#ff6b6b;'>불러오는 중 오류가 발생했습니다.</span>";
+    }
+  }
+
+  // 2. 자산 로드맵
+  async function loadAssetRoadmap() {
+    const user = auth.currentUser;
+    const resultDiv = document.getElementById('aiRoadmapResult');
+    if (!user) {
+      resultDiv.innerHTML = "<span style='color:#ff6b6b;'>로그인 후 이용 가능합니다.</span>";
+      return;
+    }
+    try {
+      const doc = await db.collection('users').doc(user.uid).get();
+      const d = doc.data();
+      if (d && d.aiAssetRoadmap) {
+        resultDiv.innerHTML = `
+          <div style="background:#232a3c;padding:19px 16px 15px 16px;border-radius:11px;color:#ffe066;font-weight:700;line-height:1.6;margin-top:7px;box-shadow:0 2px 9px #232a3a11">
+            ${d.aiAssetRoadmap.replace(/\n/g, '<br>')}
+          </div>`;
+      } else {
+        resultDiv.innerHTML = "<span style='color:#b7caf8;'>아직 분석 결과가 없습니다.<br>AI 분석 요청 후 이곳에 결과가 나타납니다.</span>";
+      }
+    } catch(e) {
+      resultDiv.innerHTML = "<span style='color:#ff6b6b;'>불러오는 중 오류가 발생했습니다.</span>";
+    }
+  }
+
+  // 로그인 후 자동으로 분석 결과 불러오기
+  auth.onAuthStateChanged(async user => {
+    if (!user) return;
+    // ... (기존 자산목표/투자원칙 불러오기)
+    loadPortfolioAnalysis();
+    loadAssetRoadmap();
+  });
+
+  // ======= 자산목표 저장 =======
+  document.getElementById('goalForm').onsubmit = async function(e) {
+    e.preventDefault();
+    const goalInput = document.getElementById('goalAmount');
+    const currentInput = document.getElementById('currentAmount');
+    const message = document.getElementById('goalFormMessage');
+    message.textContent = '';
+    message.classList.remove('form-error');
+    const goal = Number(goalInput.value.replace(/,/g,''));
+    const current = Number(currentInput.value.replace(/,/g,''));
+    const user = auth.currentUser;
+    if (!user) {
+      message.textContent = "로그인 후 이용 가능합니다.";
+      message.classList.add('form-error');
+      return;
+    }
+    if (!goal || goal < 1 || !current || current < 0) {
+      message.textContent = "올바른 금액을 입력하세요.";
+      message.classList.add('form-error');
+      return;
+    }
+    try {
+      await db.collection('users').doc(user.uid).set({
+        goalAmount: goal,
+        currentAmount: current
+      }, { merge: true });
+      message.textContent = "목표가 저장되었습니다!";
+      //goalInput.value = '';
+      //currentInput.value = '';
+    } catch(e) {
+      message.textContent = "저장 중 오류가 발생했습니다.";
+      message.classList.add('form-error');
+    }
+  };
+
+  // ======= 투자원칙 저장/불러오기 =======
+  let principleView = document.getElementById('principleView');
+  let principleForm = document.getElementById('principleForm');
+  let principleEditBtn = document.getElementById('principleEditBtn');
+  function showPrincipleEdit(show) {
+    principleForm.style.display = show ? 'block' : 'none';
+    principleView.style.display = show ? 'none' : 'block';
+    principleEditBtn.style.display = show ? 'none' : 'inline-block';
+  }
+  principleEditBtn.onclick = () => showPrincipleEdit(true);
+
+  document.getElementById('principleForm').onsubmit = async function(e) {
+    e.preventDefault();
+    const textarea = document.getElementById('principleText');
+    const text = textarea.value.trim();
+    const msg = document.getElementById('principleFormMessage');
+    msg.textContent = '';
+    msg.classList.remove('form-error');
+    const user = auth.currentUser;
+    if (!user) {
+      msg.textContent = "로그인 후 이용 가능합니다.";
+      msg.classList.add('form-error');
+      return;
+    }
+    if (text.length < 3) {
+      msg.textContent = "너무 짧습니다. (최소 3자 이상)";
+      msg.classList.add('form-error');
+      return;
+    }
+    try {
+      await db.collection('users').doc(user.uid).set({ investmentPrinciple: text }, { merge: true });
+      msg.textContent = "투자 원칙이 저장되었습니다!";
+      //textarea.value = '';
+      setTimeout(() => {
+        showPrinciple(text);
+      }, 400);
+    } catch(e) {
+      msg.textContent = "저장 중 오류가 발생했습니다.";
+      msg.classList.add('form-error');
+    }
+  };
+
+  // 불러오기 및 뷰/수정 모드 분기
+  function showPrinciple(text) {
+    principleView.textContent = text;
+    showPrincipleEdit(false);
+  }
+
+  // ======= 로그인 감지: 데이터 불러오기 =======
+  auth.onAuthStateChanged(async user => {
+    if (!user) return;
+    // 자산목표 불러오기
+    const doc = await db.collection('users').doc(user.uid).get();
+    if (doc.exists) {
+      const d = doc.data();
+      if (typeof d.goalAmount === 'number') document.getElementById('goalAmount').value = d.goalAmount;
+      if (typeof d.currentAmount === 'number') document.getElementById('currentAmount').value = d.currentAmount;
+      // 투자원칙 불러오기
+      if (typeof d.investmentPrinciple === 'string' && d.investmentPrinciple.length > 1) {
+        showPrinciple(d.investmentPrinciple);
+      } else {
+        showPrincipleEdit(true);
+      }
+    } else {
+      showPrincipleEdit(true);
+    }
+  });
+</script>
+
+<script> //포폴진단.py
+// --- AI 포트폴리오 진단 기능 연결 ---
+// 1) 입력값 있을 때 버튼 활성화
+const aiPortText = document.getElementById('aiPortText');
+const aiPortBtn = document.querySelector('#aiPortForm .goal-form-btn');
+aiPortText.addEventListener('input', function() {
+  aiPortBtn.disabled = !this.value.trim();
+});
+
+// 2) 폼 제출 이벤트
+document.getElementById('aiPortForm').onsubmit = async function(e) {
+  e.preventDefault();
+  aiPortBtn.disabled = true;
+  const input = aiPortText.value.trim();
+  const resultDiv = document.getElementById('aiPortResult');
+  resultDiv.innerHTML = "<span style='color:#b7caf8;'>AI가 분석 중입니다...</span>";
+  try {
+    const res = await fetch("http://localhost:8000/ai/portfolio", { // 실제 배포 시 주소 변경!
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ portfolio: input })
+    });
+    const data = await res.json();
+    if(data.result){
+      resultDiv.innerHTML = `
+        <div style="background:#232a3c;padding:19px 16px 15px 16px;border-radius:11px;color:#ffe066;font-weight:700;line-height:1.6;margin-top:7px;box-shadow:0 2px 9px #232a3a11">
+          ${data.result.replace(/\n/g, '<br>')}
+        </div>`;
+      // (선택) 로그인 된 경우, Firestore에도 결과 저장
+      if(window.firebase && firebase.auth().currentUser){
+        const uid = firebase.auth().currentUser.uid;
+        await firebase.firestore().collection('users').doc(uid).set({
+          aiPortfolioAnalysis: data.result
+        }, { merge:true });
+      }
+    } else {
+      resultDiv.innerHTML = "<span style='color:#ff6b6b;'>AI 분석에 실패했습니다.</span>";
+    }
+  } catch(err){
+    resultDiv.innerHTML = "<span style='color:#ff6b6b;'>서버 오류: 분석에 실패했습니다.</span>";
+  }
+  aiPortBtn.disabled = false;
+};
+</script>
+
+
+
+
+<script>//로드맵.py
+// ---- AI 자산 로드맵: 버튼 활성화 & 분석 요청 ----
+const roadmapForm = document.getElementById('aiRoadmapForm');
+const assetStateInput = document.getElementById('roadmapAssetState');
+const monthlyInvestInput = document.getElementById('roadmapMonthlyInvest');
+const goalInput = document.getElementById('roadmapGoal');
+const roadmapBtn = roadmapForm.querySelector('.goal-form-btn');
+
+// 입력값이 다 들어와야 버튼 활성화
+function checkRoadmapBtn() {
+  roadmapBtn.disabled = !(
+    assetStateInput.value.trim() &&
+    monthlyInvestInput.value.trim() &&
+    goalInput.value.trim()
+  );
+}
+[assetStateInput, monthlyInvestInput, goalInput].forEach(el => {
+  el.addEventListener('input', checkRoadmapBtn);
+});
+checkRoadmapBtn();
+
+roadmapForm.onsubmit = async function(e) {
+  e.preventDefault();
+  roadmapBtn.disabled = true;
+  const resultDiv = document.getElementById('aiRoadmapResult');
+  resultDiv.innerHTML = "<span style='color:#b7caf8;'>AI가 로드맵을 작성 중입니다...</span>";
+  try {
+    const res = await fetch("http://localhost:8000/ai/roadmap", { // 운영시 URL 변경
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        asset_state: assetStateInput.value.trim(),
+        monthly_invest: monthlyInvestInput.value.trim(),
+        goal: goalInput.value.trim()
+      })
+    });
+    const data = await res.json();
+    if(data.result){
+      resultDiv.innerHTML = `
+        <div style="background:#232a3c;padding:19px 16px 15px 16px;border-radius:11px;color:#ffe066;font-weight:700;line-height:1.6;margin-top:7px;box-shadow:0 2px 9px #232a3a11">
+          ${data.result.replace(/\n/g, '<br>')}
+        </div>`;
+      // (선택) Firestore에도 결과 저장
+      if(window.firebase && firebase.auth().currentUser){
+        const uid = firebase.auth().currentUser.uid;
+        await firebase.firestore().collection('users').doc(uid).set({
+          aiAssetRoadmap: data.result
+        }, { merge:true });
+      }
+    } else {
+      resultDiv.innerHTML = "<span style='color:#ff6b6b;'>AI 분석에 실패했습니다.</span>";
+    }
+  } catch(err){
+    resultDiv.innerHTML = "<span style='color:#ff6b6b;'>서버 오류: 분석에 실패했습니다.</span>";
+  }
+  roadmapBtn.disabled = false;
+};
+</script>
+
+
+
+</body>
+</html>
