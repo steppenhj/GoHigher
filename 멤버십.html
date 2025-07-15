@@ -70,13 +70,19 @@
       margin-right: auto;
       line-height: 1.5;
     }
-    .pricing-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      justify-content: center;
-      margin-bottom: 28px;
-    }
+.pricing-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+/* 연간 카드 강조 스타일 (예시) */
+.pricing-card.yearly {
+  border: 2.5px solid #ffe066aa !important;
+  box-shadow: 0 2px 18px 0 #ffe06616;
+  background: linear-gradient(120deg, #313960 70%, #ffe0660c 100%);
+}
     .pricing-card {
       background: rgba(30, 40, 68, 0.97);
       border-radius: 19px;
@@ -91,6 +97,7 @@
       flex-direction: column;
       align-items: stretch;
       transition: box-shadow 0.22s, background 0.22s, border 0.22s;
+      flex: 1 1 280px;    /* 가로 너비 유연하게, 최소 280px */
     }
     .pricing-card.highlight {
       border: 2.5px solid #ffe066;
@@ -408,26 +415,42 @@
       다양한 회원 전용 혜택을 경험할 수 있습니다.
     </p>
 
-    <div class="pricing-cards">
-      <!-- 무료/프리미엄 플랜 예시 -->
-      <div class="pricing-card">
-        <div class="pricing-card-title"><i class="fa-regular fa-circle-check"></i> BASIC</div>
-        <div class="pricing-card-price">0원</div>
-        <div class="pricing-card-benefit">일부 무료 콘텐츠<br>기본 뉴스/시리즈 열람</div>
-        <button class="membership-join-btn" disabled>이용 중</button>
-      </div>
-      <div class="pricing-card highlight">
-        <div class="pricing-card-title"><i class="fa-solid fa-crown"></i> PREMIUM</div>
-        <div class="pricing-card-price">월 정기결제 1,900원</div>
-        <div class="pricing-card-benefit">
-          <ul style="margin:0 0 0 12px;padding:0;text-align:left;">
-            <li>AI 기반 실시간 뉴스 기능</li>
-            <li>맞춤 포트폴리오/다이어리 전체 기능</li>
-          </ul>
-        </div>
-        <button class="membership-join-btn">프리미엄 가입하기</button>
-      </div>
+<div class="pricing-cards">
+  <!-- BASIC (무료) -->
+  <div class="pricing-card">
+    <div class="pricing-card-title"><i class="fa-regular fa-circle-check"></i> BASIC</div>
+    <div class="pricing-card-price">0원</div>
+    <div class="pricing-card-benefit">일부 무료 콘텐츠<br>기본 뉴스/시리즈 열람</div>
+    <button class="membership-join-btn" disabled>이용 중</button>
+  </div>
+  
+  <!-- PREMIUM 월 정기결제 -->
+  <div class="pricing-card highlight">
+    <div class="pricing-card-title"><i class="fa-solid fa-crown"></i> PREMIUM</div>
+    <div class="pricing-card-price">월 정기결제 1,900원</div>
+    <div class="pricing-card-benefit">
+      <ul style="margin:0 0 0 12px;padding:0;text-align:left;">
+        <li>AI 기반 실시간 뉴스 기능</li>
+        <li>맞춤 포트폴리오/다이어리 전체 기능</li>
+      </ul>
     </div>
+    <button class="membership-join-btn">프리미엄 가입하기</button>
+  </div>
+  
+  <!-- PREMIUM 연간 결제 -->
+  <div class="pricing-card" style="border:2px solid #ffe06666;">
+    <div class="pricing-card-title"><i class="fa-solid fa-crown"></i> PREMIUM 연간</div>
+    <div class="pricing-card-price">연 19,000원 <span style="font-size:0.98em;color:#ffe066;">(2개월 무료)</span></div>
+    <div class="pricing-card-benefit">
+      <ul style="margin:0 0 0 12px;padding:0;text-align:left;">
+        <li>프리미엄 월간 혜택 모두 제공</li>
+        <li>연간 결제 할인(2개월 무료)</li>
+        <li>우선 고객지원</li>
+      </ul>
+    </div>
+    <button class="membership-join-btn">연간 멤버십 가입</button>
+  </div>
+</div>
     
     <form class="payment-methods">
       <div class="payment-methods-title"><i class="fa-solid fa-credit-card"></i> 결제 수단 선택</div>
