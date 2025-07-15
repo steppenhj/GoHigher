@@ -249,22 +249,6 @@
     .diary-checklist input[type="checkbox"], .diary-todo-list input[type="checkbox"]{ accent-color: var(--yellow); width:1em;height:1em;}
     .delbtn {background:none;border:none;color:var(--err);cursor:pointer; font-size:1.05em;}
     .delbtn:hover {color:#fff;}
-    @media (max-width: 900px) {
-      .diary-hub {max-width: 98vw;}
-      .diary-title {font-size:1.2rem;}
-      .diary-card {padding:14px 4px 10px 4px; border-radius:10px;}
-      .diary-tabs {gap:2px;}
-      .diary-tab {font-size:0.95rem;padding:6px 6px; border-radius:8px 8px 0 0;}
-      .diary-card-title {font-size:1rem;}
-    }
-    @media (max-width: 600px) {
-      .diary-hub {padding: 12px 2px 10px 2px;}
-      .diary-title {font-size:1.1rem;}
-      .diary-card {padding:8px 2px 6px 2px; border-radius:10px;}
-      .diary-tabs {gap:2px;}
-      .diary-tab {font-size:0.95rem;padding:6px 6px; border-radius:8px 8px 0 0;}
-      .diary-card-title {font-size:1rem;}
-    }
     .toast { position:fixed;bottom:33px;left:50%;transform:translateX(-50%);
       background:var(--yellow);color:#232b3e;padding:11px 27px;font-weight:900;border-radius:14px;font-size:1.07em;
       z-index:10000;box-shadow:0 5px 18px #0003;opacity:0.97;animation:toastShow 1.6s;}
@@ -275,6 +259,15 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+    @media (max-width: 768px) {
+      .diary-hub {padding: 12px 2px 10px 2px;}
+      .diary-title {font-size:1.1rem;}
+      .diary-card {padding:8px 2px 6px 2px; border-radius:10px;}
+      .diary-tabs {gap:2px;}
+      .diary-tab {font-size:0.95rem;padding:6px 6px; border-radius:8px 8px 0 0;}
+      .diary-card-title {font-size:1rem;}
+    }
   </style>
 </head>
 <body>
@@ -292,7 +285,7 @@
       <a href="/" class="nav-link">홈</a>
       <a href="/뉴스.html" class="nav-link">뉴스</a>
       <a href="/다이어리.html" class="nav-link active">다이어리</a>
-      <a href="/시리즈.html" class="nav-link">시리즈</a>
+      <!-- <a href="/시리즈.html" class="nav-link">시리즈</a> -->
       <a href="/멤버십.html" class="nav-link">멤버십</a>
     </div>
   </div>
@@ -351,7 +344,7 @@
       <a href="/" class="side-link">홈</a>
       <a href="/뉴스.html" class="side-link">뉴스</a>
       <a href="/다이어리.html" class="side-link">다이어리</a>
-      <a href="/시리즈.html" class="side-link">시리즈</a>
+      <!-- <a href="/시리즈.html" class="side-link">시리즈</a> -->
       <a href="/멤버십.html" class="side-link">멤버십</a>
     </div>
 
@@ -447,6 +440,36 @@
     </div>
   </main>
   <div id="toastBox" style="display:none;"></div>
+
+<footer class="main-footer">
+  <div class="footer-wrap">
+    <div class="footer-brand">
+      <img src="/logo.jpg" alt="Go Higher 로고" class="footer-logo" />
+      <div class="footer-title">
+        <span>Go Higher</span>
+        <span class="footer-sub">미국주식 데이터 허브</span>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="/푸터/이용약관.html">이용약관</a>
+      <a href="/푸터/privacy-policy.html">개인정보처리방침</a>
+      <a href="/푸터/환불정책.html">환불정책</a>
+      <a href="/멤버십.html">멤버십 안내</a>
+    </div>
+    <div class="footer-info">
+      <span><b>대표</b> 박해진</span>
+      <span><b>사업자</b> 407-09-54622</span>
+      <span><b>주소</b> 대구광역시 북구 동천로 155, 네스빌101동 12층</span>
+      <span><b>문의</b> 070-8080-1675</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Go Higher. All rights reserved.</span>
+    <span>GoHigher의 모든 콘텐츠는 오직 정보 제공을 목적으로 하며, 특정 주식이나 금융상품의 판매 또는 추천을 위한 것이 아닙니다. 본 콘텐츠는 공식적인 연구 보고서가 아니며, 투자 결정의 유일한 근거로 삼아서는 안 됩니다.
+
+투자에는 항상 위험이 따르며, 과거의 성과가 미래의 결과나 수익을 보장하지 않습니다. 금융상품 투자 시에는 재정적 손실 가능성을 충분히 인지하고, 본인의 투자 목표와 위험 수준을 신중하게 고려한 후 투자하시기 바랍니다.</span>
+  </div>
+</footer>
 <script src="navigation.js"></script>
 
 <script>
@@ -750,6 +773,5 @@ let diaryLoading = false;
   };
 </script>
 
-  <div style="height: 66px;"></div>
 </body>
 </html>
