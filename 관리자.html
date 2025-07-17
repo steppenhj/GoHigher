@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher | 관리자 대시보드</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    /* 공통 스타일 */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(120deg, #232b3e 0%, #2e3b5a 100%);
+      margin: 0; padding: 0; min-height: 100vh;
+      color: #ffe066;
+    }
+    .admin-hub {
+      max-width: 430px;
+      margin: 42px auto 60px auto;
+      background: rgba(30,40,68,0.96);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 2px 22px rgba(20,45,90,0.13);
+    }
+    .admin-title {
+      text-align: center;
+      font-size: 1.33rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .admin-desc {
+      text-align: center;
+      color: #b7caf8;
+      font-size: 0.97rem;
+      margin-bottom: 18px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      display: block;
+      font-weight: 700;
+      color: #fffbe7;
+      margin-bottom: 6px;
+    }
+    .input, .textarea, .select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 7px;
+      border: 1.2px solid #c5dafeee;
+      background: #20293d;
+      color: #ffe066;
+      font-size: 1rem;
+      outline: none;
+      transition: border .19s, background .19s;
+      box-sizing: border-box;
+    }
+    .input:focus, .textarea:focus, .select:focus {
+      border-color: #ffe066;
+      background: #222e45;
+    }
+    .textarea {
+      min-height: 54px;
+      max-height: 110px;
+      resize: vertical;
+    }
+    .btn, .btn-submit {
+      display: block;
+      margin: 0 auto;
+      background: #ffe066;
+      color: #1b2244;
+      border: none;
+      border-radius: 7px;
+      padding: 8px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .18s;
+    }
+    .btn:hover, .btn-submit:hover {
+      background: #ffb300;
+      color: #fff;
+    }
+    .result-msg {
+      text-align: center;
+      margin-top: 8px;
+      min-height: 1.3em;
+    }
+    .list-container {
+      max-width: 430px;
+      margin: 24px auto;
+    }
+    .list-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #ffe066;
+      margin-bottom: 12px;
+      border-bottom: 1.3px solid #ffe06644;
+      padding-bottom: 2px;
+      text-align: left;
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .list-item {
+      position: relative;
+      background: #26325b;
+      border-radius: 7px;
+      padding: 12px;
+      color: #fffbe7;
+      box-shadow: 0 1.5px 6px rgba(20,45,90,0.07);
+    }
+    .item-header {
+      font-weight: 800;
+      color: #ffe066;
+      margin-bottom: 4px;
+    }
+    .item-sub {
+      color: #b7caf8;
+      font-size: 0.97rem;
+      margin-bottom: 4px;
+    }
+    .btn-small {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff6666;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 3px 8px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .14s;
+    }
+    .btn-small:hover {
+      background: #d1002f;
+    }
+    @media (max-width:650px) {
+      .admin-hub, .list-container { padding: 12px; margin: 24px 2vw; }
+      .admin-title { font-size: 1.07rem; }
+    }
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <!-- 투데이뉴스 관리 -->
+  <div class="admin-hub">
+    <div class="admin-title">투데이뉴스 작성</div>
+    <div class="admin-desc">오늘의 주요 뉴스를 직접 등록하세요.<br>등록된 뉴스도 확인/삭제 가능합니다.</div>
+    <form id="newsForm" autocomplete="off">
+      <div class="form-group">
+        <label class="form-label" for="title">제목</label>
+        <input type="text" id="title" class="input" required maxlength="60" placeholder="뉴스 제목 입력">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="desc">본문/요약</label>
+        <textarea id="desc" class="textarea" required maxlength="250" placeholder="주요 내용 입력"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="date">날짜</label>
+        <input type="date" id="date" class="input" required>
+      </div>
+      <button type="submit" class="btn-submit">저장</button>
+      <div class="result-msg" id="resultMsg"></div>
+    </form>
+  </div>
+  <div class="list-container">
+    <div class="list-title">최근 뉴스 목록</div>
+    <div class="list" id="newsList"></div>
+  </div>
+
+  <!-- 투자 대가(Investors) 관리 -->
+  <div class="admin-hub">
+    <div class="admin-title">투자 대가 관리</div>
+    <form id="investorForm" autocomplete="off">
+      <div class="form-group">
+        <label class="form-label" for="investorName">이름</label>
+        <input type="text" id="investorName" class="input" required placeholder="예: Warren Buffett">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="investorDesc">설명</label>
+        <input type="text" id="investorDesc" class="input" placeholder="간단한 프로필">
+      </div>
+      <button type="submit" class="btn-submit">저장</button>
+      <input type="hidden" id="investorId">
+    </form>
+  </div>
+  <div class="list-container">
+    <div class="list-title">투자 대가 목록</div>
+    <div class="list" id="investorList"></div>
+  </div>
+
+  <!-- 보유 종목(Holdings) 관리 -->
+  <div class="admin-hub">
+    <div class="admin-title">보유 종목 관리</div>
+    <form id="holdingForm" autocomplete="off">
+      <div class="form-group">
+        <label class="form-label" for="selInvestor">투자 대가 선택</label>
+        <select id="selInvestor" class="select" required>
+          <option value="">-- 선택 --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="ticker">티커</label>
+        <input type="text" id="ticker" class="input" required placeholder="예: AAPL">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="weight">비중(%)</label>
+        <input type="number" step="0.1" id="weight" class="input" required placeholder="예: 45.2">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="note">비고</label>
+        <input type="text" id="note" class="input" placeholder="Top Holding 등">
+      </div>
+      <button type="submit" class="btn-submit">저장</button>
+      <input type="hidden" id="holdingId">
+    </form>
+  </div>
+  <div class="list-container">
+    <div class="list-title">보유 종목 목록</div>
+    <div class="list" id="holdingList"></div>
+  </div>
+
+  <!-- Analysis 관리 -->
+  <div class="admin-hub">
+    <div class="admin-title">Analysis 관리</div>
+    <form id="analysisForm" autocomplete="off">
+      <div class="form-group">
+        <label class="form-label" for="aInvestor">투자 대가 선택</label>
+        <select id="aInvestor" class="select" required>
+          <option value="">-- 선택 --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="valuePct">가치주 비율(%)</label>
+        <input type="number" id="valuePct" class="input" required placeholder="예: 68">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="growthPct">성장주 비율(%)</label>
+        <input type="number" id="growthPct" class="input" required placeholder="예: 32">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="sectors">섹터배분 (JSON 배열)</label>
+        <textarea id="sectors" class="textarea" placeholder='예: [{"name":"정보기술","pct":50},...]'></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="risk">리스크 텍스트</label>
+        <input type="text" id="risk" class="input" placeholder="예: 중립적 – 안정성과 성장의 균형 추구">
+      </div>
+      <button type="submit" class="btn-submit">저장</button>
+      <input type="hidden" id="analysisId">
+      <div class="result-msg" id="analysisMsg"></div>
+    </form>
+  </div>
+  <div class="list-container">
+    <div class="list-title">Analysis 목록</div>
+    <div class="list" id="analysisList"></div>
+  </div>
+  <!-- 7월 일정 관리 섹션 -->
+<div class="admin-hub">
+  <div class="admin-title">7월 주요 일정 등록</div>
+  <form id="scheduleForm" autocomplete="off">
+    <div class="form-group">
+      <label class="form-label" for="schTitle">일정명</label>
+      <input type="text" id="schTitle" class="input" required maxlength="40" placeholder="예: TSLA 실적발표">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="schType">유형</label>
+      <select id="schType" class="select" required>
+        <option value="">-- 선택 --</option>
+        <option value="earning">실적발표</option>
+        <option value="dividend">배당락</option>
+        <option value="split">액면분할</option>
+        <option value="event">기타</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="schDate">날짜</label>
+      <input type="date" id="schDate" class="input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="schDesc">상세설명</label>
+      <input type="text" id="schDesc" class="input" maxlength="150" placeholder="(선택)">
+    </div>
+    <button type="submit" class="btn-submit">저장</button>
+    <div class="result-msg" id="schResult"></div>
+  </form>
+</div>
+<div class="list-container">
+  <div class="list-title">7월 일정 목록</div>
+  <div class="list" id="scheduleList"></div>
+</div>
+  <script>
+    // Firebase 초기화
+    const firebaseConfig = {
+      apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+      authDomain: "gohigher-55e51.firebaseapp.com",
+      projectId: "gohigher-55e51",
+      storageBucket: "gohigher-55e51.appspot.com",
+      messagingSenderId: "487435343721",
+      appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+      measurementId: "G-KQ02L8DXG0"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // 투데이뉴스 로직
+    document.getElementById('date').valueAsDate = new Date();
+    document.getElementById("newsForm").onsubmit = async e => {
+      e.preventDefault();
+      const title = document.getElementById("title").value.trim();
+      const desc = document.getElementById("desc").value.trim();
+      const date = document.getElementById("date").value;
+      const resultMsg = document.getElementById("resultMsg");
+      if (!title || !desc || !date) {
+        resultMsg.textContent = "모든 항목을 입력해 주세요.";
+        resultMsg.style.color = "#fd7d7b";
+        return;
+      }
+      try {
+        await db.collection("todayNews").add({
+          title, desc,
+          date: new Date(date + "T09:00:00Z"),
+          createdAt: new Date()
+        });
+        resultMsg.textContent = "뉴스가 정상적으로 저장되었습니다!";
+        resultMsg.style.color = "#83ffbd";
+        document.getElementById("newsForm").reset();
+        document.getElementById('date').valueAsDate = new Date();
+        loadNewsList();
+      } catch {
+        resultMsg.textContent = "저장 중 오류가 발생했습니다.";
+        resultMsg.style.color = "#fd7d7b";
+      }
+    };
+    async function loadNewsList() {
+      const newsList = document.getElementById('newsList');
+      newsList.innerHTML = "<div style='color:#b7caf8;'>로딩 중...</div>";
+      try {
+        const snap = await db.collection("todayNews").orderBy("date", "desc").limit(12).get();
+        if (snap.empty) {
+          newsList.innerHTML = "<div style='color:#ffe066;'>등록된 뉴스가 없습니다.</div>";
+        } else {
+          newsList.innerHTML = "";
+          snap.forEach(doc => {
+            const d = doc.data(), id = doc.id;
+            const dateStr = d.date ? new Date(d.date.seconds * 1000).toLocaleDateString() : "";
+            newsList.innerHTML += `
+              <div class="list-item" id="news-${id}">
+                <div class="item-header">${d.title}</div>
+                <div class="item-sub">${dateStr}</div>
+                <div class="item-sub">${d.desc}</div>
+                <button class="btn-small" onclick="deleteNews('${id}')">삭제</button>
+              </div>`;
+          });
+        }
+      } catch {
+        newsList.innerHTML = "<div style='color:#fd7d7b;'>뉴스 불러오기 중 오류가 발생했습니다.</div>";
+      }
+    }
+    function deleteNews(id) {
+      if (!confirm("정말 삭제할까요?")) return;
+      db.collection("todayNews").doc(id).delete()
+        .then(() => document.getElementById(`news-${id}`).remove())
+        .catch(() => alert("삭제 중 오류가 발생했습니다."));
+    }
+    loadNewsList();
+
+    // Investors 관리
+    const invForm = document.getElementById('investorForm'),
+          invName = document.getElementById('investorName'),
+          invDesc = document.getElementById('investorDesc'),
+          invId   = document.getElementById('investorId'),
+          invList = document.getElementById('investorList'),
+          selInv  = document.getElementById('selInvestor');
+    invForm.onsubmit = async e => {
+      e.preventDefault();
+      const data = { name: invName.value, desc: invDesc.value };
+      if (invId.value) {
+        await db.collection('Investors').doc(invId.value).set(data);
+      } else {
+        await db.collection('Investors').add(data);
+      }
+      invForm.reset(); invId.value = '';
+      loadInvestors();
+      loadAnalysisInvestorOptions();
+    };
+    async function loadInvestors() {
+      const snap = await db.collection('Investors').orderBy('name').get();
+      invList.innerHTML = '';
+      selInv.innerHTML = '<option value="">-- 선택 --</option>';
+      snap.forEach(doc => {
+        const d = doc.data(), id = doc.id;
+        invList.innerHTML += `
+          <div class="list-item" id="inv-${id}">
+            <div class="item-header">${d.name}</div>
+            <div class="item-sub">${d.desc||''}</div>
+            <button class="btn-small" onclick="editInvestor('${id}')">수정</button>
+            <button class="btn-small" style="right:60px" onclick="delInvestor('${id}')">삭제</button>
+          </div>`;
+        selInv.innerHTML += `<option value="${id}">${d.name}</option>`;
+      });
+    }
+    function editInvestor(id) {
+      db.collection('Investors').doc(id).get().then(doc => {
+        invName.value = doc.data().name;
+        invDesc.value = doc.data().desc;
+        invId.value = id;
+      });
+    }
+    function delInvestor(id) {
+      if (!confirm("삭제하시겠습니까?")) return;
+      db.collection('Investors').doc(id).delete()
+        .then(() => { document.getElementById(`inv-${id}`).remove(); loadHoldings(); });
+    }
+    loadInvestors();
+
+    // Holdings 관리
+    const holdForm = document.getElementById('holdingForm'),
+          ticker   = document.getElementById('ticker'),
+          weight   = document.getElementById('weight'),
+          note     = document.getElementById('note'),
+          holdId   = document.getElementById('holdingId'),
+          holdList = document.getElementById('holdingList');
+    holdForm.onsubmit = async e => {
+      e.preventDefault();
+      const data = {
+        investorId: selInv.value,
+        ticker: ticker.value.toUpperCase(),
+        weight: parseFloat(weight.value),
+        note: note.value
+      };
+      if (holdId.value) {
+        await db.collection('Holdings').doc(holdId.value).set(data);
+      } else {
+        await db.collection('Holdings').add(data);
+      }
+      holdForm.reset(); holdId.value = '';
+      loadHoldings();
+    };
+    async function loadHoldings() {
+      const snap = await db.collection('Holdings').orderBy('investorId').get();
+      holdList.innerHTML = '';
+      snap.forEach(doc => {
+        const d = doc.data(), id = doc.id;
+        const invNameOpt = selInv.querySelector(`[value="${d.investorId}"]`);
+        holdList.innerHTML += `
+          <div class="list-item" id="hold-${id}">
+            <div class="item-header">${d.ticker} (${d.weight}%)</div>
+            <div class="item-sub">
+              대가: ${invNameOpt?invNameOpt.textContent:'—'} · 비고: ${d.note||'-'}
+            </div>
+            <button class="btn-small" onclick="editHolding('${id}')">수정</button>
+            <button class="btn-small" style="right:60px" onclick="delHolding('${id}')">삭제</button>
+          </div>`;
+      });
+    }
+    function editHolding(id) {
+      db.collection('Holdings').doc(id).get().then(doc => {
+        const d = doc.data();
+        selInv.value = d.investorId;
+        ticker.value = d.ticker;
+        weight.value = d.weight;
+        note.value   = d.note;
+        holdId.value = id;
+      });
+    }
+    function delHolding(id) {
+      if (!confirm("삭제하시겠습니까?")) return;
+      db.collection('Holdings').doc(id).delete()
+        .then(() => document.getElementById(`hold-${id}`).remove());
+    }
+    loadHoldings();
+
+    // Analysis 관리
+    const aForm     = document.getElementById('analysisForm'),
+          aInvestor = document.getElementById('aInvestor'),
+          valuePct  = document.getElementById('valuePct'),
+          growthPct = document.getElementById('growthPct'),
+          sectorsEl = document.getElementById('sectors'),
+          riskEl    = document.getElementById('risk'),
+          analysisId= document.getElementById('analysisId'),
+          analysisMsg = document.getElementById('analysisMsg'),
+          analysisList= document.getElementById('analysisList');
+
+    aForm.onsubmit = async e => {
+      e.preventDefault();
+      analysisMsg.textContent = '';
+      let sectorsData;
+      try {
+        sectorsData = JSON.parse(sectorsEl.value);
+        if (!Array.isArray(sectorsData)) throw '';
+      } catch {
+        analysisMsg.style.color = "#fd7d7b";
+        analysisMsg.textContent = '섹터배분은 유효한 JSON 배열이어야 합니다.';
+        return;
+      }
+      const data = {
+        investorId: aInvestor.value,
+        valueGrowth: { value: Number(valuePct.value), growth: Number(growthPct.value) },
+        sectors: sectorsData,
+        risk: riskEl.value
+      };
+      try {
+        if (analysisId.value) {
+          await db.collection('Analysis').doc(analysisId.value).set(data);
+        } else {
+          await db.collection('Analysis').add(data);
+        }
+        analysisMsg.style.color = "#83ffbd";
+        analysisMsg.textContent = '저장되었습니다.';
+        aForm.reset(); analysisId.value = '';
+        loadAnalysis();
+      } catch {
+        analysisMsg.style.color = "#fd7d7b";
+        analysisMsg.textContent = '저장 중 오류가 발생했습니다.';
+      }
+    };
+
+    async function loadAnalysisInvestorOptions() {
+      const snap = await db.collection('Investors').orderBy('name').get();
+      aInvestor.innerHTML = '<option value="">-- 선택 --</option>';
+      snap.forEach(doc => {
+        aInvestor.innerHTML += `<option value="${doc.id}">${doc.data().name}</option>`;
+      });
+    }
+
+    async function loadAnalysis() {
+      const snap = await db.collection('Analysis').orderBy('investorId').get();
+      analysisList.innerHTML = '';
+      snap.forEach(doc => {
+        const d = doc.data(), id = doc.id;
+        const invNameOpt = aInvestor.querySelector(`[value="${d.investorId}"]`);
+        const invName = invNameOpt ? invNameOpt.textContent : d.investorId;
+        analysisList.innerHTML += `
+          <div class="list-item" id="analysis-${id}">
+            <div class="item-header">${invName}</div>
+            <div class="item-sub">
+              가치: ${d.valueGrowth.value}% 성장: ${d.valueGrowth.growth}%<br>
+              리스크: ${d.risk}
+            </div>
+            <button class="btn-small" onclick="editAnalysis('${id}')">수정</button>
+            <button class="btn-small" style="right:60px" onclick="delAnalysis('${id}')">삭제</button>
+          </div>`;
+      });
+    }
+
+    function editAnalysis(id) {
+      db.collection('Analysis').doc(id).get().then(doc => {
+        const d = doc.data();
+        aInvestor.value = d.investorId;
+        valuePct.value = d.valueGrowth.value;
+        growthPct.value = d.valueGrowth.growth;
+        sectorsEl.value = JSON.stringify(d.sectors, null, 2);
+        riskEl.value = d.risk;
+        analysisId.value = id;
+      });
+    }
+
+    function delAnalysis(id) {
+      if (!confirm("삭제하시겠습니까?")) return;
+      db.collection('Analysis').doc(id).delete()
+        .then(() => document.getElementById(`analysis-${id}`).remove());
+    }
+
+    // 초기 로드
+    loadInvestors();
+    loadAnalysisInvestorOptions().then(loadAnalysis);
+
+const schForm = document.getElementById("scheduleForm"),
+      schTitle = document.getElementById("schTitle"),
+      schType = document.getElementById("schType"),
+      schDate = document.getElementById("schDate"),
+      schDesc = document.getElementById("schDesc"),
+      schResult = document.getElementById("schResult"),
+      schList = document.getElementById("scheduleList");
+schForm.onsubmit = async e => {
+  e.preventDefault();
+  const dateVal = schDate.value;
+  if (!schTitle.value || !schType.value || !dateVal) {
+    schResult.textContent = "필수 항목을 입력하세요."; schResult.style.color = "#fd7d7b"; return;
+  }
+  try {
+    await db.collection("schedules").add({
+      title: schTitle.value,
+      type: schType.value,
+      date: dateVal,
+      desc: schDesc.value,
+      createdAt: new Date()
+    });
+    schResult.textContent = "저장 완료!";
+    schResult.style.color = "#83ffbd";
+    schForm.reset();
+    loadSchedules();
+  } catch {
+    schResult.textContent = "오류 발생";
+    schResult.style.color = "#fd7d7b";
+  }
+};
+async function loadSchedules() {
+  schList.innerHTML = "<div style='color:#b7caf8;'>로딩 중...</div>";
+  try {
+    const snap = await db.collection("schedules").where("date", ">=", "2025-07-01").where("date", "<=", "2025-07-31").orderBy("date").get();
+    if (snap.empty) {
+      schList.innerHTML = "<div style='color:#ffe066;'>등록된 일정 없음</div>";
+    } else {
+      schList.innerHTML = "";
+      snap.forEach(doc => {
+        const d = doc.data(), id = doc.id;
+        schList.innerHTML += `
+          <div class="list-item" id="sch-${id}">
+            <div class="item-header">${d.title} (${d.type})</div>
+            <div class="item-sub">${d.date}</div>
+            <div class="item-sub">${d.desc || ''}</div>
+            <button class="btn-small" onclick="deleteSchedule('${id}')">삭제</button>
+          </div>`;
+      });
+    }
+  } catch {
+    schList.innerHTML = "<div style='color:#fd7d7b;'>불러오기 실패</div>";
+  }
+}
+function deleteSchedule(id) {
+  if (!confirm("삭제할까요?")) return;
+  db.collection("schedules").doc(id).delete()
+    .then(() => document.getElementById(`sch-${id}`).remove())
+    .catch(() => alert("삭제 중 오류"));
+}
+loadSchedules();
+  </script>
+</body>
+</html>

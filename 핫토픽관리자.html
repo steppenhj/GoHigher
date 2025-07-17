@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>GoHigher 핫토픽 관리자</title>
+
+        <!-- 사이트 검증 메타 -->
+    <meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
+    <meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE"/>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트" />
+    <meta property="og:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!"/>
+    <meta property="og:image" content="https://gohigher.kr/logo.jpg" />
+    <meta property="og:url" content="https://gohigher.kr/index.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Higher" />
+    <meta property="og:locale" content="ko_KR" />
+    <!-- Twitter Card 태그 -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="미국 주식·환율 동향 한눈에! 투자 필수 정보 매일 업데이트"/>
+    <meta name="twitter:description" content="한눈에 보는 미국주식·증시·환율·ETF·테슬라·엔비디아·실적발표·암호화폐 뉴스를 한눈에 확인하세요!" />
+    <meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
+    <link rel="icon" href="/logo.jpg" type="image/jpeg" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/navigation.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body { background: #1e253a; color: #f7fa9b; font-family: 'Roboto',sans-serif; }
+    .admin-main-wrap {
+      display: flex; gap: 38px; justify-content: center; align-items: flex-start;
+      max-width: 1060px; margin: 40px auto 0 auto; padding: 0 10px;
+    }
+    .admin-hub {
+      flex: 1.1 1 0%; min-width: 280px; max-width: 480px;
+      background: #232b46e6; border-radius: 18px; padding: 32px 22px 22px 22px;
+      box-sizing: border-box;
+    }
+    .side-list-hub {
+      flex: 0.88 1 0%; min-width: 260px; max-width: 380px; 
+      background: #232b46f6; border-radius: 16px; padding: 22px 15px 18px 17px;
+      margin-top: 7px; 
+      box-sizing: border-box;
+      height: auto;
+    }
+    @media (max-width: 850px) {
+      .admin-main-wrap { flex-direction: column; gap: 26px; align-items: stretch;}
+      .side-list-hub { max-width: 99vw; margin-top: 0; }
+    }
+    h1 { color: #ffe066; margin-bottom: 22px; font-size: 2rem; }
+    label { font-weight: 700; color: #ffe066; display: block; margin-top: 18px; }
+    input, textarea { width: 100%; background: #273054; color: #f7fa9b; border: 1.5px solid #ffe0664b; border-radius: 8px; font-size: 1.05em; margin-top: 6px; padding: 10px; box-sizing: border-box; }
+    textarea { min-height: 70px; max-height: 320px; }
+    .tag-hint { color: #b7caf8; font-size: 0.97em; margin-top: 2px;}
+    .btn-upload { margin-top: 26px; width: 100%; font-size: 1.1em; background: #ffe066; color: #253258; font-weight: 900; border: none; border-radius: 8px; padding: 12px 0; cursor: pointer; }
+    .btn-upload:active { background: #fff36a; }
+    .alert { background: #fd7d7b; color: #fff; border-radius: 6px; margin: 16px 0 0 0; padding: 8px 12px; text-align: center; font-weight: 700;}
+    .success { background: #84e4bc; color: #1e253a;}
+    .side-list-title { font-size: 1.17em; font-weight: 900; color: #ffe066; margin-bottom: 11px;}
+    .topic-item {
+      border-radius: 11px;
+      padding: 11px 10px 7px 10px;
+      margin-bottom: 10px;
+      background: #283259;
+      border: 1.2px solid #ffe0662c;
+      transition: background 0.16s;
+      min-height: 54px;
+      display: block;
+      text-align: left;
+      color: #fff9b3;
+      box-shadow: 0 1.5px 6px #242d48a4;
+      font-size: 1.06em;
+      position: relative;
+    }
+    .topic-title { font-weight: 800; font-size: 1.06em; line-height: 1.3;}
+    .topic-summary { font-size: 0.97em; color: #a6bee6; margin: 2px 0 0 0; }
+    .topic-tags { font-size: 0.92em; margin: 3px 0 2px 0;}
+    .topic-tag { display: inline-block; background: #394374ee; color: #8dffc9; font-size: 0.93em; border-radius: 7px; padding: 0 8px; margin-right: 2px;}
+    .topic-date { font-size: 0.90em; color: #ffea3aaa; right: 11px; top: 11px;}
+    .topic-delete-btn i {
+  pointer-events: none; /* 아이콘 클릭 시에도 버튼 동작만 하도록 */
+  vertical-align: -1px;
+}
+.topic-delete-btn:active { color: #fd5452; }
+
+  </style>
+</head>
+<body>
+  <div class="admin-main-wrap">
+    <!-- 입력 폼 -->
+    <main class="admin-hub">
+      <h1><i class="fa-solid fa-bolt"></i> 핫토픽 글 등록</h1>
+      <label for="title">제목</label>
+      <input type="text" id="title" maxlength="70" placeholder="핫토픽 제목을 입력하세요" />
+
+      <label for="summary">본문 (카드에 노출)</label>
+      <textarea id="summary" placeholder="핫토픽 본문"></textarea>
+
+      <label for="tags">태그 <span class="tag-hint">(쉼표로 구분, 예: AI, 데이터센터, 실적)</span></label>
+      <input type="text" id="tags" maxlength="90" placeholder="예시: AI, 데이터센터, 성장주" />
+
+      <button class="btn-upload" id="uploadBtn">업로드</button>
+      <div id="alertBox"></div>
+    </main>
+    <!-- 최신 글 리스트 (오른쪽) -->
+    <aside class="side-list-hub">
+      <div class="side-list-title"><i class="fa-solid fa-list"></i> 최근 등록된 핫토픽</div>
+      <div id="hotTopicList"></div>
+    </aside>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+    // 1. 파이어베이스 config (프로젝트 정보 입력)
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
+        authDomain: "gohigher-55e51.firebaseapp.com",
+        projectId: "gohigher-55e51",
+        storageBucket: "gohigher-55e51.appspot.com",
+        messagingSenderId: "487435343721",
+        appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
+        measurementId: "G-KQ02L8DXG0"
+      });
+    }
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    // (1) 관리자 로그인 강제
+    let adminEmails = ["hermann8hesse@gmail.com"];
+    auth.onAuthStateChanged(user => {
+      if (!user || !adminEmails.includes(user.email)) {
+        alert("관리자만 접근 가능합니다. 로그인 후 이용하세요.");
+        window.location.href = "/login.html";
+      }
+    });
+
+    // (2) 업로드 버튼 클릭 이벤트
+    document.getElementById("uploadBtn").onclick = async function () {
+      const title = document.getElementById("title").value.trim();
+      const summary = document.getElementById("summary").value.trim();
+      const tagsRaw = document.getElementById("tags").value.trim();
+      const alertBox = document.getElementById("alertBox");
+
+      if (!title || !summary || !tagsRaw) {
+        alertBox.innerHTML = "<div class='alert'>필수 항목을 모두 입력하세요.</div>";
+        return;
+      }
+      alertBox.innerHTML = "";
+
+      const tags = tagsRaw.split(',').map(x => x.trim()).filter(Boolean);
+
+      try {
+        await db.collection("hotTopics").add({
+          title, summary, tags,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          writer: auth.currentUser ? auth.currentUser.email : ""
+        });
+        alertBox.innerHTML = "<div class='alert success'>업로드 완료! 핫토픽이 등록되었습니다.</div>";
+        document.getElementById("title").value = "";
+        document.getElementById("summary").value = "";
+        document.getElementById("tags").value = "";
+      } catch (e) {
+        alertBox.innerHTML = "<div class='alert'>오류 발생: " + (e.message || e) + "</div>";
+      }
+    };
+
+    // (3) 핫토픽 리스트 실시간 반영 (최신 8개)
+    function dateStr(ts) {
+      if (!ts || !ts.toDate) return "";
+      const d = ts.toDate();
+      return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+    }
+
+db.collection("hotTopics")
+  .orderBy("createdAt", "desc")
+  .limit(8)
+  .onSnapshot(snapshot => {
+    const list = document.getElementById('hotTopicList');
+    list.innerHTML = '';
+    if (snapshot.empty) {
+      list.innerHTML = "<div style='color:#b7caf8; padding:22px 0;'>아직 등록된 글이 없습니다.</div>";
+      return;
+    }
+    snapshot.forEach(doc => {
+      const d = doc.data();
+      let tags = '';
+      if (Array.isArray(d.tags)) {
+        tags = d.tags.map(t => `<span class="topic-tag">${t}</span>`).join(' ');
+      }
+      // 아이콘 버튼 포함하여 출력
+list.innerHTML += `
+  <div class="topic-item" data-id="${doc.id}">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span class="topic-title">${d.title || '제목 없음'}</span>
+      <button class="topic-delete-btn" title="삭제" style="background:none;border:none;color:#fd7d7b;font-size:1.11em;margin-left:8px;cursor:pointer;outline:none;">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+    <div class="topic-summary">${d.summary || ''}</div>
+    <div class="topic-tags">${tags}</div>
+    <span class="topic-date" style="position:static; display:inline-block; margin-top:2px;">${dateStr(d.createdAt)}</span>
+  </div>
+`;
+
+    });
+
+        // 삭제 버튼 이벤트 등록 (렌더 후)
+        document.querySelectorAll('.topic-delete-btn').forEach(btn => {
+        btn.onclick = async function(e) {
+            e.stopPropagation();
+            // 버튼의 부모 .topic-item div에서 data-id 가져오기
+            const id = this.closest('.topic-item').getAttribute('data-id');
+            if (confirm("정말 삭제하시겠습니까?")) {
+            try {
+                await db.collection("hotTopics").doc(id).delete();
+            } catch (err) {
+                alert("삭제 중 오류: " + (err.message || err));
+            }
+            }
+        }
+        });
+  });
+
+  </script>
+</body>
+</html>
