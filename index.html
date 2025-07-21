@@ -1,1208 +1,602 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Go Higher – 미국주식·ETF·환율·AI뉴스 한눈에 | 투자 플랫폼</title>
-<meta name="description" content="미국 주식, ETF, 환율, 실적 발표, 빅테크 시세, 투자 다이어리, AI 뉴스, 자산 시뮬레이터까지 한 번에! 미국 증시 투자 필수 정보를 실시간·한글로 제공합니다. 누구나 쉽게 미국 주식 투자, 포트폴리오 설계, 뉴스 큐레이션까지 Go Higher에서 시작하세요.">
-<meta name="keywords" content="미국주식, 미국 증시, ETF, 환율, 테슬라, 엔비디아, 투자 다이어리, AI 뉴스, 포트폴리오, 실적발표, 배당주, 나스닥, S&P500, 중소형주, 자산 시뮬레이터, 미국주식 캘린더, 빅테크, 미국주식 플랫폼, 투자전략">
-
-<!-- 캐노니컬 -->
-<link rel="canonical" href="https://gohigher.kr/" />
-
-<!-- 네이버/구글 사이트 인증 -->
-<meta name="naver-site-verification" content="daa71973aba155bc2d96dfde44d8fb34b6a74ba7" />
-<meta name="google-site-verification" content="GGuWsc5cbeYC9W0nQsN7550kWcUzArKuo3zfhjN5LXE" />
-<!-- 애드센스 사이트 인증 -->
-<meta name="google-adsense-account" content="ca-pub-8188649321639857">
-<!-- Open Graph (페이스북/카카오/네이버 등 SNS 공유) -->
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Go Higher – 미국주식·ETF·환율·AI뉴스 한눈에 | 투자 플랫폼" />
-<meta property="og:description" content="미국 주식, ETF, 환율, 실적 발표, 빅테크 시세, 투자 다이어리, AI 뉴스, 자산 시뮬레이터 등 모든 미국 증시 정보를 한 곳에서. 초보부터 고수까지 추천하는 실시간 투자 플랫폼!" />
-<meta property="og:image" content="https://gohigher.kr/logo.jpg" />
-<meta property="og:url" content="https://gohigher.kr/" />
-<meta property="og:site_name" content="Go Higher" />
-<meta property="og:locale" content="ko_KR" />
-
-<!-- Twitter Card (X/트위터 공유) -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Go Higher – 미국주식·ETF·환율·AI뉴스 한눈에" />
-<meta name="twitter:description" content="미국 증시 실시간 데이터와 ETF, 환율, 빅테크 시세, 투자 전략, AI 뉴스, 투자 다이어리, 자산 시뮬레이터 등 투자 필수 정보 매일 업데이트!" />
-<meta name="twitter:image" content="https://gohigher.kr/logo.jpg" />
-
-<!-- 파비콘 -->
-<link rel="icon" href="/logo.jpg" type="image/jpeg" />
-
-<!-- 추가 권장(구글 자동 번역/구조화 데이터 등 확장 가능) -->
-<meta name="author" content="Go Higher" />
-<meta name="robots" content="index, follow" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" crossorigin="anonymous" />
-  <link rel="stylesheet" href="navigation.css">
-   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-  <link rel="stylesheet" href="/챗봇/챗봇.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <script>
-if (!window.POLYGON_API_BASE) {
-  window.POLYGON_API_BASE = "https://us-central1-gohigher-55e51.cloudfunctions.net/polygonApi";
-}
-</script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEADUS - 리더와 멤버가 연결되고 성장하는 플랫폼</title>
+    <!-- Firebase App (core) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <style>
-/* 기존 스타일 유지 */
-:root {
-    --nav-main: rgba(28, 36, 52, 0.75);
-    --nav-border: rgba(76,90,110,0.52);
-    --nav-shadow-hover: 0 8px 40px 0 rgba(30,38,85,0.19), 0 3px 12px 0 rgba(27,32,58,0.21);
-    --nav-blue-light: #98bfff;
-    --nav-yellow: #ffe066;
-    --color-up: #82f0a5;
-    --color-down: #f57d7d;
-}
-.main-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-.spacer { height: 80px; }
-.hero-section {
-    text-align: center;
-    padding: 100px 20px 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: radial-gradient(circle at 50% 30%, rgba(45, 62, 91, 0.3), transparent 70%);
-    position: relative;
-    overflow: hidden;
-}
-
-#fireflies-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-.hero-title {
-    font-size: 3.2rem;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-    text-shadow: 0 4px 25px rgba(255, 224, 102, 0.2);
-}
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: #c7dbff;
-    max-width: 600px;
-    margin: 0 auto 30px;
-    line-height: 1.6;
-}
-.cta-button {
-    background: var(--nav-yellow);
-    color: #1C2434;
-    font-size: 1.1rem;
-    font-weight: 700;
-    padding: 14px 40px;
-    border-radius: 50px;
-    text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    box-shadow: 0 4px 20px rgba(255, 224, 102, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.cta-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-}
-
-.cta-button:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(255, 224, 102, 0.4);
-    background: #ffe066;
-}
-.features-section {
-    padding: 80px 0;
-    text-align: center;
-}
-.section-title {
-    font-size: 2.2rem;
-    color: var(--nav-blue-light);
-    margin-bottom: 50px;
-    font-weight: 700;
-    text-align: center;
-    position: relative;
-    display: inline-block;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--nav-yellow), transparent);
-    border-radius: 2px;
-    animation: titleGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes titleGlow {
-    0% { opacity: 0.6; width: 60px; }
-    100% { opacity: 1; width: 80px; }
-}
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    justify-content: center;
-}
-.feature-card {
-    background: var(--nav-main);
-    border: 1.5px solid var(--nav-border);
-    border-radius: 20px;
-    padding: 40px 30px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 224, 102, 0.1), transparent);
-    transition: left 0.5s ease;
-}
-
-.feature-card:hover::before {
-    left: 100%;
-}
-
-.feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--nav-shadow-hover);
-    border-color: rgba(255, 224, 102, 0.3);
-}
-.feature-icon { font-size: 2.5rem; color: var(--nav-yellow); margin-bottom: 20px; }
-.feature-title { font-size: 1.5rem; font-weight: 700; color: #e9f1ff; margin-bottom: 10px; }
-.feature-description { font-size: 1rem; color: #c7dbff; line-height: 1.5; }
-
-/* --- 시장 동향 티커 --- */
-.market-ticker-section {
-    background-color: rgba(12, 18, 40, 0.5);
-    border-top: 1px solid var(--nav-border);
-    border-bottom: 1px solid var(--nav-border);
-    padding: 12px 0;
-    overflow: hidden;
-    white-space: nowrap;
-}
-.ticker-wrap {
-    display: inline-block;
-    padding-left: 100%;
-    animation: scroll-left 60s linear infinite;
-}
-.ticker-item {
-    display: inline-block;
-    margin: 0 35px;
-    font-size: 0.95rem;
-    color: #c7dbff;
-}
-.ticker-item .up { color: var(--color-up); }
-.ticker-item .down { color: var(--color-down); }
-@keyframes scroll-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
-
-/* --- 'NEXT FRONTIER' 섹션 스타일 --- */
-.frontier-section {
-    padding: 80px 0;
-}
-.frontier-container {
-    background: var(--nav-main);
-    border: 1.5px solid var(--nav-border);
-    border-radius: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    align-items: center;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-}
-.frontier-container:hover {
-    box-shadow: var(--nav-shadow-hover);
-}
-.frontier-image {
-    height: 100%;
-    min-height: 450px;
-    background-image: url('images/반도체.png');
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.4s ease;
-}
-.frontier-container:hover .frontier-image {
-    transform: scale(1.05);
-}
-.frontier-content { padding: 50px 60px; }
-.frontier-content .tag { font-size: 0.9rem; font-weight: 700; color: var(--nav-yellow); margin-bottom: 10px; letter-spacing: 1px; }
-.frontier-content h3 { font-size: 2.5rem; font-weight: 700; color: #ffffff; margin-bottom: 15px; line-height: 1.2; }
-.frontier-content p { font-size: 1.1rem; color: #c7dbff; line-height: 1.7; margin-bottom: 30px; }
-.key-players-title { font-size: 0.9rem; font-weight: 500; color: #98bfff; margin-bottom: 15px; text-transform: uppercase; }
-.key-players-list { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 35px; }
-.player-chip { 
-    background: rgba(76,90,110,0.3); 
-    border: 1px solid rgba(76,90,110,0.6); 
-    padding: 8px 15px; 
-    border-radius: 50px; 
-    font-size: 0.95rem; 
-    font-weight: 500; 
-    color: #e9f1ff; 
-    transition: all 0.3s ease; 
-    position: relative;
-    overflow: hidden;
-}
-
-.player-chip::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 224, 102, 0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.player-chip:hover::before {
-    left: 100%;
-}
-
-.player-chip:hover { 
-    background-color: var(--nav-yellow); 
-    color: #1C2434; 
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 224, 102, 0.3);
-}
-.frontier-cta { 
-    background: transparent; 
-    border: 2px solid var(--nav-yellow); 
-    color: var(--nav-yellow); 
-    font-size: 1rem; 
-    font-weight: 700; 
-    padding: 12px 30px; 
-    border-radius: 50px; 
-    text-decoration: none; 
-    transition: all 0.3s ease; 
-}
-
-.frontier-cta:hover { 
-    background-color: var(--nav-yellow); 
-    color: #1C2434; 
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 224, 102, 0.3);
-}
-
-
-/* --- '마켓 대시보드' 섹션 스타일 --- */
-.dashboard-section {
-    padding: 80px 0;
-}
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-/* 🌟 아래 스타일을 새로 추가하거나 교체합니다. 🌟 */
-
-.market-widget {
-    background: var(--nav-main);
-    border: 1.5px solid var(--nav-border);
-    border-radius: 20px;
-    padding: 25px 30px;
-    display: grid; /* flex에서 grid로 변경하여 레이아웃 제어 용이 */
-    grid-template-columns: 1fr auto; /* 텍스트와 아이콘 영역 분리 */
-    align-items: center; /* 수직 중앙 정렬 */
-    gap: 15px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.market-widget::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 224, 102, 0.05) 50%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-.market-widget:hover::after {
-    opacity: 1;
-}
-
-.market-widget:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--nav-shadow-hover);
-    border-color: rgba(255, 224, 102, 0.2);
-}
-
-.widget-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-.widget-title {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #c7dbff;
-}
-.widget-value {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 8px;
-    font-family: 'Roboto', sans-serif;
-}
-.widget-change {
-    font-size: 1.1rem;
-    font-weight: 500;
-    font-family: 'Roboto', sans-serif;
-}
-.widget-change .up { color: var(--color-up); }
-.widget-change .down { color: var(--color-down); }
-
-.widget-icon-wrapper {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.8rem;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-/* 아이콘 상승/하락 상태에 따른 스타일 */
-.widget-icon-wrapper.up {
-    background-color: rgba(130, 240, 165, 0.1);
-    color: var(--color-up);
-    box-shadow: 0 0 20px rgba(130, 240, 165, 0.15);
-}
-.widget-icon-wrapper.down {
-    background-color: rgba(245, 125, 125, 0.1);
-    color: var(--color-down);
-    box-shadow: 0 0 20px rgba(245, 125, 125, 0.15);
-}
-
-/* 캘린더 테이블 간단 다크 스타일 */
-#calendar {
-  width: 100%;
- max-width: 1000px;
-  margin: 0 auto 1.5rem auto;
-  border-collapse: collapse;
-  background: rgba(31,38,60,0.72);
-  border-radius: 1.2rem;
-  overflow: hidden;
-  font-size: 1.1rem;
-}
-#calendar th, #calendar td {
-  width: 14.2%;
-  text-align: center;
-  padding: 0.63em 0.3em;
-  border: 1px solid rgba(91,192,190,0.11);
-  vertical-align: top;
-  color: #eaf0fa;
-}
-#calendar th {
-  background: rgba(44,62,80,0.82);
-  font-weight: 700;
-  color: #ffe066;
-   font-size: 1.05em;
-  border-bottom: 2px solid #5bc0be;
-  padding: 0.8em 0.5em;
-}
-#calendar td {
-  min-height: 85px;
-   height: 85px;
-  position: relative;
-  cursor: pointer;
-  transition: background 0.08s;
-  padding: 0.8em 0.6em;
-}
-#calendar td:hover {
-  background: rgba(91,192,190,0.13);
-}
-.event-dot {
-  display: inline-block;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  margin: 2px 3px 0 0;
-  background: #ffd67a;
-  border: 1px solid #b4c5e4;
-  vertical-align: middle;
-  box-shadow: 0 0 5px #eaf0fa55;
-}
-.event-dot.dividend { background: #45c6ff; }
-.event-dot.split { background: #fa5662; }
-.event-dot.earning { background: #ffe066; }
-.event-list-preview {
-  margin: 0.17em 0 0 0;
-  font-size: 1.1rem; /* 폰트 크기 살짝 키움 */
-  color: #b4c5e4;
-  text-align: left;
-  line-height: 1.4;
-    margin-top: 0.3em;
-    display: block; /* 한 줄을 차지하도록 변경 */
-    white-space: nowrap; /* 텍스트가 길어도 줄바꿈 방지 */
-
-}
-/* 실적 캘린더 어두운 모드 */
-  .earnings-calendar-section {
-    background: rgba(20,28,44,0.8);
-    border: 1px solid rgba(91,192,190,0.4);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
-    padding: 1.5rem 2rem;
-    border-radius: 1.2rem;
-    max-width: 1000px;
-    margin: 2.2rem auto 1.7rem;
-  }
-  .earnings-calendar-title {
-    font-size: 1.17rem;
-    font-weight: 900;
-    color: #eaf0fa;
-    margin-bottom: 0.72rem;
-    display: flex;
-    align-items: center;
-    gap: 0.66em;
-  }
-  .earnings-calendar-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.34rem;
-    justify-content: flex-start;
-  }
-
-   /* 🌟 모바일 반응형 전체에 적용 🌟 */
-@media (max-width: 900px) {
-  .main-container {
-    padding: 0 8px;
-    max-width: 100vw;
-  }
-  .hero-section {
-    padding: 48px 6px 40px;
-    min-height: unset;
-  }
-  .hero-title {
-    font-size: 2.1rem;
-    word-break: keep-all;
-  }
-  .hero-subtitle {
-    font-size: 1.05rem;
-    max-width: 95vw;
-    margin-bottom: 18px;
-  }
-  .cta-button {
-    font-size: 1rem;
-    padding: 12px 26px;
-  }
-  .features-section {
-    padding: 38px 0 24px;
-  }
-  .features-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px;
-  }
-  .feature-card {
-    padding: 22px 12px;
-    font-size: 0.98rem;
-  }
-  .frontier-section {
-    padding: 34px 0;
-  }
-  .frontier-container {
-    grid-template-columns: 1fr !important;
-    border-radius: 14px;
-  }
-  .frontier-image {
-    min-height: 180px !important;
-  }
-  .frontier-content {
-    padding: 20px 12px;
-  }
-  .dashboard-section {
-    padding: 36px 0 10px;
-  }
-  .dashboard-grid {
-    grid-template-columns: 1fr !important;
-    gap: 12px;
-  }
-  .market-widget {
-    padding: 17px 10px;
-    border-radius: 12px;
-  }
-  .widget-header,
-  .widget-title,
-  .widget-value,
-  .widget-change {
-    font-size: 1em !important;
-  }
-  .widget-icon-wrapper {
-    width: 44px !important;
-    height: 44px !important;
-    font-size: 1.15rem !important;
-  }
-  /* 마켓 티커 */
-  .market-ticker-section {
-    font-size: 0.98rem;
-    padding: 8px 0;
-  }
-  .ticker-item {
-    margin: 0 12px !important;
-    font-size: 0.95rem !important;
-  }
-  /* 캘린더 */
-  .earnings-calendar-section {
-    padding: 0 !important;
-    max-width: 100vw !important;
-    min-width: 0;
-    border-radius: 0 !important;
-    box-sizing: border-box;
-  }
-  #calendar-container {
-    width: 100vw !important;
-    min-width: 0 !important;
-    overflow-x: auto;
-    padding: 0 !important;
-    box-sizing: border-box;
-  }
-  #calendar {
-    min-width: 540px !important;   /* 이건 유지 */
-    width: 100% !important;
-    max-width: 100vw !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-    table-layout: fixed;
-    background: rgba(31,38,60,0.85);
-  }
-  #calendar th, #calendar td {
-    min-width: 60px !important;
-    width: 14.2%;
-    padding: 0.25em 0.07em !important;
-    font-size: 0.97em !important;
-    min-height: 32px !important;
-    height: 36px !important;
-    vertical-align: top;
-    word-break: break-all;
-    box-sizing: border-box;
-  }
-  .event-list-preview {
-    font-size: 0.92em !important;
-    margin-top: 0.07em !important;
-    white-space: normal !important; /* 텍스트가 여러 줄로 자동 줄바꿈! */
-    line-height: 1.35;
-    word-break: break-word;
-    text-align: left;
-    overflow-wrap: break-word;
-  }
-}
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        :root {
+            --primary-color: #3B82F6;
+            --dark-color: #1F2937;
+            --dark-gradient-start: #1F2937;
+            --dark-gradient-end: #111827;
+            --light-color: #F9FAFB;
+            --text-color: #374151;
+            --white-color: #FFFFFF;
+        }
+        * {margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth;}
+        body {font-family: 'Noto Sans KR', sans-serif; color: var(--text-color); line-height: 1.7; background-color: var(--white-color);}
+        .container {max-width: 1100px; margin: 0 auto; padding: 0 30px;}
+        h2 {font-size: 2.5rem; color: var(--dark-color); text-align: center; margin-bottom: 40px;}
+        h3 {font-size: 1.8rem; margin-bottom: 15px; color: var(--primary-color);}
+        section {padding: 80px 0;}
+        .section-light {background-color: var(--light-color);}
+        .header {background-color: var(--white-color); padding: 1rem 0; position: sticky; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
+        .header .container {display: flex; justify-content: space-between; align-items: center;}
+        .logo {font-size: 1.5rem; font-weight: 900; color: var(--primary-color); text-decoration: none;}
+        .nav-links {list-style: none; display: flex; gap: 25px;}
+        .nav-links a {text-decoration: none; color: var(--text-color); font-weight: 700; transition: color 0.3s;}
+        .nav-links a:hover {color: var(--primary-color);}
+        .header-buttons {display: flex; align-items: center; gap: 10px;}
+        #user-info {display: none; align-items: center; gap: 10px;}
+        #user-name {font-weight: 700; margin-right: 2px; font-size: 1rem; color: var(--primary-color);}
+        .header-cta {background-color: transparent; color: var(--text-color); padding: 8px 16px; border-radius: 50px; text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: background-color 0.3s, color 0.3s, border-color 0.3s; display: inline-block; border: 2px solid #E5E7EB; cursor: pointer;}
+        .header-cta.primary {background-color: var(--primary-color); color: var(--white-color); border-color: var(--primary-color);}
+        .header-cta:hover {background-color: var(--dark-color); color: var(--white-color); border-color: var(--dark-color);}
+        .header-cta.primary:hover {background-color: #2563EB; border-color: #2563EB;}
+        .hero {background: linear-gradient(135deg, var(--dark-gradient-start), var(--dark-gradient-end)); color: var(--white-color); height: 85vh; min-height: 600px; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0 20px; position: relative; overflow: hidden;}
+        .hero-glow {position: absolute; top: 50%; left: 50%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0) 70%); transform: translate(-50%, -50%); border-radius: 50%; z-index: 1; animation: pulse 8s infinite ease-in-out;}
+        @keyframes pulse {0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; } 50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }}
+        .hero-content {position: relative; z-index: 2;}
+        .hero-content h1 {font-size: 3.8rem; font-weight: 900; margin-bottom: 1rem; text-shadow: 0 4px 15px rgba(0,0,0,0.2);}
+        .hero-content .slogan {font-size: 1.3rem; max-width: 600px; margin: 0 auto 2rem; opacity: 0.9;}
+        .hero-social-proof {margin: 30px 0; display: flex; align-items: center; justify-content: center; gap: 15px;}
+        .hero-social-proof .avatars {display: flex;}
+        .hero-social-proof .avatars img {width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--white-color); margin-left: -15px; object-fit: cover;}
+        .hero-social-proof .avatars img:first-child {margin-left: 0;}
+        .hero-social-proof p {font-size: 1rem; font-weight: 700;}
+        .hero-cta-group {display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap;}
+        .cta-button {padding: 15px 35px; border-radius: 50px; text-decoration: none; font-size: 1.1rem; font-weight: 700; transition: all 0.3s; display: inline-block; border: none; cursor: pointer; width: auto;}
+        .cta-button.primary {background-color: var(--primary-color); color: var(--white-color);}
+        .cta-button.primary:hover {transform: translateY(-3px); background-color: #2563EB; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);}
+        .cta-button.secondary {background-color: transparent; border: 2px solid var(--white-color); color: var(--white-color);}
+        .cta-button.secondary:hover {background-color: var(--white-color); color: var(--dark-color); transform: translateY(-3px);}
+        .audience-grid {display: grid; grid-template-columns: 1fr 1fr; gap: 30px;}
+        .audience-card {background-color: var(--white-color); padding: 35px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border-top: 4px solid var(--primary-color); text-align: center;}
+        .audience-card h3 {color: var(--dark-color); font-size: 1.5rem; margin-bottom: 15px;}
+        .audience-icon {font-size: 3rem; margin-bottom: 15px;}
+        .problem-solution .content-box {max-width: 700px; margin: 0 auto; text-align: center; background: var(--white-color); padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);}
+        .problem-solution p {font-size: 1.1rem;}
+        .features-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center;}
+        .feature-card {background: var(--white-color); padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);}
+        .feature-card .icon {font-size: 3rem; margin-bottom: 15px; color: var(--primary-color);}
+        .feature-card h4 {font-size: 1.3rem; color: var(--dark-color); margin-bottom: 10px;}
+        .leader-filter {text-align: center; margin-bottom: 40px;}
+        .leader-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;}
+        .leader-card {background: var(--white-color); border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.07); overflow: hidden; text-align: center; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column;}
+        .leader-card:hover {transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.1);}
+        .leader-card img {width: 100%; height: 220px; object-fit: cover;}
+        .leader-info {padding: 20px; display: flex; flex-direction: column; flex-grow: 1;}
+        .leader-info h4 {font-size: 1.4rem; color: var(--dark-color);}
+        .leader-info .title {color: var(--primary-color); font-weight: 700; font-size: 0.95rem; margin-bottom: 15px;}
+        .leader-tags {margin-bottom: 15px; flex-grow: 1;}
+        .leader-tags .tag {display: inline-block; background-color: #E5E7EB; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin: 3px;}
+        .join-button {background-color: var(--dark-color); color: var(--white-color); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 700; border: none; cursor: pointer; margin-top: auto; transition: background-color 0.3s;}
+        .join-button:hover {background-color: #000;}
+        .footer {background-color: var(--dark-color); color: var(--light-color); text-align: center; padding: 40px 0;}
+        .modal-wrapper {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px;}
+        .modal-show {display: flex;}
+        .form-container {max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 40px; background-color: var(--white-color); border-radius: 15px; position: relative;}
+        .form-container h2 {text-align: center; font-size: 2rem; margin-bottom: 10px;}
+        .form-container p {text-align: center; margin-bottom: 30px;}
+        .form-group {margin-bottom: 20px;}
+        .form-group label {display: block; font-weight: 700; margin-bottom: 8px;}
+        .form-group input, .form-group select, .form-group textarea {width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem; font-family: 'Noto Sans KR', sans-serif;}
+        .modal-close-btn {position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #9CA3AF; cursor: pointer;}
+        @media(max-width: 768px) {
+            h2 { font-size: 2rem; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .header .container { flex-direction: column; gap: 15px; }
+            .nav-links { justify-content: center; flex-wrap: wrap; }
+            .audience-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-
-<nav class="nav">
-  <div class="nav-left">
-    <button class="hamburger-btn" id="openSidebarBtn" aria-label="메뉴 열기">
-      <svg viewBox="0 0 22 22">
-        <rect y="4" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
-        <rect y="10" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
-        <rect y="16" width="22" height="1.3" rx="0.6" fill="#e9f1ff"/>
-      </svg>
-    </button>
-    <span class="brand">Go Higher</span>
-    <div class="nav-menu">
-      <a href="/" class="nav-link active">홈</a>
-      <a href="/뉴스.html" class="nav-link">뉴스</a>
-      <a href="/다이어리.html" class="nav-link">다이어리</a>
-      <a href="/시리즈.html" class="nav-link">시리즈</a>
-      <!-- <a href="/멤버십.html" class="nav-link">멤버십</a> -->
-    </div>
-  </div>
-  <div class="nav-right" id="navRight">
-    <div class="stock-search">
-  <input
-    id="stockSearchInput"
-    type="text"
-    placeholder="티커/심볼 (예: AAPL, MSFT)"
-    autocomplete="off"
-    style="width:180px;max-width:220px;"
-  />
-  <button
-    class="btn stock-btn"
-    id="stockSearchBtn"
-    aria-label="주식 검색"
-    title="주식 검색"
-    style="margin-left:-2px;"
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-      <path fill-rule="evenodd" d="M11 4a7 7 0 014.899 11.899l4.6 4.6a1 1 0 01-1.414 1.414l-4.6-4.6A7 7 0 1111 4zm0 2a5 5 0 100 10 5 5 0 000-10z" clip-rule="evenodd"/>
-    </svg>
-  </button>
-</div>
-
-<button class="btn" id="shareBtn">
-  <span style="font-size:1.12em; margin-right:5px; vertical-align:-2px;">🔗</span>
-  공유
-</button>
-    <a href="/login.html" class="btn login" id="loginBtn">로그인</a>
-    <img id="profilePhoto" class="profile-photo" src="/logo.jpg" alt="프로필" style="display:none;" />
-  </div>
-</nav>
-
-  <div class="overlay" id="sidebarOverlay"></div>
-  <aside class="sidebar" id="sidebar">
-    <button class="sidebar-close" id="closeSidebarBtn" aria-label="닫기">&times;</button>
-    <h2>Go Higher 메뉴</h2>
-    <div class="user-info">
-      <span class="user-icon" style="background:#f0e85a;border-radius:50%;width:36px;height:36px;display:inline-block;vertical-align:middle;overflow:hidden;">
-        <img src="" alt="프로필" class="user-photo" style="width:100%;height:100%;object-fit:cover;display:none;">
-      </span>
-      <div>
-        <div class="user-name">비로그인</div>
-        <div class="user-email" style="font-size:0.98em; color:#b7caf8; margin-top:2px;"></div>
-        <div class="user-status">로그인 필요</div>
-      </div>
-    </div>
-    <hr>
-    <div>
-      <a href="/마이페이지.html" class="side-link">마이페이지</a>
-      <a href="/설정.html" class="side-link">설정</a>
-    </div>
-    <hr>
-        <div>
-      <a href="/" class="side-link">홈</a>
-      <a href="/뉴스.html" class="side-link">뉴스</a>
-      <a href="/다이어리.html" class="side-link">다이어리</a>
-      <a href="/시리즈.html" class="side-link">시리즈</a>
-      <!-- <a href="/멤버십.html" class="side-link">멤버십</a> -->
-    </div>
-
-    <a href="/login.html" class="side-link">로그아웃</a>
-    <!-- <hr>
-    <div class="biz-info-title">사업자 등록</div>
-    <div class="biz-info">GoHigher | 대표 박해진</div>
-    <div class="biz-info">대구광역시 북구 동천로 155, 네스빌101동 12층</div>
-    <div class="biz-info">사업자번호 407-09-54622</div>
-    <div class="biz-info">연락처 070-8080-1675</div>
-    <hr> -->
-
-  <!-- 정책/소개/약관 버튼 -->
-  <div class="policy-links" style="margin-top:16px; padding:10px 0 2px 0; display:flex; flex-wrap:wrap; gap:12px; font-size:0.87em; color:#a2b6d8;">
-    <a href="푸터/이용약관.html" class="policy-link" style="color:inherit; text-decoration:none;">이용약관</a>
-    <a href="푸터/privacy-policy.html" class="policy-link" style="color:inherit; text-decoration:none;">개인정보처리방침</a>
-    <a href="푸터/환불정책.html" class="policy-link" style="color:inherit; text-decoration:none;">환불정책</a>
-  </div>
-  <!-- 저작권 문구 -->
-   <div class="copyright" style="margin-top:14px; font-size:11.8px; color:#8e9bb3; text-align:center; letter-spacing:0.01em;">
-    © 2025 GoHigher. All rights reserved
-
-</aside>
-
-<!-- 검색 모달 -->
-<div id="searchModal" class="search-modal" style="display:none; min-width:370px; max-width:99vw;">
-  <button id="closeSearchModal" class="modal-close" aria-label="닫기">&times;</button>
-  <h2 class="modal-title" style="margin-bottom:2px;">검색 결과</h2>
-  <div id="stockModalTabs"
-       style="display:flex; gap:8px; margin:10px 0 20px 0; flex-wrap:wrap;"></div>
-  <div id="modalResult" class="stock-result"></div>
-</div>
-    
-<main class="main-container">
-    <div class="spacer"></div>
-
-    <section class="hero-section">
-        <div id="fireflies-container"></div>
-        <div class="hero-content">
-             <h1 class="hero-title">더 높은 곳을 향한 당신의 여정</h1>
-             <p class="hero-subtitle">GoHigher는 깊이 있는 데이터 분석과 독점적인 인사이트를 통해 성공적인 길을 안내합니다. 지금 바로 시작하세요.</p>
-             <!-- <a href="/멤버십.html" class="cta-button">멤버십 알아보기</a> -->
-        </div>
-    </section>
-
-    <section class="market-ticker-section">
-        <div class="ticker-wrap">
-            <div class="ticker-item"><strong>KOSPI:</strong> 3,192.29 <span class="up">+5.91 (+0.19%)</span></div>
-            <div class="ticker-item"><strong>S&P 500:</strong> 6,263.70 <span class="up">+19.94 (+0.32%)</span></div>
-            <div class="ticker-item"><strong>USD/KRW:</strong> 1,392.10 <span class="up">+5.10 (+0.37%)</span></div>
-            <div class="ticker-item"><strong>[속보]</strong> 트럼프 파월 해임 부인</div>
-            <div class="ticker-item"><strong>NASDAQ:</strong> 20,730.49 <span class="up">+52.69 (+0.26%)</span></div>
-            <div class="ticker-item"><strong>KOSPI:</strong> 3,192.29 <span class="up">+5.91 (+0.19%)</span></div>
-            <div class="ticker-item"><strong>S&P 500:</strong> 6,263.70 <span class="up">+19.94 (+0.32%)</span></div>
-            <div class="ticker-item"><strong>USD/KRW:</strong> 1,392.10 <span class="up">+5.10 (+0.37%)</span></div>
-            <div class="ticker-item"><strong>NASDAQ:</strong> 20,730.49 <span class="up">+52.69 (+0.26%)</span></div>
-            <div class="ticker-item"><strong>[속보]</strong> 7월 FOMC, 금리 동결 가능성 시사</div>
-        </div>
-    </section>
-
-    <section class="features-section">
-        <h2 class="section-title">핵심 서비스</h2>
-        <div class="features-grid">
-             <div class="feature-card">
-                 <i class="fas fa-chart-line feature-icon"></i>
-                 <h3 class="feature-title">AI 기반 포트폴리오 도입예정</h3>
-                 <p class="feature-description">AI가 당신의 투자 성향을 분석하여 최적의 포트폴리오를 구성하고 리밸런싱합니다.</p>
-             </div>
-             <div class="feature-card">
-                 <i class="fas fa-search-dollar feature-icon"></i>
-                 <h3 class="feature-title">AI 기반 당일 뉴스</h3>
-                 <p class="feature-description">AI가 정리한 당일 핵심 뉴스 자료를 만나보세요.</p>
-             </div>
-             <div class="feature-card">
-                 <i class="fas fa-bell feature-icon"></i>
-                 <h3 class="feature-title">예정된 실적 발표 달력 제공</h3>
-                 <p class="feature-description">중요한 시장 실적 발표를 달력으로 제공하여, 기회를 놓치지 않도록 합니다.</p>
-             </div>
-        </div>
-    </section>
-
-    <section class="frontier-section">
-        <h2 class="section-title">NEXT FRONTIER</h2>
-        <div class="frontier-container">
-            <div class="frontier-image"></div>
-            <div class="frontier-content">
-                <div class="tag">DEEP DIVE: TECHNOLOGY</div>
-                <h3>AI 반도체: 실리콘 두뇌의 부상</h3>
-                <p>인공지능 시대를 가속하는 핵심 동력, AI 반도체 시장을 분석합니다. 데이터센터부터 온디바이스 AI까지, 새로운 산업 혁명을 이끄는 기술 지형도를 확인하세요.</p>
-                <div class="key-players-title">Key Players</div>
-                <div class="key-players-list">
-                    <span class="player-chip">NVIDIA</span>
-                    <span class="player-chip">AMD</span>
-                    <span class="player-chip">TSMC</span>
-                    <span class="player-chip">Broadcom</span>
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">LEADUS</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#problem">문제 정의</a></li>
+                    <li><a href="#features">핵심 기능</a></li>
+                    <li><a href="#leaders">리더 찾기</a></li>
+                    <li><a href="#special">LEADUS만의 특별함</a></li>
+                </ul>
+            </nav>
+            <div class="header-buttons" id="header-buttons">
+                <div id="auth-btns" style="display: flex; gap:10px;">
+                    <button id="login-btn" class="header-cta">로그인</button>
+                    <button id="signup-btn" class="header-cta primary">회원가입</button>
                 </div>
-                <!-- <a href="/시리즈/핫토픽.html" class="frontier-cta">리포트 전문 보기</a> -->
+                <div id="user-info" style="display:none; align-items:center; gap:10px;">
+                    <span id="user-name" style="font-weight:700;"></span>
+                    <button id="logout-btn" class="header-cta">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <h1>Follow는 끝났다.<br>이제 리더들이 연결될 차례다.</h1>
+            <p class="slogan">모두가 이끄는 시대, 리더들이 먼저 모입니다 – LEADUS</p>
+            <div class="hero-social-proof">
+                <div class="avatars">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop" alt="member 1">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop" alt="member 2">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop" alt="member 3">
+                </div>
+                <p>현재 <strong>152명</strong>의 리더와 멤버들이 함께하고 있습니다.</p>
+            </div>
+            <div class="hero-cta-group">
+                <button id="leader-register-btn" class="cta-button primary">리더로 등록하기 →</button>
+                <a href="#leaders" class="cta-button secondary">커뮤니티 둘러보기</a>
             </div>
         </div>
     </section>
 
-<section class="dashboard-section">
-    <h2 class="section-title">마켓 대시보드</h2>
-    <div class="dashboard-grid">
+    <main>
+        <section id="for-whom" class="section-light">
+            <div class="container">
+                <div class="audience-grid">
+                    <div class="audience-card">
+                        <div class="audience-icon">👑</div>
+                        <h3>For Leaders (리더를 위한 안내)</h3>
+                        <p>
+                            커뮤니티, 스타트업, 프로젝트를 이끌고 계신가요? LEADUS에서 당신의 비전을 공유하고 함께할 멤버들을 모으세요. 리더로 등록하고 당신의 커뮤니티를 효과적으로 홍보하고 운영할 수 있는 기회를 잡으세요.
+                        </p>
+                    </div>
+                    <div class="audience-card">
+                        <div class="audience-icon">🙋‍♀️</div>
+                        <h3>For Members (일반 회원을 위한 안내)</h3>
+                        <p>
+                            성장할 수 있는 커뮤니티를 찾고 계신가요? 다양한 분야의 열정적인 리더들을 만나보세요. 리더의 프로필을 살펴보고, 어떤 모임을 이끌어 가는지 확인한 후 '함께하기' 버튼으로 간편하게 가입을 요청하세요.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="market-widget">
-            <div class="widget-data">
-                <div class="widget-header"><span class="widget-title">KOSPI</span></div>
-                <div class="widget-value">3,192.29</div>
-                <div class="widget-change"><span class="up">+5.91 (+0.19%)</span></div>
+        <section id="problem" class="problem-solution">
+            <div class="container">
+                <div class="content-box">
+                    <h3>🧭 문제 정의</h3>
+                    <p>수많은 커뮤니티, 동아리, 팀이 매일 만들어지지만 운영자는 늘 혼자 고민하고 외롭게 결정합니다. 기존 플랫폼은 참여자 중심이며, 리더끼리 노하우와 자원을 나눌 수 있는 공간이 없습니다.</p>
+                </div>
+                <br><br><br>
+                <div class="content-box">
+                    <h3>🎯 솔루션: LEADUS</h3>
+                    <p>
+                        LEADUS는 실력 있는 리더와 성장을 원하는 멤버를 연결하는 커뮤니티 플랫폼입니다. 리더는 자신의 그룹을 효과적으로 홍보하고 운영할 수 있으며, 멤버는 자신에게 맞는 리더를 찾아 의미 있는 커뮤니티에 참여할 수 있습니다.
+                    </p>
+                </div>
             </div>
-            <div class="widget-icon-wrapper up">
-                <i class="fas fa-chart-area"></i>
+        </section>
+
+        <section id="features" class="section-light">
+            <div class="container">
+                <h2>⚙️ 핵심 기능 (MVP)</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="icon">📋</div>
+                        <h4>리더 인증 가입</h4>
+                        <p>간단한 소개와 리더 경험 자가진단을 통해 자격을 갖춘 리더만 가입을 신청합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🧵</div>
+                        <h4>운영 노하우 게시판</h4>
+                        <p>모임 모집, 정산, 갈등 관리 등 실제 운영 경험과 노하우를 공유하는 공간입니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🤝</div>
+                        <h4>협업 제안 게시판</h4>
+                        <p>이벤트 콜라보, 게스트 초청 등 리더 간의 시너지를 만들 협업 기회를 찾습니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📬</div>
+                        <h4>익명 질문함</h4>
+                        <p>민감하거나 어려운 고민을 익명으로 질문하고, 다른 리더들의 지혜를 구합니다.</p>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <section id="leaders">
+            <div class="container">
+                <h2>✨ 당신의 성장을 이끌 리더를 찾아보세요</h2>
+                <div class="leader-filter">
+                    <label for="leader-category-filter">🔎 나에게 맞는 리더 찾기:</label>
+                    <select id="leader-category-filter" name="leader-category-filter" style="padding: 5px; border-radius: 5px;">
+                        <option value="all">모두 보기</option>
+                        <option value="community">커뮤니티</option>
+                        <option value="startup">창업</option>
+                        <option value="event">행사기획</option>
+                        <option value="content">콘텐츠</option>
+                    </select>
+                </div>
+                <div class="leader-grid">
+                    <div class="leader-card" data-category="community">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80" alt="김지수 리더">
+                        <div class="leader-info">
+                            <h4>김지수</h4>
+                            <p class="title">독서모임 '책갈피' 운영자</p>
+                            <div class="leader-tags">
+                                <span class="tag">#커뮤니티</span>
+                                <span class="tag">#독서모임</span>
+                            </div>
+                            <button class="join-button">이 리더와 함께하기</button>
+                        </div>
+                    </div>
+                    <div class="leader-card" data-category="startup">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&q=80" alt="박서준 리더">
+                        <div class="leader-info">
+                            <h4>박서준</h4>
+                            <p class="title">AI 스타트업 '딥브레인' 공동창업자</p>
+                            <div class="leader-tags">
+                                <span class="tag">#창업</span>
+                                <span class="tag">#팀빌딩</span>
+                                <span class="tag">#AI</span>
+                            </div>
+                            <button class="join-button">이 리더와 함께하기</button>
+                        </div>
+                    </div>
+                    <div class="leader-card" data-category="event">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80" alt="이하나 리더">
+                        <div class="leader-info">
+                            <h4>이하나</h4>
+                            <p class="title">대학 축제 및 해커톤 기획자</p>
+                            <div class="leader-tags">
+                                <span class="tag">#행사기획</span>
+                                <span class="tag">#대학생</span>
+                            </div>
+                            <button class="join-button">이 리더와 함께하기</button>
+                        </div>
+                    </div>
+                    <div class="leader-card" data-category="content">
+                        <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?w=500&q=80" alt="최민준 리더">
+                        <div class="leader-info">
+                            <h4>최민준</h4>
+                            <p class="title">인스타그램 '일상여행' 크리에이터</p>
+                            <div class="leader-tags">
+                                <span class="tag">#콘텐츠</span>
+                                <span class="tag">#소모임</span>
+                            </div>
+                            <button class="join-button">이 리더와 함께하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="special" class="section-light">
+            <div class="container">
+                <h2>✨ LEADUS만의 특별함</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="icon">🛡️</div>
+                        <h4>검증된 리더 네트워크</h4>
+                        <p>자격 인증을 거친 실제 리더들이 모여 깊이 있는 커뮤니티를 만들어갑니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🚀</div>
+                        <h4>실질적인 성장 기회</h4>
+                        <p>리더와의 네트워킹, 멤버와의 협업을 통해 모두가 함께 성장하는 기회를 제공합니다.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🔒</div>
+                        <h4>안전하고 신뢰하는 공간</h4>
+                        <p>리더와 멤버 모두 상호 존중의 원칙 아래 안전하게 소통하고 신뢰를 쌓아갑니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <a href="#" class="logo">LEADUS</a>
+            <p>&copy; 2025 LEADUS. All Rights Reserved.</p>
         </div>
+    </footer>
 
-        <div class="market-widget">
-            <div class="widget-data">
-                <div class="widget-header"><span class="widget-title">S&P 500</span></div>
-                <div class="widget-value">6,263.70</div>
-                <div class="widget-change"><span class="down">+19.94 (+0.32%)</span></div>
-            </div>
-            <div class="widget-icon-wrapper up">
-                <i class="fas fa-chart-line"></i>
-            </div>
+    <!-- 리더 등록 모달 -->
+    <div id="leader-register-modal" class="modal-wrapper">
+        <div class="form-container">
+            <span id="leader-register-modal-close" class="modal-close-btn">&times;</span>
+            <h2>👑 LEADUS 리더 등록</h2>
+            <p>당신의 비전과 경험을 공유하고 커뮤니티를 이끌어보세요.</p>
+            <form id="leader-register-form">
+                <div class="form-group">
+                    <label for="leader-name">이름</label>
+                    <input type="text" id="leader-name" name="leader-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="leader-email">이메일</label>
+                    <input type="email" id="leader-email" name="leader-email" required>
+                </div>
+                <div class="form-group" id="leader-password-group">
+                    <label for="leader-password">비밀번호</label>
+                    <input type="password" id="leader-password" name="leader-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="leader-title">한 줄 소개 (프로필 제목)</label>
+                    <input type="text" id="leader-title" name="leader-title" placeholder="예: 5년차 IT 스터디 운영자" required>
+                </div>
+                <div class="form-group">
+                    <label for="leader-intro">리더십 경험 및 계획 소개</label>
+                    <textarea id="leader-intro" name="leader-intro" rows="4" placeholder="운영하셨거나 계획 중인 커뮤니티, 프로젝트, 관련 경험에 대해 자세히 알려주세요." required></textarea>
+                </div>
+                <button type="submit" class="cta-button primary">리더 등록 신청하기</button>
+            </form>
         </div>
-
-        <div class="market-widget">
-            <div class="widget-data">
-                <div class="widget-header"><span class="widget-title">NASDAQ</span></div>
-                <div class="widget-value">20,730.49</div>
-                <div class="widget-change"><span class="up">52.69 (+0.26%)</span></div>
-            </div>
-            <div class="widget-icon-wrapper up">
-                <i class="fas fa-satellite-dish"></i>
-            </div>
+    </div>
+    <!-- 회원가입 모달 -->
+    <div id="member-register-modal" class="modal-wrapper">
+        <div class="form-container">
+            <span id="member-register-modal-close" class="modal-close-btn">&times;</span>
+            <h2>🙋‍♀️ LEADUS 회원가입</h2>
+            <p>간단한 가입으로 멋진 리더들을 만나고 커뮤니티에 참여하세요.</p>
+            <form id="member-register-form">
+                <div class="form-group">
+                    <label for="member-name">이름</label>
+                    <input type="text" id="member-name" name="member-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="member-email">이메일</label>
+                    <input type="email" id="member-email" name="member-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="member-password">비밀번호</label>
+                    <input type="password" id="member-password" name="member-password" required>
+                </div>
+                <button type="submit" class="cta-button primary">가입하기</button>
+            </form>
         </div>
-
-        <div class="market-widget">
-            <div class="widget-data">
-                <div class="widget-header"><span class="widget-title">WTI Crude Oil</span></div>
-                <div class="widget-value">$66.47</div>
-                <div class="widget-change"><span class="up">+$0.04 (+0.06%)</span></div>
-            </div>
-            <div class="widget-icon-wrapper up">
-                <i class="fas fa-tint"></i>
-            </div>
+    </div>
+    <!-- 로그인 모달 -->
+    <div id="login-modal" class="modal-wrapper">
+        <div class="form-container">
+            <span id="login-modal-close" class="modal-close-btn">&times;</span>
+            <h2>로그인</h2>
+            <p>LEADUS에 오신 것을 환영합니다.</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">이메일</label>
+                    <input type="email" id="login-email" name="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">비밀번호</label>
+                    <input type="password" id="login-password" name="login-password" required>
+                </div>
+                <button type="submit" class="cta-button primary">로그인하기</button>
+            </form>
         </div>
-
-        <div class="market-widget">
-            <div class="widget-data">
-                <div class="widget-header"><span class="widget-title">Gold</span></div>
-                <div class="widget-value">3,325.90</div>
-                <div class="widget-change"><span class="down">-22.80 (-0.65%)</span></div>
-            </div>
-            <div class="widget-icon-wrapper down">
-                <i class="fas fa-cube"></i>
-            </div>
-        </div>
-
-        <div class="market-widget">
-            <div class="widget-data">
-                <div class="widget-header"><span class="widget-title">USD/KRW</span></div>
-                <div class="widget-value">1,392.10</div>
-                <div class="widget-change"><span class="up">5.10 (0.37%)</span></div>
-            </div>
-            <div class="widget-icon-wrapper up">
-                <i class="fas fa-dollar-sign"></i>
-            </div>
-        </div>
-
     </div>
-</section>
-
-  <!-- 7월 주요 일정 캘린더 (대체) -->
-<section class="earnings-calendar-section">
-  <div class="earnings-calendar-title">
-    <i class="fa-solid fa-calendar-days"></i> 7월 주요 일정 달력
-  </div>
-  <div id="calendar-container"></div>
-</section>
-
-</main>
-
-<!-- 🟦 Chatbot Floating Button -->
-<button class="chatbot-fab" id="chatbot-toggle-btn" aria-label="챗봇 열기">
-  <img src="/챗봇/챗봇.webp" alt="챗봇">
-</button>
-
-<!-- 🟦 Chatbot Popup (Initially Hidden) -->
-<div class="chatbot-popup" id="chatbot-popup">
-  <div class="chatbot-container">
-    <div class="chatbot-header">
-      GoHigher 챗봇
-      <button class="close-btn" id="close-btn" aria-label="챗봇 닫기">&times;</button>
-    </div>
-    <div class="chatbot-messages" id="messages">
-      <!-- 메시지 동적 생성됨 -->
-    </div>
-    <div class="chatbot-input-area">
-      <input type="text" id="user-input" placeholder="문의 또는 질문을 입력하세요" autocomplete="off" maxlength="500" />
-      <button id="send-btn">전송</button>
-    </div>
-    <div class="chatbot-hint">
-      빠른 답변: <b>운영 시간, 비밀번호 찾기, 데이터 보안...</b>
-    </div>
-  </div>
-</div>
-
-
-<!-- <footer class="main-footer">
-  <div class="footer-wrap">
-    <div class="footer-brand">
-      <img src="/logo.jpg" alt="Go Higher 로고" class="footer-logo" />
-      <div class="footer-title">
-        <span>Go Higher</span>
-        <span class="footer-sub">미국주식 데이터 허브</span>
-      </div>
-    </div>
-    <div class="footer-links">
-      <a href="/푸터/이용약관.html">이용약관</a>
-      <a href="/푸터/privacy-policy.html">개인정보처리방침</a>
-      <a href="/푸터/환불정책.html">환불정책</a>
-      <a href="/멤버십.html">멤버십 안내</a>
-    </div>
-    <div class="footer-info">
-      <span><b>대표</b> 박해진</span>
-      <span><b>사업자</b> 407-09-54622</span>
-      <span><b>주소</b> 대구광역시 북구 동천로 155, 네스빌101동 12층</span>
-      <span><b>문의</b> 070-8080-1675</span>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2025 Go Higher. All rights reserved.</span>
-    <span>GoHigher의 모든 콘텐츠는 오직 정보 제공을 목적으로 하며, 특정 주식이나 금융상품의 판매 또는 추천을 위한 것이 아닙니다. 본 콘텐츠는 공식적인 연구 보고서가 아니며, 투자 결정의 유일한 근거로 삼아서는 안 됩니다.
-
-투자에는 항상 위험이 따르며, 과거의 성과가 미래의 결과나 수익을 보장하지 않습니다. 금융상품 투자 시에는 재정적 손실 가능성을 충분히 인지하고, 본인의 투자 목표와 위험 수준을 신중하게 고려한 후 투자하시기 바랍니다.</span>
-  </div>
-</footer> -->
-
-<!-- <div id="membershipNotice" style="
-  display:none; 
-  position:fixed; 
-  z-index:2000; 
-  top:0; left:0; width:100vw; height:100vh;
-  background:rgba(0,0,0,0.48);
-  backdrop-filter: blur(2.5px);
-  align-items:center; justify-content:center;">
-  <div style="
-    background:#232b41;
-    border-radius:22px; 
-    max-width:370px;
-    margin:0 auto;
-    padding:34px 30px 22px 30px; 
-    box-shadow:0 8px 32px rgba(18,23,38,0.18);
-    text-align:center;
-    position:relative;
-    border:2px solid #ffe066;
-  ">
-    <button onclick="document.getElementById('membershipNotice').style.display='none'" 
-      aria-label="팝업 닫기"
-      style="
-        position:absolute; right:18px; top:14px; 
-        background:none; border:none; color:#ffe066; 
-        font-size:1.8rem; font-weight:700; cursor:pointer;
-      ">&times;</button>
-    <div style="font-size:2.1rem; margin-bottom:10px;">🎉</div>
-    <div style="font-size:1.12rem; color:#ffe066; font-weight:700; margin-bottom:11px;">
-  멤버십 준비 단계<br>모든 기능 <span style="color:#4ade80;">무료</span> 이용 가능!
-</div>
-<div style="font-size:0.98rem; color:#e9f1ff; margin-bottom:7px; line-height:1.55;">
-  GoHigher는 현재 멤버십 시스템 준비 단계에 있습니다.<br>
-  <b>지금은 로그인과 멤버십 가입 없이<br>모든 기능을 자유롭게 이용할 수 있습니다.</b>
-  <br><br>
-  <span style="color:#ffe066; font-weight:700;">멤버십 오픈 시, 기존 회원가입(계정)된 모든 분께<br> <span style="color:#4ade80;">한 달 무료 멤버십</span> 혜택을 드립니다!</span>
-</div>
-<div style="color:#bcd7ff; font-size:0.89rem; margin-top:9px;">
-  멤버십 준비가 완료되면 기존의 로그인, 멤버십 없이 가능했던 기능들이 일부 사용할 수 없을 수도 있습니다.<br><br>👋 방문해주셔서 진심으로 감사합니다!
-</div>
-  </div>
-</div> -->
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // 기존 Chart.js 관련 코드는 모두 삭제되었습니다.
-        // 이 스크립트 블록은 다른 동적 기능을 위해 남겨둘 수 있습니다.
-        
-        // Three.js 반딧불이 효과 초기화
-        initFireflies();
-    });
-    
-    // Three.js 반딧불이 효과
-    function initFireflies() {
-        const container = document.getElementById('fireflies-container');
-        if (!container) return;
-        
-        // Scene 설정
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setClearColor(0x000000, 0);
-        container.appendChild(renderer.domElement);
-        
-        // 반딧불이 파티클 시스템
-        const fireflyCount = 120;
-        const fireflies = [];
-        
-        // 반딧불이 지오메트리와 머티리얼
-        const fireflyGeometry = new THREE.SphereGeometry(0.03, 8, 8);
-        const fireflyMaterial = new THREE.MeshBasicMaterial({
-            color: 0xffff66,
-            transparent: true,
-            opacity: 0.8
-        });
-        
-        // 반딧불이 생성
-        for (let i = 0; i < fireflyCount; i++) {
-            const firefly = new THREE.Mesh(fireflyGeometry, fireflyMaterial);
-            
-            // 랜덤 위치 - 더 넓은 범위
-            firefly.position.set(
-                (Math.random() - 0.5) * 40,
-                (Math.random() - 0.5) * 20,
-                (Math.random() - 0.5) * 15
-            );
-            
-            // 개별 애니메이션 속성
-            firefly.userData = {
-                speed: Math.random() * 0.015 + 0.008,
-                amplitude: Math.random() * 3 + 1.5,
-                phase: Math.random() * Math.PI * 2,
-                opacity: Math.random() * 0.6 + 0.2
-            };
-            
-            fireflies.push(firefly);
-            scene.add(firefly);
-        }
-        
-        // 카메라 위치
-        camera.position.z = 15;
-        
-        // 애니메이션 루프
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            const time = Date.now() * 0.001;
-            
-            fireflies.forEach((firefly, index) => {
-                const data = firefly.userData;
-                
-                // 부드러운 움직임 - 더 넓은 범위
-                firefly.position.x += Math.sin(time * data.speed + data.phase) * 0.015;
-                firefly.position.y += Math.cos(time * data.speed * 0.7 + data.phase) * 0.015;
-                firefly.position.z += Math.sin(time * data.speed * 0.5 + data.phase) * 0.008;
-                
-                // 경계 체크 및 재배치 - 더 넓은 범위
-                if (Math.abs(firefly.position.x) > 20) {
-                    firefly.position.x = (Math.random() - 0.5) * 40;
+        // Firebase 연결
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfSk53FIW4lKnOJgJiIevEfbFC8BOPGoY",
+            authDomain: "leader-cf930.firebaseapp.com",
+            projectId: "leader-cf930",
+            storageBucket: "leader-cf930.firebasestorage.app",
+            messagingSenderId: "949837770378",
+            appId: "1:949837770378:web:3d73fd648cef913e264773",
+            measurementId: "G-5ED1CK2TBK"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // 네비게이션 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
                 }
-                if (Math.abs(firefly.position.y) > 10) {
-                    firefly.position.y = (Math.random() - 0.5) * 20;
+                e.preventDefault();
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
                 }
-                if (Math.abs(firefly.position.z) > 8) {
-                    firefly.position.z = (Math.random() - 0.5) * 15;
-                }
-                
-                // 깜빡임 효과
-                firefly.material.opacity = data.opacity + Math.sin(time * 3 + data.phase) * 0.2;
-                
-                // 크기 변화
-                const scale = 1 + Math.sin(time * 2 + data.phase) * 0.3;
-                firefly.scale.set(scale, scale, scale);
             });
-            
-            renderer.render(scene, camera);
+        });
+
+        // 리더 필터
+        const filter = document.getElementById('leader-category-filter');
+        const leaderCards = document.querySelectorAll('.leader-card');
+        if (filter) {
+            filter.addEventListener('change', () => {
+                const selectedCategory = filter.value;
+                leaderCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    card.style.display = (selectedCategory === 'all' || selectedCategory === cardCategory) ? 'flex' : 'none';
+                });
+            });
         }
-        
-        // 리사이즈 핸들러
-        function onWindowResize() {
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
+
+        // 모달
+        const leaderRegisterModal = document.getElementById('leader-register-modal');
+        const memberRegisterModal = document.getElementById('member-register-modal');
+        const loginModal = document.getElementById('login-modal');
+        const openLeaderRegisterBtn = document.getElementById('leader-register-btn');
+        const openMemberRegisterBtn = document.getElementById('signup-btn');
+        const openLoginBtn = document.getElementById('login-btn');
+        const closeLeaderRegisterBtn = document.getElementById('leader-register-modal-close');
+        const closeMemberRegisterBtn = document.getElementById('member-register-modal-close');
+        const closeLoginBtn = document.getElementById('login-modal-close');
+        const leaderRegisterForm = document.getElementById('leader-register-form');
+        const memberRegisterForm = document.getElementById('member-register-form');
+        const loginForm = document.getElementById('login-form');
+
+        // 리더 등록 모달 동작
+        if(openLeaderRegisterBtn) openLeaderRegisterBtn.addEventListener('click', async () => {
+            const user = auth.currentUser;
+            if(!user || !user.emailVerified) {
+                alert("리더 등록은 로그인(및 이메일 인증) 후 이용 가능합니다!");
+                return;
+            }
+            if(!user.displayName || user.displayName.trim().length === 0){
+                const inputName = prompt("프로필 이름(닉네임)을 입력하세요. 이 이름이 리더로 노출됩니다.", "");
+                if(inputName && inputName.trim().length > 0) {
+                    await user.updateProfile({ displayName: inputName.trim() });
+                } else {
+                    alert("이름이 입력되어야 리더 등록이 가능합니다!");
+                    return;
+                }
+            }
+            document.getElementById('leader-name').value = auth.currentUser.displayName;
+            document.getElementById('leader-name').readOnly = true;
+            document.getElementById('leader-email').value = auth.currentUser.email;
+            document.getElementById('leader-email').readOnly = true;
+            document.getElementById('leader-password-group').style.display = 'none';
+            document.getElementById('leader-password').required = false;
+            leaderRegisterModal.classList.add('modal-show');
+        });
+        if(closeLeaderRegisterBtn) closeLeaderRegisterBtn.addEventListener('click', () => leaderRegisterModal.classList.remove('modal-show'));
+        window.addEventListener('click', (e) => {
+            if (e.target === leaderRegisterModal) leaderRegisterModal.classList.remove('modal-show');
+            if (e.target === memberRegisterModal) memberRegisterModal.classList.remove('modal-show');
+            if (e.target === loginModal) loginModal.classList.remove('modal-show');
+        });
+
+        // 회원가입 & 로그인/로그아웃
+        if(openMemberRegisterBtn) openMemberRegisterBtn.addEventListener('click', () => memberRegisterModal.classList.add('modal-show'));
+        if(openLoginBtn) openLoginBtn.addEventListener('click', () => loginModal.classList.add('modal-show'));
+        if(closeMemberRegisterBtn) closeMemberRegisterBtn.addEventListener('click', () => memberRegisterModal.classList.remove('modal-show'));
+        if(closeLoginBtn) closeLoginBtn.addEventListener('click', () => loginModal.classList.remove('modal-show'));
+
+        if (memberRegisterForm) {
+            memberRegisterForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const email = document.getElementById('member-email').value;
+                const password = document.getElementById('member-password').value;
+                const name = document.getElementById('member-name').value;
+                try {
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    await userCredential.user.updateProfile({ displayName: name });
+                    await userCredential.user.sendEmailVerification();
+                    alert("인증 메일이 발송되었습니다! 메일을 확인하고 인증을 완료하세요.\n(이메일 인증 후 로그인하세요.)");
+                    memberRegisterModal.classList.remove('modal-show');
+                    memberRegisterForm.reset();
+                } catch (err) {
+                    if (err.code === 'auth/email-already-in-use') {
+                        alert('이미 가입된 이메일입니다!');
+                    } else if (err.code === 'auth/invalid-email') {
+                        alert('이메일 형식이 올바르지 않습니다.');
+                    } else if (err.code === 'auth/weak-password') {
+                        alert('비밀번호는 6자 이상이어야 합니다.');
+                    } else {
+                        alert('회원가입 오류: ' + err.message);
+                    }
+                }
+            });
         }
-        
-        window.addEventListener('resize', onWindowResize);
-        animate();
+        if (loginForm) {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                try {
+                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                    if (!userCredential.user.emailVerified) {
+                        alert('이메일 인증 후 로그인할 수 있습니다!\n인증 메일을 확인해주세요.');
+                        await auth.signOut();
+                        return;
+                    }
+                    alert('로그인 되었습니다! LEADUS에 오신 것을 환영합니다.');
+                    loginModal.classList.remove('modal-show');
+                    loginForm.reset();
+                } catch (err) {
+                    if (err.code === 'auth/user-not-found') {
+                        alert('가입된 이메일이 아닙니다.');
+                    } else if (err.code === 'auth/wrong-password') {
+                        alert('비밀번호가 일치하지 않습니다.');
+                    } else {
+                        alert('로그인 오류: ' + err.message);
+                    }
+                }
+            });
+        }
+        const userInfoDiv = document.getElementById('user-info');
+        const userNameSpan = document.getElementById('user-name');
+        const logoutBtn = document.getElementById('logout-btn');
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        auth.onAuthStateChanged((user) => {
+            if (user && user.emailVerified) {
+                userNameSpan.textContent = user.displayName || user.email;
+                userInfoDiv.style.display = "flex";
+                if(loginBtn) loginBtn.style.display = "none";
+                if(signupBtn) signupBtn.style.display = "none";
+            } else {
+                userInfoDiv.style.display = "none";
+                if(loginBtn) loginBtn.style.display = "";
+                if(signupBtn) signupBtn.style.display = "";
+            }
+        });
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                await auth.signOut();
+                alert("로그아웃되었습니다.");
+                location.reload();
+            });
+        }
+
+        // 리더 등록 - Firestore 저장(로그인 상태에서만 동작)
+        if(leaderRegisterForm) {
+  leaderRegisterForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if(!user || !user.emailVerified){
+      alert("로그인이 필요합니다!");
+      leaderRegisterModal.classList.remove('modal-show');
+      return;
     }
+    const name = user.displayName || '';
+    const email = user.email;
+    const title = document.getElementById('leader-title').value;
+    const intro = document.getElementById('leader-intro').value;
+    try {
+      const groupDoc = await db.collection('groups').add({
+        name: name + "의 커뮤니티",
+        leaderUid: user.uid,
+        leaderName: name,
+        leaderEmail: email,
+        title: title,
+        intro: intro,
+        created: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      alert("리더 등록 완료! 커뮤니티 관리 페이지로 이동합니다.");
+      // 🔥 실제로 이동하는 코드
+      window.location.href = "/group.html?groupId=" + groupDoc.id;
+      // 또는 location.assign("/group.html?groupId=" + groupDoc.id);
+      leaderRegisterModal.classList.remove('modal-show');
+      leaderRegisterForm.reset();
+    } catch (err) {
+      alert('리더 등록 오류: ' + err.message);
+      
+    }
+  });
+}
+        // '이 리더와 함께하기' 버튼 클릭
+        leaderCards.forEach(card => {
+            const joinBtn = card.querySelector('.join-button');
+            if (joinBtn) {
+                joinBtn.addEventListener('click', () => {
+                    const leaderName = card.querySelector('.leader-info h4').textContent;
+                    if (confirm(`[${leaderName}] 리더의 그룹에 가입하시겠습니까?`)) {
+                        alert(`가입 신청이 완료되었습니다! ${leaderName} 리더가 곧 연락드릴 예정입니다.`);
+                    }
+                });
+            }
+        });
     </script>
-
-
-<script> // 달력
-  const firebaseConfig = {
-    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
-    authDomain: "gohigher-55e51.firebaseapp.com",
-    projectId: "gohigher-55e51",
-    storageBucket: "gohigher-55e51.appspot.com",
-    messagingSenderId: "487435343721",
-    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
-    measurementId: "G-KQ02L8DXG0"
-  };
-  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  // 7월 달력 렌더 함수
-  async function renderJulyCalendar() {
-    const year = 2025;
-    const month = 6; // 0-indexed (7월은 6)
-    const daysInMonth = 31;
-    const firstDay = new Date(year, month, 1).getDay(); // 0:일~6:토
-
-    // 일정 불러오기
-    const snap = await db.collection("schedules")
-      .where("date", ">=", "2025-07-01")
-      .where("date", "<=", "2025-07-31")
-      .get();
-    const eventsByDay = {};
-    snap.forEach(doc => {
-      const d = doc.data();
-      const day = Number(d.date.split('-')[2]);
-      if (!eventsByDay[day]) eventsByDay[day] = [];
-      eventsByDay[day].push(d);
-    });
-
-    // 달력 테이블 생성
-    let html = `<table id="calendar">
-      <thead>
-        <tr>
-          <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          ${'<td></td>'.repeat(firstDay)}
-    `;
-
-    let dow = firstDay; // 요일 인덱스
-    for(let d = 1; d <= daysInMonth; d++) {
-      let eventHtml = "";
-      if (eventsByDay[d]) {
-        eventHtml += eventsByDay[d].map(ev => `
-          <span class="event-dot ${ev.type||''}" title="${ev.title}"></span>
-          <div class="event-list-preview">${ev.title}</div>
-        `).join('');
-      }
-      html += `<td data-day="${d}">${d}${eventHtml}</td>`;
-      dow++;
-      if (dow === 7 && d !== daysInMonth) {
-        html += `</tr><tr>`;
-        dow = 0;
-      }
-    }
-    // 뒷부분 빈칸
-    if (dow < 7 && dow !== 0) html += '<td></td>'.repeat(7 - dow);
-    html += '</tr></tbody></table>';
-
-    document.getElementById("calendar-container").innerHTML = html;
-
-  }
-
-  // 페이지 로드시 실행
-  renderJulyCalendar();
-
-  document.addEventListener('DOMContentLoaded', function () {
-  setTimeout(function() {
-    document.getElementById('membershipNotice').style.display = 'flex';
-  }, 700); // 0.7초 후 표시 (딜레이 조정 가능)
-});
-</script>
-
-
-<script src="navigation.js"></script>
-<script src="챗봇/챗봇.js"></script>
-
 </body>
 </html>

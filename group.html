@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>LEADUS 밴드형 커뮤니티</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <style>
+    body { font-family:'Noto Sans KR',sans-serif; margin:0; background:#f3f4f6;}
+    .container {max-width:600px; margin:30px auto; background:#fff; border-radius:14px; box-shadow:0 2px 16px #0001; padding:24px;}
+    .header {display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+    #group-name {font-weight:900;color:#2563EB;font-size:1.3rem;}
+    #user-role {color:#888;}
+    .tabmenu {display:flex; gap:15px; margin-bottom:20px;}
+    .tabmenu button {background: none; border: none; font-size:1.1rem; padding:7px 18px; border-radius:8px 8px 0 0; cursor:pointer; color:#2563eb;}
+    .tabmenu .on {background:#e9edfa; color:#111;}
+    .post-form, .vote-form, .notice-form {margin-bottom:18px; border-bottom:1px solid #eee; padding-bottom:14px;}
+    .post-form input, .post-form textarea, .vote-form input, .vote-form textarea, .notice-form input {width:90%;margin-bottom:7px; padding:7px 10px; border-radius:7px; border:1px solid #ddd;}
+    .post-form button, .vote-form button, .notice-form button {background:#3b82f6;color:#fff;border:none;padding:8px 22px;border-radius:7px;font-weight:700;}
+    .feed-list, .notice-list, .vote-list {list-style:none;padding:0;}
+    .feed-item, .notice-item, .vote-item {border-bottom:1px solid #ececec;padding:15px 0;}
+    .post-meta {font-size:0.9rem;color:#999;display:flex;gap:10px;}
+    .vote-options button {margin:0 6px 8px 0;}
+    .vote-bar-wrap {background:#ececec;border-radius:7px;overflow:hidden;margin-bottom:4px;}
+    .vote-bar {height:20px; background:#2563eb; color:#fff; text-align:right; padding-right:8px; font-size:0.95rem;line-height:20px;}
+    .comment-list {margin-top:8px;list-style:none;padding:0;}
+    .comment-item {font-size:0.96rem; color:#333; margin-bottom:3px;}
+    @media(max-width:650px) {.container{padding:3vw;}}
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <span id="group-name">밴드형 커뮤니티</span>
+    <span id="user-role"></span>
+    <button id="logout-btn" style="margin-left:auto;background:#eee;color:#444;font-weight:700;border:none;padding:6px 18px;border-radius:9px;">로그아웃</button>
+  </div>
+  <div class="tabmenu">
+    <button id="tab-feed" class="on">피드</button>
+    <button id="tab-notice">공지</button>
+    <button id="tab-vote">투표</button>
+  </div>
+  
+  <!-- 피드: 일반글 (글/댓글/사진) -->
+  <div id="feed-section">
+    <form class="post-form" id="feed-form" style="display:none;">
+      <textarea id="feed-content" rows="2" maxlength="500" placeholder="글을 작성하세요 (최대 500자)" required></textarea>
+      <br>
+      <button type="submit">글 등록</button>
+    </form>
+    <ul class="feed-list" id="feed-list"></ul>
+  </div>
+
+  <!-- 공지 -->
+  <div id="notice-section" style="display:none;">
+    <form class="notice-form" id="notice-form" style="display:none;">
+      <input type="text" id="notice-title" placeholder="공지 제목" required>
+      <button type="submit">공지 등록</button>
+    </form>
+    <ul class="notice-list" id="notice-list"></ul>
+  </div>
+
+  <!-- 투표 -->
+  <div id="vote-section" style="display:none;">
+    <form class="vote-form" id="vote-form" style="display:none;">
+      <input type="text" id="vote-question" placeholder="질문" required><br>
+      <input type="text" id="vote-options" placeholder="옵션(쉼표로 구분)" required>
+      <button type="submit">투표 만들기</button>
+    </form>
+    <ul class="vote-list" id="vote-list"></ul>
+  </div>
+</div>
+<script>
+  // Firebase Init
+  const firebaseConfig = {
+    apiKey: "AIzaSyDfSk53FIW4lKnOJgJiIevEfbFC8BOPGoY",
+    authDomain: "leader-cf930.firebaseapp.com",
+    projectId: "leader-cf930",
+    storageBucket: "leader-cf930.appspot.com",
+    messagingSenderId: "949837770378",
+    appId: "1:949837770378:web:3d73fd648cef913e264773"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // groupId 파라미터 받기
+  function getParam(name) {
+    const url = new URL(location.href);
+    return url.searchParams.get(name);
+  }
+  const groupId = getParam('groupId') || 'testgroup';
+  let leaderUid = '';
+  let currentUser = null;
+  let isLeader = false;
+  let currentProfile = {};
+
+  // 탭 전환
+  const feedSection = document.getElementById('feed-section');
+  const noticeSection = document.getElementById('notice-section');
+  const voteSection = document.getElementById('vote-section');
+  document.getElementById('tab-feed').onclick = () => {
+    feedSection.style.display=''; noticeSection.style.display='none'; voteSection.style.display='none';
+    setTab('feed');
+  }
+  document.getElementById('tab-notice').onclick = () => {
+    feedSection.style.display='none'; noticeSection.style.display=''; voteSection.style.display='none';
+    setTab('notice');
+  }
+  document.getElementById('tab-vote').onclick = () => {
+    feedSection.style.display='none'; noticeSection.style.display='none'; voteSection.style.display='';
+    setTab('vote');
+  }
+  function setTab(tab) {
+    document.querySelectorAll('.tabmenu button').forEach(btn=>btn.classList.remove('on'));
+    document.getElementById('tab-'+tab).classList.add('on');
+  }
+
+  // 인증 + 그룹 정보
+  auth.onAuthStateChanged(async user => {
+    if(!user || !user.emailVerified){
+      alert('로그인이 필요합니다!');
+      location.href = '/';
+      return;
+    }
+    currentUser = user;
+    currentProfile = {name: user.displayName||user.email, uid: user.uid, email: user.email};
+
+    // 그룹 정보
+    const groupDoc = await db.collection('groups').doc(groupId).get();
+    if (!groupDoc.exists) {
+      alert('존재하지 않는 그룹입니다.');
+      location.href = '/';
+      return;
+    }
+    const group = groupDoc.data();
+    document.getElementById('group-name').textContent = group.name || '커뮤니티';
+    leaderUid = group.leaderUid;
+    isLeader = user.uid === leaderUid;
+
+    document.getElementById('user-role').textContent = isLeader
+      ? '👑 리더'
+      : '🙋‍♂️ 멤버';
+
+    // 리더만 폼 보이기
+    document.getElementById('notice-form').style.display = isLeader ? '' : 'none';
+    document.getElementById('vote-form').style.display = isLeader ? '' : 'none';
+    document.getElementById('feed-form').style.display = ''; // 모두 가능
+
+    loadFeed();
+    loadNotices();
+    loadVotes();
+  });
+
+  // 로그아웃
+  document.getElementById('logout-btn').onclick = async () => {
+    await auth.signOut();
+    location.href = "/";
+  };
+
+  // -------- 피드(게시글/댓글) --------
+  document.getElementById('feed-form').onsubmit = async function(e){
+    e.preventDefault();
+    const content = document.getElementById('feed-content').value.trim();
+    if(!content) return;
+    await db.collection('groups').doc(groupId).collection('feed').add({
+      content,
+      writer: currentProfile,
+      created: firebase.firestore.FieldValue.serverTimestamp(),
+      comments: []
+    });
+    this.reset();
+    loadFeed();
+  };
+  async function loadFeed(){
+    const list = document.getElementById('feed-list');
+    list.innerHTML = '';
+    const snap = await db.collection('groups').doc(groupId).collection('feed').orderBy('created','desc').limit(20).get();
+    snap.forEach(doc=>{
+      const d = doc.data();
+      const dateStr = d.created?.toDate?.().toLocaleString() || '';
+      let html = `<div>${d.content}</div>
+      <div class="post-meta">${d.writer.name} · ${dateStr}</div>
+      <ul class="comment-list" id="comments-${doc.id}"></ul>
+      <input type="text" id="comment-input-${doc.id}" placeholder="댓글 입력" style="width:65%;margin-right:8px;">
+      <button onclick="addComment('${doc.id}')">댓글등록</button>`;
+      const li = document.createElement('li');
+      li.className = 'feed-item';
+      li.innerHTML = html;
+      list.appendChild(li);
+      loadComments(doc.id, d.comments||[]);
+    });
+  }
+  window.addComment = async function(postId){
+    const input = document.getElementById('comment-input-'+postId);
+    const comment = input.value.trim();
+    if(!comment) return;
+    const postRef = db.collection('groups').doc(groupId).collection('feed').doc(postId);
+    const docSnap = await postRef.get();
+    const d = docSnap.data();
+    const arr = d.comments||[];
+    arr.push({name: currentProfile.name, content: comment, date: new Date().toLocaleString()});
+    await postRef.update({comments: arr});
+    input.value = '';
+    loadComments(postId, arr);
+  }
+  function loadComments(postId, arr){
+    const ul = document.getElementById('comments-'+postId);
+    ul.innerHTML = '';
+    arr.forEach(c=>{
+      const li = document.createElement('li');
+      li.className = 'comment-item';
+      li.textContent = `${c.name}: ${c.content} (${c.date})`;
+      ul.appendChild(li);
+    });
+  }
+
+  // -------- 공지 --------
+  document.getElementById('notice-form').onsubmit = async function(e){
+    e.preventDefault();
+    const title = document.getElementById('notice-title').value.trim();
+    if(!title) return;
+    await db.collection('groups').doc(groupId).collection('notices').add({
+      title,
+      writer: currentProfile,
+      created: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    this.reset();
+    loadNotices();
+  };
+  async function loadNotices(){
+    const list = document.getElementById('notice-list');
+    list.innerHTML = '';
+    const snap = await db.collection('groups').doc(groupId).collection('notices').orderBy('created','desc').get();
+    snap.forEach(doc=>{
+      const d = doc.data();
+      const dateStr = d.created?.toDate?.().toLocaleString() || '';
+      let html = `<b>${d.title}</b> <span class="post-meta">${d.writer.name} · ${dateStr}</span>`;
+      if(isLeader) html += ` <button class="remove-btn" onclick="deleteNotice('${doc.id}')">삭제</button>`;
+      const li = document.createElement('li');
+      li.className = 'notice-item';
+      li.innerHTML = html;
+      list.appendChild(li);
+    });
+  }
+  window.deleteNotice = async function(id) {
+    if(!isLeader) return;
+    await db.collection('groups').doc(groupId).collection('notices').doc(id).delete();
+    loadNotices();
+  }
+
+  // -------- 투표 --------
+  document.getElementById('vote-form').onsubmit = async function(e){
+    e.preventDefault();
+    const q = document.getElementById('vote-question').value.trim();
+    const opts = document.getElementById('vote-options').value.split(',').map(s=>s.trim()).filter(s=>s);
+    if(!q || opts.length<2) return alert('2개 이상의 옵션이 필요합니다!');
+    await db.collection('groups').doc(groupId).collection('votes').add({
+      question: q,
+      options: opts,
+      counts: Array(opts.length).fill(0),
+      voted: {},
+      created: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    this.reset();
+    loadVotes();
+  };
+  async function loadVotes(){
+    const list = document.getElementById('vote-list');
+    list.innerHTML = '';
+    const snap = await db.collection('groups').doc(groupId).collection('votes').orderBy('created','desc').get();
+    snap.forEach(doc=>{
+      const d = doc.data();
+      const dateStr = d.created?.toDate?.().toLocaleString() || '';
+      let html = `<b>${d.question}</b> <span class="post-meta">${dateStr}</span>`;
+      const total = d.counts.reduce((a,b)=>a+b,0) || 1;
+      html += `<div class="vote-options">`;
+      if(d.voted && d.voted[currentUser.uid] !== undefined){
+        // 결과만 보여주기
+        d.options.forEach((opt, idx)=>{
+          const percent = Math.round(d.counts[idx]/total*100);
+          html += `<div style="margin-bottom:6px;">${opt}
+            <div class="vote-bar-wrap"><div class="vote-bar" style="width:${percent}%">${d.counts[idx]}표 (${percent}%)</div></div>
+            </div>`;
+        });
+        html += `<span style="font-size:0.97rem;color:#22b;">투표 완료</span>`;
+      } else {
+        // 선택 가능
+        d.options.forEach((opt, idx)=>{
+          html += `<button onclick="vote('${doc.id}',${idx})">${opt}</button>`;
+        });
+      }
+      html += `</div>`;
+      if(isLeader) html += `<button class="remove-btn" onclick="deleteVote('${doc.id}')">삭제</button>`;
+      const li = document.createElement('li');
+      li.className = 'vote-item';
+      li.innerHTML = html;
+      list.appendChild(li);
+    });
+  }
+  window.vote = async function(voteId, optIdx) {
+    // 투표시 voted uid에 기록, counts 1증가(atomic)
+    const ref = db.collection('groups').doc(groupId).collection('votes').doc(voteId);
+    const doc = await ref.get();
+    const d = doc.data();
+    if(!d || d.voted[currentUser.uid] !== undefined) return;
+    let updateData = {};
+    updateData[`counts.${optIdx}`] = (d.counts[optIdx]||0)+1;
+    updateData[`voted.${currentUser.uid}`] = optIdx;
+    await ref.update(updateData);
+    loadVotes();
+  }
+  window.deleteVote = async function(id) {
+    if(!isLeader) return;
+    await db.collection('groups').doc(groupId).collection('votes').doc(id).delete();
+    loadVotes();
+  }
+</script>
+</body>
+</html>
