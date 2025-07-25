@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>식집사 - 초록 이야기</title>
+
+    <!-- 폰트 및 네비게이션 CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="navigation.css">
+
+ <style>
+.story-container {
+    max-width: 480px;
+    margin: 100px auto 40px;
+    padding: 0 8px;
+    background: transparent;
+}
+
+/* ===== 플로팅 버튼 (글쓰기) ===== */
+.write-btn {
+    position: fixed; right: 26px; bottom: 28px; z-index: 999;
+    background: linear-gradient(135deg, #8AD14D 30%, #355F19 100%);
+    box-shadow: 0 6px 24px rgba(80,100,70,0.18);
+    width: 63px; height: 63px; font-size: 2.6rem; border-radius: 50%;
+    color: #fff; border: none;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.21s, box-shadow 0.22s;
+}
+.write-btn:hover {
+    background: linear-gradient(135deg, #355F19 50%, #8AD14D 100%);
+    box-shadow: 0 12px 32px rgba(80,100,70,0.25);
+    transform: scale(1.07);
+}
+    /* === 게시물 피드 및 카드 디자인 개선 (가장 중요!) === */
+    #post-feed {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+/* ===== 인스타그램 스타일 피드 카드 ===== */
+.post-card {
+    background: #fff;
+    border-radius: 22px;
+    margin-bottom: 34px;
+    box-shadow: 0 4px 24px rgba(48,60,33,0.10);
+    overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.23s;
+    border: 1.5px solid #e3e6e1;
+    position: relative;
+}
+
+.post-card:hover {
+    box-shadow: 0 8px 32px rgba(48,60,33,0.13);
+    transform: translateY(-2px) scale(1.02);
+}
+/* ===== 카드 컨텐츠 ===== */
+.post-card-content {
+    padding: 24px 22px 22px;
+}
+ /* ===== 작성자/프로필 ===== */
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 12px;
+}
+.post-author-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background-color: #A1B793;
+    color: #fff; font-weight: bold; font-size: 1.2rem;
+    display: flex; justify-content: center; align-items: center;
+    border: 2px solid #D4E0C1;
+}
+.post-author-info {
+    display: flex; flex-direction: column;
+}
+.post-author { font-weight: 700; font-size: 1.02rem; color: #4D5B40;}
+.post-date { font-size: 12px; color: #B0B6A9; }
+/* ===== 글 내용 ===== */
+.post-content {
+    font-size: 1.1rem; line-height: 1.6;
+    margin: 4px 0 0 0;
+    color: #364426;
+    word-break: break-word;
+}
+
+    /* === 글쓰기 모달창 디자인 개선 === */
+    .story-modal-wrapper {
+        position: fixed;
+        z-index: 999;
+        left: 0; top: 0; width: 100vw; height: 100vh;
+        background: rgba(30,30,30,0.45);
+        display: flex; justify-content: center; align-items: center;
+        opacity: 0; visibility: hidden;
+        transition: opacity 0.4s;
+        backdrop-filter: blur(3px);
+    }
+    .story-modal-wrapper.open {
+        opacity: 1; visibility: visible;
+    }
+    .story-modal {
+        background: #fff;
+        border-radius: 14px;
+        padding: 36px 40px;
+        width: 90vw;
+        max-width: 480px; /* 너비 조정 */
+        box-shadow: 0 16px 36px rgba(80,80,80,0.13);
+        transform: translateY(50px) scale(0.96);
+        opacity: 0;
+        transition: all 0.36s cubic-bezier(.52,1.85,.57,.99);
+    }
+    .story-modal-wrapper.open .story-modal {
+        transform: translateY(0) scale(1); opacity: 1;
+    }
+    .story-modal h2 {
+        margin-top: 0;
+        text-align: center;
+        color: var(--primary-green);
+        font-family: var(--font-serif);
+        font-size: 1.8rem;
+        margin-bottom: 24px;
+    }
+    .story-modal textarea {
+        width: 100%;
+        min-height: 120px;
+        resize: vertical;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        padding: 14px;
+        margin-bottom: 18px;
+        font-family: inherit;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .story-modal textarea:focus {
+        outline: none;
+        border-color: var(--primary-green);
+        box-shadow: 0 0 0 3px rgba(107, 123, 97, 0.2);
+    }
+    .story-modal .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 6px;
+    }
+    .story-modal button {
+        border: none;
+        border-radius: 8px;
+        padding: 10px 24px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .story-modal button[type="submit"] {
+        background: var(--primary-green);
+        color: #fff;
+    }
+    .story-modal button[type="submit"]:hover {
+        background: #5a6950;
+    }
+    /* 취소 버튼은 중요도를 낮춤 */
+    .story-modal button[type="button"] {
+        background: #f0f0f0;
+        color: #555;
+    }
+    .story-modal button[type="button"]:hover {
+        background: #e0e0e0;
+    }
+    /* === 글쓰기 모달 디자인 개선 (수정 및 추가) === */
+
+/* 모달 헤더 (새로 추가) */
+.story-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    color: var(--primary-green);
+}
+.story-modal-header svg {
+    /* 아이콘 색상 및 크기 조절 */
+    stroke: var(--primary-green);
+}
+.story-modal h2 {
+    margin: 0; /* 기존 마진 제거 */
+    font-size: 1.7rem; /* 살짝 조정 */
+}
+
+/* 텍스트 입력 영역 */
+.story-modal textarea {
+    min-height: 150px; /* 최소 높이 살짝 늘리기 */
+    margin-bottom: 8px; /* 카운터와의 간격 조정 */
+}
+
+/* 글자 수 카운터 (새로 추가) */
+.char-counter {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 18px;
+    padding-right: 5px;
+}
+
+/* '올리기' 버튼에 로딩 상태를 위한 스타일 추가 */
+.story-modal button[type="submit"].loading {
+    background: #5a6950;
+    cursor: wait; /* 커서를 대기 모양으로 */
+}
+/* ===== 이미지 ===== */
+.post-image-wrapper {
+    width: 100%;
+    max-height: 340px;
+    aspect-ratio: 1/1;
+    background: #f0f2ee;
+    display: flex; justify-content: center; align-items: center;
+}
+.post-image-wrapper img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+}
+
+/* 이미지가 없는 경우, .post-card-content의 상단 모서리를 둥글게 유지 */
+.post-card-content {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+/* 이미지가 있는 경우, .post-card-content의 상단 모서리는 둥글 필요 없음 */
+.post-image-wrapper + .post-card-content {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+/* 파일 업로드 버튼 커스텀 (새로 추가) */
+.file-upload-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+.file-upload-btn:hover {
+    background-color: #e0e0e0;
+}
+</style>
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="index.html" class="logo">식집사</a>
+        <nav>
+            <a href="index.html">홈</a>
+            <a href="story.html">초록 이야기</a>
+            <a href="myPlant.html">나의 식물</a>
+            <a href="findPlant.html">식물 찾기</a>
+            <a href="#" class="cta-button">Login</a>
+        </nav>
+    </header>
+
+        <!-- ====== 커뮤니티 본문 ====== -->
+<div class="story-container">
+    <button class="write-btn" id="open-story-modal">+</button>
+    <div id="post-feed"></div>
+</div>
+
+    <!-- ====== 글쓰기 모달 ====== -->
+<div class="story-modal-wrapper" id="story-modal-wrapper">
+    <div class="story-modal">
+        <div class="story-modal-header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <h2>초록 이야기 쓰기</h2>
+        </div>
+
+
+<form id="story-form">
+    <textarea id="story-content" placeholder="당신의 초록 이야기를 자유롭게 남겨주세요!" maxlength="2000" required></textarea>
+    
+    <label for="story-image" class="file-upload-btn">이미지 선택</label>
+    <input type="file" id="story-image" accept="image/*" style="display: none;">
+    <div id="image-preview" style="text-align:center;margin-bottom:16px;"></div>
+    <div id="char-counter" class="char-counter">0 / 2000</div>
+    
+    <div class="modal-actions">
+        <button type="button" id="close-story-modal">취소</button>
+        <button type="submit" id="submit-story-btn">올리기</button>
+    </div>
+</form>
+    </div>
+</div>
+
+
+    <div id="modal-wrapper" class="modal-wrapper">
+        <div class="modal">
+            <div class="modal-left">
+                </div>
+            <div class="modal-right">
+                <button class="close-button">&times;</button>
+                <div id="login-form" class="form-container">
+                    <div class="form-header">
+                        <a href="index.html" class="logo">식집사</a>
+                        <h2>Welcome Back</h2>
+                    </div>
+                    <form>
+                        <div class="input-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="cta-button">Login</button>
+                    </form>
+                    <p class="form-switcher">
+                        Don't have an account? <a href="#" id="show-signup">Sign Up</a>
+                    </p>
+                </div>
+                <div id="signup-form" class="form-container" style="display: none;">
+                    <div class="form-header">
+                        <a href="index.html" class="logo">식집사</a>
+                        <h2>Create Account</h2>
+                    </div>
+                    <form>
+                        <div class="input-group">
+                            <label for="signup-name">Name</label>
+                            <input type="text" id="signup-name" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" required>
+                        </div>
+                        <button type="submit" class="cta-button">Create Account</button>
+                    </form>
+                    <p class="form-switcher">
+                        Already have an account? <a href="#" id="show-login">Login</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module" src="navigation.js"></script>
+
+        <!-- ====== JS: 이 페이지 전용 스크립트 ====== -->
+    <script type="module">
+
+        console.log("스토리지 객체:", storage);
+    // === Firebase SDK import(이미 navigation.js에서 했으니 import 재사용) ===
+// 1. navigation.js로부터 auth, db, storage 변수를 직접 import 합니다.
+import { auth, db, storage, ref, uploadBytes, getDownloadURL } from './navigation.js'; // SDK 직접 import 제거
+
+
+// 2. Firebase SDK에서는 필요한 함수들만 import 합니다.
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+
+    // ====== 글쓰기 모달 ======
+    const openBtn = document.getElementById('open-story-modal');
+    const modalWrapper = document.getElementById('story-modal-wrapper');
+    const closeBtn = document.getElementById('close-story-modal');
+    const storyForm = document.getElementById('story-form');
+    const storyContent = document.getElementById('story-content');
+const charCounter = document.getElementById('char-counter'); // 글자 수 카운터
+const submitBtn = document.getElementById('submit-story-btn'); // 제출 버튼
+
+const storyImageInput = document.getElementById('story-image');
+const imagePreview = document.getElementById('image-preview');
+
+    // 로그인 상태가 아니면 글쓰기 버튼 클릭 시 로그인 모달 오픈
+    let currentUser = null;
+    onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+    });
+
+    openBtn.addEventListener('click', () => {
+        if (!currentUser) {
+            // navigation.js의 로그인 모달 오픈 트리거
+            document.querySelector('.cta-button').click();
+            return;
+        }
+        storyContent.value = "";
+        modalWrapper.classList.add('open');
+        setTimeout(() => storyContent.focus(), 250);
+    });
+    closeBtn.addEventListener('click', () => {
+        modalWrapper.classList.remove('open');
+    });
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') modalWrapper.classList.remove('open');
+    });
+    modalWrapper.addEventListener('click', (e) => {
+        if (e.target === modalWrapper) modalWrapper.classList.remove('open');
+    });
+
+ // 1. 글자 수 카운터 기능 (새로 추가)
+storyContent.addEventListener('input', () => {
+    const currentLength = storyContent.value.length;
+    charCounter.textContent = `${currentLength} / 2000`;
+});
+
+// 1. 파일 선택 시 미리보기
+storyImageInput.addEventListener('change', (e) => {
+    imagePreview.innerHTML = "";
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+        alert('이미지 파일만 첨부할 수 있습니다.');
+        storyImageInput.value = "";
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+        imagePreview.innerHTML = `<img src="${ev.target.result}" style="max-width:220px;max-height:220px;border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">`;
+    };
+    reader.readAsDataURL(file);
+});
+
+// 2. 글 작성(제출) 시, 이미지 있으면 Storage에 업로드 → URL을 Firestore에 저장
+storyForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!currentUser) {
+        alert("로그인 후 작성할 수 있습니다.");
+        return;
+    }
+    const content = storyContent.value.trim();
+    if (!content) return;
+
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    submitBtn.textContent = '올리는 중...';
+
+    try {
+        // 작성자 이름 가져오기
+        console.log("1. Firestore에서 유저 정보 가져오기");
+        const userDocRef = doc(db, "users", currentUser.uid);
+        const userDoc = await getDoc(userDocRef);
+        let userName = userDoc.exists() ? userDoc.data().name || "익명" : "익명";
+        console.log("2. 유저 이름:", userName);
+
+        // 이미지 첨부
+        let imageUrl = null;
+        const file = storyImageInput.files[0];
+        if (file) {
+            console.log("3. 파일 선택됨:", file);
+
+            // 파일명을 안전하게 만듦
+            const ext = file.name.split('.').pop();
+            const safeFileName = `${currentUser.uid}_${Date.now()}.${ext}`;
+            const storageRef = ref(storage, `storyImages/${safeFileName}`);
+
+            try {
+                console.log("4. Storage 업로드 시도", storageRef);
+                const uploadResult = await uploadBytes(storageRef, file);
+                console.log("5. Storage 업로드 성공", uploadResult);
+
+                imageUrl = await getDownloadURL(storageRef);
+                console.log("6. Storage URL 얻음", imageUrl);
+            } catch (storageErr) {
+                console.error("🚨 Storage 업로드 오류!", storageErr);
+  alert('에러: ' + e.message);
+  throw e;
+            }
+        } else {
+            console.log("3. 파일 선택 안 됨 (이미지 없음)");
+        }
+
+        // Firestore 저장
+        try {
+            console.log("7. Firestore에 문서 저장 시도");
+            await addDoc(collection(db, "stories"), {
+                content,
+                author: userName,
+                uid: currentUser.uid,
+                imageUrl: imageUrl || null,
+                createdAt: serverTimestamp()
+            });
+            console.log("8. Firestore 저장 성공!");
+        } catch (firestoreErr) {
+            console.error("🚨 Firestore 저장 오류!", firestoreErr);
+            alert("글 저장에 실패했습니다.");
+            throw firestoreErr;
+        }
+
+        // 초기화
+        modalWrapper.classList.remove('open');
+        storyImageInput.value = "";
+        imagePreview.innerHTML = "";
+
+    } catch (err) {
+        // 최종 에러 핸들링
+        alert("글 저장 중 오류가 발생했습니다. 콘솔을 확인해주세요.");
+        console.error("🚨 최종 오류!", err);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('loading');
+        submitBtn.textContent = '올리기';
+    }
+});
+
+
+    // ====== 글 목록 실시간 피드 ======
+// ====== 글 목록 실시간 피드 ======
+const feed = document.getElementById('post-feed');
+
+// 상대 시간을 계산해주는 함수 (새로 추가)
+function timeForToday(value) {
+    const today = new Date();
+    const timeValue = new Date(value);
+
+    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+    if (betweenTime < 1) return '방금 전';
+    if (betweenTime < 60) {
+        return `${betweenTime}분 전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간 전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일 전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년 전`;
+}
+
+
+const q = query(collection(db, "stories"), orderBy("createdAt", "desc"));
+onSnapshot(q, (snap) => {
+    feed.innerHTML = "";
+    snap.forEach(doc => {
+    const d = doc.data();
+    const authorName = d.author ?? "익명";
+    let dateStr = d.createdAt ? timeForToday(d.createdAt.toDate()) : "-";
+    
+    // ⬇️ 이 부분을 수정합니다.
+    // 이미지 HTML을 카드 최상단에 위치시킬 준비
+    const imageHtml = d.imageUrl 
+        ? `<div class="post-image-wrapper">
+               <img src="${d.imageUrl}" alt="게시물 이미지">
+           </div>` 
+        : "";
+
+    feed.innerHTML += `
+        <div class="post-card">
+            ${imageHtml} <div class="post-card-content">
+                <div class="post-header">
+                    <div class="post-author-avatar">${authorName.charAt(0)}</div>
+                    <div class="post-author-info">
+                        <span class="post-author">${authorName}</span>
+                        <span class="post-date">${dateStr}</span>
+                    </div>
+                </div>
+                <div class="post-content">${d.content.replace(/\n/g, "<br>")}</div>
+            </div>
+        </div>
+    `;
+});
+    if (snap.empty) {
+        feed.innerHTML = `<div style="color:#888;padding:30px;text-align:center;">아직 작성된 이야기가 없어요. 첫 번째 이야기를 남겨주세요!</div>`;
+    }
+});
+
+    </script>
+</body>
+</html>
