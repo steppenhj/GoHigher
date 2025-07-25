@@ -1,405 +1,224 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // ----------------------------------------
-  // 1) 사이드바 토글, 네비 active, 공유 버튼
-  // ----------------------------------------
-  const openSidebarBtn  = document.getElementById('openSidebarBtn');
-  const closeSidebarBtn = document.getElementById('closeSidebarBtn');
-  const sidebar         = document.getElementById('sidebar');
-  const sidebarOverlay  = document.getElementById('sidebarOverlay');
-  openSidebarBtn.onclick  = () => { sidebar.classList.add('active'); sidebarOverlay.classList.add('active'); document.body.style.overflow = 'hidden';  };
-  closeSidebarBtn.onclick = () => { sidebar.classList.remove('active'); sidebarOverlay.classList.remove('active');  document.body.style.overflow = '';   };
-  sidebarOverlay.onclick  = closeSidebarBtn.onclick;
+// navigation.js
 
-  document.querySelectorAll('.nav-link').forEach(link => {
-    if (location.pathname === link.getAttribute('href')) {
-      link.classList.add('active');
-    }
-  });
+// -------------------------------------------------------------------
+// Firebase SDK import 및 초기화
+// -------------------------------------------------------------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { 
+    getFirestore, 
+    doc, 
+    setDoc,
+    getDoc,
+    serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-  document.getElementById('shareBtn').onclick = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: document.title,
-        text: 'Go Higher - 미국 주식 투자 플랫폼',
-        url: window.location.href
-      });
+
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyC7mA9xLOFb98i5hKNWjKW_fORWNHvPx2s",
+    authDomain: "sik-jip-sa.firebaseapp.com",
+    projectId: "sik-jip-sa",
+    storageBucket: "sik-jip-sa.appspot.com",
+    messagingSenderId: "401707534850",
+    appId: "1:401707534850:web:e15b2f67e2d4484a07351b",
+    measurementId: "G-HX50P6C0NT"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// ▼▼▼ [수정] const 앞에 export를 추가하고, storage를 생성합니다. ▼▼▼
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+// 아래 함수들도 export
+export { ref, uploadBytes, getDownloadURL };
+// 스크롤에 반응하는 헤더 스타일 변경
+
+window.addEventListener('scroll', () => {
+    // window.scrollY 값이 50px보다 크면 'scrolled' 클래스 추가
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
     } else {
-      alert('이 브라우저는 공유를 지원하지 않습니다.');
+        header.classList.remove('scrolled');
     }
-  };
+});
 
-  // ----------------------------------------
-  // 2) Firebase 초기화 & 인증 상태 표시
-  // ----------------------------------------
-  const firebaseConfig = {
-    apiKey: "AIzaSyCgFLtAo8LETpHq44hxlT7QigCbIltk-Zk",
-    authDomain: "gohigher-55e51.firebaseapp.com",
-    projectId: "gohigher-55e51",
-    storageBucket: "gohigher-55e51.appspot.com",
-    messagingSenderId: "487435343721",
-    appId: "1:487435343721:web:dc5708c3a263214fba4ff8",
-    measurementId: "G-KQ02L8DXG0"
-  };
-  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  auth.onAuthStateChanged(user => {
-    // ----- 사이드바(user-info) 영역 -----
-    const userInfo    = document.querySelector('.user-info');
-    const loginBtn    = document.getElementById('loginBtn');
-    const profilePhoto= document.getElementById('profilePhoto');
 
-if (userInfo) {
-  const nameEl     = userInfo.querySelector('.user-name');
-  const emailEl    = userInfo.querySelector('.user-email');
-  const statusEl   = userInfo.querySelector('.user-status');
-  const photoEl    = userInfo.querySelector('.user-photo');
-  const logoutLink = document.querySelector('.side-link[href="/login.html"]');
+// -------------------------------------------------------------------
+// DOM 요소 선택
+// -------------------------------------------------------------------
+const header = document.getElementById('main-header');
+const modalWrapper = document.getElementById('modal-wrapper');
+const loginNavButton = document.querySelector('header nav .cta-button');
+const closeButton = document.querySelector('.close-button');
 
-  if (user) {
-    if (nameEl)     nameEl.textContent  = user.displayName || user.email.split('@')[0];
-    if (emailEl)    emailEl.textContent = user.email;
-    if (statusEl)   statusEl.textContent= '로그인됨';
-    if (photoEl) {
-      photoEl.src = user.photoURL || '/logo.jpg';
-      photoEl.onerror = function() { this.src = '/logo.jpg'; };
-      photoEl.style.display = 'block';
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+const loginFormElement = loginForm.querySelector('form');
+const signupFormElement = signupForm.querySelector('form');
+
+const showSignupLink = document.getElementById('show-signup');
+const showLoginLink = document.getElementById('show-login');
+const modalRight = document.querySelector('.modal-right');
+
+
+// 모달 열기 함수
+const openLoginModal = (event) => {
+    event.preventDefault();
+    modalWrapper.classList.add('open');
+};
+
+// 모달 닫기 함수
+const closeModal = () => {
+    modalWrapper.classList.remove('open');
+};
+
+// 폼 전환 함수 (로그인/회원가입)
+const switchForms = (hideForm, showForm) => {
+    modalRight.style.opacity = '0';
+    setTimeout(() => {
+        hideForm.style.display = 'none';
+        showForm.style.display = 'block';
+        modalRight.style.opacity = '1';
+    }, 300);
+};
+
+// 모달 관련 이벤트 리스너
+closeButton.addEventListener('click', closeModal);
+window.addEventListener('click', (event) => {
+    if (event.target === modalWrapper) closeModal();
+});
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modalWrapper.classList.contains('open')) closeModal();
+});
+showSignupLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    switchForms(loginForm, signupForm);
+});
+showLoginLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    switchForms(signupForm, loginForm);
+});
+
+// .modal-right에 transition 효과 추가 (스타일 주입)
+const style = document.createElement('style');
+style.innerHTML = `.modal-right { transition: opacity 0.3s ease-in-out; }`;
+document.head.appendChild(style);
+
+
+// -------------------------------------------------------------------
+// Firebase Form 제출 로직 (로그인/회원가입)
+// -------------------------------------------------------------------
+
+// 1. 회원가입 폼 제출
+signupFormElement.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+
+    if (!name || !email || !password) {
+        alert('모든 필드를 입력해주세요.');
+        return;
     }
-    if (logoutLink) {
-      logoutLink.textContent = '로그아웃';
-      logoutLink.onclick = e => { e.preventDefault(); auth.signOut().then(()=>location.reload()); };
-    }
-  } else {
-    if (nameEl)     nameEl.textContent  = '비로그인';
-    if (emailEl)    emailEl.textContent = '';
-    if (statusEl)   statusEl.textContent= '로그인 필요';
-    if (photoEl) {
-      photoEl.src = '/logo.jpg';
-      photoEl.style.display = 'none';
-    }
-    if (logoutLink) {
-      logoutLink.textContent = '로그인';
-      logoutLink.onclick = null;
-    }
-  }
-}
 
-    // ----- 상단바(오른쪽) profilePhoto -----
-    if (loginBtn && profilePhoto) {
-      if (user) {
-        profilePhoto.src = user.photoURL || '/logo.jpg';
-        profilePhoto.onerror = function() { this.src = '/logo.jpg'; };
-        profilePhoto.style.display = 'inline-block';
-        loginBtn.style.display = 'none';
-      } else {
-        profilePhoto.src = '/logo.jpg';
-        profilePhoto.style.display = 'none';
-        loginBtn.style.display = 'inline-block';
-      }
-    }
-  });
-  // ----------------------------------------
-  // 3) 검색 모달 (Polygon API 기반만 남김)
-  // ----------------------------------------
-
-  // 1) 오버레이 엘리먼트 필요시 생성
-  let searchModalOverlay = document.getElementById('searchModalOverlay');
-  if (!searchModalOverlay) {
-    searchModalOverlay = document.createElement('div');
-    searchModalOverlay.id = 'searchModalOverlay';
-    searchModalOverlay.style.display = 'none';
-    searchModalOverlay.style.position = 'fixed';
-    searchModalOverlay.style.top = 0;
-    searchModalOverlay.style.left = 0;
-    searchModalOverlay.style.width = '100vw';
-    searchModalOverlay.style.height = '100vh';
-    searchModalOverlay.style.zIndex = 299;
-    searchModalOverlay.style.background = 'rgba(32,36,54,0.45)';
-    document.body.appendChild(searchModalOverlay);
-  }
-
-  // 2) 검색 모달 열고 닫기
-  function openSearchModal() {
-    document.getElementById('searchModalOverlay').style.display = 'block';
-    document.getElementById('searchModal').style.display = 'block';
-    document.getElementById('modalResult').innerHTML = '<span style="color:#aaa">로딩 중...</span>';
-  }
-  function closeSearchModal() {
-    document.getElementById('searchModalOverlay').style.display = 'none';
-    document.getElementById('searchModal').style.display = 'none';
-  }
-  document.getElementById('closeSearchModal').onclick = closeSearchModal;
-  document.getElementById('searchModalOverlay').onclick = closeSearchModal;
-  document.getElementById('stockSearchInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') document.getElementById('stockSearchBtn').click();
-  });
-
-  // 3) 검색 버튼 (Polygon API만)
-  document.getElementById('stockSearchBtn').addEventListener('click', function() {
-    const ticker = document.getElementById('stockSearchInput').value.trim().toUpperCase();
-    if (!ticker) {
-      alert('심볼(티커)을 입력하세요!');
-      return;
-    }
-    openSearchModal();
-    fetchAllPolygonInfo(ticker);
-  });
-
-  // 4) Polygon API 기반 검색 결과 fetch
-  const POLYGON_API_BASE = "https://us-central1-gohigher-55e51.cloudfunctions.net/polygonApi";
-  async function fetchAllPolygonInfo(ticker) {
     try {
-      const today = new Date();
-      const from = new Date(today);
-      from.setDate(from.getDate() - 30);
-      const fromStr = from.toISOString().slice(0, 10);
-      const toStr = today.toISOString().slice(0, 10);
-
-      const [
-        price, prevClose, info, detail, snapshot, dividends, chart, weeklyChart
-      ] = await Promise.all([
-        fetch(`${POLYGON_API_BASE}/stockPrice?ticker=${ticker}`).then(r=>r.json()),
-        fetch(`${POLYGON_API_BASE}/previousClose?ticker=${ticker}`).then(r=>r.json()),
-        fetch(`${POLYGON_API_BASE}/stockInfo?ticker=${ticker}`).then(r=>r.json()),
-        fetch(`${POLYGON_API_BASE}/stockDetail?ticker=${ticker}`).then(r=>r.json()),
-        fetch(`${POLYGON_API_BASE}/snapshot?ticker=${ticker}`).then(r=>r.json()),
-        fetch(`${POLYGON_API_BASE}/dividends?ticker=${ticker}`).then(r=>r.json()),
-        fetch(`${POLYGON_API_BASE}/dailyChart?ticker=${ticker}&from=${fromStr}&to=${toStr}`).then(r=>r.json()),
-        fetch(`${POLYGON_API_BASE}/weeklyChart?ticker=${ticker}&from=${fromStr}&to=${toStr}`).then(r=>r.json()),
-      ]);
-
-      const curr = price.price ?? "-";
-      const prev = prevClose.previousClose ?? "-";
-      const change = (curr !== "-" && prev !== "-") ? (curr - prev).toFixed(2) : "-";
-      const rate = (curr !== "-" && prev !== "-") ? (((curr - prev) / prev) * 100).toFixed(2) : "-";
-      const chartData = chart.chartData || [];
-      const weeklyData = weeklyChart.chartData || [];
-      const chartLabels = chartData.map(c => c.date.slice(5));
-      const weeklyLabels = weeklyData.map(c => c.date.slice(5));
-      const chartCanvasId = "stockChartCanvas";
-      const d = detail || {};
-
-      const sectionInfo = `
-        <div class="stock-summary-card">
-          <div class="stock-section-title" style="font-size:1.18em; margin-bottom:15px;">
-            🏢 <b>${d.name || info.name || ticker}</b>
-            <span style="color:#90c2ff;font-size:0.98em;margin-left:5px;">(${ticker})</span>
-          </div>
-          <table>
-            <tr><th>현재가</th><td><b style="font-size:1.07em;color:${change>0 ? '#52e3a0' : change<0 ? '#fa5662':'#e9f1ff'}">${curr}</b>
-                ${change !== "-" ? `<span style="margin-left:7px;font-size:0.96em;color:${change>0 ? '#52e3a0' : '#fa5662'}">(${change > 0 ? '+' : ''}${change} / ${rate}%)</span>` : ""}</td></tr>
-            <tr><th>전일 종가</th><td>${prev}</td></tr>
-            <tr><th>시장</th><td>${d.market || info.sector || '-'}</td></tr>
-            <tr><th>거래소</th><td>${d.primary_exchange || '-'}</td></tr>
-            <tr><th>직원 수</th><td>${d.total_employees || '-'}</td></tr>
-            <tr><th>홈페이지</th><td>${d.homepage_url ? `<a href="${d.homepage_url}" target="_blank" style="color:#ffe066;font-weight:600;text-decoration:underline dotted 1.5px;">${d.homepage_url}</a>` : '-'}</td></tr>
-            <tr><th>전화번호</th><td>${d.phone_number || '-'}</td></tr>
-            <tr><th>주소</th><td>${d.address || '-'}</td></tr>
-            <tr><th>SIC 코드</th><td>${d.sic_code || '-'}</td></tr>
-            <tr><th>산업분류</th><td>${d.sic_description || '-'}</td></tr>
-            <tr><th>설명</th><td style="max-width:330px;white-space:pre-line;">${d.description || info.description || '-'}</td></tr>
-          </table>
-        </div>
-      `;
-
-      const sectionChart = `
-        <div class="stock-section-card">
-          <div class="stock-section-title" style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-weight:900;font-size:1.11em;">📈 차트</span>
-            <div class="chart-toggle-wrap">
-              <button class="chart-toggle-btn active" data-type="daily">일봉</button>
-              <button class="chart-toggle-btn" data-type="weekly">주봉</button>
-            </div>
-          </div>
-          <div class="stock-chart-wrap">
-            <canvas id="${chartCanvasId}" ></canvas>
-          </div>
-          <div id="chartTableWrap" style="margin-top:10px;"></div>
-        </div>
-      `;
-
-      const sectionDividends = `
-        <div class="stock-section-card">
-          <div class="stock-section-title">💰 <span>배당 이력</span></div>
-          <div style="overflow-x:auto;">
-          <table>
-            <tr><th>Ex-Date</th><th>금액</th></tr>
-            ${(dividends.dividends && dividends.dividends.length)
-              ? dividends.dividends.slice(0,7).map(d=>`<tr><td>${d.date}</td><td>${d.amount}</td></tr>`).join('')
-              : `<tr><td colspan=2>배당 데이터 없음</td></tr>`
-            }
-          </table>
-          </div>
-        </div>
-      `;
-
-      const s = snapshot || {};
-      const sectionSnapshot = `
-        <div class="stock-section-card">
-          <div class="stock-section-title">📈 <span>스냅샷</span></div>
-          <table>
-            <tr><th>시가</th><td>${s.open || '-'}</td></tr>
-            <tr><th>고가</th><td>${s.high || '-'}</td></tr>
-            <tr><th>저가</th><td>${s.low || '-'}</td></tr>
-            <tr><th>체결량</th><td>${s.volume || '-'}</td></tr>
-            <tr><th>52주 고가</th><td>${s.year_high || '-'}</td></tr>
-            <tr><th>52주 저가</th><td>${s.year_low || '-'}</td></tr>
-            <tr><th>시가총액</th><td>${s.market_cap || '-'}</td></tr>
-          </table>
-        </div>
-      `;
-
-      // 탭 버튼
-      const tabHtml = `
-        <button class="stock-tab-btn" data-tab="info">기본정보</button>
-        <button class="stock-tab-btn" data-tab="chart">차트</button>
-        <button class="stock-tab-btn" data-tab="dividends">배당</button>
-        <button class="stock-tab-btn" data-tab="snapshot">스냅샷</button>
-      `;
-      document.getElementById('stockModalTabs').innerHTML = tabHtml;
-
-      // 탭 렌더 함수
-      function showTab(tab) {
-        if (tab === "info") {
-          document.getElementById('modalResult').innerHTML = sectionInfo;
-        } else if (tab === "chart") {
-          document.getElementById('modalResult').innerHTML = sectionChart;
-          setTimeout(() => {
-            let currentType = "daily";
-            function renderChart(type = "daily") {
-              const data = type === "weekly" ? weeklyData : chartData;
-              const labels = type === "weekly" ? weeklyLabels : chartLabels;
-              if (window.stockChartInstance) window.stockChartInstance.destroy();
-              window.stockChartInstance = new Chart(document.getElementById(chartCanvasId).getContext('2d'), {
-                type: 'line',
-                data: {
-                  labels: labels,
-                  datasets: [{
-                    label: '종가',
-                    data: data.map(c=>c.close),
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 2,
-                    tension: 0.42,
-                    borderColor: "#2563eb",
-                    borderWidth: 2.2,
-                    backgroundColor: "rgba(37,99,235,0.11)",
-                    pointRadius: 2.8,
-                    pointHoverRadius: 5,
-                    pointBackgroundColor: "#fff",
-                    pointBorderWidth: 1.4,
-                  }]
-                },
-                options: {
-                  layout: {
-                    padding: 20
-                  },
-                  plugins: {
-                    legend: { display: false },
-                    tooltip: { enabled: true }
-                  },
-                  scales: {
-                    x: {
-                      grid: { display: false },
-                      ticks: {
-                        color: "#98bfff",
-                        font: { size: 11 }
-                      }
-                    },
-                    y: {
-                      grid: { color: "#24334a44" },
-                      ticks: {
-                        color: "#c7dbff",
-                        font: { size: 11 }
-                      }
-                    }
-                  }
-                }
-              });
-              document.getElementById("chartTableWrap").innerHTML = `
-                <div style="overflow-x:auto;">
-                  <table style="margin-top:8px;"><tr><th>날짜</th><th>종가</th></tr>
-                    ${data.slice(-7).map(d=>`<tr><td>${d.date}</td><td>${d.close}</td></tr>`).join('')}
-                  </table>
-                </div>
-              `;
-            }
-            // 버튼 바인딩
-            const btnDaily = document.querySelector('.chart-toggle-btn[data-type="daily"]');
-            const btnWeekly = document.querySelector('.chart-toggle-btn[data-type="weekly"]');
-            btnDaily.onclick = function() {
-              renderChart("daily");
-              btnDaily.classList.add('active');
-              btnWeekly.classList.remove('active');
-            };
-            btnWeekly.onclick = function() {
-              renderChart("weekly");
-              btnWeekly.classList.add('active');
-              btnDaily.classList.remove('active');
-            };
-            renderChart("daily");
-          }, 120);
-        } else if (tab === "dividends") {
-          document.getElementById('modalResult').innerHTML = sectionDividends;
-        } else if (tab === "snapshot") {
-          document.getElementById('modalResult').innerHTML = sectionSnapshot;
-        }
-        document.querySelectorAll('.stock-tab-btn').forEach(btn => {
-          btn.classList.remove('active');
-          if (btn.dataset.tab === tab) btn.classList.add('active');
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        await setDoc(doc(db, "users", user.uid), {
+            name: name,
+            email: email,
+            createdAt: serverTimestamp()
         });
-      }
-
-      document.querySelectorAll('.stock-tab-btn').forEach(btn => {
-        btn.onclick = () => showTab(btn.dataset.tab);
-      });
-      showTab("info");
-    } catch (e) {
-      document.getElementById('modalResult').innerHTML = `<span style="color:#fa5662;">데이터를 가져오지 못했습니다.<br>${e.message}</span>`;
-      document.getElementById('stockModalTabs').innerHTML = "";
+        alert('🎉 회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.');
+        switchForms(signupForm, loginForm);
+    } catch (error) {
+        console.error("❌ 회원가입 에러:", error);
+        if (error.code === 'auth/email-already-in-use') alert('이미 사용 중인 이메일입니다.');
+        else if (error.code === 'auth/weak-password') alert('비밀번호는 6자 이상이어야 합니다.');
+        else alert(`회원가입 중 오류가 발생했습니다: ${error.message}`);
     }
-  }
+});
+
+// 2. 로그인 폼 제출 (⭐ 새로 추가된 부분)
+loginFormElement.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    if (!email || !password) {
+        alert('이메일과 비밀번호를 입력해주세요.');
+        return;
+    }
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        // 로그인이 성공하면 onAuthStateChanged가 감지하여 UI를 변경하고 모달을 닫습니다.
+        closeModal();
+    } catch (error) {
+        console.error("❌ 로그인 에러:", error);
+        alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+    }
 });
 
 
+// -------------------------------------------------------------------
+// 🚀 Firebase 인증 상태 변경 리스너 (⭐ 핵심 로직)
+// -------------------------------------------------------------------
 
+let isLogoutListenerAttached = false;
 
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  const nav = document.querySelector('.nav');
-  let isMini = false;
-
-  // 스크롤 내리면 mini
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60 && !isMini) {
-      nav.classList.add('mini');
-      isMini = true;
-    } else if (window.scrollY <= 60 && isMini) {
-      nav.classList.remove('mini');
-      isMini = false;
+// 로그아웃 핸들러
+const handleLogout = async () => {
+    try {
+        await signOut(auth);
+        alert('로그아웃 되었습니다.');
+    } catch (error) {
+        console.error('로그아웃 에러', error);
+        alert('로그아웃 중 문제가 발생했습니다.');
     }
-  });
+};
 
-  // **mini 네비 전체 클릭 시 네비 복원**
-  nav.addEventListener('click', function(e) {
-    if (nav.classList.contains('mini')) {
-      nav.classList.remove('mini');
-      isMini = false;
-      // (햄버거버튼 말고 mini영역 전체 클릭시 동작)
-      e.stopPropagation();
-      return;
+onAuthStateChanged(auth, async (user) => {
+    // 이전에 추가된 로그아웃 리스너가 있다면 제거
+    if (isLogoutListenerAttached) {
+        loginNavButton.removeEventListener('click', handleLogout);
+        isLogoutListenerAttached = false;
     }
-    // 만약 전체 네비 상태에서 내부 버튼 클릭(예: 햄버거→사이드바)라면 여기선 원래 동작 유지
-  });
+    
+    // 이전에 추가된 모달 열기 리스너가 있다면 제거
+    loginNavButton.removeEventListener('click', openLoginModal);
 
-  // (선택) 바깥 클릭 시 mini 복귀
-  document.addEventListener('click', function(e) {
-    if (!nav.contains(e.target) && !nav.classList.contains('mini')) {
-      nav.classList.add('mini');
-      isMini = true;
+    if (user) {
+        // --- 👤 사용자가 로그인한 경우 ---
+        const userDocRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+            const userName = userDoc.data().name;
+            loginNavButton.textContent = `${userName} 초록이`;
+            // 이제 이 버튼은 로그아웃 기능을 합니다.
+            loginNavButton.addEventListener('click', handleLogout);
+            isLogoutListenerAttached = true;
+        } else {
+            // Firestore에 데이터가 없는 경우 (오류 상황)
+            loginNavButton.textContent = '정보 없음';
+        }
+    } else {
+        // --- 🚪 사용자가 로그아웃한 경우 ---
+        loginNavButton.textContent = 'Login';
+        // 이제 이 버튼은 로그인 모달을 엽니다.
+        loginNavButton.addEventListener('click', openLoginModal);
     }
-  });
 });
+
