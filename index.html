@@ -3,483 +3,1005 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>식집사 메인</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="navigation.css">
+    <title>스포츠 커뮤니티 프로토타입</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-      /* === 메인 페이지 Hero 섹션 === */
-.main-hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 80px 8vw 60px 8vw;
-    background: var(--primary-green);
-    color: white;
-    min-height: 420px;
-    gap: 3vw;
-    margin-top: 100px;
-}
-.hero-content {
-    max-width: 700px;
-}
-.hero-title-main {
-    font-family: var(--font-serif);
-    font-size: 4.5rem;
-    font-weight: 600;
-    color: white;
-}
-.hero-title-accent {
-    font-family: var(--font-serif);
-    font-size: 5rem;
-    font-weight: 600;
-    color: var(--accent-gold);
-}
-.hero-desc {
-    font-size: 1.5rem;
-    margin: 1.2rem 0 2rem 0;
-    color: #f5f5f5;
-}
-.hero-img {
-    width: 320px;
-    border-radius: 1.5rem;
-    box-shadow: 0 8px 32px rgba(107,123,97,0.18);
-    background: var(--bg-cream);
-}
-.hero-lottie-bg {
-  width: 340px;
-  height: 340px;
-  border-radius: 1.5rem;
-  box-shadow: 0 8px 32px rgba(107,123,97,0.18);
-  background: var(--bg-cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
+        /* CSS는 이전과 동일합니다. */
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f1f5f9; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        .container { width: 100%; max-width: 1280px; margin-left: auto; margin-right: auto; padding: 1rem; flex-grow: 1; }
+        .view { display: none; }
+        .view.active { display: block; }
+        .header { display: flex; flex-direction: column; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #e2e8f0; }
+        .header h1 { font-size: 1.875rem; font-weight: 700; color: #1e293b; cursor: pointer; margin-bottom: 1rem; }
+        .search-area { display: flex; align-items: center; gap: 0.5rem; width: 100%; }
+        .search-area input { padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; width: 100%; }
+        .search-area input:focus { outline: none; box-shadow: 0 0 0 2px #34d399; }
+        .search-area button { padding: 0.5rem; background-color: #334155; color: white; border: none; border-radius: 0.5rem; cursor: pointer; }
+        .search-area button:hover { background-color: #1e293b; }
+        .user-menu { display: flex; gap: 1rem; margin-top: 1rem; align-items: center; }
+        .user-menu span { font-weight: 500; }
+        .user-menu a, .user-menu button { color: #475569; text-decoration: none; background: none; border: none; cursor: pointer; font-size: 1em; font-family: inherit; font-weight: 500; padding: 0;}
+        .user-menu a:hover, .user-menu button:hover { color: #059669; }
+        .main-nav { background-color: white; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); padding: 0.5rem; margin-bottom: 2rem; }
+        .main-nav ul { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.5rem; font-weight: 600; list-style: none; padding: 0; margin: 0; }
+        .nav-link { padding: 0.75rem; display: block; color: #334155; border-radius: 0.5rem; text-decoration: none; cursor: pointer; }
+        .nav-link:hover { background-color: #f1f5f9; }
+        .nav-link.active { color: #059669; font-weight: 700; }
+        .sports-gallery-menu { position: relative; }
+        .sports-gallery-toggle { display: flex; align-items: center; }
+        .sports-gallery-toggle svg { width: 1rem; height: 1rem; margin-left: 0.25rem; color: #64748b; }
+        .sports-gallery-dropdown { position: absolute; display: none; margin-top: 0.5rem; width: 12rem; background-color: white; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); z-index: 10; border: 1px solid #f1f5f9; }
+        .sports-gallery-dropdown.show { display: block; }
+        .sports-gallery-dropdown .nav-link { font-size: 0.875rem; }
+        main section { margin-bottom: 2.5rem; }
+        main h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .match-schedule { display: grid; gap: 1rem; }
+        .match-card { background-color: white; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); border: 1px solid #e2e8f0; }
+        .match-card-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.875rem; color: #64748b; margin-bottom: 0.5rem; }
+        .match-card-header .status { font-weight: 700; }
+        .match-card-header .status.live { color: #ef4444; }
+        .match-card-header .status.finished { color: #64748b; }
+        .match-card-body { display: flex; align-items: center; justify-content: space-around; }
+        .match-card-body .team { font-weight: 700; font-size: 1.125rem; }
+        .match-card-body .score { font-weight: 700; font-size: 1.5rem; }
+        .popular-posts { background-color: white; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+        .popular-posts ul { list-style: none; padding: 0; margin: 0; }
+        .popular-posts li { padding-top: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #f1f5f9; }
+        .popular-posts li:last-child { border-bottom: none; }
+        .popular-posts a { text-decoration: none; color: inherit; }
+        .popular-posts a:hover { color: #059669; }
+        .popular-posts .board-name { font-weight: 600; color: #64748b; }
+        .popular-posts .comment-count { font-weight: 600; color: #ef4444; }
+        .photo-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+        .photo-card { border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); cursor: pointer; }
+        .photo-card img { width: 100%; height: 10rem; object-fit: cover; transition: transform 0.3s ease; }
+        .photo-card:hover img { transform: scale(1.05); }
+        .photo-card .caption { padding: 0.5rem; background-color: white; }
+        .photo-card .caption p { font-size: 0.875rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .board-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .write-btn { background-color: #059669; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; border: none; cursor: pointer; }
+        .write-btn:hover { background-color: #047857; }
+        .table-container { background-color: white; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); overflow-x: auto; }
+        .post-table { width: 100%; font-size: 0.875rem; text-align: left; color: #64748b; }
+        .post-table thead { font-size: 0.75rem; color: #334155; text-transform: uppercase; background-color: #f8fafc; }
+        .post-table th, .post-table td { padding: 0.75rem 1.5rem; }
+        .post-table tbody tr { border-bottom: 1px solid #f1f5f9; }
+        .post-table tbody tr:hover { background-color: #f8fafc; cursor: pointer; }
+        .pagination { display: flex; justify-content: center; margin-top: 1rem; }
+        .pagination button { padding: 0.25rem 0.75rem; margin: 0 0.25rem; border-radius: 0.5rem; border: 1px solid #cbd5e1; background-color: white; color: #334155; cursor: pointer; }
+        .pagination button.active { background-color: #059669; color: white; border-color: #059669; }
+        .modal-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.5); display: none; align-items: center; justify-content: center; z-index: 50; }
+        .modal-overlay.show { display: flex; }
+        .modal-box { background-color: white; padding: 1.5rem; border-radius: 0.75rem; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); width: 100%; max-width: 400px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .modal-header h2 { font-size: 1.25rem; font-weight: 700; }
+        .modal-close-btn { font-size: 1.5rem; color: #64748b; cursor: pointer; border: none; background: none; }
+        .modal-close-btn:hover { color: #1e293b; }
+        .modal-body .form-group { margin-bottom: 1rem; }
+        .modal-body label { display: block; margin-bottom: 0.25rem; font-weight: 600; }
+        .modal-body input { width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; box-sizing: border-box; }
+        .modal-body button { width: 100%; padding: 0.75rem; border-radius: 0.5rem; background-color: #059669; color: white; font-weight: 600; border: none; cursor: pointer; }
+        .modal-body button:hover { background-color: #047857; }
+        .footer { background-color: #1e293b; color: white; margin-top: 2rem; }
+        .footer .container { padding: 1.5rem; text-align: center; font-size: 0.875rem; }
+        .footer p { margin-bottom: 0.5rem; }
+        .footer .links { display: flex; justify-content: center; gap: 1rem; margin-bottom: 0.5rem; }
+        .footer a { color: white; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        .footer .copyright { color: #94a3b8; }
+        @media (min-width: 640px) { .header { flex-direction: row; } .header h1 { margin-bottom: 0; } .user-menu { margin-top: 0; } .main-nav ul { justify-content: flex-start; flex-wrap: nowrap; } .search-area { width: auto; } }
+        @media (min-width: 768px) { .match-schedule { grid-template-columns: repeat(2, minmax(0, 1fr)); } .photo-gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+        @media (min-width: 1024px) { .match-schedule { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        /* 글쓰기 폼 스타일 */
+        #write-form { padding: 1.5rem; background-color: white; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+        #write-form input, #write-form textarea { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; box-sizing: border-box; margin-bottom: 1rem; }
+        #write-form textarea { min-height: 250px; resize: vertical; }
+        #write-form .form-actions { text-align: right; }
+        /* 게시물 보기 스타일 */
+        #post-content-view { padding: 1.5rem; background-color: white; border-radius: 0.5rem; }
+        #post-content-view h1 { font-size: 2rem; }
+        #post-meta { color: #64748b; margin-bottom: 1.5rem; }
+        #post-body { line-height: 1.8; min-height: 200px; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 2rem 0; }
+        
+        /* === 댓글 기능 CSS 추가 START === */
 
-/* === 메인 섹션 공통 === */
-.main-section {
-    padding: 88px 0 72px 0;
-    background: var(--primary-green);
-    color: white;
-}
-.bg-cream {
-    background: var(--bg-cream);
-    color: var(--text-dark);
-}
-.section-title {
-    text-align: center;
-    font-family: var(--font-serif);
-    font-size: 2rem;
-    margin-bottom: 3.5rem;
-    color: inherit;
-}
+        #comments-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
 
-/* === 추천 식물 카드 === */
-.recommend-swiper {
-    max-width: 900px;
-    margin: 0 auto;
-    margin-top: 2.5rem;
-}
-.plant-card {
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px rgba(107,123,97,0.08);
-    padding: 2.2rem 1.5rem 1.5rem 1.5rem;
-    text-align: center;
-    color: var(--text-dark);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 220px;
-    min-height: 320px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin: 0 0.7rem;
-}
-.plant-card:hover {
-    transform: translateY(-6px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(176,146,106,0.13);
-}
-.plant-img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 1.2rem;
-    border: 3px solid var(--primary-green);
-    background: var(--bg-cream);
-}
-.plant-desc {
-    font-size: 1rem;
-    color: var(--text-dark);
-    margin-top: 0.7rem;
-    margin-bottom: 0.2rem;
-    line-height: 1.6;
-}
-.plant-tip {
-    display: inline-block;
-    margin-top: 0.3rem;
-    color: var(--primary-green);
-    font-weight: 700;
-    background: #f5f5e6;
-    border-radius: 0.7em;
-    padding: 0.1em 0.7em;
-    font-size: 0.97em;
-}
-.section-desc {
-    text-align: center;
-    font-size: 1.1rem;
-    color: var(--text-dark);
-    margin-bottom: 3.2rem;
-    margin-top: 0;
-    line-height: 1.7;
-}
-.story-section {
-    background: linear-gradient(120deg, #f9fbe7 80%, #fff 100%);
-    color: var(--text-dark);
-    padding-top: 64px;
-    padding-bottom: 64px;
-    border-top: 1px solid #ece7d8;
-    border-bottom: 1px solid #ece7d8;
-    margin-bottom: 32px;
-}
-.story-section .section-title {
-    color: var(--primary-green);
-    font-size: 1.7rem;
-    margin-bottom: 1.2rem;
-}
-.story-section .section-desc {
-    color: var(--text-dark);
-    font-size: 1.08rem;
-    margin-bottom: 0;
-}
+        #comments-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
 
-/* === 후기 카드 === */
-.reviews-swiper {
-    max-width: 700px;
-    margin: 0 auto;
-    margin-top: 2.5rem;
-}
-.review-card {
-    background: var(--bg-cream);
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 8px rgba(176,146,106,0.08);
-    padding: 2rem 1.5rem;
-    color: var(--text-dark);
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 0.7rem;
-}
-.review-author {
-    font-weight: bold;
-    color: var(--primary-green);
-    margin-top: 1.2rem;
-}
+        #comments-list {
+            list-style: none;
+            padding: 0;
+        }
 
-/* === 주요 기능 카드 === */
-.features-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 3.2rem;
-}
-.feature-card {
-    flex: 1 1 200px;
-    max-width: 220px;
-    background: #fff;
-    border-radius: 1.2rem;
-    padding: 2rem 1.2rem;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(176,146,106,0.08);
-    color: var(--text-dark);
-    min-height: 220px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    margin: 0 0.7rem;
-}
-.feature-card:hover {
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: 0 8px 24px rgba(176,146,106,0.13);
-}
-.feature-icon {
-    font-size: 2.2rem;
-    color: var(--primary-green);
-    margin-bottom: 1rem;
-}
+        .comment-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .comment-item:last-child {
+            border-bottom: none;
+        }
 
-/* === CTA 배너 === */
-.cta-banner {
-    padding: 48px 0 44px 0;
-    background: linear-gradient(90deg, var(--accent-gold) 60%, var(--bg-cream) 100%);
-    text-align: center;
-    color: var(--text-dark);
-}
-.cta-banner h2 {
-    font-size: 2rem;
-    margin-bottom: 1.2rem;
-    font-family: var(--font-serif);
-    font-weight: 600;
-}
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
 
-/* === 반응형 === */
-@media (max-width: 900px) {
-    .main-hero {
-        flex-direction: column;
-        padding: 48px 4vw 32px 4vw;
-        min-height: 320px;
-    }
-    .hero-img {
-        width: 220px;
-        margin-top: 2rem;
-    }
-    .features-list {
-        gap: 1.2rem;
-    }
-}
-@media (max-width: 600px) {
-    .main-hero {
-        padding: 32px 2vw 20px 2vw;
-    }
-    .hero-title-main, .hero-title-accent {
-        font-size: 1.5rem;
-    }
-    .section-title {
-        font-size: 1.2rem;
-    }
-    .plant-card, .feature-card, .review-card {
-        min-width: 160px;
-        padding: 1.2rem 0.5rem;
-    }
-    .plant-img {
-        width: 70px;
-        height: 70px;
-    }
-    .cta-banner h2 {
-        font-size: 1.2rem;
-    }
-}
-    </style>
+        .comment-author {
+            font-weight: 700;
+        }
+
+        .comment-date {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .comment-body {
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-actions button {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 0.875rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+        .comment-actions button:hover {
+            color: #059669;
+        }
+
+        /* 대댓글 스타일 */
+        .reply-list {
+            list-style: none;
+            padding-left: 2.5rem; /* 대댓글 들여쓰기 */
+            border-left: 2px solid #e2e8f0;
+            margin-top: 1rem;
+        }
+
+        /* 댓글/답글 작성 폼 */
+        .comment-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .comment-form textarea {
+            flex-grow: 1;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            resize: vertical;
+            min-height: 40px;
+        }
+        .comment-form button {
+            flex-shrink: 0;
+            height: 42px; /* textarea 높이와 맞춤 */
+        }
+
+        .reply-form-container {
+            padding-left: 2.5rem;
+            margin-top: 1rem;
+        }
+
+        /* === 댓글 기능 CSS 추가 END === */
+   </style>
 </head>
 <body>
-    <!-- 헤더(기존 유지) -->
-    <header id="main-header">
-        <a href="index.html" class="logo">식집사</a>
-        <nav>
-            <a href="index.html">홈</a>
-            <a href="story.html">초록 이야기</a>
-            <a href="myPlant.html">내 식물</a>
-            <a href="findPlant.html">식물 찾기</a>
-            <a href="#" class="cta-button" id="open-modal">Login</a>
+
+    <div id="app" class="container">
+        
+        <header class="header">
+            <h1 id="logo">스포츠타운</h1>
+            <div class="search-area">
+                <input type="text" placeholder="통합 검색...">
+                <button>검색</button>
+            </div>
+            <div id="user-menu-container" class="user-menu">
+                </div>
+        </header>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#" class="nav-link" data-board="freeboard">자유게시판</a></li>
+                <li class="sports-gallery-menu" id="sports-gallery-menu">
+                    <a href="#" id="sports-gallery-toggle" class="nav-link sports-gallery-toggle" data-board-group="sports">
+                        스포츠갤러리
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div id="sports-gallery-dropdown" class="sports-gallery-dropdown">
+                        <a href="#" class="nav-link" data-board="soccer">축구</a>
+                        <a href="#" class="nav-link" data-board="baseball">야구</a>
+                        <a href="#" class="nav-link" data-board="basketball">농구</a>
+                        <a href="#" class="nav-link" data-board="esports">e스포츠</a>
+                    </div>
+                </li>
+                <li><a href="#" class="nav-link" data-main-nav-link="true" data-board="announcements">공지사항</a></li>
+            </ul>
         </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="main-hero">
-      <div class="hero-content" data-aos="fade-up">
-        <h1><span class="hero-title-main">Green Starts</span> <span class="hero-title-accent">Here</span></h1>
-        <p class="hero-desc">식물을 처음 키우는 당신을 위한 따뜻한 첫걸음.<br>AI와 함께라면 누구나 식집사가 될 수 있어요.</p>
-        <a href="#recommend" class="cta-button">아래로 내려 초보자 추천 식물 만나기</a>
-      </div>
-      <div class="hero-lottie-bg">
-        <lottie-player
-          src="Hanging Plant.json"
-          background="transparent"
-          speed="1"
-          style="width: 340px; height: 340px;"
-          loop
-          autoplay
-        ></lottie-player>
-      </div>
-    </section>
-
-    <!-- 초보자 추천 식물 (Swiper) -->
-    <section id="recommend" class="main-section bg-cream">
-      <h2 data-aos="fade-up" class="section-title">초보자 추천 식물</h2>
-      <p class="section-desc">처음 식물을 키우는 분들을 위해, 관리가 쉽고 집안 분위기를 살려주는 식물들을 소개합니다.</p>
-      <div class="swiper-container recommend-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide plant-card">
-            <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=80" alt="몬스테라" class="plant-img"/>
-            <h3>몬스테라</h3>
-            <p class="plant-desc">넓은 잎과 독특한 무늬로 집안을 싱그럽게! <br><span class="plant-tip">햇빛과 물만 잘 챙기면 누구나 성공!</span></p>
-          </div>
-          <div class="swiper-slide plant-card">
-            <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=200&q=80" alt="스투키" class="plant-img"/>
-            <h3>스투키</h3>
-            <p class="plant-desc">거의 물을 주지 않아도 잘 자라는 <br><span class="plant-tip">극강의 생명력!</span></p>
-          </div>
-          <div class="swiper-slide plant-card">
-            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=200&q=80" alt="스파티필름" class="plant-img"/>
-            <h3>스파티필름</h3>
-            <p class="plant-desc">공기정화에 탁월한 실내 식물<br><span class="plant-tip">초보자도 쉽게 키울 수 있어요.</span></p>
-          </div>
+        <main>
+            <div id="main-view" class="view active">
+                <section>
+                    <h2>주요 경기</h2>
+                    <div id="match-schedule" class="match-schedule"></div>
+                </section>
+                <section>
+                    <h2>커뮤니티 인기글</h2>
+                    <div id="popular-posts" class="popular-posts"></div>
+                </section>
+                <section>
+    <h2>🤖 AI 승부 예측</h2>
+    <div id="prediction-ui" style="background-color: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);">
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+            <select id="ai-sport-select" style="padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.5rem;">
+                <option value="soccer">축구</option>
+                <option value="baseball">야구</option>
+                <option value="basketball">농구</option>
+                <option value="esports">e스포츠</option>
+            </select>
+            <input type="text" id="ai-team-a" placeholder="팀 A 이름" style="flex-grow: 1; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.5rem;">
+            <span style="font-weight: 700;">VS</span>
+            <input type="text" id="ai-team-b" placeholder="팀 B 이름" style="flex-grow: 1; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.5rem;">
+            <button id="ai-predict-btn" class="write-btn">예측하기</button>
         </div>
-      </div>
-    </section>
-
-    <!-- 스토리 내러티브: 식집사들의 경험을 담다 -->
-    <section class="main-section story-section">
-      <h2 data-aos="fade-up" class="section-title">처음 식물을 들인 날,</h2>
-      <p class="section-desc">누구나 한 번쯤은 물주기를 잊거나, 잎이 시드는 경험을 하죠.<br>식집사에서는 그런 걱정 없이, AI가 내 식물의 상태를 함께 살펴줍니다.</p>
-    </section>
-
-    <!-- 사용자 후기 (Carousel) -->
-    <section id="reviews" class="main-section">
-      <h2 data-aos="fade-up" class="section-title">식집사와 함께한 이야기</h2>
-      <p class="section-desc">실제 초보 식집사들의 따뜻한 변화, 그 경험을 들어보세요.</p>
-      <div class="swiper-container reviews-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide review-card">
-            <p>"식집사 덕분에 식물 키우기가 정말 쉬워졌어요! AI 피드백이 신기해요."</p>
-            <span class="review-author">- 초보 식집사 김OO</span>
-          </div>
-          <div class="swiper-slide review-card">
-            <p>"물주기 달력 기능이 너무 편리해요. 매일 확인하게 됩니다."</p>
-            <span class="review-author">- 직장인 박OO</span>
-          </div>
-          <div class="swiper-slide review-card">
-            <p>"식물 추천 테스트가 재미있고 결과도 만족스러워요!"</p>
-            <span class="review-author">- 대학생 이OO</span>
-          </div>
+        <div id="ai-prediction-result" style="margin-top: 1rem; padding: 1rem; border: 1px dashed #e2e8f0; border-radius: 0.5rem; min-height: 50px; white-space: pre-wrap; line-height: 1.6;">
+            결과가 여기에 표시됩니다.
         </div>
-      </div>
-    </section>
+    </div>
+</section>
+            </div>
 
-    <!-- 주요 기능 소개 -->
-    <section id="features" class="main-section bg-cream">
-      <h2 data-aos="fade-up" class="section-title">식집사만의 특별한 기능</h2>
-      <p class="section-desc">처음 시작하는 식집사도, 오래된 식집사도 모두를 위한 맞춤형 서비스</p>
-      <div class="features-list">
-        <div class="feature-card">
-          <i class="fa-solid fa-seedling feature-icon"></i>
-          <h3>AI 식물 피드백</h3>
-          <p>모든 식물에 대한 맞춤형 관리법 제공</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-calendar-check feature-icon"></i>
-          <h3>물주기 달력</h3>
-          <p>내 식물별 물주기 체크 및 알림</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-comments feature-icon"></i>
-          <h3>커뮤니티</h3>
-          <p>식집사들과 소통하는 Plantgram</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-robot feature-icon"></i>
-          <h3>챗봇</h3>
-          <p>궁금한 점을 바로 물어보는 AI 챗봇</p>
-        </div>
-      </div>
-    </section>
+            <div id="board-view" class="view">
+                <div class="board-header">
+                    <h2 id="board-title"></h2>
+                    <button id="write-post-btn" class="write-btn">글쓰기</button>
+                </div>
+                <div class="table-container">
+                    <table class="post-table">
+                        <thead>
+  <tr>
+    <th>번호</th><th>제목</th><th>글쓴이</th><th>작성일</th><th>조회</th><th>추천</th><th>비추천</th>
+  </tr>
+</thead>
+                        <tbody id="post-list"></tbody>
+                    </table>
+                </div>
+                <div id="pagination" class="pagination"></div>
+            </div>
 
-    <!-- CTA 배너 -->
-    <section id="cta-banner" class="cta-banner" data-aos="fade-up">
-      <h2>이제, 당신의 식집사 이야기를 시작해보세요!</h2>
-      <a href="#" class="cta-button">회원가입</a>
-    </section>
-
-    <!-- 기존 로그인/회원가입 모달, JS 등 유지 -->
-    <div id="modal-wrapper" class="modal-wrapper">
-        <div class="modal">
-            <div class="modal-left"></div>
-            <div class="modal-right">
-                <button class="close-button">&times;</button>
-                <!-- Login Form -->
-                <div id="login-form" class="form-container">
-                    <div class="form-header">
-                        <a href="index.html" class="logo">식집사</a>
-                        <h2>Welcome Back</h2>
-                    </div>
-                    <form>
-                        <div class="input-group">
-                            <label for="login-email">Email</label>
-                            <input type="email" id="login-email" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="login-password">Password</label>
-                            <input type="password" id="login-password" required>
-                        </div>
-                        <button type="submit" class="cta-button">Login</button>
-                    </form>
-                    <p class="form-switcher">
-                        Don't have an account? <a href="#" id="show-signup">Sign Up</a>
-                    </p>
+            <div id="post-view" class="view">
                 </div>
 
-                <!-- Signup Form -->
-                <div id="signup-form" class="form-container" style="display: none;">
-                    <div class="form-header">
-                        <a href="index.html" class="logo">식집사</a>
-                        <h2>Create Account</h2>
-                    </div>
-                    <form>
-                        <div class="input-group">
-                            <label for="signup-name">Name</label>
-                            <input type="text" id="signup-name" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="signup-email">Email</label>
-                            <input type="email" id="signup-email" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="signup-password">Password</label>
-                            <input type="password" id="signup-password" required>
-                        </div>
-                        <button type="submit" class="cta-button">Create Account</button>
-                    </form>
-                    <p class="form-switcher">
-                        Already have an account? <a href="#" id="show-login">Login</a>
-                    </p>
+            <div id="write-view" class="view">
                 </div>
+        </main>
+    </div>
+    
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header"><h2>로그인</h2><button class="modal-close-btn">&times;</button></div>
+            <div class="modal-body">
+                <form id="login-form">
+                    <div class="form-group"><label for="login-email">이메일</label><input type="email" id="login-email" required></div>
+                    <div class="form-group"><label for="login-password">비밀번호</label><input type="password" id="login-password" required></div>
+                    <button type="submit">로그인</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="signup-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header"><h2>회원가입</h2><button class="modal-close-btn">&times;</button></div>
+            <div class="modal-body">
+               <form id="signup-form">
+                    <div class="form-group"><label for="signup-nickname">닉네임</label><input type="text" id="signup-nickname" required></div>
+                    <div class="form-group"><label for="signup-email">이메일</label><input type="email" id="signup-email" required></div>
+                    <div class="form-group"><label for="signup-password">비밀번호</label><input type="password" id="signup-password" minlength="6" required></div>
+                    <button type="submit">가입하기</button>
+               </form>
             </div>
         </div>
     </div>
 
-    <!-- 라이브러리 CDN 추가 -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-      AOS.init();
-      new Swiper('.swiper-container', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        breakpoints: {
-          600: { slidesPerView: 2 },
-          900: { slidesPerView: 3 }
+    <footer class="footer">
+        <div class="container">
+            <p style="font-weight: 700;">스포츠타운</p>
+            <div class="links">
+                <a href="#">회사소개</a><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">고객센터</a>
+            </div>
+            <p class="copyright">© 2025 Sportstown. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Firebase SDK IMPORTS
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { 
+            getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, 
+            onAuthStateChanged, signOut, updateProfile
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { 
+  getFirestore, doc, setDoc, getDoc, getDocs, collection, 
+  query, where, orderBy, limit, addDoc, serverTimestamp, increment, updateDoc,
+  runTransaction // ✅ 추가
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // FIREBASE CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyAUuUlYHUwOuwnm_hsIsd7XHlj5voCecQk",
+            authDomain: "community-d18d4.firebaseapp.com",
+            projectId: "community-d18d4",
+            storageBucket: "community-d18d4.appspot.com",
+            messagingSenderId: "497702481194",
+            appId: "1:497702481194:web:a826db91628adc24718253"
+        };
+
+        // FIREBASE INITIALIZATION
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // APP STATE
+        const appState = {
+            currentUser: null,
+            currentView: 'main-view',
+            currentBoard: null,
+            currentPostId: null,
+            currentPage: 1,
+            postsPerPage: 10,
+        };
+        
+        const boardNames = {
+            freeboard: '자유게시판', announcements: '공지사항', soccer: '축구', 
+            baseball: '야구', basketball: '농구', esports: 'e스포츠',
+        };
+
+        // === Firestore 데이터 로드 함수 ===
+        
+        async function fetchMatches() {
+            const matchesCol = collection(db, 'matches');
+            const q = query(matchesCol, orderBy('time', 'desc'), limit(6));
+            const snapshot = await getDocs(q);
+            return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         }
-      });
-      new Swiper('.reviews-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        pagination: {
-          el: '.reviews-swiper .swiper-pagination',
-          clickable: true,
-        },
-        autoplay: { delay: 4000 },
-        loop: true
-      });
+        
+        async function fetchPopularPosts() {
+            const postsCol = collection(db, 'posts');
+            const q = query(postsCol, orderBy('likes', 'desc'), limit(5));
+            const snapshot = await getDocs(q);
+            return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        }
+
+        async function fetchPostsForBoard(boardId, page = 1) {
+            const postsCol = collection(db, 'posts');
+            // 참고: Firestore 페이지네이션은 더 복잡하지만, 여기서는 최신 글 N개만 가져오는 방식으로 단순화
+            const q = query(postsCol, where("board", "==", boardId), orderBy("createdAt", "desc"), limit(appState.postsPerPage));
+            const snapshot = await getDocs(q);
+            return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        }
+
+        // === UI 렌더링 함수 ===
+
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+            const viewToShow = document.getElementById(viewId);
+            if(viewToShow) {
+                viewToShow.classList.add('active');
+                appState.currentView = viewId;
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // 변경: Firestore에서 데이터를 비동기로 가져오도록 수정
+        async function renderMainView() {
+            showView('main-view');
+            
+            // 경기 정보 렌더링
+            const matches = await fetchMatches();
+            const matchContainer = document.getElementById('match-schedule');
+            matchContainer.innerHTML = matches.map(match => `
+                <div class="match-card">
+                    <div class="match-card-header">
+                        <span>${boardNames[match.sport] || match.sport}</span>
+                        <span class="status ${match.time === '종료' ? 'finished' : 'live'}">${match.time}</span>
+                    </div>
+                    <div class="match-card-body">
+                        <span class="team">${match.teamA}</span>
+                        <span class="score">${match.scoreA} : ${match.scoreB}</span>
+                        <span class="team">${match.teamB}</span>
+                    </div>
+                </div>
+            `).join('') || "<p>등록된 경기가 없습니다.</p>";
+
+    // 인기글 렌더링
+    const popularPosts = await fetchPopularPosts();
+    const popularPostsContainer = document.getElementById('popular-posts');
+    popularPostsContainer.innerHTML = `<ul>${popularPosts.map(post => `
+        <li>
+            <a href="#" class="post-link" data-post-id="${post.id}" data-board="${post.board}">
+                <span class="board-name">[${boardNames[post.board]}]</span> ${post.title} 
+                <span class="comment-count">[${post.commentCount || 0}]</span>
+            </a>
+        </li>
+    `).join('')}</ul>` || "<p>인기글이 없습니다.</p>";
+        }
+
+
+// === AI 승부 예측 기능 추가 START ===
+
+async function handlePrediction(e) {
+    const sport = document.getElementById('ai-sport-select').value;
+    const teamA = document.getElementById('ai-team-a').value.trim();
+    const teamB = document.getElementById('ai-team-b').value.trim();
+    const resultDiv = document.getElementById('ai-prediction-result');
+    const predictBtn = document.getElementById('ai-predict-btn');
+
+    if (!teamA || !teamB) {
+        alert('팀 이름을 모두 입력해주세요!');
+        return;
+    }
+
+    // 로딩 상태 표시
+    resultDiv.textContent = '🧠 AI가 열심히 분석 중입니다...';
+    predictBtn.disabled = true;
+    predictBtn.textContent = '분석중...';
+
+    try {
+        const response = await fetch('/api/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ sport, teamA, teamB }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || '알 수 없는 오류가 발생했습니다.');
+        }
+
+        resultDiv.textContent = data.prediction;
+
+    } catch (error) {
+        console.error('Prediction Error:', error);
+        resultDiv.textContent = `오류 발생: ${error.message}`;
+    } finally {
+        // 로딩 상태 해제
+        predictBtn.disabled = false;
+        predictBtn.textContent = '예측하기';
+    }
+}
+
+// 예측 버튼에 이벤트 리스너 연결
+// 이 코드는 renderMainView 함수가 호출된 후에 실행되어야 하므로,
+// 초기 렌더링 후 이벤트 리스너를 한 번만 추가해줍니다.
+document.addEventListener('DOMContentLoaded', () => {
+    // 버튼이 나중에 생성될 수 있으므로 상위 요소에 이벤트 위임을 사용합니다.
+    document.body.addEventListener('click', function(event) {
+        if (event.target && event.target.id === 'ai-predict-btn') {
+            handlePrediction();
+        }
+    });
+});
+
+
+
+        
+        // 변경: Firestore에서 데이터를 비동기로 가져오도록 수정
+        async function renderBoardView(boardId, page) {
+  appState.currentBoard = boardId;
+  appState.currentPage = page;
+  showView('board-view');
+
+  document.getElementById('board-title').textContent = boardNames[boardId] + " 게시판";
+
+    const posts = await fetchPostsForBoard(boardId, page);
+    const postList = document.getElementById('post-list');
+    const formatDate = (timestamp) =>
+        timestamp ? new Date(timestamp.seconds * 1000).toLocaleDateString('ko-KR') : '방금';
+
+    postList.innerHTML =
+        posts.map((post, index) => `
+        <tr class="post-link" data-post-id="${post.id}" data-board="${post.board}">
+            <td>${index + 1}</td>
+            <td>${post.title} <span class="comment-count">[${post.commentCount || 0}]</span></td>
+            <td>${post.authorName}</td>
+            <td>${formatDate(post.createdAt)}</td>
+            <td>${post.views || 0}</td>
+            <td>${post.likes || 0}</td>
+            <td>${post.dislikes || 0}</td>
+        </tr>
+    `).join('') || '<tr><td colspan="7">게시글이 없습니다.</td></tr>';
+}
+
+        // 추가: 글쓰기 폼 렌더링
+        function renderWriteView() {
+            const boardId = appState.currentBoard;
+            if (!appState.currentUser) {
+                alert("로그인이 필요합니다.");
+                return;
+            }
+            showView('write-view');
+            const writeView = document.getElementById('write-view');
+            writeView.innerHTML = `
+                <h2>${boardNames[boardId]} 글쓰기</h2>
+                <form id="write-form">
+                    <input type="text" id="write-title" placeholder="제목을 입력하세요" required>
+                    <textarea id="write-content" placeholder="내용을 입력하세요" required></textarea>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-write-btn" class="write-btn" style="background-color:#64748b;">취소</button>
+                        <button type="submit" class="write-btn">등록</button>
+                    </div>
+                </form>
+            `;
+            // 이벤트 리스너 연결
+            document.getElementById('write-form').addEventListener('submit', handlePostSubmit);
+            document.getElementById('cancel-write-btn').addEventListener('click', () => renderBoardView(appState.currentBoard, 1));
+        }
+
+        // 추가: 게시물 보기 렌더링
+  // ✅ 기존 renderPostView 함수를 아래 코드로 완전히 교체하세요.
+async function renderPostView(boardId, postId) {
+    showView('post-view');
+    appState.currentPostId = postId; // 현재 게시물 ID 저장
+    const postRef = doc(db, "posts", postId);
+    
+    // 조회수 1 증가
+    await updateDoc(postRef, { views: increment(1) });
+    
+    const postSnap = await getDoc(postRef);
+
+    if (postSnap.exists()) {
+        const post = postSnap.data();
+        const postView = document.getElementById('post-view');
+        const formatDate = (timestamp) => timestamp ? new Date(timestamp.seconds * 1000).toLocaleString('ko-KR') : '';
+        
+        // 1. 게시물, 추천/비추천, 댓글 섹션의 기본 HTML 구조를 모두 그립니다.
+        postView.innerHTML = `
+            <div id="post-content-view">
+                <h1>${post.title}</h1>
+                <div id="post-meta">
+                    <span>작성자: ${post.authorName}</span> | 
+                    <span>작성일: ${formatDate(post.createdAt)}</span> |
+                    <span>조회: ${post.views || 1}</span>
+                </div>
+                <div id="post-body">${post.content.replace(/\n/g, '<br>')}</div>
+
+                <div id="vote-bar" style="display:flex; gap:.5rem; align-items:center; margin:1rem 0;">
+                    <button id="like-btn" class="write-btn" style="background:#16a34a;">
+                        👍 추천 <span id="like-count">${post.likes || 0}</span>
+                    </button>
+                    <button id="dislike-btn" class="write-btn" style="background:#ef4444;">
+                        👎 비추천 <span id="dislike-count">${post.dislikes || 0}</span>
+                    </button>
+                </div>
+
+                <button id="back-to-list-btn" class="write-btn">목록으로</button>
+            </div>
+            
+            <div id="comments-section">
+                <h3>댓글</h3>
+                <ul id="comments-list"></ul>
+                ${appState.currentUser ? `
+                    <form id="comment-form" class="comment-form">
+                        <textarea id="comment-text" placeholder="댓글을 입력하세요..." required></textarea>
+                        <button type="submit" class="write-btn">등록</button>
+                    </form>
+                ` : `<p style="text-align:center; color:#64748b;">댓글을 작성하려면 로그인이 필요합니다.</p>`}
+            </div>
+        `;
+
+        // --- 기능 실행 ---
+        // 2. 추천/비추천 버튼에 이벤트 기능을 연결합니다. (이 부분이 누락되었습니다)
+        setupVoteUI(postId);
+        
+        // 3. 댓글 목록을 불러옵니다.
+        renderComments(postId);
+        
+        // --- 이벤트 리스너 연결 ---
+        document.getElementById('back-to-list-btn').addEventListener('click', () => renderBoardView(boardId, 1));
+        if (appState.currentUser) {
+            document.getElementById('comment-form').addEventListener('submit', (e) => handleCommentSubmit(e, postId));
+        }
+
+    } else {
+        alert("게시물을 찾을 수 없습니다.");
+        renderBoardView(boardId, 1);
+    }
+}
+
+        // renderPostView 함수 아래에 아래 함수들을 모두 추가하세요.
+
+// === 댓글 기능 함수 START ===
+
+// 댓글 렌더링 메인 함수
+async function renderComments(postId) {
+    const commentsList = document.getElementById('comments-list');
+    commentsList.innerHTML = '<li>댓글을 불러오는 중...</li>';
+
+    // 1. 모든 댓글을 가져와 ID를 키로 하는 맵으로 변환
+    const commentsCol = collection(db, "posts", postId, "comments");
+    const q = query(commentsCol, orderBy("createdAt"));
+    const snapshot = await getDocs(q);
+    
+    const commentsMap = new Map();
+    snapshot.docs.forEach(doc => {
+        commentsMap.set(doc.id, { id: doc.id, children: [], ...doc.data() });
+    });
+
+    // 2. 부모-자식 관계를 구축
+    const rootComments = [];
+    commentsMap.forEach(comment => {
+        if (comment.parentId && commentsMap.has(comment.parentId)) {
+            commentsMap.get(comment.parentId).children.push(comment);
+        } else {
+            rootComments.push(comment);
+        }
+    });
+
+    // 3. 최상위 댓글부터 재귀적으로 HTML 생성
+    commentsList.innerHTML = '';
+    if (rootComments.length === 0) {
+        commentsList.innerHTML = '<li>작성된 댓글이 없습니다.</li>';
+        return;
+    }
+    rootComments.forEach(comment => {
+        const li = createCommentElement(comment);
+        commentsList.appendChild(li);
+    });
+}
+
+// 개별 댓글 엘리먼트(<li>)를 생성하는 재귀 함수
+function createCommentElement(comment) {
+    const li = document.createElement('li');
+    li.className = 'comment-item';
+    li.id = `comment-${comment.id}`;
+    const formatDate = (ts) => ts ? new Date(ts.seconds * 1000).toLocaleString('ko-KR') : '';
+
+    li.innerHTML = `
+        <div class="comment-header">
+            <span class="comment-author">${comment.authorName}</span>
+            <span class="comment-date">${formatDate(comment.createdAt)}</span>
+        </div>
+        <p class="comment-body">${comment.text.replace(/\n/g, '<br>')}</p>
+        <div class="comment-actions">
+            ${appState.currentUser ? `<button class="reply-btn" data-comment-id="${comment.id}">답글 달기</button>` : ''}
+        </div>
+    `;
+
+    // 답글(자식 댓글)이 있으면 재귀적으로 처리
+    if (comment.children.length > 0) {
+        const replyList = document.createElement('ul');
+        replyList.className = 'reply-list';
+        comment.children.forEach(reply => {
+            replyList.appendChild(createCommentElement(reply));
+        });
+        li.appendChild(replyList);
+    }
+    
+    // '답글 달기' 버튼에 이벤트 리스너 추가
+    li.querySelector('.reply-btn')?.addEventListener('click', showReplyForm);
+
+    return li;
+}
+
+// 답글 폼을 보여주는 함수
+function showReplyForm(e) {
+    const parentCommentId = e.target.dataset.commentId;
+    const parentCommentItem = document.getElementById(`comment-${parentCommentId}`);
+
+    // 이미 답글 폼이 있다면 제거
+    const existingForm = parentCommentItem.querySelector('.reply-form-container');
+    if (existingForm) {
+        existingForm.remove();
+        return;
+    }
+    
+    const formContainer = document.createElement('div');
+    formContainer.className = 'reply-form-container';
+    formContainer.innerHTML = `
+        <form class="comment-form reply-form">
+            <textarea placeholder="답글을 입력하세요..." required></textarea>
+            <button type="submit" class="write-btn">등록</button>
+        </form>
+    `;
+
+    // 생성된 폼의 submit 이벤트 처리
+    formContainer.querySelector('.reply-form').addEventListener('submit', (event) => {
+        handleCommentSubmit(event, appState.currentPostId, parentCommentId);
+    });
+
+    parentCommentItem.appendChild(formContainer);
+    formContainer.querySelector('textarea').focus();
+}
+
+// 댓글/답글 제출 처리 함수
+// ✅ handleCommentSubmit 함수를 아래 코드로 수정하세요.
+async function handleCommentSubmit(e, postId, parentId = null) {
+    e.preventDefault();
+    const user = appState.currentUser;
+    if (!user) {
+        alert("로그인이 필요합니다.");
+        return;
+    }
+
+    const textarea = e.target.querySelector('textarea');
+    const text = textarea.value.trim();
+    if (!text) return;
+
+    try {
+        // 댓글 데이터 추가
+        const commentsCol = collection(db, "posts", postId, "comments");
+        const commentData = {
+            text: text,
+            authorId: user.uid,
+            authorName: user.nickname,
+            createdAt: serverTimestamp(),
+        };
+        if (parentId) {
+            commentData.parentId = parentId;
+        }
+        await addDoc(commentsCol, commentData);
+
+        // ✅ 추가: 게시물의 commentCount 필드 1 증가
+        const postRef = doc(db, "posts", postId);
+        await updateDoc(postRef, { commentCount: increment(1) });
+        
+        // UI 갱신
+        textarea.value = '';
+        const formContainer = e.target.closest('.reply-form-container');
+        if(formContainer) formContainer.remove();
+        renderComments(postId);
+
+    } catch (error) {
+        console.error("댓글 등록 오류: ", error);
+        alert("댓글 등록에 실패했습니다.");
+    }
+}
+
+// === 댓글 기능 함수 END ===
+
+
+        async function setupVoteUI(postId) {
+  const likeBtn = document.getElementById('like-btn');
+  const dislikeBtn = document.getElementById('dislike-btn');
+
+  likeBtn.addEventListener('click', () => handleVote(postId, 1));
+  dislikeBtn.addEventListener('click', () => handleVote(postId, -1));
+
+  // 로그인 안됐으면 상태표시 생략
+  const user = appState.currentUser;
+  if (!user) return;
+
+  const voteRef = doc(db, "posts", postId, "votes", user.uid);
+  const snap = await getDoc(voteRef);
+  if (snap.exists()) {
+    const v = snap.data().value;
+    if (v === 1) likeBtn.style.outline = "3px solid rgba(34,197,94,.4)";
+    if (v === -1) dislikeBtn.style.outline = "3px solid rgba(239,68,68,.4)";
+  }
+}
+
+// ✅ 트랜잭션으로 추천/비추천 처리 (단일계정 1표, 취소/전환 지원)
+async function handleVote(postId, value) {
+  // value: 1=추천, -1=비추천
+  const user = appState.currentUser;
+  if (!user) { alert("로그인이 필요합니다."); return; }
+
+  const postRef = doc(db, "posts", postId);
+  const voteRef = doc(db, "posts", postId, "votes", user.uid);
+
+  try {
+    await runTransaction(db, async (tx) => {
+      const [postSnap, voteSnap] = await Promise.all([tx.get(postRef), tx.get(voteRef)]);
+      if (!postSnap.exists()) throw new Error("게시물 없음");
+
+      let likes = postSnap.data().likes || 0;
+      let dislikes = postSnap.data().dislikes || 0;
+
+      if (!voteSnap.exists()) {
+        // 첫 투표
+        if (value === 1) likes += 1;
+        else dislikes += 1;
+        tx.set(voteRef, { value, createdAt: serverTimestamp() });
+      } else {
+        const prev = voteSnap.data().value; // 1 or -1
+        if (prev === value) {
+          // 같은 쪽 재클릭 = 취소
+          if (value === 1) likes -= 1;
+          else dislikes -= 1;
+          tx.delete(voteRef);
+        } else {
+          // 방향 전환
+          if (value === 1) { likes += 1; dislikes -= 1; }
+          else { dislikes += 1; likes -= 1; }
+          tx.update(voteRef, { value, createdAt: serverTimestamp() });
+        }
+      }
+
+      tx.update(postRef, { likes, dislikes });
+    });
+
+    // 화면 카운트 갱신
+    const latest = (await getDoc(postRef)).data();
+    document.getElementById('like-count').textContent = latest.likes || 0;
+    document.getElementById('dislike-count').textContent = latest.dislikes || 0;
+
+    // 버튼 하이라이트 갱신
+    const likeBtn = document.getElementById('like-btn');
+    const dislikeBtn = document.getElementById('dislike-btn');
+    likeBtn.style.outline = "";
+    dislikeBtn.style.outline = "";
+
+    const myVote = await getDoc(doc(db, "posts", postId, "votes", appState.currentUser.uid));
+    if (myVote.exists()) {
+      if (myVote.data().value === 1) likeBtn.style.outline = "3px solid rgba(34,197,94,.4)";
+      if (myVote.data().value === -1) dislikeBtn.style.outline = "3px solid rgba(239,68,68,.4)";
+    }
+
+  } catch (e) {
+    console.error(e);
+    alert("투표 처리 중 오류가 발생했습니다.");
+  }
+}
+        
+        // === 이벤트 핸들러 ===
+
+        // 추가: 글쓰기 제출 핸들러
+// ✅ handlePostSubmit 함수를 아래 코드로 수정하세요.
+async function handlePostSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById('write-title').value;
+    const content = document.getElementById('write-content').value;
+    const user = appState.currentUser;
+
+    if (!user) {
+        alert("로그인이 필요합니다.");
+        return;
+    }
+
+    try {
+        const postsCol = collection(db, 'posts');
+        await addDoc(postsCol, {
+            title,
+            content,
+            authorId: user.uid,
+            authorName: user.nickname,
+            board: appState.currentBoard,
+            createdAt: serverTimestamp(),
+            views: 0,
+            likes: 0,
+            dislikes: 0,
+            commentCount: 0, // ✅ 추가: 댓글 카운터 초기화
+            comments: [] // 이 필드는 더 이상 사용하지 않지만 호환성을 위해 유지
+        });
+        
+        const siteStatsDocRef = doc(db, 'siteStats', 'summary');
+        await setDoc(siteStatsDocRef, { totalPosts: increment(1) }, { merge: true });
+
+        alert("게시물이 등록되었습니다.");
+        renderBoardView(appState.currentBoard, 1);
+
+    } catch (error) {
+        console.error("게시물 등록 오류: ", error);
+        alert("게시물 등록에 실패했습니다.");
+    }
+}
+        
+        // --- AUTHENTICATION LOGIC ---
+        const userMenuContainer = document.getElementById('user-menu-container');
+        const loginModal = document.getElementById('login-modal');
+        const signupModal = document.getElementById('signup-modal');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const userDocRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userDocRef);
+                const nickname = userDoc.exists() ? userDoc.data().nickname : user.email.split('@')[0];
+                
+                appState.currentUser = { uid: user.uid, email: user.email, nickname: nickname };
+
+                userMenuContainer.innerHTML = `
+                    <span>${nickname}님</span>
+                    <button id="logout-btn">로그아웃</button>
+                `;
+                document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+            } else {
+                appState.currentUser = null;
+                userMenuContainer.innerHTML = `
+                    <a href="#" id="login-btn">로그인</a>
+                    <a href="#" id="signup-btn">회원가입</a>
+                `;
+                document.getElementById('login-btn').addEventListener('click', (e) => { e.preventDefault(); loginModal.classList.add('show'); });
+                document.getElementById('signup-btn').addEventListener('click', (e) => { e.preventDefault(); signupModal.classList.add('show'); });
+            }
+        });
+        
+        // 회원가입 폼
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nickname = document.getElementById('signup-nickname').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                await updateProfile(user, { displayName: nickname });
+                await setDoc(doc(db, "users", user.uid), { nickname: nickname, email: email });
+                alert('회원가입이 완료되었습니다! 이제 로그인해주세요.');
+                signupModal.classList.remove('show');
+            } catch (error) { alert(`회원가입 실패: ${error.message}`); }
+        });
+
+        // 로그인 폼
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                loginModal.classList.remove('show');
+            } catch (error) { alert(`로그인 실패: ${error.message}`); }
+        });
+
+        // --- GLOBAL EVENT LISTENERS ---
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
+        });
+        document.querySelectorAll('.modal-close-btn').forEach(btn => {
+            btn.addEventListener('click', () => { btn.closest('.modal-overlay').classList.remove('show'); });
+        });
+
+        const sportsGalleryToggle = document.getElementById('sports-gallery-toggle');
+        const sportsGalleryDropdown = document.getElementById('sports-gallery-dropdown');
+
+        sportsGalleryToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            sportsGalleryDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('sports-gallery-menu').contains(e.target)) {
+                sportsGalleryDropdown.classList.remove('show');
+            }
+        });
+
+        document.getElementById('app').addEventListener('click', (e) => {
+            const navLink = e.target.closest('.nav-link');
+            if (navLink && navLink.dataset.board) {
+                e.preventDefault();
+                renderBoardView(navLink.dataset.board, 1);
+                sportsGalleryDropdown.classList.remove('show');
+                return;
+            }
+
+            const postLink = e.target.closest('.post-link');
+            if (postLink) {
+                e.preventDefault();
+                const postId = postLink.dataset.postId;
+                const boardId = postLink.dataset.board;
+                renderPostView(boardId, postId);
+                return;
+            }
+        });
+
+        document.getElementById('logo').addEventListener('click', renderMainView);
+        document.getElementById('write-post-btn').addEventListener('click', renderWriteView);
+        
+        // Initial Render
+        renderMainView();
     </script>
-    <script type="module" src="navigation.js"></script>
-    <!-- Lottie Player CDN 추가 -->
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </body>
 </html>
